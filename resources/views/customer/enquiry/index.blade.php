@@ -24,9 +24,9 @@
                         </a> 
                     </div>
                 </div>
-                <x-accordion title="New Enquiries" path="customer.enquiry.table.new-enquiries" open="true"></x-accordion>
-                <x-accordion title="Active Enquiries" path="customer.enquiry.table.active-enquiries" open="false"></x-accordion>
-                <x-accordion title="Closed Enquiries" path="customer.enquiry.table.completed-enquiries" open="false"></x-accordion>
+                <x-accordion title="New Enquiries" path="customer.enquiry.table.new-enquiries" open="true" argument='null'></x-accordion>
+                <x-accordion title="Active Enquiries" path="customer.enquiry.table.active-enquiries" open="false" argument='null'></x-accordion>
+                <x-accordion title="Closed Enquiries" path="customer.enquiry.table.completed-enquiries" open="false" argument='null'></x-accordion>
             </div> <!-- container -->
             @include('customer.enquiry.models.enquiry-filter-modal') 
             @include('customer.enquiry.models.document-modal')

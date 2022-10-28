@@ -7,11 +7,11 @@
         <div class="modal-content h-100 p-4" style="overflow: auto">
            
             <div class="card-body">
-                <x-accordion title="Project Information" path="customer.projects.live-project.project-overview.project-information" open="true"></x-accordion>
-                <x-accordion title="milestone" path="customer.projects.live-project.project-overview.milestone" open="false"></x-accordion>
-                <x-accordion title="bim360" path="customer.projects.live-project.project-overview.bim360" open="false"></x-accordion>
-                <x-accordion title="Issue" path="customer.projects.live-project.project-overview.issue" open="false"></x-accordion>
-                <x-accordion title="notes" path="customer.projects.live-project.project-overview.notes" open="false"></x-accordion>
+                <x-accordion title="Project Information" path="customer.projects.live-project.project-overview.project-information" open="true" argument='null'></x-accordion>
+                <x-accordion title="milestone" path="customer.projects.live-project.project-overview.milestone" open="false" argument='null'></x-accordion>
+                <x-accordion title="bim360" path="customer.projects.live-project.project-overview.bim360" open="false" argument='null'></x-accordion>
+                <x-accordion title="Issue" path="customer.projects.live-project.project-overview.issue" open="false" argument='null'></x-accordion>
+                <x-accordion title="notes" path="customer.projects.live-project.project-overview.notes" open="false" argument='null'></x-accordion>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->

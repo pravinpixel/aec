@@ -12,9 +12,9 @@
                 
                 @include('admin.includes.page-navigater')
                 <section>
-                    <x-accordion title="Un Verified Customers" path="admin.customer.inactive-table" open="true"></x-accordion>
-                    <x-accordion title="Active Customers" path="admin.customer.active-table" open="false"></x-accordion>
-                    <x-accordion title="Cancelled Customers" path="admin.customer.cancel-table" open="false"></x-accordion>
+                    <x-accordion title="Un Verified Customers" path="admin.customer.inactive-table" open="true" argument='null'></x-accordion>
+                    <x-accordion title="Active Customers" path="admin.customer.active-table" open="false" argument='null'></x-accordion>
+                    <x-accordion title="Cancelled Customers" path="admin.customer.cancel-table" open="false" argument='null'></x-accordion>
                 </section>
             </div>
         </div>

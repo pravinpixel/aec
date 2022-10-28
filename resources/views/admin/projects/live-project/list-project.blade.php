@@ -10,7 +10,7 @@
                 <div class="container-fluid">
                     @include('admin.includes.page-navigater')
                     <section>
-                        <x-accordion title="Live Projects" path="admin.projects.table.live" open="true"></x-accordion>
+                        <x-accordion title="Live Projects" path="admin.projects.table.live" open="true" argument='null'></x-accordion>
                     </section>
                 </div>
         </div>

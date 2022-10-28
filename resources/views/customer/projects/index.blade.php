@@ -15,7 +15,7 @@
                     </button> 
                    
                 </div>
-                    <x-accordion title="Live Projects" path="customer.projects.table.live" open="true"></x-accordion>
+                    <x-accordion title="Live Projects" path="customer.projects.table.live" open="true" argument='null'></x-accordion>
                    {{-- <div class="accordion-item mb-2 border rounded shadow-sm">
                         <h2 class="accordion-header m-0 position-relative" id="panelsStayOpen-headingTwo">
                             <div class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">

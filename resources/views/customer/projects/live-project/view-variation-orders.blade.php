@@ -35,11 +35,11 @@
                             <div id="rootwizard" ng-controller="Review">
                                 @include('customer.enquiry.models.document-modal')
                                 <div class="p-3">
-                                    <x-accordion title="Project Information" path="customer.enquiry.wizard.overview.project-information" open="true"></x-accordion>
-                                    <x-accordion title="Selected Services" path="customer.enquiry.wizard.overview.selected-service" open="false"></x-accordion>
-                                    <x-accordion title="IFC Models and Uploaded Documents" path="customer.enquiry.wizard.overview.ifc-upload" open="false"></x-accordion>
-                                    <x-accordion title="Building Components" path="customer.enquiry.wizard.overview.building-components" open="false"></x-accordion>
-                                    <x-accordion title="Additional Information" path="customer.enquiry.wizard.overview.additional-information" open="false"></x-accordion>
+                                    <x-accordion title="Project Information" path="customer.enquiry.wizard.overview.project-information" open="true" argument='null'></x-accordion>
+                                    <x-accordion title="Selected Services" path="customer.enquiry.wizard.overview.selected-service" open="false" argument='null'></x-accordion>
+                                    <x-accordion title="IFC Models and Uploaded Documents" path="customer.enquiry.wizard.overview.ifc-upload" open="false" argument='null'></x-accordion>
+                                    <x-accordion title="Building Components" path="customer.enquiry.wizard.overview.building-components" open="false" argument='null'></x-accordion>
+                                    <x-accordion title="Additional Information" path="customer.enquiry.wizard.overview.additional-information" open="false" argument='null'></x-accordion>
                                 </div>
                             </div> <!-- end #rootwizard--> 
                         </div> <!-- end card-body -->

@@ -21,9 +21,9 @@
                    <div class=""> <a  href="{{ route('admin.enquiry-create') }}" class="btn btn-primary"><i class="mdi mdi-briefcase-plus"></i> @lang('customer.new_customer_intro') </a></div>
                 </div>
  
-                <x-accordion title="Unattended Enquiries" path="admin.enquiry.table.unattended" open="true"></x-accordion>
-                <x-accordion title="Active Enquiries" path="admin.enquiry.table.active" open="false"></x-accordion>
-                <x-accordion title="Cancelled Enquiries" path="admin.enquiry.table.cancelled" open="false"></x-accordion>
+                <x-accordion title="Unattended Enquiries" path="admin.enquiry.table.unattended" open="true" argument='null'></x-accordion>
+                <x-accordion title="Active Enquiries" path="admin.enquiry.table.active" open="false" argument='null'></x-accordion>
+                <x-accordion title="Cancelled Enquiries" path="admin.enquiry.table.cancelled" open="false" argument='null'></x-accordion>
  
                 @include('admin.enquiry.models.enquiry-qucik-view')
                 @include('admin.enquiry.models.chat-box')
