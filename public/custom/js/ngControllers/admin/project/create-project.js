@@ -1023,6 +1023,16 @@ formatData = (project) => {
       });
   
     }
+    $scope.createTaskListData=(index,index_2)=>{
+      console.log('clicked');
+      $scope.check_list_items[index].data[index_2].data.push({
+        start_date : "",
+        task_list       : "",
+        end_date   : "",
+        first_name  : "",
+    }) 
+    Message('success',"New Task List Added !")
+    }
     $scope.deleteTaskList = (index,index_2,index_3) => {
       swal.fire({
         title: "Are you sure?",
