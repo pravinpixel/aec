@@ -137,6 +137,15 @@
                             </tr>
                         @endif
                     @endif 
+                    @if ($enquiry['project_infos']['project_date'])
+                        <tr>
+                            <td><b>Start Date</b></td>
+                            <td>:</td>
+                            <td> 
+                                {{ SetDateFormat($enquiry['project_infos']['project_date']) }}
+                            </td>
+                        </tr>
+                    @endif
                     @if ($enquiry['project_infos']['project_delivery_date'])
                         <tr>
                             <td><b>Delivery Date</b></td>
