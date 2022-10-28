@@ -109,7 +109,7 @@
 @push('custom-scripts')
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script type="text/javascript">
-        const APP_URL = "{{ url('/') }}";
+        // const APP_URL = "{{ url('/') }}";
         const TOKEN   = "{{ csrf_token() }}";
         const table   = $('#active-employees').DataTable({
             processing: true,
