@@ -14,7 +14,6 @@ class Inbox extends Model
         'updated_at' => "datetime:d/m/Y - h:i:s A", 
     ];
 
-    
     protected $fillable = [
         'sender_role',
         'sender_id',

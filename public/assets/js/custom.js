@@ -238,18 +238,37 @@ PreviousChatHistory = (element, module_id, module_name, menu_name) => {
         module_id   : module_id,
         module_name : module_name,
         menu_name   : menu_name,
+        read_status: 1
     }).then(function (response) {
         $(`.inbox_conversation_list_${menu_name}`).html(response.data.conversations)
         $(`.inbox_conversation_list_${menu_name}`).stop().animate({ 
             scrollTop: $(`.inbox_conversation_list_${menu_name}`)[0].scrollHeight
         }, 1000);
-        stopLoader(element)
+        stopLoader(element) 
         Object.entries(element.parentNode.childNodes).map((item) => {
             if(item[1].name == 'message') {
                 item[1].value = ''
             }
         })
     }); 
+}
+
+refreshData = () => {
+    try {
+        $('#unattended-enquiries').DataTable().ajax.reload();
+    } catch (error) {
+        console.log(error)
+    }
+    try {
+        $('#active-enquiries').DataTable().ajax.reload();
+    } catch (error) {
+        console.log(error)
+    }
+    try {
+        $('#completed-enquiries').DataTable().ajax.reload();
+    } catch (error) {
+        console.log(error)
+    }
 }
 
 sendMessage = (element) => { 

@@ -133,11 +133,15 @@ if(!function_exists('getModuleMenuMessagesCount')) {
         ]);
         // element
         if($type == 'element') {
-            return'
-                <small class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                    '.$count.'
-                </small>
-            ';
+            if($count != 0) {
+                return'
+                    <small class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                        '.$count.'
+                    </small>
+                ';
+            } else {
+                return '';
+            }
         }
         return (int) $count;
     }

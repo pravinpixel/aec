@@ -2,7 +2,7 @@
     <div class="modal-dialog modal-xl modal-right" style="width:100% !important">
         <div class="p-3 shadow-sm">
             <h3>Project Name : <b class="text-primary"> @{{ enqData.progress.project_name }} </b></h3>
-            <button type="button" class="btn-close me-3" data-bs-dismiss="modal" style="top: 33px" aria-hidden="true"></button>
+            <button type="button" class="btn-close me-3" onclick="refreshData()" data-bs-dismiss="modal" style="top: 33px" aria-hidden="true"></button>
         </div>
         <div class="modal-content h-100 p-4" style="overflow: auto">
             <div class="card mt-3">

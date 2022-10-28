@@ -59,7 +59,7 @@ class Notify {
     }
 
     public static function getMessages($data)
-    {
+    { 
         if(!is_null(Customer())) {
             $messages = Inbox::whereRaw('(
                     module_name   = "'.$data['module_name'].'" and
@@ -75,16 +75,23 @@ class Notify {
                     sender_role   = "Admin" and
                     receiver_role = "Customer" and
                     receiver_id   = '.Customer()->id.'
-            )')->latest()->take(10)->get();
+            )')->latest()->get();
         } 
         if(!is_null(Admin())) {
             $messages = Inbox::where([
                 "module_name" => $data["module_name"],
                 "module_id"   => $data["module_id"],
                 "menu_name"   => $data["menu_name"],
-            ])->latest()->take(10)->get(); 
+            ])->latest()->get(); 
         }
- 
+  
+        if($data['read_status'] ?? false) {
+            foreach($messages as $row) {
+                Inbox::find($row->id)->update(['read_status' => 1]);
+            }
+        }
+        
+
         $conversation = '';     
 
         foreach(array_reverse($messages->toArray()) as $msg ) {

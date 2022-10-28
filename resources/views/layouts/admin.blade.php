@@ -136,7 +136,7 @@
 
         <!--  Push Scripts  -->        
         @stack('custom-scripts')
-         
+        <script src="{{ asset('public/assets/js/custom.js') }}"></script>
         <script>
             function goBack() {
                 window.history.back();

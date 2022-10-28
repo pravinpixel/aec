@@ -2,7 +2,7 @@
     @if ($table_status == 1)
         <div class="card-header sticky-top px-3 d-flex justify-content-between align-items-center">
             <h3 class="card-title h4">PROJECT NAME : <span class="text-primary">{{ $detail_table['project_name'] }}</span></h3>
-            <button type="button" class="btn-sm btn btn-light border shadow-sm" data-bs-dismiss="modal" aria-label="Close"><i class="fa fa-times"></i></button>
+            <button type="button" class="btn-sm btn btn-light border shadow-sm" onclick="refreshData()" data-bs-dismiss="modal" aria-label="Close"><i class="fa fa-times"></i></button>
         </div> 
     @endif
     <div class="card-body px-3 pt-3">
