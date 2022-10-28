@@ -6,6 +6,7 @@
         </div> 
     @endif
     <div class="card-body px-3 pt-3">
+        
         @if ($table_status == 1)
             <table class="custom table table-bordered m-0 bg-white border shadow-sm mb-3">
                 <tbody>
@@ -28,7 +29,8 @@
                 </tbody>
             </table>
         @endif
-        <x-accordion title="Project Information" path="false" open="true">
+
+        <x-accordion title="Project Information" path="false" open="true" argument="{{ getModuleMenuMessagesCount('enquiry', $enquiry['project_infos']['enquiry_id'], __('app.Project_Information'), 'count') }}">
             <table class="table custom m-0 table-hover">
                 <tbody> 
                     @if ($enquiry['project_infos']['project_name'])
@@ -164,7 +166,7 @@
                 menuName="{{ __('app.Project_Information') }}" 
             />
         </x-accordion>
-        <x-accordion title="Selected Services" path="false" open="false"> 
+        <x-accordion title="Selected Services" path="false" open="false" argument="{{ getModuleMenuMessagesCount('enquiry', $enquiry['project_infos']['enquiry_id'], __('app.Selected_Services'), 'count') }}"> 
             <ul>
                 @foreach ($enquiry['services'] as $service_type => $services)
                     <li> 
@@ -187,7 +189,7 @@
                 menuName="{{ __('app.Selected_Services') }}" 
             />
         </x-accordion>
-        <x-accordion title="IFC Models and Uploaded Documents" path="false" open="false">  
+        <x-accordion title="IFC Models and Uploaded Documents" path="false" open="false" argument="{{ getModuleMenuMessagesCount('enquiry', $enquiry['project_infos']['enquiry_id'], __('app.IFC_Models_and_Uploaded_Documents'), 'count') }}">  
             <table class="table custom custom table-hover">
                 <thead>
                     <tr>
@@ -278,7 +280,7 @@
                 menuName="{{ __('app.IFC_Models_and_Uploaded_Documents') }}" 
             />
         </x-accordion> 
-        <x-accordion title="Building Components" path="false" open="false">
+        <x-accordion title="Building Components" path="false" open="false" argument="{{ getModuleMenuMessagesCount('enquiry', $enquiry['project_infos']['enquiry_id'], __('app.Building_Components'), 'count') }}">
             @if ($enquiry['project_infos']['building_component_process_type'] == 0)
                 <table class="table table-bordered m-0 table-striped">
                     <tbody>
@@ -375,8 +377,7 @@
                 menuName="{{ __('app.Building_Components') }}" 
             />
         </x-accordion>
-
-        <x-accordion title="Additional Information" path="false" open="false">
+        <x-accordion title="Additional Information" path="false" open="false" argument="{{ getModuleMenuMessagesCount('enquiry', $enquiry['project_infos']['enquiry_id'], __('app.Additional_Information'), 'count') }}">
             @if (!is_null($enquiry['additional_infos']))
                 <div>{!! $enquiry['additional_infos']->comments !!}</div>
             @endif

@@ -80,10 +80,10 @@ if(!function_exists('slug')) {
 if(!function_exists('AuthUser')) {
     function AuthUser(){ 
         if(!is_null(Admin()))   {
-            return "Admin";
+            return "ADMIN";
         }
         if(!is_null(Customer()))   {
-            return "Customer";
+            return "CUSTOMER";
         }
     }
 }
@@ -121,4 +121,24 @@ if(!function_exists('getEnquiryChatCount')) {
         ]);
         return $count;
     }
-}
+} 
+
+if(!function_exists('getModuleMenuMessagesCount')) {
+    function getModuleMenuMessagesCount($module_name, $module_id, $menu_name,$type){
+        $count = Notify::getModuleMenuMessagesCount([
+            'user_type'   => AuthUser(),
+            'module_name' => $module_name,
+            'module_id'   => $module_id,
+            'menu_name'   => $menu_name
+        ]);
+        // element
+        if($type == 'element') {
+            return'
+                <small class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                    '.$count.'
+                </small>
+            ';
+        }
+        return (int) $count;
+    }
+} 
