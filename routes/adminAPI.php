@@ -30,6 +30,7 @@
 
         Route::get('get-live-project-type/{id}', [ProjectController::class,'liveprojectdata'])->name('project-live.get');
         Route::post('store-task-list', [ProjectController::class,'storetasklit'])->name('store-task-list');
+        Route::post('delete-task-list', [ProjectController::class,'deleteTaskList'])->name('delete-task-list');
         Route::post('live-project-ticket', [ProjectController::class,'ticketcreate'])->name('live-project-ticket');
         Route::post('VariationUpdate', [ProjectController::class,'VariationUpdate'])->name('Variation-Update');
         Route::get('projectticket/{id}', [ProjectController::class,'ticketlist'])->name('live-project-ticket-list');

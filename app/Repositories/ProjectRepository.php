@@ -168,7 +168,6 @@ class ProjectRepository implements ProjectRepositoryInterface, ConnectionPlatfor
                 $totalcompletecount[] = $completecount;
                 $rearr[] = array('name' =>$finaldata->get_task_list->task_list_name,
                                  'completed'=> round(($completecount /$overall )*100),2);
-               
             }
         }
          //dd($interval);

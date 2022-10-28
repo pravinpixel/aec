@@ -310,6 +310,12 @@ class ProjectController extends Controller
         $this->projectRepo->updateWizardStatus($project,'wizard_todo_list',1);
         return response()->json(['status' => true,'data' => $result], 201);
     }
+    public function deleteTaskList(Request $req){
+        $project=Project::find($req->input('id'));
+        $project->gantt_chart_data=$req->input('data');
+        $project->save();
+        return response()->json(['status' => true,'data' => $req->input('data')], 201);
+    }
 
 
     public function checkListMasterGroupList(Request $request)
@@ -520,6 +526,7 @@ class ProjectController extends Controller
                                                      'color'=>'#008ffb' );
 
                             }
+                            $overall= $overall == 0 ? 1 : $overall; //this line is edited by surendhar for make 1 purpose
                             $completecount = count($finalstatuspercentage);
                             $totalcompletecount[] = $completecount;
                             $rearr[] = array('name' =>$finaldata->get_task_list->task_list_name,

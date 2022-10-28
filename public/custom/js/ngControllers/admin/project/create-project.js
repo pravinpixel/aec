@@ -974,7 +974,7 @@ formatData = (project) => {
   
     $scope.delete_this_check_list_item = (index) => $scope.check_list_items.splice(index, 1);
     $scope.delete_this_taskListData    = (index,secIndex,thirdIndex) => {
-        $scope.check_list_items[index].data[secIndex].data.splice(thirdIndex,1)
+        $scope.check_list_items[index].data[secIndex].data.splice(thirdIndex,1);
     }
   
     $scope.storeToDoLists = () => {
@@ -1024,7 +1024,38 @@ formatData = (project) => {
   
     }
     $scope.deleteTaskList = (index,index_2,index_3) => {
-      $scope.check_list_items[index].data[index_2].data.splice(index_3,1)
+      swal.fire({
+        title: "Are you sure?",
+        text: "Once deleted, you will not be able to recover this Data!",
+        icon: "warning",
+        buttons: true,
+        showCancelButton:true,
+        dangerMode: true,
+    }).then((willDelete) => {
+        if(willDelete.isConfirmed) {
+            $scope.check_list_items[index].data[index_2].data.splice(index_3,1)
+
+          $http.post(`${$("#baseurl").val()}admin/api/v2/delete-task-list`, {
+            id: $('#project_id').val(),
+            data: $scope.check_list_items,
+          }).then((res) => {
+              Message('success', 'Task deleted !');
+              $http.get(`${API_URL}project/liveprojectlist/${project_id}`).then((res) => {
+                $scope.project = formatData(res.data.project);
+                $scope.check_list_items = JSON.parse(res.data.project.gantt_chart_data) == null ? [] : JSON.parse(res.data.project.gantt_chart_data)
+                $scope.check_list_items_status = JSON.parse(res.data.project.gantt_chart_data) == null ? false : true
+                $scope.countper = res.data.completed == null ? [] : res.data.completed;
+                $scope.overall = res.data.overall ?? 0;
+                $scope.lead = res.data.lead;
+              });
+          })
+        }
+        else{
+          Message('success', 'your data safe !');
+        }
+    });
+         
+      
     }
   });
   
