@@ -96,13 +96,8 @@
         </div>
     </div> 
 @endsection
-@push('custom-styles')
-    <link href="{{ asset('public/assets/css/vendor/jstree.min.css') }}" rel="stylesheet" type="text/css">
-@endpush
-@push('custom-scripts')
-    <script src="{{ asset('public/assets/js/vendor/jstree.min.js') }}"></script>
-    <script src="{{ asset('public/assets/js/pages/demo.jstree.js') }}"></script>
-
+ 
+@push('custom-scripts')  
     <script>        
         
         app.controller("projectController", function($rootScope, $scope, $location){
@@ -139,7 +134,7 @@
             .otherwise({
                 redirectTo: "/"
             });
-        });
+        }); 
     </script>
 @endpush
  

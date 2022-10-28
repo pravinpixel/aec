@@ -31,12 +31,12 @@ formatData = (project) => {
         $scope.deliveryTypes = res.data;
       });
   
-    $http.get(`${API_URL}project/wizard/create_project`)
-      .then((res) => {
-        $rootScope.project_id = res.data.id;
-        if (res.data != false) $scope.project = formatData(res.data);
-        projectActiveTabs($scope.project.wizard_status);
-      });
+    $http.get(`${API_URL}project/wizard/create_project`).then((res) => {
+      $rootScope.project_id = res.data.id;
+      if (res.data != false) $scope.project = formatData(res.data);
+      projectActiveTabs($scope.project.wizard_status);
+      console.log($scope.project)
+    });
     //postalcode api
     $scope.getZipcode = function() {
       let zipcode = $("#zipcode").val();

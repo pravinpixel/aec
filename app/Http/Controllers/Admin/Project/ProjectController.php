@@ -600,7 +600,6 @@ class ProjectController extends Controller
 
     public function getProject($type)
     {
-
         $project_id = $this->getProjectId();
         if (empty($project_id)) return false;
         if ($type == 'create_project') {

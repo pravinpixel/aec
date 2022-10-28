@@ -10,13 +10,12 @@ class Project extends Model
 {
     use HasFactory;
     
-    protected $casts = [
-        'created_at' => "datetime:d/m/Y - h:i:s A",
-        'updated_at' => "datetime:d/m/Y - h:i:s A", 
-        'start_date' => "datetime:d/m/Y - h:i:s A", 
-        'delivery_date' => "datetime:d/m/Y - h:i:s A",  
-    ];
-
+    // protected $casts = [
+    //     'created_at' => "datetime:d/m/Y - h:i:s A",
+    //     'updated_at' => "datetime:d/m/Y - h:i:s A", 
+    //     'start_date' => "datetime:d/m/Y - h:i:s A", 
+    //     'delivery_date' => "datetime:d/m/Y - h:i:s A",  
+    // ];
     
     protected $fillable = [
         'customer_id',
