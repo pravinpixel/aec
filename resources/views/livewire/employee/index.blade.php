@@ -24,7 +24,7 @@
                     <i class="mdi mdi-briefcase-plus me-1"></i> Register New Employee 
                 </a>
             </div>
-            <x-accordion open="true" title="Active Employees" path="false">
+            <x-accordion open="true" title="Active Employees" path="false" argument='null'>
                 <table class="table table-centered table-bordered table-hover w-100" id="active-employees">
                     <thead class="bg-primary2 text-white">
                         <tr>
@@ -43,7 +43,7 @@
                     <tbody> </tbody>
                 </table>
             </x-accordion> 
-            <x-accordion open="true" title="Deleted Employees" path="false">
+            <x-accordion open="true" title="Deleted Employees" path="false" argument='null'>
                 <table class="table table-centered table-bordered table-hover w-100" id="deleted-employee">
                     <thead class="bg-primary2 text-white">
                         <tr>
