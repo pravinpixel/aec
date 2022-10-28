@@ -329,7 +329,11 @@ class ProjectController extends Controller
                         $task->assign_to = (string)$project_manager->id ?? "";
                 return $task;
             });
-            return ['name' => $item[0]->getTaskList->task_list_name, 'data' => $tasks];
+            return ['name'          => $item[0]->getTaskList->task_list_name, 
+                    'data'          => $tasks,
+                    'start_date'    => $item[0]->start_date,
+                    'end_date'      => $item[count($item)-1]->end_date
+                ];
         });
 
         $result = [

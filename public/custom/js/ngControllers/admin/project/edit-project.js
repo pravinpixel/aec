@@ -547,6 +547,7 @@ app.controller('InvoicePlanController', function ($scope, $http, API_URL, $locat
 
 app.controller('ToDoListController', function ($scope, $http, API_URL, $location) {
     $("#todo-list").addClass('active');
+    $scope.arr=[{'name':'abc','age':22},{'name':'def','age':22},{'name':'ghi','age':22}];
     $scope.Date = new Date();
     let project_id =  $("#project_id").val();
     $http.get(`${API_URL}get-delivery-type`).then((res)=> {
