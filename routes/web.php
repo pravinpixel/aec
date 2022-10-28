@@ -325,4 +325,5 @@ Route::post('/save-token', [InboxController::class , 'store'])->name('save-token
 
  
 Route::post('/send-message', [InboxController::class , 'send_message']);
+Route::post('/get-message', [InboxController::class , 'get_message']);
 

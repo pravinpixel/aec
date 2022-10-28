@@ -157,7 +157,7 @@
                     @endif 
                 </tbody>
             </table> 
-            <x-chat-box 
+            <x-chat-box
                 :status="$chat_status" 
                 :moduleId="$enquiry['project_infos']['enquiry_id']" 
                 moduleName="enquiry" 

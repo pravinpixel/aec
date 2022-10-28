@@ -114,10 +114,18 @@ class Notify {
                 </li>
             ';
         }
-        return $conversation;
+         
+        return $conversation != '' ? $conversation : '
+            <li class="bg-light rounded shadow-sm p-2">
+                <div class="text-center w-100">
+                    <i class="mdi mdi-android-messages"></i>
+                    <span class="f-16">There is No Chat History</span>
+                </div>
+            </li>
+        ';
     }
 
-    public static function getModuleMessages($data)
+    public static function getModuleMessagesCount($data)
     {
         if($data['user_type'] == 'ADMIN') {
             if($data['module_name'] == 'Enquiry') {

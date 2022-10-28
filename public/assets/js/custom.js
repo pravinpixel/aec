@@ -231,6 +231,27 @@ viewCustomerEnquiryProposal = (id) => {
     });
 }
 
+PreviousChatHistory = (element, module_id, module_name, menu_name) => {
+    startLoader(element)
+   
+    axios.post(`${APP_URL}/get-message`, {
+        module_id   : module_id,
+        module_name : module_name,
+        menu_name   : menu_name,
+    }).then(function (response) {
+        $(`.inbox_conversation_list_${menu_name}`).html(response.data.conversations)
+        $(`.inbox_conversation_list_${menu_name}`).stop().animate({ 
+            scrollTop: $(`.inbox_conversation_list_${menu_name}`)[0].scrollHeight
+        }, 1000);
+        stopLoader(element)
+        Object.entries(element.parentNode.childNodes).map((item) => {
+            if(item[1].name == 'message') {
+                item[1].value = ''
+            }
+        })
+    }); 
+}
+
 sendMessage = (element) => { 
     var config = [] 
     Object.entries(element.parentNode.childNodes).map((item) => {

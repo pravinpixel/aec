@@ -15,7 +15,10 @@
     <div>
         {!! $form !!}
         <div class="text-end mt-2">
-            <button type="button" class="btn btn-sm btn-link" data-bs-toggle="modal" onclick="scrollMessage('{{ $menuName }}')" data-bs-target="#viewMyInbox{{ $menuName }}"><i class="mdi mdi-eye me-1"></i> Previous chat history</button>
+            {{-- <button type="button" class="btn btn-sm btn-link" data-bs-toggle="modal" onclick="scrollMessage('{{ $menuName }}')" data-bs-target="#viewMyInbox{{ $menuName }}"><i class="mdi mdi-eye me-1"></i> Previous chat history</button> --}}
+            <button type="button" class="btn btn-sm btn-link" onclick="PreviousChatHistory(this, '{{ $moduleId }}', '{{ $moduleName }}' , '{{ $menuName }}' )" data-bs-toggle="modal" data-bs-target="#viewMyInbox{{ $menuName }}">
+                <i class="mdi mdi-eye me-1"></i> Previous chat history
+            </button>
         </div>
     </div>
 @endif  
@@ -43,14 +46,13 @@
                         <h5 class="m-0 mt-1">{{ str_replace('_',' ',$menuName) }}</h5>
                     </div>
                 </div>
-                <button type="button" class="btn btn-sm text-white" data-bs-dismiss="modal" aria-label="Close"><i class="fa fa-close"></i></button>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-sm text-success" title="Refresh Chat" onclick="PreviousChatHistory(this, '{{ $moduleId }}', '{{ $moduleName }}' , '{{ $menuName }}' )"><i class="mdi-reload mdi"></i></button>
+                    <button type="button" class="btn btn-sm text-danger" title="Close Chat" data-bs-dismiss="modal" aria-label="Close"><i class="fa fa-close"></i></button>
+                </div>
             </div>
             <div class="modal-body p-0" style="background:#EEE7DE"> 
-                <ul id="inbox-conversation-list" class="{{ AuthUser() }}-chat-box m-0 inbox_conversation_list_{{ $menuName }}">
-                    @isset($conversations)
-                        {!! $conversations !!}
-                    @endisset
-                </ul>
+                <ul id="inbox-conversation-list" class="{{ AuthUser() }}-chat-box m-0 inbox_conversation_list_{{ $menuName }}"></ul>
                 {!! $form !!}
             </div> 
         </div><!-- /.modal-content -->

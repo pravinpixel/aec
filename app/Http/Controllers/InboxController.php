@@ -60,4 +60,17 @@ class InboxController extends Controller
             "Message"       => "Success"
         ],200);
     } 
+    public function get_message(Request $request)
+    {
+        $conversations = Notify::getMessages([
+            'module_name'   => $request->module_name,
+            'module_id'     => $request->module_id,
+            'menu_name'     => $request->menu_name,
+        ]);
+
+        return response()->json([
+            "conversations" => $conversations,
+            "Message"       => "Success"
+        ],200);
+    }
 }
