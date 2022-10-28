@@ -314,7 +314,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::post('/change-account-password', [AdminAccountController::class,'change_password'])->name('change-account-password');
 });
 
-Route::get('enquiry-quick-view/{id}/{type}', [HelperController::class , 'enquiry_quick_view']);
+Route::post('enquiry-quick-view', [HelperController::class , 'enquiry_quick_view']);
 Route::get('proposal-quick-view/{id}', [HelperController::class , 'proposal_quick_view']);
 
  

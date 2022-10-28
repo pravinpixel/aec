@@ -1147,8 +1147,13 @@
         app.controller('Review', function ($scope, $http, $rootScope, Notification, API_URL, $timeout, $location){
              
             $http({
-                method: 'GET',
-                url: `${APP_URL}/enquiry-quick-view/{{$id}}/view`
+                method: 'POST',
+                url: `${APP_URL}/enquiry-quick-view`,
+                data  :{
+                    enquiry_id   : {{$id}},
+                    preview_table: 0,
+                    chat_box     : 0,   // true | false
+                }
             }).then( function(response) {
                 document.getElementById("enquiryOverView").innerHTML = response.data
                 setTimeout(() => {

@@ -199,9 +199,13 @@ function getYesterdayDate() {
 
 const APP_URL = $('meta[name="app-url"]').attr('content');
 
-EnquiryQuickView = (id, element) => {
+EnquiryQuickView = (id, element, chat) => {
     startLoader(element)
-    axios.get(`${APP_URL}/enquiry-quick-view/${id}/modal`).then((response) => {
+    axios.post(`${APP_URL}/enquiry-quick-view`,{
+        enquiry_id   : id,
+        preview_table : 1,
+        chat_box     : chat, // true | false
+    }).then((response) => {
         if(response.status === 200) {
             $("#EnquiryQuickViewPopUp").modal('show')
             document.getElementById("EnquiryQuickViewPopUpContent").innerHTML = response.data

@@ -1224,10 +1224,14 @@
                         $scope.enquiry_no = res.data.enquiry.enquiry_number;
                         enquiry_ID = res.data.enquiry.enquiry_number;
                     }
-
                     $http({
-                        method: 'GET',
-                        url: `${APP_URL}/enquiry-quick-view/${enquiry_ID}/view`
+                        method: 'POST',
+                        url: `${APP_URL}/enquiry-quick-view`,
+                        data  :{
+                            enquiry_id   : enquiry_ID,
+                            preview_table: 0,
+                            chat_box     : 0,   // true | false
+                        }
                     }).then( function(response) {
                         document.getElementById("enquiryOverView").innerHTML = response.data
                         setTimeout(() => {

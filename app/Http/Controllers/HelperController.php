@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Repositories\CustomerEnquiryRepository;
 use App\View\Components\enquiryQuickView;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 
 class HelperController extends Controller
@@ -11,15 +12,10 @@ class HelperController extends Controller
     public function __construct(CustomerEnquiryRepository $customerEnquiryRepository){
         $this->customerEnquiryRepo  = $customerEnquiryRepository;
     }
-    public function enquiry_quick_view($id, $type)
+    public function enquiry_quick_view(Request $request)
     {
-        if($type == 'modal') {
-            $enquiry =  new enquiryQuickView($id, $table = 1 ,$chat = 1);
-            return $enquiry->render();
-        } else {
-            $enquiry =  new enquiryQuickView($id, $table = 0 ,$chat = 0);
-            return $enquiry->render();
-        }
+        $enquiry =  new enquiryQuickView($request->enquiry_id, $request->preview_table ,$request->chat_box ?? 1);
+        return $enquiry->render();
     }
     public function proposal_quick_view($id)
     {
