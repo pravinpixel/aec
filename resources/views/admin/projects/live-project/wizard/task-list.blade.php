@@ -251,6 +251,8 @@ button.abs-icon{
     width:0;
     margin:0;
     padding:0;
+
+    
 }
 .wrapper-custom .abs-icon::before{
     content:'+';
