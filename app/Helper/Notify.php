@@ -127,7 +127,17 @@ class Notify {
                     "sender_role" => 'Customer',
                     "sender_id"   =>  getCustomerByEnquiryId($data["module_id"])->id,
                     "read_status" => 0
-                ])->latest()->take(10)->count();
+                ])->count();
+            }
+        } elseif($data['user_type'] == 'CUSTOMER') {
+
+            if($data['module_name'] == 'Enquiry') {
+                $messages_count = Inbox::where([
+                    "module_name" => $data["module_name"],
+                    "module_id"   => $data["module_id"],
+                    "sender_role" => 'Admin',
+                    "read_status" => 0
+                ])->count();
             }
         }
         if($messages_count) {

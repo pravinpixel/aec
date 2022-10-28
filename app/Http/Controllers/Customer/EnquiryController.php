@@ -637,15 +637,11 @@ class EnquiryController extends Controller
                 ->where(['status' => 'In-Complete', 'customer_id' => Customer()->id]);
             return DataTables::eloquent($dataDb)
                 ->editColumn('enquiry_number', function ($dataDb) {
-                    $commentCount = $dataDb->comments->count();
-                    // ng-click=getEnquiry("project_info",' . $dataDb->id . ')
-                    $data = '<button type="button" class="btn-quick-view"  onclick="EnquiryQuickView('. $dataDb->id .' ,this)">
-                    <b>' . $dataDb->enquiry_number . '</b>';
-                    if ($commentCount != 0) {
-                        $data .= '<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" >' . $commentCount . ' </span>';
-                    }
-                    $data .= '</button>';
-                    return $data;
+                    return ' 
+                        <button type="button" class="btn-quick-view" onclick="EnquiryQuickView('.$dataDb->id.' , this ,0)" >
+                            <b>'. $dataDb->enquiry_number.'</b> 
+                        </button>
+                    ';
                 })
                 ->addColumn('projectType', function ($dataDb) {
                     return $dataDb->projectType->project_type_name ?? '';
@@ -713,12 +709,13 @@ class EnquiryController extends Controller
                     $data = '
                          <button type="button" class="btn-quick-view"  onclick="EnquiryQuickView('. $dataDb->id .' ,this)">
                             ' . $dataDb->enquiry_number . '
+                            '.getEnquiryChatCount('CUSTOMER','Enquiry',$dataDb->id).' 
                         ';
                     if ($commentCount != 0) {
                         $data .= '<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" >' . $commentCount . ' </span>';
                     }
                     $data .= '</button>';
-                    return $data;
+                    return $data; 
                 })
                 ->addColumn('projectType', function ($dataDb) {
                     return $dataDb->projectType->project_type_name ?? '';
@@ -787,15 +784,12 @@ class EnquiryController extends Controller
                 ->where(['status' => 'Closed', 'customer_id' => Customer()->id]);
             return DataTables::eloquent($dataDb)
                 ->editColumn('enquiry_number', function ($dataDb) {
-                    $commentCount = $dataDb->comments->count();
-                    // <button type="button" class="btn-quick-view"  ng-click=getEnquiry("project_info",' . $dataDb->id . ')> 
-                    $data = '<button type="button" class="btn-quick-view" onclick=EnquiryQuickView('. $dataDb->id .' , this)>
-                    <b>' . $dataDb->enquiry_number . '</b>';
-                    if ($commentCount != 0) {
-                        $data .= '<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" >' . $commentCount . ' </span>';
-                    }
-                    $data .= '</button>';
-                    return $data;
+                    return ' 
+                        <button type="button" class="btn-quick-view" onclick="EnquiryQuickView('.$dataDb->id.' , this)" >
+                            <b>'. $dataDb->enquiry_number.'</b>
+                            '.getEnquiryChatCount('CUSTOMER','Enquiry',$dataDb->id).' 
+                        </button>
+                    ';
                 })
                 ->addColumn('projectType', function ($dataDb) {
                     return $dataDb->projectType->project_type_name ?? '';
@@ -810,12 +804,13 @@ class EnquiryController extends Controller
                 })
                 ->addColumn('pipeline', function ($dataDb) {
                     return '<div class="btn-group">
-                <button ng-click=getEnquiry("project_info",' . $dataDb->id . ') class="btn progress-btn ' . ($dataDb->project_info == 1 ? "active" : "") . '" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Project Information"></button> 
-                <button ng-click=getEnquiry("service",' . $dataDb->id . ') class="btn progress-btn ' . ($dataDb->service == 1 ? "active" : "") . '" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Services"></button> 
-                <button ng-click=getEnquiry("ifc_model",' . $dataDb->id . ') class="btn progress-btn ' . ($dataDb->ifc_model_upload == 1 ? "active" : "") . '" data-bs-toggle="tooltip" data-bs-placement="bottom" title="IFC Model and Uploads"></button> 
-                <button ng-click=getEnquiry("building_component",' . $dataDb->id . ') class="btn progress-btn ' . ($dataDb->building_component == 1 ? "active" : "") . '" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Building Component"></button>
-                <button ng-click=getEnquiry("additional_info",' . $dataDb->id . ') class="btn progress-btn ' . ($dataDb->additional_info == 1 ? "active" : "") . '" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Additional Information"></button> 
-                </div>';
+                            <button ng-click=getEnquiry("project_info",' . $dataDb->id . ') class="btn progress-btn ' . ($dataDb->project_info == 1 ? "active" : "") . '" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Project Information"></button> 
+                            <button ng-click=getEnquiry("service",' . $dataDb->id . ') class="btn progress-btn ' . ($dataDb->service == 1 ? "active" : "") . '" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Services"></button> 
+                            <button ng-click=getEnquiry("ifc_model",' . $dataDb->id . ') class="btn progress-btn ' . ($dataDb->ifc_model_upload == 1 ? "active" : "") . '" data-bs-toggle="tooltip" data-bs-placement="bottom" title="IFC Model and Uploads"></button> 
+                            <button ng-click=getEnquiry("building_component",' . $dataDb->id . ') class="btn progress-btn ' . ($dataDb->building_component == 1 ? "active" : "") . '" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Building Component"></button>
+                            <button ng-click=getEnquiry("additional_info",' . $dataDb->id . ') class="btn progress-btn ' . ($dataDb->additional_info == 1 ? "active" : "") . '" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Additional Information"></button> 
+                        </div>
+                    ';
                 })
                 ->addColumn('action', function ($dataDb) {
                     return '
