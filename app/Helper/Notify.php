@@ -156,4 +156,33 @@ class Notify {
             ';
         }
     }
+    public static function getModuleMenuMessagesCount($data)
+    {
+        if($data['user_type'] == 'ADMIN') {
+            if($data['module_name'] == 'Enquiry' || $data['module_name'] == 'enquiry') {
+                $messages_count = Inbox::where([
+                    "module_name" => $data["module_name"],
+                    "module_id"   => $data["module_id"],
+                    "menu_name"   => $data["menu_name"],
+                    "sender_role" => 'Customer',
+                    "sender_id"   =>  getCustomerByEnquiryId($data["module_id"])->id,
+                    "read_status" => 0
+                ])->count();
+            }
+        } elseif($data['user_type'] == 'CUSTOMER') {
+            if($data['module_name'] == 'Enquiry' || $data['module_name'] == 'enquiry') {
+                $messages_count = Inbox::where([
+                    "module_name" => $data["module_name"],
+                    "module_id"   => $data["module_id"],
+                    "menu_name"   => $data["menu_name"],
+                    "sender_role" => 'Admin',
+                    "read_status" => 0
+                ])->count();
+            }
+        } 
+        
+        if($messages_count) {
+            return $messages_count ;
+        }
+    }
 }

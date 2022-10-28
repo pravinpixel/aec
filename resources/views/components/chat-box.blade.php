@@ -16,8 +16,9 @@
         {!! $form !!}
         <div class="text-end mt-2">
             {{-- <button type="button" class="btn btn-sm btn-link" data-bs-toggle="modal" onclick="scrollMessage('{{ $menuName }}')" data-bs-target="#viewMyInbox{{ $menuName }}"><i class="mdi mdi-eye me-1"></i> Previous chat history</button> --}}
-            <button type="button" class="btn btn-sm btn-link" onclick="PreviousChatHistory(this, '{{ $moduleId }}', '{{ $moduleName }}' , '{{ $menuName }}' )" data-bs-toggle="modal" data-bs-target="#viewMyInbox{{ $menuName }}">
-                <i class="mdi mdi-eye me-1"></i> Previous chat history
+            <button type="button" class="btn btn-sm btn-outline-primary position-relative" onclick="PreviousChatHistory(this, '{{ $moduleId }}', '{{ $moduleName }}' , '{{ $menuName }}' )" data-bs-toggle="modal" data-bs-target="#viewMyInbox{{ $menuName }}">
+                <i class="mdi mdi-eye me-1"></i> Previous chat history  
+               {!! getModuleMenuMessagesCount($moduleName, $moduleId, $menuName , 'element') !!}
             </button>
         </div>
     </div>
@@ -52,7 +53,7 @@
                 </div>
             </div>
             <div class="modal-body p-0" style="background:#EEE7DE"> 
-                <ul id="inbox-conversation-list" class="{{ AuthUser() }}-chat-box m-0 inbox_conversation_list_{{ $menuName }}"></ul>
+                <ul id="inbox-conversation-list" class="m-0 inbox_conversation_list_{{ $menuName }}"></ul>
                 {!! $form !!}
             </div> 
         </div><!-- /.modal-content -->
