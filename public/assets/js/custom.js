@@ -269,6 +269,11 @@ refreshData = () => {
     } catch (error) {
         console.log(error)
     }
+    try {
+        $('#active-enquiries').DataTable().ajax.reload();
+    } catch (error) {
+        console.log(error)
+    } 
 }
 
 sendMessage = (element) => { 
