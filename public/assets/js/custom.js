@@ -233,7 +233,7 @@ viewCustomerEnquiryProposal = (id) => {
 
 PreviousChatHistory = (element, module_id, module_name, menu_name) => {
     startLoader(element)
-   
+    refreshData()
     axios.post(`${APP_URL}/get-message`, {
         module_id   : module_id,
         module_name : module_name,
