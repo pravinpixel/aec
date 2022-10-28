@@ -38,10 +38,16 @@
         </thead>
         <tbody class="border" ng-repeat="(index_2 , checkListData) in check_list.data" >
              <tr>
-                <td colspan="6" class="bg-light">
+                <td colspan="3" class="bg-light">
                     <div class="text-center">
                         <strong>@{{ checkListData.name }}</strong>
                     </div>
+                </td>
+                <td>
+                   <strong class="text-center m-0 span bg-warning fw-bold rounded px-1">@{{ checkListData.data[0].start_date | date:'dd-MM-yyyy' }}</strong>     
+                </td>
+                <td>
+                    <strong class="text-center m-0 span bg-warning fw-bold rounded px-1">@{{ checkListData.data[checkListData.data.length-1].end_date | date:'dd-MM-yyyy' }}</strong>
                 </td>
                 <td  colspan="5" class="bg-light">
                     <div class="progress bg-light border rounded-3">

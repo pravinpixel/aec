@@ -783,6 +783,7 @@ app.controller('TasklistController', function($scope, $http, API_URL, $location)
         //console.log(res.data.check_list_items );
       });
     }
+  
     $scope.storeTaskLists = () =>
     {
       $scope.check_list_items.map((CheckLists) =>
