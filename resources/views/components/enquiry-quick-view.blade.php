@@ -197,7 +197,7 @@
                         <th class="text-center" width="100px"><b>Date</b></th>
                         <th class="text-center" width="150px"><b>File Type</b></th>
                         <th><b>File Name</b></th>
-                        <th class="text-center" width="150px"><b>Action</b></th>
+                        <th class="text-end" width="150px"><b>Action</b></th>
                     </tr>
                     <tbody>
                         @if (isset($enquiry['ifc_model_uploads'] ))
