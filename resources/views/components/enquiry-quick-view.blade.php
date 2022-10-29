@@ -210,7 +210,7 @@
                                         {{ $doc->file_type }}
                                     </td>
                                     <td>{{ $doc->client_file_name }}</td>
-                                    <td class="text-center">
+                                    <td class="text-end">
                                         @if ($doc->file_type != 'link') 
                                             <div class="btn-group border border-white shadow-sm ">
                                                 @if ($doc->file_type == 'pdf' || $doc->file_type == 'jpg' || $doc->file_type == 'png' || $doc->file_type == 'jpeg' || $doc->file_type == 'svg') 
