@@ -8,28 +8,50 @@
         <li class="dropdown notification-list">
             <a class="nav-link dropdown-toggle arrow-none" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                 <i class="dripicons-bell noti-icon"></i>
-                <span class="noti-icon-badge"></span>
+                @if ((count(getNotificationMessages()) != 0))
+                    <span class="position-relative"> 
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                            {{ count(getNotificationMessages()) }}
+                        </span>
+                    </span>
+                @endif 
             </a>
             <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated dropdown-lg">
-                <!-- item-->
                 <div class="dropdown-item noti-title">
-                    <h5 class="m-0">
-                        <span class="float-end">
-                            <a href="javascript: void(0);" class="text-dark">
-                                <small>Clear All</small>
-                            </a>
-                        </span>Notification
+                    <h5 class="m-0"> 
+                        Notification
                     </h5>
                 </div>
-
-                <div style="max-height: 230px;" data-simplebar>
-                    <a href="javascript:void(0);" class="dropdown-item notify-item">
-                        <div class="text-center">There is no new notification.!</div>
-                    </a>
-                </div>
-                <a href="javascript:void(0);" class="dropdown-item text-center text-primary notify-item notify-all">
-                    View All
-                </a>
+                <div class="list-group">
+                    @if ((count(getNotificationMessages()) != 0))
+                        @foreach (getNotificationMessages()->take(10) as $msg)
+                            <a href="javascript:void(0);" onclick="EnquiryQuickView('{{ $msg->module_id }}' , this)" class="list-group-item list-group-item-action p-2">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <img src="https://cdn-icons-png.flaticon.com/512/547/547133.png" width="25px" alt="">
+                                    </div>
+                                    <div class="w-100 px-2">
+                                        <div class="d-flex justify-content-between">
+                                            <div>
+                                                {{ ucfirst($msg->message) }} 
+                                            </div>
+                                            <div>
+                                                <button type="button" class="btn-quick-view " onclick="EnquiryQuickView('{{ $msg->module_id }}' , this)">
+                                                    <b>{{ getEnquiryBtId($msg->module_id)->enquiry_number }}</b> 
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div><small class="text-muted"><small class="text-dark">{{ $msg->created_at->diffForHumans() }}</small> <br> {{ getCustomerByEnquiryId($msg->module_id)->full_name }} </small></div>
+                                    </div>
+                                </div>
+                            </a>
+                        @endforeach
+                        @else
+                        <a href="javascript:void(0);" class="dropdown-item notify-item">
+                            <div class="text-center">There is no new notification.!</div>
+                        </a>
+                    @endif  
+                </div> 
             </div>
         </li>
 

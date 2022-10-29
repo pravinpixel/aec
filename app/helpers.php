@@ -2,6 +2,7 @@
 
 use App\Helper\Notify;
 use App\Models\Enquiry;
+use App\Models\Inbox;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role;
@@ -144,5 +145,18 @@ if(!function_exists('getModuleMenuMessagesCount')) {
             }
         }
         return (int) $count;
+    }
+} 
+if(!function_exists('getNotificationMessages')) {
+    function getNotificationMessages(){
+        return Inbox::where([
+            'receiver_role' => ucfirst(strtolower(AuthUser())),
+            'read_status'   => 0
+        ])->get();
+    }
+} 
+if(!function_exists('getEnquiryBtId')) {
+    function getEnquiryBtId($id){
+       return  Enquiry::find($id);
     }
 } 
