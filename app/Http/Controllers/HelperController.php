@@ -21,6 +21,9 @@ class HelperController extends Controller
     {
         $enquiry = $this->customerEnquiryRepo->getEnquiry($id);
         $latestVersion           =  App::make("App\Http\Controllers\Customer\ProposalController")->getLatestProposal($id);
+        if(is_null($latestVersion)) {
+            return null;
+        }
         $data['proposals']       =  $this->customerEnquiryRepo->getCustomerProPosal($id);
         $data['enquiry_id']      =  $latestVersion->enquiry_id;
         $data['proposal_id']     =  $latestVersion->proposal_id;

@@ -1,6 +1,3 @@
-{{-- <x-enquiry-quick-view table="0" chat="0" id="{{ $id }}" /> --}}
-@include('customer.proposal.denied-modal')
-@include('customer.proposal.comment-box')
 <div class="row m-0 pt-2">
     <div class="col-md-8 p-0">
         <div class="card border shadow-sm">
@@ -8,7 +5,7 @@
                 <h5 class="card-title m-0">LATEST PROPOSAL</h5>
             </div>
             <div class="card-body" style="max-height: 500px;overflow:auto">
-                {!! $latest_proposal->documentary_content !!}
+                {!! $latest_proposal->documentary_content !!}  
             </div>
             <div class="card-footer text-end">
                 <button class="btn btn-sm btn-success"><i class="fa fa-download me-1"></i> Download</button>
@@ -20,8 +17,25 @@
             <div class="card-header">
                 <h5 class="card-title m-0">PROPOSAL ACTIONS</h5>
             </div>
-            <div class="card-body">
-                 
+            <div class="card-body"> 
+                <form action="#" id="proposalActionForm"> 
+                    <input type="hidden" value="{{ Crypt::encryptString($latest_proposal->proposal_id) }}" id="proposal_id">
+                    <input type="hidden" value="{{ Crypt::encryptString(0) }}" id="version_id">
+                    <input type="hidden" value="{{ $latest_proposal->enquiry_id }}" id="enquiry_id">
+                    <select onchange="proposalAction(this.value)" name="proposal_status" id="proposal_status" class="fw-bold form-select my-3" required>
+                        <option value=""> ---  Select ---</option>
+                        <option value="approve" class="fw-bold">Approve</option>
+                        <option value="deny" class="fw-bold">Deny</option>
+                        <option value="change_request" class="fw-bold">Change Request</option>
+                    </select>
+                    <div class="mb-3 d-none" id="proposalActionComments">
+                        <label for="emailaddress1" class="form-label">Comments</label>
+                        <textarea required name="comments" class="form-control" id="proposal_comments"  cols="30" rows="10"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <button onclick="proposalActionSubmit()"  class="btn rounded-pill btn-primary" type="button">Submit</button>
+                    </div>
+                </form> 
             </div>
         </div>
     </div>

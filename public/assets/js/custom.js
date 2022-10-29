@@ -219,16 +219,40 @@ EnquiryQuickView = (id, element, chat) => {
 
 
 viewCustomerEnquiryProposal = (id) => {
-    $("#CustomerViewProposalModal").modal('show')
     axios.get(`${APP_URL}/proposal-quick-view/${id}`).then((response) => {
         if(response.status === 200) {
+            if(response.data == '') {
+                Message('danger','Proposal not yet received !')
+                return;
+            }
             $("#CustomerViewProposalModal").modal('show')
             document.getElementById("CustomerViewProposalModalContent").innerHTML = response.data
             setTimeout(() => {
                 refreshFsLightbox();
             }, 2000);
-        }
+        } 
     });
+}
+proposalAction = (val) => {
+    if(val == 'deny' || val == 'change_request') {
+        $('#proposalActionComments').toggleClass('d-none')
+    }
+    if(val == 'approve') {
+        $('#commentsTextarea').removeAttr('required')
+    }
+}
+proposalActionSubmit = (element) => {
+    var type    = $('#proposal_status').val()
+    axios.post(`${APP_URL}/customer-approval/${$("#enquiry_id").val()}/approval-type/${type}`, {
+       id     : $("#enquiry_id").val(),
+       pid    : $("#proposal_id").val(),
+       vid    : $("#version_id").val(),
+       comment: $('#proposal_comments').val()
+    }).then(function (response) {
+        console.log(response.data)
+        Message('success', "Proposal Status to be Changed !")
+        viewCustomerEnquiryProposal($("#enquiry_id").val())
+    });  
 }
 
 PreviousChatHistory = (element, module_id, module_name, menu_name) => {

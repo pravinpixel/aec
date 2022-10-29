@@ -167,8 +167,8 @@
                         <h4 class="m-0">Reference Doc's </h4> 
                     </div>
                     <div style="max-height: 250px;overflow:auto">
-                        <ul class="list-group mt-0" ng-repeat="doc in enquiry.ifc_model_uploads">
-                            <li class="list-group-item d-flex justify-content-between align-items-center list-group-item-action ps-2">
+                        <ul class="list-group mt-0">
+                            <li class="list-group-item d-flex justify-content-between align-items-center list-group-item-action ps-2" ng-repeat="doc in enquiry.ifc_model_uploads">
                                 <div class="d-flex align-items-center">
                                     <div class="h-100 p-0 ">
                                         {{-- <a class="btn btn-sm btn-light border rounded-pill me-1"  ng-click="showTechCommentsToggle('viewTechicalDocsConversations', 'techical_estimation', doc.id)">
@@ -186,9 +186,22 @@
                                         </div>
                                     </div>
                                 </div>
-                                <a ng-show="!autoDeskFileType.includes(doc.file_type) && doc.file_type != 'link'" ng-click="getDocumentView(doc)"  class="badge bg-success rounded-pill"><i class="text-white fa fa-eye"></i></a>
-                                <a ng-show="autoDeskFileType.includes(doc.file_type)" class="badge bg-success rounded-pill" target="_child" href="{{ url('/') }}/viewmodel/@{{ doc.id }}"><i class="text-white fa fa-eye"></i></a>
-                                <a ng-show="doc.file_type == 'link'" target="_child" href="@{{ doc.file_name }}" class="badge bg-success rounded-pill"><i class="text-white fa fa-eye"></i></a>
+
+                                {{-- @{{ doc.file_name }} --}}
+                             
+                                <div ng-if="doc.file_type == 'pdf' || doc.file_type == 'jpg' || doc.file_type == 'png' || doc.file_type == 'jpeg' || doc.file_type == 'web'">
+                                    <a ng-click="getDocumentView(doc)"  class="badge bg-success rounded-pill">
+                                        <i class="text-white fa fa-eye"></i>
+                                    </a>
+                                </div>
+
+                                <div ng-if="doc.file_type == 'xlsx'">
+                                    <a class="badge bg-success rounded-pill" target="_child" href="{{ url('/') }}/viewmodel/@{{ doc.id }}"><i class="text-white fa fa-eye"></i></a>
+                                </div>
+                                
+                                <div ng-if="doc.file_type == 'link'">
+                                    <a target="_child" href="@{{ doc.file_name }}" class="badge bg-success rounded-pill"><i class="text-white fa fa-eye"></i></a>
+                                </div>
                             </li> 
                         </ul>
                     </div>
