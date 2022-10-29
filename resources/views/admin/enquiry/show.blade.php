@@ -2186,7 +2186,7 @@
                     if(res.data.status == true){
                         Swal.fire({
                             icon: 'success',
-                            html: `<h3>Move to project successfully..!!</h3>`,
+                            html: `<h3>Moved to project successfully..!!</h3>`,
                             allowOutsideClick: false,
                             showConfirmButton: false,
                             timer: 3000
