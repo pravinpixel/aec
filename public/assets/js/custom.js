@@ -232,8 +232,13 @@ viewCustomerEnquiryProposal = (id) => {
 }
 
 PreviousChatHistory = (element, module_id, module_name, menu_name) => {
-    startLoader(element)
-    refreshData()
+     
+    Object.entries(element.childNodes).map((item) => {
+        if(item[1].localName == 'small') { 
+            item[1].classList.add('d-none')
+        }
+    })
+    startLoader(element) 
     axios.post(`${APP_URL}/get-message`, {
         module_id   : module_id,
         module_name : module_name,
@@ -250,6 +255,7 @@ PreviousChatHistory = (element, module_id, module_name, menu_name) => {
                 item[1].value = ''
             }
         })
+        refreshData()
     }); 
 }
 
