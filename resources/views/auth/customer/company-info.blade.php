@@ -1,11 +1,14 @@
 @extends('auth.layouts.customer')
 
 @section('customer-content') 
-<div class="authentication-bg pb-0 w-100">
+<div class="authentication-bg pb-0 w-100" style="z-index: 99">
     
     <div class="auth-fluid">
             <!-- Auth fluid right content -->
             <div class="auth-fluid-right text-center "  style="background:url('https://images.unsplash.com/photo-1554469384-e58fac16e23a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80');background-size: cover !important;background-position:center center">
+                <footer class="footer footer-alt text-white">
+                    © {{ now()->year }} AEC Prefab. All Rights Reserved.
+                </footer>
             </div>
             <!-- end Auth fluid right content -->
             <!--Auth fluid left content -->
@@ -20,6 +23,9 @@
                                     <img src="{{ asset("public/assets/images/logo_customer.png") }}" alt="{{ env('APP_NAME') }}" width="150px">
                                 </span>
                             </a> 
+                            <footer class="footer footer-alt">
+                                <p class="text-muted">Already have account? <a href="{{ url('') }}" class="text-primary ms-1"><b>Log In</b></a></p>
+                            </footer>
                         </div>
 
                         <!-- form --> 
@@ -89,17 +95,14 @@
                                         <span class="text-danger my-2">{{ $errors->first('website') }}</span>
                                     @endif
                                 </div> 
-                                <div class="mb-0   text-center">
+                                <div class="mb-0  mt-3 text-center">
                                     <button class="btn btn-primary px-5 rounded-pill" type="submit"><i class="mdi mdi-account-circle"></i> Sign Up </button>
                                 </div>  
                             </form>
                         </div>
                         <!-- end form-->
 
-                        <!-- Footer-->
-                        <footer class="footer footer-alt">
-                            <p class="text-muted">Already have account? <a href="{{ url('') }}" class="text-muted ms-1"><b>Log In</b></a></p>
-                        </footer>
+                        <!-- Footer--> 
 
                     </div> <!-- end .card-body -->
                 </div> <!-- end .align-items-center.d-flex.h-100-->
