@@ -35,7 +35,7 @@
 @endif
 
 @if($status != 'CHAT_ICON') 
-    <div id="viewMyInbox{{ $menuName }}" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" style="background: #1313136e">
+    <div id="viewMyInbox{{ $menuName }}" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" data-bs-backdrop="static" style="background: #1313136e">
         <div class="modal-dialog shadow-sm border-start modal-md-2 modal-right w-100">
             <div class="modal-content h-100">
                 <div class="border-bottom shadow-sm text-white bg-primary2 modal-header ">
@@ -60,7 +60,7 @@
                     </div>
                     <div class="btn-group">
                         <button type="button" class="btn btn-sm text-success" title="Refresh Chat" onclick="PreviousChatHistory(this, '{{ $moduleId }}', '{{ $moduleName }}' , '{{ $menuName }}' )"><i class="mdi-reload mdi"></i></button>
-                        <button type="button" class="btn btn-sm text-danger" title="Close Chat" data-bs-dismiss="modal" aria-label="Close"><i class="fa fa-close"></i></button>
+                        <button type="button" class="btn btn-sm text-danger" title="Close Chat" onclick="EnquiryQuickView('{{ $moduleId }}',this,1)" data-bs-dismiss="modal" aria-label="Close"><i class="fa fa-close"></i></button>
                     </div>
                 </div>
                 <div class="modal-body p-0" style="background:#EEE7DE"> 

@@ -279,7 +279,7 @@ PreviousChatHistory = (element, module_id, module_name, menu_name) => {
                 item[1].value = ''
             }
         })
-        refreshData()
+        refreshData()  
     }); 
 }
 
