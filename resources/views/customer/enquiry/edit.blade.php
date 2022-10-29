@@ -22,9 +22,14 @@
                                 <a href="#!/" style="min-height: 40px;" class="timeline-step  {{$enquiry->project_info == '1' ? "active" : ""}} " id="project-info">
                                     <div class="timeline-content">
                                         <div class="inner-circle projectInfoForm bg-success">
-                                            <i class="fa fa-project-diagram fa-2x "></i>
+                                            <i class="fa fa-project-diagram fa-2x "></i> 
+                                            <x-chat-box 
+                                                status="CHAT_ICON" 
+                                                moduleId="{{ session('enquiry_id') }}" 
+                                                moduleName="enquiry"
+                                                menuName="{{ __('app.Project_Information') }}"
+                                            />
                                         </div>
-
                                         <div class="pt-1 mt-2 position-relative" ng-class="{tab__comment__active: enquiry_active_comments.project_information > 0}">
                                             Project Information
                                             <span ng-show="enquiry_active_comments.project_information > 0" class="enquiry__comments__alert" id="project_information_count">
@@ -39,6 +44,12 @@
                                     <div class="timeline-content">
                                         <div class="inner-circle  bg-secondary">
                                             <i class="fa fa-list-alt fa-2x mb-1"></i>
+                                            <x-chat-box 
+                                                status="CHAT_ICON" 
+                                                moduleId="{{ session('enquiry_id') }}" 
+                                                moduleName="enquiry"
+                                                menuName="{{ __('app.Selected_Services') }}"
+                                            />
                                         </div>
                                         <div class="pt-1 mt-2 position-relative" ng-class="{tab__comment__active: enquiry_active_comments.service > 0}">
                                             Service Selection
@@ -54,6 +65,12 @@
                                     <div class="timeline-content">
                                         <div class="inner-circle  bg-secondary">
                                             <i class="fa fa-2x fa-file-upload mb-1"></i>
+                                            <x-chat-box 
+                                                status="CHAT_ICON" 
+                                                moduleId="{{ session('enquiry_id') }}" 
+                                                moduleName="enquiry"
+                                                menuName="{{ __('app.IFC_Models_and_Uploaded_Documents') }}"
+                                            />
                                         </div>
                                         <div class="pt-1 mt-2 position-relative"  ng-class="{tab__comment__active: enquiry_active_comments.ifc_model > 0}" >
                                             IFC Model & Uploads
@@ -69,6 +86,12 @@
                                     <div class="timeline-content">
                                         <div class="inner-circle  bg-secondary">
                                             <i class="fa fa-2x fa-shapes mb-1"></i>
+                                            <x-chat-box 
+                                                status="CHAT_ICON" 
+                                                moduleId="{{ session('enquiry_id') }}" 
+                                                moduleName="enquiry"
+                                                menuName="{{ __('app.Building_Components') }}"
+                                            />
                                         </div>
                                         <div class="pt-1 mt-2 position-relative"  ng-class="{tab__comment__active: enquiry_active_comments.building_components > 0}">
                                             Building  Components
@@ -85,6 +108,12 @@
                                     <div class="timeline-content">
                                         <div class="inner-circle  bg-secondary">
                                             <i class="fa fa-2x fa-info mb-1"></i>
+                                            <x-chat-box 
+                                                status="CHAT_ICON" 
+                                                moduleId="{{ session('enquiry_id') }}" 
+                                                moduleName="enquiry"
+                                                menuName="{{ __('app.Additional_Information') }}"
+                                            />
                                         </div>
                                         <div class="pt-1 mt-2 position-relative" ng-class="{tab__comment__active: enquiry_active_comments.add_info > 0}">
                                             Additional Info
