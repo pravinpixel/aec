@@ -169,16 +169,20 @@ app.directive('getTotalComponentsDelete',   ['$http' ,function ($http, $scope,$a
                 let bcd = scope.building_building[index].building_component_number.map((item,i) => {
                     return item.sqfeet;
                 }); 
-                let result =  bcd.reduce(function(previousValue, currentValue){
-                    if(typeof(previousValue) == 'undefined') {
-                        previousValue = 0;
-                    }
-                    if(typeof(currentValue) == 'undefined') {
-                        currentValue = 0;
-                    }
-                    return previousValue + currentValue
-                }, 0);
-                scope.building_building[index].total_component_area = result; 
+                var totalArea = 0.00
+                bcd.map((item) => {
+                    totalArea += Number(item)
+                }) 
+                // let result =  bcd.reduce(function(previousValue, currentValue){
+                //     if(typeof(previousValue) == 'undefined') {
+                //         previousValue = 0;
+                //     }
+                //     if(typeof(currentValue) == 'undefined') {
+                //         currentValue = 0;
+                //     }
+                //     return previousValue + currentValue
+                // }, 0);
+                scope.building_building[index].total_component_area = totalArea.toFixed(2); 
                 scope.$apply();
             });
         },
