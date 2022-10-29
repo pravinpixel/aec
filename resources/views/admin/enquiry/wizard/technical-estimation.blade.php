@@ -185,19 +185,17 @@
                                             </small>
                                         </div>
                                     </div>
-                                </div>
-
-                                 
+                                </div> 
                              
                                 <div ng-if="doc.file_type == 'pdf' || doc.file_type == 'jpg' || doc.file_type == 'png' || doc.file_type == 'jpeg' || doc.file_type == 'web'">
                                     <a ng-click="getDocumentView(doc)"  class="badge bg-success rounded-pill">
                                         <i class="text-white fa fa-eye"></i>
                                     </a>
+                                    <a class="badge bg-warning rounded-pill" target="_child" download href="{{ url('/') }}/public/uploads/@{{ doc.file_name }}"><i class="text-white fa fa-download"></i></a>
                                 </div>
 
-                                <div ng-if="doc.file_type == 'xlsx'">
-                                    <a class="badge bg-success rounded-pill" target="_child" href="{{ url('/') }}/viewmodel/@{{ doc.id }}"><i class="text-white fa fa-eye"></i></a>
-                                    <a class="badge bg-warning rounded-pill" target="_child" href="{{ url('/') }}/@{{ doc.file_name }}"><i class="text-white fa fa-download"></i></a>
+                                <div ng-if="doc.file_type == 'xlsx' || doc.file_type == 'xls'">
+                                    <a class="badge bg-warning rounded-pill" target="_child" download href="{{ url('/') }}/public/uploads/@{{ doc.file_name }}"><i class="text-white fa fa-download"></i></a>
                                 </div>
                                 
                                 <div ng-if="doc.file_type == 'link'">
@@ -216,11 +214,18 @@
                             <div class="d-flex align-items-center">
                                 <div>
                                     <div class="d-flex flex-column over" >
-                                        <small class="text-secondary">@{{  building_comp.created_at  | date: 'd/M/yyyy'  }}</small>
+                                        @{{ building_comp.file_name }}
+                                        <small class="text-secondary">@{{  building_comp.created_at  | date: 'd/M/yyyy'  }}</small> 
                                     </div>
                                 </div>
                             </div>
-                            <a ng-click="getDocumentViews(building_comp)"  class="badge bg-success rounded-pill" class="badge bg-success rounded-pill"><i class="text-white fa fa-eye"></i></a>
+                            <div ng-if="building_comp.file_type == 'xlsx' || building_comp.file_type == 'xls'">
+                                <a class="badge bg-warning rounded-pill" target="_child" download href="{{ url('/') }}/public/uploads/@{{ building_comp.file_path }}"><i class="text-white fa fa-download"></i></a>
+                            </div>
+                            <div ng-if="building_comp.file_type == 'pdf' || building_comp.file_type == 'jpg' || building_comp.file_type == 'png' || building_comp.file_type == 'jpeg' || building_comp.file_type == 'web'">
+                                <a ng-click="getDocumentViews(building_comp)"  class="badge bg-success rounded-pill" class="badge bg-success rounded-pill"><i class="text-white fa fa-eye"></i></a>
+                                <a class="badge bg-warning rounded-pill" target="_child" download href="{{ url('/') }}/public/uploads/@{{ building_comp.file_path }}"><i class="text-white fa fa-download"></i></a>
+                            </div>
                         </li>
                     </ul>
                 </div> 
