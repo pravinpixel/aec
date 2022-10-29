@@ -72,12 +72,12 @@
                                         <div class="row">
                                             <div class="col-5" style="padding-left:85px;">
                                                 <strong class="text-center m-0 span bg-warning fw-bold rounded px-1"
-                                                    ng-bind="checkListData.data[0].start_date | date: 'd-m-Y'">
+                                                    ng-bind="checkListData.data[0].start_date | date: 'yyyy-MM-dd'"> 
                                             </strong>
                                             </div>
                                             <div class="col-5" style="padding-left:45px;">
                                                 <strong class="text-center m-0 span bg-warning fw-bold rounded px-1"
-                                                ng-bind="checkListData.data[checkListData.data.length-1].end_date | date: 'd-m-Y' ">
+                                                ng-bind="checkListData.data[checkListData.data.length-1].end_date | date: 'yyyy-MM-dd' ">
                                                 </strong>
                                             </div>
                                             <div class="col P-0">
