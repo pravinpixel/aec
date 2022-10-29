@@ -141,8 +141,8 @@
                                         <td class="col" class="text-center"  style="padding:0 !important">
                                             <a  class="btn btn-sm text-danger w-100 btn-outline-light" get-total-components-delete="[index , secindex]"><i class="mdi mdi-delete"></i></a>
                                         </td>
-                                    </tr> 
-                                </tbody> 
+                                    </tr>
+                                </tbody>
                                 <tfoot>
                                     <tr>
                                         <td colspan="4" class="text-end">
@@ -187,7 +187,7 @@
                                     </div>
                                 </div>
 
-                                {{-- @{{ doc.file_name }} --}}
+                                 
                              
                                 <div ng-if="doc.file_type == 'pdf' || doc.file_type == 'jpg' || doc.file_type == 'png' || doc.file_type == 'jpeg' || doc.file_type == 'web'">
                                     <a ng-click="getDocumentView(doc)"  class="badge bg-success rounded-pill">
@@ -197,6 +197,7 @@
 
                                 <div ng-if="doc.file_type == 'xlsx'">
                                     <a class="badge bg-success rounded-pill" target="_child" href="{{ url('/') }}/viewmodel/@{{ doc.id }}"><i class="text-white fa fa-eye"></i></a>
+                                    <a class="badge bg-warning rounded-pill" target="_child" href="{{ url('/') }}/@{{ doc.file_name }}"><i class="text-white fa fa-download"></i></a>
                                 </div>
                                 
                                 <div ng-if="doc.file_type == 'link'">

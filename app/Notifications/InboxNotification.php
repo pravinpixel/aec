@@ -51,7 +51,7 @@ class InboxNotification extends Notification
         ->withImage('https://firebase.google.com/images/social.png')
         ->withIcon('https://seeklogo.com/images/F/firebase-logo-402F407EE0-seeklogo.com.png')
         ->withClickAction(url('/'))
-        ->asMessage($this->fcmTokens);
+        ->asMessage($this->fcmTokens->toArray());
     }
 
     /**
