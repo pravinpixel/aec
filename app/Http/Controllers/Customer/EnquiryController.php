@@ -724,10 +724,10 @@ class EnquiryController extends Controller
                     if ($dataDb->response_status == 0) {
                         $status = '<small class="px-1 bg-info text-white rounded-pill text-center">Submitted</small>';
                     }
-                    if ($dataDb->response_status == 1) {
+                    if ($dataDb->proposal_sharing_status == 1) {
                         $status = '<small class="px-1 bg-warning text-white rounded-pill text-center">Awaiting Response</small>';
                     }
-                    if ($dataDb->response_status == 2) {
+                    if ($dataDb->project_status == 'Active') {
                         $status = '<small class="px-1 bg-success text-white rounded-pill text-center">Responded</small>';
                     }
                     return $status;
@@ -739,10 +739,10 @@ class EnquiryController extends Controller
                 })
                 ->addColumn('pipeline', function ($dataDb) {
                     return '<div class="btn-group">
-                <button ng-click=getEnquiry("project_info",' . $dataDb->id . ') class="btn progress-btn ' . ($dataDb->project_info == 1 ? "active" : "") . '" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Project Information"></button> 
-                <a target="_blank" href="' . route("proposal.index", $dataDb->id) . '" class="btn progress-btn ' . ($dataDb->proposal_sharing_status == 1 ? "active" : "") . '" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Proposal Received"></a>
-                <button  class="btn progress-btn ' . ($dataDb->project_status == "Active" ? "active" : "") . '" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Proposal Approved"></button> 
-                </div>';
+                        <button ng-click=getEnquiry("project_info",' . $dataDb->id . ') class="btn progress-btn ' . ($dataDb->project_info == 1 ? "active" : "") . '" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Project Information"></button> 
+                        <a target="_blank" href="' . route("proposal.index", $dataDb->id) . '" class="btn progress-btn ' . ($dataDb->proposal_sharing_status == 1 ? "active" : "") . '" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Proposal Received"></a>
+                        <button  class="btn progress-btn ' . ($dataDb->project_status == "Active" ? "active" : "") . '" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Proposal Approved"></button> 
+                    </div>';
                 })
                 ->addColumn('action', function ($dataDb) {
                     $actions = '<div class="dropdown">
