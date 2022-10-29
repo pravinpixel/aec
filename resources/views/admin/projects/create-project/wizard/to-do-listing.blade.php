@@ -35,7 +35,7 @@
                     <button class="btn btn-light"><i class="text-danger fa fa-trash"></i></button>
                 </div>
             </div>
-        </div>   
+        </div>
         <div class="text-end px-2  ">
             <a href="" class="link btn btn-secondary btn-sm"> + Add check list </a>
         </div>

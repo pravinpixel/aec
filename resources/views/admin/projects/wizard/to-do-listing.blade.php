@@ -72,12 +72,12 @@
                                         <div class="row">
                                             <div class="col-5" style="padding-left:85px;">
                                                 <strong class="text-center m-0 span bg-warning fw-bold rounded px-1"
-                                                    ng-bind="checkListData.data[0].start_date | date: 'yyyy-MM-dd'">
+                                                    ng-bind="checkListData.data[0].start_date | date: 'd-m-Y'">
                                             </strong>
                                             </div>
                                             <div class="col-5" style="padding-left:45px;">
                                                 <strong class="text-center m-0 span bg-warning fw-bold rounded px-1"
-                                                ng-bind="checkListData.data[checkListData.data.length-1].end_date | date: 'yyyy-MM-dd' ">
+                                                ng-bind="checkListData.data[checkListData.data.length-1].end_date | date: 'd-m-Y' ">
                                                 </strong>
                                             </div>
                                             <div class="col P-0">
@@ -94,8 +94,8 @@
                                                 <div style="width:100px;" class="p-2" >
                                                     <i class="bi bi-arrows-move border " style="padding:5px"></i>
                                                     {{-- <strong class="text-center pl-2">@{{ index_3 + 1 }}</strong> --}}
-                                                    <strong class="text-center pl-2" id="indexOrder" 
-                                                    >@{{ $index +1 }}</strong>
+                                                    {{-- <strong class="text-center pl-2" id="indexOrder" 
+                                                    >@{{ $index +1 }}</strong> --}}
                                                 </div>
                                                 <div style="width:300px;">
                                                     <input type="text" class="form-control-sm form-control"
@@ -121,7 +121,7 @@
                                                 <div class="col">
                                                     <input type="date" get-to-do-lists min="@{{ taskListData.start_date | date: 'yyyy-MM-dd' }}"
                                                         ng-value="taskListData.end_date | date: 'yyyy-MM-dd'"
-                                                        ng-model="taskListData.end_date"
+                                                        ng-model="taskListData.end_date | date: 'yyyy-MM-dd'"
                                                         class="form-control form-control-sm text-center">
                                                 </div>
                                                 <div style="width: 100px;display:flex;justify-content:center">
