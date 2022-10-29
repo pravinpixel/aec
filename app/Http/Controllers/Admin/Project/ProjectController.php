@@ -330,8 +330,8 @@ class ProjectController extends Controller
 
         $grouped    =   $list->groupBy('task_list_category')->map(function ($item) use($start_date, $end_date, $project_manager) {
             $tasks  =   $item->map( function($task) use($start_date, $end_date, $project_manager) {
-                $task->{"start_date"}    = SetDateFormat($start_date);
-                $task->{"end_date"}      = SetDateFormat($end_date);
+                $task->{"start_date"}    = Carbon::parse($start_date)->format('Y-m-d');
+                $task->{"end_date"}      = Carbon::parse($end_date)->format('Y-m-d');
                 $task->assign_to = (string)$project_manager->id ?? "";
                 return $task;
             });
