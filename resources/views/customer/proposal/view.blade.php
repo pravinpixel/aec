@@ -20,8 +20,7 @@
                 </form>
             </div>
         </div>
-    </div> 
-    {{ $latest_proposal->status }}
+    </div>
     @if ($latest_proposal->status == 'sent')
         <div class="col-md-4 pe-0">
             <div class="card border shadow-sm">
