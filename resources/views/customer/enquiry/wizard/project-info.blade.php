@@ -136,7 +136,7 @@
         <ul class="list-inline wizard">
             <li class="previous list-inline-item disabled"><a href="#" class="btn btn-light border shadow-sm">Prev</a></li>
             <li class="next list-inline-item float-end"><input  class="btn btn-primary" type="submit" name="submit" value="Next"/></li>
-            <li class="next list-inline-item float-end mx-2"><input  class="btn btn-light border shadow-sm" ng-click="ProjectInfoSaveAndSubmit(projectInfoForm.$invalid)" type="submit" name="submit"  value="Save & Submit Later"/></li>
+            <li class="next list-inline-item float-end mx-2"><input  class="btn btn-light border shadow-sm" ng-click="ProjectInfoSaveAndSubmit(projectInfoForm.$invalid)" type="button" name="submit"  value="Save & Submit Later"/></li>
         </ul>
     </div>
 </form>
