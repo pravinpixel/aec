@@ -194,7 +194,7 @@
                                     <a class="badge bg-warning rounded-pill" target="_child" download href="{{ url('/') }}/public/uploads/@{{ doc.file_name }}"><i class="text-white fa fa-download"></i></a>
                                 </div>
 
-                                <div ng-if="doc.file_type == 'xlsx' || doc.file_type == 'xls'">
+                                <div ng-if="doc.file_type == 'xlsx' || doc.file_type == 'xls' || doc.file_type == 'ifc'">
                                     <a class="badge bg-warning rounded-pill" target="_child" download href="{{ url('/') }}/public/uploads/@{{ doc.file_name }}"><i class="text-white fa fa-download"></i></a>
                                 </div>
                                 
@@ -219,7 +219,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div ng-if="building_comp.file_type == 'xlsx' || building_comp.file_type == 'xls'">
+                            <div ng-if="building_comp.file_type == 'xlsx' || building_comp.file_type == 'xls'  || building_comp.file_type == 'ifc'">
                                 <a class="badge bg-warning rounded-pill" target="_child" download href="{{ url('/') }}/public/uploads/@{{ building_comp.file_path }}"><i class="text-white fa fa-download"></i></a>
                             </div>
                             <div ng-if="building_comp.file_type == 'pdf' || building_comp.file_type == 'jpg' || building_comp.file_type == 'png' || building_comp.file_type == 'jpeg' || building_comp.file_type == 'web'">
