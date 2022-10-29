@@ -1,4 +1,4 @@
-<div> 
+<div>  
     <ul id="myDIV" class="nav nav-pills nav-justified form-wizard-header mt-0 pt-0 bg-light timeline-steps">
         <li class="time-bar"></li>
         @if(userHasAccess('project_summary_index'))
@@ -62,17 +62,7 @@
         </li>
         @endif
     </ul>
-    @if(userHasAccess('project_summary_index'))
-      <div class="p-3">
-        <x-accordion title="Project Information" path="admin.enquiry.enquiry-overview.project-information" open="true" argument='null'></x-accordion>
-        <x-accordion title="Selected Services" path="admin.enquiry.enquiry-overview.selected-service" open="false" argument='null'></x-accordion>
-        <x-accordion title="IFC Models and Uploaded Documents" path="admin.enquiry.enquiry-overview.ifc-upload" open="false" argument='null'></x-accordion>
-        <x-accordion title="Building Components" path="admin.enquiry.enquiry-overview.building-components" open="false" argument='null'></x-accordion>
-        <x-accordion title="Additional Information" path="admin.enquiry.enquiry-overview.additional-information" open="false" argument='null'></x-accordion>
-      </div>
-    @endif
-    @include("admin.enquiry.models.chat-box")
-    @include('customer.enquiry.models.document-modal')
+    <section id="enquiryOverView"> </section>
     <div class="card-footer">
         <div class="d-flex justify-content-between">
             <div>

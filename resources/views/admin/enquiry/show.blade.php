@@ -153,6 +153,7 @@
   
     <script src="{{ asset("public/custom/js/ngControllers/admin/enquiryWizzard.js") }}"></script>
     <script> 
+        
         app.config(function($routeProvider) {
             $routeProvider
             .when("/", {
@@ -191,6 +192,20 @@
         });
         app.controller('WizzardCtrl', function ($scope, $http, API_URL,  $location) {
             $scope.enquiry_id = '{{ $id }}';
+            $http({
+                method: 'POST',
+                url: `${APP_URL}/enquiry-quick-view`,
+                data  :{
+                    enquiry_id   : $scope.enquiry_id,
+                    preview_table: 0,
+                    chat_box     : 1,   // true | false
+                }
+            }).then( function(response) {
+                document.getElementById("enquiryOverView").innerHTML = response.data
+                setTimeout(() => {
+                    refreshFsLightbox();
+                }, 2000);
+            });
             getAutoDeskFileTypes = () => {
                 $http({
                     method: 'GET',
