@@ -20,8 +20,9 @@
                 </form>
             </div>
         </div>
-    </div>
-    @if ($latest_proposal->status == 'send')
+    </div> 
+    {{ $latest_proposal->status }}
+    @if ($latest_proposal->status == 'sent')
         <div class="col-md-4 pe-0">
             <div class="card border shadow-sm">
                 <div class="card-header">
