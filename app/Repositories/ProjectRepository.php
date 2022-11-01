@@ -124,6 +124,7 @@ class ProjectRepository implements ProjectRepositoryInterface, ConnectionPlatfor
             foreach($projectdata->data as $key=>$prodata){
                 $finalstatuspercentage = array();
                 $overall = count($prodata->data);
+                $overall=$overall <=0 ? 1 : $overall;
                 $totaloverall[] = $overall;
               
                 foreach($prodata->data as $finaldata){
@@ -166,8 +167,8 @@ class ProjectRepository implements ProjectRepositoryInterface, ConnectionPlatfor
                
                 $completecount = count($finalstatuspercentage);
                 $totalcompletecount[] = $completecount;
-                $rearr[] = array('name' =>$finaldata->get_task_list->task_list_name,
-                                 'completed'=> round(($completecount /$overall )*100),2);
+                // $rearr[] = array('name' =>$finaldata->get_task_list->task_list_name,
+                //                  'completed'=> round(($completecount /$overall )*100),2);
             }
         }
          //dd($interval);

@@ -116,8 +116,8 @@
     <div ng-repeat="(index,check_list) in check_list_items">
         <div style="display:flex;background:#0C326C;" class="p-2">
             <div class="text-center text-light" style="font-weight:bold;width:5%">S.No</div>
-            <div class="text-center text-light" style="font-weight:bold;width:30%">Deliverable Name</div>
-            <div class="text-center text-light" style="font-weight:bold;width:10%">Assign To</div>
+            <div class="text-center text-light" style="font-weight:bold;width:25%">Deliverable Name</div>
+            <div class="text-center text-light" style="font-weight:bold;width:15%">Assign To</div>
             <div class="text-center text-light" style="font-weight:bold;width:10%">Start date</div>
             <div class="text-center text-light" style="font-weight:bold;width:10%">end date</div>
             <div class="text-center text-light" style="font-weight:bold;width:5%">Status</div>
@@ -125,7 +125,7 @@
             <div class="text-center text-light" style="font-weight:bold;width:8%">Action</div>
         </div>
         <div class="border" ng-repeat="(index_2 , checkListData) in check_list.data">
-            <div style="display: flex;border:1px solid #eee" class="p-2">
+            <div style="display: flex;border:1px solid #eee" >
                 <div class="text-center " style="width:45%;">
                     <strong>@{{ checkListData.name }}</strong>
                 </div>
@@ -133,63 +133,78 @@
                     <strong
                         class="text-center m-0 span bg-warning fw-bold rounded px-1">@{{ checkListData.data[0].start_date | date: 'dd-MM-yyyy' }}</strong>
                 </div>
-                <div  style="width:25%;margin-left:10px;" class="">
+                <div  style="width:17.5%;margin-left:10px;" class="">
                     <strong
                         class="text-center m-0 span bg-warning fw-bold rounded px-1">@{{ checkListData.data[checkListData.data.length - 1].end_date | date: 'dd-MM-yyyy' }}</strong>
                 </div>
-
-                <div class="progress bg-light border rounded-3" style="width:20%;">
+                <div class="progress bg-light border rounded-3" style="width:12.5%;">
                     <div class="progress-bar bg-info progress-bar-striped progress-bar-animated" role="progressbar"
                         style="width: @{{ countper[$index].completed == 0 ? 10 : countper[$index].completed }}%;" aria-valuenow="@{{ countper[$index].completed }}"
                         aria-valuemin="0" aria-valuemax="100"><small>@{{ countper[$index].completed }}%</small>
                     </div>
                 </div>
+                <div style="width:14%;padding:0 0 0 55px;">
+                    <i class="fa fa-plus btn-sm btn btn-success mx-2" style="margin-left:4px;"  ng-click="createTaskListData(index,index_2)"></i>
+                </div>
+                {{-- <button class="btn bktn-primary"  ng-click="createTaskListData(index,index_2)"> --}}
+                {{-- </button> --}}
             </div>
             <div psi-sortable="" ng-model="checkListData.data " class="wrapper-custom">
-                <a  class="abs-icon" ng-click="createTaskListData(index,index_2)"></a>
+                {{-- <a  class="abs-icon" ng-click="createTaskListData(index,index_2)"></a> --}}
                <div  ng-repeat="(index_3 , taskListData) in checkListData.data track by $index">
                 <div style="display:flex;" >
-                    <div style="width:5%;display:flex;justify-content:center;align-items:center" class="border border-top-0 border-bottom-0">
+                    <div style="width:5%;display:flex;justify-content:center;align-items:center" class="">
                         <i class="bi bi-arrows-move border" style="padding:5px;cursor:pointer"></i>
-                        @{{ index_3 + 1 }}
+                        <strong>@{{ index_3 + 1 }}</strong>
                     </div>
-                    <div style="width:30%;display:flex;align-items:center;justify-content:center" class="text-center border border-top-0 border-bottom-0">
-                        <p class="m-0">
-                            <input type="text" ng-value=" taskListData.task_list " ng-bind=" taskListData.task_list ">
-                        </p>
+                    <div style="width:25%;display:flex;align-items:center;justify-content:center" class="text-center ">
+                        {{-- <p class="m-0"> --}}
+                            <input type="text" class="res-input form-control" ng-value=" taskListData.task_list " ng-model=" taskListData.task_list ">
+                        {{-- </p> --}}
                     </div>
-                    <div style="width:10%;display:flex;align-items:center;justify-content:center" class="text-center border border-top-0 border-bottom-0">
+                    <div style="width:15%;display:flex;align-items:center;justify-content:center" class="text-center ">
                         <input get-to-do-lists type="hidden" ng-model="taskListData.assign_to"
                             value="@{{ taskListData.assign_to }}">
-                            <p style="" class="m-0">
-                                <input type="text" ng-repeat="projectManager in projectManagers" ng-value="projectManager.first_name" ng-bind=" taskListData.task_list ">
-                            </p>
+                            {{-- <p style="" class="m-0"> --}}
+                                {{-- <input type="text" ng-repeat="projectManager in projectManagers" ng-value="projectManager.first_name" ng-bind=" taskListData.task_list "> --}}
+                                <select name="" id="" ng-model="taskListData.assign_to" class="form-control">
+                                    <option value="">-- Project Manager --</option>
+                                    <option ng-repeat="projectManager in projectManagers"
+                                    value="@{{ projectManager.id }}"
+                                    ng-selected="projectManager.id == taskListData.assign_to">
+                                    @{{ projectManager.first_name }}
+                                </option>
+                                </select>
+                            {{-- </p> --}}
                     </div>
-                    <div style="width:10%;display:flex;justify-content:center" class="border border-top-0 border-bottom-0">
-                        <input type="hidden" get-to-do-lists ng-value="taskListData.start_date | date: 'dd-MM-yyyy'"
+                    <div style="width:10%;display:flex;justify-content:center" class="">
+                        <input type="date" get-to-do-lists
+                            value="@{{ taskListData.start_date  | date: 'yyyy-MM-dd'}}"
                             ng-model="taskListData.start_date" id=""
                             class=" border-0 form-control form-control-sm">
-                        <label get-to-do-lists ng-value="taskListData.start_date | date: 'dd-MM-yyyy'" id=""
+                        {{-- <label get-to-do-lists ng-value="taskListData.start_date | date: 'dd-MM-yyyy'" id=""
                             class=" border-0 form-control form-control-sm"
-                            ng-readonly="">@{{ taskListData.start_date | date: 'dd-MM-yyyy' }}</label>
+                            ng-readonly="">@{{ taskListData.start_date | date: 'dd-MM-yyyy' }}</label> --}}
                     </div>
-                    <div style="width:10%" class="border border-top-0 border-bottom-0">
-                        <input type="hidden" get-to-do-lists ng-value="taskListData.end_date | date: 'dd-MM-yyyy'"
+                    <div style="width:10%" class="">
+                        <input type="date" get-to-do-lists
+                            value="@{{ taskListData.end_date | date: 'yyyy-MM-dd' }}"
                             ng-model="taskListData.end_date" id=""
-                            class=" border-0 form-control form-control-sm">
-                        <label get-to-do-lists ng-value="taskListData.end_date | date: 'dd-MM-yyyy'" id=""
-                            class=" border-0 form-control form-control-sm"
-                            ng-readonly="">@{{ taskListData.end_date | date: 'dd-MM-yyyy' }}</label>
+                            class=" border-0 form-control form-control-sm text-center">
+                        {{-- <label get-to-do-lists ng-value="taskListData.end_date | date: 'dd-MM-yyyy'" id=""
+                            class=" border-0 form-control form-control-sm "
+                            ng-readonly="">@{{ taskListData.end_date | date: 'dd-MM-yyyy' }}</label> --}}
                     </div>
                     <div style="width:5%;display:flex;align-items:center;justify-content:center" class="text-center"><input type="checkbox" name="" ng-model="taskListData.status"
-                            id="" class="form-check-input border border-top-0 border-bottom-0" ng-value="taskListData.status"
+                            id="" class="form-check-input " ng-value="taskListData.status"
                             ng-change=storeTaskListsStatus(taskListData.status)></div>
-                    <div style="width:20%"><input type="date" min="@{{ taskListData.start_date | date: 'yyyy-MM-dd' }}" get-to-do-lists
+                    <div style="width:20%">
+                        <input type="date" min="@{{ taskListData.start_date | date: 'yyyy-MM-dd' }}" get-to-do-lists
                             ng-value="taskListData.delivery_date | date: 'yyyy-MM-dd'"
                             ng-model="taskListData.delivery_date" id=""
-                            class=" border-0 form-control form-control-sm border border-top-0 border-bottom-0"
+                            class=" border-0 text-right form-control text-center "
                             ng-change=storeTaskListsDeliverydate(taskListData.status)></div>
-                    <div style="width:8%" class="text-center border border-top-0 border-bottom-0"><a ng-click="deleteTaskList(index,index_2,index_3)"
+                    <div style="width:8%" class="text-center "><a ng-click="deleteTaskList(index,index_2,index_3)"
                             href="javascript: void(0);" class="action-icon"> <i
                                 class="mdi mdi-delete text-danger"></i></a></div>
                 </div>
@@ -237,10 +252,10 @@
 
 <div class="card-footer text-end">
     <a href="#!/invoice-plan" class="btn btn-light float-start">Prev</a>
-    <a href="#!/bim360" class="btn btn-primary">Next</a>
+    <a  class="btn btn-primary" ng-click="liveProjectToDoUpdate()">Next</a>
 </div>
 <style>
-.wrapper-custom{
+/* .wrapper-custom{
     position:relative;
     overflow:hidden;
 }
@@ -274,5 +289,12 @@ button.abs-icon{
     top:0px;
     right:10px;
     background: #1EE76A;
+} */
+.res-input{
+    width:100%;
+    
+    border:1px solid #DEE2E6;
+    outline: none;
+    padding:5px;
 }
 </style>

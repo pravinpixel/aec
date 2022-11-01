@@ -310,7 +310,7 @@ class ProjectController extends Controller
         $this->projectRepo->updateWizardStatus($project,'wizard_todo_list',1);
         return response()->json(['status' => true,'data' => $result], 201);
     }
-    public function deleteTaskList(Request $req){
+    public function updateTODo(Request $req){
         $project=Project::find($req->input('id'));
         $project->gantt_chart_data=$req->input('data');
         $project->save();
@@ -561,8 +561,8 @@ class ProjectController extends Controller
                                 <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <!-- <a class="dropdown-item" href="'.route('edit-projects', $dataDb->id).'">Edit</a> -->
                                 <a class="dropdown-item" href="'.route('live-projects-data', $dataDb->id).'">View/Edit</a>
+                                <a class="dropdown-item" onclick="EnquiryQuickView('.$dataDb->id.' , this)" >View Enquiry</a>
                                 <a type="button" class="dropdown-item delete-modal" data-header-title="Delete" data-title="Are you sure to delete this enquiry" data-action="'.route('enquiry.delete', $dataDb->id).'" data-method="DELETE" data-bs-toggle="modal" data-bs-target="#primary-header-modal">Delete</a>
                             </div>
                         </div>';

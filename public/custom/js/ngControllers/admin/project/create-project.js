@@ -1024,14 +1024,40 @@ formatData = (project) => {
   
     }
     $scope.createTaskListData=(index,index_2)=>{
-      console.log('clicked');
       $scope.check_list_items[index].data[index_2].data.push({
         start_date : "",
-        task_list       : "",
+        task_list  : "",
         end_date   : "",
-        first_name  : "",
-    }) 
+        assign_to  : "",
+      }) 
+      console.log($scope.check_list_items[index].data);
     Message('success',"New Task List Added !")
+    }
+    $scope.liveProjectToDoUpdate=()=>{
+      console.log(res.data);
+      $http.post(`${$("#baseurl").val()}admin/api/v2/update-to-do`, {
+        id: $('#project_id').val(),
+        data: $scope.check_list_items,
+      }).then((res) => {
+        console.log(res.data);
+          Message('success', 'Task added !');
+      //     $http.get(`${API_URL}project/liveprojectlist/${project_id}`).then((res) => {
+      //       $scope.project = formatData(res.data.project);
+      //       $scope.check_list_items = JSON.parse(res.data.project.gantt_chart_data) == null ? [] : JSON.parse(res.data.project.gantt_chart_data)
+      //       $scope.check_list_items_status = JSON.parse(res.data.project.gantt_chart_data) == null ? false : true
+      //       $scope.countper = res.data.completed == null ? [] : res.data.completed;
+      //       $scope.overall = res.data.overall ?? 0;
+      //       $scope.lead = res.data.lead;
+      //     });
+      })
+      // $http.post(`${$("#baseurl").val()}admin/api/v2/update-to-do`, {
+      //   id: $('#project_id').val(),
+      //   data: $scope.check_list_items,
+      // }).then((res) => {
+      //     Message('success', 'Task deleted !');
+      //     console.log(res.data)
+      // });
+      console.log($scope.check_list_items[0].data)
     }
     $scope.deleteTaskList = (index,index_2,index_3) => {
       swal.fire({
@@ -1045,19 +1071,19 @@ formatData = (project) => {
         if(willDelete.isConfirmed) {
             $scope.check_list_items[index].data[index_2].data.splice(index_3,1)
 
-          $http.post(`${$("#baseurl").val()}admin/api/v2/delete-task-list`, {
+          $http.post(`${$("#baseurl").val()}admin/api/v2/update-to-do`, {
             id: $('#project_id').val(),
             data: $scope.check_list_items,
           }).then((res) => {
               Message('success', 'Task deleted !');
-              $http.get(`${API_URL}project/liveprojectlist/${project_id}`).then((res) => {
-                $scope.project = formatData(res.data.project);
-                $scope.check_list_items = JSON.parse(res.data.project.gantt_chart_data) == null ? [] : JSON.parse(res.data.project.gantt_chart_data)
-                $scope.check_list_items_status = JSON.parse(res.data.project.gantt_chart_data) == null ? false : true
-                $scope.countper = res.data.completed == null ? [] : res.data.completed;
-                $scope.overall = res.data.overall ?? 0;
-                $scope.lead = res.data.lead;
-              });
+          //     $http.get(`${API_URL}project/liveprojectlist/${project_id}`).then((res) => {
+          //       $scope.project = formatData(res.data.project);
+          //       $scope.check_list_items = JSON.parse(res.data.project.gantt_chart_data) == null ? [] : JSON.parse(res.data.project.gantt_chart_data)
+          //       $scope.check_list_items_status = JSON.parse(res.data.project.gantt_chart_data) == null ? false : true
+          //       $scope.countper = res.data.completed == null ? [] : res.data.completed;
+          //       $scope.overall = res.data.overall ?? 0;
+          //       $scope.lead = res.data.lead;
+          //     });
           })
         }
         else{

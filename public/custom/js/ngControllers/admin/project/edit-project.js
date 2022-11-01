@@ -606,6 +606,7 @@ app.controller('ToDoListController', function ($scope, $http, API_URL, $location
             end_date   : "",
             assign_to  : "",
         }) 
+        console.log($scope.check_list_items);
         Message('success',"New Task List Added !")
     }
 

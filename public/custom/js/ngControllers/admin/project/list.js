@@ -49,7 +49,6 @@ app.controller('projectController', function ($scope, $http, API_URL, $compile) 
             $compile(row)($scope);  //add this to compile the DOM
         }
     });
-
     var live = $('#live-project-table').DataTable({
         aaSorting     : [[0, 'desc']],
         responsive: true,
