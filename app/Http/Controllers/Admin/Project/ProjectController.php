@@ -520,12 +520,9 @@ class ProjectController extends Controller
                                 }else{
                                  $intervalday[] = 0;
                                 }
-                                 
-                              
-             
                                 $days = (strtotime($finaldata->start_date) - strtotime($finaldata->end_date)) / (60 * 60 * 24);
-                                $start  = date_create($finaldata->start_date);
-                                $end    = date_create($finaldata->end_date); // Current time and date
+                                $start = date_create(str_replace('/','-',$finaldata->start_date));
+                                $end   = date_create(str_replace('/','-', $finaldata->end_date));   // Current time and date
                                 $diff   = date_diff( $start, $end );
                                 $seriesdata[] = array('y'=>$diff->days * 24,
                                                      'color'=>'#008ffb' );

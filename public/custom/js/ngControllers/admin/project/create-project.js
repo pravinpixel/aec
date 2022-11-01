@@ -1887,6 +1887,7 @@ formatData = (project) => {
   
   app.controller('GendralController', function($scope, $http, API_URL, $timeout, $location) {
     let project_id = $('#project_id').val();
+
     $scope.projectId = project_id;
   
     $scope.multilineToolbar = true;
