@@ -71,6 +71,7 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <script type="text/javascript" src="{{ asset("public/js/datepicker.js") }}"></script>
+<script src="{{ asset('public/custom/js/ckeditor.js') }}"></script>
 <script>
     $("#alert-log").fadeTo(3000, 1000).slideUp(1000, function(){
         $("#alert-log").slideUp(5000);

@@ -49,13 +49,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card-body"> 
-                        {{-- <p>{{ $contract->documentary_content }}</p> --}}
-                        <div class="textEditorWrapper"> 
-                            {{-- <p id="textEditor">{!!  $contract->documentary_content  !!}</p> --}}
-                            <textarea name="documentary_content" id="textEditor"
-                            value="{!! $contract->documentary_content !!}"
-                            ></textarea>
+                    <div class="card-body">  
+                        <div class="textEditorWrapper d-none"> 
+                            <textarea name="documentary_content" id="textEditor"> {{ $contract->documentary_content }}</textarea>
                         </div>
                     </div>
                     <div class="card-footer text-end">
@@ -74,7 +70,7 @@
                     <h3 id="card-title"></h3>
                     <button type="button" class="btn-close me-3" data-bs-dismiss="modal" style="top: 33px" aria-hidden="true"></button>
                 </div>
-                <div class="modal-body" id="preview" style="overflow: auto">
+                <div class="modal-body" style="user-select: none;pointer-event:none" id="preview" style="overflow: auto">
                 </div>
                 <div class="modal-footer text-end">
                     <a href="{{ route('admin.contract.download',$contract->id) }}" class="btn btn-sm btn-outline-warning rounded-pill"><i class="mdi mdi-download"></i> Download</a>
@@ -83,32 +79,18 @@
         </div>
     </div>
 @endsection
-@push('custom-scripts')
- 
-    <script src="{{ asset('public/custom/ckeditor5/build/ckeditor.js') }}"></script>    
-    {{-- <script src="https://cdn.ckeditor.com/ckeditor5/35.2.1/classic/ckeditor.js"></script> --}}
-    <script>
-        ClassicEditor
-				.create( document.querySelector( '#textEditor' ), {
-					licenseKey: '',
-				} )
-				.then( editor => {
-					window.editor = editor;
-				} )
-				.catch( error => {
-					console.error( 'Oops, something went wrong!' );
-					console.error( 'Please, report the following error on https://github.com/ckeditor/ckeditor5/issues with the build id and the error stack trace:' );
-					console.warn( 'Build id: 7smbnqucu9q7-9d1fcvdde24p' );
-					console.error( error );
-				} );
+@push('custom-scripts') 
+    <script> 
+        $( document ).ready(function() { 
+            $('.textEditorWrapper').removeClass('d-none');  
+            SetEditor('#textEditor')
+        });
+    </script>
+    <script> 
         preview = () => {
             $("#card-title").html($("#documentary_title").val())
-            var editor = document.getElementsByClassName('textEditorWrapper');
-            Object.entries(editor).map((el) => {
-                var table = el[1].childNodes[2].childNodes[1].childNodes[1].childNodes[1].contentDocument.body.childNodes[0].innerHTML
-                $("#preview").html(table) 
-                console.log(table)
-            })
+            var editor = document.getElementsByClassName('ck-restricted-editing_mode_standard');
+            $("#preview").html(editor[0].innerHTML) 
         }
     </script>
 @endpush

@@ -121,13 +121,13 @@ Route::prefix('admin')->middleware('common')->group(function () {
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
 
-    Route::get('add-documentary', [DocumentaryController::class, 'create'])->name('add-documentary');
+    Route::get('contract/create', [DocumentaryController::class, 'create'])->name('add-documentary');
     Route::post('store-documentary', [DocumentaryController::class, 'store'])->name('store-documentary');
     Route::get('documentary/enquirie', [DocumentaryController::class, 'getEnquirie'])->name('documentary.enquirie');
     Route::get('documentary/customer', [DocumentaryController::class, 'getCustomer'])->name('documentary.customer');
     Route::get('documentary/userData', [DocumentaryController::class, 'getUserData'])->name('documentary.userData');
     Route::put('documentary/status/{id?}', [DocumentaryController::class, 'status'])->name('documentary.status');
-    Route::get('documentaryEdit/{id}', [DocumentaryController::class, 'documentaryEdit'])->name('documentaryEdit');
+    Route::get('contract/edit/{id}', [DocumentaryController::class, 'documentaryEdit'])->name('documentaryEdit');
     Route::resource('documentary', DocumentaryController::class);
 
     Route::get('contract/view/{id}', [DocumentaryController::class, 'view'])->name('contract.view');

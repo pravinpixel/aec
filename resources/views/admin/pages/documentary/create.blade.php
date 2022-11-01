@@ -50,7 +50,7 @@
                         </div>
                     </div>
                     <div class="card-body"> 
-                        <div class="textEditorWrapper">
+                        <div class="textEditorWrapper d-none">
                             <textarea name="documentary_content" id="textEditor"></textarea>
                         </div>
                     </div>
@@ -79,21 +79,17 @@
 @endsection
            
 @push('custom-scripts')
-    <script src="https://cdn.ckeditor.com/4.17.1/standard/ckeditor.js"></script> 
-    <script src="https://raw.githubusercontent.com/ckeditor/ckeditor4/445cf24ebde11fac27c9d726a4117b8328e56061/plugins/preview/plugin.js"></script>
-    <script>
-        var editor  = CKEDITOR.replace( 'textEditor',{
-            height : 500,
+    <script> 
+        $( document ).ready(function() { 
+            $('.textEditorWrapper').removeClass('d-none');  
+            SetEditor('#textEditor')
         });
- 
+    </script>
+     <script> 
         preview = () => {
             $("#card-title").html($("#documentary_title").val())
-            var editor = document.getElementsByClassName('textEditorWrapper');
-            Object.entries(editor).map((el) => {
-                var table = el[1].childNodes[2].childNodes[1].childNodes[1].childNodes[1].contentDocument.body.childNodes[0].innerHTML
-                $("#preview").html(table) 
-                console.log(table)
-            })
+            var editor = document.getElementsByClassName('ck-restricted-editing_mode_standard');
+            $("#preview").html(editor[0].innerHTML) 
         }
     </script>
 @endpush
