@@ -738,14 +738,14 @@ formatData = (project) => {
         });
   
         $http.get(`${API_URL}project/liveprojectlist/${project_id}`).then((res) => {
-          //console.log(res);
+          console.log(res.data);
   
-          $scope.project = formatData(res.data.project);
-          $scope.check_list_all = JSON.parse(res.data.project.gantt_chart_data) == null ? [] : JSON.parse(res.data.project.gantt_chart_data)
+          $scope.project                 = formatData(res.data.project);
+          $scope.check_list_all          = JSON.parse(res.data.project.gantt_chart_data) == null ? [] : JSON.parse(res.data.project.gantt_chart_data)
           $scope.check_list_items_status = JSON.parse(res.data.project.gantt_chart_data) == null ? false : true
-          $scope.countper = res.data.completed == null ? [] : res.data.completed;
-          $scope.overall = res.data.overall ?? 0;
-          $scope.lead = res.data.lead;
+          $scope.countper                = res.data.completed == null ? [] : res.data.completed;
+          $scope.overall                 = res.data.overall ?? 0;
+          $scope.lead                    = res.data.lead;
           //console.log(res.data.check_list_items );
   
   

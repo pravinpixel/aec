@@ -151,9 +151,9 @@ class ProjectRepository implements ProjectRepositoryInterface, ConnectionPlatfor
                     
                  
 
-                   $days = (strtotime($finaldata->start_date) - strtotime($finaldata->end_date)) / (60 * 60 * 24);
-                   $start  = date_create($finaldata->start_date);
-                   $end    = date_create($finaldata->end_date); // Current time and date
+                   $days = (strtotime(str_replace('/','-',$finaldata->start_date)) - strtotime(str_replace('/','-',$finaldata->end_date))) / (60 * 60 * 24);
+                   $start  = date_create(str_replace('/','-',$finaldata->start_date));
+                   $end    = date_create(str_replace('/','-',$finaldata->end_date)); // Current time and date
                    $diff   = date_diff( $start, $end );
                    $seriesdata[] = array('y'=>$diff->days * 24,
                                         'color'=>'#008ffb' );
@@ -171,7 +171,6 @@ class ProjectRepository implements ProjectRepositoryInterface, ConnectionPlatfor
                 //                  'completed'=> round(($completecount /$overall )*100),2);
             }
         }
-         //dd($interval);
          
         if(count($projechtchart) > 0){
          
