@@ -2,9 +2,9 @@
     <div class="card-header {{ $open  == 'false' ? 'collapsed' : ''}}" id="custom-accordion-head-{{ slug($title) }}" data-bs-toggle="collapse" data-bs-target="#custom-accordion-collapse-{{ slug($title) }}">
         <div class="card-title">{{ $title }} </div> 
         <i class="accordion-icon"></i>
-        @if ($argument ?? '' != 'null' && $argument ?? '' != 0)  
+        @if ($argument != 'null' && $argument != 0)  
             <small class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                {{ $argument ?? '' }}
+                {{ $argument }}
             </small>
         @endif
     </div>
