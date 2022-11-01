@@ -244,11 +244,9 @@ class ProjectRepository implements ProjectRepositoryInterface, ConnectionPlatfor
 
     public function getGranttChartTaskLink($project_id)
     {
-        $tasks = new ProjectGranttTask();
-        $links = new ProjectGranttLink();
         return [
-            "data" => $tasks->where('project_id', $project_id)->get(),
-            "links" => $links->where('project_id', $project_id)->get()
+            "data" => ProjectGranttTask::where('project_id', $project_id)->get(),
+            "links" => ProjectGranttTask::where('project_id', $project_id)->get()
         ];
     }
 

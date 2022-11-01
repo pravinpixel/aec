@@ -445,6 +445,7 @@ formatData = (project) => {
       let project_id = $scope.project_id;
   
       var dp = new gantt.dataProcessor(`${API_URL}api/project/${project_id}`);
+      
       dp.init(gantt);
       dp.setTransactionMode("REST");
   

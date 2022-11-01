@@ -20,11 +20,5 @@ class ProjectGranttTask extends Model
         "project_id",
         "status",
         "delivery_date"
-    ];
-    protected $casts = [
-        'created_at' => "datetime:d/m/Y - h:i:s A",
-        'updated_at' => "datetime:d/m/Y - h:i:s A",  
-        'start_date' => "datetime:d/m/Y - h:i:s A",  
-        'end_date' => "datetime:d/m/Y - h:i:s A",  
-    ];
+    ]; 
 }

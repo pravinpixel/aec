@@ -149,14 +149,15 @@ class ProjectController extends Controller
             $subParent = $this->updateIndex();
 
             $result[] = [
-                "project_id"    =>   $request->id,
-                "id"            =>  $subParent,
-                "text"          =>  $row_one['name'],
-                "duration"      =>  72,
-                "progress"      =>  0,
-                "start_date"    =>  "2022-04-20 12:45:07",
-                "parent"        =>  0,
-                "type"          =>  "project",
+                "project_id" => $request->id,
+                "id"         => $subParent,
+                "text"       => $row_one['name'],
+                "duration"   => 72,
+                "progress"   => 0,
+                "start_date" => $row_one['project_start_date'],
+                "end_date"   => $row_one['project_end_date'],
+                "parent"     => 0,
+                "type"       => "project",
             ];
 
             foreach ($row_one['data'] as $row_two) {
@@ -164,14 +165,15 @@ class ProjectController extends Controller
                 $subParentTwo      =    $this->updateIndex();
 
                 $result[] = [
-                    "project_id"    =>  $request->id,
-                    "id"            =>  $subParentTwo,
-                    "parent"        =>  $subParent,
-                    "text"          =>  $row_two['name'],
-                    "duration"      =>  72,
-                    "progress"      =>  0,
-                    "start_date"    =>  "2022-04-20 12:45:07",
-                    "type"          =>  "project",
+                    "project_id" => $request->id,
+                    "id"         => $subParentTwo,
+                    "parent"     => $subParent,
+                    "text"       => $row_two['name'],
+                    "duration"   => 72,
+                    "progress"   => 0,
+                    "start_date" => $row_two['start_date'],
+                    "end_date"   => $row_two['end_date'],
+                    "type"       => "project",
                 ];
 
                 foreach ($row_two['data'] as  $row_three) {
@@ -183,23 +185,26 @@ class ProjectController extends Controller
                         "text"        =>   $row_three['task_list'],
                         "duration"    =>   0,
                         "progress"    =>   0,
-                        "start_date"  =>   new DateTime($row_three['start_date']),
-                        "end_date"    =>   new DateTime($row_three['end_date']),
+                        "start_date"  =>    $row_three['start_date'],
+                        "end_date"    =>    $row_three['end_date'],
                         "type"        =>   "project",
                     ];
                 }
             }
         }
 
+        
         if ($request->update === true) {
             ProjectGranttTask::where('project_id', $request->id)->delete();
-
             foreach ($result as $task) {
-                ProjectGranttTask::create($task);
-               
+                $task['start_date'] = Carbon::parse(str_replace('/','-',$task['start_date']))->format('Y-m-d');
+                $task['end_date']   = Carbon::parse(str_replace('/','-',$task['end_date']))->format('Y-m-d');
+                ProjectGranttTask::create($task); 
             }
         } else {
             foreach ($result as $task) {
+                $task['start_date'] = Carbon::parse(str_replace('/','-',$task['start_date']))->format('Y-m-d');
+                $task['end_date']   = Carbon::parse(str_replace('/','-',$task['end_date']))->format('Y-m-d');
                 ProjectGranttTask::create($task);
             }
         }
@@ -330,8 +335,8 @@ class ProjectController extends Controller
 
         $grouped    =   $list->groupBy('task_list_category')->map(function ($item) use($start_date, $end_date, $project_manager) {
             $tasks  =   $item->map( function($task) use($start_date, $end_date, $project_manager) {
-                $task->{"start_date"}    = Carbon::parse($start_date)->format('Y-m-d');
-                $task->{"end_date"}      = Carbon::parse($end_date)->format('Y-m-d');
+                $task->{"start_date"}    = SetDateFormat($start_date);
+                $task->{"end_date"}      = SetDateFormat($end_date);
                 $task->assign_to = (string)$project_manager->id ?? "";
                 return $task;
             });
@@ -344,8 +349,8 @@ class ProjectController extends Controller
 
         $result = [
             "name"               => $request->data,
-            "project_start_date" => $project->start_date,
-            "project_end_date"   => $project->delivery_date,
+            "project_start_date" => SetDateFormat($project->start_date),
+            "project_end_date"   => SetDateFormat($project->delivery_date),
             "data"               => $grouped
         ];
 
@@ -685,9 +690,8 @@ class ProjectController extends Controller
     }
 
     public function getEditProject($id, $type)
-    {
+    { 
         if ($type == 'create_project') {
-
             return $this->projectRepo->getProjectById($id);
         } else if ($type == 'team_setup') {
             return $this->projectRepo->getProjectTeamSetup($id);

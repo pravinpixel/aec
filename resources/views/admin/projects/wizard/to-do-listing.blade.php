@@ -29,10 +29,9 @@
                             class="mdi mdi-plus"></i></button>
                 </div>
             </div>
-        </div>
+        </div> 
         <div class="col-12 mt-4 pe-0" ng-show="check_list_items.length != 0">
-            <div class="custom-accordion card border shadow-sm rounded"
-                ng-repeat="(index,check_list) in check_list_items">
+            <div class="custom-accordion card border shadow-sm rounded " ng-repeat="(index,check_list) in check_list_items">
                 <div class="card-header collapsed" id="custom-accordion-head-@{{ index }}"
                     data-bs-toggle="collapse" data-bs-target="#custom-accordion-collapse-@{{ index }}">
                     <div class="card-title">
@@ -53,190 +52,72 @@
                                     <th class="text-center">End Date</th>
                                     <th class="text-center">Action</th>
                                 </tr>
-                                {{-- <tr>
-                                    <td colspan="3"></td>
-                                    <td class="text-center"><span class="bg-warning fw-bold rounded px-1" ng-bind="check_list.project_start_date | date: 'yyyy-MM-dd'"></span></td>
-                                    <td class="text-center"><span class="bg-warning fw-bold rounded px-1" ng-bind="check_list.project_end_date | date: 'yyyy-MM-dd'"></span></td>
-                                    <td></td>
-                                </tr> --}}
                             </thead>
                         </table>
-                            <div class="border" ng-repeat="(index_2 , checkListData) in check_list.data">
-                                <div ng-show="checkListData.text != 'others'" class="bg-light row m-0" >
-                                    <div class="col-6">
-                                        <div class="text-start">
-                                            <strong ng-bind="checkListData.name"></strong>
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <div class="row">
-                                            <div class="col-5" style="padding-left:85px;">
-                                                <strong class="text-center m-0 span bg-warning fw-bold rounded px-1"
-                                                    ng-bind="checkListData.data[0].start_date | date: 'yyyy-MM-dd'"> 
-                                            </strong>
-                                            </div>
-                                            <div class="col-5" style="padding-left:45px;">
-                                                <strong class="text-center m-0 span bg-warning fw-bold rounded px-1"
-                                                ng-bind="checkListData.data[checkListData.data.length-1].end_date | date: 'yyyy-MM-dd' ">
-                                                </strong>
-                                            </div>
-                                            <div class="col P-0">
-                                                <i class="fa fa-plus btn-sm btn btn-success"
-                                                    ng-click="createTaskListData(index,index_2)"></i>
-                                            </div>
-                                        </div>
-                                    </div>
+                        <div class="border" ng-repeat="(index_2 , checkListData) in check_list.data">
+                            <div ng-show="checkListData.text != 'others'" class="bg-light row m-0 align-items-center" >
+                                <div class="col-6 text-start">
+                                    <strong ng-bind="checkListData.name"></strong>
                                 </div>
-                                <div psi-sortable="" ng-model="checkListData" id="todoListing">
-                                    <div ng-repeat="(index_3 , taskListData) in checkListData.data track by $index" class="row" >
-                                            <div style="display: flex;">
-
-                                                <div style="width:100px;" class="p-2" >
-                                                    <i class="bi bi-arrows-move border " style="padding:5px"></i>
-                                                    {{-- <strong class="text-center pl-2">@{{ index_3 + 1 }}</strong> --}}
-                                                    {{-- <strong class="text-center pl-2" id="indexOrder" 
-                                                    >@{{ $index +1 }}</strong> --}}
-                                                </div>
-                                                <div style="width:300px;">
-                                                    <input type="text" class="form-control-sm form-control"
-                                                        ng-model="taskListData.task_list">
-                                                </div>
-                                                <div class="col">
-                                                    <select get-to-do-lists ng-model="taskListData.assign_to"
-                                                        class="form-select form-select-sm">
-                                                        <option value="">-- Project Manager --</option>
-                                                        <option ng-repeat="projectManager in projectManagers"
-                                                            value="@{{ projectManager.id }}"
-                                                            ng-selected="projectManager.id == taskListData.assign_to">
-                                                            @{{ projectManager.first_name }}
-                                                        </option>
-                                                    </select>
-                                                </div>
-                                                <div class="col">
-                                                    <input type="date" get-to-do-lists min="@{{ taskListData.start_date | date: 'yyyy-MM-dd' }}"
-                                                        ng-value="taskListData.start_date | date: 'yyyy-MM-dd'"
-                                                        ng-model="taskListData.start_date"
-                                                        class="form-control form-control-sm text-center">
-                                                </div>
-                                                <div class="col">
-                                                    <input type="date" get-to-do-lists min="@{{ taskListData.start_date | date: 'yyyy-MM-dd' }}"
-                                                        ng-value="taskListData.end_date | date: 'yyyy-MM-dd'"
-                                                        ng-model="taskListData.end_date | date: 'yyyy-MM-dd'"
-                                                        class="form-control form-control-sm text-center">
-                                                </div>
-                                                <div style="width: 100px;display:flex;justify-content:center">
-                                                    <i class="text-danger fa fa-trash btn-sm btn"
-                                                    ng-click="delete_this_taskListData(index,index_2,$index)"></i>
-                                                    {{-- <button class="btn"> --}}
-                                                    {{-- </button> --}}
-                                                </div>
-                                            </div>
-                                        
-                                        
+                                <div class="col">
+                                    <div class="row m-0 p-2">
+                                        <div class="col-5">
+                                            <strong class="text-center m-0 span bg-warning fw-bold rounded px-1" ng-bind="checkListData.data[0].start_date | date: 'yyyy-MM-dd'"> 
+                                            </strong>
+                                        </div>
+                                        <div class="col-5">
+                                            <strong class="text-center m-0 span bg-warning fw-bold rounded px-1" ng-bind="checkListData.data[checkListData.data.length-1].end_date | date: 'yyyy-MM-dd' ">
+                                            </strong>
+                                        </div>
+                                        <div class="col P-0">
+                                            <i class="fa fa-plus btn-sm btn btn-success" ng-click="createTaskListData(index,index_2)"></i>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            {{-- <tbody class="border" ng-repeat="(index_2 , checkListData) in check_list.data">
-                                <tr ng-show="checkListData.text != 'others'" class="bg-light">
-                                    <td colspan="3">
-                                        <div class="text-start">
-                                            <strong>@{{ checkListData.name }}</strong>
+                            <div psi-sortable="" ng-model="checkListData" id="todoListing">
+                                <div ng-repeat="(index_3 , taskListData) in checkListData.data track by $index" class="row" >
+                                    <div class="d-flex align-items-center">
+                                        <div style="width:48px;" class="p-1">
+                                            <i class="bi bi-arrows-move border btn btn-sm"></i>
+                                            {{-- <strong class="text-center pl-2">@{{ index_3 + 1 }}</strong>  --}}
                                         </div>
-                                    </td>
-                                    <td>
-                                        <p class="text-center m-0 span bg-warning fw-bold rounded px-1">
-                                            @{{ checkListData.start_date }}</p>
-                                    </td>
-                                    <td>
-                                        <p class="text-center m-0 span bg-warning fw-bold rounded px-1">
-                                            @{{ checkListData.end_date }}</p>
-                                    </td>
-                                    <td>
-                                        <i class="fa fa-plus btn-sm btn btn-success"
-                                            ng-click="createTaskListData(index,index_2)"></i>
-                                    </td>
-                                </tr>
-                                <tr ng-repeat="(index_3 , taskListData) in checkListData.data" psi-sortable
-                                ng-model="checkListData.data">
-                                        <td class="text-center">@{{ index_3 + 1 }}</td>
-                                        <td><input type="text" class="form-control-sm form-control" ng-model="taskListData.task_list"></td>
-                                        <td>
+                                        <div style="width:300px;" class="p-1">
+                                            <input type="text" class="form-control-sm form-control" ng-model="taskListData.task_list">
+                                        </div>
+                                        <div class="col p-1">
                                             <select get-to-do-lists ng-model="taskListData.assign_to" class="form-select form-select-sm">
                                                 <option value="">-- Project Manager --</option>
-                                                <option ng-repeat="projectManager in projectManagers" value="@{{ projectManager.id }}" ng-selected="projectManager.id == taskListData.assign_to">
+                                                <option ng-repeat="projectManager in projectManagers"
+                                                    value="@{{ projectManager.id }}"
+                                                    ng-selected="projectManager.id == taskListData.assign_to">
                                                     @{{ projectManager.first_name }}
                                                 </option>
                                             </select>
-                                        </td>
-                                        <td><input type="date" get-to-do-lists min="@{{ taskListData.start_date | date: 'yyyy-MM-dd' }}" ng-value="taskListData.start_date | date: 'yyyy-MM-dd'" ng-model="taskListData.start_date" class="form-control form-control-sm text-center"></td>
-                                        <td><input type="date" get-to-do-lists min="@{{ taskListData.start_date | date: 'yyyy-MM-dd' }}" ng-value="taskListData.end_date | date: 'yyyy-MM-dd'" ng-model="taskListData.end_date" class="form-control form-control-sm text-center"></td>
-                                        <td>
-                                            <i class="text-danger fa fa-trash btn-sm btn" ng-click="delete_this_taskListData(index,index_2,index_3)"></i>
-                                        </td>
-                                </tr>
-                            </tbody> --}}
+                                        </div>
+                                        <div class="col p-1">
+                                            <datepicker date-format="dd/MM/yyyy" date-min-limit="taskListData.start_date" date-set="taskListData.start_date">
+                                                <input ng-model="taskListData.start_date" type="text" readonly class="form-control form-control-sm text-center"/>
+                                            </datepicker>
+                                        </div>
+                                        <div class="col p-1">
+                                            <datepicker date-format="dd/MM/yyyy" date-min-limit="taskListData.end_date" date-set="taskListData.end_date">
+                                                <input ng-model="taskListData.end_date" type="text" readonly class="form-control form-control-sm text-center"/>
+                                            </datepicker> 
+                                        </div>
+                                        <div class="p-1" style="width: 50px;display:flex;justify-content:center">
+                                            <i class="bi bi-trash text-danger border btn btn-sm" ng-click="delete_this_taskListData(index,index_2,$index)"></i>
+                                        </div>
+                                    </div> 
+                                </div>
+                            </div>
+                        </div> 
                     </div>
                 </div>
             </div>
-            {{-- <div >
-                <fieldset class="accordion-item" ng-repeat="(index,check_list) in check_list_items">
-                    <div class="accordion-header py-0 custom m-0 position-relative" id="OpenCloseBoxHeader_@{{ index }}">
-                        <div class="accordion-button py-1 collapsed" data-bs-toggle="collapse" data-bs-target="#OpenCloseBoxBody_@{{ index }}" aria-expanded="true" aria-controls="OpenCloseBoxBody_@{{ index }}">
-                            <span class="position-relative btn py-0"> <i class="text-danger fa fa-trash btn-sm btn" ng-click="delete_this_check_list_item(index)"></i> <b >@{{ check_list.name }}</b></span> 
-                        </div>
-                        <div class="icon m-0 position-absolute rounded-pills" style="right: 10px;top:30%; z-index:111 !important">
-                            <i data-bs-toggle="collapse" 
-                                href="#OpenCloseBoxBody_@{{ index }}" 
-                                aria-expanded="false" 
-                                aria-controls="OpenCloseBoxBody_@{{ index }}" 
-                                class="accordion-button collapsed custom-accordion-button bg-primary text-white toggle-btn ">
-                            </i>
-                        </div>
-                    </div>
-                    <div id="OpenCloseBoxBody_@{{ index }}" class="accordion-collapse collapse" aria-labelledby="OpenCloseBoxHeader_@{{ index }}" >
-                        <div class="accordion-body p-0">
-                            <table class="m-0 table custom">
-                                <thead>
-                                    <tr>
-                                        <th class="text-center">S.No</th>
-                                        <th class="text-center">Deliverable Name</th>
-                                        <th class="text-center">Assign To</th>
-                                        <th class="text-center">Start Date</th>
-                                        <th class="text-center">End Date</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="border" ng-repeat="(index_2 , checkListData) in check_list.data">
-                                    <tr ng-show="checkListData.text != 'others'">
-                                        <td colspan="6" class="bg-light">
-                                            <div class="text-start">
-                                                <strong>@{{ checkListData.name }}</strong>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr ng-repeat="(index_3 , taskListData) in checkListData.data">
-                                        <td>@{{ index_3 + 1 }}</td>
-                                        <td>@{{ taskListData.task_list }}</td>
-                                        <td>
-                                            <select get-to-do-lists ng-model="taskListData.assign_to" class="form-select border-0  form-select-sm">
-                                                <option value="">-- Project Manager --</option>
-                                                <option ng-repeat="projectManager in projectManagers" value="@{{ projectManager.id }}" ng-selected="projectManager.id == taskListData.assign_to">
-                                                    @{{ projectManager.first_name }}
-                                                </option>
-                                            </select>
-                                        </td>
-                                        <td><input type="date" get-to-do-lists  ng-value="taskListData.start_date | date: 'yyyy-MM-dd'" ng-model="taskListData.start_date" class=" border-0 form-control form-control-sm"></td>
-                                        <td><input type="date" get-to-do-lists  ng-value="taskListData.end_date | date: 'yyyy-MM-dd'" ng-model="taskListData.end_date" class=" border-0 form-control form-control-sm"></td>
-                                    </tr> 
-                                </tbody>
-                            </table>
-                        </div>  
-                    </div>
-                </fieldset> 
-            </div> --}}
         </div>
     </div>
 </div>
-
 
 <div class="card-footer text-end">
     <a href="#!/invoice-plan" class="btn btn-light float-start">Prev</a>
