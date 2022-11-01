@@ -19,12 +19,12 @@ class CreateProjectGranttTasksTable extends Migration
             $table->string('text');
             $table->integer('duration')->nullable();
             $table->float('progress');
-            $table->string('start_date')->nullable();
-            $table->string('end_date')->nullable();
+            $table->date('start_date')->nullable();
+            $table->date('end_date')->nullable();
             $table->integer('parent');
             $table->string('type');
             $table->boolean('status')->default(0);
-            $table->string('delivery_date')->nullable();
+            $table->date('delivery_date')->nullable();
             $table->foreign('project_id')->references('id')->on('projects');
             $table->timestamps();
         });
