@@ -50,8 +50,12 @@
                         </div>
                     </div>
                     <div class="card-body"> 
-                        <div class="textEditorWrapper">
-                            <textarea name="documentary_content" id="textEditor">{{ $contract->documentary_content }}</textarea>
+                        {{-- <p>{{ $contract->documentary_content }}</p> --}}
+                        <div class="textEditorWrapper"> 
+                            {{-- <p id="textEditor">{!!  $contract->documentary_content  !!}</p> --}}
+                            <textarea name="documentary_content" id="textEditor"
+                            value="{!! $contract->documentary_content !!}"
+                            ></textarea>
                         </div>
                     </div>
                     <div class="card-footer text-end">
@@ -79,13 +83,24 @@
         </div>
     </div>
 @endsection
-           
 @push('custom-scripts')
-    <script src="https://cdn.ckeditor.com/4.17.1/standard/ckeditor.js"></script> 
+ 
+    <script src="{{ asset('public/custom/ckeditor5/build/ckeditor.js') }}"></script>    
+    {{-- <script src="https://cdn.ckeditor.com/ckeditor5/35.2.1/classic/ckeditor.js"></script> --}}
     <script>
-        CKEDITOR.replace( 'textEditor',{
-            height : 500
-        });
+        ClassicEditor
+				.create( document.querySelector( '#textEditor' ), {
+					licenseKey: '',
+				} )
+				.then( editor => {
+					window.editor = editor;
+				} )
+				.catch( error => {
+					console.error( 'Oops, something went wrong!' );
+					console.error( 'Please, report the following error on https://github.com/ckeditor/ckeditor5/issues with the build id and the error stack trace:' );
+					console.warn( 'Build id: 7smbnqucu9q7-9d1fcvdde24p' );
+					console.error( error );
+				} );
         preview = () => {
             $("#card-title").html($("#documentary_title").val())
             var editor = document.getElementsByClassName('textEditorWrapper');

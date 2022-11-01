@@ -113,7 +113,7 @@
 
 
 
-    <div ng-repeat="(index,check_list) in check_list_items">
+    <div ng-repeat="(index,check_list) in check_list_all">
         <div style="display:flex;background:#0C326C;" class="p-2">
             <div class="text-center text-light" style="font-weight:bold;width:5%">S.No</div>
             <div class="text-center text-light" style="font-weight:bold;width:25%">Deliverable Name</div>
