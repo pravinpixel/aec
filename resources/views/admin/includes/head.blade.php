@@ -41,7 +41,8 @@
 <link rel="stylesheet" href="{{ asset('public/custom/css/wizz.css') }}"> 
 <link rel="stylesheet" type="text/css" href="https://cdn3.devexpress.com/jslib/21.2.5/css/dx.common.css" />
 <link rel="stylesheet" type="text/css" href="https://cdn3.devexpress.com/jslib/21.2.5/css/dx.light.css" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angularjs-datepicker/2.1.23/angular-datepicker.css" integrity="sha512-+naChGyL5WF0NADnLIbo2E7W9vW9qdz+H2YGpAQWwdvaiWXdeKuWgGMkofZO6Maly902smOa+6laE6Tm3z8LXw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="{{ asset('public/custom/css/date-picker.css') }}"> 
+
 
 
 <style>

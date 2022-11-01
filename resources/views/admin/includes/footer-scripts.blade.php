@@ -21,7 +21,8 @@
 <script src='https://cdnjs.cloudflare.com/ajax/libs/textAngular/1.1.2/textAngular.min.js'></script>
 <script src="https://cdn.rawgit.com/Luegg/angularjs-scroll-glue/master/src/scrollglue.js"></script>
 <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.2.4/angular-sanitize.min.js'></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/angularjs-datepicker/2.1.23/angular-datepicker.js" integrity="sha512-RLwBgjzqq3nMj/IVfUH0VqOOJkdXqHGDIXFAqP4U+D0Wkb1KYwzAZH3KnRsDU4d9PKALXxdf9DsLb71uMfu3lQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script type="text/javascript" src="{{ asset("public/custom/js/date-picker.js") }}"></script>
+
 
 
 
