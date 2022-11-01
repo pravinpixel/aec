@@ -4,8 +4,7 @@
    
     <div class="content-page" ng-app="App">
         <div class="content" > 
-            @include('customer.includes.top-bar')
-
+            @include('customer.includes.top-bar') 
             <!-- Start Content-->
             <div class="container-fluid">
                 @include('customer.includes.page-navigater')
@@ -63,7 +62,15 @@
                                         </div>
                                         <div class="mb-3">                                             
                                             <label class="form-label  " >@lang('customer.mobile_no')  <sup class="text-danger">*</sup></label>
-                                            <input type="text" class="form-control" onkeypress="return isNumber(event)" name="mobile_no" id="mobile_no" value="{{ $customer->mobile_no }}" required>
+                                            <div class="input-group">
+                                                <div style="width: 130px" class="border border-end-0 rounded-start">
+                                                    <select name="country_code" wire:model="country_code" class="form-select border-0 bg-light">
+                                                        <option value="47">NOR (+47)</option>
+                                                        <option value="91">IND (+91)</option> 
+                                                    </select>
+                                                </div>
+                                                <input type="text" required="" pattern="^\d{8}$|^\d{12}$" onkeypress="return isNumber(event)" maxlength="12"  name="mobile_no" id="mobile_no" value="{{ $customer->mobile_no }}" required class="form-control" autocomplete="off"> 
+                                            </div>
                                             @if($errors->has('mobile_no'))
                                                 <div class="alert alert-danger">{{$errors->first('mobile_no')}}</div>
                                             @endif

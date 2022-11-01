@@ -43,7 +43,7 @@
                             <span class="password-eye"></span>
                         </div>
                     </div>
-                    <small class="text-info"><i class="fa fa-info-circle"></i> (Min 8 to 12 Characters)</small>
+                    <small class="text-danger"><i class="fa fa-info-circle"></i> (Min 8 to 12 Characters)</small>
                     @if($errors->has('password'))
                         <span class="text-danger"> {{ $errors->first('password') }}</span>
                     @endif
@@ -56,7 +56,7 @@
                             <span class="password-eye"></span>
                         </div>
                     </div>
-                    <small class="text-info"><i class="fa fa-info-circle"></i> (Min 8 to 12 Characters)</small>
+                    <small class="text-danger"><i class="fa fa-info-circle"></i> (Re-Enter the same password)</small>
                     @if($errors->has('password_confirmation'))
                         <span class="text-danger"> {{ $errors->first('password_confirmation') }}</span>
                     @endif

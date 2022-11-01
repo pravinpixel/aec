@@ -33,7 +33,7 @@
                             <div class="row m-0 pt-3">
                                 @foreach (config('documentary.merge_data') as $key => $col)
                                     <div class="col-6">
-                                        <x-accordion path="false" title="{{ $key }}" open="false">
+                                        <x-accordion path="false" title="{{ $key }}" open="false" argument="null">
                                             <table class="table table-striped border shadow-sm m-0">
                                                 @foreach ($col as $colKey => $var )
                                                     <tr>
