@@ -114,4 +114,11 @@ class Customer extends Authenticatable
         return $this->hasOne(Project::class,'customer_id','id');
     }
 
+
+
+
+    public function comments(){
+        return $this->morphMany(projectComment::class, 'commentable');
+    }
+
 }

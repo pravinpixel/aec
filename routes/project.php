@@ -21,6 +21,7 @@ Route::group(['prefix' => 'admin', 'middleware'=>'common'], function () {
     Route::post('live-project/store-ticket-case', [TicketCommentsController::class, 'storeTicketCase'])->name('store-ticket-case');
     Route::post('live-project/store-notes', [ProjectController::class, 'storeNotes'])->name('store-notes');
     Route::post('live-project/add-image', [TicketCommentsController::class,'add_image'])->name("projectticket.add-image");
+    Route::post('live-project/admin-comment', [TicketCommentsController::class,'admin_comment'])->name("admin-comment");
     Route::get('project/team/{id}/team_setup',[ProjectController::class, 'tagteamsetup'])->name('tagteamsetup');
     Route::get('get-employee-by-slug/{name}/{type}/{projectid}', [ProjectController::class,'getRoleByProjectSlug'])->name('get-employee-by-slug-ticket');
     Route::get('get-project-count',[ProjectController::class,'getProjectCount']);

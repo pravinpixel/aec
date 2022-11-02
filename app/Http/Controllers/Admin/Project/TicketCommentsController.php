@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Interfaces\TicketCommentRepositoryInterface;
 use App\Interfaces\CustomerEnquiryRepositoryInterface;
 use App\Interfaces\TicketcommentsReplayinterface;
+use App\Models\Admin\Employees;
+use App\Models\Project;
+use App\Models\projectComment;
 use App\Models\TicketComments;
 use App\Models\TicketcommentsReplay;
 use Illuminate\Support\Facades\Log;
@@ -255,6 +258,18 @@ class TicketCommentsController extends Controller
         
         return [$seenBy,$role_by,$created_by,$created_by_user];
     }
-
+    public function admin_comment(Request $req){
+        $project=Project::find($req->input('project_id'));
+        $comments=new projectComment();
+        $comments->project_id=$project->id;
+        $comments->body=$req->input('data');
+        $admin=Employees::find(admin()->id);
+        $admin->comments()->save($comments);
+        return response()->json([
+            'msg'=>'ok',
+            'data'=>$req->input('data'),
+            'role'=>$project
+        ]);
+    }
    
 }

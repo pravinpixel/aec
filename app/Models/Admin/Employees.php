@@ -2,6 +2,7 @@
 
 namespace App\Models\Admin;
 
+use App\Models\projectComment;
 use App\Models\Role;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -91,5 +92,9 @@ class Employees extends Authenticatable
         return $this->hasOne(Employees::class,'id','send_by');
     }
         
+    // for live project final step comment
+    public function comments(){
+        return $this->morphMany(projectComment::class ,'commentable');
+    }
 
 }

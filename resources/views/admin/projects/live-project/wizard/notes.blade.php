@@ -1,15 +1,26 @@
-<div class="p-2 col-md-10 mx-auto my-3">
+<div class="">
     {{-- <p class="h5 mt-2">General Notes</p> --}}
-    <div class="row">
+    <div class="row p-2">
         <div class="col">
             <p class="h5 mt-2">AECPrefab comments</p>
             <div class="textEditorWrapper d-none">
-                <textarea name="documentary_content" id="aec_admin"></textarea>
+                <form action="">
+                    <textarea ng-model="documentary_content" id="aec_admin"></textarea>
+                    <p>@{{ documentary_content }}</p>
+                    
+                </form>
+                <div class="row">
+                    <div class="col d-flex justify-content-end">
+                        <button class="btn btn-primary m-2" ng-click="getAdminCKValue()">submit</button>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="col">
-            <p class="h5 mt-2">TrePrefab(customer)comments</p>   
-          <textarea name="documentary_content" id="aec_customer"></textarea>
+            <form action="">
+                <p class="h5 mt-2">TrePrefab(customer)comments</p>   
+                 <textarea  ng-model="documentary_content"  id="aec_customer"></textarea>
+            </form>
         </div>
     </div>
     {{-- <div class="form-floating" id="additional_info_text_editor">
