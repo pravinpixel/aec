@@ -1108,6 +1108,7 @@
         app.controller('AdditionalInfo', function ($scope, $http, $rootScope, Notification, API_URL, $location){ 
             $scope.add_info='';
             $scope.commentShow = false;
+            SetEditor('#add_info_customer');
             $("#additional-info").addClass('active');
             let enquiry_id;
             $http({
@@ -1178,7 +1179,7 @@
                 $http({
                     method: 'POST',
                     url: '{{ route("customers.store-enquiry") }}',
-                    data: {type: 'additional_info', 'data':  $(".dx-htmleditor-content").html()}
+                    data: {type: 'additional_info', 'data':  $(".ck-restricted-editing_mode_standard").html()}
                 }).then(function (res) {
                     $location.path('/review');
                     Message('success',`Comments added successfully`);
