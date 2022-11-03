@@ -191,26 +191,38 @@
                     </div>
                     <div style="width:10%" class="">
                         <datepicker date-format="dd/MM/yyyy" date-min-limit="taskListData.end_date" date-set="taskListData.end_date">
-                        <input type="text" get-to-do-lists
-                            {{-- value="@{{ taskListData.end_date | date: 'yyyy-MM-dd' }}" --}}
-                            ng-model="taskListData.end_date" id=""
-                            class="  form-control form-control-sm text-end">
-                        {{-- <label get-to-do-lists ng-value="taskListData.end_date | date: 'dd-MM-yyyy'" id=""
-                            class=" border-0 form-control form-control-sm "
-                            ng-readonly="">@{{ taskListData.end_date | date: 'dd-MM-yyyy' }}</label> --}}
+                            <input type="text" 
+                                get-to-do-lists 
+                                ng-model="taskListData.end_date" 
+                                class="form-control form-control-sm text-end"
+                            />
+                        </datepicker>
                     </div>
-                    <div style="width:5%;display:flex;align-items:center;justify-content:center" class="text-center"><input type="checkbox" name="" ng-model="taskListData.status"
-                            id="" class="form-check-input " ng-value="taskListData.status"
-                            ng-change=storeTaskListsStatus(taskListData.status)></div>
+                    <div style="width:5%;display:flex;align-items:center;justify-content:center" class="text-center">
+                        <input 
+                            type="checkbox"
+                            ng-model="taskListData.status"
+                            class="form-check-input"
+                            ng-value="taskListData.status"
+                            ng-change=storeTaskListsStatus(taskListData.status)
+                        />
+                    </div>
                     <div style="width:20%">
-                        <input type="date" min="@{{ taskListData.start_date | date: 'yyyy-MM-dd' }}" get-to-do-lists
-                            ng-value="taskListData.delivery_date | date: 'yyyy-MM-dd'"
-                            ng-model="taskListData.delivery_date" id=""
-                            class=" border-0 text-right form-control text-center "
-                            ng-change=storeTaskListsDeliverydate(taskListData.status)></div>
-                    <div style="width:8%" class="text-center "><a ng-click="deleteTaskList(index,index_2,index_3)"
-                            href="javascript: void(0);" class="action-icon"> <i
-                                class="mdi mdi-delete text-danger"></i></a></div>
+                        <datepicker date-format="dd/MM/yyyy" date-min-limit="taskListData.start_date" date-set="taskListData.delivery_date">
+                            <input type="text" 
+                                placeholder="dd/MM/yyyy"
+                                get-to-do-lists
+                                ng-model="taskListData.delivery_date" 
+                                class="form-control text-center"
+                                ng-change="storeTaskListsDeliverydate(taskListData.status)"
+                            />
+                        </datepicker>
+                    </div>
+                    <div style="width:8%" class="text-center ">
+                        <a ng-click="deleteTaskList(index,index_2,index_3)" href="javascript: void(0);" class="action-icon">
+                            <i class="mdi mdi-delete text-danger"></i>
+                        </a>
+                    </div>
                 </div>
                </div>
 
