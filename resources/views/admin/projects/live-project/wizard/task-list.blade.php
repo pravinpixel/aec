@@ -179,19 +179,22 @@
                             {{-- </p> --}}
                     </div>
                     <div style="width:10%;display:flex;justify-content:center" class="">
-                        <input type="date" get-to-do-lists
-                            value="@{{ taskListData.start_date  | date: 'yyyy-MM-dd'}}"
+                        <datepicker date-format="dd/MM/yyyy" date-min-limit="taskListData.start_date" date-set="taskListData.start_date">
+                        <input type="text" get-to-do-lists
+                            {{-- ng-value="@{{ taskListData.start_date  | date: 'yyyy-MM-dd'}}" --}}
                             ng-model="taskListData.start_date" id=""
-                            class=" border-0 form-control form-control-sm">
+                            class=" form-control form-control-sm text-end">
+                        </datepicker>
                         {{-- <label get-to-do-lists ng-value="taskListData.start_date | date: 'dd-MM-yyyy'" id=""
                             class=" border-0 form-control form-control-sm"
                             ng-readonly="">@{{ taskListData.start_date | date: 'dd-MM-yyyy' }}</label> --}}
                     </div>
                     <div style="width:10%" class="">
-                        <input type="date" get-to-do-lists
-                            value="@{{ taskListData.end_date | date: 'yyyy-MM-dd' }}"
+                        <datepicker date-format="dd/MM/yyyy" date-min-limit="taskListData.end_date" date-set="taskListData.end_date">
+                        <input type="text" get-to-do-lists
+                            {{-- value="@{{ taskListData.end_date | date: 'yyyy-MM-dd' }}" --}}
                             ng-model="taskListData.end_date" id=""
-                            class=" border-0 form-control form-control-sm text-center">
+                            class="  form-control form-control-sm text-end">
                         {{-- <label get-to-do-lists ng-value="taskListData.end_date | date: 'dd-MM-yyyy'" id=""
                             class=" border-0 form-control form-control-sm "
                             ng-readonly="">@{{ taskListData.end_date | date: 'dd-MM-yyyy' }}</label> --}}

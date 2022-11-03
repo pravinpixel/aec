@@ -322,7 +322,6 @@ class ProjectController extends Controller
         return response()->json(['status' => true,'data' => $req->input('data')], 201);
     }
 
-
     public function checkListMasterGroupList(Request $request)
     {
         $project              =     Project::findOrFail($request->project_id);
@@ -337,7 +336,8 @@ class ProjectController extends Controller
             $tasks  =   $item->map( function($task) use($start_date, $end_date, $project_manager) {
                 $task->{"start_date"}    = SetDateFormat($start_date);
                 $task->{"end_date"}      = SetDateFormat($end_date);
-                $task->assign_to = (string)$project_manager->id ?? "";
+                // $task->assign_to = (string)$project_manager->id ?? "";
+                $task->assign_to =$project_manager->id ?? null;
                 return $task;
             });
             return ['name'          => $item[0]->getTaskList->task_list_name, 

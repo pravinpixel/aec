@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Http\Request;
 use App\Models\Project;
+use App\Models\projectComment;
 use App\Models\ProjectTicket;
 use App\Models\TicketcommentsReplay;
 use DateTime;
@@ -131,8 +132,8 @@ class CustomerProjectController extends Controller
                               
              
                                 $days = (strtotime($finaldata->start_date) - strtotime($finaldata->end_date)) / (60 * 60 * 24);
-                                $start  = date_create($finaldata->start_date);
-                                $end    = date_create($finaldata->end_date); // Current time and date
+                                $start  = date_create(str_replace('/','-',$finaldata->start_date));
+                                $end    = date_create(str_replace('/','-',$finaldata->end_date)); // Current time and date
                                 $diff   = date_diff( $start, $end );
                                 $seriesdata[] = array('y'=>$diff->days * 24,
                                                      'color'=>'#008ffb' );
@@ -193,8 +194,9 @@ class CustomerProjectController extends Controller
                                 ->where('status',0)
                                 ->count();
         $data =array('issues' => ($issuescount != '0') ? $issuescount : '');
+        $chat=projectComment::where('project_id',$id)->get();
        
-        return view('customer.projects.live-project.index', compact('id','data')); 
+        return view('customer.projects.live-project.index', compact('id','data','chat')); 
     }
     public function approveOrDeny(Request $request){
         $ticket_id = $request->ticket_id;

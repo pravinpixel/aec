@@ -199,6 +199,7 @@
             .when("/notes", {
                 templateUrl : "{{ route('customer-live-project.notes') }}",
                 controller: 'GendralController',
+                // controller: 'NotesController',
             }) 
             .otherwise({
                 redirectTo: "/"

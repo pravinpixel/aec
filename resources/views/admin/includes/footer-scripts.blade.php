@@ -1,9 +1,9 @@
 <!-- =============== App JS  ===========-->
 <script src="{{ asset('public/assets/js/vendor.min.js') }}"></script>
-<script src="{{ asset('public/assets/js/app.js') }}"></script> 
+<script src="{{ asset('public/assets/js/app.js') }}"></script>
 
 <!-- ==== For Angular JS  -->
-  
+
 {{-- <link data-require="jqueryui@*" data-semver="1.10.0" rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.0/css/smoothness/jquery-ui-1.10.0.custom.min.css" />
 <script data-require="jquery@*" data-semver="2.0.3" src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
 <script data-require="jqueryui@*" data-semver="1.10.0" src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.0/jquery-ui.js"></script> --}}
@@ -15,30 +15,33 @@
 {{-- Sortable Js --}}
 
 <script data-require="jquery@*" data-semver="2.0.3" src="https://code.jquery.com/jquery-2.0.3.min.js"></script>
-<script data-require="jqueryui@*" data-semver="1.10.0" src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.0/jquery-ui.js"></script>
+<script data-require="jqueryui@*" data-semver="1.10.0"
+    src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.0/jquery-ui.js"></script>
 <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.min.js'></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.4/angular-route.min.js"></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/textAngular/1.1.2/textAngular.min.js'></script>
 <script src="https://cdn.rawgit.com/Luegg/angularjs-scroll-glue/master/src/scrollglue.js"></script>
 <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.2.4/angular-sanitize.min.js'></script>
-<script type="text/javascript" src="{{ asset("public/custom/js/date-picker.js") }}"></script>
+<script type="text/javascript" src="{{ asset('public/custom/js/date-picker.js') }}"></script>
 
 
 
 
 
 <!-- ====== Ajax Call Loader Js ========== -->
-<script type='text/javascript' src='//cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.9.0/loading-bar.min.js'></script>
+<script type='text/javascript' src='//cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.9.0/loading-bar.min.js'>
+</script>
 
 <!-- ==== For Angular JS Data Table  -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-datatables/0.4.3/angular-datatables.js"  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-datatables/0.4.3/angular-datatables.js"
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <!-- =========  Angular APP ======== JS -->
-<script src="{{ asset("public/custom/js/ngControllers/ngApp.js") }}"></script>
+<script src="{{ asset('public/custom/js/ngControllers/ngApp.js') }}"></script>
 
 <!-- =========  Alerts JS ======== JS -->
 
-<script src="{{ asset("public/custom/js/ngControllers/alerts.js") }}"></script>
+<script src="{{ asset('public/custom/js/ngControllers/alerts.js') }}"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
@@ -60,26 +63,29 @@
 <script src="{{ asset('public/assets/js/vendor/apexcharts.min.js') }}"></script>
 <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
 <script src="https://momentjs.com/downloads/moment-with-locales.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js" integrity="sha512-odNmoc1XJy5x1TMVMdC7EMs3IVdItLPlCeL5vSUPN2llYKMJ2eByTTAIiiuqLg+GdNr9hF6z81p27DArRFKT7A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js"
+    integrity="sha512-odNmoc1XJy5x1TMVMdC7EMs3IVdItLPlCeL5vSUPN2llYKMJ2eByTTAIiiuqLg+GdNr9hF6z81p27DArRFKT7A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <!-- ========= For Vendors Js ===========-->
 <!-- ========= For Validation Js ===========-->
 
 <!-- ========= Text Editor ========== -->
 <script src="https://unpkg.com/devextreme-quill@1.5.14/dist/dx-quill.min.js"></script>
 <script src="https://cdn3.devexpress.com/jslib/21.2.7/js/dx.all.js"></script>
- 
+
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-<script type="text/javascript" src="{{ asset("public/js/datepicker.js") }}"></script>
+<script type="text/javascript" src="{{ asset('public/js/datepicker.js') }}"></script>
 <script src="https://cdn.ckeditor.com/ckeditor5/35.2.1/super-build/ckeditor.js"></script>
 <script>
     const EDITOR_CONFIG = {
         toolbar: {
             items: [
-                'heading','bold', 'italic', 'strikethrough', 'underline', 'code', 'subscript', 'superscript', 'removeFormat', '|', 'findAndReplace',
-                'bulletedList', 'numberedList','alignment', '|',
+                'heading', 'bold', 'italic', 'strikethrough', 'underline', 'code', 'subscript', 'superscript',
+                'removeFormat', '|', 'findAndReplace',
+                'bulletedList', 'numberedList', 'alignment', '|',
                 'outdent', 'indent', '|',
-                'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor', 'highlight', '|', 
+                'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor', 'highlight', '|',
                 'link', 'insertImage', 'blockQuote', 'insertTable', 'mediaEmbed', '|',
                 'specialCharacters', 'horizontalLine',
                 'undo', 'redo',
@@ -94,14 +100,47 @@
             }
         },
         heading: {
-            options: [
-                { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
-                { model: 'heading1', view: 'h1', title: 'Heading 1', class: 'ck-heading_heading1' },
-                { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' },
-                { model: 'heading3', view: 'h3', title: 'Heading 3', class: 'ck-heading_heading3' },
-                { model: 'heading4', view: 'h4', title: 'Heading 4', class: 'ck-heading_heading4' },
-                { model: 'heading5', view: 'h5', title: 'Heading 5', class: 'ck-heading_heading5' },
-                { model: 'heading6', view: 'h6', title: 'Heading 6', class: 'ck-heading_heading6' }
+            options: [{
+                    model: 'paragraph',
+                    title: 'Paragraph',
+                    class: 'ck-heading_paragraph'
+                },
+                {
+                    model: 'heading1',
+                    view: 'h1',
+                    title: 'Heading 1',
+                    class: 'ck-heading_heading1'
+                },
+                {
+                    model: 'heading2',
+                    view: 'h2',
+                    title: 'Heading 2',
+                    class: 'ck-heading_heading2'
+                },
+                {
+                    model: 'heading3',
+                    view: 'h3',
+                    title: 'Heading 3',
+                    class: 'ck-heading_heading3'
+                },
+                {
+                    model: 'heading4',
+                    view: 'h4',
+                    title: 'Heading 4',
+                    class: 'ck-heading_heading4'
+                },
+                {
+                    model: 'heading5',
+                    view: 'h5',
+                    title: 'Heading 5',
+                    class: 'ck-heading_heading5'
+                },
+                {
+                    model: 'heading6',
+                    view: 'h6',
+                    title: 'Heading 6',
+                    class: 'ck-heading_heading6'
+                }
             ]
         },
         // placeholder: 'Welcome !',
@@ -120,18 +159,16 @@
             supportAllValues: true
         },
         fontSize: {
-            options: [ 10, 12, 14, 'default', 18, 20, 22 ],
+            options: [10, 12, 14, 'default', 18, 20, 22],
             supportAllValues: true
         },
         htmlSupport: {
-            allow: [
-                {
-                    name: /.*/,
-                    attributes: true,
-                    classes: true,
-                    styles: true
-                }
-            ]
+            allow: [{
+                name: /.*/,
+                attributes: true,
+                classes: true,
+                styles: true
+            }]
         },
         htmlEmbed: {
             showPreviews: true
@@ -150,18 +187,19 @@
             }
         },
         mention: {
-            feeds: [
-                {
-                    marker: '@',
-                    feed: [
-                        '@apple', '@bears', '@brownie', '@cake', '@cake', '@candy', '@canes', '@chocolate', '@cookie', '@cotton', '@cream',
-                        '@cupcake', '@danish', '@donut', '@dragée', '@fruitcake', '@gingerbread', '@gummi', '@ice', '@jelly-o',
-                        '@liquorice', '@macaroon', '@marzipan', '@oat', '@pie', '@plum', '@pudding', '@sesame', '@snaps', '@soufflé',
-                        '@sugar', '@sweet', '@topping', '@wafer'
-                    ],
-                    minimumCharacters: 1
-                }
-            ]
+            feeds: [{
+                marker: '@',
+                feed: [
+                    '@apple', '@bears', '@brownie', '@cake', '@cake', '@candy', '@canes', '@chocolate',
+                    '@cookie', '@cotton', '@cream',
+                    '@cupcake', '@danish', '@donut', '@dragée', '@fruitcake', '@gingerbread', '@gummi',
+                    '@ice', '@jelly-o',
+                    '@liquorice', '@macaroon', '@marzipan', '@oat', '@pie', '@plum', '@pudding',
+                    '@sesame', '@snaps', '@soufflé',
+                    '@sugar', '@sweet', '@topping', '@wafer'
+                ],
+                minimumCharacters: 1
+            }]
         },
         removePlugins: [
             'CKBox',
@@ -181,13 +219,15 @@
         ]
     }
     SetEditor = (element) => {
-        CKEDITOR.ClassicEditor.create(document.querySelector(element),EDITOR_CONFIG);
+        setTimeout(() => {
+            CKEDITOR.ClassicEditor.create(document.querySelector(element), EDITOR_CONFIG);
+        }, 100);
     }
 </script>
 <script>
-    $("#alert-log").fadeTo(3000, 1000).slideUp(1000, function(){
+    $("#alert-log").fadeTo(3000, 1000).slideUp(1000, function() {
         $("#alert-log").slideUp(5000);
-    }); 
+    });
 </script>
 
 {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css">

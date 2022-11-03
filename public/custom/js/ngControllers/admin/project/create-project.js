@@ -1886,10 +1886,12 @@ formatData = (project) => {
   
   
   app.controller('GendralController', function($scope, $http, API_URL, $timeout, $location) {
-    let project_id = $('#project_id').val();
 
+
+
+    $scope.customer_comments='';
+    let project_id = $('#project_id').val();
     $scope.projectId = project_id;
-  
     $scope.multilineToolbar = true;
   
     $scope.htmlEditorOptions = {
@@ -1925,40 +1927,72 @@ formatData = (project) => {
         enabled: true,
       },
     };
-  
-  
-    $scope.submitgeneralinfo = () => {
+    
+    // get client comments
+    $http({
+      method: 'POST',
+      url: `${API_URL}admin/live-project/get-admin-comment`,
+      data: {
+        'project_id': project_id
+      }
+    }).then(function(res) { 
+   var obj='';
+      $.each(res.data.data,(index,value)=>{
+        if(value.commentable_type=='App\\Models\\Customer'){
+          // $('.mypara').html($('.mypara').html()+value.body);
+          $scope.customer_comments+=value.body;
+          // obj=value.body;
+        }
+      });
+      console.log($scope.customer_comments)
+      // $scope.admin_comments    = "<h1>admin_comments</h1>"
+      
+      setTimeout(() => {
+        SetEditor('#customer_comments');
+        SetEditor('#admin_comments');
+      }, 1000);
+      document.getElementsByClassName('ck-restricted-editing_mode_standard')[0].setAttribute('contenteditable',false);
+    }, function(error) {
+      
+      Message('danger', `General info ${error}`);
+      
+    }); 
 
-      Swal.fire({
-        title: `Do you want to complete the project?`,
-        showDenyButton: false,
-        showCancelButton: true,
-        cancelButtonText: 'No',
-        confirmButtonText: 'Yes',
-      }).then((result) => {
-        if (result.isConfirmed) {
+    // client comment ends
+
+  
+    // $scope.submitgeneralinfo = () => {
+
+    //   Swal.fire({
+    //     title: `Do you want to complete the project?`,
+    //     showDenyButton: false,
+    //     showCancelButton: true,
+    //     cancelButtonText: 'No',
+    //     confirmButtonText: 'Yes',
+    //   }).then((result) => {
+    //     if (result.isConfirmed) {
          
-      $http({
-        method: 'POST',
-        url: `${API_URL}admin/live-project/store-notes`,
-        data: {
-          project_id: project_id,
-          'data': $(".dx-htmleditor-content").html()
-        }
-      }).then(function(res) {
-        $location.path('/review');
-        Message('success', `Notes added successfully`);
-      }, function(error) {
+    //   $http({
+    //     method: 'POST',
+    //     url: `${API_URL}admin/live-project/store-notes`,
+    //     data: {
+    //       project_id: project_id,
+    //       'data': $(".dx-htmleditor-content").html()
+    //     }
+    //   }).then(function(res) {
+    //     $location.path('/review');
+    //     Message('success', `Notes added successfully`);
+    //   }, function(error) {
   
-        Message('danger', `General info ${error}`);
+    //     Message('danger', `General info ${error}`);
   
-      });
-        }
-      });
+    //   });
+    //     }
+    //   });
 
 
 
-    }
+    // }
 
     $scope.storegeneralinfo = () => {
 
@@ -1992,7 +2026,27 @@ formatData = (project) => {
 
 
     }
+
+    // function for posting innerHTML value of ck for comments module
+
+    $scope.getAdminCKValue=()=>{
+      $scope.ckval=document.getElementsByClassName('ck-restricted-editing_mode_standard')[1].innerHTML;
+      $http({
+        method: 'POST',
+        url: `${API_URL}admin/live-project/admin-comment`,
+        data: {
+          project_id: project_id,
+          'data': $scope.ckval
+        }
+      }).then(function(res) {
+        Message('success', `Notes added successfully`);
+      }, function(error) {
   
+        Message('danger', `General info ${error}`);
+  
+      });
+      
+    }
   
   });
   app.controller('ReviewAndSubmit', function($scope, $http, API_URL, $timeout) {

@@ -752,6 +752,7 @@ app.controller('milestoneController', function($scope, $http, API_URL, $rootScop
 //Live project task list
 app.controller('TasklistController', function($scope, $http, API_URL, $location)
 {
+  console.log('first');
   wizardactiveTabs('issues');
   //$('#rasieTicketDetails').modal('hide');
   $("#rasieTicketDetails").modal('hide');
@@ -1558,12 +1559,66 @@ app.controller('TicketController', function($scope, $http, API_URL, $rootScope, 
     console.log($scope);
   }
 });
+// app.controller('NotesController', function($scope, $http, API_URL, $location)  {
+//   wizardactiveTabs('notes');
+//   $scope.ckText = "<h1>hello </h1>";
+//   setTimeout(() => {
+//     SetEditor('#aec_admin')
+//   }, 100);
+// });
 app.controller('GendralController', function($scope, $http, API_URL, $timeout, $location)
 {
+
+  $scope.ckText='';
   wizardactiveTabs('notes');
   let project_id = $('#project_id').val();
   $scope.projectID = project_id;
   $scope.multilineToolbar = true;
+
+    // console.log(wrapper[0].innerHTML)
+    $scope.clientComment=()=>{
+      var wrapper=document.getElementsByClassName('ck-restricted-editing_mode_standard')[1];
+      $http({
+        method: 'POST',
+        url: `${API_URL}admin/live-project/post-client-comment`,
+        data: {
+          'project_id': project_id,
+          'data':wrapper.innerHTML
+        }
+      }).then(function(res) {
+        console.log(res.data);
+        Message('success', `Notes added successfully`);
+    })
+    }
+    $http({
+      method: 'POST',
+      url: `${API_URL}admin/live-project/get-admin-comment`,
+      data: {
+        'project_id': project_id
+      }
+    }).then(function(res) {
+      console.log(res.data.data);
+
+      var wrap=document.getElementsByClassName('ck-restricted-editing_mode_standard')[0];
+      $.each(res.data.data,(index,value)=>{
+        if(value.commentable_type=='App\\Models\\Admin\\Employees'){
+          $scope.ckText+=value.body;
+        }
+      });
+      console.log($scope.ckText);
+      setTimeout(() => {
+        SetEditor('#aec_admin_client_page')
+        SetEditor('#aec_client_client_page')
+        // editor.enableReadOnlyMode( '#aec_client_client_page' );
+        // CKEDITOR.replace('#aec_client_client_page', {readOnly:true});
+      }, 100);
+      wrap.setAttribute('contenteditable','false');
+      console.log(wrap.contenteditable);
+    }, function(error) {
+
+      Message('danger', `General info ${error}`);
+
+    }); 
   $http.get(`${API_URL}admin/api/v2/liveprojectnote/${project_id}`).then((res) =>
   {
     // $scope.notes = res.data == null ? [] :res.data;

@@ -1105,40 +1105,9 @@
                     url: `${API_URL}customers/get-customer-enquiry/${enquiry_id}/additional_info`,
                 }).then(function (res) {
                     enableActiveTabs(res.data.active_tabs);
-                    $scope.additionalInfo = res.data.additional_infos == null ? '': res.data.additional_infos.comments;
-                    $scope.htmlEditorOptions = {
-                        bindingOptions: {
-                            'toolbar.multiline': 'multilineToolbar',
-                        },
-                        height: 300,
-                        value:  $scope.additionalInfo,
-                        toolbar: {
-                            items: [
-                                'undo', 'redo', 'separator',
-                                {
-                                name: 'size',
-                                acceptedValues: ['8pt', '10pt', '12pt', '14pt', '18pt', '24pt', '36pt'],
-                                },
-                                {
-                                name: 'font',
-                                acceptedValues: ['Arial', 'Courier New', 'Georgia', 'Impact', 'Lucida Console', 'Tahoma', 'Times New Roman', 'Verdana'],
-                                },
-                                'separator', 'bold', 'italic', 'strike', 'underline', 'separator',
-                                'alignLeft', 'alignCenter', 'alignRight', 'alignJustify', 'separator',
-                                'orderedList', 'bulletList', 'separator',
-                                {
-                                name: 'header',
-                                acceptedValues: [false, 1, 2, 3, 4, 5],
-                                }, 'separator',
-                                'color', 'background', 'separator',
-                                'link', 'image', 'separator',
-                                'clear',  'separator'
-                            ],
-                        },
-                        mediaResizing: {
-                        enabled: true,
-                        },
-                    };
+                    // $scope.additionalInfo = res.data.additional_infos == null ? '': res.data.additional_infos.comments;
+                    $scope.additionalInfo = "<h1>Hello !</h1>" 
+                    SetEditor('#add_info_customer')
                 }, function (error) {
                     console.log('This is embarassing. An error has occurred. Please check the log for details');
                 });

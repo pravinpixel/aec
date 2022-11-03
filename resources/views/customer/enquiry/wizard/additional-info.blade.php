@@ -3,9 +3,8 @@
         <div>
             <h3 class="text-center">Specify additional details</h3>
             <div class="py-3">
-                <div class="form-floating" id="additional_info_text_editor">
-                    <div dx-html-editor="htmlEditorOptions"> </div>
-                    </div>
+                <div class="form-floating" id="additional_info_text_editor"> 
+                    <textarea ng-model="additionalInfo" class="d-none" id="add_info_customer"></textarea>
                 </div>
                 </div> 
             </div>

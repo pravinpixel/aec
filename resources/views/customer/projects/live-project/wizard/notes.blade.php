@@ -1,34 +1,30 @@
-<div class="p-2 col-md-10 mx-auto my-3" >
-    <div class="form-floating" id="additional_info_text_editor">
-        <div dx-html-editor="htmlEditorOptions"> </div>
+<style>
+    .ck-restricted-editing_mode_standard{
+        height:300px;
+    }
+</style>
+<div class="row p-2" >
+    <div class="col">
+        <form action="">
+            <p class="h5 mt-2">AECPrefab comments</p>
+            <textarea ng-model="ckText"  id="aec_admin_client_page"></textarea>
+        </form>
     </div>
-</div> 
-
-<div class="row" >
-    <div class="col-8">
-        <project-open-comment  data="
-        {'modalState':'viewConversations',
-        'type': 'notes', 
-        'header':'notes',
-        'project_id':projectID ,
-        send_by: {{ Customer()->id }},
-        'from':'Customer'
-        }"/> 
-    </div>                                
-    <div class="col-4">
-        <project-comment data="
-        {'modalState':'viewConversations',
-        'type': 'notes', 
-        'header':'notes',
-        'project_id':projectID,
-        send_by: {{ Customer()->id }},
-        'from':'Customer'
-        }"/>
-    </div>                                
-</div>
+    <div class="col">
+        <form action="">
+            <p class="h5 mt-2">TrePrefab(customer)comments</p>   
+            <textarea id="aec_client_client_page" ng-model="send_to_admin"></textarea>
+        </form>
+        <div class="row">
+            <div class="col d-flex justify-content-end">
+                <button class="m-2 btn btn-primary" ng-click="clientComment()">submit</button>
+            </div>
+        </div>
+    </div>
+</div>  
 
 <div class="card-footer text-end">
     <a href="#!@{{ PrevRoute }}" ng-show="indexRoute" class="btn btn-light float-start">Prev</a>
     <a href="#!@{{ NextRoute }}" ng-show="HideNextRoute" class="btn btn-primary">Next</a>
     <a ng-click= "submitgeneralinfo()" ng-show="SubmitRoute" class="btn btn-primary">Close</a>
-</div>
+</div> 

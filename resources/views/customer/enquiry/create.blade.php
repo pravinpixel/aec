@@ -1105,7 +1105,8 @@
             });
 
 
-        app.controller('AdditionalInfo', function ($scope, $http, $rootScope, Notification, API_URL, $location){
+        app.controller('AdditionalInfo', function ($scope, $http, $rootScope, Notification, API_URL, $location){ 
+            $scope.add_info='';
             $scope.commentShow = false;
             $("#additional-info").addClass('active');
             let enquiry_id;
@@ -1120,7 +1121,7 @@
                         getLastEnquiry(enquiry_id);
                     } else {
                         $scope.enquiry_no = res.data.enquiry.enquiry_number;
-                    }
+                    } 
                 }, function (err) {
                     console.log('get enquiry error');
             });

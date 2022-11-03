@@ -7,6 +7,7 @@ use App\Interfaces\TicketCommentRepositoryInterface;
 use App\Interfaces\CustomerEnquiryRepositoryInterface;
 use App\Interfaces\TicketcommentsReplayinterface;
 use App\Models\Admin\Employees;
+use App\Models\Customer;
 use App\Models\Project;
 use App\Models\projectComment;
 use App\Models\TicketComments;
@@ -269,6 +270,26 @@ class TicketCommentsController extends Controller
             'msg'=>'ok',
             'data'=>$req->input('data'),
             'role'=>$project
+        ]);
+    }
+    public function get_admin_comment(Request $req){
+        $chat=projectComment::where('project_id',(int)$req->input('project_id'))->get();
+        return response()->json([
+            'res'=>'ok',
+            'data'=>$chat
+        ]);
+    }
+    public function post_client_comment(Request $req){
+        $project=Project::find($req->input('project_id'));
+        $comments=new projectComment();
+        $comments->project_id=$project->id;
+        $comments->body=$req->input('data');
+        $customer=Customer::find(customer()->id);
+        $customer->comments()->save($comments);
+        return response()->json([
+            'msg'=>'ok',
+            'data'=>$req->input('data'),
+            'role'=>$customer
         ]);
     }
    
