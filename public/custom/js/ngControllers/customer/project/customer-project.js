@@ -1594,26 +1594,20 @@ app.controller('GendralController', function($scope, $http, API_URL, $timeout, $
       method: 'POST',
       url: `${API_URL}admin/live-project/get-admin-comment`,
       data: {
-        'project_id': project_id
+        'project_id': project_id,
+        'role':'customer'
       }
     }).then(function(res) {
       console.log(res.data.data);
 
       var wrap=document.getElementsByClassName('ck-restricted-editing_mode_standard')[0];
       $.each(res.data.data,(index,value)=>{
-        if(value.commentable_type=='App\\Models\\Admin\\Employees'){
           $scope.ckText+=value.body;
-        }
+          $scope.projectName=value.project.project_name;
       });
       console.log($scope.ckText);
-      setTimeout(() => {
         SetEditor('#aec_admin_client_page')
         SetEditor('#aec_client_client_page')
-        // editor.enableReadOnlyMode( '#aec_client_client_page' );
-        // CKEDITOR.replace('#aec_client_client_page', {readOnly:true});
-      }, 100);
-      wrap.setAttribute('contenteditable','false');
-      console.log(wrap.contenteditable);
     }, function(error) {
 
       Message('danger', `General info ${error}`);

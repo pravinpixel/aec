@@ -7,13 +7,13 @@
     <div class="col">
         <form action="">
             <p class="h5 mt-2">AECPrefab comments</p>
-            <textarea ng-model="ckText"  id="aec_admin_client_page"></textarea>
+            <textarea ng-model="ckText"  id="aec_admin_client_page" class="d-none"></textarea>
         </form>
     </div>
     <div class="col">
         <form action="">
-            <p class="h5 mt-2">TrePrefab(customer)comments</p>   
-            <textarea id="aec_client_client_page" ng-model="send_to_admin"></textarea>
+            <p class="h5 mt-2">@{{ projectName }} comments</p>   
+            <textarea id="aec_client_client_page" ng-model="send_to_admin" class="d-none"></textarea>
         </form>
         <div class="row">
             <div class="col d-flex justify-content-end">

@@ -88,7 +88,7 @@
                 'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor', 'highlight', '|',
                 'link', 'insertImage', 'blockQuote', 'insertTable', 'mediaEmbed', '|',
                 'specialCharacters', 'horizontalLine',
-                'undo', 'redo',
+                'undo', 'redo','sourceEditing'
             ],
             shouldNotGroupWhenFull: true
         },
@@ -219,9 +219,24 @@
         ]
     }
     SetEditor = (element) => {
-        setTimeout(() => {
-            CKEDITOR.ClassicEditor.create(document.querySelector(element), EDITOR_CONFIG);
-        }, 100);
+        var Editor =  document.querySelector(element);
+        if(element=='#customer_comments'  ){
+                setTimeout(() => {
+                Editor.classList.remove('d-none');
+                CKEDITOR.ClassicEditor.create(Editor, EDITOR_CONFIG)
+                .then(editor=>{
+                    console.log(editor.isReadOnly);
+                    editor.enableReadOnlyMode( element );
+                    console.log(editor.isReadOnly);
+                });
+            }, 300);
+        }
+        else{
+            setTimeout(() => {
+                Editor.classList.remove('d-none');
+                CKEDITOR.ClassicEditor.create(Editor, EDITOR_CONFIG);
+            }, 300);
+        }
     }
 </script>
 <script>

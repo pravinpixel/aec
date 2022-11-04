@@ -62,7 +62,7 @@
                 'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor', 'highlight', '|', 
                 'link', 'insertImage', 'blockQuote', 'insertTable', 'mediaEmbed', '|',
                 'specialCharacters', 'horizontalLine',
-                'undo', 'redo',
+                'undo', 'redo','sourceEditing'
             ],
             shouldNotGroupWhenFull: true
         },
@@ -162,10 +162,23 @@
     }
     SetEditor = (element) => {
         var Editor =  document.querySelector(element);
-        setTimeout(() => {
-            Editor.classList.remove('d-none');
-            CKEDITOR.ClassicEditor.create(Editor, EDITOR_CONFIG);
-        }, 100);
+        if(element=='#aec_admin_client_page'  ){
+                setTimeout(() => {
+                Editor.classList.remove('d-none');
+                CKEDITOR.ClassicEditor.create(Editor, EDITOR_CONFIG)
+                .then(editor=>{
+                    console.log(editor.isReadOnly);
+                    editor.enableReadOnlyMode( element );
+                    console.log(editor.isReadOnly);
+                });
+            }, 300);
+        }
+        else{
+            setTimeout(() => {
+                Editor.classList.remove('d-none');
+                CKEDITOR.ClassicEditor.create(Editor, EDITOR_CONFIG);
+            }, 300);
+        }
     }
 </script>
 

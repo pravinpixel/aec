@@ -1893,69 +1893,25 @@ formatData = (project) => {
     let project_id = $('#project_id').val();
     $scope.projectId = project_id;
     $scope.multilineToolbar = true;
-  
-    $scope.htmlEditorOptions = {
-      bindingOptions: {
-        'toolbar.multiline': 'multilineToolbar',
-      },
-      height: 725,
-      value: '',
-      toolbar: {
-        items: [
-          'undo', 'redo', 'separator',
-          {
-            name: 'size',
-            acceptedValues: ['8pt', '10pt', '12pt', '14pt', '18pt', '24pt', '36pt'],
-          },
-          {
-            name: 'font',
-            acceptedValues: ['Arial', 'Courier New', 'Georgia', 'Impact', 'Lucida Console', 'Tahoma', 'Times New Roman', 'Verdana'],
-          },
-          'separator', 'bold', 'italic', 'strike', 'underline', 'separator',
-          'alignLeft', 'alignCenter', 'alignRight', 'alignJustify', 'separator',
-          'orderedList', 'bulletList', 'separator',
-          {
-            name: 'header',
-            acceptedValues: [false, 1, 2, 3, 4, 5],
-          }, 'separator',
-          'color', 'background', 'separator',
-          'link', 'image', 'separator',
-          'clear', 'codeBlock', 'blockquote',
-        ],
-      },
-      mediaResizing: {
-        enabled: true,
-      },
-    };
     
     // get client comments
     $http({
       method: 'POST',
       url: `${API_URL}admin/live-project/get-admin-comment`,
       data: {
-        'project_id': project_id
-      }
-    }).then(function(res) { 
-   var obj='';
-      $.each(res.data.data,(index,value)=>{
-        if(value.commentable_type=='App\\Models\\Customer'){
-          // $('.mypara').html($('.mypara').html()+value.body);
-          $scope.customer_comments+=value.body;
-          // obj=value.body;
+          'project_id': project_id,
+          'role':'admin'
         }
+      }).then(function(res) { 
+        $.each(res.data.data,(index,value)=>{
+          $scope.customer_comments=value.body;
+        console.log(res.data);
       });
-      console.log($scope.customer_comments)
-      // $scope.admin_comments    = "<h1>admin_comments</h1>"
-      
-      setTimeout(() => {
+      // console.log('customer comment:'+$scope.customer_comments);
         SetEditor('#customer_comments');
         SetEditor('#admin_comments');
-      }, 1000);
-      document.getElementsByClassName('ck-restricted-editing_mode_standard')[0].setAttribute('contenteditable',false);
     }, function(error) {
-      
       Message('danger', `General info ${error}`);
-      
     }); 
 
     // client comment ends
@@ -2030,6 +1986,7 @@ formatData = (project) => {
     // function for posting innerHTML value of ck for comments module
 
     $scope.getAdminCKValue=()=>{
+
       $scope.ckval=document.getElementsByClassName('ck-restricted-editing_mode_standard')[1].innerHTML;
       $http({
         method: 'POST',
@@ -2039,6 +1996,7 @@ formatData = (project) => {
           'data': $scope.ckval
         }
       }).then(function(res) {
+        console.log(res.data)
         Message('success', `Notes added successfully`);
       }, function(error) {
   

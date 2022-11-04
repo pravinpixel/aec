@@ -8,14 +8,13 @@
         <div class="col">
             <form action="">
                 <p class="h5 mt-2">TrePrefab(customer)comments</p>   
-                 <textarea  ng-model="customer_comments"  id="customer_comments"></textarea>
+                 <textarea  ng-model="customer_comments"  id="customer_comments" class="d-none" readonly></textarea>
             </form>
-            <p ng-bind="customer_comments"></p>
         </div>
         <div class="col">
             <p class="h5 mt-2">AECPrefab comments</p>
                 <form action="">
-                    <textarea ng-model="admin_comments"  id="admin_comments"></textarea>
+                    <textarea ng-model="admin_comments"  id="admin_comments" class="d-none"></textarea>
                 </form>
                 <div class="row">
                     <div class="col d-flex justify-content-end">

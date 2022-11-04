@@ -260,37 +260,78 @@ class TicketCommentsController extends Controller
         return [$seenBy,$role_by,$created_by,$created_by_user];
     }
     public function admin_comment(Request $req){
-        $project=Project::find($req->input('project_id'));
-        $comments=new projectComment();
-        $comments->project_id=$project->id;
-        $comments->body=$req->input('data');
-        $admin=Employees::find(admin()->id);
-        $admin->comments()->save($comments);
+        $project = projectComment::where([
+            "project_id"       => $req->project_id,
+            "commentable_id"   => Admin()->id,
+            "commentable_type" => "App\Models\Admin\Employees"
+        ])->get();
+        
+        if(count($project) != 0) {
+            projectComment::find($project[0]->id)->update([
+                "body"  => $req->data,
+            ]);
+        } else {
+            projectComment::create([
+                "project_id"       => $req->project_id,
+                "body"             => $req->data,
+                "commentable_id"   => Admin()->id,
+                "commentable_type" => "App\Models\Admin\Employees"
+            ]);
+        }
+
         return response()->json([
-            'msg'=>'ok',
-            'data'=>$req->input('data'),
-            'role'=>$project
+            'msg'            => 'new data entry',
+            'data'           => $req->input('data'),
+            'role'           => $project    
+        ]);
+    }
+    public function customer_comment(Request $req){
+        $project = projectComment::where([
+            "project_id"       => $req->project_id,
+            "commentable_id"   => customer()->id,
+            "commentable_type" => "App\Models\Customer"
+        ])->get();
+        
+        if(count($project) != 0) {
+            projectComment::find($project[0]->id)->update([
+                "body"  => $req->data,
+            ]);
+        } else {
+            projectComment::create([
+                "project_id"       => $req->project_id,
+                "body"             => $req->data,
+                "commentable_id"   => customer()->id,
+                "commentable_type" => "App\Models\Customer"
+            ]);
+        }
+
+        return response()->json([
+            'msg'            => 'new data entry',
+            'data'           => $req->input('data'),
+            'role'           => $project    
         ]);
     }
     public function get_admin_comment(Request $req){
-        $chat=projectComment::where('project_id',(int)$req->input('project_id'))->get();
-        return response()->json([
-            'res'=>'ok',
-            'data'=>$chat
-        ]);
-    }
-    public function post_client_comment(Request $req){
-        $project=Project::find($req->input('project_id'));
-        $comments=new projectComment();
-        $comments->project_id=$project->id;
-        $comments->body=$req->input('data');
-        $customer=Customer::find(customer()->id);
-        $customer->comments()->save($comments);
-        return response()->json([
-            'msg'=>'ok',
-            'data'=>$req->input('data'),
-            'role'=>$customer
-        ]);
+        if($req->input('role')=='customer'){
+            $chat=projectComment::where('project_id',(int)$req->input('project_id'))
+            ->where('commentable_type','App\Models\Admin\Employees')
+            ->with('project')
+            ->get();
+            return response()->json([
+                'res'=>'ok',
+                'data'=>$chat
+            ]);
+        }
+        else{
+            $chat=projectComment::where('project_id',(int)$req->input('project_id'))
+            ->where('commentable_type','App\Models\Customer')
+            ->with('project')
+            ->get();
+            return response()->json([
+                'res'=>'ok',
+                'data'=>$chat
+            ]);
+        }
     }
    
 }
