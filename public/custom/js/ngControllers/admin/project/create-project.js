@@ -1985,7 +1985,7 @@ formatData = (project) => {
 
     // function for posting innerHTML value of ck for comments module
 
-    $scope.getAdminCKValue=()=>{
+    getAdminCKValue=()=>{
 
       $scope.ckval=document.getElementsByClassName('ck-restricted-editing_mode_standard')[1].innerHTML;
       $http({

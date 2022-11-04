@@ -13,11 +13,10 @@
     <div class="col">
         <form action="">
             <p class="h5 mt-2">@{{ projectName }} comments</p>   
-            <textarea id="aec_client_client_page" ng-model="send_to_admin" class="d-none"></textarea>
+            <textarea id="aec_client_client_page" ng-model="send_to_admin"  class="d-none"></textarea>
         </form>
         <div class="row">
             <div class="col d-flex justify-content-end">
-                <button class="m-2 btn btn-primary" ng-click="clientComment()">submit</button>
             </div>
         </div>
     </div>

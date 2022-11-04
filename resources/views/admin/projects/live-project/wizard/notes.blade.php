@@ -18,7 +18,7 @@
                 </form>
                 <div class="row">
                     <div class="col d-flex justify-content-end">
-                        <button class="btn btn-primary m-2" ng-click="getAdminCKValue()">submit</button>
+                        {{-- <button class="btn btn-primary m-2" ng-click="getAdminCKValue()">submit</button> --}}
                     </div>
                 </div>
         </div>

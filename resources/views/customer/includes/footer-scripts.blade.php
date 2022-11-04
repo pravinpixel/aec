@@ -173,11 +173,21 @@
                 });
             }, 300);
         }
-        else{
+        else if(element=='#aec_client_client_page'){
             setTimeout(() => {
                 Editor.classList.remove('d-none');
-                CKEDITOR.ClassicEditor.create(Editor, EDITOR_CONFIG);
-            }, 300);
+                CKEDITOR.ClassicEditor.create(Editor, EDITOR_CONFIG)
+                .then(editor => {
+                        editor.ui.focusTracker.on('change:isFocused', (evt, name, isFocused) => {
+                            if (!isFocused) {
+                                // Do whatever you want with current editor data:
+                                console.log('check');
+                                clientComment();
+                            }
+                        });
+                    });
+            }, 300)
+            
         }
     }
 </script>

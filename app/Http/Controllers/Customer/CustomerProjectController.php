@@ -138,12 +138,12 @@ class CustomerProjectController extends Controller
                                 $seriesdata[] = array('y'=>$diff->days * 24,
                                                      'color'=>'#008ffb' );
 
+                            
+                                $completecount = count($finalstatuspercentage);
+                                $totalcompletecount[] = $completecount;
+                                $rearr[] = array('name' =>$finaldata->get_task_list->task_list_name ?? ' ',
+                                                'completed'=> round(($completecount /$overall )*100),2);
                             }
-                            $completecount = count($finalstatuspercentage);
-                            $totalcompletecount[] = $completecount;
-                            $rearr[] = array('name' =>$finaldata->get_task_list->task_list_name,
-                                             'completed'=> round(($completecount /$overall )*100),2);
-
                         }
 
                     }

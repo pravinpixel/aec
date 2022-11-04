@@ -1576,7 +1576,8 @@ app.controller('GendralController', function($scope, $http, API_URL, $timeout, $
   $scope.multilineToolbar = true;
 
     // console.log(wrapper[0].innerHTML)
-    $scope.clientComment=()=>{
+
+   clientComment=()=>{
       var wrapper=document.getElementsByClassName('ck-restricted-editing_mode_standard')[1];
       $http({
         method: 'POST',

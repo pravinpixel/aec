@@ -499,41 +499,44 @@ class ProjectController extends Controller
                     $projechtchart =  isset($dataDb->gantt_chart_data) ? json_decode($dataDb->gantt_chart_data) :array();
                     foreach($projechtchart as $projectdata){
                         foreach($projectdata->data as $key=>$prodata){
+                           
                             $finalstatuspercentage = array();
                             $overall = count($prodata->data);
                             $totaloverall[] = $overall;
                             foreach($prodata->data as $finaldata){
+                                
                                 $delivery_date = isset($finaldata->delivery_date) ? Carbon::parse($finaldata->delivery_date)->format('Y-m-d') : '';
-
-              
+                                             
                                 if(isset($finaldata->status) &&  $finaldata->status !=  ''){
-                                 $finalstatuspercentage[] =   $finaldata->status;
+                                    $finalstatuspercentage[] =   $finaldata->status;
                                 } 
                                 $gnttname[] = $finaldata->task_list;
-                              
+                                
                                 $date_now = date("Y-m-d"); // this format is string comparable
                                 
                                 if (isset($delivery_date) && $date_now > $delivery_date) {
-                                 $datetime1 = new DateTime($date_now);
-                                 $datetime2 = new DateTime($delivery_date);
-                                 $intervalday[] = $datetime1->diff($datetime2)->days * 24;
+                                    $datetime1 = new DateTime($date_now);
+                                    $datetime2 = new DateTime($delivery_date);
+                                    $intervalday[] = $datetime1->diff($datetime2)->days * 24;
                                 }else{
-                                 $intervalday[] = 0;
+                                    $intervalday[] = 0;
                                 }
+                                
                                 $days = (strtotime($finaldata->start_date) - strtotime($finaldata->end_date)) / (60 * 60 * 24);
                                 $start = date_create(str_replace('/','-',$finaldata->start_date));
                                 $end   = date_create(str_replace('/','-', $finaldata->end_date));   // Current time and date
                                 $diff   = date_diff( $start, $end );
                                 $seriesdata[] = array('y'=>$diff->days * 24,
                                                      'color'=>'#008ffb' );
-
-                            }
-                            $overall= $overall == 0 ? 1 : $overall; //this line is edited by surendhar for make 1 purpose
-                            $completecount = count($finalstatuspercentage);
-                            $totalcompletecount[] = $completecount;
-                            $rearr[] = array('name' =>$finaldata->get_task_list->task_list_name,
+                                
+                            
+                                $overall= $overall == 0 ? 1 : $overall; //this line is edited by surendhar for make 1 purpose
+                                $completecount = count($finalstatuspercentage);
+                                $totalcompletecount[] = $completecount;
+                                // dd( $finaldata->get_task_list->task_list_name  );
+                                $rearr[] = array('name' => $finaldata->get_task_list->task_list_name ?? '' ,
                                              'completed'=> round(($completecount /$overall )*100),2);
-
+                            }
                         }
 
                     }

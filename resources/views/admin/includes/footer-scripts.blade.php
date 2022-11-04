@@ -88,7 +88,7 @@
                 'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor', 'highlight', '|',
                 'link', 'insertImage', 'blockQuote', 'insertTable', 'mediaEmbed', '|',
                 'specialCharacters', 'horizontalLine',
-                'undo', 'redo','sourceEditing'
+                'undo', 'redo', 'sourceEditing'
             ],
             shouldNotGroupWhenFull: true
         },
@@ -219,22 +219,30 @@
         ]
     }
     SetEditor = (element) => {
-        var Editor =  document.querySelector(element);
-        if(element=='#customer_comments'  ){
-                setTimeout(() => {
-                Editor.classList.remove('d-none');
-                CKEDITOR.ClassicEditor.create(Editor, EDITOR_CONFIG)
-                .then(editor=>{
-                    console.log(editor.isReadOnly);
-                    editor.enableReadOnlyMode( element );
-                    console.log(editor.isReadOnly);
-                });
-            }, 300);
-        }
-        else{
+        var Editor = document.querySelector(element);
+        if (element == '#customer_comments') {
             setTimeout(() => {
                 Editor.classList.remove('d-none');
-                CKEDITOR.ClassicEditor.create(Editor, EDITOR_CONFIG);
+                CKEDITOR.ClassicEditor.create(Editor, EDITOR_CONFIG)
+                    .then(editor => {
+                        console.log(editor.isReadOnly);
+                        editor.enableReadOnlyMode(element);
+                        console.log(editor.isReadOnly);
+                    });
+            }, 300);
+        } else if(element == '#admin_comments') {
+            setTimeout(() => {
+                Editor.classList.remove('d-none');
+                CKEDITOR.ClassicEditor.create(Editor, EDITOR_CONFIG)
+                    .then(editor => {
+                        editor.ui.focusTracker.on('change:isFocused', (evt, name, isFocused) => {
+                            if (!isFocused) {
+                                // Do whatever you want with current editor data:
+                                console.log('check');
+                                getAdminCKValue();
+                            }
+                        });
+                    });
             }, 300);
         }
     }
