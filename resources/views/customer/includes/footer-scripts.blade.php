@@ -189,6 +189,12 @@
             }, 300)
             
         }
+        else{
+            setTimeout(() => {
+                 Editor.classList.remove('d-none');
+                CKEDITOR.ClassicEditor.create(Editor, EDITOR_CONFIG);
+            });
+        }
     }
 </script>
 
