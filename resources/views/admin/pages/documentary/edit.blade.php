@@ -22,7 +22,7 @@
                                 <a class="btn btn-light btn-sm border shadow-sm"
                                     data-bs-toggle="collapse" href="#collapseFour"
                                     aria-expanded="true" aria-controls="collapseFour">
-                                    View merge fields  <i
+                                    View summary fields  <i
                                         class="mdi mdi-chevron-down accordion-arrow"></i>
                                 </a>
                             </div>
@@ -90,7 +90,7 @@
         preview = () => {
             $("#card-title").html($("#documentary_title").val())
             var editor = document.getElementsByClassName('ck-restricted-editing_mode_standard');
-            $("#preview").html(editor[0].innerHTML) 
+            $("#preview").html(editor[0].innerHTML);
         }
     </script>
 @endpush

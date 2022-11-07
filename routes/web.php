@@ -128,6 +128,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::get('documentary/userData', [DocumentaryController::class, 'getUserData'])->name('documentary.userData');
     Route::put('documentary/status/{id?}', [DocumentaryController::class, 'status'])->name('documentary.status');
     Route::get('contract/edit/{id}', [DocumentaryController::class, 'documentaryEdit'])->name('documentaryEdit');
+    Route::post('documentary-clone', [DocumentaryController::class, 'documentaryClone'])->name('documentaryClone');
     Route::resource('documentary', DocumentaryController::class);
 
     Route::get('contract/view/{id}', [DocumentaryController::class, 'view'])->name('contract.view');

@@ -81,6 +81,7 @@
     const EDITOR_CONFIG = {
         toolbar: {
             items: [
+ 
                 'heading', 'bold', 'italic', 'strikethrough', 'underline', 'code', 'subscript', 'superscript',
                 'removeFormat', '|', 'findAndReplace',
                 'bulletedList', 'numberedList', 'alignment', '|',
@@ -89,7 +90,7 @@
                 'link', 'insertImage', 'blockQuote', 'insertTable', 'mediaEmbed', '|',
                 'specialCharacters', 'horizontalLine',
                 'undo', 'redo', 'sourceEditing'
-            ],
+            ], 
             shouldNotGroupWhenFull: true
         },
         list: {
@@ -243,6 +244,12 @@
                             }
                         });
                     });
+            }, 300);
+        }
+        else{
+            setTimeout(() => {
+                Editor.classList.remove('d-none');
+                CKEDITOR.ClassicEditor.create(Editor, EDITOR_CONFIG)
             }, 300);
         }
     }

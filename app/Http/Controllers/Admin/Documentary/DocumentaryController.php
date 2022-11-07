@@ -40,12 +40,22 @@ class DocumentaryController extends Controller
                     ';
                 }) 
                 ->addColumn('action', function($data){ 
-                    return ' 
-                        <a href="'.route('admin.contract.download',$data->id).'" class="btn btn-sm btn-outline-warning rounded-pill"><i class="mdi mdi-download"></i></a>
-                        <a href="'.route('admin.contract.view',$data->id).'" class="btn btn-sm btn-outline-success rounded-pill"><i class="mdi mdi-eye"></i></a>
-                        <a href="'.route('admin.documentaryEdit',$data->id).'" class="btn btn-sm btn-outline-primary rounded-pill"><i class="mdi mdi-pencil"></i></a>
-                        <button onclick="destroy('.$data->id.')" class="btn btn-sm btn-outline-danger rounded-pill"><i class="mdi mdi-trash-can"></i></button>
-                    ';
+                    // return ' 
+                    //      <a href="'.route('admin.contract.download',$data->id).'" class="btn btn-sm btn-outline-warning rounded-pill"><i class="mdi mdi-download"></i></a>
+                    //     <a href="'.route('admin.contract.view',$data->id).'" class="btn btn-sm btn-outline-success rounded-pill"><i class="mdi mdi-eye"></i></a>
+                    //     <a href="'.route('admin.documentaryEdit',$data->id).'" class="btn btn-sm btn-outline-primary rounded-pill"><i class="mdi mdi-pencil"></i></a>
+                    //     <a href="'.route('admin.documentaryEdit',$data->id).'" class="btn btn-sm btn-outline-primary rounded-pill"><i class="fa fa-clone"></i></a>
+                    //     <button onclick="destroy('.$data->id.')" class="btn btn-sm btn-outline-danger rounded-pill"><i class="mdi mdi-trash-can"></i></button>
+                    // ';
+                    return '
+                            <div class="d-flex">
+                              <a href="'.route('admin.contract.download',$data->id).'" class="btn btn-sm btn-outline-warning rounded-pill"><i class="mdi mdi-download" title="Download"></i></a>
+                               <a href="'.route('admin.contract.view',$data->id).'" class="btn btn-sm btn-outline-success rounded-pill"><i class="mdi mdi-eye" title="View"></i></a>
+                               <a href="'.route('admin.documentaryEdit',$data->id).'" class="btn btn-sm btn-outline-primary rounded-pill"><i class="mdi mdi-pencil" title="Edit"></i></a>
+                               <a  onclick="myfun('.$data->id.')" class="btn btn-sm btn-outline-info rounded-pill"><i class="fa fa-copy" title="Duplicate"></i></a>
+                               <button onclick="destroy('.$data->id.')" class="btn btn-sm btn-outline-danger rounded-pill"><i class="mdi mdi-trash-can" title="Delete"></i></button>
+                            </div> 
+                          </div>';
                 })
                 ->rawColumns(['action','status'])
             ->make(true);
@@ -122,7 +132,7 @@ class DocumentaryController extends Controller
             "documentary_title","documentary_content","is_active"
         ]);
         $this->documentaryRepository->update($data, $id);
-        Flash::success(trans('module.updated'));
+        Flash::success(trans('module.cupdated'));
         return redirect(route('admin-documentary-view'));
     }
     /**
@@ -154,6 +164,24 @@ class DocumentaryController extends Controller
     {
         $contract  = Documentary::findOrFail($id);
         return view('admin.pages.documentary.edit',compact('contract'));
+    }
+    public function documentaryClone(Request $req)
+    {
+        $contract  = Documentary::findOrFail($req->id);
+        $str=$contract->documentary_title;
+        $word_pos=strpos($str,'Duplicate');
+        if($word_pos !=''){
+            $contract_new=$contract->replicate();
+            $contract_new->save();
+        }
+        else{
+            $contract_new=$contract->replicate();
+            $contract_new->documentary_title=$contract_new->documentary_title.' - Duplicate';
+            $contract_new->save();
+        }
+        return response()->json([
+            'data'=>$req->input('id')
+        ]);
     }
 
     public function get(Request $request)

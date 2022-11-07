@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('admin-content')
+@section('admin-content') 
     <div class="content-page">
         <div class="content">
             @include('admin.includes.top-bar')
@@ -99,6 +99,20 @@
                 Message('success', data.msg);
                 reload()
             });  
+        }
+        function myfun(id){
+            $.ajax({
+                method:'post',
+                url:"{{ route('admin.documentaryClone') }}",
+                data:{
+                    id:id
+                },
+                success:function(res){
+                    console.log(res.data)
+                    reload()
+                }
+            });
+            console.log(id)
         }
     </script>
 @endpush

@@ -2,6 +2,11 @@
 @extends('layouts.admin')
 
 @section('admin-content')
+<style> 
+ .ck-restricted-editing_mode_standard{
+        height:300px;
+    }
+</style>
     <div class="content-page" >
         <div class="content">
             @include('admin.includes.top-bar')
@@ -50,8 +55,8 @@
                         </div>
                     </div>
                     <div class="card-body"> 
-                        <div class="textEditorWrapper d-none">
-                            <textarea name="documentary_content" id="textEditor"></textarea>
+                        <div class="textEditorWrapper ">
+                            <textarea name="documentary_content"  class="d-none" id="documentary_editor"></textarea>
                         </div>
                     </div>
                     <div class="card-footer text-end">
@@ -78,14 +83,13 @@
   
 @endsection
            
+   
 @push('custom-scripts')
-    <script> 
-        $( document ).ready(function() { 
-            $('.textEditorWrapper').removeClass('d-none');  
-            SetEditor('#textEditor')
-        });
-    </script>
-     <script> 
+<script>
+    console.log('first')
+    SetEditor('#documentary_editor');
+</script>
+<script> 
         preview = () => {
             $("#card-title").html($("#documentary_title").val())
             var editor = document.getElementsByClassName('ck-restricted-editing_mode_standard');

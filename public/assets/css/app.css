@@ -11624,7 +11624,7 @@ select.form-control-sm:not([size]):not([multiple]) {
 
 .password-eye:before {
   font-family: "Material Design Icons";
-  content: "\F06D1";
+  content: "\F06D0";
   font-style: normal;
   font-weight: 400;
   font-variant: normal;
@@ -11633,7 +11633,7 @@ select.form-control-sm:not([size]):not([multiple]) {
   font-size: 16px; }
   
   .show-password .password-eye:before {
-  content: "\F06D0";
+    content: "\F06D1";
  }
 
 .modal-title {
