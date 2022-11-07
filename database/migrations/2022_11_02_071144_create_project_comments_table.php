@@ -17,7 +17,7 @@ class CreateProjectCommentsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('project_id');
             $table->foreign('project_id')->references('id')->on('projects');
-            $table->string('body');
+            $table->longText('body');
             $table->morphs('commentable');
             $table->timestamps();
         });

@@ -117,26 +117,26 @@
     <div ng-repeat="(index,check_list) in check_list_all">
         <div style="display:flex;background:#0C326C;" class="p-2">
             <div class="text-center text-light" style="font-weight:bold;width:5%">S.No</div>
-            <div class="text-center text-light" style="font-weight:bold;width:25%">Deliverable Name</div>
-            <div class="text-center text-light" style="font-weight:bold;width:15%">Assign To</div>
-            <div class="text-center text-light" style="font-weight:bold;width:10%">Start date</div>
-            <div class="text-center text-light" style="font-weight:bold;width:10%">end date</div>
+            <div class="text-center text-light" style="font-weight:bold;width:20%">Deliverable Name</div>
+            <div class="text-center text-light" style="font-weight:bold;width:10%">Assign To</div>
+            <div class="text-center text-light" style="font-weight:bold;width:15%">Start date</div>
+            <div class="text-center text-light" style="font-weight:bold;width:15%">end date</div>
             <div class="text-center text-light" style="font-weight:bold;width:5%">Status</div>
             <div class="text-center text-light" style="font-weight:bold;width:20%">Date of Delivery</div>
             <div class="text-center text-light" style="font-weight:bold;width:8%">Action</div>
         </div>
         <div class="border" ng-repeat="(index_2 , checkListData) in check_list.data">
             <div style="display: flex;border:1px solid #eee" >
-                <div class="text-center " style="width:45%;">
+                <div class="text-center " style="width:37.5%;">
                     <strong>@{{ checkListData.name }}</strong>
                 </div>
                 <div style="width:10%;display:flex;justify-content:center" class="">
                     <strong
                         class="text-center m-0 span bg-warning fw-bold rounded px-1">@{{ checkListData.data[0].start_date | date: 'dd-MM-yyyy' }}</strong>
                 </div>
-                <div  style="width:17.5%;margin-left:10px;" class="">
+                <div  style="width:17.5%;margin-left:55px;" >
                     <strong
-                        class="text-center m-0 span bg-warning fw-bold rounded px-1">@{{ checkListData.data[checkListData.data.length - 1].end_date | date: 'dd-MM-yyyy' }}</strong>
+                        class="text-center m-0 span bg-warning fw-bold rounded px-1 pb-2">@{{ checkListData.data[checkListData.data.length - 1].end_date | date: 'dd-MM-yyyy' }}</strong>
                 </div>
                 <div class="progress bg-light border rounded-3" style="width:12.5%;">
                     <div class="progress-bar bg-info progress-bar-striped progress-bar-animated" role="progressbar"
@@ -158,12 +158,12 @@
                         <i class="bi bi-arrows-move border" style="padding:5px;cursor:pointer"></i>
                         <strong>@{{ index_3 + 1 }}</strong>
                     </div>
-                    <div style="width:25%;display:flex;align-items:center;justify-content:center" class="text-center ">
+                    <div style="width:20%;display:flex;align-items:center;justify-content:center" class="text-center ">
                         {{-- <p class="m-0"> --}}
                             <input type="text" class="res-input form-control" ng-value=" taskListData.task_list " ng-model=" taskListData.task_list ">
                         {{-- </p> --}}
                     </div>
-                    <div style="width:15%;display:flex;align-items:center;justify-content:center" class="text-center ">
+                    <div style="width:10%;display:flex;align-items:center;justify-content:center" class="text-center ">
                         <input get-to-do-lists type="hidden" ng-model="taskListData.assign_to"
                             value="@{{ taskListData.assign_to }}">
                             {{-- <p style="" class="m-0"> --}}
@@ -171,30 +171,30 @@
                                 <select name="" id="" ng-model="taskListData.assign_to" class="form-control">
                                     <option value="">-- Project Manager --</option>
                                     <option ng-repeat="projectManager in projectManagers"
-                                    value="@{{ projectManager.id }}"
-                                    ng-selected="projectManager.id == taskListData.assign_to">
-                                    @{{ projectManager.first_name }}
-                                </option>
+                                        value="@{{ projectManager.id }}"
+                                        ng-selected="projectManager.id == taskListData.assign_to">
+                                        @{{ projectManager.first_name }}
+                                    </option>
                                 </select>
                             {{-- </p> --}}
                     </div>
-                    <div style="width:10%;display:flex;justify-content:center" class="">
+                    <div style="width:15%;display:flex;justify-content:center" class="">
                         <datepicker date-format="dd/MM/yyyy" date-min-limit="taskListData.start_date" date-set="taskListData.start_date">
                         <input type="text" get-to-do-lists
                             {{-- ng-value="@{{ taskListData.start_date  | date: 'yyyy-MM-dd'}}" --}}
                             ng-model="taskListData.start_date" id=""
-                            class=" form-control form-control-sm text-end">
+                            class=" form-control form-control-sm text-center">
                         </datepicker>
                         {{-- <label get-to-do-lists ng-value="taskListData.start_date | date: 'dd-MM-yyyy'" id=""
                             class=" border-0 form-control form-control-sm"
                             ng-readonly="">@{{ taskListData.start_date | date: 'dd-MM-yyyy' }}</label> --}}
                     </div>
-                    <div style="width:10%" class="">
+                    <div style="width:15%" class="">
                         <datepicker date-format="dd/MM/yyyy" date-min-limit="taskListData.end_date" date-set="taskListData.end_date">
                             <input type="text" 
                                 get-to-do-lists 
                                 ng-model="taskListData.end_date" 
-                                class="form-control form-control-sm text-end"
+                                class="form-control form-control-sm text-center"
                             />
                         </datepicker>
                     </div>
@@ -214,6 +214,7 @@
                                 get-to-do-lists
                                 ng-model="taskListData.delivery_date" 
                                 class="form-control text-center"
+                                style="padding:4.48px;"
                                 ng-change="storeTaskListsDeliverydate(taskListData.status)"
                             />
                         </datepicker>

@@ -38,12 +38,12 @@
                 <div class="mb-3">
                     <div class="input-group flex-nowrap border rounded">
                         <span class="input-group-text border-0 bg-none"><i class="fa fa-key"></i></span>
-                        <input type="password" minlength="8" maxlength="12" name="password" id="password" class="form-control border-0 ps-0" placeholder="Password"  required>
+                        <input type="password" minlength="8"  name="password" id="password" class="form-control border-0 ps-0" placeholder="Password"  required onkeyup="pswdchangeeve(this.value)">
                         <div class="input-group-text border-0" data-password="false">
                             <span class="password-eye"></span>
                         </div>
                     </div>
-                    <small class="text-danger"><i class="fa fa-info-circle"></i> (Min 8 to 12 Characters)</small>
+                    <small class="text-danger" style="display:none;" id="pswd"><i class="fa fa-info-circle"></i> (Min 8 to 12 Characters)</small>
                     @if($errors->has('password'))
                         <span class="text-danger"> {{ $errors->first('password') }}</span>
                     @endif
@@ -51,12 +51,13 @@
                 <div class="mb-3">
                     <div class="input-group flex-nowrap border rounded">
                         <span class="input-group-text border-0 bg-none"><i class="fa fa-key"></i></span>
-                        <input type="password" name="password_confirmation" id="password_confirmation" class="form-control border-0 ps-0" placeholder="Confirm Password"  required>
+                        <input type="password" name="password_confirmation" id="password_confirmation" class="form-control border-0 ps-0" placeholder="Confirm Password"  required onkeyup="confirmpswdchange()">
                         <div class="input-group-text border-0" data-password="false">
                             <span class="password-eye"></span>
                         </div>
                     </div>
-                    <small class="text-danger"><i class="fa fa-info-circle"></i> (Re-Enter the same password)</small>
+                    <small class="text-danger" id="re_passwd"><i class="fa fa-info-circle"></i> (Re-Enter the same password)</small>
+                    <small class="text-success" style="display:none" id="success_pswd">(Password Matched)</small>
                     @if($errors->has('password_confirmation'))
                         <span class="text-danger"> {{ $errors->first('password_confirmation') }}</span>
                     @endif
@@ -67,4 +68,35 @@
             </form>
         </div>
     </div>
+    @push('custom-scripts')
+        <script>
+            function pswdchangeeve(text){
+                // console.log(text.length);
+                if(text.length <=8 || text.length >=12)
+                {
+                    document.getElementById('pswd').style.display="block";
+                }
+                else{
+                    document.getElementById('pswd').style.display="none";
+                }
+            }
+            function confirmpswdchange(){
+                var passwd=document.getElementById('password');
+                var c_passwd=document.getElementById('password_confirmation');
+                if(passwd.value==c_passwd.value){
+                    console.log('matched')
+                    // successPasserr.style.display='block';
+                     successPasserr=document.getElementById('success_pswd').style.display="block";
+                     rePasserr=document.getElementById('re_passwd').style.display="none";
+                    // rePasserr.style.display='none';
+                }
+                else{
+                     rePasserr=document.getElementById('re_passwd').style.display="block";
+                     successPasserr=document.getElementById('success_pswd').style.display="none";
+                    // rePasserr.style.display='block';
+                    // successPasserr.style.display='none';
+                }
+            }
+        </script>
+    @endpush
 @endsection
