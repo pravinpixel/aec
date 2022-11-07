@@ -1143,7 +1143,9 @@
         });
 
         app.controller('Review', function ($scope, $http, $rootScope, Notification, API_URL, $timeout, $location){
-             
+            setTimeout(()=>{
+                $('.ck-editor__editable').attr('contenteditable',false);
+            },1500);
             $http({
                 method: 'POST',
                 url: `${APP_URL}/enquiry-quick-view`,

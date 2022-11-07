@@ -1209,6 +1209,10 @@
 
         app.controller('Review', function ($scope, $http, $rootScope, Notification, API_URL, $location,  $timeout){
             var enquiry_id;
+            console.log('checking create')
+            setTimeout(()=>{
+                $('.ck-editor__editable').attr('contenteditable',false);
+            },1500);
             $("#review").addClass('active');
 
 
