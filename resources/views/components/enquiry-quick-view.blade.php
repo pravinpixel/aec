@@ -296,8 +296,8 @@
                                                 <div class="py-2" >
                                                     <table class="shadow-sm custom border border-dark mb-0 table table-bordred bg-white">
                                                         <thead>
-                                                            <tr>
-                                                                <td width="33%" class="bg-primary2"><b>Floor</b></td>
+                                                            <tr> 
+                                                                <td width="33%" class="bg-primary2"><b>{{ $building->wall =='Roof' ? 'Roof' : 'Floor' }}</b></td>
                                                                 <td width="33%" class="bg-primary2"><b>Type of Delivery</b></td>
                                                                 <td width="33%" class="bg-primary2"><b>Total Area</b></td>
                                                             </tr>
@@ -313,7 +313,7 @@
                                                     <table class="shadow-sm border table-bordered border-dark table m-0 bg-white">
                                                         <thead>
                                                             <tr> 
-                                                                <td width="33%"><b>Name</b></td>
+                                                                <td width="33%"><b>Layer Details</b></td>
                                                                 <td width="33%"><b>Thickness (mm)</b></td>
                                                                 <td width="33%"><b>Breadth (mm)</b></td>
                                                             </tr>
