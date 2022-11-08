@@ -277,7 +277,7 @@ datepicker::after {
     position: absolute;
     height: 100%;
     width: 30px;
-    left: 0;
+    right: 0;
     top: 0;
     z-index: 111;
     display: flex;
