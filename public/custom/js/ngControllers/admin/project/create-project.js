@@ -1891,6 +1891,7 @@ formatData = (project) => {
 
     $scope.customer_comments='';
     let project_id = $('#project_id').val();
+
     $scope.projectId = project_id;
     $scope.multilineToolbar = true;
     

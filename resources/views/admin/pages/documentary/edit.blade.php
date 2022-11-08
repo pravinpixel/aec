@@ -49,9 +49,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card-body">  
-                        <div class="textEditorWrapper d-none"> 
-                            <textarea name="documentary_content" id="textEditor"> {{ $contract->documentary_content }}</textarea>
+                    <div class="card-body"> 
+                        {{-- <p>{{ $contract->documentary_content }}</p> --}}
+                        <div class="textEditorWrapper"> 
+                            <div class="textEditorWrapper d-none"> 
+                                <textarea name="documentary_content" id="textEditor"> {{ $contract->documentary_content }}</textarea>
+                            </div>
                         </div>
                     </div>
                     <div class="card-footer text-end">
