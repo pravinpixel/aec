@@ -1106,7 +1106,7 @@
                 }).then(function (res) {
                     enableActiveTabs(res.data.active_tabs);
                     // $scope.additionalInfo = res.data.additional_infos == null ? '': res.data.additional_infos.comments;
-                    $scope.additionalInfo = "<h1>Hello !</h1>" 
+                    $scope.additionalInfo=''; 
                     SetEditor('#add_info_customer')
                 }, function (error) {
                     console.log('This is embarassing. An error has occurred. Please check the log for details');
