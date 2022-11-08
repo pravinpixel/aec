@@ -30,26 +30,48 @@ app.directive('createTemplate', function(API_URL ,$http){
         },
         link: function(scope, element, attrs) {
             element.on('click', function(){
-                var template_name = prompt('Enter You Template Name')
-                $http.post(`${API_URL}customers/enquiry-template`, {
-                    template_name        : template_name,
-                    building_component_id: scope.$parent.w.WallId,
-                    data                 : scope.$parent.$parent.$parent.getCurrentTemplateLayers(scope.$parent.fIndex,scope.$parent.Secindex)
-                }).then(function successCallback(res){
-                    var TemplateID =  res.data.data.id
-                    $http({
-                        method: 'GET',
-                        url: `${API_URL}customers/get-template-by-building-component-id`,
-                        params : {building_component_id: scope.$parent.w.WallId,}
-                    }).then(function success(response) {
-                        scope.$parent.$parent.Templates = response.data;
-                        scope.$parent.templateId        = TemplateID
-                        console.log(scope)
-                    }, function error(response) {
-                        console.log(response)
+                // swal start
+                Swal.fire({
+                    title: 'Enter Template Name',
+                    input: 'text',
+                    inputAttributes: {
+                      autocapitalize: 'off'
+                    },
+                    showCancelButton: true,
+                    confirmButtonText: 'Add Template',
+                    showLoaderOnConfirm: true,
+                    allowOutsideClick: () => !Swal.isLoading()
+                  }).then((result) => {
+                    if (result.isConfirmed) {
+                        console.log(result.value);
+                        var template_name =result.value;
+                        transferData(template_name);
+                    }
+                })
+                //swal end
+                var template_name;
+                function transferData(a){
+                    var template_name =a;
+                    $http.post(`${API_URL}customers/enquiry-template`, {
+                        template_name        : template_name,
+                        building_component_id: scope.$parent.w.WallId,
+                        data                 : scope.$parent.$parent.$parent.getCurrentTemplateLayers(scope.$parent.fIndex,scope.$parent.Secindex)
+                    }).then(function successCallback(res){
+                        var TemplateID =  res.data.data.id
+                        $http({
+                            method: 'GET',
+                            url: `${API_URL}customers/get-template-by-building-component-id`,
+                            params : {building_component_id: scope.$parent.w.WallId,}
+                        }).then(function success(response) {
+                            scope.$parent.$parent.Templates = response.data;
+                            scope.$parent.templateId        = TemplateID
+                            console.log(scope)
+                        }, function error(response) {
+                            console.log(response)
+                        });
+                        Message('success', res.data.msg);
                     });
-                    Message('success', res.data.msg);
-                });
+                }
                 scope.$apply()
             });
         }

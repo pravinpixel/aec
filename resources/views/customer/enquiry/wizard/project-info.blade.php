@@ -2,16 +2,16 @@
     <div class="row m-0 p-3 px-2">
         <div class="col-md-4">
             <div class="form-floating  mb-2">
-                <input disabled value="" ng-model="enquiry_date" type="date" class="form-control form-control-sm" id="floating"  required/>
-                <label for="floating">Enquiry Date <sup class="text-danger">*</sup></label>
+                <input disabled value="" ng-model="enquiry_date" type="date" class="form-control form-control-sm" id="floating"  required style="padding:20px 0 0 16.5px !important"/>
+                <label for="floating"  >Enquiry Date <sup class="text-danger">*</sup></label>
             </div>
             <div class="form-floating  mb-2">
-                <input disabled type="text" class="form-control form-control-sm" id="floating"   ng-model="enquiry_number" required />
-                <label for="floating">Enquiry Number <sup class="text-danger">*</sup></label>
+                <input disabled type="text" class="form-control form-control-sm" id="floating"   ng-model="enquiry_number" required style="padding:20px 0 0 16.5px !important" />
+                <label for="floating" >Enquiry Number <sup class="text-danger">*</sup></label>
             </div>         
             <div class="form-floating  mb-2">
-                <input type="text"  name="company_name" id="validationCustom01" class="form-control form-control-sm"  placeholder="Type Here..."  ng-required="true" list="companyList" ng-change="getCompany(customer.company_name)" ng-model="customer.company_name" disabled/>
-                <label for="floating">Company Name <sup class="text-danger">*</sup></label>
+                <input type="text"  name="company_name" id="validationCustom01" class="form-control form-control-sm" style="padding:20px 0 0 16.5px !important"  placeholder="Type Here..."  ng-required="true" list="companyList" ng-change="getCompany(customer.company_name)" ng-model="customer.company_name" disabled/>
+                <label for="floating" >Company Name <sup class="text-danger">*</sup></label>
                 <datalist id="companyList">
                     <option ng-repeat="item in companyList" value="@{{item.company}}">@{{item.company}}</option>
                 </datalist>
@@ -69,9 +69,11 @@
                 <small class="text-danger" ng-show="projectInfoForm.project_type.$invalid && formSubmit">This field is required</small>
             </div>
             <div class="form-floating  mb-2"> 
-                <input type="date" min="{{ now()->format('Y-m-d') }}" class="form-control form-control-sm" id="project_date" name="project_date" ng-model="projectInfo.project_date" required/>
-                <label for="floating">Project Start Date <sup class="text-danger">*</sup></label>
-                <i class="fa fa-calendar custom__date__icon"></i>
+                {{-- <datepicker date-format="dd/MM/yyyy" date-min-limit="projectInfo.project_date" date-set="projectInfo.project_date"> --}}
+                    <input type="date" min="{{ now()->format('Y-m-d') }}" class="form-control form-control-sm" id="project_date" name="project_date" ng-model="projectInfo.project_date" required/>
+                    <label for="floating">Project Start Date <sup class="text-danger">*</sup></label>
+                    <i class="fa fa-calendar custom__date__icon"></i>
+                {{-- </datepicker> --}}
                 <small class="text-danger" ng-show="projectInfoForm.project_date.$error.required && formSubmit">This field is required</small>
                 <small class="text-danger" ng-show="projectInfoForm.project_date.$error.max && formSubmit">Start date cannot be greater than delivery date</small>
                 <small class="text-danger" ng-show="projectInfoForm.project_date.$error.min && formSubmit">Start date cannot be less than current date</small>

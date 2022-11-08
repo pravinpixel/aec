@@ -1102,7 +1102,7 @@
                 .error(function() {
                 });
                 }
-            });
+            }); 
 
 
         app.controller('AdditionalInfo', function ($scope, $http, $rootScope, Notification, API_URL, $location){ 
