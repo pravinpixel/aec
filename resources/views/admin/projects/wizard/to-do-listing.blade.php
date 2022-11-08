@@ -42,7 +42,7 @@
                 </div>
                 <div class="card-body collapse" id="custom-accordion-collapse-@{{ index }}">
                     <div class="card-content">
-                        <table class="m-0 table custom">
+                        {{-- <table class="m-0 table custom">
                             <thead>
                                 <tr>
                                     <th class="text-center">S.No</th>
@@ -53,24 +53,47 @@
                                     <th class="text-center">Action</th>
                                 </tr>
                             </thead>
-                        </table>
+                        </table> --}}
+                        {{-- <table class="m-0 table custom"> --}}
+                            <div class="custom-table p-2">
+                                    <div class="d-flex justify-content-center">
+                                        <label class="text-center text-light">S.No</label>
+                                    </div>
+                                    <div class="d-flex justify-content-center">
+                                        <label class="text-center text-light">Deliverable Name</label>
+                                    </div>
+                                    <div class="d-flex justify-content-center">
+                                        <label class="text-center text-light">Assign To</label>
+                                    </div>
+                                    <div class="d-flex justify-content-center">
+                                        <label class="text-center text-light">Start Date</label>
+                                    </div>
+                                    <div class="d-flex justify-content-center">
+                                        <label class="text-center text-light">End Date</label>
+                                    </div>
+                                    <div class="d-flex justify-content-center">
+                                        <label class="text-center text-light">Action</label>
+                                    </div>
+
+                            </div>
+                        {{-- </table> --}}
                         <div class="border" ng-repeat="(index_2 , checkListData) in check_list.data">
                             <div ng-show="checkListData.text != 'others'" class="bg-light row m-0 align-items-center" >
                                 <div class="col-6 text-start">
                                     <strong ng-bind="checkListData.name"></strong>
                                 </div>
-                                <div class="col">
+                                <div class="col p-0">
                                     <div class="row m-0 p-2">
-                                        <div class="col-5">
-                                            <strong class="text-center m-0 span bg-warning fw-bold rounded px-1" ng-bind="checkListData.data[0].start_date | date: 'yyyy-MM-dd'"> 
+                                        <div class="col-5 ">
+                                            <strong class=" align-date1 text-center m-0 span bg-warning fw-bold rounded px-1" ng-bind="checkListData.data[0].start_date | date: 'yyyy-MM-dd'" style="margin-left:75px !important"> 
                                             </strong>
                                         </div>
-                                        <div class="col-5">
-                                            <strong class="text-center m-0 span bg-warning fw-bold rounded px-1" ng-bind="checkListData.data[checkListData.data.length-1].end_date | date: 'yyyy-MM-dd' ">
+                                        <div class="col-5 custom-align">
+                                            <strong class="align-date2 text-center m-0 span bg-warning fw-bold rounded px-1" ng-bind="checkListData.data[checkListData.data.length-1].end_date | date: 'yyyy-MM-dd' ">
                                             </strong>
                                         </div>
-                                        <div class="col P-0">
-                                            <i class="fa fa-plus btn-sm btn btn-success" ng-click="createTaskListData(index,index_2)"></i>
+                                        <div class="col " style="padding:0 !important;">
+                                            <i class="fa fa-plus btn-sm btn btn-success" ng-click="createTaskListData(index,index_2)" style="margin-left:40px;"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -129,6 +152,41 @@
         background: var(--secondary-bg) !important;
         transform: scale(1.2);
         box-shadow: 0px 5px 10px #4f4f4fb2 !important
+    }
+    .custom-align{
+        display: flex;
+        justify-content:center;
+    }
+    .align-date1{
+        margin-left:42px !important;
+    }
+    .align-date2{
+        margin-left:-18px !important;
+    }
+    .custom-table{
+        display:flex;
+        background: #0C326C;
+    }
+    .custom-table>div:nth-child(1){
+        width:6%;
+    }
+    .custom-table>div:nth-child(2){
+        width:27.8%;
+    }
+    .custom-table>div:nth-child(3){
+        width:20%;
+    }
+    .custom-table>div:nth-child(4){
+        width:21%;
+    }
+    .custom-table>div:nth-child(5){
+        width:20%;
+    }
+    .custom-table>div:nth-child(6){
+        width:6%;
+    }
+    .custom-align{
+        padding-left:86px;
     }
 </style>
 {{-- <fieldset class="accordion-item">
