@@ -40,13 +40,6 @@
                             <td>{{ $enquiry['project_infos']['project_name'] }}</td>
                         </tr>
                     @endif
-                    @if ($enquiry['project_infos']['site_address'])
-                        <tr>
-                            <td><b>Construction Site Address</b></td>
-                            <td>:</td>
-                            <td>{{ $enquiry['project_infos']['site_address'] }}</td>
-                        </tr>
-                    @endif
                     @if ($enquiry['project_infos']['contact_person'])
                         <tr>
                             <td><b>Contact Person name</b></td>
@@ -70,18 +63,11 @@
                             </tr>
                         @endif
                     @endif 
-                    @if ($enquiry['project_infos']['secondary_mobile_no'])
+                    @if ($enquiry['project_infos']['site_address'])
                         <tr>
-                            <td><b>Secondary Contact Number</b></td>
+                            <td><b>Construction Site Address</b></td>
                             <td>:</td>
-                            <td>{{ $enquiry['project_infos']['secondary_mobile_no'] }}</td>
-                        </tr>
-                    @endif
-                    @if ($enquiry['project_infos']['zipcode'])
-                        <tr>
-                            <td><b>Zip Code</b></td>
-                            <td>:</td>
-                            <td>{{ $enquiry['project_infos']['zipcode'] }}</td>
+                            <td>{{ $enquiry['project_infos']['site_address'] }}</td>
                         </tr>
                     @endif
                     @if ($enquiry['project_infos']['place'])
@@ -96,6 +82,20 @@
                             <td><b>State</b></td>
                             <td>:</td>
                             <td>{{ $enquiry['project_infos']['state'] }}</td>
+                        </tr>
+                    @endif
+                    @if ($enquiry['project_infos']['zipcode'])
+                        <tr>
+                            <td><b>Zip Code</b></td>
+                            <td>:</td>
+                            <td>{{ $enquiry['project_infos']['zipcode'] }}</td>
+                        </tr>
+                    @endif
+                    @if ($enquiry['project_infos']['secondary_mobile_no'])
+                        <tr>
+                            <td><b>Secondary Contact Number</b></td>
+                            <td>:</td>
+                            <td>{{ $enquiry['project_infos']['secondary_mobile_no'] }}</td>
                         </tr>
                     @endif
                     @if ($enquiry['project_infos']['country'])
