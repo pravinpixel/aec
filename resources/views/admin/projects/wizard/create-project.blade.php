@@ -205,7 +205,9 @@
                         <label class="col-form-label">Start Date <sup class="text-danger">*</sup></label>
                     </div>
                     <div class="col pe-0">
-                        <input type="date" name="start_date" ng-model="project.start_date" class="form-control form-control-sm" required>
+                        <datepicker date-format="dd/MM/yyyy" date-min-limit="project.start_date" date-set="project.start_date">
+                            <input type="text" name="start_date" ng-model="project.start_date" class="form-control form-control-sm" required>
+                        </datepicker>
                         <small class="text-danger" ng-show="createProjectForm.start_date.$invalid && createProjectForm.start_date.$toucehd">This field is required</small>
 
                     </div> 

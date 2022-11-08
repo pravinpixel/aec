@@ -17,7 +17,7 @@
                 </datalist>
             </div> 
             <div class="form-floating  mb-2">
-                <input  type="text" class="form-control form-control-sm" id="floating" name="contact_person"  ng-model="projectInfo.contact_person" required />
+                <input  type="text" class="form-control form-control-sm" id="floating" name="contact_person"  ng-model="projectInfo.contact_person" required style="padding:20px 0 0 16.5px !important"/>
                 <label for="floating">Contact Person <sup class="text-danger">*</sup></label>
                 <small class="text-danger" ng-show="projectInfo.contact_person.$touched && projectInfo.contact_person.$invalid && formSubmit">This field is required</small>
             </div>
@@ -34,17 +34,17 @@
         </div>
         <div class="col-md-4">
             <div class="form-floating  mb-2">
-                <input type="text" class="form-control form-control-sm" id="floating"   name="project_name" ng-model="projectInfo.project_name" required/>
+                <input type="text" class="form-control form-control-sm" id="floating"   name="project_name" ng-model="projectInfo.project_name" required style="padding:20px 0 0 16.5px !important"/>
                 <label for="floating">Project Name <sup class="text-danger">*</sup></label>
                 <small class="text-danger" ng-show="projectInfoForm.project_name.$invalid && formSubmit">This field is required</small>
             </div>
             <div class="form-floating mb-2">
-                <input type="text" class="form-control form-control-sm" ng-keyup="getZipcodeData()" id="zipcode" name="zipcode" ng-model="projectInfo.zipcode" required/>
+                <input type="text" class="form-control form-control-sm" ng-keyup="getZipcodeData()" id="zipcode" name="zipcode" ng-model="projectInfo.zipcode" required style="padding:20px 0 0 16.5px !important"/>
                 <label for="floating">Zip Code <sup class="text-danger">*</sup></label>
                 <small class="text-danger" ng-show="projectInfoForm.zipcode.$invalid && formSubmit">This field is required</small>
             </div>
             <div class="form-floating  mb-2">
-                <input type="text" class="form-control form-control-sm" id="floating" name="state" ng-model="projectInfo.state" required/>
+                <input type="text" class="form-control form-control-sm" id="floating" name="state" ng-model="projectInfo.state" required style="padding:20px 0 0 16.5px !important"/>
                 <label for="floating">State  <sup class="text-danger">*</sup></label>
                 <small class="text-danger" ng-show="projectInfoForm.state.$invalid && formSubmit">This field is required</small>
             </div>
@@ -70,7 +70,7 @@
             </div>
             <div class="form-floating  mb-2"> 
                 {{-- <datepicker date-format="dd/MM/yyyy" date-min-limit="projectInfo.project_date" date-set="projectInfo.project_date"> --}}
-                    <input type="date" min="{{ now()->format('Y-m-d') }}" class="form-control form-control-sm" id="project_date" name="project_date" ng-model="projectInfo.project_date" required/>
+                    <input type="date" min="{{ now()->format('Y-m-d') }}" class="form-control form-control-sm" id="project_date" name="project_date" ng-model="projectInfo.project_date" required style="padding:15.5px 0 0 16.5px !important"/>
                     <label for="floating">Project Start Date <sup class="text-danger">*</sup></label>
                     <i class="fa fa-calendar custom__date__icon"></i>
                 {{-- </datepicker> --}}
@@ -81,22 +81,22 @@
         </div>
         <div class="col-md-4">
             <div class="form-floating  mb-2">
-                <input type="text" class="form-control form-control-sm" id="floating" name="site_address" ng-model="projectInfo.site_address" required/>
+                <input type="text" class="form-control form-control-sm" id="floating" name="site_address" ng-model="projectInfo.site_address" required style="padding:20px 0 0 16.5px !important"/>
                 <label for="floating">Site Address <sup class="text-danger">*</sup></label>
                 <small class="text-danger" ng-show="projectInfoForm.site_address.$invalid && formSubmit">This field is required</small>
             </div>
             <div class="form-floating  mb-2">
-                <input type="text" class="form-control form-control-sm" id="floating" name="place" ng-model="projectInfo.place" required/>
+                <input type="text" class="form-control form-control-sm" id="floating" name="place" ng-model="projectInfo.place" required style="padding:20px 0 0 16.5px !important"/>
                 <label for="floating">City <sup class="text-danger">*</sup></label>
                 <small class="text-danger" ng-show="projectInfoForm.place.$invalid && formSubmit">This field is required</small>
             </div>
             <div class="form-floating  mb-2">
-                <input type="text" class="form-control form-control-sm" id="floating" name="country" ng-model="projectInfo.country" required/>
+                <input type="text" class="form-control form-control-sm" id="floating" name="country" ng-model="projectInfo.country" required style="padding:20px 0 0 16.5px !important"/>
                 <label for="floating">Country <sup class="text-danger">*</sup></label>
                 <small class="text-danger" ng-show="projectInfoForm.country.$invalid && formSubmit">This field is required</small>
             </div>
             <div class="form-floating  mb-2">
-                <input type="number" onkeypress="return isNumber(event)" min="1" class="form-control form-control-sm" id="floating" name="no_of_building" ng-model="projectInfo.no_of_building" required/>
+                <input type="number" onkeypress="return isNumber(event)" min="1" class="form-control form-control-sm" id="floating" name="no_of_building" ng-model="projectInfo.no_of_building" required style="padding:20px 0 0 16.5px !important"/>
                 <label for="floating">No of Buildings <sup class="text-danger">*</sup></label>
                 <small class="text-danger" ng-show="projectInfoForm.no_of_building.$invalid && formSubmit">This field is required</small>
             </div>
