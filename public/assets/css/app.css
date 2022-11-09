@@ -16590,6 +16590,6 @@ input[type=date]::-webkit-calendar-picker-indicator{
   font-weight: normal !important;
 }
 .primary-border{
-  border:1.5px solid #39AFD1;
+  border:1.5px solid red;
   border-radius:5px;
 }

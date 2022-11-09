@@ -65,10 +65,13 @@
                     </div>           
                 </div>
                 <div class="py-2 mb-3" style="display: none" id="popupBox">
-                    <p class="m-0 p-2 text-info  primary-border">Verification mail already sent,check your inbox</p>
+                    <p class="m-0 p-2 text-danger primary-border">Verification mail already sent,check your inbox</p>
                 </div>
-                <div class="mb-0 text-center">
+                <div class="mb-0 text-center" id="signup">
                     <button class="btn btn-primary w-100" type="submit"> Sign Up </button>
+                </div>
+                <div class="mb-0 text-center" style="display:none;" id="resend">
+                    <button class="btn btn-primary w-100" type="submit"> Re Send </button>
                 </div>
             </form>
         </div>
@@ -101,6 +104,8 @@
             function checkEmailExists(email){
                 if(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)){
                   var passwords=document.getElementById('passwords');
+                  var signup=document.getElementById('signup');
+                  var resend=document.getElementById('resend');
                     $.ajax({
                         method:'post',
                         data:{
@@ -114,13 +119,17 @@
                             if(res.msg=='exists'){
                                 passwords.style.display = 'none';
                                 border.classList.remove('border');
-                                border.style.border = '1px solid #fb64a2';
+                                border.style.border = '1px solid #4199FC';
                                 popupBox.style.display="block ";
+                                signup.style.display='none';
+                                resend.style.display='block';
                             }
                             else{
                                 border.classList.add('border');
                                 passwords.style.display='block';
                                 popupBox.style.display="none ";
+                                signup.style.display='block';
+                                resend.style.display='none';
                             }
                         },
                         error:function(){
