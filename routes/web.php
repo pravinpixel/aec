@@ -294,6 +294,7 @@ Route::post('logout', [AuthController::class, 'Logout'])->name('logout');
 Route::get('signup', [AuthCustomerController::class, 'getSignUp'])->name('signup');
 Route::post('signup', [AuthCustomerController::class, 'postSignUp'])->name('signup');
 Route::get('signup-resend/{email}', [AuthCustomerController::class, 'signup_resend'])->name('signup_resend');
+Route::post('check-email-exists', [AuthCustomerController::class, 'checkEmailExists'])->name('check-email-exists');
 Route::get('company-info/{id}', [AuthCustomerController::class, 'companyInfo'])->name('company-info');
 Route::post('company-info/{id}', [AuthCustomerController::class, 'StoreCompanyInfo'])->name('company-info');
 

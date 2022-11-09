@@ -129,5 +129,16 @@ class AuthCustomerController extends Controller
         }
 
     }
+    function checkEmailExists(Request $req){
+        $emailExists=customer::where('email',$req->input('email'))->exists();
+        if($emailExists){
+            return response()->json([
+                'msg'=>'exists'
+            ]);    
+        }
+        return response()->json([
+            'msg'=>'not exists'
+        ]);
+    }
     
 } 
