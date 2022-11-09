@@ -14,14 +14,16 @@
                 <div class="mb-3">
                     <div class="input-group flex-nowrap border rounded">
                         <span class="input-group-text border-0 bg-none"><i class="fa fa-user"></i></span>
-                        <input type="text" name="first_name" class="form-control border-0 ps-0" placeholder="First Name" required  value="{{ old('first_name') }}">
+                        <input type="text" name="first_name" class="form-control border-0 ps-0" placeholder="First Name" id="fname" required  value="{{ old('first_name') }}">
                     </div>
+                    <p class="text-danger err" id="err-fname">Please fill out fist name field</p>
                 </div>
                 <div class="mb-3">
                     <div class="input-group flex-nowrap border rounded">
                         <span class="input-group-text border-0 bg-none"><i class="fa fa-user"></i></span>
-                        <input type="text" name="last_name" class="form-control border-0 ps-0" placeholder="Last Name" required value="{{ old('last_name') }}">
+                        <input type="text" name="last_name" class="form-control border-0 ps-0" placeholder="Last Name" id="lname" required value="{{ old('last_name') }}">
                     </div>
+                    <p class="text-danger err" id="err-lname">Please fill out last name field</p>
                 </div>
                 <div class="mb-3">
                     <div class="input-group flex-nowrap border rounded" id="emailBorder">
@@ -71,7 +73,7 @@
                     <button class="btn btn-primary w-100" type="submit"> Sign Up </button>
                 </div>
                 <div class="mb-0 text-center" style="display:none;" id="resend">
-                    <button class="btn btn-primary w-100" type="submit"> Re Send </button>
+                    <button class="btn btn-primary w-100" onclick="reSend()"> Re Send </button>
                 </div>
             </form>
         </div>
@@ -137,6 +139,54 @@
                         }
                     });
                 }
+            }
+
+
+            function reSend(){
+                console.log('clicked');
+                var fname=document.getElementById('fname').value;
+                var lname=document.getElementById('lname').value;
+                var reemail=document.getElementById('email').value;
+                var errFname=document.getElementById('err-fname');
+                var errLname=document.getElementById('err-lname');
+                console.log(fname+' '+lname+' '+reemail);
+               $.ajax({
+                method:'post',
+                url:"{{ route('email-exist-resend-email') }}",
+                beforeSend:function(){
+                    errFname.style.display="none";
+                    errLname.style.display="none";
+                },
+                data:{
+                    first_name:fname,
+                    last_name:lname,
+                    email:reemail,
+                },
+                success:function(res){
+                    console.log(res);
+                    if(res.msg="errors"){   
+                        $.each(res.errors,(index,value)=>{
+                            console.log(index+' '+value)
+                            if(index=="first_name"){
+                                errFname.style.display="block";
+                            }
+                            else if(index=="last_name")
+                            {
+                                errLname.style.display="block";
+                            }
+                        })
+                    }
+                    else if(res.msg="mail send"){
+                        Message('success','mail Send success');
+                    }
+                    else{
+                        Message('danger','mail Send failed');
+                    }
+                },
+                error:function(){
+                    console.log('err made my dev')
+                }
+               });
             }
         </script>
     @endpush

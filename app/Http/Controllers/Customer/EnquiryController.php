@@ -890,4 +890,10 @@ class EnquiryController extends Controller
         $file = file_get_contents(asset($url));
         return base64_encode($file);
     }
+    public function getCustomerEnquiries(Request $req){
+        $comment=Comment::where('type_id',$req->enquery_id)->first();
+        return response()->json([
+            'comments'=>$comment
+        ]);
+    }
 }

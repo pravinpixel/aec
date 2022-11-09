@@ -1096,6 +1096,21 @@
                     console.log('get enquiry error');
             });
 
+            // my own starts
+            $http({
+                method: 'post',
+                url: "{{ route('get-customer-enquiries') }}",
+                data:{
+                    enquery_id: $scope.enquiry_id 
+                }
+            }).then( function(res) {
+                console.log(res.data.comments.comments);
+                $scope.comments=res.data.comments.comments;
+                }, function (err) {
+                    console.log('get enquiry error');
+            });
+            // my own ends
+
             getLastEnquiry = (enquiry_id) => {
                 if(typeof(enquiry_id) == 'undefined' || enquiry_id == ''){
                     return false;

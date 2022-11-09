@@ -53,6 +53,8 @@ Route::group(['prefix' => 'customers', 'middleware'=> 'customer'], function(){
 
     Route::get('get-customer-enquiry/{id}/{type}',  [EnquiryController::class, 'getEnquiry'])->name('customers.get-enquiry');
 
+    Route::post('get-customer-enquiries',  [EnquiryController::class, 'getCustomerEnquiries'])->name('get-customer-enquiries');
+
     Route::get('get-plan-view',  [EnquiryController::class, 'getPlanViewList'])->name('customers.plan-view');
 
     Route::get('get-facade-view',  [EnquiryController::class, 'getFacadeViewList'])->name('customers.facade-view');

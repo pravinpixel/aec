@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Laracasts\Flash\Flash;
-
+use Illuminate\Support\Facades\Validator;
 class AuthCustomerController extends Controller
 {
     public function getSignUp()
@@ -139,6 +139,41 @@ class AuthCustomerController extends Controller
         return response()->json([
             'msg'=>'not exists'
         ]);
+    }
+    function emailExistResendEmail(Request $req){
+        $validate=Validator::make($req->all(),[
+            'first_name'=>'required',
+            'last_name'=>'required'
+            
+        ],
+        [
+            'first_name.required'=>'please fill out the first name',
+            'last_name.required'=>'please fill out the last name'
+        ]);
+        if($validate->fails()){
+            return response()->json([
+                'msg'=>'errors',
+                'errors'=>$validate->errors()->toArray()
+            ]);
+        }
+        else{
+            $customer=customer::where('email',$req->email)->first();
+            $mailsendornot=$this->sendMail([
+                'full_name' => $customer->full_name,
+                'route'     => route('company-info', encrypt($customer->id)),
+                'email'     => $customer->email
+            ]);
+            if($mailsendornot){
+                return response()->json([
+                    'msg' => 'mail send'
+                ]);
+            }
+            else{
+                return response()->json([
+                    'msg' => 'mail send failed'
+                ]);
+            }
+        }
     }
     
 } 
