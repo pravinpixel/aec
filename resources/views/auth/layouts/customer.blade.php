@@ -10,7 +10,7 @@
         <footer class="footer footer-alt">
              © {{ now()->year }} AEC Prefab. All Rights Reserved.
         </footer>
+        @include('customer.includes.footer-scripts')
+        @stack('custom-scripts')
     </body>
-    @include('customer.includes.footer-scripts')
 </html>
-@stack('custom-scripts')

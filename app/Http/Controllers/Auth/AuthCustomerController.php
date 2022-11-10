@@ -158,21 +158,16 @@ class AuthCustomerController extends Controller
         }
         else{
             $customer=customer::where('email',$req->email)->first();
-            $mailsendornot=$this->sendMail([
+ 
+            $this->sendMail([
                 'full_name' => $customer->full_name,
                 'route'     => route('company-info', encrypt($customer->id)),
                 'email'     => $customer->email
             ]);
-            if($mailsendornot){
-                return response()->json([
-                    'msg' => 'mail send'
-                ]);
-            }
-            else{
-                return response()->json([
-                    'msg' => 'mail send failed'
-                ]);
-            }
+           
+            return response()->json([
+                'msg' => 'send'
+            ]); 
         }
     }
     
