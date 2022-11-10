@@ -46,6 +46,7 @@ class CreateCustomersTable extends Migration
             $table->softDeletes('deleted_at');
             $table->rememberToken();
             $table->string('token')->nullable();
+            $table->enum('isRegistered',[0,1])->default(0);
             $table->timestamps();
         });
     }

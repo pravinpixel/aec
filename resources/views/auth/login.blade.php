@@ -11,13 +11,13 @@
         <form class="form-horizontal" method="post" action="{{ route('login') }}">
             @csrf
             <div class="mb-3">
-                <div class="input-group flex-nowrap border rounded">
+                <div class="input-group flex-nowrap border border-primary rounded">
                     <span class="input-group-text border-0 bg-none"><i class="fa fa-envelope"></i></span>
                     <input type="text" name="email" class="form-control border-0 ps-0" placeholder="Email" value="{{ old('email') }}" pattern="{{ config('global.email') }}" required>
                 </div>
             </div>
             <div class="mb-3">
-                <div class="input-group flex-nowrap border rounded">
+                <div class="input-group flex-nowrap border border-primary rounded">
                     <span class="input-group-text border-0 bg-none"><i class="fa fa-key"></i></span>
                     <input type="password" name="password" id="password" class="form-control border-0 ps-0" value="{{ old('password') }}" placeholder="Password"  required>
                     <div class="input-group-text border-0" data-password="false">

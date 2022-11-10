@@ -12,7 +12,7 @@
             <form class="form-horizontal" method="post" action="{{ route('signup') }}">
                 @csrf
                 <div class="mb-3">
-                    <div class="input-group flex-nowrap border rounded">
+                    <div class="input-group flex-nowrap border   rounded">
                         <span class="input-group-text border-0 bg-none"><i class="fa fa-user"></i></span>
                         <input type="text" name="first_name" class="form-control border-0 ps-0" placeholder="First Name"
                             id="fname" required value="{{ old('first_name') }}">
@@ -20,7 +20,7 @@
                     <p class="text-danger err" id="err-fname">Please fill out fist name field</p>
                 </div>
                 <div class="mb-3">
-                    <div class="input-group flex-nowrap border rounded">
+                    <div class="input-group flex-nowrap border   rounded">
                         <span class="input-group-text border-0 bg-none"><i class="fa fa-user"></i></span>
                         <input type="text" name="last_name" class="form-control border-0 ps-0" placeholder="Last Name"
                             id="lname" required value="{{ old('last_name') }}">
@@ -28,7 +28,7 @@
                     <p class="text-danger err" id="err-lname">Please fill out last name field</p>
                 </div>
                 <div class="mb-3">
-                    <div class="input-group flex-nowrap border rounded" id="emailBorder">
+                    <div class="input-group flex-nowrap border   rounded" id="emailBorder">
                         <span class="input-group-text border-0 bg-none"><i class="fa fa-envelope"></i></span>
                         <input type="text" name="email" class="form-control border-0 ps-0 " id="email"
                             onkeyup="checkEmailExists(this.value)" placeholder="Email"
@@ -78,7 +78,9 @@
                     </div>
                 </div>
                 <div class="py-2 mb-3" style="display: none" id="popupBox">
-                    <p class="m-0 p-2 text-danger primary-border">Verification mail already sent,check your inbox</p>
+                    <p class="m-0 p-2 text-danger primary-border text-center" id="popuptext">
+                    </p>
+                    {{-- <a href="{{ route('login') }}" id="login">click to signin</a> --}}
                 </div>
                 <div class="mb-0 text-center" id="signup">
                     <button class="btn btn-primary w-100" type="submit"> Sign Up </button>
@@ -86,6 +88,7 @@
                 <div class="mb-0 text-center" style="display:none;" id="resend">
                     <button class="btn btn-primary w-100" onclick="reSend()"> Re Send </button>
                 </div>
+                
             </form>
         </div>
     </div>
@@ -119,6 +122,7 @@
                     var passwords = document.getElementById('passwords');
                     var signup = document.getElementById('signup');
                     var resend = document.getElementById('resend');
+                    var login = document.getElementById('login');
                     $.ajax({
                         method: 'post',
                         data: {
@@ -126,17 +130,28 @@
                         },
                         url: "{{ route('check-email-exists') }}",
                         success: function(res) {
-                            console.log(res)
                             var border = document.getElementById('emailBorder');
                             var popupBox = document.getElementById('popupBox');
-                            if (res.msg == 'exists') {
+                            var popuptext = document.getElementById('popuptext');
+                            if (res.msg == 'exists' || res.msg == 'registered') {
                                 passwords.style.display = 'none';
                                 border.classList.remove('border');
                                 border.style.border = '1px solid #4199FC';
                                 popupBox.style.display = "block ";
                                 signup.style.display = 'none';
-                                resend.style.display = 'block';
+                                resend.style.display = 'none';
+                                if(res.msg == 'exists'){
+                                    popuptext.innerHTML='Verification mail already sent,check your inbox';
+                                    resend.style.display = 'block';
+                                }
+                                else{
+                                    // login.style.display = 'block';
+                                    popuptext.innerHTML='This Email id has been already taken ! <a href="{{ route("login") }}" class="badge bg-primary text-white rounded-pill px-3 p-1">Signin</a>';
+                                }
                             } else {
+                                resend.style.display = 'none';
+                                // login.style.display = 'none';
+                                popuptext.innerHTML='';
                                 border.classList.add('border');
                                 passwords.style.display = 'block';
                                 popupBox.style.display = "none ";
@@ -153,7 +168,6 @@
 
 
             function reSend() {
-                console.log('clicked');
                 var fname = document.getElementById('fname').value;
                 var lname = document.getElementById('lname').value;
                 var reemail = document.getElementById('email').value;

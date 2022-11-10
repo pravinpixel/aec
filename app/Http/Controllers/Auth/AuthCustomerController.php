@@ -99,6 +99,7 @@ class AuthCustomerController extends Controller
         $customer->website         = $request->website;
         $customer->invoice_email   = $request->invoice_email;
         $customer->is_active       = true;
+        $customer->isRegistered    = true;
         if($customer->save()) {
             $this->createEnquiry($customer);
             Flash::success(__('setup completed successfully'));
@@ -130,11 +131,19 @@ class AuthCustomerController extends Controller
 
     }
     function checkEmailExists(Request $req){
-        $emailExists=customer::where('email',$req->input('email'))->exists();
+        $emailExists=Customer::where('email',$req->input('email'))->exists();
         if($emailExists){
-            return response()->json([
-                'msg'=>'exists'
-            ]);    
+            $getCustomer=Customer::where('email',$req->input('email'))->first();
+            if($getCustomer->isRegistered=='0'){
+                return response()->json([
+                    'msg'=>'exists'
+                ]);    
+            }
+            else{
+                return response()->json([
+                    'msg'=>'registered'
+                ]);    
+            }
         }
         return response()->json([
             'msg'=>'not exists'
