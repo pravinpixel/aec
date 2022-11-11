@@ -24,45 +24,46 @@
 @push('custom-scripts')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ajaxy/1.6.1/scripts/jquery.ajaxy.min.js"></script>
     <script>
-        let timerInterval
-        Swal.fire({
-            customClass: {
-                container: 'alertContainer d-none'
-            },
-            showConfirmButton: false,
-            didOpen: () => {
-                Swal.showLoading()
-                const b = Swal.getHtmlContainer().querySelector('b')
-                timerInterval = setInterval(() => {
-                    b.textContent = Swal.getTimerLeft()
-                }, 100)
-            },
-            willClose: () => {
-                clearInterval(timerInterval)
-            }
-        }).then((result) => {
-            /* Read more about handling dismissals below */
-            if (result.dismiss === Swal.DismissReason.timer) {
-                console.log('I was closed by the timer')
-            }
-        })
+        function swalFun(){
+            let timerInterval
+            Swal.fire({
+                html: '<b></b>',
+                showConfirmButton: false,
+                didOpen: () => {
+                    Swal.showLoading()
+                    const b = Swal.getHtmlContainer().querySelector('b')
+                    timerInterval = setInterval(() => {
+                        b.textContent = Swal.getTimerLeft()
+                    }, 1000)
+                },
+                willClose: () => {
+                    clearInterval(timerInterval)
+                }
+            }).then((result) => {
+                /* Read more about handling dismissals below */
+                if (result.dismiss === Swal.DismissReason.timer) {
+                    console.log('I was closed by the timer')
+                }
+            })
 
+        }
+        // var count=0;
         function sendRemainder(id) {
             console.log(' id is:' + id);
-            var loader = document.getElementsByClassName('alertContainer')[0];
-            loader.classList.remove('d-none');
             $.ajax({
                 method: 'post',
                 url: "{{ route('send-remainder') }}",
                 data: {
                     id: id
                 },
+                beforeSend:function(){
+                    swalFun();
+                },
                 success: function(res) {
                     console.log(res);
-                    loader.classList.add('d-none');
                     Swal.fire({
                         icon: 'success',
-                        title: 'Remainder Mail send success',
+                        title: 'Reminder Mail sent',
                         showConfirmButton: false,
                         timer: 1500
                         })
