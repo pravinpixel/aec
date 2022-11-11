@@ -85,7 +85,7 @@
 @push('custom-scripts') 
     <script> 
         $( document ).ready(function() { 
-            $('.textEditorWrapper').removeClass('d-none');  
+            $('.textEditorWrapper').removeClass('d-none');
             SetEditor('#textEditor')
         });
     </script>
