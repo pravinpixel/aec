@@ -64,12 +64,13 @@
                             <span class="input-group-text border-0 bg-none"><i class="fa fa-key"></i></span>
                             <input type="password" name="password_confirmation" id="password_confirmation"
                                 class="form-control border-0 ps-0" placeholder="Confirm Password" required
+                                onclick="reenterPasswdClicked()"
                                 onkeyup="confirmpswdchange()">
                             <div class="input-group-text border-0" data-password="false">
                                 <span class="password-eye"></span>
                             </div>
                         </div>
-                        <small class="text-danger" id="re_passwd"><i class="fa fa-info-circle"></i> (Re-Enter the same
+                        <small class="text-danger" id="re_passwd" style="display:none"><i class="fa fa-info-circle"></i> (Re-Enter the same
                             password)</small>
                         <small class="text-success" style="display:none" id="success_pswd">(Password Matched)</small>
                         @if ($errors->has('password_confirmation'))
@@ -86,7 +87,7 @@
                     <button class="btn btn-primary w-100" type="submit"> Sign Up </button>
                 </div>
                 <div class="mb-0 text-center" style="display:none;" id="resend">
-                    <button class="btn btn-primary w-100" onclick="reSend()"> Re Send </button>
+                    <button class="btn btn-primary w-100" onclick="reSend()" id="resend_btn"> Re Send </button>
                 </div>
                 
             </form>
@@ -96,8 +97,12 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ajaxy/1.6.1/scripts/jquery.ajaxy.min.js"></script>
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
         <script>
+            function reenterPasswdClicked()
+            {
+                document.getElementById('re_passwd').style.display = "block";
+            }
             function pswdchangeeve(text) {
-                if (text.length <= 8 || text.length >= 12) {
+                if (text.length <= 7 || text.length >= 12) {
                     document.getElementById('pswd').style.display = "block";
                 } else {
                     document.getElementById('pswd').style.display = "none";
@@ -168,6 +173,7 @@
 
 
             function reSend() {
+                var resendBtn=document.getElementById('resend_btn');
                 var fname = document.getElementById('fname').value;
                 var lname = document.getElementById('lname').value;
                 var reemail = document.getElementById('email').value;
@@ -180,6 +186,7 @@
                     beforeSend: function() {
                         errFname.style.display = "none";
                         errLname.style.display = "none";
+                        resendBtn.classList.add('btn-loader')
                     },
                     data: {
                         first_name: fname,
@@ -189,6 +196,7 @@
                     success: function(res) {
                         console.log(res.msg);
                         if (res.msg == "errors") {
+                            resendBtn.classList.remove('btn-loader')
                             $.each(res.errors, (index, value) => {
                                 console.log(index + ' ' + value)
                                 if (index == "first_name") {
@@ -198,13 +206,16 @@
                                 }
                             })
                         } else if (res.msg == "send") {
+                            resendBtn.classList.remove('btn-loader')
                             Swal.fire({
                                 icon: 'success',
                                 title: 'Mail send successfully to '+reemail,
                                 showConfirmButton: false,
                                 timer: 1500
                             })
+                            window.location.href="{{ route('login') }}";
                         } else {
+                            resendBtn.classList.remove('btn-loader')
                             Swal.fire({
                                 icon: 'Danger',
                                 title: 'Mail send Failed ',

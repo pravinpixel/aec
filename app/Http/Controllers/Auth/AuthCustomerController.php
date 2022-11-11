@@ -179,5 +179,10 @@ class AuthCustomerController extends Controller
             ]); 
         }
     }
+    public function sendRemainder($id){
+        return response()->json([
+            'id is'=>$id
+        ]);
+    }
     
 } 

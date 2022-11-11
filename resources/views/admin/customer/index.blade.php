@@ -22,5 +22,10 @@
 @endsection
 
 @push('custom-scripts')
+    <script>
+        function sendRemainder(url,id){
+            console.log('url is:'+url+' id is:'+id);
+        }
+    </script>
     <script src="{{ asset("public/custom/js/ngControllers/admin/customer.js") }}"></script>  
 @endpush
