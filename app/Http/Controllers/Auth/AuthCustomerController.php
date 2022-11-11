@@ -69,6 +69,10 @@ class AuthCustomerController extends Controller
     {
        return Mail::to($details['email'])->send(new \App\Mail\RegisterCustomerMail($details));
     }
+     public function sendRemainderMail($details)
+    {
+       return Mail::to($details['email'])->send(new \App\Mail\RemainderCustomerMail($details));
+    }
 
     public function CompanyInfo($id)
     {
@@ -99,7 +103,7 @@ class AuthCustomerController extends Controller
         $customer->website         = $request->website;
         $customer->invoice_email   = $request->invoice_email;
         $customer->is_active       = true;
-        $customer->isRegistered    = true;
+        $customer->isRegistered    = '1';
         if($customer->save()) {
             $this->createEnquiry($customer);
             Flash::success(__('setup completed successfully'));
@@ -179,9 +183,17 @@ class AuthCustomerController extends Controller
             ]); 
         }
     }
-    public function sendRemainder($id){
+    public function sendRemainder(Request $req){
+        $customer=Customer::find($req->id);
+
+        $this->sendRemainderMail([
+            'full_name' => $customer->full_name,
+            'route'     => route('company-info', encrypt($customer->id)),
+            'email'     => $customer->email
+        ]);
+
         return response()->json([
-            'id is'=>$id
+            'id is'=>$customer
         ]);
     }
     
