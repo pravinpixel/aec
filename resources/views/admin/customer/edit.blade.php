@@ -77,7 +77,7 @@
                             @endif
                         </div> 
                      
-                        <h4> Company Information</h4>
+                        <h4> Company Information </h4>
                         <div class="my-2 col-md-6">
                             <label for="company_name" class="form-label text-secondary">Company Name <span class="text-danger">*</span></label>
                             <input type="text"  name="company_name" id="validationCustom01" class="form-control"  value="{{ $customer->company_name ?? old('company_name') }}" placeholder="Type Here..."  ng-required="true" list="companyList" ng-change="getCompany(company_name)" ng-model="company_name" readonly/>
