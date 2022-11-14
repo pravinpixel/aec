@@ -92,7 +92,7 @@
     <script> 
         preview = () => {
             $("#card-title").html($("#documentary_title").val())
-            var editor = document.getElementsByClassName('ck-restricted-editing_mode_standard');
+            var editor = document.getElementsByClassName('ck-content');
             $("#preview").html(editor[0].innerHTML);
         }
     </script>

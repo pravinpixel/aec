@@ -75,8 +75,19 @@
 <script type="text/javascript" src="{{ asset("public/js/ckeditor.js") }}"></script>
 <script>
     SetEditor = (element) => {
-        ClassicEditor.create( document.querySelector(element)).then( editor => {
-            console.log( 'Editor was initialized', editor );
+        ClassicEditor.create( document.querySelector(element),{
+        }).then( editor => { 
+            if(element == '#customer_comments') {
+                editor.enableReadOnlyMode(element);
+            }
+            else if(element == '#admin_comments'){
+                editor.ui.focusTracker.on('change:isFocused', (evt, name, isFocused) => {
+                            if (!isFocused) {
+                                console.log('check');
+                                getAdminCKValue();
+                            }
+                });
+            }  
         }).catch( error => {
             console.error( error.stack );
         });

@@ -27,7 +27,7 @@
         function swalFun(){
             let timerInterval
             Swal.fire({
-                html: '<b></b>',
+                html: '',
                 showConfirmButton: false,
                 didOpen: () => {
                     Swal.showLoading()

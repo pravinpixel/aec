@@ -56,6 +56,18 @@
     SetEditor = (element) => {
         ClassicEditor.create( document.querySelector(element)).then( editor => {
             console.log( 'Editor was initialized', editor );
+            if(element=='#aec_admin_client_page'){
+                editor.enableReadOnlyMode( element );
+            }
+            else if(element=='#aec_client_client_page'){
+                editor.ui.focusTracker.on('change:isFocused', (evt, name, isFocused) => {
+                            if (!isFocused) {
+                                // Do whatever you want with current editor data:
+                                console.log('check');
+                                clientComment();
+                            }
+                });
+            }
         }).catch( error => {
             console.error( error.stack );
         });

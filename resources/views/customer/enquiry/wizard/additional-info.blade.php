@@ -41,7 +41,7 @@
         transform: scale(1.2);
         box-shadow: 0px 5px 10px #4f4f4fb2 !important
     }
-    .ck-restricted-editing_mode_standard{
-        height:300px;
+    .ck-content{
+        height:400px;
     }
 </style>

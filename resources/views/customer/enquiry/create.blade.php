@@ -1179,7 +1179,7 @@
                 $http({
                     method: 'POST',
                     url: '{{ route("customers.store-enquiry") }}',
-                    data: {type: 'additional_info', 'data':  $(".ck-restricted-editing_mode_standard").html()}
+                    data: {type: 'additional_info', 'data':  $(".ck-content").html()}
                 }).then(function (res) {
                     $location.path('/review');
                     Message('success',`Comments added successfully`);

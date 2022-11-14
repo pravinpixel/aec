@@ -1886,9 +1886,6 @@ formatData = (project) => {
   
   
   app.controller('GendralController', function($scope, $http, API_URL, $timeout, $location) {
-
-
-
     $scope.customer_comments='';
     let project_id = $('#project_id').val();
 
@@ -1906,11 +1903,12 @@ formatData = (project) => {
       }).then(function(res) { 
         $.each(res.data.data,(index,value)=>{
           $scope.customer_comments=value.body;
-        console.log(res.data);
+          console.log(res.data);
       });
-      // console.log('customer comment:'+$scope.customer_comments);
+      setTimeout(()=>{
         SetEditor('#customer_comments');
         SetEditor('#admin_comments');
+      },400);
     }, function(error) {
       Message('danger', `General info ${error}`);
     }); 
@@ -1988,7 +1986,10 @@ formatData = (project) => {
 
     getAdminCKValue=()=>{
 
-      $scope.ckval=document.getElementsByClassName('ck-restricted-editing_mode_standard')[1].innerHTML;
+      console.log('before');
+      $scope.ckval=document.getElementsByClassName('ck-content')[1].innerHTML;
+      console.log('after');
+      console.log('after');
       $http({
         method: 'POST',
         url: `${API_URL}admin/live-project/admin-comment`,

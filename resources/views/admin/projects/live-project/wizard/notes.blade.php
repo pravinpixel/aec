@@ -1,17 +1,17 @@
 <style>
-    .ck-restricted-editing_mode_standard{
+    .ck-content{
         height:300px;
     }
 </style>
 <div class="">
     <div class="row p-2">
-        <div class="col">
+        <div class="col-6">
             <form action="">
                 <p class="h5 mt-2">TrePrefab(customer)comments</p>   
-                 <textarea  ng-model="customer_comments"  id="customer_comments" class="d-none" readonly></textarea>
+                 <textarea  ng-bind="customer_comments"  id="customer_comments" class="d-none" readonly></textarea>
             </form>
         </div>
-        <div class="col">
+        <div class="col-6">
             <p class="h5 mt-2">AECPrefab comments</p>
                 <form action="">
                     <textarea ng-model="admin_comments"  id="admin_comments" class="d-none"></textarea>

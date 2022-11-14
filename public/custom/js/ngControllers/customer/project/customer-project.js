@@ -1575,10 +1575,9 @@ app.controller('GendralController', function($scope, $http, API_URL, $timeout, $
   $scope.projectID = project_id;
   $scope.multilineToolbar = true;
 
-    // console.log(wrapper[0].innerHTML)
 
    clientComment=()=>{
-      var wrapper=document.getElementsByClassName('ck-restricted-editing_mode_standard')[1];
+      var wrapper=document.getElementsByClassName('ck-content')[1];
       $http({
         method: 'POST',
         url: `${API_URL}admin/live-project/post-client-comment`,
@@ -1600,15 +1599,16 @@ app.controller('GendralController', function($scope, $http, API_URL, $timeout, $
       }
     }).then(function(res) {
       console.log(res.data.data);
-
-      var wrap=document.getElementsByClassName('ck-restricted-editing_mode_standard')[0];
+      var wrap=document.getElementsByClassName('ck-content')[0];
       $.each(res.data.data,(index,value)=>{
           $scope.ckText+=value.body;
           $scope.projectName=value.project.project_name;
       });
       console.log($scope.ckText);
+      setTimeout(()=>{
         SetEditor('#aec_admin_client_page')
         SetEditor('#aec_client_client_page')
+      },500);
     }, function(error) {
 
       Message('danger', `General info ${error}`);

@@ -3,8 +3,8 @@
 
 @section('admin-content')
 <style> 
- .ck-restricted-editing_mode_standard{
-        height:300px;
+ .ck-content{
+        height:300px !important;
     }
 </style>
     <div class="content-page" >
@@ -92,7 +92,7 @@
 <script> 
         preview = () => {
             $("#card-title").html($("#documentary_title").val())
-            var editor = document.getElementsByClassName('ck-restricted-editing_mode_standard');
+            var editor = document.getElementsByClassName('ck-content');
             $("#preview").html(editor[0].innerHTML) 
         }
     </script>
