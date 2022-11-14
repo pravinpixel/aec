@@ -98,6 +98,7 @@
                                 <div class="mb-0  mt-3 text-center">
                                     <button class="btn btn-primary px-5 rounded-pill" type="submit"><i class="mdi mdi-account-circle"></i> Sign Up </button>
                                 </div>  
+                                <input type="hidden" name="company_address" id="company_address">
                             </form>
                         </div>
                         <!-- end form-->
@@ -129,13 +130,31 @@
             .then(function successCallback(res){
                 $scope.companyList = res.data.entries.slice(0, 50)
                     .map((item) => {
-                        return {'company':item.navn, 'mobile': item.tlf_mobil, 'zip_code': item.forradrpostnr, 'organization_no': item.orgnr, 'site_address': item.forretningsadr} 
+                        console.log(item)
+                        return {
+                                'company':item.navn,
+                                'mobile': item.tlf_mobil,
+                                'zip_code': item.forradrpostnr,
+                                'organization_no': item.orgnr,
+                                'site_address': item.forretningsadr,
+                                'adecommnr':item.forradrkommnr,
+                                'adrland':item.forradrland,
+                                'adrpostnr':item.forradrpostnr,
+                                'adrpoststed':item.forradrpoststed
+                            } 
                     });
+                    console.log($scope.companyList.length);
                     if($scope.companyList.length == 1) {
                         $scope.organization_no = ($scope.companyList[0].organization_no == '') ? '  ' : $scope.companyList[0].organization_no;
                         $("#organization_no").val($scope.organization_no);
+                        $scope.address=$scope.companyList[0].adecommnr+', '+$scope.companyList[0].adrland +', '+$scope.companyList[0].adrpostnr +', '+$scope.companyList[0].adrpoststed;
+                        // console.log($scope.address);
+                        $('#company_address').val($scope.address);
                     } else {
+                        $scope.address=$scope.companyList[0].adecommnr+', '+$scope.companyList[0].adrland +', '+$scope.companyList[0].adrpostnr +', '+$scope.companyList[0].adrpoststed;
+                        // console.log($scope.address);
                         $("#organization_no").val('');
+                        $('#company_address').val($scope.address);
                     }
             }, function errorCallback(error){
                 console.log(error);

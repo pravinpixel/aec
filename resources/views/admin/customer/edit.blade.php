@@ -68,16 +68,8 @@
                                 <span class="text-danger my-2">{{ $errors->first('email') }}</span>
                             @endif
                         </div> 
-
-                        <div class="my-2 col-md-6">
-                            <label for="password" class="form-label text-secondary">Password </label>
-                            <input class="form-control" type="password" name="password" id="password" placeholder="Enter password" readonly>
-                            @if($errors->has('password'))
-                                <span class="text-danger my-2">{{ $errors->first('password') }}</span>
-                            @endif
-                        </div> 
                      
-                        <h4> Company Information </h4>
+                        <h4> Company Information</h4>
                         <div class="my-2 col-md-6">
                             <label for="company_name" class="form-label text-secondary">Company Name <span class="text-danger">*</span></label>
                             <input type="text"  name="company_name" id="validationCustom01" class="form-control"  value="{{ $customer->company_name ?? old('company_name') }}" placeholder="Type Here..."  ng-required="true" list="companyList" ng-change="getCompany(company_name)" ng-model="company_name" readonly/>
@@ -95,6 +87,11 @@
                                 <span class="text-danger my-2">{{ $errors->first('organization_no') }}</span>
                             @endif
                         </div>
+                        <div class="my-2 col-md-6">
+                            <label for="address" class="form-label text-secondary">@lang('customer.customer_address') <span class="text-danger">*</span></label>
+                            <input class="form-control" type="text" readonly name="address" value="{{ $customer->address ?? old('address') }}" id="address" required placeholder="@lang('customer.customer_address')">
+                        </div>
+
                         <h4> Contact Information</h4>
                         <div class="my-2 col-md-6">
                             <label for="phone_no" class="form-label text-secondary">Phone</label>

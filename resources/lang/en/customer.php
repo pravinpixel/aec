@@ -18,5 +18,6 @@ return [
     'postal_code'        => 'Zip Code',
     'mobile_no'          => 'Mobile No',
     'organization_no'    => 'Organization No',
+    'customer_address'    => 'Company Address',
 ];
 

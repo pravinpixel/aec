@@ -104,6 +104,7 @@ class AuthCustomerController extends Controller
         $customer->invoice_email   = $request->invoice_email;
         $customer->is_active       = true;
         $customer->isRegistered    = '1';
+        $customer->address         = $request->company_address;
         if($customer->save()) {
             $this->createEnquiry($customer);
             Flash::success(__('setup completed successfully'));
