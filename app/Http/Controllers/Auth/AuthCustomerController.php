@@ -107,10 +107,12 @@ class AuthCustomerController extends Controller
         if($customer->save()) {
             $this->createEnquiry($customer);
             Flash::success(__('setup completed successfully'));
-            return redirect(route('login'));
+            // return redirect(route('login'));
+            return view('admin.customer.certification');
         }
         Flash::error(__('global.something'));
-        return redirect(route('login'));
+        // return redirect(route('login'));
+        return view('admin.customer.certification');
     }
 
     private function createEnquiry($customer)
