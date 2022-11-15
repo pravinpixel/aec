@@ -731,24 +731,17 @@ formatData = (project) => {
   
       if (project_id != null) {
         $http.get(`${API_URL}admin/api/v2/get-live-project-type/` + project_id).then((res) => {
-          console.log(res.data);
-          $scope.projectTypes = res.data;
-  
-  
+          $scope.projectTypes = res.data; 
         });
   
         $http.get(`${API_URL}project/liveprojectlist/${project_id}`).then((res) => {
-          console.log(res.data);
-  
           $scope.project                 = formatData(res.data.project);
           $scope.check_list_all          = JSON.parse(res.data.project.gantt_chart_data) == null ? [] : JSON.parse(res.data.project.gantt_chart_data)
           $scope.check_list_items_status = JSON.parse(res.data.project.gantt_chart_data) == null ? false : true
           $scope.countper                = res.data.completed == null ? [] : res.data.completed;
           $scope.overall                 = res.data.overall ?? 0;
           $scope.lead                    = res.data.lead;
-          //console.log(res.data.check_list_items );
-  
-  
+          $scope.TaskListsCollection     = JSON.parse(res.data.project.gantt_chart_data) == null ? [] : JSON.parse(res.data.project.gantt_chart_data)
         });
       }
   
@@ -825,7 +818,7 @@ formatData = (project) => {
   
       $scope.storeTaskListsStatus = (statusValue) => {
   
-        $scope.check_list_items.map((CheckLists) => {
+        $scope.TaskListsCollection.map((CheckLists) => {
   
           const CheckListsIndex = Object.entries(CheckLists.data);
   
@@ -857,14 +850,14 @@ formatData = (project) => {
             $http.post(`${$("#baseurl").val()}admin/api/v2/store-task-list`, {
               id: $('#project_id').val(),
               update: $scope.check_list_items_status,
-              data: $scope.check_list_items,
+              data: $scope.TaskListsCollection,
             }).then((res) => {
   
               if (res.data.status === true) {
                 Message('success', 'Task List Updated !');
                 $http.get(`${API_URL}project/liveprojectlist/${project_id}`).then((res) => {
                   $scope.project = formatData(res.data.project);
-                  $scope.check_list_items = JSON.parse(res.data.project.gantt_chart_data) == null ? [] : JSON.parse(res.data.project.gantt_chart_data)
+                  $scope.TaskListsCollection = JSON.parse(res.data.project.gantt_chart_data) == null ? [] : JSON.parse(res.data.project.gantt_chart_data)
                   $scope.check_list_items_status = JSON.parse(res.data.project.gantt_chart_data) == null ? false : true
                   $scope.countper = res.data.completed == null ? [] : res.data.completed;
                   $scope.overall = res.data.overall ?? 0;
@@ -1025,16 +1018,31 @@ formatData = (project) => {
   
     }
     $scope.createTaskListData=(index,index_2)=>{
-      $scope.check_list_all[index].data[index_2].data.push({
+      $scope.TaskListsCollection[index].data[index_2].data.push({
         start_date : "",
         task_list  : "",
         end_date   : "",
         assign_to  : "",
       }) 
-      console.log($scope.check_list_all[index].data);
+      console.log($scope.TaskListsCollection[index].data);
     Message('success',"New Task List Added !")
     }
+    $scope.liveProjectToDoSubmit = () => {
+      if($scope.TaskListsCollection.length == 0) {
+        Message('danger','Select checklist'); return false;
+      }
+      $http.post(`${$("#baseurl").val()}admin/api/v2/update-to-do`, {
+        id: $('#project_id').val(),
+        data: $scope.TaskListsCollection,
+      }).then((res) => {
+        Message('success', 'Task added !');
+        var location =window.location.href;
+        var nlocatn=location.replace('task-list','bim360');
+        window.location.href=nlocatn;
+      })
+    }
     $scope.liveProjectToDoUpdate=()=>{
+      console.log($scope.check_list_all)
       $http.post(`${$("#baseurl").val()}admin/api/v2/update-to-do`, {
         id: $('#project_id').val(),
         data: $scope.check_list_all,
@@ -1069,11 +1077,11 @@ formatData = (project) => {
         dangerMode: true,
     }).then((willDelete) => {
         if(willDelete.isConfirmed) {
-            $scope.check_list_all[index].data[index_2].data.splice(index_3,1)
+            $scope.TaskListsCollection[index].data[index_2].data.splice(index_3,1);
 
           $http.post(`${$("#baseurl").val()}admin/api/v2/update-to-do`, {
             id: $('#project_id').val(),
-            data: $scope.check_list_all,
+            data: $scope.TaskListsCollection,
           }).then((res) => {
               Message('success', 'Task deleted !');
           //     $http.get(`${API_URL}project/liveprojectlist/${project_id}`).then((res) => {

@@ -510,7 +510,9 @@ class ProjectController extends Controller
                                 if(isset($finaldata->status) &&  $finaldata->status !=  ''){
                                     $finalstatuspercentage[] =   $finaldata->status;
                                 } 
-                                $gnttname[] = $finaldata->task_list;
+                              
+                                $gnttname[] = $finaldata->task_list ?? "";
+                                // why i m commanding above line is this line makes inital error of live project page
                                 
                                 $date_now = date("Y-m-d"); // this format is string comparable
                                 
