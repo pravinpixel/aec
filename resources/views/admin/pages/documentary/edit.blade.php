@@ -73,7 +73,7 @@
                     <h3 id="card-title"></h3>
                     <button type="button" class="btn-close me-3" data-bs-dismiss="modal" style="top: 33px" aria-hidden="true"></button>
                 </div>
-                <div class="modal-body" style="user-select: none;pointer-event:none" id="preview" style="overflow: auto">
+                <div class="modal-body" style="user-select: none;pointer-event:none" id="preview">
                 </div>
                 <div class="modal-footer text-end">
                     <a href="{{ route('admin.contract.download',$contract->id) }}" class="btn btn-sm btn-outline-warning rounded-pill"><i class="mdi mdi-download"></i> Download</a>
@@ -81,6 +81,14 @@
             </div> 
         </div>
     </div>
+    <style>
+        svg{
+            display: none;
+        }
+        .model-body{
+            background:white !important;
+        }
+    </style>
 @endsection
 @push('custom-scripts') 
     <script> 
@@ -94,6 +102,10 @@
             $("#card-title").html($("#documentary_title").val())
             var editor = document.getElementsByClassName('ck-content');
             $("#preview").html(editor[0].innerHTML);
+            $("#preview").css('background','white');
+            setTimeout(() => {
+                $('td').attr('contenteditable',false);
+            }, 300);
         }
     </script>
 @endpush

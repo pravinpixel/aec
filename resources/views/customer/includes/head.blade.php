@@ -50,6 +50,7 @@
 <link href="{{ asset('public/assets/css/vendor/responsive.bootstrap5.css') }}" rel="stylesheet" type="text/css" />
 <link href="{{ asset('public/assets/css/vendor/buttons.bootstrap5.css') }}" rel="stylesheet" type="text/css" />
 <link href="{{ asset('public/assets/css/vendor/select.bootstrap5.css') }}" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="{{ asset('public/custom/css/date-picker.css') }}"> 
 <style>
    
     .conversation-list  li.Customer_odd {
