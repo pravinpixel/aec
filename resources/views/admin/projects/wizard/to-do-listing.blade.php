@@ -108,14 +108,14 @@
                                         <div style="width:300px;" class="p-1">
                                             <input type="text" class="form-control-sm form-control" ng-model="taskListData.task_list">
                                         </div>
-                                        <div class="col p-1">
-                                            <select get-to-do-lists ng-model="taskListData.assign_to" class="form-select form-select-sm">
-                                                <option value="">-- Project Manager --</option>
+                                        <div class="col p-1" >
+                                            <select  ng-model="taskListData.assign_to" class="form-select form-select-sm">
+                                                <option ng-value="null" ng-selected="taskListData.assign_to==null">-- Project Manager --</option>
                                                 <option ng-repeat="projectManager in projectManagers"
-                                                    value="@{{ projectManager.id }}"
-                                                    ng-selected="projectManager.id == taskListData.assign_to">
-                                                    @{{ projectManager.first_name }}
-                                                </option>
+                                                    ng-value="projectManager.id"
+                                                    ng-selected="projectManager.id == taskListData.assign_to"
+                                                    ng-bind="projectManager.first_name"
+                                                ></option>
                                             </select>
                                         </div>
                                         <div class="col p-1">

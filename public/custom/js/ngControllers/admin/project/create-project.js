@@ -608,7 +608,7 @@ formatData = (project) => {
   
     $scope.add_new_check_list_item = () => {
       if ($scope.check_list_type === undefined || $scope.check_list_type == '') return false
-  
+      
       // $scope.return   =    true
   
       // $scope.check_list_items.map(item => {``
@@ -625,7 +625,30 @@ formatData = (project) => {
         project_id: $scope.project_id
       }).then((res) => {
         $scope.check_list_items.push(res.data.data)
-        console.log($scope.check_list_items)
+        console.log('before')
+        console.log($scope.check_list_items);
+        console.log($scope.check_list_items.length);
+        
+        $scope.check_list_items.forEach((ele)=>{
+
+          Object.keys(ele.data).forEach(
+          (key)=>{
+              ele.data[key].data.forEach(
+                (index1)=>{
+                    index1.assign_to=null;	
+                    console.log(index1.assign_to);	
+                  }
+              );
+          }
+          );
+      })
+        //    console.log($scope.check_list_items[i].data[j].name);
+          // for(k=0;k<$scope.check_list_items[j].data.data.length;k++){
+          //   $scope.check_list_items[j].data.data[k].assign_to='';
+          //   console.log('after');
+          //   }  
+          // console.log($scope.check_list_items[i].data.length);
+          // console.log($scope.check_list_items[i].data);
       })
     };
   
@@ -1031,16 +1054,82 @@ formatData = (project) => {
       if($scope.TaskListsCollection.length == 0) {
         Message('danger','Select checklist'); return false;
       }
-      $http.post(`${$("#baseurl").val()}admin/api/v2/update-to-do`, {
-        id: $('#project_id').val(),
-        data: $scope.TaskListsCollection,
-      }).then((res) => {
-        Message('success', 'Task added !');
-        var location =window.location.href;
-        var nlocatn=location.replace('task-list','bim360');
-        window.location.href=nlocatn;
-      })
+      $scope.TaskListsCollection.map((CheckLists) => {
+
+        const CheckListsIndex = Object.entries(CheckLists.data);
+
+        $scope.CallToDB = false;
+
+        CheckListsIndex.map((TaskLists) => {
+            const TaskListsIndex = TaskLists[1].data;
+            TaskListsIndex.map((ListItems) => {
+                if(ListItems.assign_to === undefined  || ListItems.assign_to == '') {
+                    Message('danger', 'Assign To Field is  Required !');
+                    $scope.CallToDB = false;
+                    return false
+                } else $scope.CallToDB = true;
+                if(ListItems.start_date === undefined  || ListItems.start_date == '') {
+                    Message('danger', 'Start Date Field is  Required !');
+                    $scope.CallToDB = false;
+                    return false
+                } else $scope.CallToDB = true;
+                if(ListItems.end_date === undefined  || ListItems.end_date == '') {
+                    Message('danger', 'End Date Field is  Required !');
+                    $scope.CallToDB = false;
+                    return false
+                } else $scope.CallToDB = true;
+                
+            }); 
+        });
+
+        if ($scope.CallToDB === true) {
+            $http.post(`${$("#baseurl").val()}admin/api/v2/update-to-do`, {
+                id      :   $('#project_id').val(),
+                data    :  $scope.TaskListsCollection,
+            }).then((res) => {
+                if(res.data.status === true) {
+                    Message('success', 'To do List Added Success !');
+                    var location =window.location.href;
+                    var nlocatn=location.replace('task-list','bim360');
+                    window.location.href=nlocatn;
+                }                
+            })
+        }
+        
+    }); 
     }
+
+
+
+
+
+
+
+
+    // $http.post(`${$("#baseurl").val()}admin/api/v2/update-to-do`, {
+    //   id: $('#project_id').val(),
+    //   data: $scope.TaskListsCollection,
+    // }).then((res) => {
+    //   Message('success', 'Task added !');
+    //   var location =window.location.href;
+    //   var nlocatn=location.replace('task-list','bim360');
+    //   window.location.href=nlocatn;
+    // })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     $scope.liveProjectToDoUpdate=()=>{
       console.log($scope.check_list_all)
       $http.post(`${$("#baseurl").val()}admin/api/v2/update-to-do`, {

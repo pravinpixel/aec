@@ -25,6 +25,7 @@
             </tr>
         </tbody>
     </table> 
+    @{{ TaskListsCollection }}
     <div ng-repeat="(index,check_list) in TaskListsCollection">
         <div style="display:flex;background:#0C326C;" class="p-2">
             <div class="text-center text-light" style="font-weight:bold;width:5%">S.No</div>
@@ -79,8 +80,9 @@
                             value="@{{ taskListData.assign_to }}">
                             {{-- <p style="" class="m-0"> --}}
                                 {{-- <input type="text" ng-repeat="projectManager in projectManagers" ng-value="projectManager.first_name" ng-bind=" taskListData.task_list "> --}}
-                                <select name="" id="" ng-model="taskListData.assign_to" class="form-control">
-                                    <option value="" >-- Project Manager --</option>
+                                <select name="" id="shouldRemoveSelect" ng-model="taskListData.assign_to" class="form-control" 
+                                >
+                                    <option value="" ng-model="taskListData.assign_to">-- Project Manager --</option>
                                     <option 
                                         ng-repeat="projectManager in projectManagers"
                                         value="@{{ projectManager.id }}"
