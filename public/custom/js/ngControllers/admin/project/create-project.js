@@ -2139,7 +2139,7 @@ formatData = (project) => {
         $scope.project = formatData(res.data.project);
         $scope.project['address_one'] = res.data.project.site_address;
         $scope.check_list_items = JSON.parse(res.data.gantt_chart_data) == null ? [] : JSON.parse(res.data.gantt_chart_data)
-        fileSystem = res.data.sharepoint;
+        fileSystem =  res.data.sharepoint.folders;
         const fileManager = $('#file-manager').dxFileManager({
           name: 'fileManager',
           fileSystemProvider: fileSystem,

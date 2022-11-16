@@ -1,5 +1,5 @@
 <form id="createProjectForm" name="createProjectForm" ng-submit="submitCreateProjectForm()">
-    <div class="card-body">
+    <div class="card-body" id="customized_card">
         <div class="row m-0 border-bottom mb-2 pb-2">
             <div class="col-md-6"> 
                 <div class="row m-0 align-items-center">
@@ -205,11 +205,10 @@
                         <label class="col-form-label">Start Date <sup class="text-danger">*</sup></label>
                     </div>
                     <div class="col pe-0">
-                        <datepicker date-format="dd/MM/yyyy" date-min-limit="project.start_date" date-set="project.start_date">
-                            <input type="text" name="start_date" ng-model="project.start_date" class="form-control form-control-sm" required>
+                        <datepicker date-format="dd-MM-yyyy" date-min-limit="project.start_date" date-set="project.start_date">
+                            <input type="text" name="start_date" ng-model="project.start_date" class="form-control form-control-sm" required id="start_date">
                         </datepicker>
                         <small class="text-danger" ng-show="createProjectForm.start_date.$invalid && createProjectForm.start_date.$toucehd">This field is required</small>
-
                     </div> 
                 </div>
             </div>
@@ -219,7 +218,9 @@
                         <label class="col-form-label">Delivery Date <sup class="text-danger">*</sup></label>
                     </div>
                     <div class="col pe-0">
-                        <input type="date" ng-model="project.delivery_date" class="form-control form-control-sm" required>
+                        <datepicker date-format="dd-MM-yyyy"  date-min-limit="project.delivery_date"  date-set="project.delivery_date">
+                            <input type="text"  name="delivery_date" ng-model="project.delivery_date" class="form-control form-control-sm" required id="end_date">
+                        </datepicker>
                         <small class="text-danger" ng-show="createProjectForm.delivery_date.$invalid && createProjectForm.delivery_date.$toucehd">This field is required</small>
 
                     </div> 
@@ -238,4 +239,28 @@
         transform: scale(1.2);
         box-shadow: 0px 5px 10px #4f4f4fb2 !important
     }
+    
 </style> 
+<script>
+    var sDate=document.getElementById('start_date');
+    var eDate=document.getElementById('end_date');
+    var cusCard=document.getElementById('customized_card');
+    var height=cusCard.clientHeight;
+    // alert(height+'px');
+    sDate.addEventListener('click',()=>{
+        cusCard.style.height='90vh';
+    });
+    sDate.addEventListener('blur',()=>{
+        setTimeout(() => {
+            cusCard.style.height=height+'px';
+        }, 200);
+    });
+    eDate.addEventListener('click',()=>{
+        cusCard.style.height='90vh';
+    });
+    eDate.addEventListener('blur',()=>{
+        setTimeout(() => {
+            cusCard.style.height=height+'px';
+        }, 200);
+    });
+</script>
