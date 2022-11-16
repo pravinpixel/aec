@@ -82,10 +82,13 @@
         </div>
     </div>
     <style>
-        svg{
+        svg[viewBox="0 0 10 8"]{
             display: none;
         }
-        .model-body{
+        .modal-body{
+            background:white !important;
+        }
+        .modal-footer{
             background:white !important;
         }
     </style>
@@ -94,10 +97,10 @@
     <script> 
         $( document ).ready(function() { 
             $('.textEditorWrapper').removeClass('d-none');
-            SetEditor('#textEditor')
+            setTimeout(() => {
+                SetEditor('#textEditor');
+            }, 200);
         });
-    </script>
-    <script> 
         preview = () => {
             $("#card-title").html($("#documentary_title").val())
             var editor = document.getElementsByClassName('ck-content');
