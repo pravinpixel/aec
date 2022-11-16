@@ -660,7 +660,17 @@ class ProjectController extends Controller
         $invoice_data   =   json_decode($invoice_plan->invoice_data ?? '');
         $project_team_setups =   $this->projectRepo->getProjectTeamSetup($id);
         $project = $this->projectRepo->getSharePointFolder($id);
-        $sharepoint =  isset($project->sharepointFolder->folder) ? json_decode($project->sharepointFolder->folder) : [];
+
+        $project_id = $this->getProjectId();
+        $arr         = Project::whereId($project_id)->with('folders')->get(); 
+        $narr=[];
+        foreach($arr[0]['folders'] as $a){
+            $a->setAttribute('isDirectory',true);
+            array_push($narr,$a);
+        }
+        $sharepoint['folders']=$narr;
+        // $sharepoint =  isset($project->sharepointFolder->folder) ? json_decode($project->sharepointFolder->folder) : [];
+
         $team_setup = [];
        
         if (!empty($project_team_setups)) {
@@ -706,20 +716,8 @@ class ProjectController extends Controller
         } else if ($type == 'to-do-list') {
             return true;
         } else if ($type == 'connection_platform') { 
-                      $projectSharepoint = $this->projectRepo->getSharePointFolder($id);
-                    //   oldest edit
-
-            // $response['folders']         = isset($projectSharepoint->sharepointFolder->folder) ? json_decode($projectSharepoint->sharepointFolder->folder) : [];
-
-            // surendhar edit
-            // $arr         = SharePointMasterFolder::get();
-            // $narr=[];
-            // foreach($arr as $a){
-            //     $a->setAttribute('isDirectory',true);
-            //     array_push($narr,$a);
-            // }
             $project_id = $this->getProjectId();
-            $arr         = Project::whereId($project_id)->with('folders')->get();
+            $arr         = Project::whereId($project_id)->with('folders')->get(); 
             $narr=[];
             foreach($arr[0]['folders'] as $a){
                 $a->setAttribute('isDirectory',true);
