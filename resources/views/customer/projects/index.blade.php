@@ -5,7 +5,7 @@
     <div class="content-page"  >
         <div class="content" ng-controller="CustomerprojectController" >
             @include('customer.includes.top-bar')
-            <div class="container-fluid">
+            <div class="container-fluid" >
                 <!-- start page title -->
                 @include('customer.includes.page-navigater')
                 <!-- end page title -->

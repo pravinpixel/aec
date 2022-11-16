@@ -69,10 +69,10 @@
                 <small class="text-danger" ng-show="projectInfoForm.project_type.$invalid && formSubmit">This field is required</small>
             </div>
             <div class="form-floating  mb-2"> 
+                <p for="floating" class="mb-0 cuspsd">Project Start Date <sup class="text-danger">*</sup></p>
                 <datepicker date-format="dd-MM-yyyy" date-min-limit="{{ now()->format('Y-m-d') }}" date-set="projectInfo.project_date">
                     <input type="text"  class="form-control form-control-sm" id="project_date" name="project_date" ng-model="projectInfo.project_date" required style="padding:15.5px 0 0 16.5px !important"/>
                 </datepicker>
-                    {{-- <label for="floating">Project Start Date <sup class="text-danger">*</sup></label> --}}
                     {{-- <i class="fa fa-calendar custom__date__icon"></i> --}}
                 <small class="text-danger" ng-show="projectInfoForm.project_date.$error.required && formSubmit">This field is required</small>
                 <small class="text-danger" ng-show="projectInfoForm.project_date.$error.max && formSubmit">Start date cannot be greater than delivery date</small>
@@ -111,9 +111,12 @@
                 <small class="text-danger" ng-show="projectInfoForm.delivery_type.$invalid && formSubmit">This field is required</small>
             </div> 
             <div class="form-floating  mb-2">
-                <input type="date" min="@{{ projectInfo.project_date | date: 'yyyy-MM-dd' }}" class="form-control" name="project_delivery_date" ng-model="projectInfo.project_delivery_date" required/>
-                <label for="floating">Project Delivery Date <sup class="text-danger">*</sup></label>
-                <i class="fa fa-calendar custom__date__icon"></i>
+                <p for="floating" class="mb-0 cuspsd">Project Delivery Date <sup class="text-danger">*</sup></p>
+                <datepicker date-format="dd-MM-yyyy" date-min-limit="projectInfo.project_delivery_date | date: 'yyyy-MM-dd'" date-set="projectInfo.project_delivery_date">
+                    <input type="text" class="form-control" name="project_delivery_date" ng-model="projectInfo.project_delivery_date" required/>
+                </datepicker>
+                {{-- <label for="floating">Project Delivery Date <sup class="text-danger">*</sup></label> --}}
+                {{-- <i class="fa fa-calendar custom__date__icon"></i> --}}
                 <small class="text-danger" ng-show="projectInfoForm.project_delivery_date.$error.required && formSubmit">This field is required</small>
                 <small class="text-danger" ng-show="projectInfoForm.project_delivery_date.$error.min && formSubmit">Delivery date should not be less than that of the project's start date</small>
             </div>
@@ -147,6 +150,13 @@
         background: var(--secondary-bg) !important;
         transform: scale(1.2);
         box-shadow: 0px 5px 10px #4f4f4fb2 !important
+    }
+    .cuspsd{
+        padding:2px;
+        font-size:12px;
+        color:#727272;
+        font-weight:600;
+        /* padding-left:13px; */
     }
 </style> 
 

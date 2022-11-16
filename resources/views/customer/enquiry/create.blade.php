@@ -4,7 +4,7 @@
 @section('customer-content')
          
     
-    <div class="content-page" ng-app="App">
+    <div class="content-page" ng-app="App" style="min-height:130vh !important">
         <div class="content">
 
             @include('customer.includes.top-bar')
@@ -146,7 +146,7 @@
             $location.path('/');
         });
  
-        app.controller('ProjectInfo', function ($scope, $http, $rootScope, Notification, API_URL, $location) {
+        app.controller('ProjectInfo', function ($scope, $http, $rootScope, Notification, API_URL, $location,) {
             $scope.commentShow = false;
             $scope.projectStartDate = getYesterdayDate();
             $scope.enquiry_date = new Date();
