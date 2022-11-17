@@ -122,7 +122,7 @@
                         />
                     </div>
                     <div style="width:20%">
-                        <datepicker date-format="dd/MM/yyyy" date-min-limit="taskListData.start_date" date-set="taskListData.delivery_date">
+                        <datepicker date-format="dd-MM-yyyy" date-min-limit="taskListData.start_date" date-set="taskListData.delivery_date">
                             <input type="text" 
                                 placeholder="dd/MM/yyyy"
                                 get-to-do-lists
