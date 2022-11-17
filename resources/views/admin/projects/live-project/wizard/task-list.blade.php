@@ -25,7 +25,6 @@
             </tr>
         </tbody>
     </table> 
-    @{{ TaskListsCollection }}
     <div ng-repeat="(index,check_list) in TaskListsCollection">
         <div style="display:flex;background:#0C326C;" class="p-2">
             <div class="text-center text-light" style="font-weight:bold;width:5%">S.No</div>
