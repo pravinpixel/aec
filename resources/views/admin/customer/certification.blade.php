@@ -11,9 +11,9 @@
                 Activation Succeeded
             </h3> 
             <hr>
-            <i class="fa fa-check-circle text-primary"  aria-hidden="true"></i><b>Congradulations !</b>
+            <i class="fa fa-check-circle text-primary"  aria-hidden="true"></i><b>Congratulations !</b>
             <p class="pt-2">
-              <a href="{{ route('login') }}"> Click here</a> to go back to our login page to proceed further to use <b>{{ $_ENV['APP_NAME'] }}</b> services.
+              <a href="{{ route('login') }}"> Click here</a> to go back to our login page to proceed further to use AECPrefab services.
             </p>
         </div>
     </div> 
