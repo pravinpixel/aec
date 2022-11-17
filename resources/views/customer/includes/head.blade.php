@@ -22,9 +22,9 @@
 {{-- <link href="{{ asset('public/assets/css/app-dark.min.css') }}" rel="stylesheet" type="text/css" id="dark-style" /> --}}
  
 <!-- Icons Css -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/font-awesome-line-awesome/css/all.min.css">
-<link rel="stylesheet" href="https://dropways.github.io/feathericons/assets/themes/twitter/css/feather.css"> 
+<link rel="stylesheet" href="{{ asset('public/assets/css/cdns/font-awesome.min.css') }}">
+<link rel="stylesheet" href="{{ asset('public/assets/css/cdns/font-awesome-line-awesome-all.min.css') }}">
+<link rel="stylesheet" href="{{ asset('public/assets/css/cdns/feather.css') }}"> 
 
 <input type="hidden" name="baseurl" value="{{URL::to('/')}}/" id="baseurl">
 <link rel="stylesheet" href="{{ asset('public/custom/css/variable.css') }}"> 
@@ -39,18 +39,18 @@
 <link href="{{ asset('public/assets/css/vendor/simplemde.min.css') }}" rel="stylesheet" type="text/css" />
 
 <!-- ====== Ajax Call Loader Css ========== -->
-<link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.9.0/loading-bar.min.css' type='text/css' media='all' />
+<link rel='stylesheet' href='{{ asset('public/assets/css/cdns/loading-bar.min.css') }}' type='text/css' media='all' />
 <!-- ========= Alert js Notifications ========== -->
 
 <!-- ========= Text Editor ========== -->
-<link rel="stylesheet" type="text/css" href="https://cdn3.devexpress.com/jslib/21.2.7/css/dx.common.css" />
-<link rel="stylesheet" type="text/css" href="https://cdn3.devexpress.com/jslib/21.2.7/css/dx.light.css" />
+{{-- <link rel="stylesheet" type="text/css" href="https://cdn3.devexpress.com/jslib/21.2.7/css/dx.common.css" /> --}}
+<link rel="stylesheet" type="text/css" href="{{ asset('public/assets/css/cdns/dx.light.css') }}" />
 <!-- ========= Text Editor ========== -->
 <link href="{{ asset('public/assets/css/vendor/dataTables.bootstrap5.css') }}" rel="stylesheet" type="text/css" />
 <link href="{{ asset('public/assets/css/vendor/responsive.bootstrap5.css') }}" rel="stylesheet" type="text/css" />
 <link href="{{ asset('public/assets/css/vendor/buttons.bootstrap5.css') }}" rel="stylesheet" type="text/css" />
 <link href="{{ asset('public/assets/css/vendor/select.bootstrap5.css') }}" rel="stylesheet" type="text/css" />
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css" integrity="sha384-xeJqLiuOvjUBq3iGOjvSQSIlwrpqjSHXpduPd6rQpuiM3f5/ijby8pCsnbu5S81n" crossorigin="anonymous">
+<link rel="stylesheet" href="{{ asset('public/assets/css/cdns/bootstrap-icons.css') }}" integrity="sha384-xeJqLiuOvjUBq3iGOjvSQSIlwrpqjSHXpduPd6rQpuiM3f5/ijby8pCsnbu5S81n" crossorigin="anonymous">
 <link rel="stylesheet" href="{{ asset('public/custom/css/date-picker.css') }}"> 
 <style>
    

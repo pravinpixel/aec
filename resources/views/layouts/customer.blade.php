@@ -41,8 +41,8 @@
         @include('modal.delete');
         @include('customer.enquiry.models.view-proposal-modal')
         @include('customer.includes.footer-scripts')
-        <script src="https://code.highcharts.com/highcharts.js"></script>
-        <script src="https://code.highcharts.com/highcharts-more.js"></script>
+        <script src="{{ asset('public/assets/js/cdns/admin/highcharts.js') }}"></script>
+        <script src="{{ asset('public/assets/js/cdns/admin/highcharts-more.js') }}"></script>
 
         <div class="modal fade" id="EnquiryQuickViewPopUp" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" >
             <div class="modal-dialog modal-xl modal-right w-100">
