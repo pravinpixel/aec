@@ -18,10 +18,10 @@
 <link href="{{ asset('public/assets/css/app.css') }}" rel="stylesheet" type="text/css" id="dark-style" />
 <link rel="stylesheet" href="{{ asset('public/custom/css/alert.css') }}">
 <!-- Icons Css -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/font-awesome-line-awesome/css/all.min.css">
-<link rel="stylesheet" href="https://dropways.github.io/feathericons/assets/themes/twitter/css/feather.css"> 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+<link rel="stylesheet" href="{{ asset('public/assets/css/cdns/font-awesome.min.css') }}">
+<link rel="stylesheet" href="{{ asset('public/assets/css/cdns/all.min.css') }}">
+<link rel="stylesheet" href="{{ asset('public/assets/css/cdns/feather.css') }}"> 
+<link rel="stylesheet" href="{{ asset('public/assets/css/cdns/bootstrap-icons.css') }}">
 
 <!-- custom css -->
 <link rel="stylesheet" href="{{ asset('public/custom/css/variable.css') }}"> 
@@ -33,14 +33,14 @@
 <link href="{{ asset('public/assets/css/vendor/buttons.bootstrap5.css') }}" rel="stylesheet" type="text/css" />
 <link href="{{ asset('public/assets/css/vendor/select.bootstrap5.css') }}" rel="stylesheet" type="text/css" />
 <link href="{{ asset('public/assets/css/vendor/jquery-jvectormap-1.2.2.css') }}" rel="stylesheet" type="text/css" />
-<link data-require="jqueryui@*" data-semver="1.10.0" rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.0/css/smoothness/jquery-ui-1.10.0.custom.min.css" />
+<link data-require="jqueryui@*" data-semver="1.10.0" rel="stylesheet" href="{{ asset('public/assets/css/cdns/jquery-ui-1.10.0.custom.min.css') }}" />
 
 <!-- ====== Ajax Call Loader Css ========== -->
-<link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.9.0/loading-bar.min.css' type='text/css' media='all' />
+<link rel='stylesheet' href='{{ asset('public/assets/css/cdns/loading-bar.min.css') }}' type='text/css' media='all' />
 <!-- ========= Alert js Notifications ========== -->
 <link rel="stylesheet" href="{{ asset('public/custom/css/wizz.css') }}"> 
-<link rel="stylesheet" type="text/css" href="https://cdn3.devexpress.com/jslib/21.2.5/css/dx.common.css" />
-<link rel="stylesheet" type="text/css" href="https://cdn3.devexpress.com/jslib/21.2.5/css/dx.light.css" />
+{{-- <link rel="stylesheet" type="text/css" href="https://cdn3.devexpress.com/jslib/21.2.5/css/dx.common.css" /> --}}
+<link rel="stylesheet" type="text/css" href="{{ asset('public/assets/css/cdns/dx.light.css') }}" />
 <link rel="stylesheet" href="{{ asset('public/custom/css/date-picker.css') }}"> 
 
 

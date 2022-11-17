@@ -131,8 +131,8 @@
         @include('admin.includes.footer-scripts')
         @livewireScripts
 
-        <script src="https://code.highcharts.com/highcharts.js"></script>
-        <script src="https://code.highcharts.com/highcharts-more.js"></script>
+        <script src="{{ asset('public/assets/js/cdns/admin/highcharts.js') }}"></script>
+        <script src="{{ asset('public/assets/js/cdns/admin/highcharts-more.js') }}"></script>
 
         <!--  Push Scripts  -->        
         @stack('custom-scripts')

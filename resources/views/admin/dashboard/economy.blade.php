@@ -439,7 +439,7 @@
         chart.render();
 			</script>
 
-<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="{{ asset('public/assets/js/cdns/admin/highcharts.js') }}"></script>
 <script src="https://code.highcharts.com/highcharts-more.js"></script>
 <script>
     Highcharts.chart('company-earnings-chart', {

@@ -57,20 +57,20 @@
 <script src="{{ asset('public/assets/js/vendor/dataTables.select.min.js') }}"></script>
 {{-- <script src="{{ asset('public/assets/js/pages/demo.datatable-init.js') }}"></script> --}}
 <script src="{{ asset('public/assets/js/vendor/apexcharts.min.js') }}"></script>
-<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
-<script src="https://momentjs.com/downloads/moment-with-locales.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js"
+<script src="{{ asset('public/assets/js/cdns/admin/jquery.validate.min.js') }}"></script>
+<script src="{{ asset('public/assets/js/cdns/admin/moment-with-locales.js') }}"></script>
+<script src="{{ asset('public/assets/js/cdns/admin/axios.min.js') }}"
     integrity="sha512-odNmoc1XJy5x1TMVMdC7EMs3IVdItLPlCeL5vSUPN2llYKMJ2eByTTAIiiuqLg+GdNr9hF6z81p27DArRFKT7A=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <!-- ========= For Vendors Js ===========-->
 <!-- ========= For Validation Js ===========-->
 
 <!-- ========= Text Editor ========== -->
-<script src="https://unpkg.com/devextreme-quill@1.5.14/dist/dx-quill.min.js"></script>
-<script src="https://cdn3.devexpress.com/jslib/21.2.7/js/dx.all.js"></script>
+<script src="{{ asset('public/assets/js/cdns/admin/dx-quill.min.js') }}"></script>
+<script src="{{ asset('public/assets/js/cdns/admin/dx.all.js') }}"></script>
 
-<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<script type="text/javascript" src="{{ asset('public/assets/js/cdns/admin/moment.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('public/assets/js/cdns/admin/daterangepicker.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset("public/js/datepicker.js") }}"></script>
 <script type="text/javascript" src="{{ asset("public/js/ckeditor.js") }}"></script>
 <script>
