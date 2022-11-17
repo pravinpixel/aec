@@ -37,8 +37,8 @@
                             <td ng-bind="taskListData.task_list"></td>
                             <td class="text-center">
                                 <select get-to-do-lists ng-model="taskListData.assign_to" class="text-center form-control form-control-sm border-0" style="pointer-events: none">
-                                    <option value="">-- Project Manager --</option>
-                                    <option ng-repeat="projectManager in projectManagers" value="@{{ projectManager.id }}" ng-selected="projectManager.id == taskListData.assign_to">
+                                    <option ng-value="null" ng-selected="taskListData.assign_to==null">-- Project Manager --</option>
+                                    <option ng-repeat="projectManager in projectManagers" ng-value=" projectManager.id " ng-selected="projectManager.id == taskListData.assign_to">
                                         @{{ projectManager.first_name }}
                                     </option>
                                 </select>

@@ -81,10 +81,10 @@
                                 {{-- <input type="text" ng-repeat="projectManager in projectManagers" ng-value="projectManager.first_name" ng-bind=" taskListData.task_list "> --}}
                                 <select name="" id="shouldRemoveSelect" ng-model="taskListData.assign_to" class="form-control" 
                                 >
-                                    <option ng-value="null" ng-model="taskListData.assign_to==null">-- Project Manager --</option>
+                                    <option ng-value="null" ng-selected="taskListData.assign_to==null">-- Project Manager --</option>
                                     <option 
                                         ng-repeat="projectManager in projectManagers"
-                                        ng-value=" projectManager.id "
+                                        ng-value="projectManager.id"
                                         ng-selected="projectManager.id == parseInt(taskListData.assign_to)"
                                     >
                                         @{{ projectManager.first_name }}
