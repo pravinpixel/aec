@@ -91,6 +91,10 @@
         .modal-footer{
             background:white !important;
         }
+        .ck-content {
+            max-height:450px;
+            overflow: auto;
+        }
     </style>
 @endsection
 @push('custom-scripts') 
