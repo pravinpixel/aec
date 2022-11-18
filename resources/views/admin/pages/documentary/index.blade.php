@@ -33,6 +33,38 @@
             </div> <!-- container -->
         </div> <!-- content -->
     </div>
+
+    <div id="duplicate-document" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="share-point-modelLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header modal-colored-header bg-primary">
+                        <h4 class="modal-title" id="share-point-modelLabel">Documentary Name</h4>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                            aria-hidden="true"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form name="folderModule" class="form-horizontal" novalidate="">
+                            <div class="form-group error mb-2">
+                                <label for="inputEmail3" class="col-sm-12 text-dark control-label mb-2">Documentary Duplication Name</label>
+                                <div class="col-sm-12">
+                                    <input type="text" name="documentary_name" class="form-control has-error"
+                                        placeholder="Type Here.." id="documentary_name">
+                                    {{-- <small class="help-inline text-danger ">This Fields is Required</small> --}}
+                                    <input type="hidden" name="" id="duplicate_by">
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary" onclick="duplicate()">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
 @endsection
 
 @push('custom-scripts')
@@ -101,18 +133,44 @@
             });  
         }
         function myfun(id){
+            console.log(id);
+            var a=document.getElementById('duplicate_by').value=id;
             $.ajax({
                 method:'post',
-                url:"{{ route('admin.documentaryClone') }}",
+                url:"{{ route('admin.getDocumentaryName') }}",
                 data:{
-                    id:id
+                    id:a
                 },
                 success:function(res){
-                    console.log(res.data)
-                    reload()
+                    document.getElementById('documentary_name').value=res.name;
+                    console.log(res)
+                    // reload()
                 }
             });
-            console.log(id)
+        }
+        function duplicate(){
+            var did=document.getElementById('duplicate_by').value;
+            var dname=document.getElementById('documentary_name').value;
+            $.ajax({
+                method:'post',
+                url:"{{ route('admin.documentaryUpdate') }}",
+                data:{
+                    id:did,
+                    name:dname
+                },
+                success:function(res){
+                    console.log(res)
+                    if(res.msg=='success'){
+                        Message('success', 'Document Duplicated successfully!')
+                        $('#duplicate-document').modal('hide');
+                        reload()
+                    }
+                },
+                error:function(err){
+                    Message('danger','documentary name should not same the existing one !');
+                    reload();
+                }
+            });
         }
     </script>
 @endpush

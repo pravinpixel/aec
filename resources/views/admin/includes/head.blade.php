@@ -13,6 +13,7 @@
 <input type="hidden" name="baseurl" value="{{URL::to('/')}}/" id="baseurl">
 
 <!-- App css -->
+{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> --}}
 <link href="{{ asset('public/assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
 <link href="{{ asset('public/assets/css/app.css') }}"  rel="stylesheet" type="text/css"   />
 <link href="{{ asset('public/assets/css/app.css') }}" rel="stylesheet" type="text/css" id="dark-style" />
@@ -47,7 +48,6 @@
 {{-- <link rel="stylesheet" type="text/css" href="{{ asset('public/assets/css/cdns/dx.light.css') }}" /> --}}
 <link rel="stylesheet" type="text/css" href="https://cdn3.devexpress.com/jslib/21.2.5/css/dx.light.css" />
 <link rel="stylesheet" href="{{ asset('public/custom/css/date-picker.css') }}"> 
-
 
 
 <style>

@@ -94,8 +94,8 @@
     }
 </script>
 <script>
-    $("#alert-log").fadeTo(3000, 1000).slideUp(1000, function() {
-        $("#alert-log").slideUp(5000);
+    $(".alert.alert-custom").fadeTo(3000, 1000).slideUp(1000, function() {
+        $(".alert.alert-custom").slideUp(1000);
     });
 </script>
 

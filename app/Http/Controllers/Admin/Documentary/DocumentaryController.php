@@ -52,7 +52,7 @@ class DocumentaryController extends Controller
                               <a href="'.route('admin.contract.download',$data->id).'" class="btn btn-sm btn-outline-warning rounded-pill"><i class="mdi mdi-download" title="Download"></i></a>
                                <a href="'.route('admin.contract.view',$data->id).'" class="btn btn-sm btn-outline-success rounded-pill"><i class="mdi mdi-eye" title="View"></i></a>
                                <a href="'.route('admin.documentaryEdit',$data->id).'" class="btn btn-sm btn-outline-primary rounded-pill"><i class="mdi mdi-pencil" title="Edit"></i></a>
-                               <a  onclick="myfun('.$data->id.')" class="btn btn-sm btn-outline-info rounded-pill"><i class="fa fa-copy" title="Duplicate"></i></a>
+                               <a onclick="myfun('.$data->id.')"  class="btn btn-sm btn-outline-info rounded-pill" data-bs-toggle="modal" data-bs-target="#duplicate-document"><i class="fa fa-copy" title="Duplicate"></i></a>
                                <button onclick="destroy('.$data->id.')" class="btn btn-sm btn-outline-danger rounded-pill"><i class="mdi mdi-trash-can" title="Delete"></i></button>
                             </div> 
                           </div>';
@@ -79,6 +79,9 @@ class DocumentaryController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'documentary_title'=>'unique:Documentary,documentary_title'
+            ]);
         if(!userHasAccess('contract_add')) {
             Flash::error(__('global.access_denied'));
             return redirect(route('admin-dashboard'));
@@ -128,12 +131,21 @@ class DocumentaryController extends Controller
      */
     public function update(Request $request,$id)
     {
-        $data = $request->only([
-            "documentary_title","documentary_content","is_active"
-        ]);
-        $this->documentaryRepository->update($data, $id);
-        Flash::success(trans('module.cupdated'));
-        return redirect(route('admin-documentary-view'));
+        $docu=Documentary::find($id);
+        if($docu->documentary_title==$request->documentary_title){
+            $data = $request->only([
+                "documentary_title","documentary_content","is_active"
+            ]);
+            $this->documentaryRepository->update($data, $id);
+            Flash::success(trans('module.cupdated'));
+            return redirect(route('admin-documentary-view'));
+        }
+        else{
+            $request->validate([
+                'documentary_title' =>'unique:Documentary,documentary_title'
+            ]);
+        }
+        
     }
     /**
      * Remove the specified resource from storage.
@@ -183,6 +195,26 @@ class DocumentaryController extends Controller
             'data'=>$req->input('id')
         ]);
     }
+    public function getDocumentaryName(Request $req){
+        $contract  = Documentary::findOrFail($req->id);
+        $str=$contract->documentary_title;
+        return response()->json([
+            'name'=>$str
+        ]);
+    }
+    public function documentaryUpdate(Request $req){
+        $contract  = Documentary::findOrFail($req->id);
+        $req->validate([
+            'name'=>'unique:Documentary,documentary_title'
+        ]);
+            $contract_new=$contract->replicate();
+            $contract_new->documentary_title=$req->name;
+            $contract_new->save();
+        return response()->json([
+            'msg'=>'success'
+        ]);
+    }
+
 
     public function get(Request $request)
     {
