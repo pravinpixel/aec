@@ -80,7 +80,7 @@ class DocumentaryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'documentary_title'=>'unique:Documentary,documentary_title'
+            'documentary_title'=>'unique:documentary,documentary_title'
             ]);
         if(!userHasAccess('contract_add')) {
             Flash::error(__('global.access_denied'));
@@ -142,7 +142,7 @@ class DocumentaryController extends Controller
         }
         else{
             $validate=$request->validate([
-                'documentary_title' =>'unique:Documentary,documentary_title'
+                'documentary_title' =>'unique:documentary,documentary_title'
             ]);
                 $data = $request->only([
                     "documentary_title","documentary_content","is_active"
@@ -246,7 +246,7 @@ class DocumentaryController extends Controller
     }
     public function view($id)
     {
-        $contract  = Documentary::findOrFail($id);
+        $contract  = documentary::findOrFail($id);
         return view('admin.pages.documentary.view',compact('contract'));
     }
     public function download($id)
