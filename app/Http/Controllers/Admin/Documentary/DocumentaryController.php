@@ -141,9 +141,15 @@ class DocumentaryController extends Controller
             return redirect(route('admin-documentary-view'));
         }
         else{
-            $request->validate([
+            $validate=$request->validate([
                 'documentary_title' =>'unique:Documentary,documentary_title'
             ]);
+                $data = $request->only([
+                    "documentary_title","documentary_content","is_active"
+                ]);
+                $this->documentaryRepository->update($data, $id);
+                Flash::success(trans('module.cupdated'));
+                 return redirect(route('admin-documentary-view'));
         }
         
     }
