@@ -185,6 +185,7 @@ class DocumentaryController extends Controller
     }
     public function documentaryClone(Request $req)
     {
+        dd('check');
         $contract  = Documentary::findOrFail($req->id);
         $str=$contract->documentary_title;
         $word_pos=strpos($str,'Duplicate');
@@ -211,7 +212,7 @@ class DocumentaryController extends Controller
     public function documentaryUpdate(Request $req){
         $contract  = Documentary::findOrFail($req->id);
         $req->validate([
-            'name'=>'unique:Documentary,documentary_title'
+            'name'=>'unique:documentary,documentary_title'
         ]);
             $contract_new=$contract->replicate();
             $contract_new->documentary_title=$req->name;
