@@ -1886,7 +1886,7 @@
                    
                 });
             }
-
+          
            
             $scope.moveToProject = () => {
                 $http.post(API_URL + 'proposal-move-to-project/'+{{ $data->id }}).then(function (response) {
@@ -1908,6 +1908,42 @@
                     $scope.proposalId = $scope.edit_proposal[0].proposal_id;
                 });
                 $('#bs-Preview-modal-lg').modal('show');
+            }
+            $scope.defe=function(proposal_id,ele){
+                
+                var url='{{route("admin.contract.download","check")}}';
+                url = url.replace('check',proposal_id);
+                // url = url.replace('check',1);
+                console.log(proposal_id);
+                document.getElementById(ele).href=url;
+                console.log(document.getElementById(ele).href)
+            }
+            $scope.DownloadProposal=function(proposal_id){
+                // console.log(proposal_id);
+                var url='{{route("admin.contract.download","check")}}';
+                url = url.replace('check',proposal_id);
+                window.location.href=url;
+                // console.log(url);
+                // $.ajax({
+                //     method:'get',
+                //     url:url,
+                //     success:function(res){
+                //         console.log(res);
+                //     }
+                // });
+                window.location.href=url;
+                // $http.get(url).then(function (response) {
+                //     console.log(response)
+                    // $scope.edit_proposal  = response.data;
+                    // Message('success',response.data.msg);
+                    // $scope.getProposesalData();
+                    // console.log(res);
+                    // console.log('ok')
+                
+                // });
+               
+
+
             }
             $scope.ViewEditProposeVersions = function (proposal_id , Vid, update_status = true) {
                 $scope.proposalModal = update_status;
