@@ -7,7 +7,7 @@
             <img src="{{ asset("public/assets/images/key.png") }}" width="100px" class="mb-2">
             <p class="lead text-secondary" style="font-weight: 400;">Forgot Password ?</p>
             @if (Session::has('message')) <b class="text-success">We will send you instructions to reset your password ! @endif
-            @if ($errors->has('email')) <b class="text-danger">Invalid Email Address ! @endif                    
+            @if ($errors->has('email')) <b class="text-danger">The given email is not registered in our portal ! @endif                    
         </div>
         <div class="card-body pt-0 p-4">        
             <form action="{{ route('forgot.password.post') }}" method="POST">
