@@ -8,7 +8,7 @@
                 @include('admin.includes.page-navigater') 
                 <div class="card border shadow-sm">
                     <div class="card-header d-flex align-items-center justify-content-between px-3">
-                        <h4 class="h4 m-0">Contracts</h4>
+                        <h4 class="h4 m-0">Contract</h4>
                         <div>
                             <a href="{{ route('admin.add-documentary') }}" class="btn btn-primary btn-sm">
                                 <i class="mdi mdi-briefcase-plus"></i> 
@@ -21,7 +21,7 @@
                             <thead class="bg-primary text-white">
                                 <tr class="text-center">
                                     <th>S.No</th>
-                                    <th>Documentary Title</th>
+                                    <th>Document Title</th>
                                     <th>Status</th>
                                     <th>Actions</th>
                                 </tr>
@@ -39,14 +39,13 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header modal-colored-header bg-primary">
-                        <h4 class="modal-title" id="share-point-modelLabel">Documentary Name</h4>
+                        <h4 class="modal-title" id="share-point-modelLabel">Document Name</h4>
                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
                             aria-hidden="true"></button>
                     </div>
                     <div class="modal-body">
                         <form name="folderModule" class="form-horizontal" novalidate="">
                             <div class="form-group error mb-2">
-                                <label for="inputEmail3" class="col-sm-12 text-dark control-label mb-2">Documentary Duplication Name</label>
                                 <div class="col-sm-12">
                                     <input type="text" name="documentary_name" class="form-control has-error"
                                         placeholder="Type Here.." id="documentary_name">
@@ -167,7 +166,8 @@
                     }
                 },
                 error:function(err){
-                    Message('danger','documentary name should not same the existing one !');
+                  
+                    Message('danger',err.responseJSON.errors.name[0]);
                     reload();
                 }
             });

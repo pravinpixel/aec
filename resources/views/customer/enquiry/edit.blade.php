@@ -1143,10 +1143,11 @@
             }
 
             $scope.saveAndSubmitAdditionalinfoForm = () => {
+                console.log($("#add_info_customer").html());
                 $http({
                     method: 'POST',
                     url: '{{ route("customers.update-enquiry", $id) }}',
-                    data: {type: 'additional_info', 'data': $(".dx-htmleditor-content").html()}
+                    data: {type: 'additional_info', 'data': $("#add_info_customer").html()}
                 }).then(function (res) {
                     Message('success',`Comments saved successfully`);
                     return false;

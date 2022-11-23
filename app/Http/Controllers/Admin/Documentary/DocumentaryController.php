@@ -80,7 +80,11 @@ class DocumentaryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'documentary_title'=>'unique:documentary,documentary_title'
+            'documentary_title'=>'required | unique:documentary,documentary_title'
+            ],
+            [
+                'documentary_title.unique'=>' Document name should not be same as the existing one !',
+                'documentary_title.required'=>'Document should not be empty !'
             ]);
         if(!userHasAccess('contract_add')) {
             Flash::error(__('global.access_denied'));
@@ -142,7 +146,11 @@ class DocumentaryController extends Controller
         }
         else{
             $validate=$request->validate([
-                'documentary_title' =>'unique:documentary,documentary_title'
+                'documentary_title' =>'required | unique:documentary,documentary_title'
+            ],
+             [
+                'documentary_title.unique'=>' Document name should not be same as the existing one !',
+                'documentary_title.required'=>'Document should not be empty !'
             ]);
                 $data = $request->only([
                     "documentary_title","documentary_content","is_active"
@@ -213,7 +221,11 @@ class DocumentaryController extends Controller
     public function documentaryUpdate(Request $req){
         $contract  = Documentary::findOrFail($req->id);
         $req->validate([
-            'name'=>'unique:documentary,documentary_title'
+            'name'=>'required | unique:documentary,documentary_title'
+        ],
+        [
+            'name.unique'=>' Document name should not be same as the existing one !',
+            'name.required'=>'Document name should not be empty !'
         ]);
             $contract_new=$contract->replicate();
             $contract_new->documentary_title=$req->name;
