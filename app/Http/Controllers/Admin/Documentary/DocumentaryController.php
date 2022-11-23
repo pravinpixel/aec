@@ -138,7 +138,7 @@ class DocumentaryController extends Controller
             ]);
             $this->documentaryRepository->update($data, $id);
             Flash::success(trans('module.cupdated'));
-            return redirect(route('admin-documentary-view'));
+            return back();
         }
         else{
             $validate=$request->validate([
@@ -149,12 +149,13 @@ class DocumentaryController extends Controller
                 ]);
                 $this->documentaryRepository->update($data, $id);
                 Flash::success(trans('module.cupdated'));
-                 return redirect(route('admin-documentary-view'));
+                 return back();
         }
         
     }
     /**
-     * Remove the specified resource from storage.
+     * 
+     *  Remove the specified resource from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -250,10 +251,10 @@ class DocumentaryController extends Controller
         return view('admin.pages.documentary.view',compact('contract'));
     }
     public function download($id)
-    {
+    { 
         $contract = Documentary::findOrFail($id);
         $dompdf   = new Dompdf();
-        $dompdf->loadHtml($contract->documentary_content);
+        $dompdf->loadHtml('<div>'.$contract->documentary_content.'</div>');
         $dompdf->setPaper('A4'); 
         $dompdf->render(); 
         $dompdf->stream();
