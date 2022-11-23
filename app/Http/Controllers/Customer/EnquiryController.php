@@ -896,4 +896,10 @@ class EnquiryController extends Controller
             'comments'=>$comment
         ]);
     }
+    public function getAdditionalDetails($id,$type){
+        $cmd=Comment::where('type_id',$id)->first();
+        return response()->json([
+            'data'=>$cmd
+        ]);
+    }
 }

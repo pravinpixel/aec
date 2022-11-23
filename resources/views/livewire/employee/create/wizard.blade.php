@@ -7,7 +7,7 @@
 			<li class="nav-item {{ $completed_wizard >= 1 ? '': 'pe-none' }}">
 				<a style="min-height: 40px;" class="timeline-step" wire:click="goTo('project_info')">
 					<div class="timeline-content">
-						<div class="inner-circle {{ $currentStep === 1 ? 'bg-success' : 'bg-secondary' }} ">
+						<div class="inner-circle bg-secondary {{ $currentStep === 1 ? 'bg-success' : ''  }} ">
 							<i class="fa fa-project-diagram fa-2x"></i>
 						</div>       
 						<div class="text-end d-none d-sm-inline mt-2">Profile Information</div>                                                                 
@@ -17,7 +17,7 @@
 			<li class="nav-item {{ $completed_wizard >= 1 ? '': 'pe-none' }}">
 				<a style="min-height: 40px;" class="timeline-step"  wire:click="goTo('sharepoint')">
 					<div class="timeline-content">
-						<div class="inner-circle {{ $currentStep === 2 ? 'bg-success' : 'bg-secondary' }} ">
+						<div class="inner-circle bg-secondary {{ $currentStep === 2 ? 'bg-success' :''  }} ">
 							<i class="fa fa-list-alt fa-2x mb-1"></i>
 						</div>        
 						<span class="d-none d-sm-inline mt-2">share Point Access</span>                                                                
@@ -27,7 +27,7 @@
 			<li class="nav-item last {{ $completed_wizard >= 1 ? '': 'pe-none' }}">
 				<a style="min-height: 40px;" class="timeline-step" wire:click="goTo('bim')">
 					<div class="timeline-content">
-						<div class="inner-circle  {{ $currentStep === 3 ? 'bg-success' : 'bg-secondary' }} ">
+						<div class="inner-circle bg-secondary  {{ $currentStep === 3 ? 'bg-success' : '' }} ">
 							<i class="fa fa-2x fa-file-upload mb-1"></i>
 						</div>                                                                        
 						<span class="d-none d-sm-inline mt-2">BIM 360 Access</span>
@@ -74,6 +74,10 @@
 						</button>
 					</div>
 					<button wire:click="back()"class="btn  float-start btn-light font-weight-bold px-3" ><i class="mdi-chevron-left mdi"></i> Prev</button>
+					<script>
+						document.getElementsByClassName('inner-circle')[0].classList.remove('bg-secondary');
+						document.getElementsByClassName('inner-circle')[0].classList.add('bg-primary');
+					</script>
 				@break
 				@case(3)
 					<button wire:click="back()"class="btn  float-start btn-light font-weight-bold px-3" ><i class="mdi-chevron-left mdi"></i> Prev</button>
@@ -85,6 +89,12 @@
 							<span class="spinner-border spinner-border-sm me-1" aria-hidden="true"></span> Save & Save
 						</button>
 					</div>
+					<script>
+						document.getElementsByClassName('inner-circle')[0].classList.remove('bg-secondary');
+						document.getElementsByClassName('inner-circle')[0].classList.add('bg-primary');
+						document.getElementsByClassName('inner-circle')[1].classList.remove('bg-secondary');
+						document.getElementsByClassName('inner-circle')[1].classList.add('bg-primary');
+					</script>
 				@break  
 			@default
 					

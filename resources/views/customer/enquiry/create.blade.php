@@ -1111,6 +1111,7 @@
             SetEditor('#add_info_customer');
             $("#additional-info").addClass('active');
             let enquiry_id;
+            console.log(enquiry_id)
             $http({
                 method: 'GET',
                 url: '{{ route('get-customer-enquiry') }}'
@@ -1119,13 +1120,26 @@
                         $scope.enquiry_number = res.data.enquiry_number;
                         enquiry_id = res.data.enquiry_id;
                         $scope.enquiry_id = enquiry_id;
+                        console.log('enquery id is:'+$scope.enquiry_id);
                         getLastEnquiry(enquiry_id);
+
+                        $http({
+                             method:'get',
+                             url:`${API_URL}customers/getAdditionalDetails/${$scope.enquiry_id}/enquiry`
+                             }).then(function(res){
+                                console.log('result is');
+                               console.log(res)
+                               setTimeout(()=>{
+                                   document.getElementsByClassName('ck-editor__editable')[0].innerHTML=res.data.comments;
+                               },3000);
+                            })
                     } else {
                         $scope.enquiry_no = res.data.enquiry.enquiry_number;
                     } 
                 }, function (err) {
                     console.log('get enquiry error');
             });
+         
 
             getLastEnquiry = (enquiry_id) => {
                 if(typeof(enquiry_id) == 'undefined' || enquiry_id == ''){
