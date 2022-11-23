@@ -25,7 +25,8 @@
 <link rel="stylesheet" href="{{ asset('public/assets/css/cdns/font-awesome.min.css') }}">
 {{-- <link rel="stylesheet" href="{{ asset('public/assets/css/cdns/font-awesome-line-awesome-all.min.css') }}"> --}}
 <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/font-awesome-line-awesome/css/all.min.css">
-<link rel="stylesheet" href="{{ asset('public/assets/css/cdns/feather.css') }}"> 
+{{-- <link rel="stylesheet" href="{{ asset('public/assets/css/cdns/feather.css') }}">  --}}
+<link rel="stylesheet" href="https://dropways.github.io/feathericons/assets/themes/twitter/css/feather.css">
 
 <input type="hidden" name="baseurl" value="{{URL::to('/')}}/" id="baseurl">
 <link rel="stylesheet" href="{{ asset('public/custom/css/variable.css') }}"> 
