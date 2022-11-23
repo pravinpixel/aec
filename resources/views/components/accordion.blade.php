@@ -8,7 +8,7 @@
             </small>
         @endif
     </div>
-    <div class="card-body collapse {{ $open }} {{ $open == 'true' ? "show" : '' }}" id="custom-accordion-collapse-{{ slug($title) }}">
+    <div class="card-body collapse {{ $open }} {{ $open == 'true' ? "show" : '' }}" id="custom-accordion-collapse-{{ slug($title) }}" style="overflow: hidden !important">
         <div class="card-content">
             @if ($path != 'false')
                     @include($path)

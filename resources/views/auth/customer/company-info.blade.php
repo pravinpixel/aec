@@ -96,7 +96,7 @@
                                     @endif
                                 </div> 
                                 <div class="mb-0  mt-3 text-center">
-                                    <button class="btn btn-primary px-5 rounded-pill" type="submit"><i class="mdi mdi-account-circle"></i> Sign Up </button>
+                                    <button class="btn btn-primary px-5 rounded-pill" type="submit"><i class="mdi mdi-account-circle"></i> Complete Sign Up </button>
                                 </div>  
                                 <input type="hidden" name="company_address" id="company_address">
                             </form>
