@@ -208,6 +208,13 @@
             let enquiry_id = {{$id}};
             $scope.enquiry_id = {{$id}};
             // console.log('enquiry_id',enquiry_id);
+            $scope.checkDate=(an)=>{
+                console.log(an)
+                var minDate=an;
+                var min_date=minDate.split("-").reverse().join("-");
+                $scope.min_date=min_date;
+                console.log($scope.min_date);
+            }
             $http({
                 method: 'GET',
                 url: '{{ route('get-login-customer') }}'
@@ -251,7 +258,10 @@
             getBuildingType();
             getDeliveryType();
             getProjectInfoInptuData = function($projectInfo) {
-
+                var projectDate=$projectInfo.project_date;
+                var project_date=projectDate.split("-").reverse().join("-");
+                var projectDeliveryDate=$projectInfo.project_delivery_date;
+                var project_delivery_date=projectDeliveryDate.split("-").reverse().join("-");
                 $scope.data = {
                     'contact_person'       : $projectInfo.contact_person,
                     'mobile_no'            : $projectInfo.mobile_no,
@@ -264,13 +274,13 @@
                     'state'                : $projectInfo.state,
                     'building_type_id'     : $projectInfo.building_type_id,
                     'project_type_id'      : $projectInfo.project_type_id,
-                    'project_date'         : $projectInfo.project_date,
+                    'project_date'         : project_date,
                     'site_address'         : $projectInfo.site_address,
                     'place'                : $projectInfo.place,
                     'country'              : $projectInfo.country,
                     'no_of_building'       : $projectInfo.no_of_building,
                     'delivery_type_id'     : $projectInfo.delivery_type_id,
-                    'project_delivery_date': $projectInfo.project_delivery_date,
+                    'project_delivery_date': project_delivery_date
                 };
                 return  $scope.data;
             }
