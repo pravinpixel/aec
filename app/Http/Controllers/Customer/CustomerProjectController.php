@@ -156,12 +156,12 @@ class CustomerProjectController extends Controller
                         $result = array('overall'=> 0,
                         'completed' => 0);
                     }
-                    $width = $result['overall'] == 0 ? '25%' : $result['overall'].'%';
+                    $width = $result['overall'] == 0 ? '0%' : $result['overall'].'%';
                     $color = $result['overall'] == 0 ? 'bg-danger' : 'bg-success';
                     return '
-                        <div class="progress bg-light border"> 
+                        <div class="progress bg-light border" style="position:relative;"> 
                             <div class="progress-bar '.$color.' progress-bar-striped progress-bar-animated" role="progressbar" style="width: '.$width.';" aria-valuenow="'. $result['overall'].'" aria-valuemin="0" aria-valuemax="100">
-                                <small>'. $result['overall'].'%</small>
+                                <small class="smallTag">'. $result['overall'].'%</small>
                             </div>
                         </div>
                     ';

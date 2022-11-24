@@ -59,6 +59,18 @@
         </div> 
     </div>  
 @endsection  
+@push('custom-styles')
+<style>
+    .smallTag{
+        font-size: 10px;
+        position: absolute;
+        top: 0;
+        left: 40%;
+        font-weight: 700 !important;
+        color: black !important;
+    }
+</style>
+@endpush
 @push('custom-scripts')
    <script src="{{ asset("public/custom/js/ngControllers/customer/project/list.js") }}"></script> 
 @endpush
