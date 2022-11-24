@@ -160,6 +160,13 @@
                  $scope.enquiry_number = 'Draft';
                  $("#project-info").addClass('active');
                  let enquiry_id;
+                 $scope.checkDate = (an) => {
+                     console.log(an)
+                     var minDate = an;
+                     var min_date = minDate.split("-").reverse().join("-");
+                     $scope.min_date = min_date;
+                     console.log($scope.min_date);
+                 }
                  $http({
                      method: 'GET',
                      url: '{{ route('get-login-customer') }}'
@@ -228,7 +235,7 @@
                      }, function(error) {
                          console.log(
                              'This is embarassing. An error has occurred. Please check the log for details'
-                             );
+                         );
                      });
                  }
                  getDeliveryType = () => {
@@ -240,7 +247,7 @@
                      }, function(error) {
                          console.log(
                              'This is embarassing. An error has occurred. Please check the log for details'
-                             );
+                         );
                      });
                  }
                  getBuildingType = () => {
@@ -252,7 +259,7 @@
                      }, function(error) {
                          console.log(
                              'This is embarassing. An error has occurred. Please check the log for details'
-                             );
+                         );
                      });
                  }
 
@@ -363,7 +370,7 @@
                      }, function(error) {
                          console.log(
                              'This is embarassing. An error has occurred. Please check the log for details'
-                             );
+                         );
                      });
                  }
                  getProjectType();
@@ -454,7 +461,7 @@
                      }, function(error) {
                          console.log(
                              'This is embarassing. An error has occurred. Please check the log for details'
-                             );
+                         );
                      });
                  }
                  getOutputTypes();
@@ -485,7 +492,7 @@
                      }, function(error) {
                          console.log(
                              'This is embarassing. An error has occurred. Please check the log for details'
-                             );
+                         );
                      });
                  }
 
@@ -521,7 +528,7 @@
                      }, function(error) {
                          console.log(
                              'This is embarassing. An error has occurred. Please check the log for details'
-                             );
+                         );
                      });
                  }
 
@@ -544,7 +551,7 @@
                      }, function(error) {
                          console.log(
                              'This is embarassing. An error has occurred. Please check the log for details'
-                             );
+                         );
                      });
                  }
 
@@ -711,7 +718,7 @@
                      }, function(error) {
                          console.log(
                              'This is embarassing. An error has occurred. Please check the log for details'
-                             );
+                         );
                      });
                  }
 
@@ -724,7 +731,7 @@
                      }, function(error) {
                          console.log(
                              'This is embarassing. An error has occurred. Please check the log for details'
-                             );
+                         );
                      });
                  }
 
@@ -859,7 +866,7 @@
                                                      .LayerName) == 'undefined') {
                                                  Message('danger',
                                                      `${wallName} ${wallIndex} field required `
-                                                     );
+                                                 );
                                                  isValidField = false;
                                                  $scope.callWall(wallName);
                                                  return false;
@@ -867,7 +874,7 @@
                                              if (typeof(layer.Breadth) == 'undefined') {
                                                  Message('danger',
                                                      `${wallName} ${wallIndex} field required `
-                                                     );
+                                                 );
                                                  isValidField = false;
                                                  $scope.callWall(wallName);
                                                  return false;
@@ -875,7 +882,7 @@
                                              if (typeof(layer.Thickness) == 'undefined') {
                                                  Message('danger',
                                                      `${wallName} ${wallIndex} field required `
-                                                     );
+                                                 );
                                                  isValidField = false;
                                                  $scope.callWall(wallName);
                                                  return false;
@@ -1020,7 +1027,7 @@
                                                      .LayerName) == 'undefined') {
                                                  Message('danger',
                                                      `${wallName} ${wallIndex} field required `
-                                                     );
+                                                 );
                                                  isValidField = false;
                                                  $scope.callWall(wallName);
                                                  return false;
@@ -1028,7 +1035,7 @@
                                              if (typeof(layer.Breadth) == 'undefined') {
                                                  Message('danger',
                                                      `${wallName} ${wallIndex} field required `
-                                                     );
+                                                 );
                                                  isValidField = false;
                                                  $scope.callWall(wallName);
                                                  return false;
@@ -1036,7 +1043,7 @@
                                              if (typeof(layer.Thickness) == 'undefined') {
                                                  Message('danger',
                                                      `${wallName} ${wallIndex} field required `
-                                                     );
+                                                 );
                                                  isValidField = false;
                                                  $scope.callWall(wallName);
                                                  return false;
@@ -1257,15 +1264,16 @@
                              method: 'get',
                              url: `${API_URL}customers/getAdditionalDetails/${$scope.enquiry_id}/enquiry`
                          }).then(function(res) {
-                           
-                            try {
-                                document.getElementById('add_info_customer').innerHTML = res.data.data.comments ;
-                            } catch (error) {
-                                document.getElementById('add_info_customer').innerHTML =  " ";
-                            }
-                            setTimeout(() => {
-                                SetEditor('#add_info_customer');
-                            }, 1000);
+
+                             try {
+                                 document.getElementById('add_info_customer').innerHTML = res.data.data
+                                     .comments;
+                             } catch (error) {
+                                 document.getElementById('add_info_customer').innerHTML = " ";
+                             }
+                             setTimeout(() => {
+                                 SetEditor('#add_info_customer');
+                             }, 1000);
                          })
                      } else {
                          $scope.enquiry_no = res.data.enquiry.enquiry_number;
@@ -1329,7 +1337,7 @@
                      }, function(error) {
                          console.log(
                              'This is embarassing. An error has occurred. Please check the log for details'
-                             );
+                         );
                      });
                  }
 
@@ -1352,7 +1360,7 @@
                  }
 
                  $scope.saveAndSubmitAdditionalinfoForm = () => {
-                    console.log(document.getElementsByClassName('ck-content')[0].innerHTML)
+                     console.log(document.getElementsByClassName('ck-content')[0].innerHTML)
                      $http({
                          method: 'POST',
                          url: '{{ route('customers.store-enquiry') }}',
@@ -1547,7 +1555,7 @@
                      }, function(error) {
                          console.log(
                              'This is embarassing. An error has occurred. Please check the log for details'
-                             );
+                         );
                      });
                  }
 
@@ -1752,7 +1760,7 @@
                      }, function(error) {
                          console.log(
                              'This is embarassing. An error has occurred. Please check the log for details'
-                             );
+                         );
                      });
                  }
 
@@ -1786,7 +1794,7 @@
                      }, function(error) {
                          console.log(
                              'This is embarassing. An error has occurred. Please check the log for details'
-                             );
+                         );
                      });
                  }
                  getDocumentTypes();
@@ -1809,7 +1817,7 @@
                      }, function(error) {
                          console.log(
                              'This is embarassing. An error has occurred. Please check the log for details'
-                             );
+                         );
                      });
                  }
 
@@ -1866,7 +1874,7 @@
                      }, function(error) {
                          console.log(
                              'This is embarassing. An error has occurred. Please check the log for details'
-                             );
+                         );
                      });
 
                  }
@@ -1885,7 +1893,7 @@
                      }, function(error) {
                          console.log(
                              'This is embarassing. An error has occurred. Please check the log for details'
-                             );
+                         );
                      });
 
                  }
@@ -1979,7 +1987,7 @@
                      }, function(error) {
                          console.log(
                              'This is embarassing. An error has occurred. Please check the log for details'
-                             );
+                         );
                      });
                  }
 
@@ -2053,7 +2061,7 @@
                              progress: function(e) {
                                  if (e.lengthComputable) {
                                      $scope.progress_value = Math.round((e.loaded / e.total) * 100) +
-                                     '%';
+                                         '%';
                                  }
                              }
                          }
@@ -2089,7 +2097,7 @@
                              progress: function(e) {
                                  if (e.lengthComputable) {
                                      $scope.progress_value = Math.round((e.loaded / e.total) * 100) +
-                                     '%';
+                                         '%';
                                  }
                              }
                          }
