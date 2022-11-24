@@ -11,13 +11,14 @@
                     <small class="text-center my-1">(OR)</small>
                     <input type="url" id="@{{'link' +documentType.slug}}" class="form-control rounded-pill border" name="url" ng-model="url" placeholder="URL">
                     <a ng-disabled="ifcForm.!$invalid" ng-click="uploadFile(documentType.slug, documentType.slug)"  class="fileupload btn btn-primary rounded-pill border-primary mt-2"><i class="fa fa-upload"></i> Upload</a>
-                    {{-- <div class="progress mt-2">
-                        <div ng-show="@{{documentType.slug+'showProgress'}}" class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width:@{{progress_value}}"> @{{progress_value}} </div>
-                    </div> --}}
                     <br>    
-                    <div class="progress bg-white border border-success rounded-pill">
-                        <div ng-show="@{{documentType.slug+'showProgress'}}" class="progress-bar progress-bar-striped bg-success progress-bar-animated" role="progressbar" aria-valuenow="@{{progress_value }}" aria-valuemin="0" aria-valuemax="100" style="width:@{{progress_value}}" ng-bind="progress_value"></div>
+                    <div class="progress bg-white border border-success rounded-pill" style="position: relative !important">
+                        {{-- <div ng-show="@{{documentType.slug+'showProgress'}}" class="progress-bar progress-bar-striped bg-success progress-bar-animated" role="progressbar" aria-valuenow="@{{progress_value }}" aria-valuemin="0" aria-valuemax="100" style="width:@{{progress_value}}" ng-bind="progress_value">
+                        </div> --}}
+                        <div ng-show="@{{documentType.slug+'showProgress'}}" class="progress-bar progress-bar-striped bg-success progress-bar-animated" role="progressbar" aria-valuenow="@{{progress_value }}" aria-valuemin="0" aria-valuemax="100" style="width:@{{progress_value}}" >
+                        </div>
                     </div>
+                    <span id="numspan" ng-if="progress_value<100 || progress_value>0" >@{{progress_value }}</span>
                 </div>
             </div>
         </div> 
@@ -56,5 +57,13 @@
         background: var(--secondary-bg) !important;
         transform: scale(1.2);
         box-shadow: 0px 5px 10px #4f4f4fb2 !important
+    }
+    #numspan{
+        position: absolute !important;
+        bottom:22px;
+        left:47%;
+        color: #4199FC;
+        font-size: 12px;
+        z-index: 1000000000000000000000;
     }
 </style> 
