@@ -10,6 +10,7 @@ use App\Models\PasswordReset;
 use App\Services\GlobalService;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Contracts\Session\Session;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -36,7 +37,6 @@ class ForgotPasswordController extends Controller
    */
   public function submitForgotPasswordForm(Request $request)
   {
-
     $validatorCustomer = Validator::make($request->all(), [
       'email' => 'required|email|exists:customers',
     ]);
@@ -50,6 +50,12 @@ class ForgotPasswordController extends Controller
         ->back()
         ->withErrors($validatorCustomer)
         ->withInput();
+    }
+    $isCustomerDeleted=Customer::withTrashed()->where('email',$request->email)->exists();
+    if($isCustomerDeleted){
+      
+     session()->put('email_exists','Email Already Deleted By Admin');
+     return back();
     }
 
     $token = Str::random(64);
