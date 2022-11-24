@@ -18,7 +18,7 @@
                         <div ng-show="@{{documentType.slug+'showProgress'}}" class="progress-bar progress-bar-striped bg-success progress-bar-animated" role="progressbar" aria-valuenow="@{{progress_value }}" aria-valuemin="0" aria-valuemax="100" style="width:@{{progress_value}}" >
                         </div>
                     </div>
-                    <span id="numspan" ng-if="progress_value<100 || progress_value>0" >@{{progress_value }}</span>
+                    <span id="numspan" ng-if="progress_value=<100 || progress_value>0" >@{{progress_value }}</span>
                 </div>
             </div>
         </div> 
