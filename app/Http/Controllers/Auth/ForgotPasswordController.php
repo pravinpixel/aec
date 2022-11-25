@@ -41,21 +41,20 @@ class ForgotPasswordController extends Controller
       'email' => 'required|email|exists:customers',
     ]);
 
-    // $validatorEmployee = Validator::make($request->all(), [
-    //   'email' => 'required|email|exists:employees',
-    // ]);
+    $isCustomerDeleted=Customer::onlyTrashed()->where('email',$request->email)->get();
     if ($validatorCustomer->fails()) {
-      // $validator = $validatorCustomer->fails() ? $validatorCustomer : $validatorEmployee;
       return redirect()
         ->back()
         ->withErrors($validatorCustomer)
         ->withInput();
     }
-    $isCustomerDeleted=Customer::withTrashed()->where('email',$request->email)->first();
-    if($isCustomerDeleted){
-      
-     session()->put('email_exists','Email Already Deleted By Admin');
-     return back();
+    else{
+      foreach ($isCustomerDeleted as $key => $customer) {
+        if($customer->email == $request->email){
+          session()->put('state','danger');
+          return back()->with('message','The given email is not registered in our portal !');
+        }
+      }
     }
 
     $token = Str::random(64);
@@ -69,8 +68,8 @@ class ForgotPasswordController extends Controller
     ]);
  
     Mail::to($request->email)->send(new  ForgotPassword($token, $code));
-
-    return back()->with('message', 'We have e-mailed your password reset link!');
+    session()->put('state','success');
+    return back()->with('message','We will send you instructions to reset your password !');
   }
   /**
    * Write code on Method
