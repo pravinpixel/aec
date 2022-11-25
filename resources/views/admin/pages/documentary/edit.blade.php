@@ -22,8 +22,8 @@
                                 <a class="btn btn-light btn-sm border shadow-sm"
                                     data-bs-toggle="collapse" href="#collapseFour"
                                     aria-expanded="true" aria-controls="collapseFour">
-                                    View summary fields  <i
-                                        class="mdi mdi-chevron-down accordion-arrow"></i>
+                                    View summary fields  
+                                    <i class="mdi mdi-chevron-down accordion-arrow"></i>
                                 </a>
                             </div>
                         </div>
@@ -85,6 +85,9 @@
         svg[viewBox="0 0 10 8"]{
             display: none;
         }
+        svg[viewBox="0 0 16 16"]{
+            display: none;
+        }
         .modal-body{
             background:white !important;
         }
@@ -100,9 +103,9 @@
 @push('custom-scripts') 
     <script> 
         $( document ).ready(function() { 
-            $('.textEditorWrapper').removeClass('d-none');
             setTimeout(() => {
                 SetEditor('#textEditor');
+                $('.textEditorWrapper').removeClass('d-none');
             }, 200);
         });
         preview = () => {
