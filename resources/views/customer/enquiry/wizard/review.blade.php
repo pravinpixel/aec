@@ -25,8 +25,11 @@
         transform: scale(1.2);
         box-shadow: 0px 5px 10px #4f4f4fb2 !important
     }
-    svg{
-        display:none !important;
+    svg[viewBox="0 0 10 8"]{
+        display:none ;
+    }
+    svg[viewBox="0 0 16 16"]{
+        display:none ;
     }
     .card-body.false.collapse.show{
         /* background: #000; */
