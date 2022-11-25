@@ -40,15 +40,11 @@
                 <small class="text-danger" ng-show="projectInfo.mobile_no.$invalid && formSubmit">Enter valid contact
                     number</small>
             </div>
-            <div class="form-floating  mb-2 country-code" style="margin-bottom:0 !important">
-                <input value="" type="text" pattern="{{ config('global.mobile_no_pattern') }}"
-                    maxlength="{{ config('global.mobile_no_length') }}" onkeypress="return isNumber(event)"
-                    class="form-control form-control-sm" id="floating" name="secondary_mobile_no"
-                    ng-model="projectInfo.secondary_mobile_no" />
+            <div class="form-floating  mb-2 country-code " style="margin-bottom: 0 !important">
+                <input  value="" type="text" pattern="{{ config('global.mobile_no_pattern') }}" maxlength="{{ config('global.mobile_no_length') }}" onkeypress="return isNumber(event)"  class="form-control form-control-sm" id="floating"  name="secondary_mobile_no"   ng-model="projectInfo.secondary_mobile_no"/>
                 <label for="floating">Secondary Contact Number</label>
             </div>
-            <small class="text-danger" ng-show="projectInfoForm.secondary_mobile_no.$invalid && formSubmit">Enter valid
-                contact number</small>
+            <small class="text-danger" ng-show="projectInfoForm.secondary_mobile_no.$invalid && formSubmit">Enter valid contact number</small>
         </div>
         <div class="col-md-4">
             <div class="form-floating  mb-2">

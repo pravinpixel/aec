@@ -51,7 +51,7 @@ class ForgotPasswordController extends Controller
         ->withErrors($validatorCustomer)
         ->withInput();
     }
-    $isCustomerDeleted=Customer::withTrashed()->where('email',$request->email)->exists();
+    $isCustomerDeleted=Customer::withTrashed()->where('email',$request->email)->first();
     if($isCustomerDeleted){
       
      session()->put('email_exists','Email Already Deleted By Admin');
