@@ -151,7 +151,7 @@
                                 }
                                 else{
                                     // login.style.display = 'block';
-                                    popuptext.innerHTML='This Email id has been already taken ! <a href="{{ route("login") }}" class="badge bg-primary text-white rounded-pill px-3 p-1">Signin</a>';
+                                    popuptext.innerHTML='This Email id has been already taken ! <a href="{{ route("login") }}" class="badge bg-primary text-white rounded-pill px-3 p-1">Sign In</a>';
                                 }
                             } else {
                                 resend.style.display = 'none';
