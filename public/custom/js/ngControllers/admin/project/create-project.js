@@ -11,6 +11,12 @@ formatData = (project) => {
   app.controller('CreateProjectController', function($scope, $http, API_URL, $location, $rootScope) {
     $scope.project = {};
     $rootScope.project = {};
+    $scope.checkDate=(an)=>{
+      var minDate=an;
+      var min_date=minDate.split("-").reverse().join("-");
+      $scope.min_date=min_date;
+      console.log($scope.min_date);
+    }
     $http.get(`${API_URL}project/reference-number`)
       .then((res) => {
         $scope.project.reference_number = res.data;
