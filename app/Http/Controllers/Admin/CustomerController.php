@@ -184,7 +184,7 @@ class CustomerController extends Controller
                     })
                     ->addColumn('action', function($dataDb){
                         return '
-                                <div class="dropdown">
+                                <div class="">
                                     <button class="btn btn-light btn-sm border shadow-sm" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
                                     </button>
