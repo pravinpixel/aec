@@ -162,7 +162,7 @@
 </div>
 <div class="card-footer text-end">
     <a href="#!/" class="btn btn-light float-start">Prev</a>
-    <input type="submit" class="btn btn-primary" value="Next" ng-disabled="connectPlatformForm.$invalid" ng-click="checkDependsSubmit()">
+    <input type="submit" class="btn btn-primary" value="Next"  ng-click="checkDependsSubmit()">
 </div>
 </form>
 <style> 

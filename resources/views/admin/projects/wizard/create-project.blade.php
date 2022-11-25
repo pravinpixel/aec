@@ -263,7 +263,8 @@
                                 date-set="project.start_date" style="width:70% !important">
                                 <input type="text" name="start_date" ng-model="project.start_date"
                                     class="form-control form-control-sm" required id="start_date"
-                                    ng-change="checkDate(project.start_date)">
+                                    ng-change="checkDate(project.start_date)"
+                                    autocomplete="off">
                             </datepicker>
                         </div>
                         <small class="text-danger"
@@ -282,7 +283,8 @@
                             <datepicker date-format="dd-MM-yyyy" date-min-limit="@{{ min_date }}"
                                 date-set="project.delivery_date" style="width:70% !important">
                                 <input type="text" name="delivery_date" ng-model="project.delivery_date"
-                                    class="form-control form-control-sm" required id="end_date">
+                                    class="form-control form-control-sm" required id="end_date"
+                                    autocomplete="off">
                             </datepicker>
                         </div>
                         <small class="text-danger"
