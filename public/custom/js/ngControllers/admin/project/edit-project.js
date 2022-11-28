@@ -1,5 +1,11 @@
 formatData = (project) => {
-    return { ...project, ...{ 'start_date': new Date(project.start_date), 'delivery_date': new Date(project.delivery_date) } }
+    var projectDate=project.start_date;
+  var newProjectDate=projectDate.slice(0,10);
+  var start_date=newProjectDate.split("-").reverse().join("-");
+  var deliveryDate=project.delivery_date;
+  var newdeliveryDate=deliveryDate.slice(0,10);
+  var delivery_date=newdeliveryDate.split("-").reverse().join("-");
+    return { ...project, ...{ 'start_date': start_date, 'delivery_date': delivery_date } }
 }
 
 app.controller('CreateProjectController', function ($scope, $http, API_URL, $location) {
@@ -26,6 +32,14 @@ app.controller('CreateProjectController', function ($scope, $http, API_URL, $loc
             $scope.project = formatData(res.data);
             projectActiveTabs($scope.project.wizard_status);
         });
+
+        $scope.checkDate=(an)=>{
+            console.log(an)
+            var minDate=an;
+            var min_date=minDate.split("-").reverse().join("-");
+            $scope.min_date=min_date;
+            console.log($scope.min_date);
+        }
     //postalcode api
     $scope.getZipcode = function () {
         let zipcode = $("#zipcode").val();
