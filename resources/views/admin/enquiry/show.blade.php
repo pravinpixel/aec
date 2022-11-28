@@ -461,6 +461,7 @@
                         $scope.historyStatus    =   false;
                         $("#technical_estimate_histories").html('');
                         $("#technical_estimate_histories").append(res.data);
+                        console.log(res.data)
                         $('#technical_history').modal('show');
                     }, function errorCallback(error){
                         console.log(error);
@@ -1004,32 +1005,56 @@
                             Message('danger', 'Data not found');
                             return false;
                         }
+                        console.log('data is:')
+                        console.log(res);
                         $scope.historyStatus    =   false
                         var costId              =   $(`#${type}_id`);
                         $(costId).html('');
                      
                         res.data.length && res.data.map((item, key) => {
                             $(costId).append(`
-                                <div class="card  p-2 border shadow-sm m-2">
-                                    <div id="headingTableHistory${key+1}">
-                                        <h5 class="m-0 d-flex align-items-center">
-                                            <a class="custom-accordion-title collapsed d-block py-1"
-                                                data-bs-toggle="collapse" href="#collapseTableHistory${key+1}"
-                                                aria-expanded="true" aria-controls="collapseTableHistory${key+1}">
-                                                <strong class="me-auto text-dark">Version : ${res.data.length - key}</strong>
+                            <div class="card  p-2 border shadow-sm m-2" style="position:relative">
+                                <span id="abs${key}" style="position:absolute;top:0;left:0;width:100%;z-index:0;background:#fff;height:50px;transition:0.5s;"></span>
+                                <div id="headingTableHistory${key+1}" onclick="toggleModule(${key})">
+                                    <a 
+                                        style="color:black"
+                                        class="
+                                            m-0 d-flex justify-content-between align-items-center custom-accordion-title
+                                            "
+                                            data-bs-toggle="collapse" href="#collapseTableHistory${key+1}"
+                                            aria-expanded="true" aria-controls="collapseTableHistory${key+1}"
+                                    >
+                                        <div class="first">
+                                            
+                                                <strong class="me-auto color${key}" >Version : ${res.data.length - key}</strong>
                                                 <span> - </span>
                                                 <span>
-                                                    <span class="fa fa-calendar text-dark"></span>
-                                                    <small>${item.created_at}</small>
+                                                    <span class="fa fa-calendar color" ></span>
+                                                    <small class="color${key}">${item.created_at}</small>
                                                 </span>
-                                            </a>
-                                        </h5>
-                                    </div>
-                                    <div id="collapseTableHistory${key+1}" class="collapse ${key == 0 && 'show'}"
-                                        aria-labelledby="headingTableHistory${key+1}" >
-                                            ${item.history}
-                                    </div>
-                                </div> 
+                                        </div>
+                                        <div class="last" style="margin-right:50px;">
+                                            <span style="display:flex;align-items:flex-end">
+                                                <span style="font-weight:400;letter-spacing:1px;color:##767676;font-size:15px;" class="text-dark">Modified By:</span>
+                                                &nbsp;
+                                                &nbsp;
+                                                <span class="color${key}">${item.role.name}</span>
+                                                &nbsp;
+                                                &nbsp;
+                                                <span 
+                                                    style="background: #6C757D;padding: 3px 6px 3px 6px;border-radius: 4px;color: #fff;"
+                                                    class="color${key}"
+                                                >${item.role.slug}</span>
+                                            </span>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div id="collapseTableHistory${key+1}" class="collapse ${key == 0 && 'show'}"
+                                aria-labelledby="headingTableHistory${key+1}" >
+                                        ${item.history}
+                                </div>
+                            </div> 
+
                             `); 
                         });
                     }, function errorCallback(error){
@@ -2285,5 +2310,28 @@
             e.returnValue = dialogText;
             return dialogText;
         };
+        var tri=true;
+        function toggleModule(num){
+            if(tri){
+
+                document.getElementById('abs'+num).style.background="#4199FC";
+                // var count=document.getElementsByClassName('color').length;
+                // for(i=0;i<count;i++){
+                //     document.getElementsByClassName('color'+num)[i].style.color="#fff";
+                // }
+                // console.log(count);
+                // $('#color').css('color','#fff');
+                tri=!tri;
+            }
+            else{
+                document.getElementById('abs'+num).style.background="#fff";
+                // var count=document.getElementsByClassName('color').length;
+                // for(i=0;i<count;i++){
+                //     document.getElementsByClassName('color'+num)[i].style.color="#";
+                // }
+                // document.querySelectorAll('#color').style.color="#4199FC";
+                tri=!tri;
+            }
+        }
     </script>  
 @endpush
