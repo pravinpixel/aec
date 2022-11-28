@@ -18,8 +18,15 @@
                 <td>
                     <div class="progress bg-light border rounded-3 progress-xl">
                         <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" role="progressbar"
-                            style="width: @{{ overall == 0 ? 10 : overall }}%;" aria-valuenow="@{{ overall }}"
-                            aria-valuemin="0" aria-valuemax="100"><small>@{{ overall }}%</small></div>
+                            style="width: @{{ overall == 0 ? 0 : overall }}%;" aria-valuenow="@{{ overall }}"
+                            aria-valuemin="0" aria-valuemax="100">
+                        </div>
+                        <small
+                            class="text-center w-100 progressABSsmallText"
+                            style=" font-weight:900 !important;color:#4199FC;"
+                        >
+                            @{{ overall }}%
+                        </small>
                     </div>
                 </td>
             </tr>
@@ -28,10 +35,10 @@
     <div ng-repeat="(index,check_list) in TaskListsCollection">
         <div style="display:flex;background:#0C326C;" class="p-2">
             <div class="text-center text-light" style="font-weight:bold;width:5%">S.No</div>
-            <div class="text-center text-light" style="font-weight:bold;width:20%">Deliverable Name</div>
+            <div class="text-center text-light" style="font-weight:bold;width:19%">Deliverable Name</div>
             <div class="text-center text-light" style="font-weight:bold;width:10%">Assign To</div>
-            <div class="text-center text-light" style="font-weight:bold;width:15%">Start date</div>
-            <div class="text-center text-light" style="font-weight:bold;width:15%">end date</div>
+            <div class="text-center text-light" style="font-weight:bold;width:16%">Start date</div>
+            <div class="text-center text-light" style="font-weight:bold;width:16%">end date</div>
             <div class="text-center text-light" style="font-weight:bold;width:5%">Status</div>
             <div class="text-center text-light" style="font-weight:bold;width:20%">Date of Delivery</div>
             <div class="text-center text-light" style="font-weight:bold;width:8%">Action</div>
@@ -45,17 +52,23 @@
                     <strong
                         class="text-center m-0 span bg-warning fw-bold rounded px-1">@{{ checkListData.data[0].start_date | date: 'dd-MM-yyyy' }}</strong>
                 </div>
-                <div  style="width:17.5%;margin-left:55px;" >
+                <div  style="width:17.5%;margin-left:66px;" >
                     <strong
                         class="text-center m-0 span bg-warning fw-bold rounded px-1 pb-2">@{{ checkListData.data[checkListData.data.length - 1].end_date | date: 'dd-MM-yyyy' }}</strong>
                 </div>
-                <div class="progress bg-light border rounded-3" style="width:12.5%;">
+                <div class="progress bg-light border rounded-3" style="width:12.5%;margin-left:24px;">
                     <div class="progress-bar bg-info progress-bar-striped progress-bar-animated" role="progressbar"
-                        style="width: @{{ countper[$index].completed == 0 ? 10 : countper[$index].completed }}%;" aria-valuenow="@{{ countper[$index].completed }}"
-                        aria-valuemin="0" aria-valuemax="100"><small>@{{ countper[$index].completed }}%</small>
+                        style="width: @{{ countper[$index].completed == null ? 0 : countper[$index].completed }}%;" aria-valuenow="@{{ countper[$index].completed == null ? 0 : countper[$index].completed }}"
+                        aria-valuemin="0" aria-valuemax="100">
                     </div>
+                    <small 
+                        class="text-center w-100 progressABSsmallText"
+                         style=" font-weight:900 !important;color:#4199FC;"
+                    >
+                        @{{ countper[$index].completed == null ? 0 : countper[$index].completed }}%
+                    </small>
                 </div>
-                <div style="width:14%;padding:0 0 0 90px;">
+                <div style="width:14%;padding:0 0 0 58px;">
                     <i class="fa fa-plus btn-sm btn btn-success mx-2" style="margin-left:4px;"  ng-click="createTaskListData(index,index_2)"></i>
                 </div>
                 {{-- <button class="btn bktn-primary"  ng-click="createTaskListData(index,index_2)"> --}}
@@ -69,12 +82,12 @@
                         <i class="bi bi-arrows-move border" style="padding:5px;cursor:pointer"></i>
                         <strong>@{{ index_3 + 1 }}</strong>
                     </div>
-                    <div style="width:20%;display:flex;align-items:center;justify-content:center" class="text-center ">
+                    <div style="width:19%;display:flex;align-items:center;justify-content:center" class="text-center ">
                         {{-- <p class="m-0"> --}}
                             <input type="text" class="form-control-sm form-control" ng-value=" taskListData.task_list " ng-model=" taskListData.task_list ">
                         {{-- </p> --}}
                     </div>
-                    <div style="width:10%;display:flex;align-items:center;justify-content:center" class="text-center ">
+                    <div style="width:11%;display:flex;align-items:center;justify-content:center" class="text-center ">
                         <input get-to-do-lists type="hidden" ng-model="taskListData.assign_to" 
                             value="@{{ taskListData.assign_to }}">
                             {{-- <p style="" class="m-0"> --}}
