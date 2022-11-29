@@ -321,18 +321,22 @@
                          'city': $projectInfo.city,
                          'building_type_id': $projectInfo.building_type_id,
                          'project_type_id': $projectInfo.project_type_id,
-                         'project_date': new Date($projectInfo.project_date),
+                         'project_date':$projectInfo.project_date,
                          'site_address': $projectInfo.site_address,
                          'place': $projectInfo.place,
                          'country': $projectInfo.country,
                          'no_of_building': $projectInfo.no_of_building,
                          'delivery_type_id': $projectInfo.delivery_type_id,
-                         'project_delivery_date': new Date($projectInfo.project_delivery_date),
+                         'project_delivery_date':$projectInfo.project_delivery_date,
                      };
                      return $scope.data;
                  }
                  getProjectInfoInptuDataFormat = function($projectInfo) {
                      console.log('$projectInfo', $projectInfo);
+                     var projectDate=$projectInfo.project_date;
+                     var new_projectDate=projectDate.split('-').reverse().join('-');
+                     var projectDeliveryDate=$projectInfo.project_delivery_date;
+                     var new_projectDeliveryDate=projectDeliveryDate.split('-').reverse().join('-');
                      $scope.data = {
                          'contact_person': $projectInfo.contact_person,
                          'mobile_no': $projectInfo.mobile_no,
@@ -345,13 +349,13 @@
                          'city': $projectInfo.city,
                          'building_type_id': $projectInfo.building_type_id,
                          'project_type_id': $projectInfo.project_type_id,
-                         'project_date': new Date($projectInfo.project_date),
+                         'project_date': new_projectDate,
                          'site_address': $projectInfo.site_address,
                          'place': $projectInfo.place,
                          'country': $projectInfo.country,
                          'no_of_building': $projectInfo.no_of_building,
                          'delivery_type_id': $projectInfo.delivery_type_id,
-                         'project_delivery_date': new Date($projectInfo.project_delivery_date),
+                         'project_delivery_date': new_projectDeliveryDate,
                      };
                      return $scope.data;
                  }
