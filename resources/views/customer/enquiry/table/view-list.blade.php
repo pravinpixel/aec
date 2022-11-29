@@ -7,7 +7,7 @@
             <th style="width:30%">@lang('customer-enquiry.file_name')</th>
             <th style="width:12%">@lang('customer-enquiry.file_type')</th> 
             <th style="width:15%">@lang('customer-enquiry.view_status')</th>
-            <th >@lang('customer-enquiry.action')</th>
+            <th style="width:13%">@lang('customer-enquiry.action')</th>
         </tr>
     </thead>
     <tbody class="panel"> 
