@@ -2,12 +2,12 @@
 <table class="table custom table-bordered" id="myTable">
     <thead>
         <tr>
-            <th>#</th>
-            <th>@lang('customer-enquiry.date')</th>
-            <th>@lang('customer-enquiry.file_name')</th>
-            <th>@lang('customer-enquiry.file_type')</th> 
-            <th>@lang('customer-enquiry.view_status')</th>
-            <th>@lang('customer-enquiry.action')</th>
+            <th style="width:4%">#</th>
+            <th style="width:16%">@lang('customer-enquiry.date')</th>
+            <th style="width:30%">@lang('customer-enquiry.file_name')</th>
+            <th style="width:12%">@lang('customer-enquiry.file_type')</th> 
+            <th style="width:15%">@lang('customer-enquiry.view_status')</th>
+            <th >@lang('customer-enquiry.action')</th>
         </tr>
     </thead>
     <tbody class="panel"> 
