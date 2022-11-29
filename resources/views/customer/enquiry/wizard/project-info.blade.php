@@ -165,7 +165,7 @@
                     <datepicker date-format="dd-MM-yyyy" date-min-limit="@{{ min_date }}"
                         style="width:75% !important"
                         date-set="projectInfo.project_delivery_date">
-                        <input type="text" class="form-control" name="project_delivery_date" id="decWid"
+                        <input type="text" class="form-control" name="project_delivery_date" id="targe"
                             ng-model="projectInfo.project_delivery_date" required
                             style="border: none !important;padding-left:5px!important" />
                     </datepicker>

@@ -165,8 +165,10 @@
                      var minDate = an;
                      var min_date = minDate.split("-").reverse().join("-");
                      $scope.min_date = min_date;
+                     $scope.projectInfo.project_delivery_date=   an;
                      console.log($scope.min_date);
                  }
+                
                  $http({
                      method: 'GET',
                      url: '{{ route('get-login-customer') }}'
