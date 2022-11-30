@@ -619,6 +619,10 @@ formatData = (project) => {
       var ss=document.getElementById(ids).setAttribute('date-min-limit',$scope.end_date);
       console.log(ss);
   }
+  $scope.changeFormat=(ag)=>{
+    var def_date=ag.split('/').reverse().join('/');
+    return def_date;
+}
   
   
     // ======= $scope of Flow ==============
@@ -771,6 +775,10 @@ formatData = (project) => {
         console.log(newDate);
         $scope.end_date=newDate;
         var ss=document.getElementById(ids).setAttribute('date-min-limit',$scope.end_date);
+    }
+    $scope.changeFormat=(ag)=>{
+        var def_date=ag.split('/').reverse().join('/');
+        return def_date;
     }
     $("#rasieTicketDetails").modal('hide');
     $http.get(`${API_URL}admin/get-employee-by-slug/project_manager`).then((res) => {

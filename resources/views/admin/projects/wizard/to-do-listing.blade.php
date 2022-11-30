@@ -119,7 +119,7 @@
                                             </select>
                                         </div>
                                         <div class="col p-1">
-                                            <datepicker date-format="dd/MM/yyyy" date-min-limit="taskListData.start_date" date-set="taskListData.start_date">
+                                            <datepicker date-format="dd/MM/yyyy" date-min-limit="{{ \Carbon\Carbon::yesterday()->format('Y-m-d') }}" date-set="taskListData.start_date">
                                                 <input 
                                                     ng-model="taskListData.start_date"
                                                     type="text"
@@ -130,7 +130,7 @@
                                             </datepicker>
                                         </div>
                                         <div class="col p-1">
-                                            <datepicker date-format="dd/MM/yyyy"  date-min-limit="@{{ max=index_2+index_3==id ?   end_date : max   }}" date-set="taskListData.end_date" id="@{{ index_2 }}@{{ index_3 }}">
+                                            <datepicker date-format="dd/MM/yyyy"  date-min-limit="@{{ max=index_2+index_3==id ?   end_date : (max== null) ? changeFormat(taskListData.start_date) : max   }}" date-set="taskListData.end_date" id="@{{ index_2 }}@{{ index_3 }}">
                                                 <input ng-model="taskListData.end_date" type="text" readonly class="form-control form-control-sm text-center"/>
                                             </datepicker> 
                                         </div>

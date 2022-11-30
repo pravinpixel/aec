@@ -106,7 +106,7 @@
                             {{-- </p> --}}
                     </div>
                     <div style="width:15%;display:flex;justify-content:center" class="">
-                        <datepicker date-format="dd/MM/yyyy" date-min-limit="taskListData.start_date" date-set="taskListData.start_date">
+                        <datepicker date-format="dd/MM/yyyy" date-min-limit="{{ \Carbon\Carbon::yesterday()->format('Y-m-d') }}" date-set="taskListData.start_date">
                         <input type="text" get-to-do-lists
                             {{-- ng-value="@{{ taskListData.start_date  | date: 'yyyy-MM-dd'}}" --}}
                             ng-model="taskListData.start_date" id=""
@@ -119,7 +119,7 @@
                             ng-readonly="">@{{ taskListData.start_date | date: 'dd-MM-yyyy' }}</label> --}}
                     </div>
                     <div style="width:15%" class="">
-                        <datepicker date-format="dd/MM/yyyy" date-min-limit="@{{ max=index_2+index_3==id ?   end_date : max   }}" date-set="taskListData.end_date" id="@{{ index_2 }}@{{ index_3 }}">
+                        <datepicker date-format="dd/MM/yyyy" date-min-limit="@{{ max=index_2+index_3==id ?   end_date : (max== null) ? changeFormat(taskListData.start_date) : max   }}" date-set="taskListData.end_date" id="@{{ index_2 }}@{{ index_3 }}">
                             <input type="text" 
                                 get-to-do-lists 
                                 ng-model="taskListData.end_date" 

@@ -573,6 +573,11 @@ app.controller('ToDoListController', function ($scope, $http, API_URL, $location
         var ss=document.getElementById(ids).setAttribute('date-min-limit',$scope.end_date);
         console.log(ss);
     }
+    
+    $scope.changeFormat=(ag)=>{
+        var def_date=ag.split('/').reverse().join('/');
+        return def_date;
+    }
     let project_id = $("#project_id").val();
     $http.get(`${API_URL}get-delivery-type`).then((res) => {
         $scope.deliveryTypes = res.data;
