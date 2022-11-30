@@ -259,7 +259,7 @@
                     </div>
                     <div class="col pe-0">
                         <div class="cusInp">
-                            <datepicker date-format="dd-MM-yyyy" date-min-limit="project.start_date"
+                            <datepicker date-format="dd-MM-yyyy" date-min-limit="{{ \Carbon\Carbon::yesterday()->format('Y-m-d') }}"
                                 date-set="project.start_date" style="width:70% !important">
                                 <input type="text" name="start_date" ng-model="project.start_date"
                                     class="form-control form-control-sm" required id="start_date"
