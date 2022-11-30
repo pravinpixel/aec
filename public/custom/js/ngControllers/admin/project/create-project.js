@@ -755,6 +755,14 @@ formatData = (project) => {
   app.controller('TasklistController', function($scope, $http, API_URL, $location) {
   $scope.project_id = project_id;
     //$('#rasieTicketDetails').modal('hide');
+    $scope.putEndDate=(an,id,id1)=>{
+      var ids=''+id+id1;
+        $scope.id=ids;
+        var newDate=an.split('/').reverse().join('/');
+        console.log(newDate);
+        $scope.end_date=newDate;
+        var ss=document.getElementById(ids).setAttribute('date-min-limit',$scope.end_date);
+    }
     $("#rasieTicketDetails").modal('hide');
     $http.get(`${API_URL}admin/get-employee-by-slug/project_manager`).then((res) => {
       $scope.projectManagers = res.data;

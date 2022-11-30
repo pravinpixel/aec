@@ -110,14 +110,16 @@
                         <input type="text" get-to-do-lists
                             {{-- ng-value="@{{ taskListData.start_date  | date: 'yyyy-MM-dd'}}" --}}
                             ng-model="taskListData.start_date" id=""
-                            class=" form-control form-control-sm text-center">
+                            class=" form-control form-control-sm text-center"
+                            ng-change="putEndDate(taskListData.start_date,index_2,index_3)"
+                            >
                         </datepicker>
                         {{-- <label get-to-do-lists ng-value="taskListData.start_date | date: 'dd-MM-yyyy'" id=""
                             class=" border-0 form-control form-control-sm"
                             ng-readonly="">@{{ taskListData.start_date | date: 'dd-MM-yyyy' }}</label> --}}
                     </div>
                     <div style="width:15%" class="">
-                        <datepicker date-format="dd/MM/yyyy" date-min-limit="taskListData.end_date" date-set="taskListData.end_date">
+                        <datepicker date-format="dd/MM/yyyy" date-min-limit="@{{ max=index_2+index_3==id ?   end_date : max   }}" date-set="taskListData.end_date" id="@{{ index_2 }}@{{ index_3 }}">
                             <input type="text" 
                                 get-to-do-lists 
                                 ng-model="taskListData.end_date" 
