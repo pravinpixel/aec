@@ -46,6 +46,7 @@ formatData = (project) => {
   
     $http.get(`${API_URL}project/wizard/create_project`).then((res) => {
       $rootScope.project_id = res.data.id;
+      $scope.projectDates=res.data.start_date;
       if (res.data != false) $scope.project = formatData(res.data);
       projectActiveTabs($scope.project.wizard_status);
       console.log($scope.project)

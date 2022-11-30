@@ -281,7 +281,7 @@
                     </div>
                     <div class="col pe-0">
                         <div class="cusInp">
-                            <datepicker date-format="dd-MM-yyyy" date-min-limit="@{{ min_date }}"
+                            <datepicker date-format="dd-MM-yyyy" date-min-limit="@{{ min_date==null ? projectDates : min_date }}"
                                 date-set="project.delivery_date" style="width:70% !important">
                                 <input type="text" name="delivery_date" ng-model="project.delivery_date"
                                     class="form-control form-control-sm" required id="end_date"

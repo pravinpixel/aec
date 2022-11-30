@@ -30,6 +30,7 @@ app.controller('CreateProjectController', function ($scope, $http, API_URL, $loc
     $http.get(`${API_URL}project/${project_id}`)
         .then((res) => {
             $scope.project = formatData(res.data);
+            $scope.projectDates=res.data.start_date;
             projectActiveTabs($scope.project.wizard_status);
         });
 
