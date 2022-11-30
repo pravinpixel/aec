@@ -260,6 +260,7 @@
             getDeliveryType();
             getProjectInfoInptuData = function($projectInfo) {
                 var projectDate=$projectInfo.project_date;
+                $scope.projectDate=projectDate;
                 var project_date=projectDate.split("-").reverse().join("-");
                 var projectDeliveryDate=$projectInfo.project_delivery_date;
                 var project_delivery_date=projectDeliveryDate.split("-").reverse().join("-");

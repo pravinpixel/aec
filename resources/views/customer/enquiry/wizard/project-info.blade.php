@@ -164,7 +164,7 @@
             <div class="form-floating  mb-2">
                 <div class="customInp">
                     <p for="floating" class="mb-0 cuspsd">Project Delivery Date <sup class="text-danger">*</sup></p>
-                    <datepicker date-format="dd-MM-yyyy" date-min-limit="@{{ min_date }}"
+                    <datepicker date-format="dd-MM-yyyy" date-min-limit="@{{ min_date==null ? projectDate : min_date }}"
                         style="width:75% !important"
                         date-set="projectInfo.project_delivery_date">
                         <input type="text" class="form-control" name="project_delivery_date" id="targe"
