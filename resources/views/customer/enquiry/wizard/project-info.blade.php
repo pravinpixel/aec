@@ -97,15 +97,15 @@
             <div class="form-floating  mb-2">
                 <div class="customInp">
                     <p for="floating" class="mb-0 cuspsd">Project Start Date <sup class="text-danger">*</sup></p>
-                    <datepicker date-format="dd-MM-yyyy" id="checkId" date-min-limit="{{ now()->format('Y-m-d') }}"
+                    <datepicker date-format="dd-MM-yyyy" id="checkId" date-min-limit="{{ \Carbon\Carbon::yesterday()->format('Y-m-d') }}"
                         date-set="projectInfo.project_date"
                         style="width:75% !important">
                         <input type="text" style="border:none !important;padding:6px!important;padding-left:5px!important"
                             id="decWid"
                             ng-change="checkDate(projectInfo.project_date)" class="form-control form-control-sm"
                             id="project_date" name="project_date" ng-model="projectInfo.project_date" required
-                            placeholder="DD/MM/YYYY"
                             autocomplete="off"
+                            placeholder="DD/MM/YYYY"
                          />
                     </datepicker>
                 </div>
