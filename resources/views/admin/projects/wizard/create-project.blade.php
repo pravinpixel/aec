@@ -264,6 +264,7 @@
                                 <input type="text" name="start_date" ng-model="project.start_date"
                                     class="form-control form-control-sm" required id="start_date"
                                     ng-change="checkDate(project.start_date)"
+                                    placeholder="DD/MM/YYYY"
                                     autocomplete="off">
                             </datepicker>
                         </div>
@@ -284,6 +285,7 @@
                                 date-set="project.delivery_date" style="width:70% !important">
                                 <input type="text" name="delivery_date" ng-model="project.delivery_date"
                                     class="form-control form-control-sm" required id="end_date"
+                                    placeholder="DD/MM/YYYY"
                                     autocomplete="off">
                             </datepicker>
                         </div>
@@ -344,26 +346,3 @@
         display: none !important;
     }
 </style>
-<script>
-    var sDate = document.getElementById('start_date');
-    var eDate = document.getElementById('end_date');
-    var cusCard = document.getElementById('customized_card');
-    var height = cusCard.clientHeight;
-    // alert(height+'px');
-    sDate.addEventListener('click', () => {
-        cusCard.style.height = '90vh';
-    });
-    sDate.addEventListener('blur', () => {
-        setTimeout(() => {
-            cusCard.style.height = height + 'px';
-        }, 200);
-    });
-    eDate.addEventListener('click', () => {
-        cusCard.style.height = '90vh';
-    });
-    eDate.addEventListener('blur', () => {
-        setTimeout(() => {
-            cusCard.style.height = height + 'px';
-        }, 200);
-    });
-</script>

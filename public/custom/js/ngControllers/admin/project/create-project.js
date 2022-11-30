@@ -21,6 +21,7 @@ formatData = (project) => {
       var minDate=an;
       var min_date=minDate.split("-").reverse().join("-");
       $scope.min_date=min_date;
+      $scope.project.delivery_date=an;
       console.log($scope.min_date);
     }
     $http.get(`${API_URL}project/reference-number`)

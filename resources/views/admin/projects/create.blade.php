@@ -2,7 +2,7 @@
 
 @section('admin-content')
    
-    <div class="content-page" ng-controller="projectController">
+    <div class="content-page" style="min-height:145vh !important" ng-controller="projectController">
         <div class="content" >
 
             @include('admin.includes.top-bar')

@@ -39,6 +39,7 @@ app.controller('CreateProjectController', function ($scope, $http, API_URL, $loc
             var min_date=minDate.split("-").reverse().join("-");
             $scope.min_date=min_date;
             console.log($scope.min_date);
+            $scope.project.delivery_date=an;
         }
     //postalcode api
     $scope.getZipcode = function () {
@@ -563,6 +564,15 @@ app.controller('ToDoListController', function ($scope, $http, API_URL, $location
     $("#todo-list").addClass('active');
     $scope.arr = [{ 'name': 'abc', 'age': 22 }, { 'name': 'def', 'age': 22 }, { 'name': 'ghi', 'age': 22 }];
     $scope.Date = new Date();
+    $scope.putEndDate=(an,id,id1)=>{
+        var ids=''+id+id1;
+        $scope.id=ids;
+        var newDate=an.split('/').reverse().join('/');
+        console.log(newDate);
+        $scope.end_date=newDate;
+        var ss=document.getElementById(ids).setAttribute('date-min-limit',$scope.end_date);
+        console.log(ss);
+    }
     let project_id = $("#project_id").val();
     $http.get(`${API_URL}get-delivery-type`).then((res) => {
         $scope.deliveryTypes = res.data;

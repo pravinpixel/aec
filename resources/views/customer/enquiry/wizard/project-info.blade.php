@@ -105,6 +105,7 @@
                             ng-change="checkDate(projectInfo.project_date)" class="form-control form-control-sm"
                             id="project_date" name="project_date" ng-model="projectInfo.project_date" required
                             placeholder="DD/MM/YYYY"
+                            autocomplete="off"
                          />
                     </datepicker>
                 </div>
@@ -168,8 +169,9 @@
                         date-set="projectInfo.project_delivery_date">
                         <input type="text" class="form-control" name="project_delivery_date" id="targe"
                             ng-model="projectInfo.project_delivery_date" required
-                            style="border: none !important;padding-left:5px!important"
-                            placeholder="DD/MM/YYYY" />
+                            style="border: none !important;padding-left:5px !important"
+                            placeholder="DD/MM/YYYY"
+                            autocomplete="off" />
                     </datepicker>
                     <span class="dateicon"></span>
                 </div>

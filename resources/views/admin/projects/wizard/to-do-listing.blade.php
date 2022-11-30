@@ -120,11 +120,17 @@
                                         </div>
                                         <div class="col p-1">
                                             <datepicker date-format="dd/MM/yyyy" date-min-limit="taskListData.start_date" date-set="taskListData.start_date">
-                                                <input ng-model="taskListData.start_date" type="text" readonly class="form-control form-control-sm text-center"/>
+                                                <input 
+                                                    ng-model="taskListData.start_date"
+                                                    type="text"
+                                                    readonly 
+                                                    class="form-control form-control-sm text-center"
+                                                    ng-change="putEndDate(taskListData.start_date,index_2,index_3)"
+                                                />
                                             </datepicker>
                                         </div>
                                         <div class="col p-1">
-                                            <datepicker date-format="dd/MM/yyyy" date-min-limit="taskListData.end_date" date-set="taskListData.end_date">
+                                            <datepicker date-format="dd/MM/yyyy"  date-min-limit="@{{ max=index_2+index_3==id ?   end_date : max   }}" date-set="taskListData.end_date" id="@{{ index_2 }}@{{ index_3 }}">
                                                 <input ng-model="taskListData.end_date" type="text" readonly class="form-control form-control-sm text-center"/>
                                             </datepicker> 
                                         </div>

@@ -2,7 +2,7 @@
 
 @section('admin-content')
    
-    <div class="content-page" ng-controller="projectController"> @{{ project }}
+    <div class="content-page" style="min-height:145vh !important" ng-controller="projectController"> @{{ project }}
         <input type="hidden" name="project_id" id="project_id" value="{{ $id }}"> 
         <div class="content">
 
