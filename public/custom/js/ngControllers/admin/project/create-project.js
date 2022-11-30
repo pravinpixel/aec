@@ -580,6 +580,7 @@ formatData = (project) => {
   
   app.controller('ToDoListController', function($scope, $http, API_URL, $location) {
   
+    
     $http.get(`${API_URL}project/wizard/create_project`)
       .then((res) => {
         projectActiveTabs(res.data.wizard_status);
@@ -609,7 +610,15 @@ formatData = (project) => {
         });
       }
     });
-  
+    $scope.putEndDate=(an,id,id1)=>{
+      var ids=''+id+id1;
+      $scope.id=ids;
+      var newDate=an.split('/').reverse().join('/');
+      console.log(newDate);
+      $scope.end_date=newDate;
+      var ss=document.getElementById(ids).setAttribute('date-min-limit',$scope.end_date);
+      console.log(ss);
+  }
   
   
     // ======= $scope of Flow ==============
