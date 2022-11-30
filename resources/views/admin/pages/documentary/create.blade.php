@@ -87,25 +87,6 @@
 
      @push('custom-scripts')
          <script>
-            setTimeout(() => {
-
-                Swal.fire({
-                    title: 'Do you want auto formated template content ?',
-                    showDenyButton: true,
-                    showCancelButton: true,
-                    confirmButtonText: 'yes',
-                    denyButtonText: `no don't need`,
-                }).then((result) => {
-                    /* Read more about isConfirmed, isDenied below */
-                    if (result.isConfirmed) {
-                        
-                        Swal.fire('Saved!', '', 'success')
-                    } else if (result.isDenied) {
-                        Swal.fire('Changes are not saved', '', 'info')
-                    }
-                })
-                
-            }, 2000);
              SetEditor('#documentary_editor');
          </script>
          <script>
