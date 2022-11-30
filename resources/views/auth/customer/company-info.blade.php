@@ -52,14 +52,14 @@
                                 </div>
                                 <h4 class="mb-3"> Contact Information</h4>
                                 <div class="mb-3 col-lg-6">
-                                    <label for="phone_no" class="form-label text-secondary">Phone <small class="text-danger my-2">( Max 8 to 12 )</small></label>
+                                    <label for="phone_no" class="form-label text-secondary">Phone <small class="text-danger my-2">( Either 8 or 12 numbers )</small></label>
                                     <input class="form-control" type="text" maxlength="12" minlength="8" onkeypress="return isNumber(event)" name="phone_no" id="phone_no" value="{{ old('phone_no') }}"  placeholder="Enter phone no">
                                     @if($errors->has('phone_no'))
                                         <span class="text-danger my-2">{{ $errors->first('phone_no') }}</span>
                                     @endif 
                                 </div> 
                                 <div class="mb-3 col-lg-6">
-                                    <label for="mobile_no" class="form-label text-secondary">Mobile no <span class="text-danger">*</span> <small class="text-danger my-2">( Max 8 to 12 )</small></label>
+                                    <label for="mobile_no" class="form-label text-secondary">Mobile no <span class="text-danger">*</span> <small class="text-danger my-2">( Either 8 or 12 numbers )</small></label>
                                     <div class="input-group mb-2">
                                         <div class="input-group-prepend">
                                           <div class="input-group-text">+47</div>
