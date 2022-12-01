@@ -1944,31 +1944,16 @@
                 console.log(document.getElementById(ele).href)
             }
             $scope.DownloadProposal=function(proposal_id){
-                // console.log(proposal_id);
-                var url='{{route("admin.contract.download","check")}}';
-                url = url.replace('check',proposal_id);
-                window.location.href=url;
-                // console.log(url);
-                // $.ajax({
-                //     method:'get',
-                //     url:url,
-                //     success:function(res){
-                //         console.log(res);
-                //     }
-                // });
-                window.location.href=url;
-                // $http.get(url).then(function (response) {
-                //     console.log(response)
-                    // $scope.edit_proposal  = response.data;
-                    // Message('success',response.data.msg);
-                    // $scope.getProposesalData();
-                    // console.log(res);
-                    // console.log('ok')
-                
-                // });
-               
-
-
+                console.log(proposal_id);
+                var url='{{route("edit.download-proposal-sharing",["check","prop"])}}';
+                var nurl=url.replace("check",{{ $data->id }});
+                var newUrl=nurl.replace(/prop$/,proposal_id);
+                console.log(newUrl);
+                window.onbeforeunload = function() {
+                    return true;
+                };
+                window.onbeforeunload = null;
+                window.location.href=newUrl;
             }
             $scope.ViewEditProposeVersions = function (proposal_id , Vid, update_status = true) {
                 $scope.proposalModal = update_status;
