@@ -242,7 +242,7 @@
                                                                             <i class="dripicons-dots-3 "></i>
                                                                         </button>
                                                                         <div class="dropdown-menu dropdown-menu-end" ng-if="V.status == 'obsolete' && V.type == 'root'">
-                                                                            <button class="dropdown-item" ng-click="ViewEditPropose(V.proposal_id)">View / Edit</button>
+                                                                            <button class="dropdown-item" ng-click="ViewEditPropose(V.proposal_id)">View</button>
                                                                             <a class="btn dropdown-item"  ng-click="showCommentsToggle(V.proposal_id, V.type)" > Chat</u></a>
                                                                             <button class="dropdown-item" ng-click="DuplicatePropose(V.proposal_id)">Duplicate</button> 
                                                                             <button class="dropdown-item"  ng-click="DownloadProposal(V.proposal_id)">Download</button>
