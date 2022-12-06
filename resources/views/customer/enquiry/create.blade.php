@@ -1,7 +1,7 @@
      @extends('layouts.customer')
 
      @section('customer-content')
-         <div class="content-page" ng-app="App" style="min-height:130vh !important">
+         <div class="content-page" ng-app="App" style="min-height:140vh !important">
              <div class="content">
 
                  @include('customer.includes.top-bar')
