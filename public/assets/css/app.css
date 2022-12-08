@@ -35,7 +35,7 @@ File: Main Css File
   --bs-gray-700: #6c757d;
   --bs-gray-800: #343a40;
   --bs-gray-900: #313a46;
- 
+
   /* --bs-primary: #2871BF; */
   --bs-secondary: #6c757d;
   --bs-success: #0acf97;
@@ -85,7 +85,7 @@ body {
   text-align: var(--bs-body-text-align);
   background-color: var(--bs-body-bg);
   -webkit-text-size-adjust: 100%;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0); 
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 .live-status-bg{
@@ -9920,10 +9920,10 @@ body {
     font-weight: 700; }
 
   .side-nav .menuitem-active > a {
-    color: #ffffff !important;  
+    color: #ffffff !important;
   }
 
- 
+
 
 *[dir="ltr"] .side-nav .side-nav-item .menu-arrow:before {
   content: "\F0141" !important; }
@@ -11304,6 +11304,32 @@ body[data-layout="topnav"] .container-fluid, body[data-layout="topnav"] .contain
     color: #313a46;
     text-decoration: none;
     background-color: rgba(49, 58, 70, 0.2); }
+.badge-outline-dark {
+  color: #313a46;
+  border: 1px solid #313a46;
+  background-color: transparent; }
+  .badge-outline-dark[href] {
+    color: #313a46;
+    text-decoration: none;
+    background-color: rgba(49, 58, 70, 0.2); }
+  .badge-outline-dark[href]:hover, .badge-outline-dark[href]:focus {
+    color: #313a46;
+    text-decoration: none;
+    background-color: rgba(49, 58, 70, 0.2); }
+
+
+    .badge-outline-purple {
+  color: #f400fc;
+  border: 1px solid #f400fc;
+  background-color: transparent; }
+  .badge-outline-purple[href] {
+    color: #f400fc;
+    text-decoration: none;
+    background-color: rgba(49, 58, 70, 0.2); }
+  .badge-outline-purple[href]:hover, .badge-outline-purple[href]:focus {
+    color: #f400fc;
+    text-decoration: none;
+    background-color: rgba(49, 58, 70, 0.2); }
 
 .card {
   border: none;
@@ -11631,7 +11657,7 @@ select.form-control-sm:not([size]):not([multiple]) {
   vertical-align: middle;
   line-height: 1.2;
   font-size: 16px; }
-  
+
   .show-password .password-eye:before {
     content: "\F06D1";
  }
@@ -16051,7 +16077,7 @@ div.dataTables_wrapper > div.row > div[class^="col-"]:first-child {
 }
 .progress-btn.active {
     background: #20CF98 !important
-} 
+}
 .side-nav-item .menuitem-active {
   position: relative ;
 }
@@ -16099,16 +16125,16 @@ div.dataTables_wrapper > div.row > div[class^="col-"]:first-child {
   color: white !important;
 }
 
- 
+
 .swal2-container.swal2-backdrop-show, .swal2-container.swal2-noanimation {
     background: #00000080;
     backdrop-filter: blur(1px) !important;
 }
 
 .min-h-300 {
-  min-height: 404px 
+  min-height: 404px
 }
- 
+
 .btn-primary:active {
   background: #002a80 !important;
 }
@@ -16120,7 +16146,7 @@ div.dataTables_wrapper > div.row > div[class^="col-"]:first-child {
 #precast_id i.fa ,
 #precast_id .text-end.mt-2 ,
 #wood_id .text-end.mt-2,
-.remove_history 
+.remove_history
 {
   display: none !important;
 }
@@ -16136,7 +16162,7 @@ div.dataTables_wrapper > div.row > div[class^="col-"]:first-child {
 #wood_id .card-body ,
 #precast_id .card-body ,
 #wood_id .auto-scroll ,
-#precast_id .auto-scroll 
+#precast_id .auto-scroll
 {
   padding: 0 !important;
 }
@@ -16176,7 +16202,7 @@ div.dataTables_wrapper > div.row > div[class^="col-"]:first-child {
 }
 .left__conversation div::after {
   left: -15px;
-  clip-path: polygon(100% 0, 0 0, 100% 100%); 
+  clip-path: polygon(100% 0, 0 0, 100% 100%);
 }
 .right__conversation div::after {
   right: -15px;
@@ -16192,7 +16218,7 @@ div.dataTables_wrapper > div.row > div[class^="col-"]:first-child {
 }
 .right__conversation div{
   text-align: right !important;
-} 
+}
 /* width */
 ::-webkit-scrollbar {
   width: 10px;
@@ -16200,17 +16226,17 @@ div.dataTables_wrapper > div.row > div[class^="col-"]:first-child {
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: #f1f1f1; 
+  background: #f1f1f1;
 }
- 
+
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #888; 
+  background: #888;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #555; 
+  background: #555;
 }
 
 input[type=date]{
@@ -16473,7 +16499,7 @@ input[type=date]::-webkit-calendar-picker-indicator{
   width: 100%;
 }
 .custom-accordion-title::after {
-  content: '-'; 
+  content: '-';
   position: absolute;
   right: 0;
   color: white;

@@ -241,17 +241,16 @@ proposalAction = (val) => {
         $('#commentsTextarea').removeAttr('required')
     }
 }
-proposalActionSubmit = (element) => {
-    var type    = $('#proposal_status').val()
-    axios.post(`${APP_URL}/customer-approval/${$("#enquiry_id").val()}/approval-type/${type}`, {
-       id     : $("#enquiry_id").val(),
-       pid    : $("#proposal_id").val(),
-       vid    : $("#version_id").val(),
-       comment: $('#proposal_comments').val()
+proposalActionSubmit = (index) => {
+    var type    = $(`#proposal_status_${index}_id`).val()
+    axios.post(`${APP_URL}/customer-approval/${$(`#enquiry_id_${index}_id`).val()}/approval-type/${type}`, {
+       id     : $(`#enquiry_id_${index}_id`).val(),
+       pid    : $(`#proposal_id_${index}_id`).val(),
+       vid    : $(`#version_id_${index}_id`).val(),
+       comment: $(`#proposal_comments_${index}_id`).val()
     }).then(function (response) {
-        console.log(response.data)
         Message('success', "Proposal Status to be Changed !")
-        viewCustomerEnquiryProposal($("#enquiry_id").val())
+        viewCustomerEnquiryProposal($(`#enquiry_id_${index}_id`).val())
     });
 }
 

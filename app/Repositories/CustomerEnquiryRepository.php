@@ -40,9 +40,9 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
 
     function __construct(
         Customer $customer,
-        Enquiry $enquiry, 
-        Service $service, 
-        DocumentTypeEnquiry $documentTypeEnquiry, 
+        Enquiry $enquiry,
+        Service $service,
+        DocumentTypeEnquiry $documentTypeEnquiry,
         EnquiryBuildingComponentDocument $enquiryBuildingComponentDocument,
         EnquiryCostEstimate $costEstimate
         ) {
@@ -54,9 +54,9 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
         $this->costEstimate = $costEstimate;
     }
 
-    
+
     public function create(array  $data){
-      
+
     }
 
     public function getCustomer($id){
@@ -64,7 +64,7 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
     }
 
     public function createCustomerEnquiryProjectInfo($customer_enquiry_number, Customer $customer, array $data)
-    { 
+    {
         return $customer->enquiry()->updateOrCreate(['customer_enquiry_number' => $customer_enquiry_number], $data);
     }
 
@@ -77,7 +77,7 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
         return $enquiry->services()->attach($services);
     }
 
-    public function getEnquiry($id) 
+    public function getEnquiry($id)
     {
 
         return $this->enquiry->with('customer')
@@ -87,7 +87,7 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
                     ->find($id);
     }
 
-    public function getEnquiryByID($id) 
+    public function getEnquiryByID($id)
     {
         return $this->enquiry->with('customer')->find($id);
     }
@@ -107,8 +107,10 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
             'proposal_status',
             'created_at',
             'updated_at',
-            'mail_send_date'
-        ]);
+            'mail_send_date',
+            'documentary_content'
+        ]) ;
+
 
         $mailTemplate = PropoalVersions::where("enquiry_id", '=', $id)
                 ->select([
@@ -124,12 +126,15 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
                     'proposal_status',
                     'created_at',
                     'updated_at',
-                    'mail_send_date'
+                    'mail_send_date',
+                    'documentary_content'
                 ])
                 ->union($proposal)
-                ->orderBy('documentary_id', 'asc')
-                ->orderBy('id', 'desc')
+                // ->orderBy('documentary_id', 'asc')
+                // ->orderBy('id', 'desc')
+                ->latest()
                 ->get();
+
         return $mailTemplate;
     }
 
@@ -137,18 +142,18 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
     {
         $result     =   PropoalVersions::where("enquiry_id",$enquiry_id)->where("proposal_id", $proposal_id)->first();
         $totalProposalVersion = PropoalVersions::where(["enquiry_id"=> $enquiry_id, "documentary_id"=> $result->documentary_id])->get()->count();
-        $version = 'R'.($totalProposalVersion + 1);  
+        $version = 'R'.($totalProposalVersion + 1);
         $duplicate  =  new PropoalVersions;
         $duplicate  ->  proposal_id         = $proposal_id;
-        $duplicate  ->  parent_id           = $result->proposal_id; 
-        $duplicate  ->  enquiry_id          = $enquiry_id; 
-        $duplicate  ->  documentary_id      = $result->documentary_id; 
-        $duplicate  ->  documentary_date    = $result->documentary_date; 
-        $duplicate  ->  documentary_content = $result->documentary_content; 
+        $duplicate  ->  parent_id           = $result->proposal_id;
+        $duplicate  ->  enquiry_id          = $enquiry_id;
+        $duplicate  ->  documentary_id      = $result->documentary_id;
+        $duplicate  ->  documentary_date    = $result->documentary_date;
+        $duplicate  ->  documentary_content = $result->documentary_content;
         $duplicate  ->  pdf_file_name       = $result->pdf_file_name;
         $duplicate  ->  template_name       = $result->template_name;
         $duplicate  ->  version             = $version;
-        $duplicate  ->  save();  
+        $duplicate  ->  save();
         return response(['status' => true, 'msg' => trans('enquiry.duplicate_deleted')], Response::HTTP_CREATED);
     }
 
@@ -199,32 +204,32 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
         return response(['status' => true, 'msg' => trans('enquiry.proposal_deleted')], Response::HTTP_CREATED);
     }
     public function duplicateCustomerProPosalByID($id, $proposal_id, $request)
-    { 
+    {
         $result     =   MailTemplate::where("enquiry_id", '=', $id)->where("proposal_id", '=', $proposal_id)->first();
         $result->status = "obsolete";
         $totalProposalVersion = PropoalVersions::where(["enquiry_id"=> $id, "documentary_id" => $result->documentary_id])->get()->count();
-        $version = 'R'.($totalProposalVersion + 1);  
+        $version = 'R'.($totalProposalVersion + 1);
         $duplicate  =  new PropoalVersions;
         $duplicate  ->  proposal_id         = $proposal_id;
-        $duplicate  ->  parent_id           = $result->proposal_id; 
-        $duplicate  ->  enquiry_id          = $id; 
-        $duplicate  ->  documentary_id      = $result->documentary_id; 
-        $duplicate  ->  documentary_date    = $result->documentary_date; 
-        $duplicate  ->  documentary_content = $result->documentary_content; 
+        $duplicate  ->  parent_id           = $result->proposal_id;
+        $duplicate  ->  enquiry_id          = $id;
+        $duplicate  ->  documentary_id      = $result->documentary_id;
+        $duplicate  ->  documentary_date    = $result->documentary_date;
+        $duplicate  ->  documentary_content = $result->documentary_content;
         $duplicate  ->  pdf_file_name       = $result->pdf_file_name;
         $duplicate  ->  template_name       = $result->template_name;
         $duplicate  ->  version             = $version;
-        $duplicate  ->  save();  
+        $duplicate  ->  save();
         $result->save();
         return response(['status' => true, 'msg' => trans('enquiry.duplicate_deleted')], Response::HTTP_CREATED);
     }
 
     public function sendCustomerProPosalMail($id, $proposal_id, $request)
-    { 
+    {
         $result = MailTemplate::where("enquiry_id", '=', $id)->where("proposal_id", '=', $proposal_id)->first();
         $enquiry = $this->getEnquiryByID($id);
         $version = 'R0';
-        $details = [ 
+        $details = [
             'name'        => $enquiry->customer->full_name ?? $enquiry->customer->contact_person,
             'email'       => $enquiry->customer->email,
             'projectName' => $enquiry->project_name,
@@ -233,7 +238,7 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
             'EnqId'       => Crypt::encryptString($id),
             'proposal_id' => Crypt::encryptString($proposal_id),
             'Vid'         => Crypt::encryptString(0),
-        ];  
+        ];
         try {
             Mail::to($enquiry->customer->email)->send(new \App\Mail\ProposalMail($details));
         } catch(Exception $ex) {
@@ -244,17 +249,17 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
         $result->save();
         $enquiry = Enquiry::find($id);
         $enquiry->customer_response = 0;
-        $enquiry->save(); 
+        $enquiry->save();
         return response(['status' => true, 'msg' => trans('The proposal document sent to customer successfully')], Response::HTTP_CREATED);
     }
     public function sendCustomerProPosalMailVersion($id, $proposal_id, $request, $Vid)
-    { 
+    {
         Log::info('$proposal_id'.$proposal_id);
         MailTemplate::where('enquiry_id', $id)->update(['proposal_status' => 'obsolete','status' => 'obsolete']);
-        PropoalVersions::where('enquiry_id', $id)->where('id','!=', $Vid)->update(['proposal_status' => 'obsolete','status' => 'obsolete']); 
+        PropoalVersions::where('enquiry_id', $id)->where('id','!=', $Vid)->update(['proposal_status' => 'obsolete','status' => 'obsolete']);
         $result = PropoalVersions::where("enquiry_id", '=', $id)->where("proposal_id", '=', $proposal_id)->where("id", '=', $Vid)->first();
         $enquiry = $this->getEnquiryByID($id);
-        $details = [ 
+        $details = [
             'name'          =>  $enquiry->customer->contact_person,
             'email'         =>  $enquiry->customer->email,
             'projectName'   =>  $enquiry->project_name,
@@ -263,19 +268,19 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
             'EnqId'         =>  Crypt::encryptString($id),
             'proposal_id'   =>  Crypt::encryptString($proposal_id),
             'Vid'           =>  Crypt::encryptString($Vid),
-        ];  
+        ];
         Mail::to($enquiry->customer->email)->send(new \App\Mail\ProposalVersions($details));
         $result->status =  'sent';
         $result->mail_send_date =  now();
         $result->save();
         $enquiry = Enquiry::find($id);
         $enquiry->customer_response = 0;
-        $enquiry->save(); 
+        $enquiry->save();
         return response(['status' => true, 'msg' => trans('The proposal document sent to customer successfully')], Response::HTTP_CREATED);
     }
     public function aprovalProPosalMail($id, $proposal_id_, $Vid, $request)
-    { 
-        
+    {
+
         $enquiry_id     =   Crypt::decryptString($id);
         $proposal_id    =   Crypt::decryptString($proposal_id_);
         $Version_id     =   Crypt::decryptString($Vid);
@@ -284,7 +289,7 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
             $result = MailTemplate::where(["enquiry_id"=>$enquiry_id, "proposal_id" => $proposal_id])->first();
         }else {
             $result = PropoalVersions::where(["enquiry_id"=>$enquiry_id, "proposal_id" => $proposal_id, "id"=> $Version_id])->first();
-        } 
+        }
         return view('admin.enquiry.approvals.proposal', compact('result','enquiry_id', 'additionalInfo'));
     }
 
@@ -292,13 +297,13 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
     {
         return $this->enquiry->where('customer_enquiry_number', $customeEnquiryNumber)->first();
     }
-    
+
     public function getEnquiryComments($id)
     {
         return EnquiryComments::where("enquiry_id", '=', $id)
                                 ->where("type", "=" , "project_information")
                                 ->get();
-    } 
+    }
 
     public function getEnquiryByEnquiryNo($no)
     {
@@ -315,17 +320,17 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
         return $enquiry->documentTypes()->attach($documents, $additionalData);
     }
 
-    public function updateWizardStatus($enquiry, $column) 
+    public function updateWizardStatus($enquiry, $column)
     {
         return $enquiry->update([$column => true]);
     }
-    public function updateAdminWizardStatus($enquiry, $column, $value= true) 
+    public function updateAdminWizardStatus($enquiry, $column, $value= true)
     {
        $enquiry->update([$column =>  $value]);
        return $enquiry;
     }
 
-    public function getPlanViewList($id) 
+    public function getPlanViewList($id)
     {
         $enquiry = $this->enquiry->with('documentTypes', function($q) {
                         $q->where('id', 1);
@@ -333,7 +338,7 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
         return $enquiry->documentTypes ?? [];
     }
 
-    public function getFacaeViewList($id) 
+    public function getFacaeViewList($id)
     {
         $enquiry = $this->enquiry->with('documentTypes', function($q) {
                         $q->where('id', 2);
@@ -341,7 +346,7 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
         return $enquiry->documentTypes ?? [];
     }
 
-    public function getIFCViewList($id) 
+    public function getIFCViewList($id)
     {
         $enquiry = $this->enquiry->with('documentTypes', function($q) {
                         $q->where('id', 3);
@@ -372,9 +377,9 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
         }
         return false;
     }
-    
-    public function storeBuildingComponent($enquiry,$buildingComponents) 
-    {   
+
+    public function storeBuildingComponent($enquiry,$buildingComponents)
+    {
         EnquiryBuildingComponentLayer::where('enquiry_id', $enquiry->id)->delete();
         EnquiryBuildingComponentDetail::where('enquiry_id', $enquiry->id)->delete();
         EnquiryBuildingComponent::where('enquiry_id', $enquiry->id)->delete();
@@ -393,8 +398,8 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
                     $enquiryBuildingComponentDetail->floor                               = $buildingComponentDetail->FloorName;
                     $enquiryBuildingComponentDetail->approx_total_area                   = $buildingComponentDetail->TotalArea;
                     $enquiryBuildingComponentDetail->enquiry_building_component_id       = $enquiryBuildingComponent->id;
-                    $total_wall_area +=  $buildingComponentDetail->TotalArea; 
-                   
+                    $total_wall_area +=  $buildingComponentDetail->TotalArea;
+
                     $enquiryBuildingComponentDetail->save();
                     if(!empty($buildingComponentDetail->Layers)) {
                         foreach($buildingComponentDetail->Layers as $buildingComponentLayer) {
@@ -410,13 +415,13 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
                 }
                 $enquiryBuildingComponent->total_wall_area = $total_wall_area;
                 $enquiryBuildingComponent->save();
-            }                            
+            }
         }
-        return true;    
+        return true;
     }
 
-    public function storeTechnicalEstimateCost($enquiry,$buildingComponents) 
-    {   
+    public function storeTechnicalEstimateCost($enquiry,$buildingComponents)
+    {
         $technicalEstimateObj = EnquiryTechnicalEstimate::where('enquiry_id', $enquiry->id)->first();
         if($technicalEstimateObj) {
             $enquiryBuildingComponent = $technicalEstimateObj;
@@ -430,9 +435,9 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
             $total_wall_area = 0;
             if($enquiryBuildingComponent && !empty($buildingComponent->Details)) {
                 foreach($buildingComponent->Details as $buildingComponentDetail) {
-                    $total_wall_area +=  $buildingComponentDetail->TotalArea; 
+                    $total_wall_area +=  $buildingComponentDetail->TotalArea;
                 }
-                $total_wall_area_all += $total_wall_area; 
+                $total_wall_area_all += $total_wall_area;
                 $enquiryBuildingComponent->total_wall_area = $total_wall_area;
             }
             $building_component_number[] = ["name"=> $buildingComponent->WallName ?? $buildingComponent->building_component_name,"sqfeet"=> $total_wall_area];
@@ -442,11 +447,11 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
         $enquiryBuildingComponent->total_wall_area = $total_wall_area_all;// $enquiry->id;
         $enquiryBuildingComponent->build_json = json_encode([$build_json]);
         $enquiryBuildingComponent->save();
-        return true;    
+        return true;
     }
 
-    public function storeCostEstimation($enquiry,$buildingComponents) 
-    {   
+    public function storeCostEstimation($enquiry,$buildingComponents)
+    {
         $costEstimateObj  = EnquiryCostEstimate::where('enquiry_id', $enquiry->id)->first();
         if($costEstimateObj) {
             $cost_estimate = $costEstimateObj;
@@ -455,12 +460,12 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
         }
         $estimations     = WoodEstimation::get();
         $costEstimateJson = [];
-      
+
         foreach($buildingComponents as $rootKey => $buildingComponent){
             $components      = [];
             $ComponentsTotalDynamic = [];
             foreach($buildingComponent['building_component_number'] as $key => $wall) {
-               
+
                 $components[] =  [
                     'building_component_id' => BuildingComponent::createOrUpdateComponentByEstimate(['building_component_name' => Str::ucfirst($wall['name'])])->id ??'',
                     'type_id'               => '',
@@ -487,7 +492,7 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
             foreach($estimations as $estimation) {
                 $ComponentsTotalDynamic[]      = ["name"=> $estimation->name, 'PriceM2' => '', 'Sum' => ''];
             }
-            $CostEstimate = [ 
+            $CostEstimate = [
                 'type'       => 'Building Type 1',
                 'totalArea'  => 0,
                 'totalPris'  => 0,
@@ -525,14 +530,14 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
             "engineering_cost"            => 0,
             "total_central_approval"      => 0,
             'total_engineering_cost'      => 0,
-            "Components" => [    
+            "Components" => [
                 [
                     'precast_component'=> null,
                     'no_of_staircase'=> '',
                     'no_of_new_component'=>'',
                     'no_of_different_floor_height'=> '',
                     'sqm'           => '',
-                    'complexity'    => '', 
+                    'complexity'    => '',
                     'std_work_hours'=> '',
                     'additional_work_hours'=> '',
                     'hourly_rate'=> '',
@@ -546,23 +551,23 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
         $resultPrecast = ['total'=> ['totalArea'=> 0, 'totalSum'=> 0, 'totalPris'=> 0], 'precastEstimate'=> [$precastComponent] ];
         $cost_estimate  ->    precast_build_json = json_encode($resultPrecast);
         $cost_estimate  ->    save();
-        return true;    
+        return true;
     }
-    public function updateTechnicalEstimateCost($enquiry,$buildingComponents) 
-    {   
-        EnquiryTechnicalEstimate::where('enquiry_id', $enquiry->id)->delete(); 
-        
+    public function updateTechnicalEstimateCost($enquiry,$buildingComponents)
+    {
+        EnquiryTechnicalEstimate::where('enquiry_id', $enquiry->id)->delete();
+
         foreach($buildingComponents as $buildingComponent) {
             $enquiryBuildingComponent = new EnquiryTechnicalEstimate();
             $enquiryBuildingComponent->enquiry_id = $enquiry->id;
             $enquiryBuildingComponent->wall = $buildingComponent->wall;
             $enquiryBuildingComponent->total_wall_area = $buildingComponent->total_wall_area;
-            $enquiryBuildingComponent->save(); 
+            $enquiryBuildingComponent->save();
         }
-        return true;    
+        return true;
     }
 
-    public function getBuildingComponent($enquiry) 
+    public function getBuildingComponent($enquiry)
     {
         if($enquiry->building_component_process_type == 1){
             return $enquiry->enquiryBuildingComponentDocument()->get();
@@ -588,7 +593,7 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
                             }
                         }
                         $toArrayDetails = $enquiryBuildingComponentDetail->toArray();
-                        
+
                         $detail[] = array_merge( $toArrayDetails, $layer , ['LastAction' => $enquiryBuildingComponentDetail->updated_at->format('d-m-Y / h:m A')]);
                     }
                     $buildingComponent['detail']= $detail;
@@ -605,22 +610,22 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
                 ];
                 $buildingComponentData[] = (object)array_merge($buildingComponent, $componentAdditionalData);
         }
-        
+
         return $buildingComponentData;
-    } 
+    }
 
     public function formatEnqInfo ($enquiry)   {
             return [
                 'enquiry_number'        =>  $enquiry->enquiry_number,
                 'enquiry_date'          =>  $enquiry->enquiry_date,
-                'contact_person'        =>  $enquiry->customer->contact_person, 
+                'contact_person'        =>  $enquiry->customer->contact_person,
                 'project_name'          => $enquiry->project_name,
             ];
     }
-    public function formatProjectInfo($enquiry) 
+    public function formatProjectInfo($enquiry)
     {
         return [
-            
+
             'company_name'         => $enquiry->customer->company_name,
             'contact_person'       => $enquiry->customer->contact_person,
             'mobile_no'            => $enquiry->customer->mobile_no,
@@ -641,14 +646,14 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
             'project_type'         =>  $enquiry->projectType,
             'delivery_type'        => $enquiry->deliveryType,
             'building_component_process_type'=> $enquiry->building_component_process_type,
-            
+
             // Tabs Status
         ];
     }
 
     public function updateStatusById($enquiry, $status)
     {
-        if($enquiry->project_info == 1 
+        if($enquiry->project_info == 1
         && $enquiry->service == 1
         && $enquiry->ifc_model_upload == 1
         && $enquiry->building_component == 1) {
@@ -664,7 +669,7 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
                     ->update(['project_status' => $status, 'created_by' => Admin()->id]);
         return $enquiry;
     }
-    
+
     public function AddEnquiryReferenceNo($enquiry)
     {
         if(is_null($enquiry->enquiry_number) || $enquiry->enquiry_number == 'Draft') {
@@ -728,7 +733,7 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
         return $this->enquiry->find($id)->update($data);
     }
 
-    
+
     public function manualApproveFromAdmin($enquiryId)
     {
         DB::beginTransaction();
@@ -737,13 +742,13 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
             $childVersion = PropoalVersions::where(['enquiry_id'=> $enquiryId, 'proposal_status' => 'not_send'])->latest()->first();
             $updateValue = ['is_admin_approved' => true, 'approved_admin_id'=> Admin()->id, 'proposal_status' => 'approved','status' => 'approved'];
             MailTemplate::where('enquiry_id', $enquiryId)->update(['proposal_status' => 'obsolete']);
-            PropoalVersions::where('enquiry_id', $enquiryId)->update(['proposal_status' => 'obsolete']);     
+            PropoalVersions::where('enquiry_id', $enquiryId)->update(['proposal_status' => 'obsolete']);
             if(!isset($childVersion->created_at)) {
                 MailTemplate::where(['enquiry_id'=> $enquiryId, 'proposal_id' => $rootVersion->proposal_id])
-                                ->update($updateValue);  
+                                ->update($updateValue);
             }else if($rootVersion->created_at > $childVersion->created_at) {
                 MailTemplate::where(['enquiry_id'=> $enquiryId, 'proposal_id' => $rootVersion->proposal_id])
-                                ->update($updateValue);  
+                                ->update($updateValue);
             } else {
                 PropoalVersions::where(['enquiry_id'=> $enquiryId, 'proposal_id'=> $childVersion->id])
                         ->update($updateValue);
@@ -754,7 +759,7 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
             DB::rollBack();
             Log::info($ex->getMessage());
         }
-      
+
     }
 
 }

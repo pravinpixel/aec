@@ -6,7 +6,7 @@
         height: 350px !important;
     }
     #scroll-vertical-datatable th{
-        padding:  0px !important     
+        padding:  0px !important
     }
     #scroll-vertical-datatable_wrapper .row:nth-child(1) {
         display: none !important
@@ -94,7 +94,7 @@
         position: relative;
         cursor: pointer;
     }
-    
+
     .message-box.Customer {
         background:  red !important;
     }
@@ -102,7 +102,7 @@
         left: -11px !important;
         top: 0;
     }
-     
+
 /*  ============  Custom According Button ============= */
 
 /*  ============ Custom Input ========== */
@@ -138,7 +138,7 @@
     100%  { transform: translateY(0px) }
 }
 .error-msg {
-    position: relative; 
+    position: relative;
 }
 .error-text , .error {
     left: 0;
@@ -207,23 +207,23 @@
     background-color: #757CF2;
     animation: indeterminate_second .5s infinite ease-in;
 }
-.ng-touched.ng-invalid-required , input.error{      
-    border-bottom: red solid 1px ; 
+.ng-touched.ng-invalid-required , input.error{
+    border-bottom: red solid 1px ;
 }
 .ng-touched.ng-invalid-pattern ,  .ng-invalid-email.ng-valid-required , .ng-invalid.ng-invalid-maxlength{
     border-bottom: red solid 1px  !important;
-    background-image: none !important 
+    background-image: none !important
 }
- 
 
 
- 
-.ng-invalid.ng-valid-required , input.error{      
-    border-bottom: red solid 1px ; 
+
+
+.ng-invalid.ng-valid-required , input.error{
+    border-bottom: red solid 1px ;
 }
 .ng-invalid.ng-valid-required{
     border-bottom: red solid 1px  !important;
-    background-image: none !important 
+    background-image: none !important
 }
 
 @keyframes indeterminate_first {
@@ -287,13 +287,13 @@ form.ng-invalid.ng-valid-required
     align-items: center;
     flex-direction: column;
 }
- 
+
 .font-12 {
     font-size: 12px !important;
 }
 small {
-    font-weight: lighter !important 
-} 
+    font-weight: lighter !important
+}
 
 
 /* Project Information */
@@ -338,37 +338,37 @@ small {
     box-shadow: 0 0 5px !important;
     transition: all .5s !important
 }
- 
+
 .alert-success {
     background-color: var(--success-color);
-    border-color: #cef5ea;  
+    border-color: #cef5ea;
 }
 .alert-success .alert-link {
-    color: #056349; 
+    color: #056349;
 }
-  
+
 .alert-info {
     background-color: #4199FC !important;
     color: #d7eff6;
-    border-color: #c4e7f1; 
+    border-color: #c4e7f1;
 }
 .alert-info .alert-link {
-    color: #1b5464; 
+    color: #1b5464;
 }
 
 .alert-warning {
     background-color: var(--warning-color);
-    border-color: #ffebb3; 
+    border-color: #ffebb3;
 }
 .alert-warning .alert-link {
-    color: #7a5a00; 
+    color: #7a5a00;
 }
 .alert-danger {
     background-color: var(--danger-color);
-    border-color: #feced8; 
+    border-color: #feced8;
 }
 .alert-danger .alert-link {
-    color: #782c3b; 
+    color: #782c3b;
 }
 .cost-estimate-table.table tbody td {
     padding: 0 !important;
@@ -435,7 +435,7 @@ small {
 
 .conversation-list  li .timesOfMsg{
     font-size: 10px;
-    color: gray; 
+    color: gray;
 }
 .progress-loader {
     position: fixed;
@@ -531,8 +531,8 @@ sup {
     font-size: 12px !important;
 }
 #history_id .card-header ,
-#history_id  button, 
-#history_id  .remove_history, 
+#history_id  button,
+#history_id  .remove_history,
 #history_id .fa {
     display: none !important;
 }
@@ -543,7 +543,7 @@ sup {
 
 .history_building_component_value {
     display: none;
-} 
+}
 
 .history_precast_value {
     display: none;
@@ -600,7 +600,7 @@ sup {
 
 .bg-primary2 {
     background-color: #0C326C !important;
-} 
+}
 
 .removeNext {
     display: none;
@@ -657,7 +657,7 @@ sup {
     width: 20px;
     position: relative;
 }
-.custom-accordion-button.accordion-button:before, 
+.custom-accordion-button.accordion-button:before,
 .custom-accordion-button.accordion-button:after {
     background: white !important;
 }
@@ -670,7 +670,7 @@ sup {
     font-weight: 800;
     position: absolute;
     top: 47%;
-    left: 16px; 
+    left: 16px;
     font-size: 0.875rem;
 }
 .country-code input {
@@ -741,7 +741,7 @@ sup {
     text-align: left;
     float: left;
     background : white;
-}   
+}
 .message_right {
     justify-content: right;
 }
@@ -750,7 +750,7 @@ sup {
     float: right;
     background : #E1FFC9;
 }
- 
+
 .btn-loader {
     cursor: not-allowed !important;
     pointer-events: none !important;
@@ -791,4 +791,9 @@ sup {
     font-weight: bold !important;
     font-size: 13px;
     position: absolute;
+ }
+ .nav-link-light-bg.active {
+    background-color: #eef2f7 !important;
+    color: #0C326C !important;
+    font-weight: bold !important;
  }

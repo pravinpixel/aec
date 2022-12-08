@@ -23,7 +23,7 @@ class ProposalController extends Controller
     public function __construct(CustomerEnquiryRepository $customerEnquiryRepository){
         $this->customerEnquiryRepo  = $customerEnquiryRepository;
     }
-    public function index(Request $request, $id) 
+    public function index(Request $request, $id)
     {
         $proposals    =   $this->customerEnquiryRepo->getCustomerProPosal($id)->groupBy('documentary_id')->toArray();
         $proposalList =  [];
@@ -104,7 +104,7 @@ class ProposalController extends Controller
         $enquiry = Enquiry::find($id);
         $this->customerEnquiryRepo->updateAdminWizardStatus($enquiry, 'proposal_email_status');
         return  $enquiry    =   $this->customerEnquiryRepo->sendCustomerProPosalMailVersion($id, $proposal_id, $request, $Vid);
-    } 
+    }
 
     public function sendProposal($id)
     {
@@ -130,9 +130,9 @@ class ProposalController extends Controller
     }
 
     public function approve(Request $request, $id, $proposal_id, $Vid)
-    { 
-       
-        return  $enquiry    =   $this->customerEnquiryRepo->aprovalProPosalMail($id, $proposal_id, $Vid, $request); 
+    {
+
+        return  $enquiry    =   $this->customerEnquiryRepo->aprovalProPosalMail($id, $proposal_id, $Vid, $request);
     }
     public function customerApproval(Request $request, $id, $type)
     {
@@ -153,20 +153,20 @@ class ProposalController extends Controller
             ];
             $this->addComment($enquiry_id, $other, $type);
             return response(['status' => true, 'msg' => ($type == 'deny' ? __('enquiry.denied') : __('enquiry.change_request') )]);
-        } 
-        if($type == 'approve'){ 
+        }
+        if($type == 'approve'){
             $enquiry->project_status = "Active";
             $enquiry->customer_response = GlobalService::getProposalStatusValue($type);
             $enquiry->save();
             MailTemplate::where('enquiry_id', $enquiry_id)->update(['proposal_status' => 'obsolete']);
-            ProposalVersions::where('enquiry_id', $enquiry_id)->update(['proposal_status' => 'obsolete']);      
+            ProposalVersions::where('enquiry_id', $enquiry_id)->update(['proposal_status' => 'obsolete']);
             if( $version_id  != 0)  {
                 ProposalVersions::where(['enquiry_id'=> $enquiry_id, 'proposal_id'=> $proposal_id, 'id' => $version_id])
-                                ->update(['proposal_status' => 'approved','status' => 'approved']);  
+                                ->update(['proposal_status' => 'approved','status' => 'approved']);
             } else {
                 MailTemplate::where(['enquiry_id'=> $enquiry_id, 'proposal_id'=> $proposal_id])
                                 ->update(['proposal_status' => 'approved','status' => 'approved']);
-            }           
+            }
             return response(['status' => true, 'msg' => __('enquiry.approved')]);
         }
     }
@@ -220,13 +220,13 @@ class ProposalController extends Controller
                         ->whereNull('comment')
                         ->orderBy('updated_at','desc')
                         ->get();
-        $result = []; 
+        $result = [];
         foreach($proposals as $key => $proposal){
             $verkey =1; $childVersion = [];
             if($proposal->proposal_status == 'denied'){
                 $result[] = ['template_name'=> $proposal->template_name, 'version' => 'R1' , 'comment' => $proposal->comment];
             }
-           
+
             if($proposal->getVersions()->exists()) {
                 foreach($proposal->getVersions as $childkey => $proposalVersion){
                     if($proposalVersion->proposal_status == 'denied'){

@@ -57,7 +57,7 @@ if(!function_exists('proposalStatusBadge')) {
                 return "<span class='badge  badge-outline-danger rounded-pill'>Denied</span>";
                 break;
             case "change_request":
-                return "<span class='badge badge-outline-danger rounded-pill'>Change Request</span>";
+                return "<span class='badge badge-outline-purple rounded-pill'>Change Request</span>";
                 break;
             default:
                 $uValue = (string)ucfirst($value);
