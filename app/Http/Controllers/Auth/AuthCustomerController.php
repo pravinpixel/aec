@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Mail\RegisterCustomerMail;
+use App\Mail\RemainderCustomerMail;
 use App\Models\Customer;
 use App\Services\GlobalService;
 use Exception;
@@ -45,7 +46,7 @@ class AuthCustomerController extends Controller
             }
             Flash::success( __('global.something'));
             return redirect()->route('admin-dashboard');
-            
+
         } catch  (Exception $e) {
             Flash::error( __('global.something'));
             Log::info($e->getMessage());
@@ -54,7 +55,7 @@ class AuthCustomerController extends Controller
     }
 
     public function signup_resend($email)
-    { 
+    {
         $customer = Customer::where('email' , $email)->first();
         $this->sendMail([
             'full_name' => $customer->full_name,
@@ -144,12 +145,12 @@ class AuthCustomerController extends Controller
             if($getCustomer->isRegistered=='0'){
                 return response()->json([
                     'msg'=>'exists'
-                ]);    
+                ]);
             }
             else{
                 return response()->json([
                     'msg'=>'registered'
-                ]);    
+                ]);
             }
         }
         return response()->json([
@@ -160,7 +161,7 @@ class AuthCustomerController extends Controller
         $validate=Validator::make($req->all(),[
             'first_name'=>'required',
             'last_name'=>'required'
-            
+
         ],
         [
             'first_name.required'=>'please fill out the first name',
@@ -174,30 +175,31 @@ class AuthCustomerController extends Controller
         }
         else{
             $customer=customer::where('email',$req->email)->first();
- 
+
             $this->sendMail([
                 'full_name' => $customer->full_name,
                 'route'     => route('company-info', encrypt($customer->id)),
                 'email'     => $customer->email
             ]);
-           
+
             return response()->json([
                 'msg' => 'send'
-            ]); 
+            ]);
         }
     }
     public function sendRemainder(Request $req){
         $customer=Customer::find($req->id);
-
-        $this->sendRemainderMail([
+        $customerData = [
             'full_name' => $customer->full_name,
             'route'     => route('company-info', encrypt($customer->id)),
             'email'     => $customer->email
-        ]);
+        ];
+
+       $mail = Mail::to($customerData['email'])->send(new RemainderCustomerMail($customerData));
 
         return response()->json([
             'id is'=>$customer
         ]);
     }
-    
-} 
+
+}

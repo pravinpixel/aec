@@ -24,11 +24,12 @@
 @push('custom-scripts')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ajaxy/1.6.1/scripts/jquery.ajaxy.min.js"></script>
     <script>
-        function swalFun(){
+        function LoadingAction(){
             let timerInterval
             Swal.fire({
-                html: '',
+                html: '<h3>Mail Sending ...</h3>',
                 showConfirmButton: false,
+                allowOutsideClick:false,
                 didOpen: () => {
                     Swal.showLoading()
                     const b = Swal.getHtmlContainer().querySelector('b')
@@ -47,27 +48,22 @@
             })
 
         }
-        // var count=0;
         function sendRemainder(id) {
-            console.log(' id is:' + id);
             $.ajax({
                 method: 'post',
                 url: "{{ route('send-remainder') }}",
-                data: {
-                    id: id
-                },
+                data: { id: id },
                 beforeSend:function(){
-                    swalFun();
+                    LoadingAction();
                 },
                 success: function(res) {
-                    console.log(res);
                     Swal.fire({
                         icon: 'success',
-                        title: 'Reminder Mail sent',
+                        html: '<h3>Mail sended successfully !</h3>',
                         showConfirmButton: false,
                         timer: 1500
-                        })
-                  },
+                    })
+                },
                 error: function(err) {
                     console.log('err accured')
                 }

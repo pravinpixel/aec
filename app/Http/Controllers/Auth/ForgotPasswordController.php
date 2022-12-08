@@ -63,10 +63,9 @@ class ForgotPasswordController extends Controller
     DB::table('password_resets')->insert([
       'email' => $request->email,
       'token' => $token,
-      'temporary_password'=> $code, 
+      'temporary_password'=> $code,
       'created_at' => Carbon::now()
     ]);
- 
     Mail::to($request->email)->send(new  ForgotPassword($token, $code));
     session()->put('state','success');
     return back()->with('message','We will send you instructions to reset your password !');
