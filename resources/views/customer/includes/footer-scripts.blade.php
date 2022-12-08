@@ -58,7 +58,7 @@
 <script>
     SetEditor = (element) => {
         ClassicEditor.create( document.querySelector(element)).then( editor => {
-            console.log( 'Editor was initialized', editor );
+            var TextEditor = editor
             if(element=='#aec_admin_client_page'){
                 editor.enableReadOnlyMode( element );
             }
@@ -75,9 +75,9 @@
             console.error( error.stack );
         });
     }
-</script> 
+</script>
 <script>
     $("#alert-log").fadeTo(3000, 1000).slideUp(1000, function(){
         $("#alert-log").slideUp(5000);
-    }); 
+    });
 </script>

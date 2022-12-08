@@ -1,4 +1,4 @@
-     
+
 @extends('layouts.admin')
 
 @section('admin-content')
@@ -6,8 +6,8 @@
         <div class="content">
             @include('admin.includes.top-bar')
             <div class="container-fluid">
-                @include('admin.includes.page-navigater') 
-            </div>                
+                @include('admin.includes.page-navigater')
+            </div>
             <form action="{{ route('admin.documentary.update', $contract->id) }}" method="POST">
                 @method('PUT')
                 @csrf
@@ -22,7 +22,7 @@
                                 <a class="btn btn-light btn-sm border shadow-sm"
                                     data-bs-toggle="collapse" href="#collapseFour"
                                     aria-expanded="true" aria-controls="collapseFour">
-                                    View summary fields  
+                                    View summary fields
                                     <i class="mdi mdi-chevron-down accordion-arrow"></i>
                                 </a>
                             </div>
@@ -42,24 +42,24 @@
                                                         <td style="color: #9500ff">${{ $var }}</td>
                                                     </tr>
                                                 @endforeach
-                                            </table> 
-                                        </x-accordion> 
+                                            </table>
+                                        </x-accordion>
                                     </div>
-                                @endforeach 
+                                @endforeach
                             </div>
                         </div>
                     </div>
-                    <div class="card-body"> 
+                    <div class="card-body">
                         {{-- <p>{{ $contract->documentary_content }}</p> --}}
-                        <div class="textEditorWrapper"> 
-                            <div class="textEditorWrapper d-none"> 
+                        <div class="textEditorWrapper">
+                            <div class="textEditorWrapper d-none">
                                 <textarea name="documentary_content" id="textEditor"> {{ $contract->documentary_content }}</textarea>
                             </div>
                         </div>
                     </div>
                     <div class="card-footer text-end">
                         <a href="{{ route('admin-documentary-view') }}" class="btn btn-light border me-2">Cancel & Back</a>
-                        <button type="button" data-bs-toggle="modal" data-bs-target="#PreviewModal" onclick="preview()" class="btn btn-primary border me-2">Preview</button>
+                        <button type="button" onclick="preview()" class="btn btn-primary border me-2">Preview</button>
                         <button type="submit" class="btn btn-success">Save </button>
                     </div>
                 </div>
@@ -67,7 +67,7 @@
         </div> <!-- content -->
     </div>
     <div id="PreviewModal" class="modal fade " tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-xl modal-right" style="width:100% !important"> 
+        <div class="modal-dialog modal-xl modal-right" style="width:100% !important">
             <div class="modal-content h-100 p-0" >
                 <div class="modal-header">
                     <h3 id="card-title"></h3>
@@ -78,7 +78,7 @@
                 <div class="modal-footer text-end">
                     <a href="{{ route('admin.contract.download',$contract->id) }}" class="btn btn-sm btn-outline-warning rounded-pill"><i class="mdi mdi-download"></i> Download</a>
                 </div>
-            </div> 
+            </div>
         </div>
     </div>
     <style>
@@ -100,9 +100,9 @@
         }
     </style>
 @endsection
-@push('custom-scripts') 
-    <script> 
-        $( document ).ready(function() { 
+@push('custom-scripts')
+    <script>
+        $( document ).ready(function() {
             setTimeout(() => {
                 SetEditor('#textEditor');
                 $('.textEditorWrapper').removeClass('d-none');
@@ -110,12 +110,8 @@
         });
         preview = () => {
             $("#card-title").html($("#documentary_title").val())
-            var editor = document.getElementsByClassName('ck-content');
-            $("#preview").html(editor[0].innerHTML);
-            $("#preview").css('background','white');
-            setTimeout(() => {
-                $('td').attr('contenteditable',false);
-            }, 300);
+            $("#preview").html(editor.getData())
+            $('#PreviewModal').modal('show')
         }
     </script>
 @endpush

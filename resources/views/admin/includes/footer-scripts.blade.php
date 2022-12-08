@@ -75,19 +75,19 @@
 <script type="text/javascript" src="{{ asset("public/js/ckeditor.js") }}"></script>
 <script>
     SetEditor = (element) => {
-        ClassicEditor.create( document.querySelector(element),{
-        }).then( editor => { 
+        ClassicEditor.create( document.querySelector(element)).then( newEditor  => {
+            editor = newEditor;
             if(element == '#customer_comments') {
-                editor.enableReadOnlyMode(element);
+                newEditor.enableReadOnlyMode(element);
             }
             else if(element == '#admin_comments'){
-                editor.ui.focusTracker.on('change:isFocused', (evt, name, isFocused) => {
+                newEditor.ui.focusTracker.on('change:isFocused', (evt, name, isFocused) => {
                             if (!isFocused) {
                                 console.log('check');
                                 getAdminCKValue();
                             }
                 });
-            }  
+            }
         }).catch( error => {
             console.error( error.stack );
         });
@@ -107,11 +107,11 @@
         $(function() {
             var isoCountries = [
                 { value: 'NO', id : '47', text: 'NOR (+47)'},
-                { value: 'IN', id : '91', text: 'IND (+91)'}, 
+                { value: 'IN', id : '91', text: 'IND (+91)'},
                 { value: 'US', id : '1', text:  'USA (+1 )'},
                 { value: 'SG', id : '65', text: 'SGP (+65)'},
             ];
-            
+
             function formatCountry (country) {
                 if (!country.value) { return country.text; }
                 var $country = $(`
@@ -125,9 +125,9 @@
                 templateResult: formatCountry,
                 data          : isoCountries
             });
-        
-            $('#country_code').on('change', function(e) { 
-                Livewire.emit('listenerReferenceHere', 
+
+            $('#country_code').on('change', function(e) {
+                Livewire.emit('listenerReferenceHere',
                 $("#country_code").select2({
                     placeholder   : "Select a country",
                     templateResult: formatCountry,
@@ -135,5 +135,5 @@
                 }));
             });
         });
-    })(jQuery);     
+    })(jQuery);
 </script> --}}
