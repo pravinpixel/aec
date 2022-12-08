@@ -65,7 +65,7 @@
         </li>
     @endif
 </ul>
- 
+
 <div class="card-body pt-0 p-0">
     <table class="table custom shadow-none border m-0 mt-2 table-bordered ">
         <thead >
@@ -89,9 +89,9 @@
                 <td><span class="px-2 rounded-pill bg-success"><small class="text-white">In Estimation</small></span></td>
             </tr>
         </tbody>
-    </table> 
+    </table>
 </div>
- 
+
 @if (userHasAccess('cost_estimate_index'))
     <div class="card mt-3 border shadow-sm">
         <div class="card-header bg-light p-2">
@@ -104,7 +104,7 @@
                 <input type="radio" ng-model="price_calculation" name="price_calculation"
                     ng-value="'precast_engineering_estimation'" class="form-check-input me-2">
                 <b>Precast Engineering Estimation</b>
-            </label> 
+            </label>
         </div>
         <div class="card-body p-2">
             <div ng-show="price_calculation == 'wood_engineering_estimation'">
@@ -113,59 +113,66 @@
             <div ng-show="price_calculation == 'precast_engineering_estimation'">
                 @include('admin.enquiry.wizard.precast-estimation')
             </div>
-        </div> 
-    </div> 
+        </div>
+    </div>
 @endif
 @if (userRole()->slug == config('global.cost_estimater'))
     <div class="card m-0 my-3 border col-md-9 me-auto">
         <div class="card-body">
-            <small class="btn link"
+            {{-- <small class="btn link"
                 ng-click="showCommentsToggle('viewConversations', 'cost_estimation_assign', 'Cost Estimate')">
-                <i class="fa fa-send me-1"></i> 
-                <u>  
+                <i class="fa fa-send me-1"></i>
+                <u>
                     Send a Comments
                     <span ng-show="cost_estimate_comments.admin_role > 0" class="enquiry__comments__alert">
                         @{{ cost_estimate_comments.admin_role   }}
                     </span>
                 </u>
-            </small>
+            </small> --}}
+
+            <x-chat-box
+                status="CHAT_BUTTON"
+                :moduleId="session('enquiry_id')"
+                moduleName="enquiry"
+                menuName="{{ __('app.Cost_Estimation') }}"
+            />
         </div>
     </div>
 @endif
-@if (userHasAccess('cost_estimate_add')) 
+@if (userHasAccess('cost_estimate_add'))
     <div class="row m-0">
         <div class="col-md-6 ps-0">
-            <div class="card shadow-sm border mb-2"> 
+            <div class="card shadow-sm border mb-2">
                 <div class="card-header bg-light p-2">
                     <h4 class="m-0">Assign for Verification</h4>
-                </div> 
+                </div>
                 <div class="card-body p-2">
                     <select class="form-select form-select-sm" ng-model="assign_to" id="inputGroupSelect01">
                         <option value=""> @lang('global.select') </option>
-                        <option ng-repeat="user in userList" 
-                                ng-selected="user.id == assign_to" 
+                        <option ng-repeat="user in userList"
+                                ng-selected="user.id == assign_to"
                                 value="@{{user.id}}"> @{{ user.id == current_user ? 'You' : user.first_name}}
                         </option>
-                    </select> 
-                </div> 
+                    </select>
+                </div>
                 <div class="card-footer p-2 text-center">
                     <button class="input-group-text btn-sm btn btn-info" ng-click="assignUserToCostestimate(assign_to, 'verification')"><i class="fa fa-pen"></i> Assign </button>
                     <button class="input-group-text btn-sm btn btn-danger" ng-click="removeUser()"><i class="fa fa-times"></i> Remove </button>
                 </div>
-            </div> 
+            </div>
         </div>
         <div class="col-md-6">
-            <div class="card border shadow-sm mb-2"> 
+            <div class="card border shadow-sm mb-2">
                 <div class="card-header bg-light p-2">
                     <h4 class="m-0">Estimation History</h4>
-                </div> 
+                </div>
                 <div class="card-body p-2 text-center">
                     <button type="button" ng-click="getHistory('wood')"  ng-show="price_calculation == 'wood_engineering_estimation'"class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#Cost-estimate-history-modal">
-                        <i class="fa fa-history"></i> View 
+                        <i class="fa fa-history"></i> View
                      </button>
                      <button type="button" ng-click="getHistory('precast')" ng-show="price_calculation == 'precast_engineering_estimation'" class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#Cost-estimate-history-modal">
-                        <i class="fa fa-history"></i> View  
-                     </button> 
+                        <i class="fa fa-history"></i> View
+                     </button>
                     <button ng-click="printCostEstimate('wood')" class="btn btn-primary btn-sm"
                         ng-show="price_calculation == 'wood_engineering_estimation'">
                         <i class="me-1 fa fa-print"></i> Print
@@ -174,21 +181,27 @@
                         ng-show="price_calculation == 'precast_engineering_estimation'">
                         <i class="me-1 fa fa-print"></i> Print
                     </button>
-                    <button class="btn btn-success btn-sm"
+                    {{-- <button class="btn btn-success btn-sm"
                         ng-click="showCommentsToggle('viewConversations', 'cost_estimation_assign', 'Cost Estimate')">
-                        <i class="fa fa-send me-1"></i> 
+                        <i class="fa fa-send me-1"></i>
                         <span class="cost_estimate_comments_ul">
                             Send a Comments
                             <span class="cost_estimate_comments" ng-show="cost_estimate_comments.cost_estimate_role > 0">
                                 @{{ cost_estimate_comments.cost_estimate_role }}
                             </span>
                         </span>
-                    </button>
+                    </button> --}}
+                    <x-chat-box
+                        status="CHAT_BUTTON"
+                        :moduleId="session('enquiry_id')"
+                        moduleName="enquiry"
+                        menuName="{{ __('app.Cost_Estimation') }}"
+                    />
                 </div>
             </div>
         </div>
     </div>
-     
+
     <div class="card-footer">
         <div class="d-flex justify-content-between">
             <div>
@@ -232,21 +245,27 @@
                         ng-show="price_calculation == 'precast_engineering_estimation'">
                         <i class="me-1 fa fa-print"></i> Print
                     </button>
-                    <button class="btn btn-success btn-sm"
+                    {{-- <button class="btn btn-success btn-sm"
                         ng-click="showCommentsToggle('viewConversations', 'cost_estimation_assign', 'Cost Estimate')">
-                        <i class="fa fa-send me-1"></i> 
+                        <i class="fa fa-send me-1"></i>
                         <span class="cost_estimate_comments_ul">
                             Send a Comments
                             <span class="cost_estimate_comments" ng-show="cost_estimate_comments.cost_estimate_role > 0">
                                 @{{ cost_estimate_comments.cost_estimate_role }}
                             </span>
                         </span>
-                    </button>
-                </div> 
+                    </button> --}}
+                    <x-chat-box
+                        status="CHAT_BUTTON"
+                        :moduleId="session('enquiry_id')"
+                        moduleName="enquiry"
+                        menuName="{{ __('app.Cost_Estimation') }}"
+                    />
+                </div>
             </div>
         </div>
     </div>
-</div> 
+</div>
 
 @if (Route::is('enquiry.cost-estimation'))
     <style>

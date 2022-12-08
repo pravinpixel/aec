@@ -6,4 +6,5 @@ return  [
     "Building_Components"               => strtoupper("Building_Components"),
     "Additional_Information"            => strtoupper("Additional_Information"),
     "Technical_Estimation"              => strtoupper("technical_estimation"),
+    "Cost_Estimation"                   => strtoupper("Cost_estimation"),
 ];
