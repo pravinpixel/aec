@@ -1,15 +1,15 @@
-     
+
 @extends('layouts.admin')
 
 @section('admin-content')
     <div class="content-page">
-        
-        <div class="content"> 
-            @include('admin.includes.top-bar') 
+
+        <div class="content">
+            @include('admin.includes.top-bar')
             <!-- Start Content-->
-            <div class="container-fluid"> 
-                
-                <!-- start page title --> 
+            <div class="container-fluid">
+
+                <!-- start page title -->
                 <div class="row " ng-controller="rootEnquiryWizard">
                     <div class="col-12">
                         <div class="page-title-box mt-3">
@@ -21,13 +21,13 @@
                                     <li class="breadcrumb-item active">
                                         Enquiry detail
                                     </li>
-                                    @if (Route::is('view-enquiry')) 
+                                    @if (Route::is('view-enquiry'))
                                         <li class="breadcrumb-item">
                                             <a href="">Overview</a>
                                         </li>
                                     @endif
                                     <li class="breadcrumb- ms-2">
-                                        <i type="button" onclick="goBack()" class="mdi mdi-backspace text-danger fa-2x"></i> 
+                                        <i type="button" onclick="goBack()" class="mdi mdi-backspace text-danger fa-2x"></i>
                                     </li>
                                 </ol>
                             </div>
@@ -37,9 +37,9 @@
                             </h4>
                         </div>
                     </div>
-                </div> 
+                </div>
                 <div class="card border">
-                    <div class="card-body py-0"> 
+                    <div class="card-body py-0">
                         <div id="rootwizard">
                             {{-- <ul id="myDIV" class="nav nav-pills nav-justified form-wizard-header mt-0 pt-0 bg-light timeline-steps">
                                 <li class="time-bar"></li>
@@ -72,17 +72,17 @@
                                         </div>
                                         <p class="h5 mt-2">Cost Estimate</p>
                                     </a>
-                                </li> 
+                                </li>
                                 <li class="nav-item admin-Proposal_Sharing-wiz" style="pointer-events: @{{ cost_estimation_status ==  0 ? 'none' :'unset' }}">
                                     <a href="#!/proposal-sharing" style="min-height: 40px;"  class="timeline-step">
                                         <div class="timeline-content">
                                             <div class="inner-circle @{{ proposal_sharing_status == '1' ? 'bg-primary' :'bg-secondary' }}">
                                                 <img src="{{ asset("public/assets/icons/share.png") }}" ng-click="getDocumentaryFun();" class="w-50 invert">
-                                            </div>                                                                        
+                                            </div>
                                         </div>
                                         <p class="h5 mt-2">Proposal Sharing</p>
                                     </a>
-                                </li> 
+                                </li>
                                 <li class="nav-item admin-Delivery-wiz" style="pointer-events: @{{ customer_response ==  null ? 'none' :'unset' }}">
                                     <a href="#!/move-to-project" style="min-height: 40px;"  class="timeline-step" >
                                         <div class="timeline-content">
@@ -100,13 +100,13 @@
                             </div>
                         </div> <!-- end card-body -->
                     </div> <!-- end card-body -->
-                </div>   
-            </div> <!-- container --> 
-        </div> <!-- content --> 
-    </div> 
-@endsection 
+                </div>
+            </div> <!-- container -->
+        </div> <!-- content -->
+    </div>
+@endsection
 
-@push('custom-scripts')  
+@push('custom-scripts')
     <style>
         .mdi-loading::before {
             border-radius: 50%;
@@ -114,7 +114,7 @@
             background: #152950
         }
     </style>
-    <style>  
+    <style>
         .m_two_cross_column {
             display: flex;
             flex-direction: column;
@@ -127,12 +127,12 @@
             margin-top: 10px;
         }
         .dynamic_name {
-          
-        } 
 
-        input[type=number]::-webkit-inner-spin-button, 
-        input[type=number]::-webkit-outer-spin-button { 
-        -webkit-appearance: none; 
+        }
+
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
         }
 
         input[type=number] {
@@ -149,11 +149,11 @@
         }
     </style>
     <link href="//cdn.jsdelivr.net/npm/@sweetalert2/theme-bootstrap-4/bootstrap-4.css" rel="stylesheet">
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"> </script> 
-  
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"> </script>
+
     <script src="{{ asset("public/custom/js/ngControllers/admin/enquiryWizzard.js") }}"></script>
-    <script> 
-        
+    <script>
+
         app.config(function($routeProvider) {
             $routeProvider
             .when("/", {
@@ -171,7 +171,7 @@
             .when("/cost-estimation", {
                 templateUrl : "{{ route('enquiry.cost-estimation') }}",
                 controller : "Cost_Estimate"
-            }) 
+            })
             .when("/proposal-sharing", {
                 templateUrl : "{{ route('enquiry.proposal-sharing') }}",
                 controller : "Proposal_Sharing"
@@ -186,7 +186,7 @@
             .otherwise({
                 redirectTo: '{{ route('enquiry.project-summary') }}'
             });
-        });  
+        });
         app.controller("rootEnquiryWizard",function ($scope, $http, API_URL,  $location) {
             $location.path('{{ $activeTab }}');
         });
@@ -237,7 +237,7 @@
                     Message('danger',response.data.errors);
                 });
             }
-    
+
             $scope.GetCommentsData = function() {
                 $http.get(API_URL + 'admin/api/v2/customers-enquiry/' + {{ $data->id ?? " " }} ).then(function (res) {
                     $scope.project_summary_status       = res.data.progress.status;
@@ -247,7 +247,7 @@
                     $scope.customer_response       = res.data.progress.customer_response;
                     $scope.enquiry_comments     = res.data.enquiry_comments;
                     $scope.enquiry_active_comments = res.data.enquiry_active_comments;
-                  
+
                     $scope.enquiry_number       = res.data.enquiry_number;
                     $scope.enquiry_comments     = res.data.enquiry_comments;
                     $scope.enquiry_id           = res.data.enquiry_id;
@@ -269,25 +269,25 @@
             $scope.showCommentsToggle = function (modalstate, type, header) {
                 $scope.modalstate = modalstate;
                 $scope.module = null;
-                $scope.chatHeader   = header; 
+                $scope.chatHeader   = header;
                 switch (modalstate) {
                     case 'viewConversations':
                         $http.get(API_URL + 'admin/show-comments/'+$scope.enquiry_id+'/type/'+type ).then(function (response) {
-                            $scope.commentsData = response.data.chatHistory; 
-                            $scope.chatType     = response.data.chatType;  
+                            $scope.commentsData = response.data.chatHistory;
+                            $scope.chatType     = response.data.chatType;
                             $('#viewConversations-modal').modal('show');
                             getEnquiryCommentsCountById($scope.enquiry_id);
                             getEnquiryActiveCommentsCountById($scope.enquiry_id);
-                             
+
                         });
                         break;
                     default:
                         break;
-                } 
+                }
             }
             $scope.GetCommentsData();
- 
-            $scope.sendInboxComments  = function(type, seen_id) { 
+
+            $scope.sendInboxComments  = function(type, seen_id) {
                 console.log(seen_id);
                 $scope.sendCommentsData = {
                     "comments"        :   $scope.inlineComments,
@@ -302,7 +302,7 @@
                     url:  "{{ route('enquiry.comments') }}" ,
                     data: $.param($scope.sendCommentsData),
                     headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded' 
+                        'Content-Type': 'application/x-www-form-urlencoded'
                     }
                 }).then(function successCallback(response) {
                     document.getElementById("Inbox__commentsForm").reset();
@@ -312,10 +312,10 @@
                     Message('danger',response.data.errors);
                 });
             }
-            
-            $scope.sendComments  = function(type, created_by, seen_id) { 
+
+            $scope.sendComments  = function(type, created_by, seen_id) {
                 console.log(seen_id);
-                
+
                 $scope.sendCommentsData = {
                     "comments"        :   $scope[`${type}__comments`],
                     "enquiry_id"      :   $scope.enquiry_id,
@@ -323,13 +323,13 @@
                     "created_by"      :   created_by,
                     "send_by"         :   {{ Admin()->id }}
                 }
-              
+
                 $http({
                     method: "POST",
                     url:  "{{ route('enquiry.comments') }}" ,
                     data: $.param($scope.sendCommentsData),
                     headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded' 
+                        'Content-Type': 'application/x-www-form-urlencoded'
                     }
                 }).then(function successCallback(response) {
                     if(type == 'building_components'){
@@ -343,7 +343,7 @@
                 }, function errorCallback(response) {
                     Message('danger',response.data.errors);
                 });
-            } 
+            }
 
             $scope.getDocumentView = (file) => {
                 $http({
@@ -354,7 +354,7 @@
                         if(file.file_type == 'pdf')
                             var htmlPop = '<iframe id="iframe" src="data:application/pdf;base64,'+res.data+'"  width="100%" height="1000" allowfullscreen webkitallowfullscreen disableprint=true; ></iframe>';
                         else
-                            var htmlPop = '<embed width="100%" height="1000" src="data:image/png;base64,'+res.data+'"></embed>'; 
+                            var htmlPop = '<embed width="100%" height="1000" src="data:image/png;base64,'+res.data+'"></embed>';
                         $("#document-content").html(htmlPop);
                         $("#document-modal").modal('show');
                     }, function error(res) {
@@ -370,14 +370,14 @@
                         if(file.file_type == 'pdf')
                             var htmlPop = '<iframe id="iframe" src="data:application/pdf;base64,'+res.data+'"  width="100%" height="1000" allowfullscreen webkitallowfullscreen disableprint=true; ></iframe>';
                         else
-                            var htmlPop = '<embed width="100%" height="1000" src="data:image/png;base64,'+res.data+'"></embed>'; 
+                            var htmlPop = '<embed width="100%" height="1000" src="data:image/png;base64,'+res.data+'"></embed>';
                         $("#document-content").html(htmlPop);
                         $("#document-modal").modal('show');
                     }, function error(res) {
 
                 });
             }
-           
+
         });
         app.controller('Tech_Estimate', function ($scope, $http, API_URL, $location) {
             let enquiryId =  '{{ $data->id }}'
@@ -414,10 +414,10 @@
                         <link rel="stylesheet" href="{{ asset('public/custom/css/alert.css') }}">
                         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
                         <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/font-awesome-line-awesome/css/all.min.css">
-                        <link rel="stylesheet" href="https://dropways.github.io/feathericons/assets/themes/twitter/css/feather.css"> 
+                        <link rel="stylesheet" href="https://dropways.github.io/feathericons/assets/themes/twitter/css/feather.css">
                         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
-                        <link rel="stylesheet" href="{{ asset('public/custom/css/variable.css') }}"> 
-                        <link rel="stylesheet" href="{{ asset('public/custom/css/app.css') }}"> 
+                        <link rel="stylesheet" href="{{ asset('public/custom/css/variable.css') }}">
+                        <link rel="stylesheet" href="{{ asset('public/custom/css/app.css') }}">
                         <link rel="stylesheet" href="{{ asset('public/custom/css/table.css') }}">
                         <style>.history_precast_value{border: none} .table {border:0 !important; box-shadow: none !important} .thead , button , .btn-group , .fa {display:none !important} .tbody { padding : 0 !important} .btn{display:none !important} input{pointer-events:none } .custom-border-left{border-left:1px solid #000!important}.custom-border-bottom{border-bottom:1px solid #000!important}.custom-td{border-right:1px solid #000!important;border-top:1px solid #000!important;border-left:none!important;border-bottom:none!important;width:100px!important;min-width:100px!important;max-width:100px!important;display:flex;justify-content:center;align-items:center;flex-direction:column}.custom-td *{font-size:12px!important}.custom-row{display:inline-flex!important}.custom-td input{padding:0!important;height:100%;width:100%}.custom-td input,.custom-td select{color:#000!important}</style>
                     `);
@@ -428,7 +428,7 @@
                                     <tr>
                                         <th>Enquiry Received Date</th>
                                         <th>Project Name</th>
-                                        <th>Person Contact</th>                                 
+                                        <th>Person Contact</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -441,12 +441,12 @@
                             </table>
                         </div>
                     `);
-                    a.document.write(currentTable); 
+                    a.document.write(currentTable);
                     a.document.write(res.data);
                     a.document.write('</html>');
                     a.document.close();
                     setTimeout(() => {
-                        a.print(); 
+                        a.print();
                     }, 1000);
                 });
             }
@@ -468,10 +468,10 @@
                     });
             }
 
-            
+
             $http.get(API_URL + 'admin/api/v2/customers-technical-estimate/' + {{ $data->id ?? " " }} ).then(function (response) {
-                $scope.enquiry              =   response.data; 
-                $scope.enquiry_id           =   response.data.enquiry_id; 
+                $scope.enquiry              =   response.data;
+                $scope.enquiry_id           =   response.data.enquiry_id;
                 $scope.assign_to            =   response.data.others.assign_to ?? '';
                 $scope.buildingJson         =   response.data.building_component;
                 $scope.buildingJson.map((building) => {
@@ -481,27 +481,27 @@
                 })
                 $scope.building_building = $scope.buildingJson
             });
-             
+
             $scope.getWizradStatus = function() {
                 $http.get(API_URL + 'admin/api/v2/customers-enquiry/' + {{ $data->id ?? " " }} ).then(function (res) {
                     $scope.project_summary_status       = res.data.progress.status;
                     $scope.technical_estimation_status  = res.data.progress.technical_estimation_status;
                     $scope.cost_estimation_status       = res.data.progress.cost_estimation_status;
                     $scope.proposal_sharing_status  = res.data.progress.proposal_sharing_status;
-                    $scope.customer_response    = res.data.progress.customer_response; 
+                    $scope.customer_response    = res.data.progress.customer_response;
                     $scope.technical_estimate   = res.data.technical_estimate;
                 });
             }
-            $scope.getWizradStatus(); 
+            $scope.getWizradStatus();
 
             $scope.Add_building = function() {
 
                 $http.get(API_URL + 'admin/api/v2/customers-technical-estimate/' + {{ $data->id ?? " " }} ).then(function (response) {
                     $scope.building_building.push(response.data.building_component[0]);
-                   
+
                 });
-                    
-            } 
+
+            }
 
             $scope.Add_component = function(index) {
                 $scope.building_building[index].building_component_number.push(
@@ -513,7 +513,7 @@
             }
 
             $scope.Delete_building   =   function(index) {
-                $scope.building_building.splice(index,1);  
+                $scope.building_building.splice(index,1);
             }
 
             $scope.dirOptions = {};
@@ -522,14 +522,14 @@
                 $scope.building_building[index].building_component_number.splice(secindex,1);
                 $scope.dirOptions.directiveFunction(index);
             }
-           
+
             $scope.updateTechnicalEstimate  = function() {
-                
+
                 const validator     = $scope.building_building;
                 let BuildingValidator   = false;
                 let validatorName       = false;
                 let validatorSqfeet     = false;
-                
+
                 validator.forEach(element => {
                     if(element.building_component_number.length == 0) {
                         BuildingValidator  = true;
@@ -543,7 +543,7 @@
                         }
                     }
                 });
-                
+
                 if(validatorName)  {
                     Message('warning',"Component name is required!");
                     validatorName  = false;
@@ -557,25 +557,25 @@
                 if(BuildingValidator) {
                     Message('danger',"You Can't Update Empty Building !");
                     $http.get(API_URL + 'admin/api/v2/customers-technical-estimate/' + {{ $data->id ?? " " }} ).then(function (response) {
-                        $scope.enquiry              =   response.data; 
-                        $scope.enquiry_id           =   response.data.enquiry_id; 
-                        $scope.building_building    =   response.data.building_component; 
+                        $scope.enquiry              =   response.data;
+                        $scope.enquiry_id           =   response.data.enquiry_id;
+                        $scope.building_building    =   response.data.building_component;
                     });
                     return false;
                 }
-                
+
                 if($scope.building_building.length == 0 || $scope.building_building[0].building_component_number.length == 0 || $scope.building_building == []) {
                     Message('danger',"You Can't Update Empty Building !");
                     $http.get(API_URL + 'admin/api/v2/customers-technical-estimate/' + {{ $data->id ?? " " }} ).then(function (response) {
-                        $scope.enquiry              =   response.data; 
-                        $scope.enquiry_id           =   response.data.enquiry_id; 
-                        $scope.building_building    =   response.data.building_component; 
+                        $scope.enquiry              =   response.data;
+                        $scope.enquiry_id           =   response.data.enquiry_id;
+                        $scope.building_building    =   response.data.building_component;
                     });
                     return false;
-                } 
+                }
                 $http({
                     method: "POST",
-                    url: API_URL + 'admin/api/v2/customers-technical-estimate/' + {{ $data->id ?? " " }} , 
+                    url: API_URL + 'admin/api/v2/customers-technical-estimate/' + {{ $data->id ?? " " }} ,
                     data:{ data : $scope.building_building, history: true, html: $("#root_technical_estimate").html()},
                 }).then(function successCallback(response) {
                     $scope.getWizradStatus();
@@ -630,12 +630,12 @@
             $scope.showCommentsToggle  =  function (modalstate, type, header) {
                 $scope.modalstate      =  modalstate;
                 $scope.module          =  null;
-                $scope.chatHeader      =  header; 
+                $scope.chatHeader      =  header;
                 switch (modalstate) {
                     case 'viewAssingTechicalConversations':
                         $http.get(API_URL + 'admin/show-comments/'+$scope.enquiry_id+'/type/'+type ).then(function (response) {
-                            $scope.TechcommentsData = response.data.chatHistory; 
-                            $scope.chatType         = response.data.chatType;  
+                            $scope.TechcommentsData = response.data.chatHistory;
+                            $scope.chatType         = response.data.chatType;
                             $('#assing-viewConversations-modal').modal('show');
                         });
                         break;
@@ -644,7 +644,7 @@
                 }
             }
 
-            $scope.sendAssignTechInboxComments  = function(type , chatSection) { 
+            $scope.sendAssignTechInboxComments  = function(type , chatSection) {
                 $scope.sendCommentsData = {
                     "comments"        :   $scope.inlineComments,
                     "enquiry_id"      :   $scope.enquiry_id,
@@ -658,7 +658,7 @@
                     url:  "{{ route('enquiry.comments') }}" ,
                     data: $.param($scope.sendCommentsData),
                     headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded' 
+                        'Content-Type': 'application/x-www-form-urlencoded'
                     }
                 }).then(function successCallback(response) {
                     $scope.showTechCommentsToggle('viewAssingTechicalConversations', 'techical_estimation', chatSection);
@@ -684,38 +684,38 @@
             $scope.showTechCommentsToggle = function (modalstate, type, docId) {
                 $scope.modalstate = modalstate;
                 $scope.module = null;
-                $scope.technical_docType_id   = docId; 
+                $scope.technical_docType_id   = docId;
                 switch (modalstate) {
                     case 'viewConversations':
                         $http.get(API_URL + 'admin/show-comments/'+$scope.enquiry_id+'/type/'+type ).then(function (response) {
-                            $scope.commentsData = response.data.chatHistory; 
-                            $scope.chatType     = response.data.chatType;  
+                            $scope.commentsData = response.data.chatHistory;
+                            $scope.chatType     = response.data.chatType;
                             $('#viewConversations-modal').modal('show');
                         });
                         break;
-                    case 'viewTechicalDocsConversations' : 
+                    case 'viewTechicalDocsConversations' :
                             $http.get(API_URL + 'admin/show-tech-comments/'+$scope.enquiry_id+'/type/'+$scope.technical_docType_id ).then(function (response) {
-                                $scope.TechcommentsData = response.data.chatHistory; 
-                                $scope.chatType     = response.data.chatType;  
+                                $scope.TechcommentsData = response.data.chatHistory;
+                                $scope.chatType     = response.data.chatType;
                                 $('#tech-viewConversations-modal').modal('show');
                             });
 
-                        break; 
-                    case 'viewAssingTechicalConversations' : 
+                        break;
+                    case 'viewAssingTechicalConversations' :
                         $http.get(API_URL + 'admin/show-comments/'+$scope.enquiry_id+'/type/'+$scope.technical_docType_id ).then(function (response) {
-                            $scope.TechcommentsData = response.data.chatHistory; 
-                            $scope.chatType     = response.data.chatType;  
+                            $scope.TechcommentsData = response.data.chatHistory;
+                            $scope.chatType     = response.data.chatType;
                             $('#assing-viewConversations-modal').modal('show');
                         });
 
-                    break; 
+                    break;
                     default:
                         break;
-                } 
+                }
             }
             $scope.GetCommentsData();
-            
-            $scope.sendTechInboxComments  = function(type , chatSection) { 
+
+            $scope.sendTechInboxComments  = function(type , chatSection) {
                 $scope.sendCommentsData = {
                     "comments"        :   $scope.inlineComments,
                     "enquiry_id"      :   $scope.enquiry_id,
@@ -730,7 +730,7 @@
                     url:  "{{ route('enquiry.comments') }}" ,
                     data: $.param($scope.sendCommentsData),
                     headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded' 
+                        'Content-Type': 'application/x-www-form-urlencoded'
                     }
                 }).then(function successCallback(response) {
                     document.getElementById("Inbox__commentsForm").reset();
@@ -739,8 +739,8 @@
                 }, function errorCallback(response) {
                     Message('danger',response.data.errors);
                 });
-            }  
-            $scope.sendInboxComments  = function(type) { 
+            }
+            $scope.sendInboxComments  = function(type) {
                 $scope.sendCommentsData = {
                     "comments"        :   $scope.inlineComments,
                     "enquiry_id"      :   $scope.enquiry_id,
@@ -753,7 +753,7 @@
                     url:  "{{ route('enquiry.comments') }}" ,
                     data: $.param($scope.sendCommentsData),
                     headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded' 
+                        'Content-Type': 'application/x-www-form-urlencoded'
                     }
                 }).then(function successCallback(response) {
                     document.getElementById("Inbox__commentsForm").reset();
@@ -764,19 +764,19 @@
                 });
             }
 
-            $scope.sendComments  = function(type, created_by) { 
+            $scope.sendComments  = function(type, created_by) {
                 $scope.sendCommentsData = {
                     "comments"        :   $scope[`${type}__comments`],
                     "enquiry_id"      :   $scope.enquiry_id,
                     "type"            :   type,
                     "created_by"      :   created_by,
-                } 
+                }
                 $http({
                     method: "POST",
                     url:  "{{ route('enquiry.comments') }}" ,
                     data: $.param($scope.sendCommentsData),
                     headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded' 
+                        'Content-Type': 'application/x-www-form-urlencoded'
                     }
                 }).then(function successCallback(response) {
                     if(type == 'building_components'){
@@ -799,7 +799,7 @@
                         if(file.file_type == 'pdf')
                             var htmlPop = '<iframe id="iframe" src="data:application/pdf;base64,'+res.data+'"  width="100%" height="1000" allowfullscreen webkitallowfullscreen disableprint=true; ></iframe>';
                         else
-                            var htmlPop = '<embed width="100%" height="1000" src="data:image/png;base64,'+res.data+'"></embed>'; 
+                            var htmlPop = '<embed width="100%" height="1000" src="data:image/png;base64,'+res.data+'"></embed>';
                         $("#document-content").html(htmlPop);
                         $("#document-modal").modal('show');
                     }, function error(res) {
@@ -815,7 +815,7 @@
                         if(file.file_type == 'pdf')
                             var htmlPop = '<iframe id="iframe" src="data:application/pdf;base64,'+res.data+'"  width="100%" height="1000" allowfullscreen webkitallowfullscreen disableprint=true; ></iframe>';
                         else
-                            var htmlPop = '<embed width="100%" height="1000" src="data:image/png;base64,'+res.data+'"></embed>'; 
+                            var htmlPop = '<embed width="100%" height="1000" src="data:image/png;base64,'+res.data+'"></embed>';
                         $("#document-content").html(htmlPop);
                         $("#document-modal").modal('show');
                     }, function error(res) {
@@ -835,7 +835,7 @@
             $scope.callWoodTemplate = (pos) => {
                 $scope.costEstimateWoodTemplate = $scope.EngineeringEstimate[pos];
                 $("#cost-estimate-wood-template-modal").modal('show');
-            }   
+            }
 
             $scope.addWoodTemplate = (type) => {
                 if($scope.template_name == '') {
@@ -846,7 +846,7 @@
                     name: $scope.template_name,
                     template: $scope.costEstimateWoodTemplate,
                     type: type
-                } 
+                }
                 $http.post(`${API_URL}admin/cost-estimate-template`, {data:templateData})
                 .then(function successCallback(res){
                     if(res.data.status) {
@@ -879,12 +879,12 @@
                     }, function error(response) {
                 });
             });
-   
+
     //  precast
         $scope.callPrecastTemplate = (pos) => {
             $scope.costEstimatePrecastTemplate = $scope.PrecastComponent[pos];
             $("#cost-estimate-precast-template-modal").modal('show');
-        }   
+        }
 
         $scope.addPrecastTemplate = (type) => {
             if($scope.template_name == '') {
@@ -895,7 +895,7 @@
                 name: $scope.template_name,
                 template: $scope.costEstimatePrecastTemplate,
                 type: type
-            } 
+            }
             $http.post(`${API_URL}admin/cost-estimate-template`, {data:templateData})
             .then(function successCallback(res){
                 if(res.data.status) {
@@ -926,12 +926,12 @@
                     $scope.costEstimatePrecastTemplates = res.data.data;
                 }, function error(response) {
             });
-        }); 
-            $scope.printCostEstimate = (type) => { 
+        });
+            $scope.printCostEstimate = (type) => {
                 $http.get(`${API_URL}cost-estimate/get-history/${$scope.enquiry_id}/${type}`)
                 .then((res) => {
                     var currentTabelHistory   =   ''
-                
+
                     res.data.forEach((item,i) => {
                         currentTabelHistory += `<h5 class="m-0 d-flex align-items-center">
                                                     <strong class="me-auto text-dark">Version : ${i+1}</strong>
@@ -945,7 +945,7 @@
                     } else {
                         var currentTabel          =   $("#precast-cost-estimate").html()
                     }
-                   
+
                     var a = window.open('', '', 'height=10000, width=10000');
                     a.document.write('<html>');
                     a.document.write('<body>');
@@ -956,10 +956,10 @@
                         <link rel="stylesheet" href="{{ asset('public/custom/css/alert.css') }}">
                         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
                         <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/font-awesome-line-awesome/css/all.min.css">
-                        <link rel="stylesheet" href="https://dropways.github.io/feathericons/assets/themes/twitter/css/feather.css"> 
+                        <link rel="stylesheet" href="https://dropways.github.io/feathericons/assets/themes/twitter/css/feather.css">
                         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
-                        <link rel="stylesheet" href="{{ asset('public/custom/css/variable.css') }}"> 
-                        <link rel="stylesheet" href="{{ asset('public/custom/css/app.css') }}"> 
+                        <link rel="stylesheet" href="{{ asset('public/custom/css/variable.css') }}">
+                        <link rel="stylesheet" href="{{ asset('public/custom/css/app.css') }}">
                         <link rel="stylesheet" href="{{ asset('public/custom/css/table.css') }}">
                         <style> .mdi , .remove_print_history{display:none} input,select{pointer-events:none; border:none},.card {border:0 !important; box-shadow: none !important} .card-header , button, .btn-group , .fa {display:none !important} .card-body { padding : 0 !important}  .custom-border-left{border-left:1px solid #000!important}.custom-border-bottom{border-bottom:1px solid #000!important}.custom-td{border-right:1px solid #000!important;border-top:1px solid #000!important;border-left:none!important;border-bottom:none!important;width:100px!important;min-width:100px!important;max-width:100px!important;display:flex;justify-content:center;align-items:center;flex-direction:column}.custom-td *{font-size:12px!important}.custom-row{display:inline-flex!important}.custom-td input{padding:0!important;height:100%;width:100%}.custom-td input,.custom-td select{color:#000!important}</style>
                     `);
@@ -972,7 +972,7 @@
                                         <th>Project Name</th>
                                         <th>Type of Building</th>
                                         <th>Person Contact</th>
-                                        <th>Project Cost</th> 
+                                        <th>Project Cost</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -994,9 +994,9 @@
                     a.document.write('</html>');
                     a.document.close();
                     setTimeout(() => {
-                        a.print(); 
+                        a.print();
                     }, 3000);
-                }); 
+                });
             }
             $scope.getHistory       = (type)  => {
                 $http.get(`${API_URL}cost-estimate/get-history/${$scope.enquiry_id}/${type}`)
@@ -1010,13 +1010,13 @@
                         $scope.historyStatus    =   false
                         var costId              =   $(`#${type}_id`);
                         $(costId).html('');
-                     
+
                         res.data.length && res.data.map((item, key) => {
                             $(costId).append(`
                             <div class="card  p-2 border shadow-sm m-2" style="position:relative">
                                 <span id="abs${key}" style="position:absolute;top:0;left:0;width:100%;z-index:0;background:#fff;height:50px;transition:0.5s;"></span>
                                 <div id="headingTableHistory${key+1}" onclick="toggleModule(${key})">
-                                    <a 
+                                    <a
                                         style="color:black"
                                         class="
                                             m-0 d-flex justify-content-between align-items-center custom-accordion-title
@@ -1025,7 +1025,7 @@
                                             aria-expanded="true" aria-controls="collapseTableHistory${key+1}"
                                     >
                                         <div class="first">
-                                            
+
                                                 <strong class="me-auto color${key}" >Version : ${res.data.length - key}</strong>
                                                 <span> - </span>
                                                 <span>
@@ -1041,7 +1041,7 @@
                                                 <span class="color${key}">${item.role.name}</span>
                                                 &nbsp;
                                                 &nbsp;
-                                                <span 
+                                                <span
                                                     style="background: #6C757D;padding: 3px 6px 3px 6px;border-radius: 4px;color: #fff;"
                                                     class="color${key}"
                                                 >${item.role.slug}</span>
@@ -1053,9 +1053,9 @@
                                 aria-labelledby="headingTableHistory${key+1}" >
                                         ${item.history}
                                 </div>
-                            </div> 
+                            </div>
 
-                            `); 
+                            `);
                         });
                     }, function errorCallback(error){
                         console.log(error);
@@ -1082,7 +1082,7 @@
                 }
                 $http.post(`${API_URL}cost-estimate/assign-user/${enquiryId}`, {assign_to: assign_to, type: cost_estimate_assign_for})
                     .then(function successCallback(res){
-                       
+
                         if(res.data.status) {
                             $scope.getWizradStatus();
                             Message('success', res.data.msg);
@@ -1121,7 +1121,7 @@
                     $scope.technical_estimation_status  = res.data.progress.technical_estimation_status;
                     $scope.cost_estimation_status       = res.data.progress.cost_estimation_status;
                     $scope.proposal_sharing_status      = res.data.progress.proposal_sharing_status;
-                    $scope.customer_response            = res.data.progress.customer_response; 
+                    $scope.customer_response            = res.data.progress.customer_response;
                     $scope.cost_estimate                = res.data.cost_estimate;
                     $scope.ResultEngineeringEstimate    = JSON.parse(res.data.cost_estimate.build_json);
                     $scope.ResultPrecastComponent       = JSON.parse(res.data.cost_estimate.precast_build_json);
@@ -1132,20 +1132,20 @@
                 });
             }
             $scope.getWizradStatus();
-          
+
             $scope.enquiry_id = '{{ $id }}';
             // =========== Cost Estimate  ============
             $http.get("{{ route("CostEstimateData") }}").then(function (response) {
-                $scope.cost = response.data; 
+                $scope.cost = response.data;
             });
             $http.get("{{ route('CostEstimateView', $data->id) }}").then(function (response) {
                 console.log(response.data.others);
-                $scope.enquiry          =   response.data;  
-                $scope.CostEstimate     =   response.data.cost_estimation; 
+                $scope.enquiry          =   response.data;
+                $scope.CostEstimate     =   response.data.cost_estimation;
                 $scope.assign_to        =   response.data.others.assign_to ?? '';
             });
 
-            $scope.UpdateCostEstimate  = function(type) {  
+            $scope.UpdateCostEstimate  = function(type) {
                 if($scope.EngineeringEstimate.length == 0){
                     Message('danger', "You Can't Update Empty Data");
                     return false;
@@ -1164,14 +1164,14 @@
                     data:{ enquiry_id: $scope.enquiry_id, data : data, type: type, total : total,  history: true, html: html},
                 }).then(function successCallback(response) {
                     Message('success',response.data.msg);
-                    $scope.assign_to        =  ''; 
+                    $scope.assign_to        =  '';
                     $scope.getWizradStatus();
                 }, function errorCallback(response) {
                     Message('danger',response.data.errors);
-                }); 
+                });
             }
 
-            $scope.sendAssignCostEstiComments  = function(type , chatSection) { 
+            $scope.sendAssignCostEstiComments  = function(type , chatSection) {
                 $scope.sendCommentsData = {
                     "comments"        :   $scope.inlineComments,
                     "enquiry_id"      :   $scope.enquiry_id,
@@ -1184,7 +1184,7 @@
                     url:  "{{ route('enquiry.comments') }}" ,
                     data: $.param($scope.sendCommentsData),
                     headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded' 
+                        'Content-Type': 'application/x-www-form-urlencoded'
                     }
                 }).then(function successCallback(response) {
                     document.getElementById("Inbox__commentsForm").reset();
@@ -1193,15 +1193,15 @@
                 }, function errorCallback(response) {
                     Message('danger',response.data.errors);
                 });
-            }  
+            }
 
             $scope.showTechCommentsToggle = function (modalstate, type, docId) {
                 $scope.modalstate = modalstate;
                 $scope.module = null;
-                $scope.technical_docType_id   = docId; 
+                $scope.technical_docType_id   = docId;
                 $http.get(API_URL + 'admin/show-comments/'+$scope.enquiry_id+'/type/'+type ).then(function (response) {
-                    $scope.commentsData = response.data.chatHistory; 
-                    $scope.chatType     = response.data.chatType;  
+                    $scope.commentsData = response.data.chatHistory;
+                    $scope.chatType     = response.data.chatType;
                     $('#assing-viewConversations-modal').modal('show');
                 });
             }
@@ -1209,18 +1209,18 @@
             $scope.showCommentsToggle = function (modalstate, type, header) {
                 $scope.modalstate = modalstate;
                 $scope.module = null;
-                $scope.chatHeader   = header; 
+                $scope.chatHeader   = header;
                 switch (modalstate) {
                     case 'viewConversations':
                         $http.get(API_URL + 'admin/show-comments/'+$scope.enquiry_id+'/type/'+type ).then(function (response) {
-                            $scope.commentsData = response.data.chatHistory; 
-                            $scope.chatType     = response.data.chatType;  
+                            $scope.commentsData = response.data.chatHistory;
+                            $scope.chatType     = response.data.chatType;
                             $('#assing-viewConversations-modal').modal('show');
                         });
                         break;
                     default:
                         break;
-                } 
+                }
             }
         // cost estimate calculation start..
             $scope.editable = false;
@@ -1238,7 +1238,7 @@
                         angular.element('.sqm_').triggerHandler('keyup');
                     });
                 });
-                
+
             // $scope.ResultEngineeringEstimate = {'total': {totalArea: 0, totalSum: 0, totalPris: 0}, 'costEstimate': $scope.EngineeringEstimate};
             // $scope.ResultPrecastComponent = {'total': {totalArea: 0, totalSum: 0, totalPris: 0}, 'precastEstimate': $scope.PrecastComponent};
             $scope.precastEstimateTypesObj = {};
@@ -1267,9 +1267,9 @@
                     let newPrecastComponent = JSON.parse(JSON.stringify(precastComponent));
                     $scope.PrecastComponent.push(newPrecastComponent);
                 }
-            
+
             }
-        
+
             $scope.addDynamicColumn = (index, columnName) => {
                 $scope.editable = false;
                 if(columnName == '' || typeof(columnName) == 'undefined') return false;
@@ -1333,7 +1333,7 @@
                     angular.element('.sqm_').triggerHandler('keyup');
                 });
             }
-        
+
             $scope.addComponent  = function(index) {
                 let componentFirstObj = JSON.parse(JSON.stringify($scope.EngineeringEstimate[index].Components[0]));
                 let removeVal = componentFirstObj.Dynamics.map((obj) => {
@@ -1347,11 +1347,11 @@
                 Message('success', 'Component added successfully');
             }
 
-            $scope.delete   =   function(rootKey, index) { 
+            $scope.delete   =   function(rootKey, index) {
                 $scope.EngineeringEstimate[rootKey].Components.splice(index,1);
                 if($scope.EngineeringEstimate[rootKey].Components.length == 0) {
                     $scope.EngineeringEstimate.splice(rootKey,1);
-                } 
+                }
                 $timeout(function() {
                     angular.element('.sqm_').triggerHandler('keyup');
                 });
@@ -1366,7 +1366,7 @@
                     $scope.DeliveryTypeObj[item.id] = item.delivery_type_name;
                 });
             });
-            
+
             $http.get(`${API_URL}get-for-cost-estimate`)
             .then((res)=> {
                 $scope.buildingComponents = res.data;
@@ -1395,14 +1395,14 @@
                     "engineering_cost"     : 0,
                     "total_central_approval"     : 0,
                     'total_engineering_cost' : 0,
-                    "Components" : [    
+                    "Components" : [
                         {
                             'precast_component': null,
                             'no_of_staircase': '',
                             'no_of_new_component':'',
                             'no_of_different_floor_height': '',
                             'sqm'           : '',
-                            'complexity'    : '', 
+                            'complexity'    : '',
                             'std_work_hours': '',
                             'additional_work_hours': '',
                             'hourly_rate': '',
@@ -1412,7 +1412,7 @@
                             'total_engineering_cost': ''
                         }
                     ]
-                
+
             };
             $scope.PrecastComponent.push(precastComponent);
             $scope.addPrecasEstimate = () => {
@@ -1425,14 +1425,14 @@
                     "total_work_hours"           : 0,
                     "engineering_cost"     : 0,
                     "total_central_approval"     : 0,
-                    "Components" : [ 
+                    "Components" : [
                         {
                             'precast_component': '',
                             'no_of_staircase': '',
                             'no_of_new_component':'',
                             'no_of_different_floor_height': '',
                             'sqm'           : '',
-                            'complexity'    : '', 
+                            'complexity'    : '',
                             'std_work_hours': '',
                             'additional_work_hours': '',
                             'hourly_rate': '',
@@ -1454,7 +1454,7 @@
                             'no_of_new_component':'',
                             'no_of_different_floor_height': '',
                             'sqm'           : '',
-                            'complexity'    : '', 
+                            'complexity'    : '',
                             'std_work_hours': '',
                             'additional_work_hours': '',
                             'hourly_rate': '',
@@ -1517,8 +1517,8 @@
             //             return false;
             //         }
             //     }
-                
-    
+
+
             //     $http.post(`
             //         ${API_URL}admin/calculate-cost-estimate/store`,
             //         {data: data, type: type, name: name}
@@ -1589,7 +1589,7 @@
             //             angular.element('.psqm_').triggerHandler('keyup');
             //         });
             //     }
-            
+
             // }
 
             // $scope.EstimateDelete = (id, type) => {
@@ -1619,7 +1619,7 @@
                 });
             }
 
-        }).directive('getCostDetailsTotal',   ['$http' ,function ($http, $scope, $apply) {  
+        }).directive('getCostDetailsTotal',   ['$http' ,function ($http, $scope, $apply) {
             return {
                 restrict: 'A',
                 link : function (scope, element, attrs) {
@@ -1675,10 +1675,10 @@
                             Estimates.ComponentsTotals.Dynamics.forEach((dynamic) => {
                                 dynamic.PriceM2 = 0;
                                 dynamic.Sum = 0;
-                               
+
                             })
                             Estimates.Components.forEach( (Component, componentIndex) => {
-                                
+
                                 $sqmTotal += Number(Component.Sqm);
                                 $totalEstimateArea += Number(Component.Sqm);
                                 $ribTotal += Number(Component.Rib.Sum);
@@ -1695,7 +1695,7 @@
                                         Estimates.ComponentsTotals.Dynamics[dynamicIndex].Sum = getNum(Estimates.ComponentsTotals.Dynamics[dynamicIndex].Sum);
                                     });
                                 }
-                                
+
                             });
                             Estimates.ComponentsTotals.TotalCost.Sum     = getNum($totalSum);
                             Estimates.ComponentsTotals.TotalCost.PriceM2 = getNum($totalSum / $sqmTotal);
@@ -1711,7 +1711,7 @@
                     });
                 },
             };
-        }]).directive('getMasterData',   ['$http' ,function ($http, $scope, $apply, API_URL) {  
+        }]).directive('getMasterData',   ['$http' ,function ($http, $scope, $apply, API_URL) {
             return {
                 restrict: 'A',
                 link : function (scope, element, attrs) {
@@ -1719,7 +1719,7 @@
                         var response;
                         if(scope.C.building_component_id == "" || scope.C.type_id == "") {
                             return false;
-                        } 
+                        }
                         $http({
                         method: 'GET',
                         url: '{{ route('CostEstimateMasterValue') }}',
@@ -1759,13 +1759,13 @@
                     });
                 },
             };
-        }]).directive('getPrecastDetailsTotal',   ['$http' ,function ($http, $scope, $apply) {  
+        }]).directive('getPrecastDetailsTotal',   ['$http' ,function ($http, $scope, $apply) {
         return {
             restrict: 'A',
             link : function (scope, element, attrs) {
                 let eventHandle = () => {
                     // complexity validation
-                    scope.PrecastEstimate.Components[scope.index].hourly_rate = 550 
+                    scope.PrecastEstimate.Components[scope.index].hourly_rate = 550
                     const precast_component = scope.precastEstimateTypes.find(precastEstimateType => scope.PrecastEstimate.Components[scope.index].precast_component == precastEstimateType.id);
                     if(scope.PrecastEstimate.Components[scope.index].complexity > 2) {
                         scope.PrecastEstimate.Components[scope.index].complexity= 2;
@@ -1781,14 +1781,14 @@
                     } else {
                         scope.PrecastEstimate.Components[scope.index].std_work_hours = getNum( scope.PrecastEstimate.Components[scope.index].no_of_new_component *  precast_component.hours );
                     }
-                    scope.PrecastEstimate.Components[scope.index].total_work_hours = getNum(Number( scope.PrecastEstimate.Components[scope.index].std_work_hours) +  
-                                                                                            Number(scope.PrecastEstimate.Components[scope.index].additional_work_hours));                                                              
+                    scope.PrecastEstimate.Components[scope.index].total_work_hours = getNum(Number( scope.PrecastEstimate.Components[scope.index].std_work_hours) +
+                                                                                            Number(scope.PrecastEstimate.Components[scope.index].additional_work_hours));
                     scope.PrecastEstimate.Components[scope.index].engineering_cost = getNum(
-                                                                                            (Number( scope.PrecastEstimate.Components[scope.index].std_work_hours) +  
-                                                                                            Number(scope.PrecastEstimate.Components[scope.index].additional_work_hours)) * 
-                                                                                            Number(scope.PrecastEstimate.Components[scope.index].hourly_rate) * 
+                                                                                            (Number( scope.PrecastEstimate.Components[scope.index].std_work_hours) +
+                                                                                            Number(scope.PrecastEstimate.Components[scope.index].additional_work_hours)) *
+                                                                                            Number(scope.PrecastEstimate.Components[scope.index].hourly_rate) *
                                                                                             Number(scope.PrecastEstimate.Components[scope.index].complexity)
-                              
+
                                                                                             );
                     scope.PrecastEstimate.Components[scope.index].total_engineering_cost   = Number(scope.PrecastEstimate.Components[scope.index].engineering_cost)+ Number(scope.PrecastEstimate.Components[scope.index].total_central_approval)
                     let $total_sqm                   = 0;
@@ -1857,7 +1857,7 @@
                     $scope.cost_estimation_status       = res.data.progress.cost_estimation_status;
                     $scope.proposal_sharing_status      = res.data.progress.proposal_sharing_status;
                     $scope.proposal_email_status        = res.data.progress.proposal_email_status;
-                    $scope.customer_response    = res.data.progress.customer_response; 
+                    $scope.customer_response    = res.data.progress.customer_response;
                 });
             }
             $scope.getWizradStatus();
@@ -1869,7 +1869,7 @@
             }
             $scope.getProposesalData();
 
-            $scope.sendMailToCustomer = function (proposal_id) { 
+            $scope.sendMailToCustomer = function (proposal_id) {
                 $http.post(API_URL + 'admin/proposal/enquiry/'+{{ $data->id }}+'/send-mail/'+proposal_id).then(function (response) {
                     Message('success',response.data.msg);
                     // $scope.getWizradStatus();
@@ -1877,7 +1877,7 @@
                 });
             }
 
-            $scope.sendMailToCustomerVersion = function (proposal_id , Vid) { 
+            $scope.sendMailToCustomerVersion = function (proposal_id , Vid) {
                 $http.post(API_URL + 'admin/proposal/enquiry/'+{{ $data->id }}+'/send-mail/'+proposal_id+'/version/'+Vid).then(function (response) {
                     Message('success',response.data.msg);
                     // $scope.getWizradStatus();
@@ -1908,11 +1908,11 @@
                         Message('danger', res.data.msg);
                         return false;
                     }
-                   
+
                 });
             }
-          
-           
+
+
             $scope.moveToProject = () => {
                 $http.post(API_URL + 'proposal-move-to-project/'+{{ $data->id }}).then(function (response) {
                     $timeout(function(){
@@ -1923,7 +1923,7 @@
                     }, 1000);
                 });
             }
-            
+
             // View Propose Data
             $scope.ViewEditPropose = function (proposal_id, update_status = true) {
                 $scope.proposalModal = update_status;
@@ -1935,7 +1935,7 @@
                 $('#bs-Preview-modal-lg').modal('show');
             }
             $scope.defe=function(proposal_id,ele){
-                
+
                 var url='{{route("admin.contract.download","check")}}';
                 url = url.replace('check',proposal_id);
                 // url = url.replace('check',1);
@@ -1997,7 +1997,7 @@
                     $scope.getProposesalData();
                 });
             }
-            
+
             // DeletePropose
             $scope.DeletePropose = function (proposal_id) {
                 $http.delete(API_URL + 'admin/proposal/enquiry/'+{{ $data->id }}+'/edit/'+proposal_id).then(function (response) {
@@ -2005,7 +2005,7 @@
                     $scope.getProposesalData();
                 });
             }
-            
+
             // DeletePropose
             $scope.DeleteProposeVersion = function (proposal_id, Vid) {
                 $http.delete(API_URL + 'admin/proposal/enquiry/'+{{ $data->id }}+'/edit/'+proposal_id+'/version/'+Vid).then(function (response) {
@@ -2025,7 +2025,7 @@
                     url: API_URL + 'admin/proposal/enquiry/'+{{ $data->id }}+'/edit/'+proposalId ,
                     data: $.param($scope.sendCommentsData),
                     headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded' 
+                        'Content-Type': 'application/x-www-form-urlencoded'
                     }
                 }).then(function successCallback(response) {
                     Message('success',response.data.msg);
@@ -2045,7 +2045,7 @@
                     url: API_URL + 'admin/proposal/enquiry/'+{{ $data->id }}+'/edit/'+$scope.proposalVersionId+'/version/'+$scope.proposalVId,
                     data: $.param($scope.sendMailDtata),
                     headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded' 
+                        'Content-Type': 'application/x-www-form-urlencoded'
                     }
                 }).then(function successCallback(response) {
                     Message('success',response.data.msg);
@@ -2061,21 +2061,21 @@
                     url:  "{{ route('get-documentaryData') }}" ,
                 }).then(function (response) {
                     // alert(JSON.stringify(response.data))
-                    $scope.documentary_module_name = response.data;	
+                    $scope.documentary_module_name = response.data;
                     $scope.getProposesalData();
                 }, function (error) {
                     console.log(error);
                     console.log('This is embarassing. An error has occurred. Please check the log for details');
                 });
             }
-            
+
             $scope.documentaryOneData = function() {
                 var documentId = $scope.documentary.documentary_title;
                 var enquireId = {{ $data->id ?? '' }};
 
-                Swal.fire({ 
+                Swal.fire({
                     timerProgressBar: true,
-                    showConfirmButton: false, 
+                    showConfirmButton: false,
                     allowOutsideClick: false,
                     html:`
                         <div class="text-center">
@@ -2098,6 +2098,7 @@
                         return false;
                     }
                     Swal.close();
+                    $scope.documentary.documentary_title = ''
                     $scope.getDocumentaryData();
                 }, function (error) {
                     console.log(error);
@@ -2111,8 +2112,8 @@
                 $scope.version = version;
                 var type = 'proposal_sharing';
                 $http.get(API_URL + 'admin/show-comments/'+$scope.enquiry_id+'/'+$scope.version +'/'+$scope.reference_id).then(function (response) {
-                    $scope.commentsData = response.data.chatHistory; 
-                    $scope.chatType     = response.data.chatType;  
+                    $scope.commentsData = response.data.chatHistory;
+                    $scope.chatType     = response.data.chatType;
                     $('#proposalViewConversations-modal').modal('show');
                 });
             };
@@ -2131,11 +2132,11 @@
                     "created_by"      :   type,
                 }
                 $http({
-                    method: "POST",  
+                    method: "POST",
                     url:  API_URL + 'admin/add-comments',
                     data: $.param($scope.sendCommentsDataNew),
                     headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded' 
+                        'Content-Type': 'application/x-www-form-urlencoded'
                     }
                 }).then(function successCallback(response) {
                     $scope.inlineComments = '';
@@ -2151,7 +2152,7 @@
             $scope.customer_response_obj = {};
             let enquiry_id = '{{ $id }}';
             var dt = new Date();
-            $scope.followupDate = new Date(dt.setDate( dt.getDate() - 1)); 
+            $scope.followupDate = new Date(dt.setDate( dt.getDate() - 1));
             $scope.getWizradStatus = function() {
                 $http.get(API_URL + 'admin/api/v2/customers-enquiry/' + {{ $data->id ?? " " }} ).then(function (res) {
                     $scope.project_summary_status       = res.data.progress.status;
@@ -2159,8 +2160,8 @@
                     $scope.cost_estimation_status       = res.data.progress.cost_estimation_status;
                     $scope.proposal_sharing_status  = res.data.progress.proposal_sharing_status;
                     $scope.proposal_email_status  = res.data.progress.proposal_email_status;
-                    $scope.customer_response    = res.data.progress.customer_response; 
-                    $scope.response_data        = res.data; 
+                    $scope.customer_response    = res.data.progress.customer_response;
+                    $scope.response_data        = res.data;
                     $scope.customer_response_obj = {
                         follow_up_date: new Date(res.data.progress.follow_up_date),
                         follow_up_comment: res.data.progress.follow_up_comment
@@ -2221,8 +2222,8 @@
                     Message('danger', res.data.msg);
                     return false;
                }, function errorCallback(error){});
-            } 
-            
+            }
+
             $scope.manualMoveToProject = () => {
                let assigned_to = $scope.customer_response_obj.follow_up_status ?? false;
                if(assigned_to == false) {
@@ -2246,7 +2247,7 @@
                     Message('danger', res.data.msg);
                     return false;
                }, function errorCallback(error){});
-            } 
+            }
 
 
             $scope.assignToProject = () => {
@@ -2271,7 +2272,7 @@
                     return false;
                 }
                 $http.post(API_URL+'admin/update-followup', {
-                    enquiry_id: enquiry_id, 
+                    enquiry_id: enquiry_id,
                     follow_up_date: $scope.customer_response_obj.follow_up_date,
                     follow_up_comment: $scope.customer_response_obj.follow_up_comment
                 })
@@ -2287,7 +2288,7 @@
                         location.href = '{{ route('admin.enquiry-list') }}'
                     }, 1000);
                 })
-            } 
+            }
 
         });
         window.onbeforeunload = function(e) {
@@ -2318,5 +2319,5 @@
                 tri=!tri;
             }
         }
-    </script>  
+    </script>
 @endpush
