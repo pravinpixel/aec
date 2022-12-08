@@ -59,7 +59,7 @@
                 success: function(res) {
                     Swal.fire({
                         icon: 'success',
-                        html: '<h3>Mail sended successfully !</h3>',
+                        html: '<h3>Mail sent successfully !</h3>',
                         showConfirmButton: false,
                         timer: 1500
                     })
