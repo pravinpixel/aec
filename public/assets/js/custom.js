@@ -20,12 +20,12 @@ startLoader = (e) => {
 stopLoader = (e) => {
     e.classList.remove('btn-loader')
 }
-function minmax(value, min, max) 
+function minmax(value, min, max)
 {
-    if(parseInt(value) < min || isNaN(parseInt(value))) 
-        return min; 
-    else if(parseInt(value) > max) 
-        return max; 
+    if(parseInt(value) < min || isNaN(parseInt(value)))
+        return min;
+    else if(parseInt(value) > max)
+        return max;
     else return value;
 
 }
@@ -80,15 +80,15 @@ function enableActiveTabs(tabs) {
 }
 function statusBadge($status) {
     switch($status){
-        case "not_send": 
+        case "not_send":
             return "-";
-        
+
         case "approved":
             return   "<span class='badge badge-outline-success rounded-pill'>Approved</span>";
-            
+
         case "obsolete":
             return   "<span class='badge badge-outline-primary rounded-pill'>Obsolete</span>";
-    
+
         case "denied":
             return   "<span class='badge badge-outline-danger rounded-pill'>Denied</span>";
 
@@ -100,11 +100,11 @@ function statusBadge($status) {
 
         case "sent":
             return   "<span class='badge badge-outline-success rounded-pill'>Sent</span>";
-    
+
         default:
             return   "-";
-        
-    }    
+
+    }
 }
 
 function swlAlertInfo(text, redirectRoute) {
@@ -182,12 +182,12 @@ function ifcSingularAlertHelper(item)
 function wizardactiveTabs(tableval) {
     $('.wizard_active').removeClass('active');
     $("."+tableval).attr("data-is-active","");
-    
+
     $('#'+tableval).addClass('active');
     $("."+tableval).attr("data-is-active","active");
     //console.log(tableval);
 
-} 
+}
 
 $(document).ready(function() {
     $('input').attr('autocomplete', 'off');
@@ -230,7 +230,7 @@ viewCustomerEnquiryProposal = (id) => {
             setTimeout(() => {
                 refreshFsLightbox();
             }, 2000);
-        } 
+        }
     });
 }
 proposalAction = (val) => {
@@ -252,17 +252,17 @@ proposalActionSubmit = (element) => {
         console.log(response.data)
         Message('success', "Proposal Status to be Changed !")
         viewCustomerEnquiryProposal($("#enquiry_id").val())
-    });  
+    });
 }
 
 PreviousChatHistory = (element, module_id, module_name, menu_name) => {
-     
+
     Object.entries(element.childNodes).map((item) => {
-        if(item[1].localName == 'small') {  
-            item[1].classList.add('d-none') 
-        } 
+        if(item[1].localName == 'small') {
+            item[1].classList.add('d-none')
+        }
     })
-    startLoader(element) 
+    startLoader(element)
     axios.post(`${APP_URL}/get-message`, {
         module_id   : module_id,
         module_name : module_name,
@@ -270,17 +270,17 @@ PreviousChatHistory = (element, module_id, module_name, menu_name) => {
         read_status: 1
     }).then(function (response) {
         $(`.inbox_conversation_list_${menu_name}`).html(response.data.conversations)
-        $(`.inbox_conversation_list_${menu_name}`).stop().animate({ 
+        $(`.inbox_conversation_list_${menu_name}`).stop().animate({
             scrollTop: $(`.inbox_conversation_list_${menu_name}`)[0].scrollHeight
         }, 1000);
-        stopLoader(element) 
+        stopLoader(element)
         Object.entries(element.parentNode.childNodes).map((item) => {
             if(item[1].name == 'message') {
                 item[1].value = ''
             }
         })
-        refreshData()  
-    }); 
+        refreshData()
+    });
 }
 
 refreshData = () => {
@@ -303,13 +303,13 @@ refreshData = () => {
         $('#active-enquiries').DataTable().ajax.reload();
     } catch (error) {
         console.log(error)
-    } 
+    }
 }
 
-sendMessage = (element) => { 
-    var config = [] 
+sendMessage = (element) => {
+    var config = []
     Object.entries(element.parentNode.childNodes).map((item) => {
-        if(item[1].localName == 'input') { 
+        if(item[1].localName == 'input') {
             config[item[1].name] =  item[1].value
         }
     })
@@ -325,7 +325,7 @@ sendMessage = (element) => {
         module_name : config.module_name
     }).then(function (response) {
         $(`.inbox_conversation_list_${config.menu_name}`).html(response.data.conversations)
-        $(`.inbox_conversation_list_${config.menu_name}`).stop().animate({ 
+        $(`.inbox_conversation_list_${config.menu_name}`).stop().animate({
             scrollTop: $(`.inbox_conversation_list_${config.menu_name}`)[0].scrollHeight
         }, 1000);
         stopLoader(element)
@@ -334,12 +334,12 @@ sendMessage = (element) => {
                 item[1].value = ''
             }
         })
-    }); 
+    });
 }
 
 scrollMessage = (menuName) => {
     setTimeout(() => {
-        $(`.inbox_conversation_list_${menuName}`).stop().animate({ 
+        $(`.inbox_conversation_list_${menuName}`).stop().animate({
             scrollTop: $(`.inbox_conversation_list_${menuName}`)[0].scrollHeight
         }, 1000);
     }, 500);

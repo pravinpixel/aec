@@ -1,12 +1,12 @@
-<div> 
+<div>
     @if ($table_status == 1)
         <div class="card-header sticky-top px-3 d-flex justify-content-between align-items-center">
             <h3 class="card-title h4">PROJECT NAME : <span class="text-primary">{{ $detail_table['project_name'] }}</span></h3>
-            <button type="button" class="btn-sm btn btn-light border shadow-sm" onclick="location.reload()" data-bs-dismiss="modal" aria-label="Close"><i class="fa fa-times"></i></button>
-        </div> 
+            <button type="button" class="btn-sm btn btn-light border shadow-sm"  data-bs-dismiss="modal" aria-label="Close"><i class="fa fa-times"></i></button>
+        </div>
     @endif
     <div class="card-body px-3 pt-3">
-        
+
         @if ($table_status == 1)
             <table class="custom table table-bordered m-0 bg-white border shadow-sm mb-3">
                 <tbody>
@@ -32,7 +32,7 @@
 
         <x-accordion title="Project Information" path="false" open="true" argument="{{ getModuleMenuMessagesCount('enquiry', $enquiry['project_infos']['enquiry_id'], __('app.Project_Information'), 'count') }}">
             <table class="table custom m-0 table-hover">
-                <tbody> 
+                <tbody>
                     @if ($enquiry['project_infos']['project_name'])
                         <tr>
                             <td width="30%"><b>Project Name</b></td>
@@ -62,7 +62,7 @@
                                 <td>{{ $enquiry['additional_infos']->customer['mobile_no'] }}</td>
                             </tr>
                         @endif
-                    @endif 
+                    @endif
                     @if ($enquiry['project_infos']['site_address'])
                         <tr>
                             <td><b>Construction Site Address</b></td>
@@ -113,7 +113,7 @@
                                 <td>{{ $enquiry['project_infos']['project_type']['project_type_name'] }}</td>
                             </tr>
                         @endif
-                    @endif 
+                    @endif
                     @if (!is_null($enquiry['project_infos']['building_type']))
                         @if ($enquiry['project_infos']['building_type']['building_type_name'])
                             <tr>
@@ -122,7 +122,7 @@
                                 <td>{{ $enquiry['project_infos']['building_type']['building_type_name'] }}</td>
                             </tr>
                         @endif
-                    @endif  
+                    @endif
                     @if ($enquiry['project_infos']['no_of_building'])
                         <tr>
                             <td><b>No. of Buildings</b></td>
@@ -138,12 +138,12 @@
                                 <td>{{ $enquiry['project_infos']['delivery_type']['delivery_type_name'] }}</td>
                             </tr>
                         @endif
-                    @endif 
+                    @endif
                     @if ($enquiry['project_infos']['project_date'])
                         <tr>
                             <td><b>Start Date</b></td>
                             <td>:</td>
-                            <td> 
+                            <td>
                                 {{ SetDateFormat($enquiry['project_infos']['project_date']) }}
                             </td>
                         </tr>
@@ -156,25 +156,25 @@
                                 {{ SetDateFormat($enquiry['project_infos']['project_delivery_date']) }}
                             </td>
                         </tr>
-                    @endif 
+                    @endif
                 </tbody>
-            </table> 
+            </table>
             <x-chat-box
-                :status="$chat_status" 
-                :moduleId="$enquiry['project_infos']['enquiry_id']" 
-                moduleName="enquiry" 
-                menuName="{{ __('app.Project_Information') }}" 
+                :status="$chat_status"
+                :moduleId="$enquiry['project_infos']['enquiry_id']"
+                moduleName="enquiry"
+                menuName="{{ __('app.Project_Information') }}"
             />
         </x-accordion>
-        <x-accordion title="Selected Services" path="false" open="false" argument="{{ getModuleMenuMessagesCount('enquiry', $enquiry['project_infos']['enquiry_id'], __('app.Selected_Services'), 'count') }}"> 
+        <x-accordion title="Selected Services" path="false" open="false" argument="{{ getModuleMenuMessagesCount('enquiry', $enquiry['project_infos']['enquiry_id'], __('app.Selected_Services'), 'count') }}">
             <ul>
                 @foreach ($enquiry['services'] as $service_type => $services)
-                    <li> 
+                    <li>
                         {{ $service_type }}
                         <ul  class="row m-0 ">
                             @foreach ($services as $service)
                                 <li class="col-md-4 list-group-item border-0">
-                                    <i class="fa fa-check-circle text-primary me-1"></i> 
+                                    <i class="fa fa-check-circle text-primary me-1"></i>
                                    {{ $service->service_name }}
                                 </li>
                             @endforeach
@@ -182,14 +182,14 @@
                     </li>
                 @endforeach
             </ul>
-            <x-chat-box 
-                :status="$chat_status" 
-                :moduleId="$enquiry['project_infos']['enquiry_id']" 
-                moduleName="enquiry" 
-                menuName="{{ __('app.Selected_Services') }}" 
+            <x-chat-box
+                :status="$chat_status"
+                :moduleId="$enquiry['project_infos']['enquiry_id']"
+                moduleName="enquiry"
+                menuName="{{ __('app.Selected_Services') }}"
             />
         </x-accordion>
-        <x-accordion title="IFC Models and Uploaded Documents" path="false" open="false" argument="{{ getModuleMenuMessagesCount('enquiry', $enquiry['project_infos']['enquiry_id'], __('app.IFC_Models_and_Uploaded_Documents'), 'count') }}">  
+        <x-accordion title="IFC Models and Uploaded Documents" path="false" open="false" argument="{{ getModuleMenuMessagesCount('enquiry', $enquiry['project_infos']['enquiry_id'], __('app.IFC_Models_and_Uploaded_Documents'), 'count') }}">
             <table class="table custom custom table-hover">
                 <thead>
                     <tr>
@@ -211,9 +211,9 @@
                                     </td>
                                     <td>{{ $doc->client_file_name }}</td>
                                     <td class="text-end">
-                                        @if ($doc->file_type != 'link') 
+                                        @if ($doc->file_type != 'link')
                                             <div class="btn-group border border-white shadow-sm ">
-                                                @if ($doc->file_type == 'pdf' || $doc->file_type == 'jpg' || $doc->file_type == 'png' || $doc->file_type == 'jpeg' || $doc->file_type == 'svg') 
+                                                @if ($doc->file_type == 'pdf' || $doc->file_type == 'jpg' || $doc->file_type == 'png' || $doc->file_type == 'jpeg' || $doc->file_type == 'svg')
                                                     @if ($doc->file_type == 'pdf')
                                                             <a data-fslightbox="lightbox" href="#viewPdf_{{  $i + 1 }}" class=" btn-sm btn btn-success text-black"  >
                                                                 <i class="feather-eye feather" style="pointer-events: none"></i>
@@ -228,11 +228,11 @@
                                                                     allowFullScreen>
                                                                 </iframe>
                                                             </div>
-                                                        @else 
+                                                        @else
                                                         <a data-fslightbox href="{{ asset("public/uploads/".$doc->file_name) }}" class=" btn-sm btn btn-success text-black">
                                                             <i class="feather-eye feather" style="pointer-events: none"></i>
                                                         </a>
-                                                    @endif 
+                                                    @endif
                                                 @endif
                                                 <a download="{{ $doc->file_name }}" class="btn-sm btn btn-warning" href="{{ asset("public/uploads/".$doc->file_name) }}">
                                                     <i class="feather-arrow-down feather"></i>
@@ -257,11 +257,11 @@
                                     </td>
                                 </tr>
                             @endforeach
-                            @else 
+                            @else
                             <tr>
                                 <td colspan="5">No data found</td>
                             </tr>
-                        @endif  
+                        @endif
                         {{-- <td class="text-center" ng-show="ifc_model_upload.file_type != 'link'">
                             <a download="@{{ ifc_model_upload.client_file_name }}" href="{{ asset("public/uploads/") }}/@{{ ifc_model_upload.file_name }}"><i class="fa fa-download btn-sm rounded-pill btn btn-outline-primary"></i></a>
                             <a ng-show="!autoDeskFileType.includes(ifc_model_upload.file_type)" ng-click="getDocumentView(ifc_model_upload) "><i class="fa fa-eye btn-sm rounded-pill btn btn-outline-info"></i></a>
@@ -273,13 +273,13 @@
                     </tbody>
                 </thead>
             </table>
-            <x-chat-box 
+            <x-chat-box
                 :status="$chat_status"
-                :moduleId="$enquiry['project_infos']['enquiry_id']" 
-                moduleName="enquiry" 
-                menuName="{{ __('app.IFC_Models_and_Uploaded_Documents') }}" 
+                :moduleId="$enquiry['project_infos']['enquiry_id']"
+                moduleName="enquiry"
+                menuName="{{ __('app.IFC_Models_and_Uploaded_Documents') }}"
             />
-        </x-accordion> 
+        </x-accordion>
         <x-accordion title="Building Components" path="false" open="false" argument="{{ getModuleMenuMessagesCount('enquiry', $enquiry['project_infos']['enquiry_id'], __('app.Building_Components'), 'count') }}">
             @if ($enquiry['project_infos']['building_component_process_type'] == 0)
                 <table class="table table-bordered m-0 table-striped">
@@ -291,12 +291,12 @@
                                         <td class="text-center" width="150px">
                                             <b>{{ $building->wall }}</b>
                                         </td>
-                                        <td> 
+                                        <td>
                                             @foreach ($building->detail as $key => $build)
                                                 <div class="py-2" >
                                                     <table class="shadow-sm custom border border-dark mb-0 table table-bordred bg-white">
                                                         <thead>
-                                                            <tr> 
+                                                            <tr>
                                                                 <td width="33%" class="bg-primary2"><b>{{ $building->wall =='Roof' ? 'Roof' : 'Floor' }}</b></td>
                                                                 <td width="33%" class="bg-primary2"><b>Type of Delivery</b></td>
                                                                 <td width="33%" class="bg-primary2"><b>Total Area</b></td>
@@ -306,13 +306,13 @@
                                                             <tr>
                                                                 <td style="text-align: left !important">{{ $build['floor'] }} </td>
                                                                 <td>{{ $build['delivery_type']['delivery_type_name'] }}</td>
-                                                                <td>{{ $building->totalWallArea }}</td> 
+                                                                <td>{{ $building->totalWallArea }}</td>
                                                             </tr>
-                                                        </tbody> 
+                                                        </tbody>
                                                     </table>
                                                     <table class="shadow-sm border table-bordered border-dark table m-0 bg-white">
                                                         <thead>
-                                                            <tr> 
+                                                            <tr>
                                                                 <td width="33%"><b>Layer Details</b></td>
                                                                 <td width="33%"><b>Thickness (mm)</b></td>
                                                                 <td width="33%"><b>Breadth (mm)</b></td>
@@ -333,7 +333,7 @@
                                                 </div>
                                             @endforeach
                                         </td>
-                                    </tr>  
+                                    </tr>
                                 @endisset
                             @endforeach
                             @else
@@ -368,25 +368,25 @@
                             @endforeach
                         </tbody>
                     </thead>
-                </table> 
+                </table>
             @endif
-            <x-chat-box 
+            <x-chat-box
                 :status="$chat_status"
-                :moduleId="$enquiry['project_infos']['enquiry_id']" 
-                moduleName="enquiry" 
-                menuName="{{ __('app.Building_Components') }}" 
+                :moduleId="$enquiry['project_infos']['enquiry_id']"
+                moduleName="enquiry"
+                menuName="{{ __('app.Building_Components') }}"
             />
         </x-accordion>
         <x-accordion title="Additional Information" path="false" open="false" argument="{{ getModuleMenuMessagesCount('enquiry', $enquiry['project_infos']['enquiry_id'], __('app.Additional_Information'), 'count') }}">
             @if (!is_null($enquiry['additional_infos']))
                 <div>{!! $enquiry['additional_infos']->comments !!}</div>
             @endif
-            <x-chat-box 
+            <x-chat-box
                 :status="$chat_status"
-                :moduleId="$enquiry['project_infos']['enquiry_id']" 
-                moduleName="enquiry" 
-                menuName="{{ __('app.Additional_Information') }}" 
+                :moduleId="$enquiry['project_infos']['enquiry_id']"
+                moduleName="enquiry"
+                menuName="{{ __('app.Additional_Information') }}"
             />
         </x-accordion>
     </div>
-</div> 
+</div>
