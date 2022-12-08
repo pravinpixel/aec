@@ -41,7 +41,7 @@ class EnquiryController extends Controller
     protected $enquiryCommentRepo;
     protected $documentTypeEnquiryRepo;
     protected $outputTypeRepository;
-    
+
 
     protected $user;
 
@@ -78,7 +78,7 @@ class EnquiryController extends Controller
             Flash::error(__('global.access_denied'));
             return redirect(route('admin-dashboard'));
         }
-        return view('admin.enquiry.index'); 
+        return view('admin.enquiry.index');
     }
 
     public function getUnattendedEnquiries(Request $request)
@@ -121,7 +121,7 @@ class EnquiryController extends Controller
                     <button type="button" class="btn-quick-view" onclick="EnquiryQuickView('.$dataDb->id.' , this)" >
                         <b>'. $dataDb->enquiry_number.'</b>
                         <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">'.$enquiryComments.'</span>
-                        '.getEnquiryChatCount('ADMIN','Enquiry',$dataDb->id).' 
+                        '.getEnquiryChatCount('ADMIN','Enquiry',$dataDb->id).'
                     </button>
                 ';
             })
@@ -131,17 +131,17 @@ class EnquiryController extends Controller
             ->editColumn('project_status', function($dataDb){
                 return '<small class="px-1 bg-danger text-white rounded-pill text-center">'.$dataDb->project_status.'</small>';
             })
-    
+
             ->editColumn('enquiry_date', function($dataDb) {
                 $format = config('global.model_date_format');
                 return Carbon::parse($dataDb->enquiry_date)->format($format);
             })
             ->addColumn('pipeline', function($dataDb){
                 return '<div class="btn-group" ng-click=toggle("edit",'.$dataDb->id.')>
-                    <button  class="btn progress-btn '.($dataDb->status == 'Submitted' ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Project Initiation"></button> 
-                    <button  class="btn progress-btn '.($dataDb->technical_estimation_status == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Technical Estimation"></button> 
-                    <button  class="btn progress-btn '.($dataDb->cost_estimation_status == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Cost Estimation"></button> 
-                    <button  class="btn progress-btn '.($dataDb->proposal_sharing_status == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Proposal Sharing"></button> 
+                    <button  class="btn progress-btn '.($dataDb->status == 'Submitted' ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Project Initiation"></button>
+                    <button  class="btn progress-btn '.($dataDb->technical_estimation_status == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Technical Estimation"></button>
+                    <button  class="btn progress-btn '.($dataDb->cost_estimation_status == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Cost Estimation"></button>
+                    <button  class="btn progress-btn '.($dataDb->proposal_sharing_status == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Proposal Sharing"></button>
                     <button  class="btn progress-btn '.($dataDb->customer_response == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Customer Response"></button>
                 </div>';
             })
@@ -188,7 +188,7 @@ class EnquiryController extends Controller
                 return '
                     <button type="button" class="btn-quick-view" onclick="EnquiryQuickView('.$dataDb->id.' , this)" >
                         <b>'. $dataDb->enquiry_number.'</b>
-                        '.getEnquiryChatCount('ADMIN','Enquiry',$dataDb->id).' 
+                        '.getEnquiryChatCount('ADMIN','Enquiry',$dataDb->id).'
                     </button>
                 ';
             })
@@ -207,7 +207,7 @@ class EnquiryController extends Controller
                 }
                 return $status;
             })
-    
+
             ->editColumn('enquiry_date', function($dataDb) {
                 $format = config('global.model_date_format');
                 return Carbon::parse($dataDb->enquiry_date)->format($format);
@@ -218,10 +218,10 @@ class EnquiryController extends Controller
             })
             ->addColumn('pipeline', function($dataDb){
                 return '<div class="btn-group" ng-click=toggle("edit",'.$dataDb->id.')>
-                <button  class="btn progress-btn '.($dataDb->status == 'Submitted' ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Project Initiation"></button> 
-                <button  class="btn progress-btn '.($dataDb->technical_estimation_status == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Technical Estimation"></button> 
-                <button  class="btn progress-btn '.($dataDb->cost_estimation_status == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Cost Estimation"></button> 
-                <button  class="btn progress-btn '.($dataDb->proposal_email_status == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Proposal Sharing"></button> 
+                <button  class="btn progress-btn '.($dataDb->status == 'Submitted' ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Project Initiation"></button>
+                <button  class="btn progress-btn '.($dataDb->technical_estimation_status == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Technical Estimation"></button>
+                <button  class="btn progress-btn '.($dataDb->cost_estimation_status == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Cost Estimation"></button>
+                <button  class="btn progress-btn '.($dataDb->proposal_email_status == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Proposal Sharing"></button>
                 <button  class="btn progress-btn '.($dataDb->customer_response == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Customer Response"></button>
                 </div>';
             })
@@ -264,10 +264,10 @@ class EnquiryController extends Controller
             ->editColumn('enquiry_number', function($dataDb){
                 $commentCount = $dataDb->comments->count();
                 $enquiryComments = $commentCount == 0 ? '' : $commentCount;
-                return ' 
+                return '
                     <button type="button" class="btn-quick-view" onclick="EnquiryQuickView('.$dataDb->id.' , this)" >
                         <b>'. $dataDb->enquiry_number.'</b>
-                        '.getEnquiryChatCount('ADMIN','Enquiry',$dataDb->id).' 
+                        '.getEnquiryChatCount('ADMIN','Enquiry',$dataDb->id).'
                     </button>
                 ';
             })
@@ -277,17 +277,17 @@ class EnquiryController extends Controller
             ->editColumn('project_status', function($dataDb){
                 return '<small class="px-1 bg-danger text-white rounded-pill text-center">'.$dataDb->project_status.'</small>';
             })
-    
+
             ->editColumn('enquiry_date', function($dataDb) {
                 $format = config('global.model_date_format');
                 return Carbon::parse($dataDb->enquiry_date)->format($format);
             })
             ->addColumn('pipeline', function($dataDb){
                 return '<div class="btn-group" ng-click=toggle("edit",'.$dataDb->id.')>
-                <button  class="btn progress-btn '.($dataDb->status == 'Submitted' ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Project Initiation"></button> 
-                <button  class="btn progress-btn '.($dataDb->technical_estimation_status == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Technical Estimation"></button> 
-                <button  class="btn progress-btn '.($dataDb->cost_estimation_status == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Cost Estimation"></button> 
-                <button  class="btn progress-btn '.($dataDb->proposal_sharing_status == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Proposal Sharing"></button> 
+                <button  class="btn progress-btn '.($dataDb->status == 'Submitted' ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Project Initiation"></button>
+                <button  class="btn progress-btn '.($dataDb->technical_estimation_status == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Technical Estimation"></button>
+                <button  class="btn progress-btn '.($dataDb->cost_estimation_status == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Cost Estimation"></button>
+                <button  class="btn progress-btn '.($dataDb->proposal_sharing_status == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Proposal Sharing"></button>
                 <button  class="btn progress-btn '.($dataDb->customer_response == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Customer Response"></button>
                 </div>';
             })
@@ -312,8 +312,8 @@ class EnquiryController extends Controller
         $enquiry                        =   $this->customerEnquiryRepo->getEnquiryByID($id);
         $outputTypes                    =   $this->outputTypeRepository->get();
         $services                       =   $enquiry->services()->get();
-        $result['progress']             =   $enquiry;  
-        $result['customer_info']        =   $enquiry->customer; 
+        $result['progress']             =   $enquiry;
+        $result['customer_info']        =   $enquiry->customer;
         $result["enquiry_number"]       =   $enquiry->enquiry_number;
         $result["customer_enquiry_number"] =   $enquiry->customer_enquiry_number;
         $result["enquiry_comments"]        = $this->enquiryCommentRepo->getCommentsCountByType($id)->pluck('comments_count', 'type');
@@ -324,7 +324,7 @@ class EnquiryController extends Controller
         $result["enquiry"]              =   $this->customerEnquiryRepo->formatEnqInfo($enquiry);
         $result['project_info']         =   $this->customerEnquiryRepo->formatProjectInfo($enquiry);
         $result['services']             =   $this->formatServices($outputTypes, $services);
-        $result['ifc_model_uploads']    =   $enquiry->documentTypes; 
+        $result['ifc_model_uploads']    =   $enquiry->documentTypes;
         $result['building_component']   =   $this->customerEnquiryRepo->getBuildingComponent($enquiry);
         $result['additional_infos']     =   $this->commentRepo->getCommentByEnquiryId($enquiry->id);
         $result['project_type']         =   $enquiry->projectType;
@@ -334,7 +334,7 @@ class EnquiryController extends Controller
         $result['follow_up_status']     =   $enquiry->follow_up_status;
         $result['follow_up_by']         =   $enquiry->follow_up_by;
         return $result;
-        
+
     }
 
     public function formatServices($outputTypes, $services)
@@ -355,9 +355,10 @@ class EnquiryController extends Controller
             return redirect(route('admin-dashboard'));
         }
         if ($id) {
+            session()->put('enquiry_id',$id);
             $data   =   Enquiry::with('customer')->find($id);
             $activeTab = $this->getRoleBaseTab() == false ? $this->getIncompleteTab($data) : $this->getRoleBaseTab();
-            return view('admin.enquiry.show',compact('data','activeTab','id'));   
+            return view('admin.enquiry.show',compact('data','activeTab','id'));
         }else {
             return redirect()->route('admin.enquiry-list');
         }
@@ -390,10 +391,10 @@ class EnquiryController extends Controller
         return 'project-summary';
     }
 
-    public function getEnquiryNumber(Request $request)    { 
+    public function getEnquiryNumber(Request $request)    {
         return  GlobalService::enquiryNumber();
     }
-    
+
     /**
      * Show the form for creating a new resource.
      *
@@ -401,7 +402,7 @@ class EnquiryController extends Controller
      */
     public function create()
     {
-        
+
     }
 
     /**
@@ -454,7 +455,7 @@ class EnquiryController extends Controller
                 'customer_name'     => $request->contact_person,
                 'customer_email'    => $request->email,
                 'customer_pws'      => $password
-            ]; 
+            ];
             Flash::success(__('enquiry.created'));
             Mail::to($request->email)->send(new \App\Mail\Enquiry($details));
             return response(['status' => true, 'data' => $customer ,'msg' => trans('enquiry.created')], Response::HTTP_CREATED);
@@ -493,7 +494,7 @@ class EnquiryController extends Controller
 
         if( empty( $customer ) ) {
             return response(['status' => false, 'msg' => trans('enquiry.item_not_found')],  Response::HTTP_OK);
-        } 
+        }
         return response(['status' => true, 'msg' =>'', 'data' => $customer ], Response::HTTP_OK);
     }
 
@@ -531,7 +532,7 @@ class EnquiryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id) {
-        
+
         if(!userHasAccess('enquiry_delete')) {
             Flash::error(__('global.access_denied'));
             return redirect(route('admin-dashboard'));
@@ -542,7 +543,7 @@ class EnquiryController extends Controller
         }
         return response(['status' => false,'msg' => __('global.something')]);
     }
- 
+
     public function status($id) {
         $customer = Customer::find($id);
         if( empty($customer) ) {
@@ -554,7 +555,7 @@ class EnquiryController extends Controller
             return response(['status' => true, 'msg' => trans('enquiry.status_updated'), 'data' => $customer], Response::HTTP_OK);
         }
         return response(['status' => false, 'msg' => trans('enquiry.something')], Response::HTTP_INTERNAL_SERVER_ERROR);
-    }  
+    }
 
     public function updateFollowUp(Request $request)
     {
@@ -576,13 +577,13 @@ class EnquiryController extends Controller
     {
         $comments = DB::select("
             select sum(c.total) as active_count  from (
-                select count(*) as total from aec_propoal_versions 
-                                where status in ('denied','approved','obsolete') 
+                select count(*) as total from aec_propoal_versions
+                                where status in ('denied','approved','obsolete')
                                 and enquiry_id in (select id from aec_enquiries ae where project_id is null)
-                union  
-                
-                select count(*) as total from aec_enquiry_proposal 
-                        where status in ('denied','approved','obsolete') 
+                union
+
+                select count(*) as total from aec_enquiry_proposal
+                        where status in ('denied','approved','obsolete')
                         and enquiry_id in  (select id from aec_enquiries ae where project_id is null)
             ) as c
         ")[0];

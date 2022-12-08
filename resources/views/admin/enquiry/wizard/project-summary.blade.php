@@ -1,4 +1,4 @@
-<div>  
+<div>
     <ul id="myDIV" class="nav nav-pills nav-justified form-wizard-header mt-0 pt-0 bg-light timeline-steps">
         <li class="time-bar"></li>
         @if(userHasAccess('project_summary_index'))
@@ -43,7 +43,7 @@
                 <div class="timeline-content">
                     <div class="inner-circle @{{ proposal_sharing_status == '1' ? 'bg-primary' :'bg-secondary' }}">
                         <img src="{{ asset("public/assets/icons/share.png") }}" ng-click="getDocumentaryFun();" class="w-50 invert">
-                    </div>                                                                        
+                    </div>
                 </div>
                 <p class="h5 mt-2">Proposal Sharing</p>
             </a>
@@ -66,7 +66,7 @@
     <div class="card-footer">
         <div class="d-flex justify-content-between">
             <div>
-                
+
             </div>
             <div>
                 <a href="#!/technical-estimation" class="btn btn-primary" ng-show="project_summary_status == 'Submitted'">Next</a>
@@ -80,4 +80,4 @@
         transform: scale(1.2);
         box-shadow: 0px 5px 10px #4f4f4fb2 !important
     }
-</style> 
+</style>

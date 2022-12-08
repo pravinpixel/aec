@@ -36,7 +36,7 @@ if(!function_exists('userRole')){
         if($user != ""){
             $role = Role::find($user->job_role);
         }
-       
+
         return $role;
     }
 }
@@ -44,7 +44,7 @@ if(!function_exists('userRole')){
 if(!function_exists('proposalStatusBadge')) {
     function proposalStatusBadge($value) {
         switch($value){
-            case "not_send": 
+            case "not_send":
                 return "<span class='badge badge-outline-info rounded-pill'>Awaiting</span>";
                 break;
             case "approved":
@@ -73,13 +73,13 @@ if(!function_exists('permissionHeader')) {
 }
 
 if(!function_exists('slug')) {
-    function slug($title){ 
+    function slug($title){
         return strtolower(str_replace(' ', '-', $title));
     }
 }
- 
+
 if(!function_exists('AuthUser')) {
-    function AuthUser(){ 
+    function AuthUser(){
         if(!is_null(Admin()))   {
             return "ADMIN";
         }
@@ -95,7 +95,7 @@ if(!function_exists('str_replace_all')) {
         return $subject;
     }
 }
- 
+
 if(!function_exists('getCustomerByEnquiryId')) {
     function getCustomerByEnquiryId($id)
     {
@@ -114,7 +114,7 @@ if(! function_exists('SetDateTimeFormat')) {
 }
 
 if(!function_exists('getEnquiryChatCount')) {
-    function getEnquiryChatCount($user_type, $module_name, $module_id){  
+    function getEnquiryChatCount($user_type, $module_name, $module_id){
         $count = Notify::getModuleMessagesCount([
             'user_type'   => $user_type,
             'module_name' => $module_name,
@@ -122,7 +122,7 @@ if(!function_exists('getEnquiryChatCount')) {
         ]);
         return $count;
     }
-} 
+}
 
 if(!function_exists('getModuleMenuMessagesCount')) {
     function getModuleMenuMessagesCount($module_name, $module_id, $menu_name,$type){
@@ -146,7 +146,7 @@ if(!function_exists('getModuleMenuMessagesCount')) {
         }
         return (int) $count;
     }
-} 
+}
 if(!function_exists('getNotificationMessages')) {
     function getNotificationMessages(){
         return Inbox::where([
@@ -154,9 +154,9 @@ if(!function_exists('getNotificationMessages')) {
             'read_status'   => 0
         ])->get();
     }
-} 
+}
 if(!function_exists('getEnquiryBtId')) {
     function getEnquiryBtId($id){
        return  Enquiry::find($id);
     }
-} 
+}

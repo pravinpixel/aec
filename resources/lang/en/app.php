@@ -5,4 +5,5 @@ return  [
     "IFC_Models_and_Uploaded_Documents" => strtoupper("IFC_Models_and_Uploaded_Documents"),
     "Building_Components"               => strtoupper("Building_Components"),
     "Additional_Information"            => strtoupper("Additional_Information"),
+    "Technical_Estimation"              => strtoupper("technical_estimation"),
 ];
