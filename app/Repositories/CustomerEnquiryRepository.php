@@ -205,6 +205,7 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
     }
     public function duplicateCustomerProPosalByID($id, $proposal_id, $request)
     {
+        changePreviousProposalStatus($id);
         $result     =   MailTemplate::where("enquiry_id", '=', $id)->where("proposal_id", '=', $proposal_id)->first();
         $result->status = "obsolete";
         $totalProposalVersion = PropoalVersions::where(["enquiry_id"=> $id, "documentary_id" => $result->documentary_id])->get()->count();

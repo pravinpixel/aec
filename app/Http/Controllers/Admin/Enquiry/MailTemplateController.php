@@ -41,10 +41,10 @@ class MailTemplateController extends Controller
     }
     public function index()
     {
-    
-      
+
+
         return response()->json($this->mailTemplateRepository->all());
-    
+
     }
 
     public function create()
@@ -79,13 +79,13 @@ class MailTemplateController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id) 
+    public function edit($id)
     {
         // return "333";
         $data = $this->mailTemplateRepository->find($id);
         if( !empty( $data ) ) {
             return response(['status' => true, 'data' => $data], Response::HTTP_OK);
-        } 
+        }
         return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
     }
 
@@ -93,7 +93,7 @@ class MailTemplateController extends Controller
 
     public function show($id)
     {
-        
+
         return response()->json([
             'data' => $this->mailTemplateRepository->find($id)
         ]);
@@ -115,7 +115,7 @@ class MailTemplateController extends Controller
         return response()->json([
             'data' => $this->mailTemplateRepository->update($layer, $id),
             'status' => true, 'msg' => trans('module.updated'),
-             
+
         ]);
     }
     /**
@@ -124,15 +124,15 @@ class MailTemplateController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-  
+
     public function status(Request $request)
     {
         $output = $request->route('id');
         $this->mailTemplateRepository->updateStatus($output);
         return response(['status' => true, 'msg' => trans('module.status_updated'),  'data' => $output], Response::HTTP_OK);
     }
-    
-    public function destroy($id) 
+
+    public function destroy($id)
     {
         $output = $id;
         $this->mailTemplateRepository->delete($output);
@@ -148,10 +148,10 @@ class MailTemplateController extends Controller
         return response()->json($this->mailTemplateRepository->getDocumentaryData($request));
     }
     public function getDocumentaryOneData(Request $request)
-    {  
+    {
         $enquiry             = Enquiry::with(['costEstimate','customer','project'])->find($request->enquireId);
         $documentary         = Documentary::find($request->documentId);
-        $documentary_content = $documentary->documentary_content; 
+        $documentary_content = $documentary->documentary_content;
         $variables = [
             '$document_title'           => $documentary->documentary_title,
             '$enquiry_date'             => $enquiry->enquiry_date,
@@ -195,12 +195,13 @@ class MailTemplateController extends Controller
             '$building_comp_4_area'     => "",
             '$offer_number'             => "",
             '$rev_number'               => "",
-        ]; 
+        ];
 
         foreach ($variables as $key => $value) {
             $documentary_content = str_replace_all($key, $value, $documentary_content);
-        } 
+        }
         // DD($documentary_content);
+        changePreviousProposalStatus($request->enquireId);
         $enquiry_proposal = MailTemplate::create([
             "enquiry_id"          => $request->enquireId,
             "documentary_id"      => $request->documentId,
@@ -208,7 +209,7 @@ class MailTemplateController extends Controller
             "documentary_date"    => date('Y-m-d'),
             "template_name"       => $documentary->documentary_title
         ]);
-      
+
         if($enquiry_proposal)   {
             $enquiry = Enquiry::find($request->enquireId);
             return response()->json(['status' => true, 'msg' => trans('module.inserted')], Response::HTTP_OK);
@@ -218,13 +219,13 @@ class MailTemplateController extends Controller
     public function download_proposal(Request $request)
     {
         switch ($request->documentary_status) {
-            case 'approved': 
-                $text_status = 'APPROVED'; 
+            case 'approved':
+                $text_status = 'APPROVED';
                 break;
-            case 'denied': 
-                $text_status = 'DENIED'; 
+            case 'denied':
+                $text_status = 'DENIED';
                 break;
-            case 'change_request': 
+            case 'change_request':
                 $text_status = 'CHANGE_REQUESTED';
                 break;
             default:
@@ -247,20 +248,20 @@ class MailTemplateController extends Controller
         //    return $data;
             $pdf = PDF::loadView('enquiryPdf',compact('data'));
 
-            $path = public_path('uploads/'); 
-    
-            $fileName =  'document'.time().'.'. 'pdf' ; 
-    
-            $pdf->save($path . '/' . $fileName); 
-            $pdf = public_path('uploads/'.$fileName); 
+            $path = public_path('uploads/');
+
+            $fileName =  'document'.time().'.'. 'pdf' ;
+
+            $pdf->save($path . '/' . $fileName);
+            $pdf = public_path('uploads/'.$fileName);
             return $fileName;
         //    $rr =  stream($pdf);
-        // return response()->stream($pdf); 
+        // return response()->stream($pdf);
         // return $pdf->download('invoice.pdf');
-         
+
             // return response()->stream($pdf);
     }
-    
+
 
 }
 

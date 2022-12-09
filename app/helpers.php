@@ -1,6 +1,8 @@
 <?php
 
 use App\Helper\Notify;
+use App\Models\Admin\MailTemplate;
+use App\Models\Admin\PropoalVersions;
 use App\Models\Enquiry;
 use App\Models\Inbox;
 use Carbon\Carbon;
@@ -169,5 +171,26 @@ if(!function_exists('setFileIcon')) {
         } else {
             return '<img src="https://cdn-icons-png.flaticon.com/512/569/569800.png" width="20px">';
         }
+    }
+}
+if(!function_exists('changePreviousProposalStatus')) {
+    function changePreviousProposalStatus($enquiry_id){
+        $MailTemplate = MailTemplate::where("enquiry_id",$enquiry_id)->get();
+        if(count($MailTemplate) > 0) {
+            foreach($MailTemplate as $proposal) {
+                $proposal->update([
+                    "status" => 'obsolete'
+                ]);
+            }
+        }
+        $previousVersions = PropoalVersions::where("enquiry_id",$enquiry_id)->get();
+        if(count($previousVersions) > 0) {
+            foreach($previousVersions as $proposal) {
+                $proposal->update([
+                    "status" => 'obsolete'
+                ]);
+            }
+        }
+        return true;
     }
 }
