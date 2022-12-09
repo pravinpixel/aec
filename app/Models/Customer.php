@@ -17,8 +17,8 @@ class Customer extends Authenticatable
         'updated_at' => "datetime:d/m/Y - h:i:s A",
     ];
     protected $dates  = [
-            'created_at', 
-            'updated_at', 
+            'created_at',
+            'updated_at',
             'enquiry_date'
     ];
 
@@ -79,7 +79,7 @@ class Customer extends Authenticatable
         $this->attributes['full_name']      = $contactPerson;
         $this->attributes['first_name']     = $contactPerson;
     }
-    
+
 
     public function getContactPersonAttribute($value)
     {
@@ -95,8 +95,8 @@ class Customer extends Authenticatable
     {
         return $this->hasMany(Enquiry::class, 'customer_id', 'id');
     }
-   
-    
+
+
     public function latestEnquiry()
     {
         return $this->hasOne(Enquiry::class, 'customer_id', 'id')->latest();
@@ -112,10 +112,7 @@ class Customer extends Authenticatable
     public function customerdatails()
     {
         return $this->hasOne(Project::class,'customer_id','id');
-    }
-
-
-
+    } 
 
     public function comments(){
         return $this->morphMany(projectComment::class, 'commentable');

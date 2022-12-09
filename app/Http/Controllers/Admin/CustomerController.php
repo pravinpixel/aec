@@ -37,7 +37,7 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        
+
     }
 
     /**
@@ -48,7 +48,7 @@ class CustomerController extends Controller
      */
     public function store(CreateCustomerRequest $request)
     {
-      
+
     }
 
     /**
@@ -136,7 +136,7 @@ class CustomerController extends Controller
     public function destroy($id)
     {
         $customer = Customer::findOrFail($id);
-        if($customer->delete()) {
+        if($customer->forceDelete()) {
             Flash::success(__('global.deleted'));
             return redirect(route('admin.customer.index'));
         }
@@ -193,7 +193,7 @@ class CustomerController extends Controller
                                         <a type="button" class="dropdown-item" href="'.route('admin.customer.edit', $dataDb->id).'"> View Details </a>
                                         <a type="button" class="dropdown-item delete-modal" data-header-title="Delete Customer" data-title="'.trans('enquiry.cancel_customer', ['customer' => $dataDb->full_name]).'" data-action="'.route('admin.customer.destroy',[$dataDb->id]).'" data-method="DELETE" data-bs-toggle="modal" data-bs-target="#primary-header-modal">Delete</a>
                                     </div>
-                                    
+
                                 </div>
                             ';
                     })
@@ -241,7 +241,7 @@ class CustomerController extends Controller
                         $status = '<small class="px-1 bg-danger text-white rounded-pill text-center">Cancel</small>';
                         return $status;
                     })
-                    ->addColumn('action', function($dataDb){ 
+                    ->addColumn('action', function($dataDb){
                         return '
                                 <div class="dropdown">
                                     <button class="btn btn-light btn-sm border shadow-sm" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -288,7 +288,7 @@ class CustomerController extends Controller
         $customer = Customer::onlyTrashed($id)->find($id);
         if($customer->delete()) {
             Flash::success(__('global.deleted'));
-            return redirect(route('admin.customer.index'));    
+            return redirect(route('admin.customer.index'));
         }
         Flash::error(__('global.something'));
         return redirect(route('admin.customer.index'));
