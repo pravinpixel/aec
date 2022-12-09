@@ -23,7 +23,13 @@
                             <tr>
                                 <td>{{ $i + 1 }}</td>
                                 <td>{{ $file->type }}</td>
-                                <td><img src="{{ url("storage/app/ifc-icons")."/".$file->icon }}" width="20px" alt=""></td>
+                                <td>
+                                    @if (Storage::exists("ifc-icons/".$file->icon))
+                                        <img src="{{ url("storage/app/ifc-icons")."/".$file->icon }}" width="20px">
+                                        @else
+                                        <img src="{{ $file->icon }}" width="20px">
+                                    @endif
+                                </td>
                                 <td>
                                     <div class="btn-group">
                                         <a href="{{ route('setup.ifc-file-icon.edit', $file->id) }}" class="shadow btn btn-sm me-2 btn-outline-primary l rounded-pill"><i class="fa fa-edit"></i></a>
@@ -32,7 +38,7 @@
                                 </td>
                             </tr>
                         @endforeach
-                    </tbody> 
+                    </tbody>
                 </table>
                 <div class="d-flex justify-content-center">
                     {{ $files->links() }}
@@ -41,12 +47,12 @@
         </div>
     </div>
     <form id="delete_form" action="{{ route('setup.ifc-file-icon.destroy') }}" method="post">
-        <input type="hidden" name="id" id="delete_id"> 
+        <input type="hidden" name="id" id="delete_id">
         @method('delete')
         @csrf
     </form>
 @endsection
-@push('custom-scripts') 
+@push('custom-scripts')
     <script>
         deleteData = function (id) {
             swal({

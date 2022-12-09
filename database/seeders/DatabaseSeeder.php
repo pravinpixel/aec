@@ -14,9 +14,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        
+
         $this->call(AdminSeeder::class);
-        
+
         $this->call(MasterCalculationSeeder::class);
         // $this->call(TypeSeeder::class);
         $this->call(EstimationComponentSeeder::class);
@@ -37,7 +37,7 @@ class DatabaseSeeder extends Seeder
         // $this->call(CostTasksTableSeeder::class);
         // $this->call(CostLinksTableSeeder::class);
         $this->call(DocumentarySeeder::class);
-        $this->call(SharePointAccessSeeder::class);        
+        $this->call(SharePointAccessSeeder::class);
         $this->call(PermissionSeeder::class);
         $this->call(TaskListSeeder::class);
         $this->call(CheckListSeeder::class);
@@ -46,5 +46,6 @@ class DatabaseSeeder extends Seeder
         $this->call(ActivityListSeeder::class);
         $this->call(CheckSheetSeeder::class);
         $this->call(masterFolderSeeder::class);
+        $this->call(IfcFilesIconsSeeder::class);
     }
 }
