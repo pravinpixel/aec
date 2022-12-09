@@ -140,7 +140,6 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
 
     public function duplicateProposalVersion($enquiry_id, $proposal_id, $request)
     {
-        dd("duplicateProposalVersion");
         changePreviousProposalStatus($enquiry_id);
         $result     =   PropoalVersions::where("enquiry_id",$enquiry_id)->where("proposal_id", $proposal_id)->first();
         $totalProposalVersion = PropoalVersions::where(["enquiry_id"=> $enquiry_id, "documentary_id"=> $result->documentary_id])->get()->count();
@@ -207,6 +206,7 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
     }
     public function duplicateCustomerProPosalByID($id, $proposal_id, $request)
     {
+        changePreviousProposalStatus($id);
         $result     =   MailTemplate::where("enquiry_id", '=', $id)->where("proposal_id", '=', $proposal_id)->first();
         $result->status = "obsolete";
         $totalProposalVersion = PropoalVersions::where(["enquiry_id"=> $id, "documentary_id" => $result->documentary_id])->get()->count();
@@ -221,9 +221,9 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
         $duplicate  ->  pdf_file_name       = $result->pdf_file_name;
         $duplicate  ->  template_name       = $result->template_name;
         $duplicate  ->  version             = $version;
+        $duplicate->status = "awaiting";
         $duplicate  ->  save();
         $result->save();
-        changePreviousProposalStatus($id);
         return response(['status' => true, 'msg' => trans('enquiry.duplicate_deleted')], Response::HTTP_CREATED);
     }
 
