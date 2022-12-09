@@ -395,9 +395,9 @@ app.controller('TeamSetupController', function ($scope, $http, API_URL, $locatio
                                 <div class="col-9">
                                     <input type="name" id="template_name" class="form-control" placeholder="Enter here.." value="${res.data.template_name}"  required>
                                 </div>
-                            </div> 
+                            </div>
                         </div>
-                        <hr/> 
+                        <hr/>
                     </div>
                 `,
                 preConfirm: () => {
@@ -574,7 +574,7 @@ app.controller('ToDoListController', function ($scope, $http, API_URL, $location
         var ss=document.getElementById(ids).setAttribute('date-min-limit',$scope.end_date);
         console.log(ss);
     }
-    
+
     $scope.changeFormat=(ag)=>{
         var def_date=ag.split('/').reverse().join('/');
         return def_date;
@@ -645,34 +645,30 @@ app.controller('ToDoListController', function ($scope, $http, API_URL, $location
             Message('danger', 'Select checklist'); return false;
         }
         $scope.check_list_items.map((CheckLists) => {
-
             const CheckListsIndex = Object.entries(CheckLists.data);
-
-            $scope.CallToDB = false;
-
+            var validationError = 0
             CheckListsIndex.map((TaskLists) => {
                 const TaskListsIndex = TaskLists[1].data;
                 TaskListsIndex.map((ListItems) => {
-                    if (ListItems.assign_to === undefined || ListItems.assign_to == '') {
+                    if (ListItems.assign_to === undefined || ListItems.assign_to == '' ||  ListItems.assign_to == null) {
                         Message('danger', 'Assign To Field is  Required !');
-                        $scope.CallToDB = false;
+                        validationError ++
                         return false
-                    } else $scope.CallToDB = true;
-                    if (ListItems.start_date === undefined || ListItems.start_date == '') {
+                    }
+                    if (ListItems.start_date === undefined || ListItems.start_date == '' || ListItems.start_date == null) {
                         Message('danger', 'Start Date Field is  Required !');
-                        $scope.CallToDB = false;
+                        validationError ++
                         return false
-                    } else $scope.CallToDB = true;
-                    if (ListItems.end_date === undefined || ListItems.end_date == '') {
+                    }
+                    if (ListItems.end_date === undefined || ListItems.end_date == '' || ListItems.end_date == null) {
                         Message('danger', 'End Date Field is  Required !');
-                        $scope.CallToDB = false;
+                        validationError ++
                         return false
-                    } else $scope.CallToDB = true;
-
+                    }
                 });
             });
 
-            if ($scope.CallToDB === true) {
+            if (validationError == 0) {
                 $http.post(`${$("#baseurl").val()}admin/store-to-do-list`, {
                     id: project_id,
                     update: $scope.check_list_items_status,
@@ -684,9 +680,7 @@ app.controller('ToDoListController', function ($scope, $http, API_URL, $location
                     }
                 })
             }
-
         });
-
     }
 });
 
@@ -716,7 +710,7 @@ app.controller('ReviewAndSubmit', function ($scope, $http, API_URL, $timeout) {
         if(connect_platform_access.tf_office_status == 1) {
             $("#switch2").prop('checked',true);
         }
-        $scope.review  =  res.data 
+        $scope.review  =  res.data
         $scope.teamSetups = res.data.team_setup;
         $scope.project = formatData(res.data.project);
         $scope.project['address_one'] =  res.data.project.site_address;
@@ -768,7 +762,7 @@ app.controller('ReviewAndSubmit', function ($scope, $http, API_URL, $timeout) {
         function refreshClick(){
             console.log('checking')
         }
-    }); 
+    });
 
 
 
