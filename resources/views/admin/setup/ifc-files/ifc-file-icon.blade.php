@@ -24,11 +24,7 @@
                                 <td>{{ $i + 1 }}</td>
                                 <td>{{ $file->type }}</td>
                                 <td>
-                                    @if (Storage::exists("ifc-icons/".$file->icon))
-                                        <img src="{{ url("storage/app/ifc-icons")."/".$file->icon }}" width="20px">
-                                        @else
-                                        <img src="{{ $file->icon }}" width="20px">
-                                    @endif
+                                    {!! setFileIcon("ifc-icons/".$file->icon) !!}
                                 </td>
                                 <td>
                                     <div class="btn-group">

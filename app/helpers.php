@@ -5,6 +5,7 @@ use App\Models\Enquiry;
 use App\Models\Inbox;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Spatie\Permission\Models\Role;
 
 if(! function_exists('Customer')) {
@@ -158,5 +159,15 @@ if(!function_exists('getNotificationMessages')) {
 if(!function_exists('getEnquiryBtId')) {
     function getEnquiryBtId($id){
        return  Enquiry::find($id);
+    }
+}
+
+if(!function_exists('setFileIcon')) {
+    function setFileIcon($path){
+        if (Storage::exists($path)) {
+            return '<img src="'.url("storage/app/")."/".$path.'" width="20px">';
+        } else {
+            return '<img src="https://cdn-icons-png.flaticon.com/512/569/569800.png" width="20px">';
+        }
     }
 }

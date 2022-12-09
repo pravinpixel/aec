@@ -206,7 +206,7 @@
                                     <td  class="text-center">{{ $i+1 }}</td>
                                     <td  class="text-center">{{ $doc->created_at }}</td>
                                     <td  class="text-center">
-                                        <img src="{{ url("storage/app/ifc-icons")."/".$doc->file_type }}.png" width="20px" class="me-1">
+                                        {!! setFileIcon("ifc-icons/".$doc->file_type.".png") !!}
                                         {{ $doc->file_type }}
                                     </td>
                                     <td>{{ $doc->client_file_name }}</td>
@@ -359,7 +359,10 @@
                                     <td>{{ $i + 1 }}</td>
                                     <td>{{  SetDateFormat($build->created_at)  }}</td>
                                     <td>{{ $build->file_name }}</td>
-                                    <td>{{ $build->file_type }}</td>
+                                    <td>
+                                        {!! setFileIcon("ifc-icons/".$build->file_type.".png") !!}
+                                        {{ $build->file_type }}
+                                    </td>
                                     <td class="text-center">
                                         <a download="{{ asset("public/uploads/".$build->file_path) }}" href="{{ asset("public/uploads/".$build->file_path) }}"><i class="fa fa-download btn-sm rounded-pill btn btn-outline-primary"></i></a>
                                         <a data-fslightbox="lightbox"  href="{{ asset("public/uploads/".$build->file_path) }}" ><i class="document-modal fa fa-eye btn-sm rounded-pill btn btn-outline-info"></i></a>
