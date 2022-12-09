@@ -202,6 +202,8 @@ class MailTemplateController extends Controller
         }
         // DD($documentary_content);
         changePreviousProposalStatus($request->enquireId);
+        $enquiry->customer_response = 0;
+        $enquiry->save();   
         $enquiry_proposal = MailTemplate::create([
             "enquiry_id"          => $request->enquireId,
             "documentary_id"      => $request->documentId,

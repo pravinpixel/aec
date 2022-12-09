@@ -1986,6 +1986,7 @@
                 $http.put(API_URL + 'admin/proposal/enquiry/'+{{ $data->id }}+'/duplicate/'+proposal_id).then(function (response) {
                     $scope.edit_proposal  = response.data;
                     Message('success',response.data.msg);
+                    $scope.customer_response = 0
                     $scope.getProposesalData();
                 });
             }
@@ -1995,6 +1996,7 @@
                     $scope.edit_proposal  = response.data;
                     Message('success',response.data.msg);
                     $scope.getProposesalData();
+                    $scope.customer_response = 0
                 });
             }
 
@@ -2100,6 +2102,7 @@
                     Swal.close();
                     $scope.documentary.documentary_title = ''
                     $scope.getDocumentaryData();
+                    $scope.customer_response = 0
                 }, function (error) {
                     console.log(error);
                     console.log('This is embarassing. An error has occurred. Please check the log for details');

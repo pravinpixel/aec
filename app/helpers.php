@@ -191,6 +191,6 @@ if(!function_exists('changePreviousProposalStatus')) {
                 ]);
             }
         }
-        return true;
+        return Enquiry::find($enquiry_id)->update(["customer_response" => 0]); 
     }
 }

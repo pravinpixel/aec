@@ -57,7 +57,7 @@ class Enquiry extends Model
         'from_enquiry_id',
         'initiate_from',
         'is_new_enquiry',
-        'device_key',   
+        'device_key',
         'device_token',
         'follow_up_date',
         'follow_up_comment',
@@ -65,7 +65,8 @@ class Enquiry extends Model
         'follow_up_by',
         'response_status',
         'project_assign_to',
-        'is_customer_active_enquiry'
+        'is_customer_active_enquiry',
+        'customer_response'
     ];
 
     public function getCreatedAtAttribute($date)
@@ -149,7 +150,7 @@ class Enquiry extends Model
     public function getProposal()
     {
         return $this->hasMany(Admin\MailTemplate::class, 'enquiry_id', 'id');
-    } 
+    }
 
     function enquiryBuildingComponent()
     {
@@ -169,7 +170,7 @@ class Enquiry extends Model
     public function deliveryType()
     {
         return $this->belongsTo(DeliveryType::class);
-    } 
+    }
 
     public function enquiryBuildingComponentDocument()
     {
@@ -218,7 +219,7 @@ class Enquiry extends Model
                         }
                     }
                 }
-            }                            
+            }
         }
         foreach($this->documentTypeEnquiries as $documentTypeEnquiry){
             $clone->documentTypeEnquiries()->create(collect($documentTypeEnquiry)->except('id')->toArray());
@@ -231,8 +232,8 @@ class Enquiry extends Model
             return true;
         }
         return false;
-    }  
- 
+    }
+
     public function technicalEstimate() {
         return $this->hasOne(EnquiryTechnicalEstimate::class, 'enquiry_id', 'id');
     }
