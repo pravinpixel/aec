@@ -262,14 +262,6 @@
                                 <td colspan="5">No data found</td>
                             </tr>
                         @endif
-                        {{-- <td class="text-center" ng-show="ifc_model_upload.file_type != 'link'">
-                            <a download="@{{ ifc_model_upload.client_file_name }}" href="{{ asset("public/uploads/") }}/@{{ ifc_model_upload.file_name }}"><i class="fa fa-download btn-sm rounded-pill btn btn-outline-primary"></i></a>
-                            <a ng-show="!autoDeskFileType.includes(ifc_model_upload.file_type)" ng-click="getDocumentView(ifc_model_upload) "><i class="fa fa-eye btn-sm rounded-pill btn btn-outline-info"></i></a>
-                            <a ng-show="autoDeskFileType.includes(ifc_model_upload.file_type)" target="_blank" href="{{ url('/') }}/viewmodel/@{{ ifc_model_upload.id }}"><i class="fa fa-eye btn-sm rounded-pill btn btn-outline-info"></i></a>
-                        </td>
-                        <td class="text-center" ng-show="ifc_model_upload.file_type == 'link'">
-                            <a class="" target="_blank" href="@{{ ifc_model_upload.file_name }}"><i class="fa fa-eye btn-sm rounded-pill btn btn-outline-info"></i></a>
-                        </td> --}}
                     </tbody>
                 </thead>
             </table>
@@ -347,25 +339,29 @@
                 <table class="table custom custom table-hover">
                     <thead>
                         <tr>
-                            <th><b>S.No</b></th>
-                            <th><b>Date</b></th>
+                            <th class="text-center"><b>S.No</b></th>
+                            <th class="text-center" width="100px"><b>Date</b></th>
+                            <th class="text-center" width="150px"><b>File Type</b></th>
                             <th><b>File Name</b></th>
-                            <th><b>File Type</b></th>
-                            <th class="text-center" width="150px"><b>Action</b></th>
+                            <th class="text-end" width="150px"><b>Action</b></th>
                         </tr>
                         <tbody>
                             @foreach ($enquiry['building_components'] as $i => $build)
                                 <tr>
-                                    <td>{{ $i + 1 }}</td>
-                                    <td>{{  SetDateFormat($build->created_at)  }}</td>
-                                    <td>{{ $build->file_name }}</td>
-                                    <td>
+                                    <td class="text-center">{{ $i + 1 }}</td>
+                                    <td class="text-center">{{  SetDateFormat($build->created_at)  }}</td>
+                                    <td class="text-center">
                                         {!! setFileIcon("ifc-icons/".$build->file_type.".png") !!}
                                         {{ $build->file_type }}
                                     </td>
+                                    <td>{{ $build->file_name }}</td>
                                     <td class="text-center">
-                                        <a download="{{ asset("public/uploads/".$build->file_path) }}" href="{{ asset("public/uploads/".$build->file_path) }}"><i class="fa fa-download btn-sm rounded-pill btn btn-outline-primary"></i></a>
-                                        <a data-fslightbox="lightbox"  href="{{ asset("public/uploads/".$build->file_path) }}" ><i class="document-modal fa fa-eye btn-sm rounded-pill btn btn-outline-info"></i></a>
+                                        <div class="btn-group border border-white shadow-sm">
+                                            <a class=" btn-sm btn btn-success text-black" data-fslightbox="lightbox"  href="{{ asset("public/uploads/".$build->file_path) }}">
+                                                <i class="feather-eye feather" style="pointer-events: none"></i>
+                                            </a> 
+                                            <a class="btn-sm btn btn-warning text-black" download="{{ asset("public/uploads/".$build->file_path) }}" href="{{ asset("public/uploads/".$build->file_path) }}"> <i class="feather-arrow-down feather"></i></a>
+                                        </div>
                                     </td>
                                 </tr>
                             @endforeach
