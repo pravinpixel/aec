@@ -1,7 +1,7 @@
      @extends('layouts.customer')
 
      @section('customer-content')
-         <div class="content-page" ng-app="App" style="min-height:140vh !important">
+         <div class="content-page" ng-app="App">
              <div class="content">
 
                  @include('customer.includes.top-bar')
@@ -168,7 +168,7 @@
                      $scope.projectInfo.project_delivery_date=   an;
                      console.log($scope.min_date);
                  }
-                
+
                  $http({
                      method: 'GET',
                      url: '{{ route('get-login-customer') }}'
@@ -1461,7 +1461,7 @@
                  }
                  getAutoDeskFileTypes();
 
-                 // Comments start   
+                 // Comments start
                  $scope.sendComments = function(type, created_by) {
                      $scope.sendCommentsData = {
                          "comments": $scope[`${type}__comments`],

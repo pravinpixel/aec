@@ -1,6 +1,6 @@
 /*========== custom-accordion ============== */
 .custom-accordion .card-header {
-    position: relative; 
+    position: relative;
     cursor: pointer;
 }
 .custom-accordion .card-header .card-title {
@@ -9,9 +9,9 @@
 }
 .custom-accordion .card-body{
     padding: 0 !important;
-    overflow-x: auto;
+    /* overflow-x: auto; */
 }
- 
+
 .custom-accordion .card-header ,
 .custom-accordion  .card-content{
     padding: 15px !important;
@@ -40,7 +40,7 @@
     -moz-osx-font-smoothing: grayscale;
     cursor: pointer;
 }
-.custom-accordion .card-header.collapsed .accordion-icon:before { 
+.custom-accordion .card-header.collapsed .accordion-icon:before {
     content: '\eb04';  /* + */
 }
 .custom-accordion .card-header .accordion-icon:before {
@@ -54,7 +54,7 @@
 {
     background: white !important;
     color: #4199FC !important;
-} 
+}
 .custom-accordion .table th {
     font-size: 12px !important;
     font-weight: normal;

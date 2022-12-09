@@ -75,6 +75,8 @@ datepicker,
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     border-radius: 3px;
+    bottom: 32px;
+    left: 0;
 }
 
 ._720kb-datepicker-calendar._720kb-datepicker-open,
