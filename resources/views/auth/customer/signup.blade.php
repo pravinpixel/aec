@@ -84,12 +84,12 @@
                     {{-- <a href="{{ route('login') }}" id="login">click to signin</a> --}}
                 </div>
                 <div class="mb-0 text-center" id="signup">
-                    <button class="btn btn-primary w-100" type="submit"> Sign Up </button>
+                    <button class="btn btn-primary w-100" onclick="startLoader(this)"  type="submit"> Sign Up </button>
                 </div>
                 <div class="mb-0 text-center" style="display:none;" id="resend">
                     <button class="btn btn-primary w-100" onclick="reSend()" id="resend_btn"> Re Send </button>
                 </div>
-                
+
             </form>
         </div>
     </div>
