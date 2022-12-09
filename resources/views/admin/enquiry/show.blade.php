@@ -39,7 +39,7 @@
                     </div>
                 </div>
                 <div class="card border">
-                    <div class="card-body py-0">
+                    <div>
                         <div id="rootwizard">
                             {{-- <ul id="myDIV" class="nav nav-pills nav-justified form-wizard-header mt-0 pt-0 bg-light timeline-steps">
                                 <li class="time-bar"></li>

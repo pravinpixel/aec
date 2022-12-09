@@ -1,5 +1,5 @@
 <div>
-    <ul id="myDIV" class="nav nav-pills nav-justified form-wizard-header mt-0 pt-0 bg-light timeline-steps">
+    <ul id="myDIV" class="nav nav-pills nav-justified form-wizard-header m-0 pt-0 bg-light timeline-steps">
         <li class="time-bar"></li>
         @if(userHasAccess('project_summary_index'))
         <li class="nav-item Project_Info">
@@ -63,7 +63,7 @@
         @endif
     </ul>
     @if(userHasAccess('technical_estimate_index'))
-        <div class="row m-0" >
+        <div class="row m-0 p-2" >
             <div class="col-lg-8 ps-0">
                 <div>
                     <div class="card-body ps-0 pt-0 p-0">
@@ -304,7 +304,6 @@
             </div>
         </div>
     @endif
-
 
     <div id="technical_history" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-xl modal-right w-100 h-100">

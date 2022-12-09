@@ -1,4 +1,4 @@
-<ul id="myDIV" class="nav nav-pills nav-justified form-wizard-header mt-0 pt-0 bg-light timeline-steps">
+<ul id="myDIV" class="nav nav-pills nav-justified form-wizard-header m-0 pt-0 bg-light timeline-steps">
     <li class="time-bar"></li>
         @if(userHasAccess('project_summary_index') )
         <li class="nav-item Project_Info">
@@ -12,7 +12,7 @@
             </a>
         </li>
         @endif
-       
+
         @if(userHasAccess('technical_estimate_index'))
         <li class="nav-item  admin-Technical_Estimate-wiz">
             <a href="#!/technical-estimation" style="min-height: 40px;" class="timeline-step">
@@ -35,7 +35,7 @@
                 </div>
                 <p class="h5 mt-2">Cost Estimate</p>
             </a>
-        </li> 
+        </li>
         @endif
         @if(userHasAccess('proposal_sharing_index'))
         <li class="nav-item admin-Proposal_Sharing-wiz" style="pointer-events: @{{ cost_estimation_status ==  0 ? 'none' :'unset' }}">
@@ -43,11 +43,11 @@
                 <div class="timeline-content">
                     <div class="inner-circle @{{ proposal_email_status == '1' ? 'bg-primary' :'bg-secondary' }}">
                         <img src="{{ asset("public/assets/icons/share.png") }}" ng-click="getDocumentaryFun();" class="w-50 invert">
-                    </div>                                                                        
+                    </div>
                 </div>
                 <p class="h5 mt-2">Proposal Sharing</p>
             </a>
-        </li> 
+        </li>
         @endif
         @if(userHasAccess('customer_response_index'))
         <li class="nav-item admin-Delivery-wiz" style="pointer-events: @{{ customer_response ==  null ? 'none' :'unset' }}">
@@ -94,7 +94,7 @@
                 <div class="col-12 mb-3 text-end">
                     <button class="btn btn-info btn-sm" ng-disabled="FollowUpForm.$invalid" ng-click="updateFollow()">Set Follow Up</button>
                 </div>
-                
+
                 @if(userRole()->slug == 'admin')
                     <div class="col-12 mb-3">
                         <strong class="card-text text-secondary"><i class="text-secondary mdi-chevron-right-circle mdi " aria-hidden="true"></i> Manual Override​</strong>
@@ -104,10 +104,10 @@
                                 <option value="Approved"  ng-selected="true">Approved & Move to Project</option>
                             </select>
                             <button class="btn btn-info btn-sm" ng-click="manualMoveToProject()">Move</button>
-                        </div>  
-                    </div>  
+                        </div>
+                    </div>
                 @endif
-            </div>  
+            </div>
         </form>
     </div>
 </div>
@@ -130,9 +130,9 @@
             <select name="assign_user" ng-model="customer_response_obj.assign_user" id="" class="form-select shadow mt-2" style="padding: 10px 20px  !important; border: 1px solid lightgray !important" >
                 <option value="">@lang('global.select')</option>
                 <option ng-repeat="(index,user) in userList" value="@{{ user.id }}" ng-selected="user.id == response_data.progress.project_assign_to">
-                    @{{ user.display_name }} ( @{{ user.role.name }} ) 
+                    @{{ user.display_name }} ( @{{ user.role.name }} )
                 </option>
-            </select> 
+            </select>
         </div>
         <div class="d-flex justify-content-center">
             <button class="btn btn-light me-2 p-3 py-2">Cancel</button>
@@ -140,7 +140,7 @@
             <button class="btn btn-success p-3 py-2" ng-click="moveToProject()"> <i class="fa fa-check-circle me-1 text-white"></i> Move to Project </button>
         </div>
     </div>
-</div> 
+</div>
 
 <div class="card shadow mx-auto col-md-4 my-4" ng-show="enquiry_status == 2">
     <div class="row border-bottom m-0">
@@ -153,8 +153,8 @@
                 <h3 class="card-title m-0">Denied</h3>
             </div>
         </div>
-    </div> 
-</div> 
+    </div>
+</div>
 
 <div class="card shadow mx-auto col-md-4 my-4" ng-show="enquiry_status == 3">
     <div class="row border-bottom m-0">
@@ -167,8 +167,8 @@
                 <h3 class="card-title m-0">Change Request</h3>
             </div>
         </div>
-    </div> 
-</div> 
+    </div>
+</div>
 
 <div class="card-footer">
     {{-- <label for="copy_enq" class="text-center mb-3 col-12">
@@ -178,16 +178,16 @@
         <div>
             <a href="#!/proposal-sharing" class="btn btn-light border" >Prev</a>
         </div>
-      
+
     </div>
 </div>
 @endif
-@if (Route::is('enquiry.move-to-project')) 
+@if (Route::is('enquiry.move-to-project'))
     <style>
         .admin-Delivery-wiz .timeline-step .inner-circle{
             background: var(--secondary-bg) !important;
             transform: scale(1.2);
             box-shadow: 0px 5px 10px #4f4f4fb2 !important
-        } 
+        }
     </style>
 @endif
