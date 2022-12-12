@@ -1,10 +1,10 @@
 @extends('layouts.customer')
 
 @section('customer-content')
-   
+
     <div class="content-page" ng-app="App">
-        <div class="content" > 
-            @include('customer.includes.top-bar') 
+        <div class="content" >
+            @include('customer.includes.top-bar')
             <!-- Start Content-->
             <div class="container-fluid">
                 @include('customer.includes.page-navigater')
@@ -39,44 +39,44 @@
                                         <h5 class="card-title m-0">Customer Details</h5>
                                     </div>
                                     <div class="card-body p-3">
-                                        <div class="mb-3">                                             
+                                        <div class="mb-3">
                                             <label class="form-label  " >@lang('customer.first_name')  <sup class="text-danger">*</sup></label>
-                                            <input type="text" class="form-control" name="first_name" id="first_name" value="{{ $customer->first_name }}" readonly>
+                                            <input type="text" class="form-control" name="first_name" id="first_name" value="{{ $customer->first_name }}" >
                                             @if($errors->has('first_name'))
                                                 <div class="alert alert-danger">{{$errors->first('first_name')}}</div>
                                             @endif
                                         </div>
-                                        <div class="mb-3">                                             
+                                        <div class="mb-3">
                                             <label class="form-label  " >@lang('customer.last_name')  <sup class="text-danger">*</sup></label>
-                                            <input type="text" class="form-control" name="last_name" id="last_name" value="{{ $customer->last_name }}" readonly>
+                                            <input type="text" class="form-control" name="last_name" id="last_name" value="{{ $customer->last_name }}" >
                                             @if($errors->has('first_name'))
                                                 <div class="alert alert-danger">{{$errors->first('last_name')}}</div>
                                             @endif
                                         </div>
-                                        <div class="mb-3">                                             
+                                        <div class="mb-3">
                                             <label class="form-label " >@lang('customer.email')  <sup class="text-danger">*</sup></label>
-                                            <input type="text" class="form-control" name="email" readonly id="email" value="{{ $customer->email }}" readonly>
+                                            <input type="text" class="form-control" name="email" id="email" value="{{ $customer->email }}" >
                                             @if($errors->has('email'))
                                                 <div class="alert alert-danger">{{$errors->first('email')}}</div>
                                             @endif
                                         </div>
-                                        <div class="mb-3">                                             
+                                        <div class="mb-3">
                                             <label class="form-label  " >@lang('customer.mobile_no')  <sup class="text-danger">*</sup></label>
                                             <div class="input-group">
                                                 <div style="width: 130px" class="border border-end-0 rounded-start">
                                                     <select name="country_code" wire:model="country_code" class="form-select border-0 bg-light">
                                                         <option value="47">NOR (+47)</option>
-                                                        <option value="91">IND (+91)</option> 
+                                                        <option value="91">IND (+91)</option>
                                                     </select>
                                                 </div>
-                                                <input type="text" readonly="" pattern="^\d{8}$|^\d{12}$" onkeypress="return isNumber(event)" maxlength="12"  name="mobile_no" id="mobile_no" value="{{ $customer->mobile_no }}" readonly class="form-control" autocomplete="off"> 
+                                                <input type="text"  pattern="^\d{8}$|^\d{12}$" onkeypress="return isNumber(event)" maxlength="12"  name="mobile_no" id="mobile_no" value="{{ $customer->mobile_no }}"   class="form-control" autocomplete="off">
                                             </div>
                                             @if($errors->has('mobile_no'))
                                                 <div class="alert alert-danger">{{$errors->first('mobile_no')}}</div>
                                             @endif
                                         </div>
                                     </div>
-                                </div> 
+                                </div>
                             </div>
                             <div class="col-md-6 ps-0">
                                 <div class="card border border-primary shadow-sm">
@@ -84,14 +84,14 @@
                                         <h5 class="card-title m-0">Company Details</h5>
                                     </div>
                                     <div class="card-body p-3">
-                                        <div class="mb-3">                                             
+                                        <div class="mb-3">
                                             <label class="form-label " >@lang('customer.company_name')  <sup class="text-danger">*</sup></label>
                                             <input type="text" class="form-control" name="company_name" readonly id="company_name" value="{{ $customer->company_name }}" readonly>
                                             @if($errors->has('company_name'))
                                                 <div class="alert alert-danger">{{$errors->first('company_name')}}</div>
                                             @endif
                                         </div>
-                                        <div class="mb-3">                                             
+                                        <div class="mb-3">
                                             <label class="form-label " >@lang('customer.organization_no')<sup class="text-danger">*</sup></label>
                                             <input type="text" class="form-control" name="organization_no" id="organization_no" value="{{ $customer->organization_no }}" readonly>
                                             @if($errors->has('organization_no'))
@@ -99,29 +99,27 @@
                                             @endif
                                         </div>
 
-
                                         <div class="row m-0 mb-3">
                                             <div class="col p-0">
                                                 <label class="form-label " >@lang('customer.customer_address')  </label>
-                                                <input type="text" class="form-control" name="address" id="address" value="{{ $customer->address }}">
+                                                <input type="text" class="form-control" name="address" id="address" value="{{ $customer->address }}" readonly>
                                             </div>
                                         </div>
 
-
                                         <div class="row m-0">
                                             <div class="col-6 p-0">
-                                                <div class="mb-3">                                             
+                                                <div class="mb-3">
                                                     <label class="form-label " >@lang('customer.city')  <sup class="text-danger">*</sup></label>
-                                                    <input type="text" class="form-control" name="city" id="city" value="{{ $customer->city }}" >
+                                                    <input type="text" class="form-control" name="city" id="city" value="{{ $customer->city }}" readonly>
                                                     @if($errors->has('city'))
                                                         <div class="alert alert-danger">{{$errors->first('city')}}</div>
                                                     @endif
-                                                </div> 
+                                                </div>
                                             </div>
                                             <div class="col-6 pe-0">
-                                                <div class="mb-3">                                             
+                                                <div class="mb-3">
                                                     <label class="form-label " >@lang('customer.state')  <sup class="text-danger">*</sup></label>
-                                                    <input type="text" class="form-control" name="state" id="state" value="{{ $customer->state }}" >
+                                                    <input type="text" class="form-control" name="state" id="state" value="{{ $customer->state }}" readonly>
                                                     @if($errors->has('state'))
                                                         <div class="alert alert-danger">{{$errors->first('state')}}</div>
                                                     @endif
@@ -130,18 +128,18 @@
                                         </div>
                                         <div class="row m-0">
                                             <div class="col-6 p-0">
-                                                <div class="mb-3">                                             
+                                                <div class="mb-3">
                                                     <label class="form-label " >@lang('customer.postal_code')  <sup class="text-danger">*</sup></label>
-                                                    <input type="text" class="form-control" name="postal_code" maxlength="4" id="postal_code" value="{{ $customer->postal_code }}" >
+                                                    <input type="text" class="form-control" name="postal_code" maxlength="4" id="postal_code" value="{{ $customer->postal_code }}" readonly>
                                                     @if($errors->has('postal_code'))
                                                         <div class="alert alert-danger">{{$errors->first('postal_code')}}</div>
                                                     @endif
                                                 </div>
                                             </div>
                                             <div class="col-6 pe-0">
-                                                <div class="mb-3">                                             
+                                                <div class="mb-3">
                                                     <label class="form-label " >@lang('customer.country')  <sup class="text-danger">*</sup></label>
-                                                    <input type="text" class="form-control" name="country" id="country" value="{{ $customer->country }}" >
+                                                    <input type="text" class="form-control" name="country" id="country" value="{{ $customer->country }}" readonly>
                                                     @if($errors->has('country'))
                                                         <div class="alert alert-danger">{{$errors->first('country')}}</div>
                                                     @endif
@@ -152,11 +150,11 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="text-end"> 
+                        <div class="text-end">
                             <input type="reset"  class="btn btn-light font-weight-bold px-3" value="Cancel">
                             <button type="submit" ng-disabled="enqForm.$invalid" class="btn btn-primary font-weight-bold px-3"><i class="fa fa-check-circle"></i> @lang('global.update') </button>
                         </div>
-                    </form> 
+                    </form>
                 </div>
                 <div class="tab-pane" id="account_settings">
                     <div>
@@ -169,16 +167,16 @@
                                                 Payment Due
                                                 @if($paymentDue)
                                                     <i class="text-success fa fa-check-circle font-22"></i>
-                                                @else 
+                                                @else
                                                     <i class="text-danger fa fa-times-circle font-22"></i>
                                                 @endif
-                                                
+
                                             </li>
                                             <li class="fw-bold list-group-item d-flex justify-content-between align-items-center">
                                                 Project in Live
                                                 @if($activeProject == 0)
                                                     <i class="text-success fa fa-check-circle font-22"></i>
-                                                @else 
+                                                @else
                                                     <i class="text-danger fa fa-times-circle font-22"></i>
                                                 @endif
                                             </li>
@@ -199,12 +197,12 @@
                                 <input type="hidden" name="email" value="{{ Customer()->email }}">
                             </form>
                             <button class="btn btn-warning" onclick="document.getElementById('reset-password-form').submit()"><i class="fa fa-repeat me-1"></i> Reset Email Password</button>
-                        </div> 
+                        </div>
                     </div>
-                </div> 
+                </div>
             </div>
-        </div> <!-- content --> 
-    </div> 
+        </div> <!-- content -->
+    </div>
 
 @endsection
 
@@ -213,8 +211,8 @@
 
 @endpush
 
-@push('custom-scripts') 
-    
+@push('custom-scripts')
+
     <script>
         $(function(){
             $(document).on('keypress','#postal_code', function(){
@@ -230,6 +228,6 @@
                 // });
             })
         })
-    
+
     </script>
 @endpush
