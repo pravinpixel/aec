@@ -24,12 +24,18 @@ class HelperController extends Controller
         if(is_null($latestVersion)) {
             return null;
         }
-        $data['proposals']       =  $this->customerEnquiryRepo->getCustomerProPosal($id);
-        $data['enquiry_id']      =  $latestVersion->enquiry_id;
-        $data['proposal_id']     =  $latestVersion->proposal_id;
-        $data['version_id']      =  isset($latestVersion->parent_id) ? $latestVersion->id : 0;
-        $data['latest_proposal'] =  $latestVersion;
-        // dd($data['proposals'] );
+        $customerProPosal       =  $this->customerEnquiryRepo->getCustomerProPosal($id);
+        $proposals = [];
+        foreach ($customerProPosal as $key => $proposal) {
+            if($proposal->is_mail_sent == true) {
+                $proposals[] = $proposal;
+            }
+        }
+        $data['proposals']       = $proposals;
+        $data['enquiry_id']      = $latestVersion->enquiry_id;
+        $data['proposal_id']     = $latestVersion->proposal_id;
+        $data['version_id']      = isset($latestVersion->parent_id) ? $latestVersion->id : 0;
+        $data['latest_proposal'] = $latestVersion;
         return view('customer.proposal.view',with($data),compact('id','enquiry'));
     }
 }

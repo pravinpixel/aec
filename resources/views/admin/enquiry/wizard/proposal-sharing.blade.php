@@ -148,7 +148,12 @@
                                                         <button type="button" class="toggle-btn btn-light btn-sm p-1 py-0 btn-light btn" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                             <i class="dripicons-dots-3 "></i>
                                                         </button>
-
+                                                        <div class="dropdown-menu dropdown-menu-end" ng-if="P.status == 'change_request' && P.type == 'root'" >
+                                                            <button class="dropdown-item" ng-click="ViewEditPropose(P.proposal_id)">View / Edit</button>
+                                                            <button class="dropdown-item" ng-click="DuplicatePropose(P.proposal_id)">Duplicate</button>
+                                                            <button class="dropdown-item"  ng-click="DownloadProposal(P.proposal_id)">Download</button>
+                                                            <button class="dropdown-item text-danger" ng-click="DeletePropose(P.proposal_id)">Delete</button>
+                                                        </div>
                                                         <div class="dropdown-menu dropdown-menu-end" ng-if="P.status == 'awaiting' && P.type == 'root'" >
                                                             <button class="dropdown-item" ng-click="ViewEditPropose(P.proposal_id)">View / Edit</button>
                                                             <button class="dropdown-item"  ng-click="DownloadProposal(P.proposal_id)">Download</button>
@@ -249,6 +254,12 @@
                                                                             <i class="dripicons-dots-3 "></i>
                                                                         </button>
 
+                                                                        <div class="dropdown-menu dropdown-menu-end" ng-if="V.status == 'change_request' && V.type == 'root'">
+                                                                            <button class="dropdown-item" ng-click="ViewEditPropose(V.proposal_id)">View</button>
+                                                                            <a class="btn dropdown-item"  ng-click="showCommentsToggle(V.proposal_id, V.type)"> Chat</u></a>
+                                                                            <button class="dropdown-item" ng-click="DuplicatePropose(V.proposal_id)">Duplicate</button>
+                                                                            <button class="dropdown-item"  ng-click="DownloadProposal(V.proposal_id)">Download</button>
+                                                                        </div>
                                                                         <div class="dropdown-menu dropdown-menu-end" ng-if="V.status == 'approved' && V.type == 'root'">
                                                                             <button class="dropdown-item" ng-click="ViewEditPropose(V.proposal_id)">View</button>
                                                                             <a class="btn dropdown-item"  ng-click="showCommentsToggle(V.proposal_id, V.type)" > Chat</u></a>

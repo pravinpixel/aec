@@ -108,7 +108,8 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
             'created_at',
             'updated_at',
             'mail_send_date',
-            'documentary_content'
+            'documentary_content',
+            'is_mail_sent'
         ]) ;
 
 
@@ -127,7 +128,8 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
                     'created_at',
                     'updated_at',
                     'mail_send_date',
-                    'documentary_content'
+                    'documentary_content',
+                    'is_mail_sent'
                 ])
                 ->union($proposal)
                 // ->orderBy('documentary_id', 'asc')
@@ -249,6 +251,7 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
         }
         $result->status =  'sent';
         $result->mail_send_date =  now();
+        $result->is_mail_sent = 1;
         $result->save();
         $enquiry = Enquiry::find($id);
         $enquiry->customer_response = 0;
@@ -257,7 +260,6 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
     }
     public function sendCustomerProPosalMailVersion($id, $proposal_id, $request, $Vid)
     {
-        Log::info('$proposal_id'.$proposal_id);
         MailTemplate::where('enquiry_id', $id)->update(['proposal_status' => 'obsolete','status' => 'obsolete']);
         PropoalVersions::where('enquiry_id', $id)->where('id','!=', $Vid)->update(['proposal_status' => 'obsolete','status' => 'obsolete']);
         $result = PropoalVersions::where("enquiry_id", '=', $id)->where("proposal_id", '=', $proposal_id)->where("id", '=', $Vid)->first();
@@ -275,6 +277,7 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
         Mail::to($enquiry->customer->email)->send(new \App\Mail\ProposalVersions($details));
         $result->status =  'sent';
         $result->mail_send_date =  now();
+        $result->is_mail_sent = 1;
         $result->save();
         $enquiry = Enquiry::find($id);
         $enquiry->customer_response = 0;

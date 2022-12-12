@@ -139,9 +139,14 @@ class ProposalController extends Controller
         $enquiry_id  = $id;
         $proposal_id = Crypt::decryptString($request->input('pid'));
         $version_id  = Crypt::decryptString($request->input('vid'));
-        $comment    = $request->input('comment');
+        $comment     = $request->input('comment');
         $enquiry     = Enquiry::find($enquiry_id);
         if($type == 'change_request' || $type == 'deny') {
+            changeProposalStatus([
+                "enquiry_id"      => $enquiry_id,
+                "proposal_id"     => $proposal_id,
+                "proposal_status" => 'change_request'
+            ]);
             $enquiry->project_status = "Unattended";
             $enquiry->customer_response = GlobalService::getProposalStatusValue($type);
             $enquiry->proposal_sharing_status = 0;

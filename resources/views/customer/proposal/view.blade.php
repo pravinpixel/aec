@@ -2,7 +2,7 @@
     @foreach ($proposals as $index => $proposal)
         <li class="nav-item">
             <a href="#PROPOSAL_TABS_{{ $index}}" data-bs-toggle="tab" aria-expanded="false" style="border-bottom: none !important" class="nav-link nav-link-light-bg {{ $index == 0 ? 'active' : '' }}">
-                <span>{{ ucfirst($proposal->template_name) }}</span>
+                <span>{{ ucfirst($proposal->template_name) }} </span>
             </a>
         </li>
     @endforeach

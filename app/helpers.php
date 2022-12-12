@@ -191,6 +191,20 @@ if(!function_exists('changePreviousProposalStatus')) {
                 ]);
             }
         }
-        return Enquiry::find($enquiry_id)->update(["customer_response" => 0]); 
+        return Enquiry::find($enquiry_id)->update(["customer_response" => 0]);
+    }
+}
+if(!function_exists('changeProposalStatus')) {
+    function changeProposalStatus($data){
+        MailTemplate::find($data['proposal_id'])->update([
+            "proposal_status" => $data['proposal_status']
+        ]);
+        $PropoalVersions = PropoalVersions::where('proposal_id',$data['proposal_id'])->first();
+        if(!is_null($PropoalVersions)) {
+            $PropoalVersions->update([
+                "proposal_status" => $data['proposal_status']
+            ]);
+        }
+        return Enquiry::find($data['enquiry_id'])->update(["customer_response" => 0]);
     }
 }
