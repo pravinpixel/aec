@@ -10,6 +10,7 @@ use App\Services\GlobalService;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Laracasts\Flash\Flash;
@@ -94,6 +95,12 @@ class AuthCustomerController extends Controller
             'phone_no'        => 'max:15',
             'mobile_no'       => ['required','regex:/^\d{8}$|^\d{12}$/']
         ]);
+
+        $response         = Http::get('https://hotell.difi.no/api/json/brreg/enhetsregisteret?query='.$request->company_name);
+        if(count($response->json()['entries'])) {
+            $GetDataByZipCode = Http::get('https://api.zippopotam.us/NO/'.$response->json()['entries'][0]['forradrpostnr']);
+        }
+
         $id = decrypt($id);
         $customer                  = Customer::findOrFail( $id );
         $customer->company_name    = $request->company_name;
@@ -105,7 +112,15 @@ class AuthCustomerController extends Controller
         $customer->invoice_email   = $request->invoice_email;
         $customer->is_active       = true;
         $customer->isRegistered    = '1';
-        $customer->address         = $request->company_address;
+        
+        if(count($response->json()['entries'])) {
+            $customer->address         = "NO-".$GetDataByZipCode->json()['post code']." ".$GetDataByZipCode->json()['places'][0]['place name'].", ".$GetDataByZipCode->json()['places'][0]['state'].", ".$GetDataByZipCode->json()['country'].".";
+            $customer->postal_code     = $GetDataByZipCode->json()['post code'];
+            $customer->city            = $GetDataByZipCode->json()['places'][0]['place name'];
+            $customer->state           = $GetDataByZipCode->json()['places'][0]['state'];
+            $customer->country         = $GetDataByZipCode->json()['country'];
+        }
+
         if($customer->save()) {
             $this->createEnquiry($customer);
             Flash::success(__('setup completed successfully'));

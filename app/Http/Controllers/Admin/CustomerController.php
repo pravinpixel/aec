@@ -160,12 +160,12 @@ class CustomerController extends Controller
     }
 
     public function updateProfile(CustomerProfileRequest $request)
-    {
+    { 
         $id = Customer()->id;
         $data = $request->except(['_token','_method']);
         $customer = Customer::find($id)->update($data);
         if($customer) {
-            Flash::info(__('global.updated'));
+            Flash::success(__('global.updated'));
         }
         return redirect(route('customers-dashboard'));
     }
