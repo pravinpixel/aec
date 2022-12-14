@@ -1,6 +1,27 @@
 @import url('../components/accordion.css');
 @import url('../components/buttons.css');
 
+.validation-message {
+    color: #f95d7d;
+    position: absolute;
+    bottom: -19px;
+    left: 0;
+    z-index: 111;
+}
+.success-message {
+    color: #01845b;
+    position: absolute;
+    bottom: -19px;
+    left: 0;
+    z-index: 111;
+}
+.validation-message-sm {
+    color: #f95d7d;
+    position: absolute;
+    bottom: -19px;
+    left: 0;
+    z-index: 111;
+}
 /* ========= Custom Data Tables ========== */
     .dx-htmleditor.dx-htmleditor-outlined {
         height: 350px !important;

@@ -228,10 +228,6 @@
 
 @endsection
 
-@push('custom-styles')
-
-
-@endpush
 
 @push('custom-scripts')
 

@@ -20,7 +20,7 @@ class AuthController extends Controller
 
     public function postLogin(Request $request)
     {
-        session()->put('remember',$request->remember); 
+        session()->put('remember',$request->remember);
         try {
             $requestInput = array_merge($request->only(['email','password']),['is_active'=> true]);
             $employeeInput = array_merge($request->only(['email','password']),['status'=> true]);
@@ -67,7 +67,7 @@ class AuthController extends Controller
     public function Logout() {
         Auth::guard('customers')->logout();
         Auth::logout();
-        $remember = session()->get('remember'); 
+        $remember = session()->get('remember');
         Session::flush();
         session()->put('remember',$remember);
         Flash::success(__('auth.logout_successful'));
@@ -83,9 +83,9 @@ class AuthController extends Controller
     public function changePasswordPost(Request  $request) {
 
         $user = Customer::find(Customer()->id);
-    
+
         $userPassword = $user->password;
-        
+
         $request->validate([
             'old_password'      =>  'required',
             'password'          =>  'required|same:confirm_password|min:6',
@@ -97,8 +97,9 @@ class AuthController extends Controller
         }   else {
             $user   ->  password    =   Hash::make($request->password);
             $user   ->  save();
+            Flash::success(__('auth.password_change_success'));
         }
-        Flash::success(__('auth.password_change_success'));
+        Flash::Error(__('auth.password_change_fail'));
         return redirect()->back();
     }
 
