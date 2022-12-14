@@ -34,8 +34,8 @@
                         @csrf
                         <div class="row">
                             <div class="col-md-6">
-                                <div class="card border shadow-sm border-primary">
-                                    <div class="card-header p-3 py-2 text-primary" style="background: #c9e2ff">
+                                <div class="card border shadow-sm ">
+                                    <div class="card-header p-3 py-2 text-primary bg-light">
                                         <h5 class="card-title m-0">Customer Details</h5>
                                     </div>
                                     <div class="card-body p-3">
@@ -54,33 +54,55 @@
                                             @endif
                                         </div>
                                         <div class="mb-3">
-                                            <label class="form-label " >@lang('customer.email')  <sup class="text-danger">*</sup></label>
-                                            <input type="text" class="form-control" name="email" id="email" value="{{ $customer->email }}" >
-                                            @if($errors->has('email'))
-                                                <div class="alert alert-danger">{{$errors->first('email')}}</div>
-                                            @endif
-                                        </div>
-                                        <div class="mb-3">
-                                            <label class="form-label  " >@lang('customer.mobile_no')  <sup class="text-danger">*</sup></label>
+                                            <label class="form-label" >@lang('customer.mobile_no')  <sup class="text-danger">*</sup></label>
                                             <div class="input-group">
                                                 <div style="width: 130px" class="border border-end-0 rounded-start">
-                                                    <select name="country_code" wire:model="country_code" class="form-select border-0 bg-light">
+                                                    <select name="country_code" onchange="setMobileNumberPattern(this.value)" class="form-select border-0 bg-light">
                                                         <option value="47">NOR (+47)</option>
                                                         <option value="91">IND (+91)</option>
                                                     </select>
                                                 </div>
-                                                <input type="text"  pattern="^\d{8}$|^\d{12}$" onkeypress="return isNumber(event)" maxlength="12"  name="mobile_no" id="mobile_no" value="{{ $customer->mobile_no }}"   class="form-control" autocomplete="off">
+                                                <input type="text" onkeypress="return isNumber(event)" name="mobile_no" id="mobile_no" value="{{ $customer->mobile_no }}"   class="form-control" autocomplete="off">
                                             </div>
                                             @if($errors->has('mobile_no'))
                                                 <div class="alert alert-danger">{{$errors->first('mobile_no')}}</div>
                                             @endif
                                         </div>
+                                        <div class="row m-0">
+                                            <div class="mb-3 col-lg-6 p-0 pe-2">
+                                                <label class="form-label " >@lang('customer.email')  <sup class="text-danger">*</sup></label>
+                                                <input type="text" class="form-control" name="email" id="email" value="{{ $customer->email }}" readonly>
+                                                @if($errors->has('email'))
+                                                    <div class="alert alert-danger">{{$errors->first('email')}}</div>
+                                                @endif
+                                            </div>
+                                            <div class="mb-3  col-lg-6 p-0">
+                                                <label class="form-label " >@lang('customer.fax')  <sup class="text-danger">*</sup></label>
+                                                <input type="text" class="form-control" name="fax" id="fax" value="{{ $customer->fax }}">
+                                                @if($errors->has('fax'))
+                                                    <div class="alert alert-danger">{{$errors->first('fax')}}</div>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="row m-0">
+                                            <div class="mb-3 col-lg-6 p-0 pe-2">
+                                                <label for="invoice_email" class="form-label">Invoice Email</label>
+                                                <input class="form-control" type="email" name="invoice_email" value="{{ $customer->invoice_email }}"  id="invoice_email"  placeholder="Enter invoice email address">
+                                            </div>
+                                            <div class="mb-3 col-lg-6 p-0">
+                                                <label for="website" class="form-label">Website</label>
+                                                <input class="form-control" type="url" name="website" id="website" value="{{ $customer->website }}"  placeholder="Enter wesite url">
+                                                @if($errors->has('website'))
+                                                    <span class="text-danger my-2">{{ $errors->first('website') }}</span>
+                                                @endif
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-6 ps-0">
-                                <div class="card border border-primary shadow-sm">
-                                    <div class="card-header p-3 py-2 text-primary " style="background: #c9e2ff">
+                                <div class="card border shadow-sm ">
+                                    <div class="card-header p-3 py-2 text-primary bg-light">
                                         <h5 class="card-title m-0">Company Details</h5>
                                     </div>
                                     <div class="card-body p-3">
@@ -151,7 +173,7 @@
                             </div>
                         </div>
                         <div class="text-end">
-                            <input type="reset"  class="btn btn-light font-weight-bold px-3" value="Cancel">
+                            <input type="reset"  class="btn btn-light font-weight-bold px-3 border" value="Cancel">
                             <button type="submit" ng-disabled="enqForm.$invalid" class="btn btn-primary font-weight-bold px-3"><i class="fa fa-check-circle"></i> @lang('global.update') </button>
                         </div>
                     </form>
@@ -214,20 +236,16 @@
 @push('custom-scripts')
 
     <script>
-        $(function(){
-            $(document).on('keypress','#postal_code', function(){
-                let  zipcode = $(this).val();
-                // $.ajax({
-                //     url:`https://api.zippopotam.us/NO/${zipcode}`,
-                //     method: 'get',
-                //     success: function (res) {
-                //         $("#state").val(res.places[0].state);
-                //         $("#city").val(res.places[0]['place name']);
-                //         $("#county").val(res.country);
-                //     }
-                // });
-            })
-        })
-
+        setMobileNumberPattern = (type) => {
+            const MobileInput = $('#mobile_no');
+            if(type == 91) {
+                MobileInput.attr('maxlength',10)
+                MobileInput.attr('minlength',10)
+            }
+            if(type == 47) {
+                MobileInput.attr('maxlength',12)
+                MobileInput.attr('minlength',8)
+            }
+        }
     </script>
 @endpush
