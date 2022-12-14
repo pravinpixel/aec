@@ -11,6 +11,7 @@
              © {{ now()->year }} AEC Prefab. All Rights Reserved.
         </footer>
         @include('customer.includes.footer-scripts')
+        @include('vendor.flash.message')
         @stack('custom-scripts')
     </body>
 </html>

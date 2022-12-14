@@ -103,6 +103,10 @@ class AuthCustomerController extends Controller
 
         $id = decrypt($id);
         $customer                  = Customer::findOrFail( $id );
+        if(!is_null($customer->organization_no)) {
+            Flash::error(__('This Email ID is already registered with our portal... Please login with your credentials'));
+            return back();
+        }
         $customer->company_name    = $request->company_name;
         $customer->organization_no = $request->organization_no;
         $customer->mobile_no       = $request->mobile_no;
@@ -112,7 +116,7 @@ class AuthCustomerController extends Controller
         $customer->invoice_email   = $request->invoice_email;
         $customer->is_active       = true;
         $customer->isRegistered    = '1';
-        
+
         if(count($response->json()['entries'])) {
             $customer->address         = "NO-".$GetDataByZipCode->json()['post code']." ".$GetDataByZipCode->json()['places'][0]['place name'].", ".$GetDataByZipCode->json()['places'][0]['state'].", ".$GetDataByZipCode->json()['country'].".";
             $customer->postal_code     = $GetDataByZipCode->json()['post code'];
