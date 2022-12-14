@@ -218,7 +218,7 @@
                                 @csrf
                                 <input type="hidden" name="email" value="{{ Customer()->email }}">
                             </form>
-                            <button class="btn btn-warning" onclick="document.getElementById('reset-password-form').submit()"><i class="fa fa-repeat me-1"></i> Reset Email Password</button>
+                            <button class="btn btn-warning" onclick="document.getElementById('reset-password-form').submit()"><i class="fa fa-repeat me-1"></i>Reset login Via Email</button>
                         </div>
                     </div>
                 </div>
