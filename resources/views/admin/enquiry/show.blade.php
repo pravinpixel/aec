@@ -1717,9 +1717,15 @@
                 link : function (scope, element, attrs) {
                     element.on('change', function () {
                         var response;
+                        if(scope.C.building_component_id == 6) {
+                            console.log(scope.C)
+                            console.log(element)
+                            scope.C.type_id = 5
+                        }
                         if(scope.C.building_component_id == "" || scope.C.type_id == "") {
                             return false;
                         }
+
                         $http({
                         method: 'GET',
                         url: '{{ route('CostEstimateMasterValue') }}',
