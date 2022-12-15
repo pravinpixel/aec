@@ -29,21 +29,21 @@
                 <label for="password" class="p-0 col-md-4 col-form-label text-md-right">New Password</label>
                 <div class="col-md-8 p-0">
                     <div class="input-group flex-nowrap border border-dark rounded">
-                        <input type="password" name="password" id="password" class="form-control border-0" required>
+                        <input type="password" name="password" id="password" validate-password class="form-control border-0" required>
                         <div class="input-group-text border-0" data-password="false" role="button">
                             <span class="password-eye"></span>
                         </div>
                     </div>
                     @if ($errors->has('password'))
                         <span class="text-danger">{{ $errors->first('password') }}</span>
-                    @endif 
+                    @endif
                 </div>
             </div>
             <div class="form-group row m-0 p-2">
                 <label for="password-confirm" class="p-0 col-md-4 col-form-label text-md-right">Repeat Password</label>
                 <div class="col-md-8 p-0">
                     <div class="input-group flex-nowrap border border-dark rounded">
-                        <input type="password" name="password_confirmation" id="password-confirm" class="form-control border-0" required autofocus>
+                        <input type="password" name="password_confirmation" validate-confirm-password id="password-confirm" class="form-control border-0" required autofocus>
                         <div class="input-group-text border-0" data-password="false" role="button">
                             <span class="password-eye"></span>
                         </div>

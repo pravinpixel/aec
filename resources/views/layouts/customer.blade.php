@@ -65,57 +65,7 @@
                     }
                 }
             }
-        </script>
-         <script>
-            window.onload = () => {
-                var password         = document.querySelector('input[validate-password]')
-                var confirm_password = document.querySelector('input[validate-confirm-password]')
-                removeErrorMessage = (element) => {
-                    Object.entries(element.target.offsetParent.childNodes).map(item => {
-                        if(item[1]['localName'] == 'small') {
-                            item[1].remove()
-                        }
-                    })
-                }
-                createMessage = (element,type,message) => {
-                    const small = document.createElement("small");
-                    small.innerText = message;
-                    small.classList.add(type == 'error' ? 'validation-message' : 'success-message')
-                    element.target.offsetParent.appendChild(small);
-                    element.target.offsetParent.classList.add('position-relative')
-                }
-                password.addEventListener('keyup', (element) => {
-                    var password        = element.target.value;
-                    if(password.length > 12) {
-                        element.target.value = password.slice(0, 12)
-                        removeErrorMessage(element)
-                        createMessage(element,"error","Password Max Length 12 Characters")
-                        setTimeout(() => {
-                            removeErrorMessage(element)
-                        }, 1000);
-                    }
-                    if(password.length < 7) {
-                        removeErrorMessage(element)
-                        createMessage(element,"error","Password Must have a 8 Characters")
-                    }
-                    if(password.length > 7 && password.length < 12 ) {
-                        removeErrorMessage(element)
-                    }
-                })
-                confirm_password.addEventListener('keyup',(element) => {
-                    if(element.target.value == password.value) {
-                        removeErrorMessage(element)
-                        createMessage(element,"success","Password Matched")
-                        setTimeout(() => {
-                            removeErrorMessage(element)
-                        }, 1000);
-                    } else {
-                        removeErrorMessage(element)
-                        createMessage(element,"error","Password Does not Match")
-                    }
-                })
-            }
-        </script>
+        </script> 
         <script src="{{ asset('public/assets/js/file-viewer.js') }}"></script>
         <script src="{{ asset('public/assets/js/light-box.js') }}"></script>
         @include('common.firbase-setup')
