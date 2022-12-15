@@ -139,7 +139,7 @@
                             <div class="d-flex align-items-center">
                                 <a class="mdi mdi-arrow-top-left-bottom-right-bold border bg-white text-primary shadow-sm"></a>
                                 <input type="text" class="history_building_component_value" value="@{{ BuildingComponentObj[C.building_component_id] }}">
-                                <select class="my-select w-100 history_building_type_select" get-master-data="[index]" ng-model="C.building_component_id" name="building_component_name">
+                                <select class="my-select w-100 history_building_type_select" get-master-data="[index,firstIndex,dynamicIndex]" ng-model="C.building_component_id" name="building_component_name">
                                     <option value="">-- Select -- </option>
                                     <option ng-value="@{{ buildingComponent.id }}" ng-selected="buildingComponent.id == C.Component"
                                         ng-repeat="buildingComponent in buildingComponents">@{{ buildingComponent.building_component_name }}</option>
@@ -148,7 +148,7 @@
                         </div>
                         <div class="custom-td">
                             <input type="text" class="history_building_type_value" value="@{{DeliveryTypeObj[C.type_id] }}">
-                            <select class="my-select w-100 history_building_type_select" get-master-data="[index]" ng-model="C.type_id" ng-disabled="C.type_id == 5 && C.building_component_id == 6" ng-change="getMasterData(index)"
+                            <select class="my-select w-100 history_building_type_select" get-master-data="[index,firstIndex,dynamicIndex]" ng-model="C.type_id" ng-disabled="C.type_id == 5 && C.building_component_id == 6" ng-change="getMasterData(index,firstIndex,dynamicIndex)"
                                 name="type_name">
                                 <option value="">-- Select ---</option>
                                 <option ng-value="@{{ deliveryType.id }}" ng-selected="deliveryType.id == C.Type"
@@ -212,3 +212,4 @@
     </div>
 </div>
 @include('admin.calculate-cost-estimate.wood-template')
+d-template')

@@ -1126,6 +1126,7 @@
                     $scope.ResultEngineeringEstimate    = JSON.parse(res.data.cost_estimate.build_json);
                     $scope.ResultPrecastComponent       = JSON.parse(res.data.cost_estimate.precast_build_json);
                     $scope.EngineeringEstimate          = $scope.ResultEngineeringEstimate.costEstimate;
+                    $scope.ResetCloneEngineeringEstimate = JSON.parse(res.data.cost_estimate.build_json);
                     $scope.PrecastComponent             = $scope.ResultPrecastComponent.precastEstimate;
                     $scope.cost_estimate_comments       = res.data.cost_estimate_comments;
                     $scope.customer_info                = res.data.customer_info;
@@ -1255,11 +1256,7 @@
 
             $scope.createNewCalculation = (type) => {
                 if(type == 'wood') {
-                    $scope.wood_estimate_edit_id = false;
-                    $scope.wood_estimate_name = '';
-                    $scope.EngineeringEstimate.length = 0;
-                    let newCostEstimate = JSON.parse(JSON.stringify($scope.NewCostEstimate));
-                    $scope.EngineeringEstimate.push(newCostEstimate);
+                    $scope.EngineeringEstimate = $scope.ResetCloneEngineeringEstimate.costEstimate
                 } else {
                     $scope.precast_edit_id = false;
                     $scope.precast_estimate_name = '';
@@ -1715,17 +1712,14 @@
             return {
                 restrict: 'A',
                 link : function (scope, element, attrs) {
-                    element.on('change', function () {
+                    element.on('change', function () { 
                         var response;
                         if(scope.C.building_component_id == 6) {
-                            console.log(scope.C)
-                            console.log(element)
                             scope.C.type_id = 5
                         }
                         if(scope.C.building_component_id == "" || scope.C.type_id == "") {
                             return false;
                         }
-
                         $http({
                         method: 'GET',
                         url: '{{ route('CostEstimateMasterValue') }}',
@@ -1733,31 +1727,33 @@
                         }).then(function success(res) {
                             response = res.data;
                             scope.EngineeringEstimate.forEach( (Estimates, estimateIndex) => {
-                                Estimates.Components.forEach( (Component, componentIndex) => {
-                                    if(scope.index == componentIndex) {
-                                        Component.Dynamics.forEach( (Dynamic, dynamicIndex) => {
-                                            if(Estimates.Components[componentIndex].Dynamics[dynamicIndex].name == 'Details') {
-                                                Estimates.Components[componentIndex].Dynamics[dynamicIndex].PriceM2 = Number(response.detail_price) || 0;
-                                                Estimates.Components[componentIndex].Dynamics[dynamicIndex].Sum =  0;
-                                            } else if(Estimates.Components[componentIndex].Dynamics[dynamicIndex].name == 'Statics') {
-                                                Estimates.Components[componentIndex].Dynamics[dynamicIndex].PriceM2 = Number(response.statistic_price) || 0;
-                                                Estimates.Components[componentIndex].Dynamics[dynamicIndex].Sum = 0;
-                                            } else if(Estimates.Components[componentIndex].Dynamics[dynamicIndex].name == 'CAD/CAM') {
-                                                Estimates.Components[componentIndex].Dynamics[dynamicIndex].PriceM2 = Number(response.cad_cam_price) || 0;
-                                                Estimates.Components[componentIndex].Dynamics[dynamicIndex].Sum = 0;
-                                            } else if(Estimates.Components[componentIndex].Dynamics[dynamicIndex].name == 'Logistics') {
-                                                Estimates.Components[componentIndex].Dynamics[dynamicIndex].PriceM2 = Number(response.logistic_price) || 0;
-                                                Estimates.Components[componentIndex].Dynamics[dynamicIndex].Sum = 0;
-                                            } else {
-                                                Estimates.Components[componentIndex].Dynamics[dynamicIndex].PriceM2 =  0;
-                                                Estimates.Components[componentIndex].Dynamics[dynamicIndex].Sum =  0 ;
-                                            }
-                                        });
-                                        Estimates.Components[componentIndex].Complexity = 1;
-                                        // Estimates.Components[componentIndex].Sqm = 0;
-                                        Estimates.Components[componentIndex].TotalCost.PriceM2 = Number(response.total_sum);
-                                    }
-                                });
+                                if(scope.$parent.firstIndex == estimateIndex) {
+                                    Estimates.Components.forEach( (Component, componentIndex) => {
+                                        if(scope.index == componentIndex) {
+                                            Component.Dynamics.forEach( (Dynamic, dynamicIndex) => {
+                                                if(Estimates.Components[componentIndex].Dynamics[dynamicIndex].name == 'Details') {
+                                                    Estimates.Components[componentIndex].Dynamics[dynamicIndex].PriceM2 = Number(response.detail_price) || 0;
+                                                    Estimates.Components[componentIndex].Dynamics[dynamicIndex].Sum =  0;
+                                                } else if(Estimates.Components[componentIndex].Dynamics[dynamicIndex].name == 'Statics') {
+                                                    Estimates.Components[componentIndex].Dynamics[dynamicIndex].PriceM2 = Number(response.statistic_price) || 0;
+                                                    Estimates.Components[componentIndex].Dynamics[dynamicIndex].Sum = 0;
+                                                } else if(Estimates.Components[componentIndex].Dynamics[dynamicIndex].name == 'CAD/CAM') {
+                                                    Estimates.Components[componentIndex].Dynamics[dynamicIndex].PriceM2 = Number(response.cad_cam_price) || 0;
+                                                    Estimates.Components[componentIndex].Dynamics[dynamicIndex].Sum = 0;
+                                                } else if(Estimates.Components[componentIndex].Dynamics[dynamicIndex].name == 'Logistics') {
+                                                    Estimates.Components[componentIndex].Dynamics[dynamicIndex].PriceM2 = Number(response.logistic_price) || 0;
+                                                    Estimates.Components[componentIndex].Dynamics[dynamicIndex].Sum = 0;
+                                                } else {
+                                                    Estimates.Components[componentIndex].Dynamics[dynamicIndex].PriceM2 =  0;
+                                                    Estimates.Components[componentIndex].Dynamics[dynamicIndex].Sum =  0 ;
+                                                }
+                                            });
+                                            Estimates.Components[componentIndex].Complexity = 1;
+                                            // Estimates.Components[componentIndex].Sqm = 0;
+                                            Estimates.Components[componentIndex].TotalCost.PriceM2 = Number(response.total_sum);
+                                        }
+                                    });
+                                }
                             });
                             let finalJson = {...scope.ResultEngineeringEstimate.costEstimate, ...scope.EngineeringEstimate};
                             scope.ResultEngineeringEstimate.costEstimate =   JSON.parse(JSON.stringify(finalJson));
