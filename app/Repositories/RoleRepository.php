@@ -35,10 +35,13 @@ class RoleRepository implements RoleRepositoryInterface{
 
     public function delete($id)
     {
-         $role = $this->model->find($id);
-         $role->status=2;
-         $role->save();
-         return $role->delete();
+        $Employees = Employees::where("job_role",$id)->get();
+        if(count($Employees)) {
+            return false;
+        } else {
+            $this->model->find($id)->delete();
+        }
+        return true;
     }
     public function updateStatus($id)
     {
@@ -50,7 +53,7 @@ class RoleRepository implements RoleRepositoryInterface{
         $role->status =  !$role->status;
         $role->save();
         return  $role;
-        
+
     }
 
     public function show($id)

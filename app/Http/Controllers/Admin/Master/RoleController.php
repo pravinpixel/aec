@@ -8,11 +8,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Str;
-use App\Models\Role;
-use Exception;
-use Illuminate\Support\Facades\Log;
 use App\Http\Requests\RoleCreateRequest;
-use App\Http\Requests\RoleUpdateRequest;
 
 class RoleController extends Controller
 {
@@ -106,10 +102,12 @@ class RoleController extends Controller
     }
     public function destroy($id)
     {
-        // dd($request->id);
-        $role = $id;
-        $this->roleRepository->delete($role);
-        return response()->json(['status' => true, 'msg' => trans('module.deleted'), 'data' => $role], Response::HTTP_OK);
+        $status = $this->roleRepository->delete($id);
+        return response()->json([
+            'status' => $status,
+            'msg'    => $status == false ? trans('module.delete_failed') : trans('module.deleted'),
+            'type'   => $status == false ? 'danger' : 'success',
+        ], Response::HTTP_OK);
     }
 
     public function getUserByRoleId($id)
@@ -123,5 +121,5 @@ class RoleController extends Controller
     {
         return $this->roleRepository->getRoleBySlug($name);
     }
-    
+
 }

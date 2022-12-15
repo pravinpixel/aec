@@ -78,7 +78,7 @@
                         </div>
                         <hr/>
                         <div class="text-end">
-                            <button onclick="storeRole()" class="btn btn-primary me-auto rounded-pill">Submit</button>    
+                            <button onclick="storeRole()" class="btn btn-primary me-auto rounded-pill">Submit</button>
                         </div>
                     </div>
                 `,
@@ -108,7 +108,7 @@
                         </div>
                         <hr/>
                         <div class="text-end">
-                            <button onclick="updateRole(${id})" class="btn btn-primary me-auto rounded-pill">Submit</button>    
+                            <button onclick="updateRole(${id})" class="btn btn-primary me-auto rounded-pill">Submit</button>
                         </div>
                     </div>
                 `,
@@ -133,8 +133,8 @@
             var role_name       =   document.getElementById('role_name').value
             var role_status     =   document.getElementById('role_status').value
             if(role_name == '' || role_name == null || role_name == undefined) {
-                Message('info', 'Role name is Required !') 
-                return false 
+                Message('info', 'Role name is Required !')
+                return false
             }
 
             fetch(`${APP_URL}/role`, {
@@ -157,7 +157,7 @@
                 console.error('There was an error!', error);
             });
         }
-        deleteRole = (id) => {  
+        deleteRole = (id) => {
             swal({
                 title: "Are you sure?",
                 text: "Once deleted, you will not be able to recover this Data!",
@@ -171,15 +171,15 @@
                         headers: {
                             'Content-Type': 'application/json',
                             'X-CSRF-TOKEN': TOKEN
-                        }                       
+                        }
                     }).then(response => response.json()).then(response => {
-                        Message('success', response.data.msg);
+                        Message(response.type, response.msg);
                         reload()
                     });
                 } else {
                     Message('info', 'Your Data is safe');
                 }
-            }); 
+            });
         }
     </script>
 @endpush
