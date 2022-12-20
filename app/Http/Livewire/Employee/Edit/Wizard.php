@@ -29,7 +29,7 @@ class Wizard extends Component
 
     public $employee_id,$country_code = 47, $display_name, $first_name, $last_name, $job_title, $email, $image, $number;
     public $currentStep = 1, $share_point_status = 0, $successMessage = '', $sharePointAccess = [];
-    public $employees, $roles = [],  $id, $is_uploaded, $uploaded_image, $completed_wizard = 0; 
+    public $employees, $roles = [],  $id, $is_uploaded, $uploaded_image, $completed_wizard = 0;
     public $share_folder_name  = null;
     public function __construct()
     {
@@ -54,7 +54,7 @@ class Wizard extends Component
         $this->roles              = Role::all();
         $this->sharePointAccess   = SharePointAccess::all();
     }
-    
+
     public function updatedImage($newValue)
     {
         $employee        = Employees::findOrFail($this->id);
@@ -85,13 +85,13 @@ class Wizard extends Component
             $customMessages = [
                 'regex' => 'Mobile no between 8 to 12 digits',
             ];
-        } elseif($this->country_code == '91') {
+        }
+        if($this->country_code == '91') {
             $pattern = "regex:/^\d{10}$/";
             $customMessages = [
                 'regex' => 'Mobile no must have a 10 digits',
             ];
         }
-                
         $this->validate([
             'email'         => ['required','email', Rule::unique('employees')->ignore($employee->id)],
             'job_role'      => ['required'],
@@ -99,7 +99,7 @@ class Wizard extends Component
             'last_name'     => ['required'],
             'display_name'  => ['required', Rule::unique('employees')->ignore($employee->id)],
             'mobile_number' => ['required',$pattern,Rule::unique('employees')->ignore($employee->id)],
-        ], $customMessages); 
+        ], $customMessages);
 
         $employee->first_name    = $this->first_name;
         $employee->last_name     = $this->last_name;
@@ -109,7 +109,7 @@ class Wizard extends Component
         $employee->job_role      = $this->job_role;
         $employee->mobile_number = $this->mobile_number;
         $employee->country_code  = $this->country_code;
-        
+
         if($employee->completed_wizard >= 1) {
             $employee->completed_wizard        = $this->completed_wizard;
         }
@@ -151,7 +151,7 @@ class Wizard extends Component
                     and `aec_employee_bim_access_projects`.`employee_id` = {$this->id})
             left join `aec_employees` on
                 `aec_employees`.`id` = `aec_employee_bim_access_projects`.`employee_id`
-            left join `aec_roles` on 
+            left join `aec_roles` on
                 `aec_roles`.`id` = `aec_employees`.`job_role`
             where
                 `aec_projects`.`bim_id` is not null");
@@ -174,7 +174,7 @@ class Wizard extends Component
         $employeeBimProjects->role = $employee->role->name;
         $employeeBimProjects->save();
         if($employeeBimProjects->access_status) {
-           
+
         }
         $this->projects = $this->getProjectList();
     }
@@ -242,7 +242,7 @@ class Wizard extends Component
         $userApi = new  Bim360UsersApi();
         $userJson = $userApi->getUser(env('BIMACCOUNTADMIN'));
         $userObj =  json_decode($userJson);
-       
+
         $projectApi = new  Bim360ProjectsApi();
         if(!$isUserExists) {
             $input = json_encode([$data]);
@@ -284,7 +284,7 @@ class Wizard extends Component
             default:
                 $this->currentStep = 1;
                 break;
-        }  
+        }
     }
 
 
@@ -321,9 +321,9 @@ class Wizard extends Component
             Log::error($ex->getMessage());
             return false;
         }
-       
+
     }
-     
+
     public function render()
     {
         return view('livewire.employee.edit.wizard');

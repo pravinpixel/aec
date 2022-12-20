@@ -34,10 +34,13 @@
                             <button delete-template="{template:woodTemplate,type:'wood'}" title="Delete Template" class="btn btn-danger btn-sm border-0"><i class="mdi mdi-trash-can"></i></button>
                         </div>
                         <h5 class="m-0 bg-primary2 py-1 text-white">Engineering Estimation</h5>
-                        <div class="btn-group">
-                            <input type="text" class="form-control btn-sm " placeholder="Type here..." ng-model="column_name" ng-show="editable">
-                            <button ng-click="editable = true" ng-show="editable == false" title="Add Column" class="btn btn-outline-success btn-sm "><i class="mdi mdi-plus"></i> Add</button>
-                            <button class="btn-sm btn btn-outline-success" type="button" ng-click="editable = false; addDynamicColumn(firstIndex, column_name)"  ng-show="editable"><i class="fa fa-check"></i></button>
+                        <div>
+                            {{-- <button  get-cost-details-total title="Calculate" class="btn btn-outline-success btn-sm "><i class="mdi mdi-repeat"></i> Calculate</button> --}}
+                            <div class="btn-group">
+                                <input type="text" class="form-control btn-sm " placeholder="Type here..." ng-model="column_name" ng-show="editable">
+                                <button ng-click="editable = true" ng-show="editable == false" title="Add Column" class="btn btn-outline-success btn-sm "><i class="mdi mdi-plus"></i> Add</button>
+                                <button class="btn-sm btn btn-outline-success" type="button" ng-click="editable = false; addDynamicColumn(firstIndex, column_name)"  ng-show="editable"><i class="fa fa-check"></i></button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -212,4 +215,3 @@
     </div>
 </div>
 @include('admin.calculate-cost-estimate.wood-template')
-d-template')
