@@ -79,8 +79,7 @@ class Wizard extends Component
         $employee = Employees::findOrFail($this->id);
         // $uploadPath         =   GlobalService::getEmployeePath();
         // $path               =   $this->image->storePublicly($uploadPath, 'enquiry_uploads');
-        $this->country_code = $employee->country_code;
-        
+
         if ($this->country_code == '47') {
             $pattern = "regex:/^\d{8}$|^\d{12}$/" ;
             $customMessages = [
@@ -88,6 +87,12 @@ class Wizard extends Component
             ];
         }
         if($this->country_code == '91') {
+            $pattern = "regex:/^\d{10}$/";
+            $customMessages = [
+                'regex' => 'Mobile no must have a 10 digits',
+            ];
+        }
+        if($this->country_code == null) {
             $pattern = "regex:/^\d{10}$/";
             $customMessages = [
                 'regex' => 'Mobile no must have a 10 digits',
