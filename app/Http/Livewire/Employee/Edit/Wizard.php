@@ -92,6 +92,7 @@ class Wizard extends Component
                 'regex' => 'Mobile no must have a 10 digits',
             ];
         }
+        dd($this->country_code);
         $this->validate([
             'email'         => ['required','email', Rule::unique('employees')->ignore($employee->id)],
             'job_role'      => ['required'],
