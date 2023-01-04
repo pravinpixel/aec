@@ -110,7 +110,7 @@ class GlobalServiceProvider extends Controller
 
     public function bucketStructureFormat($enquiryNumber)
     {
-        $rstring = Str::replace('/', '-', $enquiryNumber);
+        $rstring = Str::replace('/', '_', $enquiryNumber);
         return Str::lower($rstring);
     }
 
