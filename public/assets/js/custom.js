@@ -391,3 +391,14 @@ window.onload = () => {
         }
     })
 }
+
+getAutodeskView = (document_id) =>{
+    axios.get(`${APP_URL}/autodesk-check-status/${document_id}`).then((response) => {
+        console.log('response',response);
+        if(response.data.data.status == false){
+            Message('danger', res.data.msg);
+            return false;
+        }
+        window.open(`${APP_URL}/viewmodel/${document_id}`);
+    });
+}

@@ -37,7 +37,7 @@ class enquiryQuickView extends Component
         $detail_table['mobile']           = $enquiry['customer']['mobile_no'];
         $detail_table['email']            = $enquiry['customer']['email'];
         $detail_table['type_of_delivery'] = $enquiry['project_infos']['delivery_type']['delivery_type_name'] ?? "";
-        
+        $detail_table['forge_viewer_file_types']   = config('global.autodesk_upload_file_type');
         $table_status = $this->table;
         $chat_status  = $this->chat;
 
