@@ -603,6 +603,9 @@
             link : function (scope, element, attrs, API_URL) {
                 element.on('change', function () {
                     var response;
+                    if(scope.C.building_component_id == 6) {
+                        scope.C.type_id = 5
+                    }
                     if(scope.C.building_component_id == "" || scope.C.type_id == "") {
                         return false;
                     }

@@ -1845,6 +1845,94 @@
                             });
                             let finalJson = {...scope.ResultEngineeringEstimate.costEstimate, ...scope.EngineeringEstimate};
                             scope.ResultEngineeringEstimate.costEstimate =   JSON.parse(JSON.stringify(finalJson));
+                            
+                            setTimeout(() => {
+                                let $TotalPriceM2   = 0;
+                                let $TotalSum       = 0;
+                                let $TotalRibSum    = 0;
+                                scope.CostEstimate.ComponentsTotals.Dynamics.forEach( (item, index) => {
+
+                                    // designScope percentage validation
+                                    if(scope.CostEstimate.Components[scope.index].DesignScope > 100) {
+                                        scope.CostEstimate.Components[scope.index].DesignScope = 100;
+                                    } else if(scope.CostEstimate.Components[scope.index].DesignScope < 0) {
+                                        scope.CostEstimate.Components[scope.index].DesignScope = 1;
+                                    }
+
+                                    // complexity validation
+                                    if(scope.CostEstimate.Components[scope.index].Complexity > 2) {
+                                        scope.CostEstimate.Components[scope.index].Complexity = 2;
+                                    } else if(scope.CostEstimate.Components[scope.index].Complexity < 1) {
+                                        scope.CostEstimate.Components[scope.index].Complexity = 1;
+                                    }
+
+                                    scope.CostEstimate.Components[scope.index].Dynamics[index].Sum  = getNum(((scope.CostEstimate.Components[scope.index].Sqm * scope.CostEstimate.Components[scope.index].Complexity * scope.CostEstimate.Components[scope.index].Dynamics[index].PriceM2  ) * scope.CostEstimate.Components[scope.index].DesignScope) / 100);
+                                    $TotalPriceM2   += Number(scope.CostEstimate.Components[scope.index].Dynamics[index].PriceM2);
+                                    $TotalSum       += Number(scope.CostEstimate.Components[scope.index].Dynamics[index].Sum);
+                                });
+                                console.log(' scope.CostEstimate.Components[scope.index].Rib.Sum', scope.CostEstimate.Components[scope.index].Rib.Sum)
+                                if(scope.CostEstimate.Components[scope.index].Rib.Sum != 0 && scope.CostEstimate.Components[scope.index].Rib.Sum != '' && scope.CostEstimate.Components[scope.index].Rib.Sum != 'undefined'){
+                                    scope.CostEstimate.Components[scope.index].Sqm = 0;
+                                    $TotalRibSum = scope.CostEstimate.Components[scope.index].Rib.Sum * scope.CostEstimate.Components[scope.index].TotalCost.PriceM2 ;
+                                    scope.CostEstimate.Components[scope.index].TotalCost.Sum = getNum($TotalRibSum);
+                                } else {
+                                    scope.CostEstimate.Components[scope.index].TotalCost.Sum = getNum($TotalSum);
+                                    scope.CostEstimate.Components[scope.index].TotalCost.PriceM2 = getNum($TotalPriceM2);
+                                }
+
+                                // for column total
+                                let $totalEstimateArea = 0;
+                                let $totalEstimateSum = 0;
+                                scope.EngineeringEstimate.forEach( (Estimates, estimateIndex) => {
+                                    let $totalPrice = 0;
+                                    let $totalSum = 0;
+                                    let $sqmTotal = 0;
+                                    let $ribTotal = 0;
+                                    var $totalSql_ = 0;
+
+                                    Estimates.Components.forEach( (Component, componentIndex) => {
+                                        $totalSql_ += Number(Component.Sqm);
+                                    });
+
+                                    Estimates.ComponentsTotals.Dynamics.forEach((dynamic) => {
+                                        dynamic.PriceM2 = 0;
+                                        dynamic.Sum = 0;
+
+                                    })
+                                    Estimates.Components.forEach( (Component, componentIndex) => {
+
+                                        $sqmTotal += Number(Component.Sqm);
+                                        $totalEstimateArea += Number(Component.Sqm);
+                                        $ribTotal += Number(Component.Rib.Sum);
+                                        if(Component.Rib.Sum !=0 && Component.Rib.Sum !=''){
+                                            $totalSum += Number(Component.Rib.Sum * Component.TotalCost.PriceM2);
+                                            $totalEstimateSum += Number(Component.Rib.Sum * Component.TotalCost.PriceM2);
+                                        }else {
+                                            Component.Dynamics.forEach( (Dynamic, dynamicIndex) => {
+                                                Estimates.ComponentsTotals.Dynamics[dynamicIndex].Sum += Number(Dynamic.Sum);
+                                                Estimates.ComponentsTotals.Dynamics[dynamicIndex].PriceM2 = getNum(Estimates.ComponentsTotals.Dynamics[dynamicIndex].Sum / $totalSql_);
+                                                $totalPrice += Number(Dynamic.PriceM2);
+                                                $totalSum += Number(Dynamic.Sum);
+                                                $totalEstimateSum += Number(Dynamic.Sum);
+                                                Estimates.ComponentsTotals.Dynamics[dynamicIndex].Sum = getNum(Estimates.ComponentsTotals.Dynamics[dynamicIndex].Sum);
+                                            });
+                                        }
+
+                                    });
+                                    Estimates.ComponentsTotals.TotalCost.Sum     = getNum($totalSum);
+                                    Estimates.ComponentsTotals.TotalCost.PriceM2 = getNum($totalSum / $sqmTotal);
+                                    Estimates.ComponentsTotals.Sqm               = getNum($sqmTotal);
+                                    Estimates.ComponentsTotals.Rib.Sum           = getNum($ribTotal);
+
+                                });
+                                scope.ResultEngineeringEstimate.total.totalArea = getNum($totalEstimateArea);
+                                scope.ResultEngineeringEstimate.total.totalSum = getNum($totalEstimateSum);
+                                scope.ResultEngineeringEstimate.total.totalPris = getNum($totalEstimateSum /  $totalEstimateArea);
+                                scope.ResultEngineeringEstimate.costEstimate =  scope.EngineeringEstimate;
+                                scope.$apply();
+                            
+                            }, 1000); 
+                               
                         });
                     });
                 },
