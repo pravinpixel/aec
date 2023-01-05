@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\App;
 
 class HelperController extends Controller
 {
+    protected $customerEnquiryRepo;
+    
     public function __construct(CustomerEnquiryRepository $customerEnquiryRepository){
         $this->customerEnquiryRepo  = $customerEnquiryRepository;
     }

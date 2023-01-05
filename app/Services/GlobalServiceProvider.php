@@ -108,10 +108,9 @@ class GlobalServiceProvider extends Controller
         return 'employees/'.Admin()->id.'/'.Config::get('global.file_path.profile');
     }
 
-    public function bucketStructureFormat($enquiryNumber)
+    public function bucketStructureFormat()
     {
-        $rstring = Str::replace('/', '-', $enquiryNumber);
-        return Str::lower($rstring);
+        return config('autodesk.bucket_name');
     }
 
     public function getBucketFilename($path)

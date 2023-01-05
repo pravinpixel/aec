@@ -35,7 +35,7 @@ class AutodeskForgeController extends Controller
 			return false;
 		}
 		$fileName = GlobalService::getBucketFilename($fileName).'.'.$extension;
-		$bucketFormateName = GlobalService::bucketStructureFormat($enquiry->customer_enquiry_number);
+		$bucketFormateName = GlobalService::bucketStructureFormat();
 		$bucketName = $this->checkBucketExists($bucketFormateName);
 		$additionalData = ['enquiry' => $enquiry,
 							'bucketName' => $bucketName,
@@ -59,7 +59,7 @@ class AutodeskForgeController extends Controller
 			$documentTypeEnquiry = DocumentTypeEnquiry::find($id);
 			$enquiry             = Enquiry::find($documentTypeEnquiry->enquiry_id);
 			$fname               = GlobalService::getBucketFilename($documentTypeEnquiry->file_name);
-			$bucketName          = GlobalService::bucketStructureFormat($enquiry->customer_enquiry_number);
+			$bucketName          = GlobalService::bucketStructureFormat();
 			$fname               = $fname.'.'.$documentTypeEnquiry->file_type ?? '';
 			$result 			 = $this->autoDesk->viewModel($bucketName, $fname);
 			if(count($result)  == 3){
@@ -84,7 +84,7 @@ class AutodeskForgeController extends Controller
 			$documentTypeEnquiry = DocumentTypeEnquiry::find($id);
 			$enquiry             = Enquiry::find($documentTypeEnquiry->enquiry_id);
 			$fname               = GlobalService::getBucketFilename($documentTypeEnquiry->file_name);
-			$bucketName          = GlobalService::bucketStructureFormat($enquiry->customer_enquiry_number);
+			$bucketName          = GlobalService::bucketStructureFormat();
 			$fname               = $fname.'.'.$documentTypeEnquiry->file_type ?? '';
 			$result 			 = $this->autoDesk->viewModel($bucketName, $fname);
 			if(count($result)  == 3){

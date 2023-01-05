@@ -228,13 +228,19 @@
                                                                     allowFullScreen>
                                                                 </iframe>
                                                             </div>
-                                                        @else
-                                                        <a data-fslightbox href="{{ asset("public/uploads/".$doc->file_name) }}" class=" btn-sm btn btn-success text-black">
+                                                    @else
+    
+                                                        <a data-fslightbox title="View" href="{{ asset("public/uploads/".$doc->file_name) }}" class=" btn-sm btn btn-success text-black">
                                                             <i class="feather-eye feather" style="pointer-events: none"></i>
                                                         </a>
                                                     @endif
+                                                    
+                                                @elseif(in_array($doc->file_type,$detail_table['forge_viewer_file_types'])) 
+                                                    <a data-fslightbox title="View" target="_child" onclick="getAutodeskView('{{$doc->id}}')" class=" btn-sm btn btn-success text-black">
+                                                        <i class="feather-eye feather" style="pointer-events: none"></i>
+                                                    </a>
                                                 @endif
-                                                <a download="{{ $doc->file_name }}" class="btn-sm btn btn-warning" href="{{ asset("public/uploads/".$doc->file_name) }}">
+                                                <a title="Download" download="{{ $doc->file_name }}" class="btn-sm btn btn-warning" href="{{ asset("public/uploads/".$doc->file_name) }}">
                                                     <i class="feather-arrow-down feather"></i>
                                                 </a>
                                             </div>

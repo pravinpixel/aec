@@ -35,7 +35,7 @@ class AdminSeeder extends Seeder
             'last_name'        => 'Admin',
             'user_name'        => 'Admin',
             'display_name'     => 'Super Admin',
-            'email'            => 'admin@aecprefab.net ',
+            'email'            => 'admin@aecprefab.net',
             'password'         => Hash::make('12345678'),
             'mobile_number'    => '98786757',
             'bim_access'       => 1,
