@@ -34,6 +34,9 @@
         li.last .timeline-step::after {
             display: none;
         }
+        li:nth-last-child(1) .timeline-step::after {
+            display: none;
+        }
         li.nav-item {
             position: relative;
         }
