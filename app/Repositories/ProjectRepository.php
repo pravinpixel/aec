@@ -16,6 +16,7 @@ use App\Models\ProjectGranttTask;
 use App\Models\ProjectTeamSetup;
 use App\Models\ProjectType;
 use App\Models\SharepointFolder;
+use App\Models\sharePointMasterFolder;
 use App\Models\TeamSetupTemplate;
 use App\Services\GlobalService;
 use Carbon\Carbon;
@@ -33,6 +34,7 @@ class ProjectRepository implements ProjectRepositoryInterface, ConnectionPlatfor
     protected $sharepointFolder;
     protected $fileDir;
     protected $customerEnquiryRepo;
+    protected $connectionPlatform;
 
     public function __construct(
         Project $project, 
@@ -211,7 +213,9 @@ class ProjectRepository implements ProjectRepositoryInterface, ConnectionPlatfor
             'address_one' => $data['address_one'],
             'address_two' => $data['address_two'],
             'bim_project_type' => $data['bim_project_type'],
-            'linked_to_customer' => $data['linked_to_customer']
+            'linked_to_customer' => $data['linked_to_customer'],
+            'is_move_to_customer_input_folder' => $data['is_move_to_customer_input_folder'],
+            'wizard_connect_platform' => 1
         ]);
         $connectionPlatform = $this->connectionPlatform->where('project_id', $id)->first();
         if(!$connectionPlatform) {
@@ -478,6 +482,25 @@ class ProjectRepository implements ProjectRepositoryInterface, ConnectionPlatfor
             $created_by = 'Customer';
         }
         return [$seenBy, $role_id,$created_by];
+    }
+
+
+    public function getSharePointMasterFolders() 
+    {
+        $formatFolder = [];
+        $isPresentCustomerInput = false;
+        $sharepointFolders = sharePointMasterFolder::where('status', 1)->get();
+        foreach($sharepointFolders as $sharepointFolder) {
+            $isPresentCustomerInput = ($sharepointFolder->name == "Customer Input");
+            $formatFolder[] = [
+                "isDirectory"=> true,
+                "name"=> $sharepointFolder->name
+            ];
+        }
+        if(!$isPresentCustomerInput) {
+            array_merge($formatFolder,["isDirectory"=> true, "name"=> "Customer Input"]);
+        }
+        return $formatFolder;
     }
     
 }

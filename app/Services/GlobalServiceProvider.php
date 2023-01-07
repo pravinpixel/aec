@@ -195,4 +195,18 @@ class GlobalServiceProvider extends Controller
                     </td>";
         return $row;
     }
+
+    public function updateSharePointToken($sharepoint) {
+        $config = ConfigModel::first();
+        $config->sharepoint_access_token = json_encode($sharepoint);
+        $config->save();
+    }
+
+    public function getSharepointToken() {
+        $config = ConfigModel::first();
+        if(!is_null($config->sharepoint_access_token)) {
+            return json_decode($config->sharepoint_access_token, true);
+        }
+        return false;
+    }
 }

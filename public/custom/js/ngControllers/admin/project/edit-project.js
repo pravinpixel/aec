@@ -106,10 +106,7 @@ app.controller('CreateProjectController', function ($scope, $http, API_URL, $loc
 });
 
 app.controller('ConnectPlatformController', function ($scope, $http, API_URL, $location) {
-    $scope.checkfun = () => {
-        $scope.project.folderCheck = !$scope.project.folderCheck;
-        console.log($scope.project);
-    }
+    
     $("#connect-platform").addClass('active');
     let project_id = $("#project_id").val();
     let fileSystem = [];

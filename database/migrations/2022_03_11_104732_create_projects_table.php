@@ -50,6 +50,7 @@ class CreateProjectsTable extends Migration
             $table->boolean('wizard_invoice_plan')->default(0); 
             $table->boolean('wizard_todo_list')->default(0); 
             $table->boolean('wizard_project_scheduling')->default(0); 
+            $table->boolean('is_move_to_customer_input_folder')->default(0); 
             $table->foreign('enquiry_id')->references('id')->on('enquiries');
             $table->foreign('customer_id')->references('id')->on('customers');
             $table->foreign('project_type_id')->references('id')->on('project_types');
