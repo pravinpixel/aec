@@ -40,6 +40,7 @@ class Project extends Model
         'updated_by',
         'gantt_chart_data',
         'is_submitted',
+        'is_move_to_customer_input_folder',
         'wizard_create_project', 
         'wizard_connect_platform', 
         'wizard_teamsetup',  

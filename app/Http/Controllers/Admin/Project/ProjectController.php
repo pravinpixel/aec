@@ -71,6 +71,7 @@ class ProjectController extends Controller
     protected $ProjectTeamSetup;
     protected $roleRepository;
     protected $projectChatRepo;
+    protected $customerRepo;
 
     public function __construct(
         ProjectRepository $projectRepo,
@@ -590,7 +591,9 @@ class ProjectController extends Controller
         $project = $this->projectRepo->getProjectById($id);
         $project->is_new_project = false;
         $project->save();
-        $project->folderCheck=true;
+        if(!$project->wizard_connect_platform) {
+            $project->is_move_to_customer_input_folder = 1;
+        }
         return $project;
     }
 
@@ -619,8 +622,6 @@ class ProjectController extends Controller
         $project_id = $this->getProjectId();
         if (empty($project_id)) return false;
         if ($type == 'create_project') {
-            // $this->projectRepo->project['folderCheck']=true;
-            
             return $this->projectRepo->getProjectById($project_id);
         } else if ($type == 'team_setup') {
             return $this->projectRepo->getProjectTeamSetup($project_id);
@@ -757,8 +758,9 @@ class ProjectController extends Controller
             $data['reference_number'] = GlobalService::getProjectNumber();
             $project = $this->projectRepo->storeProjectCreation($project_id, $data);
             $this->setProjectId($project->id);
+            $sharepointFolders = $this->projectRepo->getSharePointMasterFolders();
             $data = [
-                'folder'      => json_encode(config('project.default_folder')),
+                'folder'      => json_encode($sharepointFolders),
                 'project_id'  => $project->id,
                 'created_by' => Admin()->id,
                 'modified_by' => Admin()->id
@@ -802,7 +804,10 @@ class ProjectController extends Controller
                     $job = (new SharePointFolderCreation($data))->delay(config('global.job_delay'));
                     $this->dispatch($job);
                 }
-                $res = $this->moveFileToSharepoint($project->enquiry_id, $project);
+                if($project->is_move_to_customer_input_folder) {
+                    $res = $this->moveFileToSharepoint($project->enquiry_id, $project);
+                }
+                
             }
             $this->projectRepo->draftOrSubmit($project_id, ['is_submitted' => 1, 'status' => 'Live']);
             return  response(['status' => true, 'msg' => 'Project submitted successfully']);
@@ -821,9 +826,10 @@ class ProjectController extends Controller
         $folders=sharePointMasterFolder::get();
         if ($type == 'create_project') {
             $project = $this->projectRepo->storeProjectCreation($id, $data);
+            $sharepointFolders = $this->projectRepo->getSharePointMasterFolders();
             if (!$project->sharepointFolder()->exists()) {
                 $data = [
-                    'folder'      => json_encode(config('project.default_folder')),
+                    'folder'      => json_encode($sharepointFolders),
                     'project_id'  => $project->id,
                     'created_by' => Admin()->id,
                     'modified_by' => Admin()->id
@@ -837,16 +843,13 @@ class ProjectController extends Controller
         } else if ($type == 'connect_platform') {
             $wizardStatus = $this->FormatWizardValue((array)$project->wizard_status, 'connect_platform');
             $this->projectRepo->updateWizardStatus($project, 'wizard_status', $wizardStatus);
-            // project is already assaigned abouve so i reused to pro
-            if($request->input('data.folderCheck')==true){
-                $pro=Project::find($project->id);
-                $deleteSharePointMasterFolder=projectsFolders::where('pid',$pro->id)->delete();
+            if($request->input('data.is_move_to_customer_input_folder')==true){
+                projectsFolders::where('pid',$project->id)->delete();
                 foreach($folders as $folder){
                   $folder=sharePointMasterFolder::find($folder->id);
-                    $pro->folders()->attach($folder);
+                    $project->folders()->attach($folder);
                 }
             }
-            // dd($request->input('data.folderCheck'));
             return $this->projectRepo->storeConnectPlatform($id, $data);
         } else if ($type == 'team_setup') {
             $wizardStatus = $this->FormatWizardValue((array)$project->wizard_status, 'team_setup');
@@ -869,7 +872,9 @@ class ProjectController extends Controller
                     $job = (new SharePointFolderCreation($data))->delay(config('global.job_delay'));
                     $this->dispatch($job);
                 }
-                $res = $this->moveFileToSharepoint($project->enquiry_id, $project);
+                if($project->is_move_to_customer_input_folder) {
+                    $res = $this->moveFileToSharepoint($project->enquiry_id, $project);
+                }
             }
             if (isset($connectionPlatform->bim_status) && $connectionPlatform->bim_status == 1) {
                 // $this->createBimCompany($project);

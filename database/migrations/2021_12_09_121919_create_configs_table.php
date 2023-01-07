@@ -25,6 +25,7 @@ class CreateConfigsTable extends Migration
             $table->integer('customer_enquiry_number');
             $table->string('employee_prefix')->nullable();
             $table->string('employee_number')->nullable();
+            $table->longText('sharepoint_access_token')->nullable();
             $table->timestamps();
         });
     }

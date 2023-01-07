@@ -122,12 +122,9 @@ formatData = (project) => {
   });
   
   app.controller('ConnectPlatformController', function($scope, $http, API_URL, $location) {
-    $scope.checkfun=()=>{
-      $scope.project.folderCheck=!$scope.project.folderCheck;
-      console.log($scope.project);
-    }
+  
     $scope.checkDependsSubmit=()=>{
-      if($scope.project.folderCheck==false){
+      if($scope.project.is_move_to_customer_input_folder==false){
         $http.post(`${API_URL}project/share-point-create-delete`)
         .then((res) => {
           console.log(res);

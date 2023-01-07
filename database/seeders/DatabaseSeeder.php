@@ -45,7 +45,7 @@ class DatabaseSeeder extends Seeder
         $this->call(PrecastSeeder::class);
         $this->call(ActivityListSeeder::class);
         $this->call(CheckSheetSeeder::class);
-        $this->call(masterFolderSeeder::class);
         $this->call(IfcFilesIconsSeeder::class);
+        $this->call(SharePointMasterFolderSeeder::class);
     }
 }

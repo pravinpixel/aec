@@ -100,7 +100,7 @@ class CustomerResponseController extends Controller
         try {
             Log::info('create file job start');
             $reference_number = str_replace('/','-',$project->reference_number);
-            $folderPath = GlobalService::getSharepointPath($reference_number,'Custom Input');
+            $folderPath = GlobalService::getSharepointPath($reference_number,'Customer Input');
             $ifcDocuments = $this->documentTypeEnquiryRepo->getDocumentByEnquiryId($enquiry_id);
             $buildingDocuments = $this->documentTypeEnquiryRepo->geBuildingDocumentByEnquiryId($enquiry_id);
             if(!empty($ifcDocuments)) {
