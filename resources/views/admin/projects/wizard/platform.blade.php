@@ -40,7 +40,10 @@
             </div>
         </div> 
     </div>
-        <input id="folder" type="checkbox" class="m-3 mx-2"  ng-checked="project.is_move_to_customer_input_folder == 1" ng-click="project.is_move_to_customer_input_folder = !project.is_move_to_customer_input_folder" ng-model="project.is_move_to_customer_input_folder">
+        <input id="folder" type="checkbox" class="m-3 mx-2"  
+            ng-checked="project.is_move_to_customer_input_folder == 1" 
+            ng-click="updateConnectionPlatform('is_move_to_customer_input_folder'); project.is_move_to_customer_input_folder = !project.is_move_to_customer_input_folder" 
+            ng-model="project.is_move_to_customer_input_folder">
         <label for="#folder">Copy Enquiry Project Files To Customer Input Folder</label>
     <div class="card-body">
         <ul class="nav nav-tabs">
