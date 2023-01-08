@@ -372,6 +372,11 @@ class ProjectRepository implements ProjectRepositoryInterface, ConnectionPlatfor
 
     public function updateConnectionPlatform($id, $type)
     {
+        if($type == 'is_move_to_customer_input_folder') {
+            $project = Project::find($id);
+            $project->is_move_to_customer_input_folder = !$project->is_move_to_customer_input_folder;
+            return $project->save();
+        }
         $connectPlatform = ConnectionPlatform::where('project_id', $id)->first();
         if(empty( $connectPlatform))  {
             $connectPlatform = new ConnectionPlatform();
@@ -491,14 +496,17 @@ class ProjectRepository implements ProjectRepositoryInterface, ConnectionPlatfor
         $isPresentCustomerInput = false;
         $sharepointFolders = sharePointMasterFolder::where('status', 1)->get();
         foreach($sharepointFolders as $sharepointFolder) {
-            $isPresentCustomerInput = ($sharepointFolder->name == "Customer Input");
+            if($isPresentCustomerInput == false && $sharepointFolder->name == "Customer Input") {
+                $isPresentCustomerInput = true;
+            }
             $formatFolder[] = [
                 "isDirectory"=> true,
                 "name"=> $sharepointFolder->name
             ];
         }
-        if(!$isPresentCustomerInput) {
-            array_merge($formatFolder,["isDirectory"=> true, "name"=> "Customer Input"]);
+    
+        if($isPresentCustomerInput == false) {
+            $formatFolder[]= ["isDirectory"=> true, "name"=> "Customer Input"];
         }
         return $formatFolder;
     }

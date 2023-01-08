@@ -153,8 +153,10 @@ formatData = (project) => {
         $type = 'bim_status';
       } else if (type == 'tsoffice') {
         $type = 'tf_office_status';
+      } else if (type == 'is_move_to_customer_input_folder') {
+        $type = 'is_move_to_customer_input_folder';
       } else {
-        return false;
+          return false;
       }
       // suspect of auto send while create-pproject opens
       $http.post(`${API_URL}project/connection-platform/${$type}`)
