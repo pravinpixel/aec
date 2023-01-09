@@ -13,6 +13,7 @@
             <!-- ========== Left Sidebar Start ========== -->
                 @include('admin.includes.side-bar')
             <!--========== Left Sidebar End ========== -->
+
             <!--========== Start Page Content here ==========-->
                 <div class="main-content-rapper" >
                     <div class="content-page">
@@ -28,7 +29,6 @@
         </div>
         <script src="{{ asset('public/assets/js/vendor.min.js') }}"></script>
         <script src="{{ asset('public/assets/js/app.js') }}"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.2/axios.min.js" integrity="sha512-QTnb9BQkG4fBYIt9JGvYmxPpd6TBeKp6lsUrtiVQsrJ9sb33Bn9s0wMQO9qVBFbPX3xHRAsBHvXlcsrnJjExjg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         @stack('live-project-custom-scripts')
     </body>
 </html>
