@@ -63,3 +63,6 @@ Route::delete('project/link/{id}', [ProjectController::class,'deleteGrandChartLi
 Route::post('live/project/milestones/{project_id?}/task',[LiveProjectController::class,'store_milestones']);
 Route::put('live/project/milestones/{project_id?}/task/{task_id}',[LiveProjectController::class,'update_milestones']);
 Route::delete('live/project/milestones/{project_id?}/task/{task_id}',[LiveProjectController::class,'destroy_milestones']);
+
+Route::post('live/project/milestones/{project_id?}/link',[LiveProjectController::class,'store_milestones_link']);
+Route::delete('live/project/milestones/{project_id?}/link/{link_id}',[LiveProjectController::class,'destroy_milestones_link']);

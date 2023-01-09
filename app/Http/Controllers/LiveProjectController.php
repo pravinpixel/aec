@@ -47,4 +47,12 @@ class LiveProjectController extends Controller
     {
         return $this->LiveProjectRepository->destroy_milestones($task_id);
     }
+    public function store_milestones_link(Request $request,$project_id)
+    {
+        return $this->LiveProjectRepository->store_milestones_link($project_id,$request);
+    }
+    public function destroy_milestones_link($project_id,$link_id)
+    {
+        return $this->LiveProjectRepository->destroy_milestones_link($project_id,$link_id);
+    }
 }
