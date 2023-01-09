@@ -31,6 +31,7 @@ use App\Interfaces\ProjectTicketRepositoryInterface;
 use App\Interfaces\TicketCommentRepositoryInterface;
 use App\Interfaces\TicketcommentsReplayinterface;
 use App\Interfaces\CheckSheetInterface;
+use App\Interfaces\LiveProjectInterFace;
 use App\Repositories\DeliveryListRepository;
 use App\Interfaces\ProjectChatRepositoryInterface;
 use App\Repositories\CheckSheetRepository;
@@ -61,6 +62,7 @@ use App\Repositories\TechnicalEstimateRepository;
 use Illuminate\Support\ServiceProvider;
 use App\Interfaces\PushNotificationRepositoryInterface;
 use App\Interfaces\TaskListRepositoryInterface;
+use App\Repositories\LiveProjectRepository;
 use App\Repositories\ProjectRepository;
 use App\Repositories\PushNotificationRepository;
 use App\Repositories\TaskListRepository;
@@ -232,6 +234,10 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(
             ProjectChatRepositoryInterface::class,
             ProjectChatRepository::class
+        );
+        $this->app->bind(
+            LiveProjectInterFace::class,
+            LiveProjectRepository::class
         );
     }
 

@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\Project\ProjectController;
 use App\Http\Controllers\Admin\Project\ProjectGranttChartLinkController;
 use App\Http\Controllers\Admin\Project\ProjectGranttChartTaskController;
 use App\Http\Controllers\HelperController;
+use App\Http\Controllers\LiveProjectController;
 
 /*
 |--------------------------------------------------------------------------
@@ -57,3 +58,8 @@ Route::put('project/task/{id}', [ProjectController::class, 'updateGrandChartTask
 Route::put('project/link/{id}', [ProjectController::class,'updateGrandChartLink']); 
 Route::delete('project/task/{id}', [ProjectController::class, 'deleteGrandChartTask']);
 Route::delete('project/link/{id}', [ProjectController::class,'deleteGrandChartLink']);
+
+
+Route::post('live/project/milestones/{project_id?}/task',[LiveProjectController::class,'store_milestones']);
+Route::put('live/project/milestones/{project_id?}/task/{task_id}',[LiveProjectController::class,'update_milestones']);
+Route::delete('live/project/milestones/{project_id?}/task/{task_id}',[LiveProjectController::class,'destroy_milestones']);

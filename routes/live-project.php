@@ -5,8 +5,8 @@ use App\Http\Controllers\LiveProjectController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'live', 'middleware' => 'common'], function () {
-    Route::get('/project/{menu_type}/{id?}', [LiveProjectController::class, 'index'])->name('live-project.menus-index');
-    Route::post('/project/{menu_type}/{id?}', [LiveProjectController::class, 'store'])->name('live-project.menus-store');
+    Route::get('/project/{menu_type}/{id}', [LiveProjectController::class, 'index'])->name('live-project.menus-index');
+    Route::post('/project/{menu_type}/{id}', [LiveProjectController::class, 'store'])->name('live-project.menus-store');
     Route::get('/get-milestones/{project_id?}', [LiveProjectController::class, 'milestones_index'])->name('live-project.milestones_index');
 });
 

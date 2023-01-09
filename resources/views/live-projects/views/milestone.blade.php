@@ -64,7 +64,7 @@
     <script src="{{ asset('public/assets/dhtmlx/dhtmlxgantt.js') }}"></script>
     <script src="http://export.dhtmlx.com/gantt/api.js"></script>
     <script> 
-        var dp = new gantt.dataProcessor('test');
+        var dp = new gantt.dataProcessor("{{ url('/api/live/project/milestones/'.$project->id) }}");
         dp.init(gantt);
         dp.setTransactionMode("REST");
         gantt.init("gantt_here");

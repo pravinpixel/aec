@@ -9,7 +9,7 @@
         <div class="card-header bg-light">
             <nav class="wizard-nav">
                 @foreach ($wizard_menus as $menu)
-                    <a href="{{ route('live-project.menus-index',["menu_type" => $menu['slug']]) }}" class="wizard-tab {{ request()->route()->menu_type === $menu['slug'] ? 'active' : ''}}"> 
+                    <a href="{{ route('live-project.menus-index',["menu_type" => $menu['slug'],"id" => session()->get('current_project')->id]) }}" class="wizard-tab {{ request()->route()->menu_type === $menu['slug'] ? 'active' : ''}}"> 
                         <div class="wizard-tab-icon">
                             {!! $menu['icon'] !!} 
                         </div>
@@ -20,24 +20,24 @@
         </div>
         @foreach ($wizard_menus as $key =>  $menu)
             @if(request()->route()->menu_type === $menu['slug'])
-                <form action="{{ route('live-project.menus-store',["menu_type" => $menu['slug']]) }}" method="post"> 
+                <form action="{{ route('live-project.menus-store',["menu_type" => $menu['slug'],"id" => session()->get('current_project')->id]) }}" method="post"> 
                     @csrf
                     <div class="card-body">
                         @include('live-projects.views.'.$menu['view'])
                     </div>
                     <div class="card-footer px-2 text-end">
                         @if(($key - 1) !== -1 )
-                            <a href="{{ route('live-project.menus-index',["menu_type" => $wizard_menus[$key - 1]['slug']]) }}" class="btn btn-sm btn-outline-primary">
+                            <a href="{{ route('live-project.menus-index',["menu_type" => $wizard_menus[$key - 1]['slug'],"id" => session()->get('current_project')->id]) }}" class="btn btn-sm btn-outline-primary">
                                 <i class="bi bi-chevron-left"></i>
                                 Prev
                             </a>
-                        @endif 
+                        @endif
                         @if(count($wizard_menus) > $key + 1) 
                             <input type="hidden" name="menu_type" value="{{ $wizard_menus[$key + 1]['slug'] }}">
                             <button type="submit" class="btn btn-sm btn-primary ">
                                 Next <i class="bi bi-chevron-right"></i> 
                             </button>
-                        @endif 
+                        @endif
                         @if($key + 1 === count($wizard_menus))
                             <button type="submit" href="{{ route('live-project.menus-index',["menu_type" => $wizard_menus[$key]['slug']]) }}" class="btn btn-sm btn-success ">
                                 <i class="bi bi-upload"></i> Submit
