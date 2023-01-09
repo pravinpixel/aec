@@ -5,9 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ProjectGranttTask extends Model
+class LiveProjectGranttTask extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         "id"        ,
         "text"      ,
@@ -20,5 +21,5 @@ class ProjectGranttTask extends Model
         "project_id",
         "status",
         "delivery_date"
-    ];
+    ]; 
 }

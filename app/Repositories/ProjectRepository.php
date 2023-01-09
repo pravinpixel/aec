@@ -249,7 +249,7 @@ class ProjectRepository implements ProjectRepositoryInterface, ConnectionPlatfor
     {
         return [
             "data" => ProjectGranttTask::where('project_id', $project_id)->get(),
-            "links" => ProjectGranttTask::where('project_id', $project_id)->get()
+            "links" => ProjectGranttLink::where('project_id', $project_id)->get()
         ];
     }
 

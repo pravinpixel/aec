@@ -33,7 +33,7 @@
                         @if (Route::is('live-projects')) Live Projects @endif
                         @if (Route::is('admin.contract.view')) Contract View @endif
                         @if (Route::is(['edit-projects','live-projects-data']))
-                           <span>
+                            <span>
                                 {{ session()->get('current_project')->reference_number }}
                                 {{ session()->get('current_project')->project_name }}
                             </span>

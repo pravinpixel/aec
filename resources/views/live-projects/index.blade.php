@@ -1,12 +1,18 @@
 @extends('live-projects.layout')
 
 @section('admin-content')
-    <div class="card border my-3 "> 
+    <h4 class="my-3">
+        <span class="text-primary">{{ session()->get('current_project')->reference_number }}</span>
+        <span class="text-secondary">{{ session()->get('current_project')->project_name }}</span>
+    </h4>
+    <div class="card border mb-3 "> 
         <div class="card-header bg-light">
             <nav class="wizard-nav">
                 @foreach ($wizard_menus as $menu)
-                    <a href="{{ route('live-project.menus-index',["menu_type" => $menu['slug']]) }}" class="wizard-tab nav-link {{ request()->route()->menu_type === $menu['slug'] ? 'active' : ''}}"> 
-                        {!! $menu['icon'] !!} 
+                    <a href="{{ route('live-project.menus-index',["menu_type" => $menu['slug']]) }}" class="wizard-tab {{ request()->route()->menu_type === $menu['slug'] ? 'active' : ''}}"> 
+                        <div class="wizard-tab-icon">
+                            {!! $menu['icon'] !!} 
+                        </div>
                         <small>{{ $menu['name'] }}</small>
                     </a>
                 @endforeach

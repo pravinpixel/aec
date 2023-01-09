@@ -120,5 +120,12 @@ class Project extends Model
     public function folders(){
         return $this->belongsToMany(sharePointMasterFolder::class,'projects_folders','pid','fid');
     }
-
+    public function GranttTasks()
+    {
+        return $this->hasMany(LiveProjectGranttTask::class,'project_id','id');
+    } 
+    public function GranttLinks()
+    {
+        return $this->hasMany(LiveProjectGranttLink::class,'project_id','id');
+    } 
 }

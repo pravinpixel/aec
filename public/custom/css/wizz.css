@@ -88,34 +88,47 @@ li.nav-item {
     border-bottom: 2px dotted gray;
     position: absolute;
     left: 50%;
-    top: 50%;
+    top: 40%;
     transform: translate(-50%,-50%);
     z-index: 1;
 }
-.wizard-tab {
+ .wizard-tab {
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 80px;
-    width: 80px;
-    background: white;
+    flex-direction: column;
+ }
+.wizard-tab-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height:50px;
+    width:50px;
+    background: gray;
     border-radius: 50%;
     text-align: center !important;
-    color: gray;
+    color: white;
     padding: 10px;
     z-index: 11;
     font-size: 10px !important;
-}
-.wizard-tab-icon {
-    font-size: 16px !important;
-}
-.wizard-tab.active {
-    background: var(--primary-bg);
-    color: white;
+    margin-bottom:7px !important;
     box-shadow: 0px 0px 10px #bdbdbd;
     border: 3px solid white;
 }
+.wizard-tab.active .wizard-tab-icon{
+    background: var(--primary-bg);
+    border: 3px solid white;
+    color: white; 
+}
 .wizard-tab.active small {
+    color: var(--primary-bg);
+} 
+.wizard-tab small {
     font-weight: bold !important;
+    color: gray;
+    font-size: 14px !important;
+} 
+
+.wizard-tab .wizard-tab-icon i {
+    font-size: 20px;
 }

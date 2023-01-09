@@ -1,14 +1,13 @@
 <?php
 
 use App\Http\Controllers\Admin\Project\LiveProjectController as OldLiveProjectController;
-use App\Http\Controllers\Admin\Project\TicketCommentsController;
 use App\Http\Controllers\LiveProjectController;
-use Illuminate\Routing\RouteGroup;
 use Illuminate\Support\Facades\Route;
 
-Route::group(['prefix' => 'live-project', 'middleware' => 'common'], function () {
-    Route::get('/{menu_type}', [LiveProjectController::class, 'index'])->name('live-project.menus-index');
-    Route::post('/{menu_type}', [LiveProjectController::class, 'store'])->name('live-project.menus-store');
+Route::group(['prefix' => 'live', 'middleware' => 'common'], function () {
+    Route::get('/project/{menu_type}/{id?}', [LiveProjectController::class, 'index'])->name('live-project.menus-index');
+    Route::post('/project/{menu_type}/{id?}', [LiveProjectController::class, 'store'])->name('live-project.menus-store');
+    Route::get('/get-milestones/{project_id?}', [LiveProjectController::class, 'milestones_index'])->name('live-project.milestones_index');
 });
 
 Route::group(['prefix' => 'admin', 'middleware' => 'common'], function () {
