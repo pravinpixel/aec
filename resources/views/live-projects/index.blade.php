@@ -3,11 +3,11 @@
 @section('admin-content')
     <div class="card border my-3 "> 
         <div class="card-header bg-light">
-            <nav class="nav nav-pills nav-fill">
+            <nav class="wizard-nav">
                 @foreach ($wizard_menus as $menu)
-                    <a href="{{ route('live-project.menus-index',["menu_type" => $menu['slug']]) }}" class="nav-link {{ request()->route()->menu_type === $menu['slug'] ? 'active' : ''}}"> 
+                    <a href="{{ route('live-project.menus-index',["menu_type" => $menu['slug']]) }}" class="wizard-tab nav-link {{ request()->route()->menu_type === $menu['slug'] ? 'active' : ''}}"> 
                         {!! $menu['icon'] !!} 
-                        {{ $menu['name'] }}
+                        <small>{{ $menu['name'] }}</small>
                     </a>
                 @endforeach
             </nav> 

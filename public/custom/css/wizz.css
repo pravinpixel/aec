@@ -1,66 +1,121 @@
+fieldset:hover,
+fieldset:hover .legend {
+    border: 1px solid var(--primary-bg) !important
+}
 
-        fieldset:hover ,   fieldset:hover  .legend {
-            border: 1px solid var(--primary-bg) !important
-        }
-        .legend {
-            top: -15px;
-            position: absolute;
-            font-weight: bold;
-            line-height: 25px;
-            padding: 0px 10px;
-            background: white;
-            left: 25px;
-        } 
-        .table-bold {
-            font-weight: bold !important
-        }
-        .timeline-step {
-            display: inline !important;
-        }
-        .timeline-step.active .inner-circle {
-            background: var( --primary-bg) !important
-        }
-        .inner-circle .fa {
-            transform: translateY(5px)
-        }
-         li.nav-item .timeline-step::after {
-            content: "";
-            position: absolute;
-            top: 38%;
-            right: -38px;
-            border: 1px dashed;
-            width: 50%; 
-        }
-        li.last .timeline-step::after {
-            display: none;
-        }
-        li:nth-last-child(1) .timeline-step::after {
-            display: none;
-        }
-        li.nav-item {
-            position: relative;
-        }
-      
-        .inner-circle {
-            height: 50px;
-            width: 50px;
-            border-radius: 50%;
-            box-shadow: 0px 0px 10px #bdbdbd;
-            background: white;
-            display: flex;
-            justify-content:center;
-            align-items: center;
-            color: white;
-            border: 3px solid white;
-            transform: scale(1.1);
+.legend {
+    top: -15px;
+    position: absolute;
+    font-weight: bold;
+    line-height: 25px;
+    padding: 0px 10px;
+    background: white;
+    left: 25px;
+}
 
-        }
-        .timeline-content {
-            display: flex;
-            justify-content:center;
-            align-items: center;
-            /* flex-direction: column; */
-        }
-        .admin-Delivery-wiz .timeline-step::after {
-            visibility: hidden;
-        } 
+.table-bold {
+    font-weight: bold !important
+}
+
+.timeline-step {
+    display: inline !important;
+}
+
+.timeline-step.active .inner-circle {
+    background: var(--primary-bg) !important
+}
+
+.inner-circle .fa {
+    transform: translateY(5px)
+}
+
+li.nav-item .timeline-step::after {
+    content: "";
+    position: absolute;
+    top: 38%;
+    right: -38px;
+    border: 1px dashed;
+    width: 50%;
+}
+
+li.last .timeline-step::after {
+    display: none;
+}
+
+li:nth-last-child(1) .timeline-step::after {
+    display: none;
+}
+
+li.nav-item {
+    position: relative;
+}
+
+.inner-circle {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    box-shadow: 0px 0px 10px #bdbdbd;
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    border: 3px solid white;
+    transform: scale(1.1);
+
+}
+
+.timeline-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* flex-direction: column; */
+}
+
+.admin-Delivery-wiz .timeline-step::after {
+    visibility: hidden;
+}
+.wizard-nav {
+    display: flex !important;
+    justify-content: space-between;
+    padding: 0 10px;
+    position: relative;
+}
+.wizard-nav::after {
+    content: '';
+    width: 90%;
+    height: 0;
+    border-bottom: 2px dotted gray;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    z-index: 1;
+}
+.wizard-tab {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 80px;
+    width: 80px;
+    background: white;
+    border-radius: 50%;
+    text-align: center !important;
+    color: gray;
+    padding: 10px;
+    z-index: 11;
+    font-size: 10px !important;
+}
+.wizard-tab-icon {
+    font-size: 16px !important;
+}
+.wizard-tab.active {
+    background: var(--primary-bg);
+    color: white;
+    box-shadow: 0px 0px 10px #bdbdbd;
+    border: 3px solid white;
+}
+.wizard-tab.active small {
+    font-weight: bold !important;
+}
