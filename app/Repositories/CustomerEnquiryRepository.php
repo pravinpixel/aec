@@ -18,6 +18,7 @@ use App\Models\Admin\MailTemplate;
 use Illuminate\Support\Facades\Mail;
 use App\Models\Admin\PropoalVersions;
 use App\Models\BuildingComponent;
+use App\Models\CalculateCostEstimate;
 use Illuminate\Http\Response;
 use App\Models\Service;
 use App\Models\WoodEstimation;
@@ -37,7 +38,8 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
     protected $documentTypeEnquiry;
     protected $enquiryBuildingComponentDocument;
     protected $costEstimate;
-
+    protected $service;
+    
     function __construct(
         Customer $customer,
         Enquiry $enquiry,
@@ -766,6 +768,40 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
             Log::info($ex->getMessage());
         }
 
+    }
+
+    public function getActiveEnquiry()
+    {
+        $result = $this->enquiry
+                        ->where('enquiry_number', '!=','Draft')
+                        ->where(['proposal_email_status'=>  0, 'technical_estimation_status'=> 1, 'proposal_sharing_status' => 0])
+                        ->select('enquiry_number','id')
+                        ->get();
+
+        return $result;
+    }
+
+    public function assignEstimationToEnquiry($enquiry_id, $data)
+    {
+        $calculation = CalculateCostEstimate::find($data['calculation_id']);
+        $enquiry = $this->enquiry->find($enquiry_id);
+        if($enquiry->proposal_sharing_status == 0 && $enquiry->technical_estimation_status == 1) {
+            if($data['type'] == 'wood') {
+                $costEstimateObj  = EnquiryCostEstimate::updateOrCreate(['enquiry_id' => $enquiry_id], [
+                    'build_json' => $calculation->calculation_json,
+                    'created_by' => Admin()->id,
+                    'updated_by' => Admin()->id,
+                ]);
+            } else {
+                $costEstimateObj  = EnquiryCostEstimate::updateOrCreate(['enquiry_id' => $enquiry_id], [
+                    'precast_build_json' => $calculation->calculation_json,
+                    'created_by' => Admin()->id,
+                    'updated_by' => Admin()->id,
+                ]);
+            }
+            return $costEstimateObj;
+        }
+        return false;
     }
 
 }

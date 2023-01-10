@@ -32,6 +32,7 @@
                     <div ng-show="price_calculation == 'precast_engineering_estimation'">
                         @include('admin.calculate-cost-estimate.precast-estimation')
                     </div>
+                    @include('admin.calculate-cost-estimate.estimate-assign-enquiry')
                  </div>
              </div>
          </div>

@@ -94,8 +94,8 @@ Route::group(['prefix' => 'admin', 'middleware'=> 'common'], function(){
     Route::delete('enquiry/{id}/delete', [EnquiryController::class, 'destroy'])->name('enquiry.delete');
     Route::post('update-followup', [EnquiryController::class, 'updateFollowUp'])->name('enquiry.update-followup');
     Route::get('get-active-comments-count',[EnquiryController::class,'getActiveCommentsCount'])->name('get-active-comments-count');
-
-    
+    Route::get('active-enquiries',[EnquiryController::class, 'getActiveEnquires'])->name('get-active-enquiries');
+    Route::post('assign-estimation-to-enquiry/{id}',[EnquiryController::class,'assignEstimationToEnquiry'])->name('assign-estimation-to-enquiry');
 });
 
 Route::group(['prefix' => 'admin', 'middleware' => 'common'], function(){

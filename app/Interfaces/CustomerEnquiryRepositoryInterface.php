@@ -81,4 +81,8 @@ interface CustomerEnquiryRepositoryInterface
     public function updateFollowUp($id, $data);
 
     public function manualApproveFromAdmin($enquiryId);
+
+    public function getActiveEnquiry();
+
+    public function assignEstimationToEnquiry($json, $enquiry_id);
 }

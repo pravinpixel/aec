@@ -10,6 +10,9 @@
         $scope.template_name = '';
         $scope.is_template_update = false;
         $scope.is_precast_template_update = false;
+        $scope.estimation = {};
+        $scope.formSubmit = false;
+        $scope.enquiries = [];
 
         $scope.callWoodTemplate = (pos) => {
             $scope.costEstimateWoodTemplate = $scope.EngineeringEstimate[pos];
@@ -486,6 +489,44 @@
                 if(res.data.status) {
                     Message('success', res.data.msg);
                     getlist(type);
+                    return false;
+                }
+                Message('danger', res.data.msg);
+                return false;
+            });
+        }
+
+        $scope.EstimateAssignToEnquiry = (id, type) => {
+            $scope.estimation.type = type;
+            $scope.estimation.calculation_id = id;
+            $("#estimate-assign-enquiry-modal").modal('show');
+        }
+        getActiveEnquiry = () => {
+            $http.get(`
+                ${API_URL}admin/active-enquiries`,
+            ).then(function successCallback(res){
+                if(res.data.status) {
+                    $scope.enquiries = res.data.data;
+                }
+                return false;
+            });
+        }
+        getActiveEnquiry();
+
+        $scope.submitAssignEnquiry = () => {
+            if(typeof($scope.enquiry_id) == 'undefined' || $scope.enquiry_id == '') {
+                $scope.formSubmit = true;
+                return false;
+            }
+            $http.post(`
+                ${API_URL}admin/assign-estimation-to-enquiry/${$scope.enquiry_id}`,
+                $scope.estimation
+            ).then(function successCallback(res){
+                if(res.data.status) {
+                    Message('success', res.data.msg);
+                    $scope.enquiry_id = '';
+                    $scope.formSubmit = false;
+                    $("#estimate-assign-enquiry-modal").modal('hide');
                     return false;
                 }
                 Message('danger', res.data.msg);

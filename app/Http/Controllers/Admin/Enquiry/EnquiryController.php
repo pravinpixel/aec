@@ -554,7 +554,7 @@ class EnquiryController extends Controller
         if( $res ) {
             return response(['status' => true, 'msg' => trans('enquiry.status_updated'), 'data' => $customer], Response::HTTP_OK);
         }
-        return response(['status' => false, 'msg' => trans('enquiry.something')], Response::HTTP_INTERNAL_SERVER_ERROR);
+        return response(['status' => false, 'msg' => trans('global.something')], Response::HTTP_INTERNAL_SERVER_ERROR);
     }
 
     public function updateFollowUp(Request $request)
@@ -570,7 +570,7 @@ class EnquiryController extends Controller
         if( $response ) {
             return response(['status' => true, 'msg' => trans('enquiry.follow_up_updated')], Response::HTTP_OK);
         }
-        return response(['status' => false, 'msg' => trans('enquiry.something')]);
+        return response(['status' => false, 'msg' => trans('global.something')]);
     }
 
     public function getActiveCommentsCount()
@@ -592,6 +592,24 @@ class EnquiryController extends Controller
         select count(*) as unestablished_count from aec_enquiries ae where status = 'Submitted' and project_status = 'Unattended' and is_new_enquiry = 1
         ")[0];
         return [$comments, $unestablishedCount];
+    }
+
+    public function getActiveEnquires() 
+    {
+        $response = $this->customerEnquiryRepo->getActiveEnquiry();
+        if( $response ) {
+            return response(['status' => true, 'data' => $response ,'msg' => trans('')], Response::HTTP_OK);
+        }
+        return response(['status' => false, 'msg' => trans('global.something')]);
+    }
+
+    public function assignEstimationToEnquiry($id, Request $request)
+    {
+       $response =  $this->customerEnquiryRepo->assignEstimationToEnquiry($id, $request->all());
+       if( $response ) {
+            return response(['status' => true, 'data' => $response ,'msg' => trans('enquiry.estimation_assigned')], Response::HTTP_OK);
+        }
+        return response(['status' => false, 'msg' => trans('global.something')]);
     }
 
     public function getVersion()
