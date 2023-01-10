@@ -7,7 +7,11 @@ use Illuminate\Support\Facades\Route;
 Route::group(['prefix' => 'live', 'middleware' => 'common'], function () {
     Route::get('/project/{menu_type}/{id}', [LiveProjectController::class, 'index'])->name('live-project.menus-index');
     Route::post('/project/{menu_type}/{id}', [LiveProjectController::class, 'store'])->name('live-project.menus-store');
-    Route::get('/get-milestones/{project_id?}', [LiveProjectController::class, 'milestones_index'])->name('live-project.milestones_index');
+    Route::get('/get-milestones/{project_id?}', [LiveProjectController::class, 'milestones_index'])->name('live-project.milestones-index');
+    Route::get('/task-list/{project_id}', [LiveProjectController::class, 'task_list_index'])->name('live-project.task-list-index');
+    Route::get('/sub-task-list/{task_id?}', [LiveProjectController::class, 'sub_task_index'])->name('live-project.sub-task-index');
+    Route::post('/update-sub-sub-task/{sub_sub_task_id?}', [LiveProjectController::class, 'update_sub_sub_task'])->name('live-project.sub-sub-task.update');
+    Route::delete('/delete-sub-sub-task/{sub_sub_task_id?}', [LiveProjectController::class, 'delete_sub_sub_task'])->name('live-project.sub-sub-task.delete');
 });
 
 Route::group(['prefix' => 'admin', 'middleware' => 'common'], function () {

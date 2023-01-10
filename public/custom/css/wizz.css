@@ -132,3 +132,6 @@ li.nav-item {
 .wizard-tab .wizard-tab-icon i {
     font-size: 20px;
 }
+body.swal2-toast-shown .swal2-container {
+    height: auto !important;
+}

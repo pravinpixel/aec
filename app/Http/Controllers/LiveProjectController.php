@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin\Employees;
+use App\Models\LiveProjectSubSubTasks;
+use App\Models\LiveProjectTasks;
 use App\Models\Project;
+use App\Models\Role;
 use App\Repositories\LiveProjectRepository;
 use Illuminate\Http\Request;
 class LiveProjectController extends Controller
@@ -15,10 +19,7 @@ class LiveProjectController extends Controller
     
     public function index($menu_type,$id=null)
     { 
-        $project = Project::find($id);
-        session()->put('current_project', $project);
-        $wizard_menus = config('live-project.wizard_menus'); 
-        return view('live-projects.index', compact('wizard_menus','project'));
+        return $this->LiveProjectRepository->wizard_tabs_index($menu_type,$id);  
     }
 
     public function store(Request $reuqest, $menu_type ,$id)
@@ -54,5 +55,46 @@ class LiveProjectController extends Controller
     public function destroy_milestones_link($project_id,$link_id)
     {
         return $this->LiveProjectRepository->destroy_milestones_link($project_id,$link_id);
+    }
+
+    public function task_list_index ($project_id)
+    {
+        $project = $this->LiveProjectRepository->task_list_index($project_id);
+        return response()->json([
+            "status" => true,
+            "view"   => "$project"
+        ]);
+    }
+
+    public function sub_task_index($task_id)
+    {
+        $role = Role::where('slug', 'project_manager')->first();
+        $managers = [];
+        if(!empty($role)) {
+            $managers = Employees::where('job_role', $role->id)->select('display_name','id')->get()->toArray();
+        } 
+        $task = LiveProjectTasks::with('SubTasks','SubTasks.SubSubTasks')->find($task_id);
+        $view = view('live-projects.templates.sub-task-model',compact('task','managers'));
+        return response()->json([
+            "status" => true,
+            "view"   => "$view"
+        ]);
+    }
+    public function update_sub_sub_task(Request $request,$sub_sub_task_id)
+    {
+        $task = LiveProjectSubSubTasks::find($sub_sub_task_id);
+        $task->update([
+            $request->type => $request->value
+        ]);
+        return response()->json([
+            "status" => true
+        ]);
+    }
+    public function delete_sub_sub_task($sub_sub_task_id)
+    {
+        LiveProjectSubSubTasks::find($sub_sub_task_id)->delete();
+        return response()->json([
+            "status" => true
+        ]);
     }
 }

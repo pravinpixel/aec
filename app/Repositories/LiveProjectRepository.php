@@ -20,6 +20,20 @@ class LiveProjectRepository implements LiveProjectInterFace
         $this->LiveProjectGranttTask = $LiveProjectGranttTask;
         $this->LiveProjectGranttLink = $LiveProjectGranttLink;
     }
+    public function wizard_tabs_index($menu_type,$project_id)
+    {
+        switch ($menu_type) {
+            case 'task-list':
+                $project = $this->projectModel->with('LiveProjectTasks','Customer')->find($project_id);
+                break;
+            default:
+                $project = $this->projectModel->with('Customer')->find($project_id);
+                break;
+        }
+        session()->put('current_project', $project);
+        $wizard_menus = config('live-project.wizard_menus'); 
+        return view('live-projects.index', compact('wizard_menus', "project", $project)); 
+    }
     public function get_milestones($project_id) // Project_id
     {
         try {
@@ -95,5 +109,11 @@ class LiveProjectRepository implements LiveProjectInterFace
         return response()->json([
             "action"    =>  "deleted"
         ]);
+    }
+
+    public function task_list_index($id)
+    {
+        $project = $this->projectModel->with('LiveProjectTasks','LiveProjectTasks.SubTasks','LiveProjectTasks.SubTasks.SubSubTasks')->find($id);
+        return view('live-projects.templates.tasks-list',compact('project'));
     }
 }

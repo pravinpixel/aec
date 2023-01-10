@@ -1082,7 +1082,7 @@
             ganttModules.zoom.setZoom("months");
             gantt.init("gantt_here");
             ganttModules.menu.setup();
-            gantt.load("{{ route('live-project.milestones_index', ['project_id' => $project->id]) }}");
+            gantt.load("{{ route('live-project.milestones-index', ['project_id' => $project->id]) }}");
         });
     </script>
 @endpush
