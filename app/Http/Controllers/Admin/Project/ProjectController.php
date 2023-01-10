@@ -788,15 +788,8 @@ class ProjectController extends Controller
             $this->projectRepo->updateWizardStatus($project, 'wizard_status', $wizardStatus);
             return $this->projectRepo->storeInvoicePlan($project_id, $data);
         } else if ($type == 'review_and_submit') { 
-            $project_scheduler = $this->projectRepo->getGranttChartTaskLink($project_id);
-            $LiveProjectGranttTask = new LiveProjectGranttTask;
-            $LiveProjectGranttLinks = new LiveProjectGranttLink;
-            foreach ($project_scheduler['data']->toArray() as $key => $value) {
-                $LiveProjectGranttTask->create($value);
-            }
-            foreach ($project_scheduler['links']->toArray() as $key => $value) {
-                $LiveProjectGranttLinks->create($value);
-            }
+            $this->projectRepo->EstablishNewProject($project_id); 
+            // $this->projectRepo->getToDoListData($project_id);
             $connectionPlatform = $this->projectRepo->getConnectionPlatform($project->id);
             if (isset($connectionPlatform->bim_status) && $connectionPlatform->bim_status == 1) {
                 // $this->createBimCompany($project);
@@ -871,15 +864,7 @@ class ProjectController extends Controller
             $this->projectRepo->updateWizardStatus($project, 'wizard_status', $wizardStatus);
             return $this->projectRepo->storeInvoicePlan($id, $data);
         } else if ($type == 'review_and_submit') {
-            $project_scheduler = $this->projectRepo->getGranttChartTaskLink($id);
-            $LiveProjectGranttTask = new LiveProjectGranttTask;
-            $LiveProjectGranttLinks = new LiveProjectGranttLink;
-            foreach ($project_scheduler['data']->toArray() as $key => $value) {
-                $LiveProjectGranttTask->create($value);
-            }
-            foreach ($project_scheduler['links']->toArray() as $key => $value) {
-                $LiveProjectGranttLinks->create($value);
-            } 
+            $this->projectRepo->EstablishNewProject($id); 
             $connectionPlatform = $this->projectRepo->getConnectionPlatform($project->id);
             $reference_number = str_replace('/', '-', $project->reference_number);
             $folderPath = ["path" => GlobalService::getSharepointPath($reference_number)];

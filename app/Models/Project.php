@@ -128,4 +128,8 @@ class Project extends Model
     {
         return $this->hasMany(LiveProjectGranttLink::class,'project_id','id');
     } 
+    public function LiveProjectTasks()
+    {
+        return $this->hasMany(LiveProjectTasks::class,'project_id','id');
+    }
 }

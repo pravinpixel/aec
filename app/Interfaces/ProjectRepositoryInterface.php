@@ -32,4 +32,5 @@ interface ProjectRepositoryInterface
     public function getliveProjectById($id);
     public function getliveProjectchart($id,$type);
     // public function storeToDoList($id, $data);
+    public function  EstablishNewProject ($project_id);
 }

@@ -7,21 +7,20 @@ use App\Interfaces\ProjectRepositoryInterface;
 use App\Interfaces\CustomerEnquiryRepositoryInterface;
 use App\Models\Admin\Employees;
 use App\Models\ConnectionPlatform;
-use App\Models\DeliveryType;
 use App\Models\InvoicePlan;
+use App\Models\LiveProjectGranttLink;
+use App\Models\LiveProjectGranttTask;
 use App\Models\Project;
 use App\Models\ProjectAssignToUser;
 use App\Models\ProjectGranttLink;
 use App\Models\ProjectGranttTask;
 use App\Models\ProjectTeamSetup;
-use App\Models\ProjectType;
 use App\Models\SharepointFolder;
 use App\Models\sharePointMasterFolder;
 use App\Models\TeamSetupTemplate;
 use App\Services\GlobalService;
 use Carbon\Carbon;
 use Exception;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Log;
 use DateTime;
 
@@ -510,5 +509,42 @@ class ProjectRepository implements ProjectRepositoryInterface, ConnectionPlatfor
         }
         return $formatFolder;
     }
-    
+    public function  EstablishNewProject ($project_id)
+    {
+        $Project    = Project::find($project_id); 
+        if(count(json_decode($Project->gantt_chart_data)) > 0) {
+            foreach (json_decode($Project->gantt_chart_data) as $tasks) {
+                $LiveProjectTasks = $Project->LiveProjectTasks()->create([
+                    'name'       => $tasks->name,
+                    'start_date' => $tasks->project_start_date,
+                    'end_date'   => $tasks->project_end_date
+                ]);
+                foreach ($tasks->data as $sub_tasks) {
+                    $LiveProjectSubTasks = $LiveProjectTasks->SubTasks()->create([
+                        'name'       => $sub_tasks->name,
+                        'start_date' => $sub_tasks->start_date,
+                        'end_date'   => $sub_tasks->end_date
+                    ]);
+                    foreach ($sub_tasks->data as $sub_sub_tasks) {
+                        $LiveProjectSubTasks->SubSubTasks()->create([
+                            'name'       => $sub_sub_tasks->task_list,
+                            'assign_to'  => $sub_sub_tasks->assign_to,
+                            'start_date' => $sub_sub_tasks->start_date,
+                            'end_date'   => $sub_sub_tasks->end_date
+                        ]);
+                    }
+                } 
+            }
+        }
+        $project_scheduler      = $this->getGranttChartTaskLink($project_id);
+        LiveProjectGranttTask::where('project_id',$project_id)->delete();
+        LiveProjectGranttLink::where('project_id',$project_id)->delete();
+        foreach ($project_scheduler['data']->toArray() as $key => $value) {
+            LiveProjectGranttTask::create($value);
+        }
+        foreach ($project_scheduler['links']->toArray() as $key => $value) {
+            LiveProjectGranttLink::updateOrCreate($value);
+        } 
+        return true;
+    }
 }
