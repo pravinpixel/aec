@@ -52,4 +52,5 @@ return [
     'assign_removed_successfully' => 'User removed successfully',
     'generate_proposal'           => 'Please Create Proposal Document',
     'follow_up_date'              => 'Follow Up Date',
+    'estimation_assigned'         => 'Estimation assigned successfully',
 ];
