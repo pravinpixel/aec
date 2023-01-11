@@ -18,10 +18,12 @@
                     }
                 })
             }
-            setLiveProjectSubSubTask = (type, sub_sub_task_id, value) => { 
+            setLiveProjectSubSubTask = (type, sub_sub_task_id, element) => { 
                 axios.post(`{{ route('live-project.sub-sub-task.update') }}/${sub_sub_task_id}`, {
                     type: type,
-                    value: value
+                    value: element.value
+                }).then((response) => {
+                    element.classList.remove('border-danger')
                 });
             }
             deleteLiveProjectSubSubTask = (sub_sub_task_id, element) => {  
@@ -132,7 +134,7 @@
                 })
             }
             setTaskStatus = (sub_task_id,task_id,element) => {
-                var inputs = $(`.${element.parentNode.parentNode.parentNode.classList[0]} input[type=date]`)
+                var inputs = $(`.${element.parentNode.parentNode.parentNode.classList[0]} input , .${element.parentNode.parentNode.parentNode.classList[0]} select`)
                 var errorCounts = 0
                 Object.entries(inputs).map((item) => {
                     if(item[1].value !== undefined) {
