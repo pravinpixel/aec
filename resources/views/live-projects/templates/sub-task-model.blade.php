@@ -5,8 +5,9 @@
 <div class="modal-body text-capitalize">
         @foreach ($task->SubTasks as $index => $sub_task)
             <div class="card border">
-                <div class="card-header px-3 bg-light">
+                <div class="card-header px-3 bg-light d-flex justify-content-between align-items-center">
                     <b class="text-capitalize"> {{ $sub_task->name }}</b>
+                    <button type="button" onclick="deleteLiveProjectSubTask('{{ $sub_task->id }}', this)" class="btn-outline-danger rounded"><i class="mdi mdi-trash-can"></i> Delete all</button>
                 </div>
                 <div class="card-body">
                     <table class="table m-0 table-hover">
@@ -16,11 +17,10 @@
                                 <th>Assign To</th>
                                 <th>Start date</th>
                                 <th>End date</th>
-                                <th>Status</th>
                                 <th>Date of Delivery</th>
+                                <th class="text-center">Status</th>
                                 <th width="30px">
-                                    <button type="button" class="btn-primary rounded"><i
-                                            class="mdi mdi-plus"></i></button>
+                                    <button type="button" class="btn-primary rounded"><i class="mdi mdi-plus"></i></button>
                                 </th>
                             </tr>
                         </thead>
@@ -56,24 +56,21 @@
                                         <input type="date"
                                             onchange="setLiveProjectSubSubTask('end_date','{{ $sub_sub_task->id }}',this.value)"
                                             value="{{ $sub_sub_task->end_date }}" class="border w-100" required>
-                                    </td>
-                                    <td>
-                                        <div class="form-check form-checkbox-success">
-                                            <input type="checkbox" class="form-check-input" style="cursor: pointer"
-                                                onchange="setLiveProjectSubSubTask('status','{{ $sub_sub_task->id }}',this)"
-                                                value="1" {{ $sub_sub_task->status == 1 ? 'checked' : '' }}>
-                                        </div>
-                                    </td>
+                                    </td> 
                                     <td>
                                         <input type="date"
                                             onchange="setLiveProjectSubSubTask('delivery_date','{{ $sub_sub_task->id }}',this.value)"
                                             value="{{ $sub_sub_task->delivery_date }}" class="border w-100" required>
                                     </td>
                                     <td>
-                                        <button type="button"
-                                            onclick="deleteLiveProjectSubSubTask('{{ $sub_sub_task->id }}', this)"
-                                            class="btn-outline-danger rounded"><i
-                                                class="mdi mdi-trash-can"></i></button>
+                                        <div class="form-check form-checkbox-success">
+                                            <input type="checkbox" class="form-check-input mx-auto " style="cursor: pointer"
+                                                onchange="setLiveProjectSubSubTask('status','{{ $sub_sub_task->id }}',this)"
+                                                value="1" {{ $sub_sub_task->status == 1 ? 'checked' : '' }}>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <i title="DELETE" onclick="deleteLiveProjectSubSubTask('{{ $sub_sub_task->id }}', this)" class="mdi mdi-trash-can text-danger" style="cursor: pointer"></i>
                                     </td>
                                 </tr>
                             @endforeach

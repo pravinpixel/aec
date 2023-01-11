@@ -12,6 +12,7 @@ Route::group(['prefix' => 'live', 'middleware' => 'common'], function () {
     Route::get('/sub-task-list/{task_id?}', [LiveProjectController::class, 'sub_task_index'])->name('live-project.sub-task-index');
     Route::post('/update-sub-sub-task/{sub_sub_task_id?}', [LiveProjectController::class, 'update_sub_sub_task'])->name('live-project.sub-sub-task.update');
     Route::delete('/delete-sub-sub-task/{sub_sub_task_id?}', [LiveProjectController::class, 'delete_sub_sub_task'])->name('live-project.sub-sub-task.delete');
+    Route::delete('/delete-sub-task/{sub_sub_task_id?}', [LiveProjectController::class, 'delete_sub_task'])->name('live-project.sub-task.delete');
 });
 
 Route::group(['prefix' => 'admin', 'middleware' => 'common'], function () {

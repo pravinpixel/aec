@@ -4,6 +4,24 @@
 @push('live-project-custom-scripts')
     <script>
         document.addEventListener("DOMContentLoaded", function() {
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    cancelButton: 'btn btn-success rounded-pill',
+                    confirmButton: 'btn btn-danger rounded-pill ms-2'
+                },
+                buttonsStyling: false
+            })
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
             axios.get("{{ route('live-project.task-list-index', ['project_id' => $project->id]) }}").then((
                 response) => {
                 if (response.data.status) {
@@ -31,25 +49,7 @@
                     value: value
                 });
             }
-            deleteLiveProjectSubSubTask = (sub_sub_task_id, element) => { 
-                const swalWithBootstrapButtons = Swal.mixin({
-                    customClass: {
-                        cancelButton: 'btn btn-success rounded-pill',
-                        confirmButton: 'btn btn-danger rounded-pill ms-2'
-                    },
-                    buttonsStyling: false
-                })
-                const Toast = Swal.mixin({
-                    toast: true,
-                    position: 'top-end',
-                    showConfirmButton: false,
-                    timer: 3000,
-                    timerProgressBar: true,
-                    didOpen: (toast) => {
-                        toast.addEventListener('mouseenter', Swal.stopTimer)
-                        toast.addEventListener('mouseleave', Swal.resumeTimer)
-                    }
-                })
+            deleteLiveProjectSubSubTask = (sub_sub_task_id, element) => {  
                 swalWithBootstrapButtons.fire({
                     title: 'Are you sure?',
                     text: "You won't be able to revert this!",
@@ -63,6 +63,32 @@
                 }).then((result) => {
                     if (result.isConfirmed) { 
                         axios.delete(`{{ route('live-project.sub-sub-task.delete') }}/${sub_sub_task_id}`).then((response) => {
+                            if(response.data.status) {
+                                element.parentNode.parentNode.remove()
+                                Toast.fire({
+                                    icon: 'success',
+                                    title: 'Successfully Deleted !',
+                                    backdrop: 'swal2-backdrop-hide',
+                                })
+                            }
+                        }) 
+                    }
+                })
+            }
+            deleteLiveProjectSubTask = (sub_task_id,element) => {
+                swalWithBootstrapButtons.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes, delete it!',
+                    cancelButtonText: 'No, cancel!',
+                    reverseButtons: true,
+                    allowOutsideClick :false,
+                    allowEscapeKey:false
+                }).then((result) => {
+                    if (result.isConfirmed) { 
+                        axios.delete(`{{ route('live-project.sub-task.delete') }}/${sub_task_id}`).then((response) => {
                             if(response.data.status) {
                                 element.parentNode.parentNode.remove()
                                 Toast.fire({

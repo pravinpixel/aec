@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Admin\Employees;
 use App\Models\LiveProjectSubSubTasks;
+use App\Models\LiveProjectSubTasks;
 use App\Models\LiveProjectTasks;
 use App\Models\Project;
 use App\Models\Role;
@@ -93,6 +94,17 @@ class LiveProjectController extends Controller
     public function delete_sub_sub_task($sub_sub_task_id)
     {
         LiveProjectSubSubTasks::find($sub_sub_task_id)->delete();
+        return response()->json([
+            "status" => true
+        ]);
+    }
+    public function delete_sub_task($sub_task_id)
+    {
+        $LiveProjectSubTasks = LiveProjectSubTasks::with('SubSubTasks')->find($sub_task_id);
+        if(!is_null($LiveProjectSubTasks->SubSubTasks)) {
+            $LiveProjectSubTasks->SubSubTasks()->delete();
+        }
+        $LiveProjectSubTasks->delete();
         return response()->json([
             "status" => true
         ]);
