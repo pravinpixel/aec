@@ -122,4 +122,12 @@ class LiveProjectController extends Controller
             "status" => true
         ]);
     }
+
+    public function set_progress(Request $request, $project_id)
+    {
+        $result = $this->LiveProjectRepository->task_status_update_and_index($project_id,$request); 
+        return response()->json([
+            "status" => $result
+        ]);
+    }
 }

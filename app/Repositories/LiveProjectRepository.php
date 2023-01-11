@@ -3,11 +3,13 @@
 namespace App\Repositories;
 
 use App\Interfaces\LiveProjectInterFace;
-use App\Models\Admin\Employees;
 use App\Models\LiveProjectGranttLink;
 use App\Models\LiveProjectGranttTask;
+use App\Models\LiveProjectSubSubTasks;
+use App\Models\LiveProjectSubTasks;
+use App\Models\LiveProjectTasks;
 use App\Models\Project;
-use App\Models\Role;
+use Illuminate\Support\Facades\Log;
 
 class LiveProjectRepository implements LiveProjectInterFace
 {
@@ -117,5 +119,42 @@ class LiveProjectRepository implements LiveProjectInterFace
     {
         $project = $this->projectModel->with('LiveProjectTasks','LiveProjectTasks.SubTasks','LiveProjectTasks.SubTasks.SubSubTasks')->find($id);
         return view('live-projects.templates.tasks-list',compact('project'));
+    }
+
+    public function task_status_update_and_index($project_id,$request)
+    {
+        $LiveProjectSubSubTasks = LiveProjectSubSubTasks::find($request->sub_task_id);
+        $LiveProjectSubSubTasks->update([
+            "status" => $request->status,
+        ]);
+        $tasks = LiveProjectSubSubTasks::where('sub_task_id',$LiveProjectSubSubTasks->sub_task_id)->get();
+        $sub_sub_task_progress = 0;
+        foreach ($tasks as $sub_sub_task) {
+            if ($sub_sub_task->status == 1) {
+                $sub_sub_task_progress++;
+            }
+        }
+        $per_task_percentage     = 100 / count($tasks);
+        $sub_task_progress_count = $sub_sub_task_progress * $per_task_percentage;
+
+        LiveProjectSubTasks::find($request->task_id)->update([
+            "progress_percentage" => $sub_task_progress_count,
+        ]);
+ 
+        $project = $this->projectModel->with('LiveProjectTasks','LiveProjectTasks.SubTasks')->find($project_id);
+         
+        foreach ($project->LiveProjectTasks as $key => $task) { 
+            if(count($task->SubTasks) > 0) {
+                $sub_task_new_count = 0;
+                foreach ($task->SubTasks as $key => $sub_task) {
+                    $sub_task_new_count += $sub_task->progress_percentage;
+                } 
+                $task->update([
+                    'progress_percentage' => $sub_task_new_count / count($task->SubTasks)
+                ]);
+            }
+        }
+        // / $sub_task_progress_count
+        return true;
     }
 }

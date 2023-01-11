@@ -1,12 +1,28 @@
 <div class="modal-header bg-light">
-    <h4 class="modal-title text-primary"><i class="fa fa-star" aria-hidden="true"></i> {{ $task->name }}</h4>
+    <h4 class="modal-title text-primary"><i class="fa fa-star" aria-hidden="true"></i> 
+        <b>{{ $task->name }}</b>
+        {{ $task->progress_percentage }}
+    </h4>
     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
 </div>
 <div class="modal-body text-capitalize position-relative">
     @foreach ($task->SubTasks as $index => $sub_task)
         <div class="card border">
             <div class="card-header px-3 bg-light d-flex justify-content-between align-items-center">
-                <b class="text-capitalize"> {{ $sub_task->name }}</b>
+                <div>
+                    <h5 class="text-capitalize text-purple border-bottom pb-2"> {{ $sub_task->name }}</h5>
+                    <div class="d-flex align-items-center">
+                        @if ($sub_task->progress_percentage == 0)
+                            <div class="progress border border-white shadow" style="width: 100px">
+                                <div class="progress-bar progress-bar-striped bg-secondary text-white" role="progressbar" style="width: 100%;">0%</div>
+                            </div>
+                            @else
+                            <div class="progress border border-purple shadow" style="width: 100px">
+                                <div class="progress-bar progress-bar-striped progress-bar-animated bg-rebeccapurple" role="progressbar" style="width: {{ $sub_task->progress_percentage < 25 ? 25 : $sub_task->progress_percentage }}%;" aria-valuenow="{{ $sub_task->progress_percentage }}" aria-valuemin="0" aria-valuemax="100">{{ $sub_task->progress_percentage }}%</div>
+                            </div>
+                        @endif
+                    </div>
+                </div>
                 <button type="button" onclick="deleteLiveProjectSubTask('{{ $sub_task->id }}', this)" class="btn-outline-danger rounded"><i class="mdi mdi-trash-can"></i> Delete all</button>
             </div>
             <div class="card-body">
@@ -58,7 +74,7 @@
                                     <td>
                                         <div class="form-check form-checkbox-success">
                                             <input type="checkbox" class="form-check-input mx-auto input_{{ slugable($sub_task->name,$sub_task->id) }}" style="cursor: pointer"
-                                                onchange="setLiveProjectSubSubTask('status','{{ $sub_sub_task->id }}',this)"
+                                                onchange="setTaskStatus('{{ $sub_sub_task->id }}','{{ $sub_task->id }}',this)"
                                                 value="1" {{ $sub_sub_task->status == 1 ? 'checked' : '' }}>
                                         </div>
                                     </td>

@@ -1,7 +1,7 @@
 <div id="task-app">
     <i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i>
 </div> 
-@push('live-project-custom-scripts')
+@push('live-project-custom-scripts') 
     <script>
         document.addEventListener("DOMContentLoaded", function() { 
             axios.get("{{ route('live-project.task-list-index', ['project_id' => $project->id]) }}").then((
@@ -18,14 +18,7 @@
                     }
                 })
             }
-            setLiveProjectSubSubTask = (type, sub_sub_task_id, value) => {
-                if (type == 'status') {
-                    if (value.checked === true) {
-                        value = 1
-                    } else {
-                        value = 0
-                    }
-                }
+            setLiveProjectSubSubTask = (type, sub_sub_task_id, value) => { 
                 axios.post(`{{ route('live-project.sub-sub-task.update') }}/${sub_sub_task_id}`, {
                     type: type,
                     value: value
@@ -136,6 +129,15 @@
                     if (response.data.status) {
                         $('#live-project-sub-tasks-model-content').html(response.data.view)
                     }
+                })
+            }
+            setTaskStatus = (sub_task_id,task_id,element) => {
+                axios.post(`{{ route("live-project.set-progress",['project_id'=>$project->id]) }}`,{
+                    status     : element.checked === true ? 1: 0,
+                    sub_task_id: sub_task_id,
+                    task_id    : task_id,
+                }).then((response) => {
+                    console.log(response.data)
                 })
             }
         });

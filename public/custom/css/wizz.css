@@ -173,4 +173,15 @@ body.swal2-toast-shown .swal2-title {
     transition: all .5s;
     transform: translateX(150%);
 }
- 
+.progress {
+    background-color: #cdcdcd !important;
+}
+.bg-rebeccapurple {
+    background-color: rebeccapurple;
+}
+.border-purple {
+    border-color: rebeccapurple !important;
+}
+.text-purple {
+    color: rebeccapurple !important;
+}

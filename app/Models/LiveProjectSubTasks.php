@@ -13,7 +13,8 @@ class LiveProjectSubTasks extends Model
         'name',
         'slug',
         'start_date',
-        'end_date'
+        'end_date',
+        'progress_percentage'
     ];
     public function SubSubTasks()
     {
