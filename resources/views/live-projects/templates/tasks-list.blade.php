@@ -34,19 +34,21 @@
             <div class="card-bodyx" style="max-height: 270px;overflow:auto"> 
                 <ol class="list-group border-0">
                     @foreach ($project->LiveProjectTasks as $i => $task)
-                        <button type="button" class="list-group-item list-group-item-action" onclick="getLiveProjectSubTasks({{ $task->id }})">
-                            <div>
-                                <strong class="d-flex alignm-items-center justify-content-between">
-                                    {{ $task->name }} 
-                                    <span>
-                                        <span class="badge bg-danger rounded-pill">{{ count($task->SubTasks) }} Sub Tasks </span>
-                                    </span>
-                                </strong>
-                                <div class="progress progress-md mt-2">
-                                    <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 10%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+                        @if (count($task->SubTasks) !== 0)
+                            <button type="button" class="list-group-item list-group-item-action" onclick="getLiveProjectSubTasks({{ $task->id }})">
+                                <div>
+                                    <strong class="d-flex alignm-items-center justify-content-between">
+                                        {{ $task->name }} 
+                                        <span>
+                                            <span class="badge bg-danger rounded-pill">{{ count($task->SubTasks) }} Sub Tasks </span>
+                                        </span>
+                                    </strong>
+                                    <div class="progress progress-md mt-2">
+                                        <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 10%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
                                 </div>
-                            </div>
-                        </button>
+                            </button>
+                        @endif
                     @endforeach
                 </ol>
             </div>

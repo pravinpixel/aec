@@ -25,47 +25,49 @@
                         </tr>
                     </thead>
                     <tbody id="{{ slugable($sub_task->name,$sub_task->id) }}">
-                        @foreach ($sub_task->SubSubTasks as $key => $sub_sub_task)
-                            <tr>
-                                <td>
-                                    <input type="text" onchange="setLiveProjectSubSubTask('name','{{ $sub_sub_task->id }}',this.value)" value="{{ $sub_sub_task->name }}" class="border w-100 input_{{ slugable($sub_task->name,$sub_task->id) }}" required>
-                                </td>
-                                <td>
-                                    <select onchange="setLiveProjectSubSubTask('assign_to','{{ $sub_sub_task->id }}',this.value)" class="border w-100 text-capitalize input_{{ slugable($sub_task->name,$sub_task->id) }}">
-                                        <option value="">-- choose --</option>
-                                        @if (count($managers))
-                                            @foreach ($managers as $manager)
-                                                <option
-                                                    {{ $manager['id'] == $sub_sub_task->assign_to ? 'selected' : '' }}
-                                                    value="{{ $manager['id'] }}">{{ $manager['display_name'] }}
-                                                </option>
-                                            @endforeach
-                                        @endif
-                                    </select>
-                                </td>
-                                <td>
-                                    <input type="date" onchange="setLiveProjectSubSubTask('start_date','{{ $sub_sub_task->id }}',this.value)" value="{{ $sub_sub_task->start_date }}" class="border w-100 input_{{ slugable($sub_task->name,$sub_task->id) }}"  required>
-                                </td>
-                                <td>
-                                    <input type="date" onchange="setLiveProjectSubSubTask('end_date','{{ $sub_sub_task->id }}',this.value)" value="{{ $sub_sub_task->end_date }}" class="border w-100 input_{{ slugable($sub_task->name,$sub_task->id) }}" required >
-                                </td> 
-                                <td>
-                                    <input type="date"
-                                        onchange="setLiveProjectSubSubTask('delivery_date','{{ $sub_sub_task->id }}',this.value)"
-                                        value="{{ $sub_sub_task->delivery_date }}" class="border w-100 input_{{ slugable($sub_task->name,$sub_task->id) }}" required>
-                                </td>
-                                <td>
-                                    <div class="form-check form-checkbox-success">
-                                        <input type="checkbox" class="form-check-input mx-auto input_{{ slugable($sub_task->name,$sub_task->id) }}" style="cursor: pointer"
-                                            onchange="setLiveProjectSubSubTask('status','{{ $sub_sub_task->id }}',this)"
-                                            value="1" {{ $sub_sub_task->status == 1 ? 'checked' : '' }}>
-                                    </div>
-                                </td>
-                                <td class="text-center">
-                                    <i title="DELETE" onclick="deleteLiveProjectSubSubTask('{{ $sub_sub_task->id }}', this)" class="mdi mdi-trash-can text-danger" style="cursor: pointer"></i>
-                                </td>
-                            </tr>
-                        @endforeach
+                        @if (count($sub_task->SubSubTasks))
+                            @foreach ($sub_task->SubSubTasks as $key => $sub_sub_task)
+                                <tr>
+                                    <td>
+                                        <input type="text" onchange="setLiveProjectSubSubTask('name','{{ $sub_sub_task->id }}',this.value)" value="{{ $sub_sub_task->name }}" class="border w-100 input_{{ slugable($sub_task->name,$sub_task->id) }}" required>
+                                    </td>
+                                    <td>
+                                        <select onchange="setLiveProjectSubSubTask('assign_to','{{ $sub_sub_task->id }}',this.value)" class="border w-100 text-capitalize input_{{ slugable($sub_task->name,$sub_task->id) }}">
+                                            <option value="">-- choose --</option>
+                                            @if (count($managers))
+                                                @foreach ($managers as $manager)
+                                                    <option
+                                                        {{ $manager['id'] == $sub_sub_task->assign_to ? 'selected' : '' }}
+                                                        value="{{ $manager['id'] }}">{{ $manager['display_name'] }}
+                                                    </option>
+                                                @endforeach
+                                            @endif
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <input type="date" onchange="setLiveProjectSubSubTask('start_date','{{ $sub_sub_task->id }}',this.value)" value="{{ $sub_sub_task->start_date }}" class="border w-100 input_{{ slugable($sub_task->name,$sub_task->id) }}"  required>
+                                    </td>
+                                    <td>
+                                        <input type="date" onchange="setLiveProjectSubSubTask('end_date','{{ $sub_sub_task->id }}',this.value)" value="{{ $sub_sub_task->end_date }}" class="border w-100 input_{{ slugable($sub_task->name,$sub_task->id) }}" required >
+                                    </td> 
+                                    <td>
+                                        <input type="date"
+                                            onchange="setLiveProjectSubSubTask('delivery_date','{{ $sub_sub_task->id }}',this.value)"
+                                            value="{{ $sub_sub_task->delivery_date }}" class="border w-100 input_{{ slugable($sub_task->name,$sub_task->id) }}" required>
+                                    </td>
+                                    <td>
+                                        <div class="form-check form-checkbox-success">
+                                            <input type="checkbox" class="form-check-input mx-auto input_{{ slugable($sub_task->name,$sub_task->id) }}" style="cursor: pointer"
+                                                onchange="setLiveProjectSubSubTask('status','{{ $sub_sub_task->id }}',this)"
+                                                value="1" {{ $sub_sub_task->status == 1 ? 'checked' : '' }}>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <i title="DELETE" onclick="deleteLiveProjectSubSubTask('{{ $sub_sub_task->id }}', this)" class="mdi mdi-trash-can text-danger" style="cursor: pointer"></i>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @endif
                     </tbody>
                 </table>
             </div>
@@ -94,10 +96,7 @@
                     <option value="">-- choose --</option>
                     @if (count($managers))
                         @foreach ($managers as $manager)
-                            <option
-                                {{ $manager['id'] == $sub_sub_task->assign_to ? 'selected' : '' }}
-                                value="{{ $manager['id'] }}">{{ $manager['display_name'] }}
-                            </option>
+                            <option value="{{ $manager['id'] }}">{{ $manager['display_name'] }}</option>
                         @endforeach
                     @endif
                 </select>
