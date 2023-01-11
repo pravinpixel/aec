@@ -2,7 +2,9 @@ fieldset:hover,
 fieldset:hover .legend {
     border: 1px solid var(--primary-bg) !important
 }
-
+select, input[type='text'] {
+    text-transform: capitalize ;
+}
 .legend {
     top: -15px;
     position: absolute;
@@ -135,3 +137,40 @@ li.nav-item {
 body.swal2-toast-shown .swal2-container {
     height: auto !important;
 }
+body.swal2-toast-shown .swal2-title {
+    font-weight: bold !important;
+}
+.app-modal {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: #00000052;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: end;
+    opacity: 1;
+    transition: all .5s;
+}
+.app-modal-content {
+    width: 40%;
+}
+.form-check-input {
+    cursor: pointer !important;
+}
+.app-modal.modal-d-none {
+    opacity: 0;
+    visibility: hidden;
+}
+.app-modal.app-modal-content {
+    opacity: 1;
+    transition: all .5s;
+    transform: translateX(0%);
+}
+.app-modal.modal-d-none .app-modal-content {
+    transition: all 1s;
+    opacity: .5;
+    transition: all .5s;
+    transform: translateX(150%);
+}
+ 

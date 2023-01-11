@@ -3,9 +3,11 @@
 namespace App\Repositories;
 
 use App\Interfaces\LiveProjectInterFace;
+use App\Models\Admin\Employees;
 use App\Models\LiveProjectGranttLink;
 use App\Models\LiveProjectGranttTask;
 use App\Models\Project;
+use App\Models\Role;
 
 class LiveProjectRepository implements LiveProjectInterFace
 {
@@ -23,7 +25,7 @@ class LiveProjectRepository implements LiveProjectInterFace
     public function wizard_tabs_index($menu_type,$project_id)
     {
         switch ($menu_type) {
-            case 'task-list':
+            case 'task-list': 
                 $project = $this->projectModel->with('LiveProjectTasks','Customer')->find($project_id);
                 break;
             default:

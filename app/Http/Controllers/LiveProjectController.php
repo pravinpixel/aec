@@ -6,7 +6,6 @@ use App\Models\Admin\Employees;
 use App\Models\LiveProjectSubSubTasks;
 use App\Models\LiveProjectSubTasks;
 use App\Models\LiveProjectTasks;
-use App\Models\Project;
 use App\Models\Role;
 use App\Repositories\LiveProjectRepository;
 use Illuminate\Http\Request;
@@ -94,6 +93,20 @@ class LiveProjectController extends Controller
     public function delete_sub_sub_task($sub_sub_task_id)
     {
         LiveProjectSubSubTasks::find($sub_sub_task_id)->delete();
+        return response()->json([
+            "status" => true
+        ]);
+    }
+    public function create_sub_task(Request $request,$sub_task_id)
+    {
+        $LiveProjectSubTasks = LiveProjectSubTasks::find($sub_task_id);
+        $LiveProjectSubTasks->SubSubTasks()->create([
+            'name'          => $request->TaskName,
+            'assign_to'     => $request->AssignTo,
+            'start_date'    => $request->StartDate,
+            'end_date'      => $request->EndDate,
+            'delivery_date' => $request->DeliveryDate,
+        ]);
         return response()->json([
             "status" => true
         ]);

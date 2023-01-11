@@ -1,10 +1,12 @@
 <?php
 
 use App\Helper\Notify;
+use App\Models\Admin\Employees;
 use App\Models\Admin\MailTemplate;
 use App\Models\Admin\PropoalVersions;
 use App\Models\Enquiry;
 use App\Models\Inbox;
+use App\Models\Role as ModelsRole;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -207,4 +209,20 @@ if(!function_exists('changeProposalStatus')) {
         }
         return Enquiry::find($data['enquiry_id'])->update(["customer_response" => 0]);
     }
+    if(!function_exists('slugable')) {
+        function slugable($txt,$id){
+           return strtoupper(str_replace([' ','-', '_'],"_",$txt).'_000'.$id);
+        }
+    }
+    if(!function_exists('getManagers')) {
+        function getManagers(){
+            $role = ModelsRole::where('slug', 'project_manager')->first();
+            $managers = [];
+            if(!empty($role)) {
+                $managers = Employees::where('job_role', $role->id)->select('display_name','id')->get()->toArray();
+            }
+            return $managers;
+        }
+    }
 }
+
