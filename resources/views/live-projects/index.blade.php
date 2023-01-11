@@ -56,7 +56,7 @@
             @endif
         @endforeach
     </div>
-    <form onsubmit="event.preventDefault()">
+    <form onsubmit="event.preventDefault()" id="live-project-sub-tasks-model-form">
         <div id="live-project-sub-tasks-model" class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false"  tabindex="-1" role="dialog" aria-labelledby="fullWidthModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-full-width modal-dialog-scrollable">
                 <div class="modal-content" id="live-project-sub-tasks-model-content">

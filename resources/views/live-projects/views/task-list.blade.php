@@ -132,13 +132,29 @@
                 })
             }
             setTaskStatus = (sub_task_id,task_id,element) => {
-                axios.post(`{{ route("live-project.set-progress",['project_id'=>$project->id]) }}`,{
-                    status     : element.checked === true ? 1: 0,
-                    sub_task_id: sub_task_id,
-                    task_id    : task_id,
-                }).then((response) => {
-                    console.log(response.data)
+                var inputs = $(`.${element.parentNode.parentNode.parentNode.classList[0]} input[type=date]`)
+                var errorCounts = 0
+                Object.entries(inputs).map((item) => {
+                    if(item[1].value !== undefined) {
+                        if(item[1].value == '') {
+                            errorCounts ++
+                            item[1].classList.add('border-danger')
+                        }else {
+                            item[1].classList.remove('border-danger')
+                        }
+                    }
                 })
+                if(errorCounts === 0) {
+                    axios.post(`{{ route("live-project.set-progress",['project_id'=>$project->id]) }}`,{
+                        status     : element.checked === true ? 1: 0,
+                        sub_task_id: sub_task_id,
+                        task_id    : task_id,
+                    }).then((response) => {
+                        console.log(response.data)
+                    })
+                } else {
+                    element.checked = false
+                }
             }
         });
     </script>

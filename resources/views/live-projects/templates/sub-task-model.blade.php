@@ -36,19 +36,19 @@
                             <th>Date of Delivery</th>
                             <th class="text-center">Status</th>
                             <th width="30px">
-                                <button type="button" class="btn-primary rounded" onclick="createLiveProjectSubTask('{{ $sub_task->id }}', '{{ slugable($sub_task->name,$sub_task->id) }}',this)"><i class="mdi mdi-plus"></i></button>
+                                <button type="button" class="btn-primary rounded" onclick="createLiveProjectSubTask('{{ $sub_task->id }}', '{{ slugable($sub_task->name,$task->id) }}',this)"><i class="mdi mdi-plus"></i></button>
                             </th>
                         </tr>
                     </thead>
-                    <tbody id="{{ slugable($sub_task->name,$sub_task->id) }}">
+                    <tbody>
                         @if (count($sub_task->SubSubTasks))
                             @foreach ($sub_task->SubSubTasks as $key => $sub_sub_task)
-                                <tr>
+                                <tr class="{{ slugable($sub_task->name,$key + 1) }}">
                                     <td>
-                                        <input type="text" onchange="setLiveProjectSubSubTask('name','{{ $sub_sub_task->id }}',this.value)" value="{{ $sub_sub_task->name }}" class="border w-100 input_{{ slugable($sub_task->name,$sub_task->id) }}" required>
+                                        <input type="text" onchange="setLiveProjectSubSubTask('name','{{ $sub_sub_task->id }}',this.value)" value="{{ $sub_sub_task->name }}" class="border w-100 input_{{ slugable($sub_task->name,$key + 1) }}" required>
                                     </td>
                                     <td>
-                                        <select onchange="setLiveProjectSubSubTask('assign_to','{{ $sub_sub_task->id }}',this.value)" class="border w-100 text-capitalize input_{{ slugable($sub_task->name,$sub_task->id) }}">
+                                        <select onchange="setLiveProjectSubSubTask('assign_to','{{ $sub_sub_task->id }}',this.value)" class="border w-100 text-capitalize input_{{ slugable($sub_task->name,$key + 1) }}">
                                             <option value="">-- choose --</option>
                                             @if (count($managers))
                                                 @foreach ($managers as $manager)
@@ -61,19 +61,19 @@
                                         </select>
                                     </td>
                                     <td>
-                                        <input type="date" onchange="setLiveProjectSubSubTask('start_date','{{ $sub_sub_task->id }}',this.value)" value="{{ $sub_sub_task->start_date }}" class="border w-100 input_{{ slugable($sub_task->name,$sub_task->id) }}"  required>
+                                        <input type="date" onchange="setLiveProjectSubSubTask('start_date','{{ $sub_sub_task->id }}',this.value)" value="{{ $sub_sub_task->start_date }}" class="border w-100 input_{{ slugable($sub_task->name,$key + 1) }}"  required>
                                     </td>
                                     <td>
-                                        <input type="date" onchange="setLiveProjectSubSubTask('end_date','{{ $sub_sub_task->id }}',this.value)" value="{{ $sub_sub_task->end_date }}" class="border w-100 input_{{ slugable($sub_task->name,$sub_task->id) }}" required >
+                                        <input type="date" onchange="setLiveProjectSubSubTask('end_date','{{ $sub_sub_task->id }}',this.value)" value="{{ $sub_sub_task->end_date }}" class="border w-100 input_{{ slugable($sub_task->name,$key + 1) }}" required >
                                     </td> 
                                     <td>
                                         <input type="date"
                                             onchange="setLiveProjectSubSubTask('delivery_date','{{ $sub_sub_task->id }}',this.value)"
-                                            value="{{ $sub_sub_task->delivery_date }}" class="border w-100 input_{{ slugable($sub_task->name,$sub_task->id) }}" required>
+                                            value="{{ $sub_sub_task->delivery_date }}" class="border w-100 input_{{ slugable($sub_task->name,$key + 1) }}" required>
                                     </td>
                                     <td>
                                         <div class="form-check form-checkbox-success">
-                                            <input type="checkbox" class="form-check-input mx-auto input_{{ slugable($sub_task->name,$sub_task->id) }}" style="cursor: pointer"
+                                            <input type="checkbox" class="form-check-input mx-auto input_{{ slugable($sub_task->name,$key + 1) }}" style="cursor: pointer"
                                                 onchange="setTaskStatus('{{ $sub_sub_task->id }}','{{ $sub_task->id }}',this)"
                                                 value="1" {{ $sub_sub_task->status == 1 ? 'checked' : '' }}>
                                         </div>
