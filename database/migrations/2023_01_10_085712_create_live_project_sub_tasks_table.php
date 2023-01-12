@@ -16,6 +16,7 @@ class CreateLiveProjectSubTasksTable extends Migration
         Schema::create('live_project_sub_tasks', function (Blueprint $table) {
             $table->id();
             $table->integer('task_id')->nullable();
+            $table->integer('project_id')->nullable();
             $table->text('name')->nullable();
             $table->text('slug')->nullable();
             $table->string('start_date')->nullable();

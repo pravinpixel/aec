@@ -4,12 +4,18 @@
 @push('live-project-custom-scripts') 
     <script>
         document.addEventListener("DOMContentLoaded", function() { 
-            axios.get("{{ route('live-project.task-list-index', ['project_id' => $project->id]) }}").then((
-                response) => {
-                if (response.data.status) {
-                    $('#task-app').html(response.data.view)
-                }
-            })
+            setAllTask = () => {
+                axios.get("{{ route('live-project.task-list-index', ['project_id' => $project->id]) }}").then((
+                    response) => {
+                    if (response.data.status) {
+                        $('#task-app').html(response.data.view)
+                    }
+                })
+            }
+            closeSubTaskMenu = () => {
+                $('#create-live-project-task-modal').toggleClass('modal-d-none') 
+            }
+            setAllTask()
             getLiveProjectSubTasks = (task_id) => { 
                 axios.get(`{{ route('live-project.sub-task-index') }}/${task_id}`).then((response) => {
                     if (response.data.status) {
@@ -18,10 +24,12 @@
                     }
                 })
             }
-            setLiveProjectSubSubTask = (type, sub_sub_task_id, value) => { 
+            setLiveProjectSubSubTask = (type, sub_sub_task_id, element) => { 
                 axios.post(`{{ route('live-project.sub-sub-task.update') }}/${sub_sub_task_id}`, {
                     type: type,
-                    value: value
+                    value: element.value
+                }).then((response) => {
+                    element.classList.remove('border-danger')
                 });
             }
             deleteLiveProjectSubSubTask = (sub_sub_task_id, element) => {  
@@ -40,6 +48,7 @@
                         axios.delete(`{{ route('live-project.sub-sub-task.delete') }}/${sub_sub_task_id}`).then((response) => {
                             if(response.data.status) {
                                 element.parentNode.parentNode.remove()
+                                $(`#${element.attributes[1]['nodeValue']}`).html(response.data.progress)
                                 Toast.fire({
                                     icon: 'success',
                                     title: 'Successfully Deleted !',
@@ -131,14 +140,30 @@
                     }
                 })
             }
-            setTaskStatus = (sub_task_id,task_id,element) => {
-                axios.post(`{{ route("live-project.set-progress",['project_id'=>$project->id]) }}`,{
-                    status     : element.checked === true ? 1: 0,
-                    sub_task_id: sub_task_id,
-                    task_id    : task_id,
-                }).then((response) => {
-                    console.log(response.data)
+            setTaskStatus = (sub_task_id,task_id,element) => {  
+                var inputs = $(`.${element.parentNode.parentNode.parentNode.classList[0]} input , .${element.parentNode.parentNode.parentNode.classList[0]} select`)
+                var errorCounts = 0
+                Object.entries(inputs).map((item) => {
+                    if(item[1].value !== undefined) {
+                        if(item[1].value == '') {
+                            errorCounts ++
+                            item[1].classList.add('border-danger')
+                        }else {
+                            item[1].classList.remove('border-danger')
+                        }
+                    }
                 })
+                if(errorCounts === 0) {
+                    axios.post(`{{ route("live-project.set-progress",['project_id'=>$project->id]) }}`,{
+                        status     : element.checked === true ? 1: 0,
+                        sub_task_id: sub_task_id,
+                        task_id    : task_id,
+                    }).then((response) => {
+                        $(`#${element.attributes[2]['nodeValue']}`).html(response.data.progress)
+                    })
+                } else {
+                    element.checked = false
+                }
             }
         });
     </script>

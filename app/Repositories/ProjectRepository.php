@@ -517,26 +517,29 @@ class ProjectRepository implements ProjectRepositoryInterface, ConnectionPlatfor
                 $LiveProjectTasks = $Project->LiveProjectTasks()->create([
                     'name'       => $tasks->name,
                     'start_date' => $tasks->project_start_date,
-                    'end_date'   => $tasks->project_end_date
+                    'end_date'   => $tasks->project_end_date,
+                    'project_id' => $project_id,
                 ]);
                 foreach ($tasks->data as $sub_tasks) {
                     $LiveProjectSubTasks = $LiveProjectTasks->SubTasks()->create([
                         'name'       => $sub_tasks->name,
                         'start_date' => $sub_tasks->start_date,
-                        'end_date'   => $sub_tasks->end_date
+                        'end_date'   => $sub_tasks->end_date,
+                        'project_id' => $project_id,
                     ]);
                     foreach ($sub_tasks->data as $sub_sub_tasks) {
                         $LiveProjectSubTasks->SubSubTasks()->create([
                             'name'       => $sub_sub_tasks->task_list,
                             'assign_to'  => $sub_sub_tasks->assign_to,
                             'start_date' => $sub_sub_tasks->start_date,
-                            'end_date'   => $sub_sub_tasks->end_date
+                            'end_date'   => $sub_sub_tasks->end_date,
+                            'project_id' => $project_id,
                         ]);
                     }
                 } 
             }
         }
-        $project_scheduler      = $this->getGranttChartTaskLink($project_id);
+        $project_scheduler  = $this->getGranttChartTaskLink($project_id);
         LiveProjectGranttTask::where('project_id',$project_id)->delete();
         LiveProjectGranttLink::where('project_id',$project_id)->delete();
         foreach ($project_scheduler['data']->toArray() as $key => $value) {

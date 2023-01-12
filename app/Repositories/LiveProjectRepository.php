@@ -3,26 +3,39 @@
 namespace App\Repositories;
 
 use App\Interfaces\LiveProjectInterFace;
+use App\Models\Admin\Employees;
 use App\Models\LiveProjectGranttLink;
 use App\Models\LiveProjectGranttTask;
 use App\Models\LiveProjectSubSubTasks;
 use App\Models\LiveProjectSubTasks;
 use App\Models\LiveProjectTasks;
 use App\Models\Project;
-use Illuminate\Support\Facades\Log;
-
+use App\Models\Role;
+use Illuminate\Support\Facades\Log; 
 class LiveProjectRepository implements LiveProjectInterFace
 {
     public $projectModel;
     public $LiveProjectGranttTask;
     public $LiveProjectGranttLink;
-
-
-    function __construct(Project $projectModel, LiveProjectGranttTask $LiveProjectGranttTask,LiveProjectGranttLink $LiveProjectGranttLink)
+    public $LiveProjectTasks;
+    public $LiveProjectSubTasks;
+    public $LiveProjectSubSubTasks;
+    
+    function __construct(
+        Project $projectModel, 
+        LiveProjectGranttTask $LiveProjectGranttTask,
+        LiveProjectGranttLink $LiveProjectGranttLink,
+        LiveProjectTasks $LiveProjectTasks,
+        LiveProjectSubTasks $LiveProjectSubTasks,
+        LiveProjectSubSubTasks $LiveProjectSubSubTasks
+    )
     {
-        $this->projectModel = $projectModel;
-        $this->LiveProjectGranttTask = $LiveProjectGranttTask;
-        $this->LiveProjectGranttLink = $LiveProjectGranttLink;
+        $this->projectModel           = $projectModel;
+        $this->LiveProjectGranttTask  = $LiveProjectGranttTask;
+        $this->LiveProjectGranttLink  = $LiveProjectGranttLink;
+        $this->LiveProjectTasks       = $LiveProjectTasks;
+        $this->LiveProjectSubTasks    = $LiveProjectSubTasks;
+        $this->LiveProjectSubSubTasks = $LiveProjectSubSubTasks;
     }
     public function wizard_tabs_index($menu_type,$project_id)
     {
@@ -35,7 +48,7 @@ class LiveProjectRepository implements LiveProjectInterFace
                 break;
         }
         session()->put('current_project', $project);
-        $wizard_menus = config('live-project.wizard_menus'); 
+        $wizard_menus = config('live-project.wizard_menus');  
         return view('live-projects.index', compact('wizard_menus', "project", $project)); 
     }
     public function get_milestones($project_id) // Project_id
@@ -72,7 +85,7 @@ class LiveProjectRepository implements LiveProjectInterFace
     }
     public function update_milestones($project_id,$task_id,$request)
     {
-        $task =  $this->LiveProjectGranttTask->find($task_id)->update([
+        $this->LiveProjectGranttTask->find($task_id)->update([
             "text"       => $request->text,
             "start_date" => $request->start_date,
             "duration"   => $request->duration,
@@ -122,39 +135,52 @@ class LiveProjectRepository implements LiveProjectInterFace
     }
 
     public function task_status_update_and_index($project_id,$request)
-    {
-        $LiveProjectSubSubTasks = LiveProjectSubSubTasks::find($request->sub_task_id);
-        $LiveProjectSubSubTasks->update([
-            "status" => $request->status,
-        ]);
-        $tasks = LiveProjectSubSubTasks::where('sub_task_id',$LiveProjectSubSubTasks->sub_task_id)->get();
-        $sub_sub_task_progress = 0;
-        foreach ($tasks as $sub_sub_task) {
-            if ($sub_sub_task->status == 1) {
-                $sub_sub_task_progress++;
-            }
-        }
-        $per_task_percentage     = 100 / count($tasks);
-        $sub_task_progress_count = $sub_sub_task_progress * $per_task_percentage;
+    { 
+        $update_status = $this->LiveProjectSubSubTasks->find($request->sub_task_id);
+        $update_status->update(["status" => $request->status]);
+        return $this->getSubTaskProgress($update_status->sub_task_id);
+    } 
 
-        LiveProjectSubTasks::find($request->task_id)->update([
-            "progress_percentage" => $sub_task_progress_count,
+    public function get_sub_task_view($task_id)
+    {
+        $total_sub_task_percentage = 0;
+        $task = $this->LiveProjectTasks->with('SubTasks','SubTasks.SubSubTasks')->find($task_id);
+        foreach($task->SubTasks as $sub_task) {
+            if(count($sub_task->SubSubTasks) > 0) {
+                $total_sub_task_percentage += $sub_task->progress_percentage;
+            }
+            $completed_sub2_tasks = 0;
+            foreach ($sub_task->SubSubTasks as $sub_sub_task) { 
+                if ($sub_sub_task->status == 1) {
+                    $completed_sub2_tasks ++;
+                }
+            }
+            $per_task_percentage     = 100 / count($sub_task->SubSubTasks);
+            $sub_task_progress_count = $completed_sub2_tasks * $per_task_percentage;
+            $sub_task->update([
+                'progress_percentage' => $sub_task_progress_count
+            ]);
+        }
+        $task->update([
+            'progress_percentage' => $total_sub_task_percentage / count($task->SubTasks)
         ]);
- 
-        $project = $this->projectModel->with('LiveProjectTasks','LiveProjectTasks.SubTasks')->find($project_id);
-         
-        foreach ($project->LiveProjectTasks as $key => $task) { 
-            if(count($task->SubTasks) > 0) {
-                $sub_task_new_count = 0;
-                foreach ($task->SubTasks as $key => $sub_task) {
-                    $sub_task_new_count += $sub_task->progress_percentage;
-                } 
-                $task->update([
-                    'progress_percentage' => $sub_task_new_count / count($task->SubTasks)
-                ]);
+        return view('live-projects.templates.sub-task-model',compact('task'));
+    }
+    public function getSubTaskProgress($sub_task_id)
+    {
+        $LiveProjectSubSubTasks = $this->LiveProjectSubTasks->with('SubSubTasks')->find((int) $sub_task_id);
+        $completed_sub2_tasks = 0;
+        foreach ($LiveProjectSubSubTasks->SubSubTasks as $sub_sub_task) { 
+            if ($sub_sub_task->status == 1) {
+                $completed_sub2_tasks ++;
             }
         }
-        // / $sub_task_progress_count
-        return true;
+        $per_task_percentage     = 100 / count($LiveProjectSubSubTasks->SubSubTasks);
+        $sub_task_progress_count = $completed_sub2_tasks * $per_task_percentage;
+        $LiveProjectSubSubTasks->update([
+            'progress_percentage' => $sub_task_progress_count
+        ]); 
+       
+        return generateProgressBar($LiveProjectSubSubTasks->progress_percentage);
     }
 }
