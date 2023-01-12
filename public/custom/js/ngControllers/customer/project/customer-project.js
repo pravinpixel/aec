@@ -1985,8 +1985,8 @@ app.controller('DocumentController', function($scope, $http, API_URL, $timeout, 
   wizardactiveTabs('document'); 
   let project_id = $('#project_id').val();
   $scope.projectId = project_id;
-  $http.get(`${API_URL}admin/api/v2/projectdocument/${project_id}`).then((res) => {
-      $scope.fileSystem = res;
+  $http.get(`${API_URL}sharepoint/list-all-folders/${project_id}`).then((res) => {
+      $scope.fileSystem = res.data;
       $(() => {
     const fileManager = $('#file-manager').dxFileManager({
       name: 'fileManager',

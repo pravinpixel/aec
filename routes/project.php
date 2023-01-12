@@ -29,9 +29,7 @@ Route::group(['prefix' => 'admin', 'middleware'=>'common'], function () {
     Route::get('get-employee-by-slug/{name}/{type}/{projectid}', [ProjectController::class,'getRoleByProjectSlug'])->name('get-employee-by-slug-ticket');
     Route::get('get-project-count',[ProjectController::class,'getProjectCount']);
     Route::get('ViewVariation/{id}',[ProjectController::class, 'VariationView'])->name('ViewVariation.Variation-Index');
-    /*Route::get('/live-projects', function () {
-        return view('admin.projects.live-project.index');
-    })->name('live-projects');*/
+   
  
     Route::get('/create-project-ticket/{id}',[ProjectController::class, 'createticket'] )->name('admin.live-project.ticket-create');
 

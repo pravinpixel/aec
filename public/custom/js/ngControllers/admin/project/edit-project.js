@@ -237,10 +237,21 @@ app.controller('ConnectPlatformController', function ($scope, $http, API_URL, $l
                             Message('success', 'updated successfully');
 
                         })
-                }
+                },
+                onCurrentDirectoryChanged: onDirItemClick
 
             }).dxFileManager('instance');
         });
+
+    function onDirItemClick(args) {
+        $http.get(`${API_URL}sharepoint/list-files?url=${args.directory.dataItem.relativePath}`)
+        .then((res) => {
+            args.directory.dataItem['items'] = res.data.folders;
+            var fileManager = $("#file-manager").dxFileManager("instance");
+            fileManager.refresh();
+        });
+    }
+
     function onItemClick(args) {
         let updated = false;
         if (args.itemData.extension) {

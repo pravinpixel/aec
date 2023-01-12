@@ -1,10 +1,11 @@
 <?php
 
 use App\Http\Controllers\Sharepoint\SharepointController;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
-use Office365\SharePoint\ClientContext;
-use Office365\Runtime\Auth\ClientCredential;
-use Office365\SharePoint\ListItem;
-Route::get('credentials', [SharepointController::class,'create']); 
-Route::get('credentials', [SharepointController::class,'delete']); 
+
+
+Route::group(['prefix' => 'sharepoint', 'middleware'=>'admin', 'as' => 'sharepoint.'], function () { 
+    Route::get('list-all-folders/{id}',[SharepointController::class,'listAllFolder']);
+    Route::get('list-files', [SharepointController::class,'getProjectFiles']);
+    Route::get('list-folders/{id}', [SharepointController::class,'getProjectFolders']);
+});
