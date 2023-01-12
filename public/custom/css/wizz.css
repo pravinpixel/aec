@@ -2,9 +2,25 @@ fieldset:hover,
 fieldset:hover .legend {
     border: 1px solid var(--primary-bg) !important
 }
-/* select, input[type='text'] {
+.custom.modal-content {
+    background-color: whitesmoke;
+}
+select.custom, input[type=text].custom {
     text-transform: capitalize ;
-} */
+}
+select.custom, input.custom {
+    width: 100%;
+    border: 1px solid transparent;
+    outline: none;
+    box-shadow: none;
+}
+
+select.custom:hover, input.custom:hover {
+    border: 1px solid #dee2e6;
+}
+select.custom:focus, input.custom:focus {
+    border: 1px solid var(--primary-bg);
+}
 .badge {
     padding-top: 5px !important;
 }
@@ -167,24 +183,36 @@ body.swal2-toast-shown .swal2-title {
 }
 .app-modal.app-modal-content {
     opacity: 1;
-    transition: all .5s;
+    transition: all 1s;
     transform: translateX(0%);
 }
 .app-modal.modal-d-none .app-modal-content {
     transition: all 1s;
     opacity: .5;
-    transition: all .5s;
+    transition: all 1s;
     transform: translateX(150%);
 }
 .progress {
     background-color: #cdcdcd !important;
 }
-.bg-rebeccapurple {
-    background-color: rebeccapurple;
+.darkgreen {
+    background-color: darkgreen;
 }
-.border-purple {
-    border-color: rebeccapurple !important;
+.border-darkgreen {
+    border-color: darkgreen !important;
 }
-.text-purple {
-    color: rebeccapurple !important;
+.text-darkgreen {
+    color: darkgreen !important;
+}
+
+.form-checkbox-success .form-check-input:checked {
+    background-color: darkgreen !important; 
+    border-color: darkgreen !important;
+}
+input[type=checkbox].custom {
+    padding: 9px !important;
+    width: 20px;
+    margin: 0 !important;
+    border-radius: 50% !important;
+    border: 1px solid lightgrey;
 }

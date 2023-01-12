@@ -2,7 +2,7 @@
     <div class="col">
         <div class="card border shadow-sm m-0">
             <div class="card-header px-3 bg-light">
-                <h5 class="m-0 text-purple">Task Details</h3>
+                <h5 class="m-0">Task Details</h3>
             </div>
             <div class="card-bodyx" style="max-height: 270px;overflow:auto"> 
                 <ol class="list-group border-0">
@@ -13,12 +13,16 @@
                                     <div class="d-flex align-items-center justify-content-between w-100">
                                         <b>{{ $task->name }} </b>
                                         <div class="text-center">
-                                            {{ $task->progress_percentage !== 0 ? 'Completed' : 'Pending' }}
-                                            {!! generateProgressBar($task->progress_percentage) !!}
+                                            @if ($task->progress_percentage == 100) 
+                                                <span class="badge badge-success-lighten shadow-sm border border-success rounded-pill"><i class="mdi mdi-check-circle me-1"></i>Completed</span>
+                                                @else
+                                                {{ $task->progress_percentage !== 0 ? 'Completed' : 'Pending' }}
+                                                {!! generateProgressBar($task->progress_percentage) !!}
+                                            @endif
                                         </div>
                                     </div>
                                     <div>
-                                        <span class="badge bg-danger rounded-pill">{{ count($task->SubTasks) }} Sub Tasks </span>
+                                        <span class="badge bg-secondary rounded-pill">{{ count($task->SubTasks) }} Sub Tasks </span>
                                     </div>
                                 </div>
                             </button>

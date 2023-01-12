@@ -1,33 +1,37 @@
-<div class="modal-header bg-light">
-    <h4 class="modal-title text-primary"><i class="fa fa-star" aria-hidden="true"></i> 
+<div class="modal-header bg-white">
+    <h4 class="modal-title text-dark d-flex align-items-center">
+        <span class="text-primary">{{ session()->get('current_project')->reference_number }}</span> 
+        <span class="mx-1">|</span>
+        <span class="text-secondary">{{ session()->get('current_project')->project_name }}</span>
+        <span class="mx-1">|</span>
         <b>{{ $task->name }}</b>
     </h4>
-    <button type="button" onclick="setAllTask()" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+    <button type="button" onclick="setAllTask()" class="btn btn-sm btn-light" data-bs-dismiss="modal" aria-hidden="true"> <i class="mdi-close mdi"></i></button>
 </div>
 <div class="modal-body text-capitalize position-relative">
     @foreach ($task->SubTasks as $index => $sub_task)
-        <div class="card border">
-            <div class="card-header px-3 bg-light d-flex justify-content-between align-items-center">
-                <div>
-                    <h5 class="text-capitalize text-purple border-bottom pb-2"> {{ $sub_task->name }}</h5>
-                    <div class="d-flex align-items-center" id="{{ slugable($sub_task->name,'_progress_bar') }}">
+        <div class="card shadow">
+            <div class="card-header px-3 d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center">
+                    <div class="d-flex align-items-center pe-3 me-3 border-end" id="{{ slugable($sub_task->name,'_progress_bar') }}">
                         {!! generateProgressBar($sub_task->progress_percentage) !!}
                     </div>
+                    <h5 class="m-0 text-capitalize text-black"> {{ $sub_task->name }}</h5>
                 </div>
                 <button type="button" onclick="deleteLiveProjectSubTask('{{ $sub_task->id }}', this)" class="btn-outline-danger rounded"><i class="mdi mdi-trash-can"></i> Delete all</button>
             </div>
-            <div class="card-body">
-                <table class="table m-0 table-hover">
+            <div class="card-body pt-0">
+                <table class="table m-0 table-hover table-sm">
                     <thead>
                         <tr>
-                            <th>Deliverable Name</th>
-                            <th>Assign To</th>
-                            <th>Start date</th>
-                            <th>End date</th>
-                            <th>Date of Delivery</th>
-                            <th class="text-center">Status</th>
-                            <th width="30px">
-                                <button type="button" class="btn-primary rounded" onclick="createLiveProjectSubTask('{{ $sub_task->id }}', '{{ slugable($sub_task->name,$task->id) }}',this)"><i class="mdi mdi-plus"></i></button>
+                            <th class="text-secondary font-14">Deliverable Name</th>
+                            <th class="text-secondary font-14">Assign To</th>
+                            <th class="text-secondary font-14">Start date</th>
+                            <th class="text-secondary font-14">End date</th>
+                            <th class="text-secondary font-14">Date of Delivery</th>
+                            <th class="text-secondary font-14 text-center">Status</th>
+                            <th class="text-secondary font-14 text-center">
+                                <button type="button" class="btn-primary btn btn-sm rounded-pill" onclick="createLiveProjectSubTask('{{ $sub_task->id }}', '{{ slugable($sub_task->name,$task->id) }}',this)"><i class="mdi mdi-plus"></i></button>
                             </th>
                         </tr>
                     </thead>
@@ -36,10 +40,10 @@
                             @foreach ($sub_task->SubSubTasks as $key => $sub_sub_task)
                                 <tr class="{{ slugable($sub_task->name,$key + 1) }}">
                                     <td>
-                                        <input type="text" onkeypress="setLiveProjectSubSubTask('name','{{ $sub_sub_task->id }}',this)" value="{{ $sub_sub_task->name }}" class="border w-100 input_{{ slugable($sub_task->name,$key + 1) }}" required>
+                                        <input type="text" {{ $sub_sub_task->status == 1 ? 'disabled' : '' }}  onkeypress="setLiveProjectSubSubTask('name','{{ $sub_sub_task->id }}',this)" value="{{ $sub_sub_task->name }}" class="custom input_{{ slugable($sub_task->name,$key + 1) }}" required>
                                     </td>
                                     <td>
-                                        <select onchange="setLiveProjectSubSubTask('assign_to','{{ $sub_sub_task->id }}',this)" class="border w-100 text-capitalize input_{{ slugable($sub_task->name,$key + 1) }}">
+                                        <select {{ $sub_sub_task->status == 1 ? 'disabled' : '' }}  onchange="setLiveProjectSubSubTask('assign_to','{{ $sub_sub_task->id }}',this)" class="custom input_{{ slugable($sub_task->name,$key + 1) }}">
                                             <option value="">-- choose --</option>
                                             @if (count(getManagers()))
                                                 @foreach (getManagers() as $manager)
@@ -52,30 +56,32 @@
                                         </select>
                                     </td>
                                     <td>
-                                        <input type="date" onchange="setLiveProjectSubSubTask('start_date','{{ $sub_sub_task->id }}',this)" value="{{ $sub_sub_task->start_date }}" class="border w-100 input_{{ slugable($sub_task->name,$key + 1) }}"  required>
+                                        <input type="date" {{ $sub_sub_task->status == 1 ? 'disabled' : '' }} onchange="setLiveProjectSubSubTask('start_date','{{ $sub_sub_task->id }}',this)" value="{{ $sub_sub_task->start_date }}" class="custom input_{{ slugable($sub_task->name,$key + 1) }}"  required>
                                     </td>
                                     <td>
-                                        <input type="date" onchange="setLiveProjectSubSubTask('end_date','{{ $sub_sub_task->id }}',this)" value="{{ $sub_sub_task->end_date }}" class="border w-100 input_{{ slugable($sub_task->name,$key + 1) }}" required >
+                                        <input type="date" {{ $sub_sub_task->status == 1 ? 'disabled' : '' }}  onchange="setLiveProjectSubSubTask('end_date','{{ $sub_sub_task->id }}',this)" value="{{ $sub_sub_task->end_date }}" class="custom input_{{ slugable($sub_task->name,$key + 1) }}" required >
                                     </td> 
                                     <td>
                                         <input type="date"
+                                        {{ $sub_sub_task->status == 1 ? 'disabled' : '' }} 
                                             onchange="setLiveProjectSubSubTask('delivery_date','{{ $sub_sub_task->id }}',this)"
-                                            value="{{ $sub_sub_task->delivery_date }}" class="border w-100 input_{{ slugable($sub_task->name,$key + 1) }}" required>
+                                            value="{{ $sub_sub_task->delivery_date }}" class="custom input_{{ slugable($sub_task->name,$key + 1) }}" required>
                                     </td>
                                     <td>
-                                        <div class="form-check form-checkbox-success">
+                                        <div class="form-check ps-0 form-checkbox-success d-flex justify-content-center">
                                             <input 
                                                 type="checkbox" 
                                                 style="cursor: pointer"
                                                 data-progress-id="{{ slugable($sub_task->name,'_progress_bar') }}"
-                                                class="form-check-input mx-auto input_{{ slugable($sub_task->name,$key + 1) }}" 
+                                                class="form-check-input custom mx-auto input_{{ slugable($sub_task->name,$key + 1) }}" 
                                                 onchange="setTaskStatus('{{ $sub_sub_task->id }}','{{ $sub_task->id }}',this)"
-                                                value="1" {{ $sub_sub_task->status == 1 ? 'checked' : '' }} 
+                                                value="1"  
+                                                {{ $sub_sub_task->status == 1 ? 'checked disabled' : '' }} 
                                             />
                                         </div>
                                     </td>
                                     <td class="text-center">
-                                        <i title="DELETE" data-progress-id="{{ slugable($sub_task->name,'_progress_bar') }}" onclick="deleteLiveProjectSubSubTask('{{ $sub_sub_task->id }}', this)" class="mdi mdi-trash-can text-danger" style="cursor: pointer"></i>
+                                        <i title="DELETE" data-progress-id="{{ slugable($sub_task->name,'_progress_bar') }}" onclick="deleteLiveProjectSubSubTask('{{ $sub_sub_task->id }}', this)" class="mdi-close mdi font-18 text-danger" style="cursor: pointer"></i>
                                     </td>
                                 </tr>
                             @endforeach

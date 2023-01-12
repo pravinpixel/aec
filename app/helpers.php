@@ -241,8 +241,8 @@ if(!function_exists('changeProposalStatus')) {
             } else {
                 $width = $count < 25 ? 25 : $count;
                 $progress_bar = '
-                    <div class="progress border border-purple shadow" style="width: 100px">
-                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-rebeccapurple" role="progressbar" style="width: '.$width.'%;" aria-valuenow="'.$width.'" aria-valuemin="0" aria-valuemax="100">'. (int)$count .'%</div>
+                    <div class="progress border border-darkgreen shadow" style="width: 100px">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated darkgreen" role="progressbar" style="width: '.$width.'%;" aria-valuenow="'.$width.'" aria-valuemin="0" aria-valuemax="100">'. (int)$count .'%</div>
                     </div>
                 ';
             } 
