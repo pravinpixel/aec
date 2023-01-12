@@ -138,7 +138,7 @@ class LiveProjectRepository implements LiveProjectInterFace
     { 
         $update_status = $this->LiveProjectSubSubTasks->find($request->sub_task_id);
         $update_status->update(["status" => $request->status]);
-        return true;
+        return $this->getSubTaskProgress($update_status->sub_task_id);
     } 
 
     public function get_sub_task_view($task_id)
@@ -165,5 +165,22 @@ class LiveProjectRepository implements LiveProjectInterFace
             'progress_percentage' => $total_sub_task_percentage / count($task->SubTasks)
         ]);
         return view('live-projects.templates.sub-task-model',compact('task'));
+    }
+    public function getSubTaskProgress($sub_task_id)
+    {
+        $LiveProjectSubSubTasks = $this->LiveProjectSubTasks->with('SubSubTasks')->find((int) $sub_task_id);
+        $completed_sub2_tasks = 0;
+        foreach ($LiveProjectSubSubTasks->SubSubTasks as $sub_sub_task) { 
+            if ($sub_sub_task->status == 1) {
+                $completed_sub2_tasks ++;
+            }
+        }
+        $per_task_percentage     = 100 / count($LiveProjectSubSubTasks->SubSubTasks);
+        $sub_task_progress_count = $completed_sub2_tasks * $per_task_percentage;
+        $LiveProjectSubSubTasks->update([
+            'progress_percentage' => $sub_task_progress_count
+        ]); 
+       
+        return generateProgressBar($LiveProjectSubSubTasks->progress_percentage);
     }
 }

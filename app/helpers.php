@@ -230,5 +230,49 @@ if(!function_exists('changeProposalStatus')) {
             return session()->get('current_project');
         }
     }
+    if(!function_exists('generateProgressBar')) {
+        function generateProgressBar($count){
+            if ($count == 0) {
+                $progress_bar = '
+                    <div class="progress border border-white shadow" style="width: 100px">
+                        <div class="progress-bar progress-bar-striped bg-secondary text-white" role="progressbar" style="width: 100%;">0%</div>
+                    </div>
+                ';
+            } else {
+                $width = $count < 25 ? 25 : $count;
+                $progress_bar = '
+                    <div class="progress border border-purple shadow" style="width: 100px">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-rebeccapurple" role="progressbar" style="width: '.$width.'%;" aria-valuenow="'.$width.'" aria-valuemin="0" aria-valuemax="100">'. (int)$count .'%</div>
+                    </div>
+                ';
+            } 
+            return minifyHtml($progress_bar); 
+        }
+    }
+    if(!function_exists('minifyHtml')) {
+        function minifyHtml($buffer)
+        {
+           
+            $search = [
+                '/\>[^\S ]+/s',
+                '/[^\S ]+\</s',
+                '/(\s)+/s',
+                '/<!--(.|\s)*?-->/'
+            ];
+            
+            $replace = [
+                '>',
+                '<',
+                '\\1',
+                ''
+            ];
+            
+            $buffer = preg_replace($search, $replace, $buffer);
+            
+            return $buffer;
+            
+            // ob_start("sanitize_output");
+        }
+    }
 }
 

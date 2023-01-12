@@ -10,16 +10,8 @@
             <div class="card-header px-3 bg-light d-flex justify-content-between align-items-center">
                 <div>
                     <h5 class="text-capitalize text-purple border-bottom pb-2"> {{ $sub_task->name }}</h5>
-                    <div class="d-flex align-items-center">
-                        @if ($sub_task->progress_percentage == 0)
-                            <div class="progress border border-white shadow" style="width: 100px">
-                                <div class="progress-bar progress-bar-striped bg-secondary text-white" role="progressbar" style="width: 100%;">0%</div>
-                            </div>
-                            @else
-                            <div class="progress border border-purple shadow" style="width: 100px">
-                                <div class="progress-bar progress-bar-striped progress-bar-animated bg-rebeccapurple" role="progressbar" style="width: {{ $sub_task->progress_percentage < 25 ? 25 : $sub_task->progress_percentage }}%;" aria-valuenow="{{ $sub_task->progress_percentage }}" aria-valuemin="0" aria-valuemax="100">{{ $sub_task->progress_percentage }}%</div>
-                            </div>
-                        @endif
+                    <div class="d-flex align-items-center" id="{{ slugable($sub_task->name,'_progress_bar') }}">
+                        {!! generateProgressBar($sub_task->progress_percentage) !!}
                     </div>
                 </div>
                 <button type="button" onclick="deleteLiveProjectSubTask('{{ $sub_task->id }}', this)" class="btn-outline-danger rounded"><i class="mdi mdi-trash-can"></i> Delete all</button>
@@ -72,13 +64,18 @@
                                     </td>
                                     <td>
                                         <div class="form-check form-checkbox-success">
-                                            <input type="checkbox" class="form-check-input mx-auto input_{{ slugable($sub_task->name,$key + 1) }}" style="cursor: pointer"
+                                            <input 
+                                                type="checkbox" 
+                                                style="cursor: pointer"
+                                                data-progress-id="{{ slugable($sub_task->name,'_progress_bar') }}"
+                                                class="form-check-input mx-auto input_{{ slugable($sub_task->name,$key + 1) }}" 
                                                 onchange="setTaskStatus('{{ $sub_sub_task->id }}','{{ $sub_task->id }}',this)"
-                                                value="1" {{ $sub_sub_task->status == 1 ? 'checked' : '' }}>
+                                                value="1" {{ $sub_sub_task->status == 1 ? 'checked' : '' }} 
+                                            />
                                         </div>
                                     </td>
                                     <td class="text-center">
-                                        <i title="DELETE" onclick="deleteLiveProjectSubSubTask('{{ $sub_sub_task->id }}', this)" class="mdi mdi-trash-can text-danger" style="cursor: pointer"></i>
+                                        <i title="DELETE" data-progress-id="{{ slugable($sub_task->name,'_progress_bar') }}" onclick="deleteLiveProjectSubSubTask('{{ $sub_sub_task->id }}', this)" class="mdi mdi-trash-can text-danger" style="cursor: pointer"></i>
                                     </td>
                                 </tr>
                             @endforeach

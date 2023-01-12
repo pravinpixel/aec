@@ -5,6 +5,9 @@ fieldset:hover .legend {
 /* select, input[type='text'] {
     text-transform: capitalize ;
 } */
+.badge {
+    padding-top: 5px !important;
+}
 .legend {
     top: -15px;
     position: absolute;

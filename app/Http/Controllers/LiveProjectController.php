@@ -86,9 +86,13 @@ class LiveProjectController extends Controller
     }
     public function delete_sub_sub_task($sub_sub_task_id)
     {
-        LiveProjectSubSubTasks::find($sub_sub_task_id)->delete();
+        $LiveProjectSubSubTasks = LiveProjectSubSubTasks::find($sub_sub_task_id);
+        $sub_task_id = $LiveProjectSubSubTasks->sub_task_id;
+        $LiveProjectSubSubTasks->delete();
+        $result = $this->LiveProjectRepository->getSubTaskProgress($sub_task_id);
         return response()->json([
-            "status" => true
+            "status"   => true,
+            "progress" => "$result"
         ]);
     }
     public function create_sub_task(Request $request,$sub_task_id)
@@ -109,20 +113,23 @@ class LiveProjectController extends Controller
     public function delete_sub_task($sub_task_id)
     {
         $LiveProjectSubTasks = LiveProjectSubTasks::with('SubSubTasks')->find($sub_task_id);
+        $LiveProjectSubTasks->update(['status' => 0]);
         if(!is_null($LiveProjectSubTasks->SubSubTasks)) {
             $LiveProjectSubTasks->SubSubTasks()->delete();
-        }
+        } 
         $LiveProjectSubTasks->delete();
         return response()->json([
-            "status" => true
+            "status"   => true, 
         ]);
     }
 
     public function set_progress(Request $request, $project_id)
     {
         $result = $this->LiveProjectRepository->task_status_update_and_index($project_id,$request); 
+    
         return response()->json([
-            "status" => $result
+            "status" => true,
+            "progress" => "$result",
         ]);
     }
 }

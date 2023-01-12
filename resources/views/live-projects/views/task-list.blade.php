@@ -48,6 +48,7 @@
                         axios.delete(`{{ route('live-project.sub-sub-task.delete') }}/${sub_sub_task_id}`).then((response) => {
                             if(response.data.status) {
                                 element.parentNode.parentNode.remove()
+                                $(`#${element.attributes[1]['nodeValue']}`).html(response.data.progress)
                                 Toast.fire({
                                     icon: 'success',
                                     title: 'Successfully Deleted !',
@@ -139,7 +140,7 @@
                     }
                 })
             }
-            setTaskStatus = (sub_task_id,task_id,element) => {
+            setTaskStatus = (sub_task_id,task_id,element) => {  
                 var inputs = $(`.${element.parentNode.parentNode.parentNode.classList[0]} input , .${element.parentNode.parentNode.parentNode.classList[0]} select`)
                 var errorCounts = 0
                 Object.entries(inputs).map((item) => {
@@ -158,7 +159,7 @@
                         sub_task_id: sub_task_id,
                         task_id    : task_id,
                     }).then((response) => {
-                        setAllTask()
+                        $(`#${element.attributes[2]['nodeValue']}`).html(response.data.progress)
                     })
                 } else {
                     element.checked = false

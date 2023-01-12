@@ -2,7 +2,7 @@
     <div class="col">
         <div class="card border shadow-sm m-0">
             <div class="card-header px-3 bg-light">
-                <h5 class="m-0">Task Details</h3>
+                <h5 class="m-0 text-purple">Task Details</h3>
             </div>
             <div class="card-bodyx" style="max-height: 270px;overflow:auto"> 
                 <ol class="list-group border-0">
@@ -10,15 +10,13 @@
                         @if (count($task->SubTasks) !== 0)
                             <button type="button" class="list-group-item list-group-item-action" onclick="getLiveProjectSubTasks({{ $task->id }})">
                                 <div>
-                                    <strong class="d-flex align-items-center justify-content-between">
-                                        {{ $task->name }} 
+                                    <div class="d-flex align-items-center justify-content-between w-100">
+                                        <b>{{ $task->name }} </b>
                                         <div class="text-center">
-                                            Completed
-                                            <div class="progress border border-purple shadow" style="width: 100px">
-                                                <div class="progress-bar progress-bar-striped progress-bar-animated bg-rebeccapurple" role="progressbar" style="width: {{ $task->progress_percentage < 25 ? 25 : $task->progress_percentage }}%;" aria-valuenow="{{ $task->progress_percentage }}" aria-valuemin="0" aria-valuemax="100">{{ $task->progress_percentage }}%</div>
-                                            </div> 
+                                            {{ $task->progress_percentage !== 0 ? 'Completed' : 'Pending' }}
+                                            {!! generateProgressBar($task->progress_percentage) !!}
                                         </div>
-                                    </strong>
+                                    </div>
                                     <div>
                                         <span class="badge bg-danger rounded-pill">{{ count($task->SubTasks) }} Sub Tasks </span>
                                     </div>
