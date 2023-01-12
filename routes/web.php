@@ -31,6 +31,7 @@ use App\Http\Controllers\Admin\Master\LayerTypeController;
 use App\Http\Controllers\Admin\Master\ServiceController;
 use App\Http\Controllers\Admin\Documentary\DocumentaryController;
 use App\Http\Controllers\Admin\Master\RoleController;
+use App\Http\Controllers\Admin\Project\ProjectController;
 use App\Http\Controllers\AdminAccountController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\AuthCustomerController;
@@ -39,6 +40,8 @@ use App\Http\Controllers\PushNotificationController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\HelperController;
 use App\Http\Controllers\InboxController;
+use App\Http\Controllers\Sharepoint\SharepointController;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -334,3 +337,7 @@ Route::post('/save-token', [InboxController::class , 'store'])->name('save-token
 Route::post('/send-message', [InboxController::class , 'send_message']);
 Route::post('/get-message', [InboxController::class , 'get_message']);
 
+Route::get('list-folder/{projectid}', function($id){
+    $sharepoint = new SharepointController();
+    return  $sharepoint->listAllFolder($id);
+});

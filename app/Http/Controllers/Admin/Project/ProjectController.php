@@ -632,23 +632,14 @@ class ProjectController extends Controller
         } else if ($type == 'invoice_plan') {
             return $this->projectRepo->getInvoicePlan($project_id);
         } else if ($type ==  'connection_platform') {
-            $projectSharepoint = $this->projectRepo->getSharePointFolder($project_id);
-            $arr         = SharePointMasterFolder::get();
-            $narr=[];
-            $pro=Project::find( $project_id);
-            foreach($arr as $a){
-                if(projectsFolders::where('pid',$project_id)->where('fid',$a->id)->exists()){
-                    $a->setAttribute('isDirectory',true);
-                    array_push($narr,$a);
-                }
-                else{
-                    $folder=sharePointMasterFolder::find($a->id);
-                    $pro->folders()->attach($folder);
-                    $a->setAttribute('isDirectory',true);
-                    array_push($narr,$a);
-                }
+            $project = $this->projectRepo->getProjectById($project_id);
+            if($project->is_submitted == 1) {
+                $sharepointObj = new SharepointController();
+                $response['folders'] = $sharepointObj->listAllFolder($project_id);
+            } else {
+                $project = $this->projectRepo->getSharePointFolder($project_id);  
+                $response['folders']= json_decode($project->sharepointFolder->folder);
             }
-            $response['folders']=$narr;
             $response['platform_access'] =  $this->projectRepo->getConnectionPlatform($project_id)  ?? json_encode(['sharepoint_status', 'bim_status', 'tf_office_status']);
             return $response;
         } else if ($type ==  'to_do_listing') {
@@ -719,19 +710,17 @@ class ProjectController extends Controller
         } else if ($type == 'to-do-list') {
             return true;
         } else if ($type == 'connection_platform') { 
-            $project_id = $this->getProjectId();
-            $arr         = Project::whereId($project_id)->with('folders')->get(); 
-            $narr=[];
-            foreach($arr[0]['folders'] as $a){
-                $a->setAttribute('isDirectory',true);
-                array_push($narr,$a);
+            $project = $this->projectRepo->getProjectById($id);
+            $project = $this->projectRepo->getProjectById($id);
+            if($project->is_submitted == 1) {
+                $sharepointObj = new SharepointController();
+                $response['folders'] = $sharepointObj->listAllFolder($id);
+            } else {
+                $project = $this->projectRepo->getSharePointFolder($id);  
+                $response['folders']= json_decode($project->sharepointFolder->folder);
             }
-            $response['folders']=$narr;
-          
             $response['platform_access'] = $this->projectRepo->getConnectionPlatform($id)  ?? json_encode(['sharepoint_status', 'bim_status', 'tf_office_status']);
             return $response;
-            // dd($arr[0]['folders'][0]);
-          
         }
     }
 

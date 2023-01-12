@@ -110,15 +110,16 @@ class SharepointController extends Controller
         $foldername = str_replace ("/", "-", $projectcollection->reference_number);
         $folder = '/DataBase Test/Projects/'.$foldername;
         $token = $this->getToken();
-        ///Log::info("folder  path :".$folder);
         $url = $this->getUrl("GetFolderByServerRelativeUrl('".$this->basePath.$folder."')/Folders");
         $res =  Http::withHeaders([
-            'Authorization' =>  'Bearer '.Session::get('sharepoint')['access_token'],
+            'Authorization' =>  'Bearer '.$token,
             'Content-Type' => 'octet-stream',
             'Accept'=> 'application/json;odata=verbose'
         ])->get( $url );
+       
         $responseJson = $res->getBody()->getContents();
         $responseData = json_decode($responseJson, true);
+    
         $data = array();
         foreach($responseData as $res){
             $rescollection = $res['results'];
@@ -145,12 +146,50 @@ class SharepointController extends Controller
                     }
                 }
                 $data[] = array('name' => $resdata['Name'],
+                'relativePath' => $resdata['ServerRelativeUrl'],
                 'isDirectory' => ($resdata['ItemCount'] != 0 ? true : false),
                 'items'         =>  $items, ); 
             }
         }
-        $result = $data;
-        return $result;
+        return $data;
+    }
+
+    public function getFiles($path) {
+
+        $token = $this->getToken();
+        $url = $this->getUrl("GetFolderByServerRelativeUrl('".$path."')/Files/");
+        $res =  Http::withHeaders([
+            'Authorization' =>  'Bearer '.$token,
+            'Content-Type' => 'octet-stream',
+            'Accept'=> 'application/json;odata=verbose'
+        ])->get( $url );
+        $responseJson = $res->getBody()->getContents();
+        $responseData = json_decode($responseJson, true);
+        $items = [];
+        foreach($responseData as $item){
+            $nested = $item['results'];
+            foreach($nested as $nestedItem){
+                $items[] = [
+                    'name' => $nestedItem['Name'],
+                    'isDirectory' => false,
+                    'dateModified' => $nestedItem['TimeLastModified'],
+                    'size'=> $nestedItem['Length']
+                ];
+            }
+        }
+        return $items;
+    }
+
+
+    public function getProjectFiles(Request $request) {
+        $response['folders']= $this->getFiles($request->input('url'));
+        return $response;
+    }
+    
+    public function getProjectFolders($id)
+    {
+        $response['folders']= $this->listAllFolder($id);
+        return $response;
     }
 
     public function getUrl($route, $options = [])

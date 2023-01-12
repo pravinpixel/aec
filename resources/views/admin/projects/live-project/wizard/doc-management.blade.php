@@ -4,7 +4,7 @@
         <div class="tab-pane p-3  show active" id="Sharepoint">
             <div class="dx-viewport">
                 <div class="demo-container">
-                  <div id="file-manager" class="dx-widget dx-filemanager" style="height: 450px;">
+                  <div id="file-manager-liveproject" class="dx-widget dx-filemanager" style="height: 450px;">
                     <div class="dx-filemanager-notification-container dx-widget">
                         </div>
                         

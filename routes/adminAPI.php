@@ -43,12 +43,8 @@
         Route::get('variationticketfind/{id}', [ProjectController::class,'variationticketfind'])->name('live-project-ticket-find');
         Route::get('live-project/show-ticket-comment/{id}/type/{type}',[TicketCommentsController::class,'sendprojectticket']);
         Route::get('liveprojectnote/{id}',[ProjectController::class,'liveprojectnote']);
-        Route::get('projectdocument/{id}', [SharepointController::class,'listAllFolder'])->name('list-All-Folder');
         Route::put('/DuplicateVariation/{id}/duplicate',[ProjectController::class,'Duplicatevariation'])->name('duplicate.variation');
         Route::put('/SendVariation/{id}',[ProjectController::class,'SendVariation'])->name('send.variation');
-
-        
-        
 
     }); 
 ?>

@@ -259,7 +259,7 @@ formatData = (project) => {
                 Message('success', 'created successfully');
               })
           }
-  
+
         }).dxFileManager('instance');
   
         function onItemClick(args) {
@@ -2399,139 +2399,107 @@ formatData = (project) => {
   app.controller('DocumentController', function($scope, $http, API_URL, $location) {
     let project_id = $('#project_id').val();
     $scope.projectId = project_id;
-    $http.get(`${API_URL}admin/api/v2/projectdocument/${project_id}`).then((res) => {
-        $scope.fileSystem = res;
-        console.log(res.data);
-     
-    $(() => {
-      const fileManager = $('#file-manager').dxFileManager({
+    $http.get(`${API_URL}sharepoint/list-all-folders/${project_id}`).then((res) => {
+      $scope.fileSystem = res.data;
+      const fileManager = $('#file-manager-liveproject').dxFileManager({
         name: 'fileManager',
-        fileSystemProvider:   $scope.fileSystem,
+        fileSystemProvider: $scope.fileSystem,
         height: 450,
         permissions: {
-          create: false,
-          delete: false,
-          rename: false,
-          download: true,
+            create: false,
+            delete: false,
+            rename: false,
+            download: false,
         },
         itemView: {
-          details: {
-            columns: [
-              'thumbnail', 'name',
-              'dateModified', 'size',
-            ],
-          },
-          showParentFolder: false,
+            details: {
+                columns: [
+                    'thumbnail', 'name',
+                    'dateModified', 'size',
+                ],
+            },
+            showParentFolder: false,
         },
         toolbar: {
-          items: [
-            {
-              name: 'showNavPane',
-              visible: true,
-            },
-            'separator', 'create',
-            {
-              widget: 'dxMenu',
-              location: 'before',
-              options: {
-               
-                onItemClick,
-              },
-            },
-            'refresh',
-            {
-              name: 'separator',
-              location: 'after',
-            },
-            'switchView',
-          ]
+            items: [
+                {
+                    name: 'showNavPane',
+                    visible: true,
+                },
+                'separator', 'create',
+                {
+                    widget: 'dxMenu',
+                    location: 'before',
+                    options: {
+                        onItemClick,
+                    },
+                },
+                'refresh',
+                {
+                    name: 'separator',
+                    location: 'after',
+                },
+                'switchView',
+            ]
         },
         onContextMenuItemClick: onItemClick,
         onDirectoryCreating: function (e) {
-                    let path = e.parentDirectory.relativeName+'/'+e.name;
-                    $http.put(`${API_URL}project/sharepoint-folder/${project_id}`, {data: fileSystem, path: path})
-                    .then((res) => {
-                        Message('success', 'updated successfully');
-                     
-                    })
-                },
-                onItemDeleting: function (e) {
-                    $http.post(`${API_URL}project/sharepoint-folder-delete/${project_id}`, {data: fileSystem, path: path})
-                    .then((res) => {
-                        Message('success', 'deleted successfully');
-                    })
-                },
-                onItemRenamed: function(e) {
-                    console.log('onItemRenamed',fileSystem);
-                    $http.put(`${API_URL}project/sharepoint-folder/${project_id}`, {data: fileSystem})
-                    .then((res) => {
-                        Message('success', 'updated successfully');
-                     
-                    })
-                }
-       
+            let path = e.parentDirectory.relativeName + '/' + e.name;
+            $http.put(`${API_URL}project/sharepoint-folder/${project_id}`, { data: fileSystem, path: path })
+                .then((res) => {
+                    if (res.data.status == false) {
+                        Message('danger', res.data.msg);
+                        return false;
+                    }
+                    Message('success', 'updated successfully');
+                })
+        },
+        onItemDeleting: function (e) {
+            let path = e.item.relativeName;
+            console.log(path);
+            $http.post(`${API_URL}project/sharepoint-folder-delete/${project_id}`, { data: fileSystem, path: path })
+                .then((res) => {
+                    if (res.data.status == false) {
+                        Message('danger', res.data.msg);
+                        return false;
+                    }
+                    Message('success', 'deleted successfully');
+                })
+            return true;
+        },
+        onItemRenamed: function (e) {
+
+            $http.put(`${API_URL}project/sharepoint-folder/${project_id}`, { data: fileSystem })
+                .then((res) => {
+                    Message('success', 'updated successfully');
+
+                })
+        },
+        onCurrentDirectoryChanged: onDirItemClick
+
       }).dxFileManager('instance');
-      function onItemClick(args) {
-        
+
+      function onDirItemClick(args) {
+        $http.get(`${API_URL}sharepoint/list-files?url=${args.directory.dataItem.relativePath}`)
+        .then((res) => {
+            args.directory.dataItem['items'] = res.data.folders;
+            var fileManager = $("#file-manager-liveproject").dxFileManager("instance");
+            fileManager.refresh();
+        });
+      }
+
+    function onItemClick(args) {
         let updated = false;
         if (args.itemData.extension) {
-          updated = createFile(args.itemData.extension, args.fileSystemItem);
+            updated = createFile(args.itemData.extension, args.fileSystemItem);
         } else if (args.itemData.category !== undefined) {
-          updated = updateCategory(args.itemData.category, args.fileSystemItem, args.viewArea);
+            updated = updateCategory(args.itemData.category, args.fileSystemItem, args.viewArea);
         }
         if (updated) {
-          fileManager.refresh();
+            // fileManager.refresh();
+            console.log('refresh check');
         }
-      }
-    });
-    const fileSystem = [
-      {
-        name: 'Documents',
-        isDirectory: true,
-        category: 'Work',
-        items: [
-          {
-            name: 'Projects',
-            isDirectory: true,
-            category: 'Work',
-            items: [
-              {
-                name: 'About.rtf',
-                isDirectory: false,
-                size: 1024,
-              },
-              {
-                name: 'Passwords.rtf',
-                isDirectory: false,
-                category: 'Important',
-                size: 2048,
-              },
-            ],
-          },
-          {
-            name: 'About.xml',
-            isDirectory: false,
-            size: 1024,
-          },
-          {
-            name: 'Managers.rtf',
-            isDirectory: false,
-            size: 2048,
-          },
-          {
-            name: 'ToDo.txt',
-            isDirectory: false,
-            size: 3072,
-          },
-        ],
-      },
-      {
-        name: 'Images',
-        isDirectory: true,
-        category: 'Home',
-      },
-     
-    ];
+    }
   });
 
   });
