@@ -2,9 +2,9 @@ fieldset:hover,
 fieldset:hover .legend {
     border: 1px solid var(--primary-bg) !important
 }
-select, input[type='text'] {
+/* select, input[type='text'] {
     text-transform: capitalize ;
-}
+} */
 .legend {
     top: -15px;
     position: absolute;

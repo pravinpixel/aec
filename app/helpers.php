@@ -224,5 +224,11 @@ if(!function_exists('changeProposalStatus')) {
             return $managers;
         }
     }
+
+    if(!function_exists('Project')) {
+        function Project(){
+            return session()->get('current_project');
+        }
+    }
 }
 

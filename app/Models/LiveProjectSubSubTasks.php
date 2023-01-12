@@ -16,6 +16,7 @@ class LiveProjectSubSubTasks extends Model
         'start_date',
         'end_date',
         'delivery_date',
+        'project_id',
         'progress_percentage',
     ];
 }

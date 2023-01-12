@@ -67,14 +67,8 @@ class LiveProjectController extends Controller
     }
 
     public function sub_task_index($task_id)
-    {
-        $role = Role::where('slug', 'project_manager')->first();
-        $managers = [];
-        if(!empty($role)) {
-            $managers = Employees::where('job_role', $role->id)->select('display_name','id')->get()->toArray();
-        } 
-        $task = LiveProjectTasks::with('SubTasks','SubTasks.SubSubTasks')->find($task_id);
-        $view = view('live-projects.templates.sub-task-model',compact('task','managers'));
+    { 
+        $view = $this->LiveProjectRepository->get_sub_task_view($task_id);
         return response()->json([
             "status" => true,
             "view"   => "$view"
@@ -106,6 +100,7 @@ class LiveProjectController extends Controller
             'start_date'    => $request->StartDate,
             'end_date'      => $request->EndDate,
             'delivery_date' => $request->DeliveryDate,
+            'status'        => 0
         ]);
         return response()->json([
             "status" => true

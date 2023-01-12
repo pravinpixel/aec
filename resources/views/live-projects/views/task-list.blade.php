@@ -4,12 +4,18 @@
 @push('live-project-custom-scripts') 
     <script>
         document.addEventListener("DOMContentLoaded", function() { 
-            axios.get("{{ route('live-project.task-list-index', ['project_id' => $project->id]) }}").then((
-                response) => {
-                if (response.data.status) {
-                    $('#task-app').html(response.data.view)
-                }
-            })
+            setAllTask = () => {
+                axios.get("{{ route('live-project.task-list-index', ['project_id' => $project->id]) }}").then((
+                    response) => {
+                    if (response.data.status) {
+                        $('#task-app').html(response.data.view)
+                    }
+                })
+            }
+            closeSubTaskMenu = () => {
+                $('#create-live-project-task-modal').toggleClass('modal-d-none') 
+            }
+            setAllTask()
             getLiveProjectSubTasks = (task_id) => { 
                 axios.get(`{{ route('live-project.sub-task-index') }}/${task_id}`).then((response) => {
                     if (response.data.status) {
@@ -152,7 +158,7 @@
                         sub_task_id: sub_task_id,
                         task_id    : task_id,
                     }).then((response) => {
-                        console.log(response.data)
+                        setAllTask()
                     })
                 } else {
                     element.checked = false

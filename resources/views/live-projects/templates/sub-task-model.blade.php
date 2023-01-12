@@ -1,9 +1,8 @@
 <div class="modal-header bg-light">
     <h4 class="modal-title text-primary"><i class="fa fa-star" aria-hidden="true"></i> 
         <b>{{ $task->name }}</b>
-        {{ $task->progress_percentage }}
     </h4>
-    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+    <button type="button" onclick="setAllTask()" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
 </div>
 <div class="modal-body text-capitalize position-relative">
     @foreach ($task->SubTasks as $index => $sub_task)
@@ -50,8 +49,8 @@
                                     <td>
                                         <select onchange="setLiveProjectSubSubTask('assign_to','{{ $sub_sub_task->id }}',this)" class="border w-100 text-capitalize input_{{ slugable($sub_task->name,$key + 1) }}">
                                             <option value="">-- choose --</option>
-                                            @if (count($managers))
-                                                @foreach ($managers as $manager)
+                                            @if (count(getManagers()))
+                                                @foreach (getManagers() as $manager)
                                                     <option
                                                         {{ $manager['id'] == $sub_sub_task->assign_to ? 'selected' : '' }}
                                                         value="{{ $manager['id'] }}">{{ $manager['display_name'] }}
@@ -90,10 +89,10 @@
         </div>
     @endforeach 
 </div>
-<div class="modal-footer">
-    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-    <button type="submit" class="btn btn-primary">Save changes</button>
-</div>
+{{-- <div class="modal-footer">
+    <button type="button" class="btn btn-light" data-bs-dismiss="modal" onclick="setAllTask()">Close</button>
+    <button type="button" class="btn btn-primary" onclick="setAllTask()">Save changes</button>
+</div> --}}
 <div id="create-live-project-task-modal" class="app-modal modal-d-none">
     <div class="card app-modal-content border shadowm-sm m-0 h-100">
         <div class="card-header px-3 bg-light">
@@ -110,8 +109,8 @@
                 <label for="AssignTo" class="form-label">Assign To</label>
                 <select class="form-select form-select-sm" id="AssignTo">
                     <option value="">-- choose --</option>
-                    @if (count($managers))
-                        @foreach ($managers as $manager)
+                    @if (count(getManagers()))
+                        @foreach (getManagers() as $manager)
                             <option value="{{ $manager['id'] }}">{{ $manager['display_name'] }}</option>
                         @endforeach
                     @endif
