@@ -2145,12 +2145,23 @@ formatData = (project) => {
   
   });
   app.controller('ReviewAndSubmit', function($scope, $http, API_URL, $timeout) {
+      
   
-    $http.get(`${API_URL}project/wizard/create_project`)
-      .then((res) => {
-        $scope.project = formatData(res.data);
-        projectActiveTabs($scope.project.wizard_status);
+    $http.get(`${API_URL}project/wizard/create_project`).then((res) => {
+        $http({
+          method: 'POST',
+          url: `${APP_URL}/project-quick-view`,
+          data  :{
+            project_id   : res.data.id,
+              preview_table: 0,
+              chat_box     : 0,   // true | false
+          }
+      }).then( function(response) {
+        document.getElementById("projectOverView").innerHTML = response.data 
       });
+      $scope.project = formatData(res.data);
+      projectActiveTabs($scope.project.wizard_status);
+    });
   
     $http.get(`${API_URL}get-project-session-id`).then((res) => {
       $scope.project_id = res.data;

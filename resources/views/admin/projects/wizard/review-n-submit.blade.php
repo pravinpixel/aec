@@ -1,5 +1,4 @@
-<x-project-quick-view status="1" table="0" chat="0" :id="Project()->id"/>
-
+<div id="projectOverView"></div>
 <div class="card-footer text-end">
     <a href="#!/to-do-listing" class="btn btn-light float-start">Prev</a>
     <a class="next me-2 btn btn-light rounded border" ng-click="saveProject($event)"> Save & Submit Later </a>

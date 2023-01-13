@@ -1,10 +1,10 @@
 formatData = (project) => {
-    var projectDate=project.start_date;
-  var newProjectDate=projectDate.slice(0,10);
-  var start_date=newProjectDate.split("-").reverse().join("-");
-  var deliveryDate=project.delivery_date;
-  var newdeliveryDate=deliveryDate.slice(0,10);
-  var delivery_date=newdeliveryDate.split("-").reverse().join("-");
+    var projectDate = project.start_date;
+    var newProjectDate = projectDate.slice(0, 10);
+    var start_date = newProjectDate.split("-").reverse().join("-");
+    var deliveryDate = project.delivery_date;
+    var newdeliveryDate = deliveryDate.slice(0, 10);
+    var delivery_date = newdeliveryDate.split("-").reverse().join("-");
     return { ...project, ...{ 'start_date': start_date, 'delivery_date': delivery_date } }
 }
 
@@ -30,18 +30,18 @@ app.controller('CreateProjectController', function ($scope, $http, API_URL, $loc
     $http.get(`${API_URL}project/${project_id}`)
         .then((res) => {
             $scope.project = formatData(res.data);
-            $scope.projectDates=res.data.start_date;
+            $scope.projectDates = res.data.start_date;
             projectActiveTabs($scope.project.wizard_status);
         });
 
-        $scope.checkDate=(an)=>{
-            console.log(an)
-            var minDate=an;
-            var min_date=minDate.split("-").reverse().join("-");
-            $scope.min_date=min_date;
-            console.log($scope.min_date);
-            $scope.project.delivery_date=an;
-        }
+    $scope.checkDate = (an) => {
+        console.log(an)
+        var minDate = an;
+        var min_date = minDate.split("-").reverse().join("-");
+        $scope.min_date = min_date;
+        console.log($scope.min_date);
+        $scope.project.delivery_date = an;
+    }
     //postalcode api
     $scope.getZipcode = function () {
         let zipcode = $("#zipcode").val();
@@ -106,7 +106,7 @@ app.controller('CreateProjectController', function ($scope, $http, API_URL, $loc
 });
 
 app.controller('ConnectPlatformController', function ($scope, $http, API_URL, $location) {
-    
+
     $("#connect-platform").addClass('active');
     let project_id = $("#project_id").val();
     let fileSystem = [];
@@ -138,7 +138,7 @@ app.controller('ConnectPlatformController', function ($scope, $http, API_URL, $l
             $type = 'tf_office_status';
         } else if (type == 'is_move_to_customer_input_folder') {
             $type = 'is_move_to_customer_input_folder';
-        }else {
+        } else {
             return false;
         }
         $http.post(`${API_URL}project/connection-platform/${project_id}/${$type}`)
@@ -245,11 +245,11 @@ app.controller('ConnectPlatformController', function ($scope, $http, API_URL, $l
 
     function onDirItemClick(args) {
         $http.get(`${API_URL}sharepoint/list-files?url=${args.directory.dataItem.relativePath}`)
-        .then((res) => {
-            args.directory.dataItem['items'] = res.data.folders;
-            var fileManager = $("#file-manager").dxFileManager("instance");
-            fileManager.refresh();
-        });
+            .then((res) => {
+                args.directory.dataItem['items'] = res.data.folders;
+                var fileManager = $("#file-manager").dxFileManager("instance");
+                fileManager.refresh();
+            });
     }
 
     function onItemClick(args) {
@@ -575,18 +575,18 @@ app.controller('ToDoListController', function ($scope, $http, API_URL, $location
     $("#todo-list").addClass('active');
     $scope.arr = [{ 'name': 'abc', 'age': 22 }, { 'name': 'def', 'age': 22 }, { 'name': 'ghi', 'age': 22 }];
     $scope.Date = new Date();
-    $scope.putEndDate=(an,id,id1)=>{
-        var ids=''+id+id1;
-        $scope.id=ids;
-        var newDate=an.split('/').reverse().join('/');
+    $scope.putEndDate = (an, id, id1) => {
+        var ids = '' + id + id1;
+        $scope.id = ids;
+        var newDate = an.split('/').reverse().join('/');
         console.log(newDate);
-        $scope.end_date=newDate;
-        var ss=document.getElementById(ids).setAttribute('date-min-limit',$scope.end_date);
+        $scope.end_date = newDate;
+        var ss = document.getElementById(ids).setAttribute('date-min-limit', $scope.end_date);
         console.log(ss);
     }
 
-    $scope.changeFormat=(ag)=>{
-        var def_date=ag.split('/').reverse().join('/');
+    $scope.changeFormat = (ag) => {
+        var def_date = ag.split('/').reverse().join('/');
         return def_date;
     }
     let project_id = $("#project_id").val();
@@ -660,19 +660,19 @@ app.controller('ToDoListController', function ($scope, $http, API_URL, $location
             CheckListsIndex.map((TaskLists) => {
                 const TaskListsIndex = TaskLists[1].data;
                 TaskListsIndex.map((ListItems) => {
-                    if (ListItems.assign_to === undefined || ListItems.assign_to == '' ||  ListItems.assign_to == null) {
+                    if (ListItems.assign_to === undefined || ListItems.assign_to == '' || ListItems.assign_to == null) {
                         Message('danger', 'Assign To Field is  Required !');
-                        validationError ++
+                        validationError++
                         return false
                     }
                     if (ListItems.start_date === undefined || ListItems.start_date == '' || ListItems.start_date == null) {
                         Message('danger', 'Start Date Field is  Required !');
-                        validationError ++
+                        validationError++
                         return false
                     }
                     if (ListItems.end_date === undefined || ListItems.end_date == '' || ListItems.end_date == null) {
                         Message('danger', 'End Date Field is  Required !');
-                        validationError ++
+                        validationError++
                         return false
                     }
                 });
@@ -700,6 +700,19 @@ app.controller('ReviewAndSubmit', function ($scope, $http, API_URL, $timeout) {
     $scope.teamSetups = [];
     let fileSystem = [];
 
+
+    $http({
+        method: 'POST',
+        url: `${APP_URL}/project-quick-view`,
+        data: {
+            project_id: project_id,
+            preview_table: 0,
+            chat_box: 0,   // true | false
+        }
+    }).then(function (response) {
+        document.getElementById("projectOverView").innerHTML = response.data
+    });
+
     $http.get(`${API_URL}project/${project_id}`)
         .then((res) => {
             projectActiveTabs(res.data.wizard_status);
@@ -709,67 +722,67 @@ app.controller('ReviewAndSubmit', function ($scope, $http, API_URL, $timeout) {
         $scope.projectManagers = res.data;
     });
 
-    $http.get(`${API_URL}project/overview/${project_id}`).then((res)=> {
+    $http.get(`${API_URL}project/overview/${project_id}`).then((res) => {
         let connect_platform_access = res.data.connect_platform_access;
-        if(connect_platform_access.sharepoint_status == 1) {
+        if (connect_platform_access.sharepoint_status == 1) {
             $("#switch0").prop('checked', true);
         }
-        if(connect_platform_access.bim_status == 1) {
-            $("#switch1").prop('checked',true);
+        if (connect_platform_access.bim_status == 1) {
+            $("#switch1").prop('checked', true);
         }
-        if(connect_platform_access.tf_office_status == 1) {
-            $("#switch2").prop('checked',true);
+        if (connect_platform_access.tf_office_status == 1) {
+            $("#switch2").prop('checked', true);
         }
-        $scope.review  =  res.data
+        $scope.review = res.data
         $scope.teamSetups = res.data.team_setup;
         $scope.project = formatData(res.data.project);
-        $scope.project['address_one'] =  res.data.project.site_address;
-        $scope.check_list_items         =   JSON.parse(res.data.gantt_chart_data)  == null ? [] :  JSON.parse(res.data.gantt_chart_data)
+        $scope.project['address_one'] = res.data.project.site_address;
+        $scope.check_list_items = JSON.parse(res.data.gantt_chart_data) == null ? [] : JSON.parse(res.data.gantt_chart_data)
         fileSystem = res.data.sharepoint.folders;
         const fileManager = $('#file-manager').dxFileManager({
             name: 'fileManager',
             fileSystemProvider: fileSystem,
             height: 450,
             permissions: {
-              create: false,
-              delete: false,
-              rename: false,
-              download: false,
+                create: false,
+                delete: false,
+                rename: false,
+                download: false,
             },
             itemView: {
-              details: {
-                columns: [
-                  'thumbnail', 'name',
-                  'dateModified', 'size',
-                ],
-              },
-              showParentFolder: false,
+                details: {
+                    columns: [
+                        'thumbnail', 'name',
+                        'dateModified', 'size',
+                    ],
+                },
+                showParentFolder: false,
             },
             toolbar: {
-              items: [
-                {
-                  name: 'showNavPane',
-                  visible: true,
-                },
-                'separator', 'create',
-                {
-                  widget: 'dxMenu',
-                  location: 'before',
+                items: [
+                    {
+                        name: 'showNavPane',
+                        visible: true,
+                    },
+                    'separator', 'create',
+                    {
+                        widget: 'dxMenu',
+                        location: 'before',
 
-                },
-                'refresh',
-                {
-                  name: 'separator',
-                  location: 'after',
-                  options: {
-                    refreshClick,
-                  },
-                },
-                'switchView',
-              ]
+                    },
+                    'refresh',
+                    {
+                        name: 'separator',
+                        location: 'after',
+                        options: {
+                            refreshClick,
+                        },
+                    },
+                    'switchView',
+                ]
             }
         }).dxFileManager('instance');
-        function refreshClick(){
+        function refreshClick() {
             console.log('checking')
         }
     });
