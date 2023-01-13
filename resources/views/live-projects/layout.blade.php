@@ -33,8 +33,8 @@
         <script>
             const swalWithBootstrapButtons = Swal.mixin({
                 customClass: {
-                    cancelButton: 'btn btn-success rounded-pill',
-                    confirmButton: 'btn btn-danger rounded-pill ms-2'
+                    cancelButton: 'btn btn-light border',
+                    confirmButton: 'btn btn-danger ms-2'
                 },
                 buttonsStyling: false
             })

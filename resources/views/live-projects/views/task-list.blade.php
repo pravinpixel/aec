@@ -39,7 +39,7 @@
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonText: 'Yes, delete it!',
-                    cancelButtonText: 'No, cancel!',
+                    cancelButtonText: 'No, cancel',
                     reverseButtons: true,
                     allowOutsideClick :false,
                     allowEscapeKey:false

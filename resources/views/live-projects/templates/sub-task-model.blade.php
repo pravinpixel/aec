@@ -18,7 +18,7 @@
                     </div>
                     <h5 class="m-0 text-capitalize text-black"> {{ $sub_task->name }}</h5>
                 </div>
-                <button type="button" onclick="deleteLiveProjectSubTask('{{ $sub_task->id }}', this)" class="btn-outline-danger rounded"><i class="mdi mdi-trash-can"></i> Delete all</button>
+                <button type="button" onclick="deleteLiveProjectSubTask('{{ $sub_task->id }}', this)" class="btn btn-sm btn-outline-danger rounded"><i class="mdi mdi-trash-can"></i> Delete all</button>
             </div>
             <div class="card-body pt-0">
                 <table class="table m-0 table-hover table-sm">
@@ -81,7 +81,11 @@
                                         </div>
                                     </td>
                                     <td class="text-center">
-                                        <i title="DELETE" data-progress-id="{{ slugable($sub_task->name,'_progress_bar') }}" onclick="deleteLiveProjectSubSubTask('{{ $sub_sub_task->id }}', this)" class="mdi-close mdi font-18 text-danger" style="cursor: pointer"></i>
+                                        @if ($sub_sub_task->status == 1)
+                                            <i title="DELETE" class="mdi-close mdi font-18 text-secondary" style="cursor: pointer"></i>
+                                            @else
+                                            <i title="DELETE" data-progress-id="{{ slugable($sub_task->name,'_progress_bar') }}" onclick="deleteLiveProjectSubSubTask('{{ $sub_sub_task->id }}', this)" class="mdi-close mdi font-18 text-danger" style="cursor: pointer"></i>
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach
