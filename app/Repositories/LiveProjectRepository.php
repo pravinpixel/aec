@@ -2,16 +2,13 @@
 
 namespace App\Repositories;
 
-use App\Interfaces\LiveProjectInterFace;
-use App\Models\Admin\Employees;
+use App\Interfaces\LiveProjectInterFace; 
 use App\Models\LiveProjectGranttLink;
 use App\Models\LiveProjectGranttTask;
 use App\Models\LiveProjectSubSubTasks;
 use App\Models\LiveProjectSubTasks;
 use App\Models\LiveProjectTasks;
-use App\Models\Project;
-use App\Models\Role;
-use Illuminate\Support\Facades\Log; 
+use App\Models\Project; 
 class LiveProjectRepository implements LiveProjectInterFace
 {
     public $projectModel;
@@ -179,7 +176,7 @@ class LiveProjectRepository implements LiveProjectInterFace
         $sub_task_progress_count = $completed_sub2_tasks * $per_task_percentage;
         $LiveProjectSubSubTasks->update([
             'progress_percentage' => $sub_task_progress_count
-        ]); 
+        ]);  
        
         return generateProgressBar($LiveProjectSubSubTasks->progress_percentage);
     }

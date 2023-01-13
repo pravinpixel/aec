@@ -50,7 +50,8 @@ class Project extends Model
         'wizard_status',
         'is_new_project',
         'bim_id',
-        'bim_account_id'
+        'bim_account_id',
+        'progress_percentage'
     ];
 
     public function setCreatedByAttribute()
