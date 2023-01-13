@@ -473,7 +473,7 @@ class ProjectController extends Controller
     {
        
         if ($request->ajax() == true) {
-            $dataDb = Project::with(['comments'=> function($q){
+            $dataDb = Project::with(['LiveProjectTasks','comments'=> function($q){
                 $q->where(['status' => 0, 'created_by' => 'Customer']);
             }]);
            
@@ -496,7 +496,14 @@ class ProjectController extends Controller
                     $format = config('global.model_date_format');
                     return Carbon::parse($dataDb->delivery_date)->format($format);
                 })
-                ->addColumn('pipeline', function ($dataDb) {
+                ->addColumn('pipeline', function ($dataDb) { 
+                    if(count($dataDb->LiveProjectTasks) !== 0) {
+                        $progress_percentage = 0;
+                        foreach ($dataDb->LiveProjectTasks as $key => $task) {
+                            $progress_percentage += $task->progress_percentage;
+                        }
+                        return generateProgressBar(intval($progress_percentage / count($dataDb->LiveProjectTasks)));
+                    }
                     $totaloverall = array();
                     $result = array();
                     $projechtchart =  isset($dataDb->gantt_chart_data) ? json_decode($dataDb->gantt_chart_data) :array();

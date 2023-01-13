@@ -1,12 +1,12 @@
 <?php
 return [
     "wizard_menus" => [ 
-        // [
-        //     "name" => "Overview",
-        //     "slug" => "overview",
-        //     "icon" => '<i class="bi bi-clipboard-data"></i>',
-        //     "view" => "overview",
-        // ],
+        [
+            "name" => "Overview",
+            "slug" => "overview",
+            "icon" => '<i class="bi bi-clipboard-data"></i>',
+            "view" => "overview",
+        ],
         [
             "name" => "Milestone",
             "slug" => "milestone",
