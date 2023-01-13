@@ -22,7 +22,7 @@ class Notify {
             $sender_name = Customer()->full_name;
         }
 
-        if($data['module_name'] == 'enquiry') {
+        if($data['module_name'] == 'enquiry' || $data['module_name'] == 'project') {
             $Enquiry = Enquiry::with('customer')->find($data['module_id']); 
             if($sender_role == 'Customer') {
                 $adminTokens   = Employees::whereNotNull('token')->pluck('token')->toArray(); 
@@ -165,6 +165,7 @@ class Notify {
     }
     public static function getModuleMenuMessagesCount($data)
     {
+        $messages_count = false;
         if($data['user_type'] == 'ADMIN') {
             if($data['module_name'] == 'Enquiry' || $data['module_name'] == 'enquiry') {
                 $messages_count = Inbox::where([

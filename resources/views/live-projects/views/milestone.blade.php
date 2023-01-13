@@ -1,4 +1,4 @@
-<div class="main-container d-none" id="gantt-container">
+<div class="main-container d-none mb-2" id="gantt-container">
     <div class="header gantt-demo-header">
         <ul class="gantt-controls bg-light">
             <li class="gantt-menu-item">
@@ -54,6 +54,13 @@
         <div id="gantt_here"></div>
     </div>
 </div>
+
+<x-chat-box
+    status="1"
+    :moduleId="Project()->id"
+    moduleName="project"
+    menuName="{{ __('app.Milestones') }}"
+/>
 
 @push('live-project-custom-styles')
     <link href="{{ asset('public/assets/dhtmlx/dhtmlxgantt.css') }}" rel="stylesheet">

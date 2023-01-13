@@ -7,9 +7,4 @@ Message = function (type, head) {
     $("#alert").fadeTo(3000, 1000).slideUp(1000, function(){
         $("#alert").slideUp(5000);
     });
-}
-disableEnter = (event) => {
-    if (event.key === "Enter") {
-        event.preventDefault();
-    }
-}
+} 

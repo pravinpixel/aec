@@ -360,38 +360,46 @@ window.onload = () => {
         element.target.offsetParent.appendChild(small);
         element.target.offsetParent.classList.add('position-relative')
     }
-    password.addEventListener('keyup', (element) => {
-        var password        = element.target.value;
-        if(password.length > 12) {
-            element.target.value = password.slice(0, 12)
-            removeErrorMessage(element)
-            createMessage(element,"error","Password Max Length 12 Characters")
-            setTimeout(() => {
+    if(password) {
+        password.addEventListener('keyup', (element) => {
+            var password        = element.target.value;
+            if(password.length > 12) {
+                element.target.value = password.slice(0, 12)
                 removeErrorMessage(element)
-            }, 1000);
-        }
-        if(password.length < 7) {
-            removeErrorMessage(element)
-            createMessage(element,"error","Password Must have a 8 Characters")
-        }
-        if(password.length > 7 && password.length < 12 ) {
-            removeErrorMessage(element)
-        }
-    })
-    confirm_password.addEventListener('keyup',(element) => {
-        if(element.target.value == password.value) {
-            removeErrorMessage(element)
-            createMessage(element,"success","Password Matched")
-            setTimeout(() => {
+                createMessage(element,"error","Password Max Length 12 Characters")
+                setTimeout(() => {
+                    removeErrorMessage(element)
+                }, 1000);
+            }
+            if(password.length < 7) {
                 removeErrorMessage(element)
-            }, 1000);
-        } else {
-            removeErrorMessage(element)
-            createMessage(element,"error","Password Does not Match")
-        }
-    })
+                createMessage(element,"error","Password Must have a 8 Characters")
+            }
+            if(password.length > 7 && password.length < 12 ) {
+                removeErrorMessage(element)
+            }
+        })
+    }
+    if(confirm_password) {
+        confirm_password.addEventListener('keyup',(element) => {
+            if(element.target.value == password.value) {
+                removeErrorMessage(element)
+                createMessage(element,"success","Password Matched")
+                setTimeout(() => {
+                    removeErrorMessage(element)
+                }, 1000);
+            } else {
+                removeErrorMessage(element)
+                createMessage(element,"error","Password Does not Match")
+            }
+        })
+    }
 }
-
+disableEnter = (event) => {
+    if (event.key === "Enter") {
+        event.preventDefault();
+    }
+}
 getAutodeskView = (document_id) =>{
     axios.get(`${APP_URL}/autodesk-check-status/${document_id}`).then((response) => {
         console.log('response',response);
