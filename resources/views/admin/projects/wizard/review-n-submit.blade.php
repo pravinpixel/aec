@@ -1,10 +1,4 @@
-<div class="card-body"> 
-    <x-accordion title="Project Infomation" path="admin.projects.wizard.overview.project-information" open="true" argument='null'></x-accordion>
-    <x-accordion title="Connect Platform" path="admin.projects.wizard.overview.connect-platform" open="false" argument='null'></x-accordion> 
-    <x-accordion title="Team Setup" path="admin.projects.wizard.overview.team-setup" open="false" argument='null'></x-accordion> 
-    <x-accordion title="Invoice Plan" path="admin.projects.wizard.overview.invoice-plan" open="false" argument='null'></x-accordion> 
-    <x-accordion title="To Do List" path="admin.projects.wizard.overview.to-do-list" open="false" argument='null'></x-accordion>
-</div>
+<x-project-quick-view status="1" table="0" chat="0" :id="Project()->id"/>
 
 <div class="card-footer text-end">
     <a href="#!/to-do-listing" class="btn btn-light float-start">Prev</a>

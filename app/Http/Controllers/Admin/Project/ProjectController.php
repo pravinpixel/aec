@@ -745,9 +745,8 @@ class ProjectController extends Controller
         $type          = $request->input('type');
         $data          = $request->input('data');
         $project_id    = $this->getProjectId();
-
         $project = $this->projectRepo->getProjectById($project_id);
-
+        session()->put('current_project',$project);
         if ($type == 'create_project') {
             if (empty($project->customer_id)) {
                 $customer = $this->formatCustomerData($data);

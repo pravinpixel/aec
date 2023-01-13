@@ -2,7 +2,6 @@
 
 namespace App\View\Components;
 
-use App\Http\Controllers\Customer\EnquiryController;
 use Illuminate\Support\Facades\App;
 use Illuminate\View\Component;
 
