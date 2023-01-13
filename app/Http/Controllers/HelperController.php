@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Repositories\CustomerEnquiryRepository;
 use App\View\Components\enquiryQuickView;
+use App\View\Components\projectQuickView;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 
@@ -18,6 +19,11 @@ class HelperController extends Controller
     {
         $enquiry =  new enquiryQuickView($request->enquiry_id, $request->preview_table ,$request->chat_box ?? 1);
         return $enquiry->render();
+    }
+    public function project_quick_view(Request $request)
+    {
+        $project =  new projectQuickView($request->project_id, $request->preview_table ,$request->chat_box ?? 1);
+        return $project->render();
     }
     public function proposal_quick_view($id)
     {

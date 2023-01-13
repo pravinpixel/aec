@@ -325,6 +325,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
 });
 
 Route::post('enquiry-quick-view', [HelperController::class , 'enquiry_quick_view']);
+Route::post('project-quick-view', [HelperController::class , 'project_quick_view']);
 Route::get('proposal-quick-view/{id}', [HelperController::class , 'proposal_quick_view']);
 
  

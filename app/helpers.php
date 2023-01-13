@@ -118,8 +118,8 @@ if(! function_exists('SetDateTimeFormat')) {
     }
 }
 
-if(!function_exists('getEnquiryChatCount')) {
-    function getEnquiryChatCount($user_type, $module_name, $module_id){
+if(!function_exists('getModuleChatCount')) {
+    function getModuleChatCount($user_type, $module_name, $module_id){
         $count = Notify::getModuleMessagesCount([
             'user_type'   => $user_type,
             'module_name' => $module_name,

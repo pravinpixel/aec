@@ -709,7 +709,7 @@ class EnquiryController extends Controller
                     $data = '
                          <button type="button" class="btn-quick-view"  onclick="EnquiryQuickView('. $dataDb->id .' ,this)">
                             ' . $dataDb->enquiry_number . '
-                            '.getEnquiryChatCount('CUSTOMER','Enquiry',$dataDb->id).' 
+                            '.getModuleChatCount('CUSTOMER','Enquiry',$dataDb->id).' 
                         ';
                     if ($commentCount != 0) {
                         $data .= '<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" >' . $commentCount . ' </span>';
@@ -787,7 +787,7 @@ class EnquiryController extends Controller
                     return ' 
                         <button type="button" class="btn-quick-view" onclick="EnquiryQuickView('.$dataDb->id.' , this)" >
                             <b>'. $dataDb->enquiry_number.'</b>
-                            '.getEnquiryChatCount('CUSTOMER','Enquiry',$dataDb->id).' 
+                            '.getModuleChatCount('CUSTOMER','Enquiry',$dataDb->id).' 
                         </button>
                     ';
                 })

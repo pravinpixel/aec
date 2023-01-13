@@ -134,6 +134,7 @@ class Notify {
 
     public static function getModuleMessagesCount($data)
     {
+        $messages_count = false;
         if($data['user_type'] == 'ADMIN') {
             if($data['module_name'] == 'Enquiry') {
                 $messages_count = Inbox::where([

@@ -51,6 +51,13 @@
                 </div>
             </div>
         </div>
+        <div class="modal fade" id="ProjectQuickViewPopUp" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" >
+            <div class="modal-dialog modal-xl modal-right w-100">
+                <div class="modal-content h-100 p-0" style="overflow: auto"> 
+                    <div id="ProjectQuickViewPopUpContent"></div> 
+                </div>
+            </div>
+        </div>
 
         @stack('custom-scripts')
 

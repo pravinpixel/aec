@@ -431,10 +431,11 @@ class ProjectController extends Controller
             return DataTables::eloquent($dataDb)
                 ->editColumn('reference_number', function ($dataDb) {
                     return '
-                    <button type="button" ng-click=getQuickProject("create_project",' . $dataDb->id . ') class="btn-quick-view" ng-click=toggle("edit",' . $dataDb->id . ')>
-                        <b>' . $dataDb->reference_number . '</b>
-                    </button>
-                ';
+                        <button type="button" class="btn-quick-view" onclick="ProjectQuickView('.$dataDb->id.' , this)" >
+                            <b>'. $dataDb->reference_number.'</b>
+                            '.getModuleChatCount('ADMIN','project',$dataDb->id).'
+                        </button>
+                    ';
                 })
                 ->editColumn('start_date', function ($dataDb) {
                     $format = config('global.model_date_format');
@@ -574,7 +575,7 @@ class ProjectController extends Controller
                         </div>
                     ';
                 })
-                ->addColumn('action', function ($dataDb) {
+                ->addColumn('action', function ($dataDb) { 
                     return '<div class="dropdown">
                             <button class="btn btn-light btn-sm border shadow-sm" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
