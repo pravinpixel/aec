@@ -657,32 +657,34 @@
                     }).then(function success(res) {
                         response = res.data;
                         scope.EngineeringEstimate.forEach( (Estimates, estimateIndex) => {
-                            Estimates.Components.forEach( (Component, componentIndex) => {
-                                if(scope.index == componentIndex) {
-                                    let Sqm = Estimates.Components[componentIndex].Sqm;
-                                    Component.Dynamics.forEach( (Dynamic, dynamicIndex) => {
-                                        if(Estimates.Components[componentIndex].Dynamics[dynamicIndex].name == 'Details') {
-                                            Estimates.Components[componentIndex].Dynamics[dynamicIndex].PriceM2 = Number(response.detail_price) || 0;
-                                            Estimates.Components[componentIndex].Dynamics[dynamicIndex].Sum = 0;
-                                        } else if(Estimates.Components[componentIndex].Dynamics[dynamicIndex].name == 'Statics') {
-                                            Estimates.Components[componentIndex].Dynamics[dynamicIndex].PriceM2 = Number(response.statistic_price) || 0;
-                                            Estimates.Components[componentIndex].Dynamics[dynamicIndex].Sum =  0;
-                                        } else if(Estimates.Components[componentIndex].Dynamics[dynamicIndex].name == 'CAD/CAM') {
-                                            Estimates.Components[componentIndex].Dynamics[dynamicIndex].PriceM2 = Number(response.cad_cam_price) || 0;
-                                            Estimates.Components[componentIndex].Dynamics[dynamicIndex].Sum = 0;
-                                        } else if(Estimates.Components[componentIndex].Dynamics[dynamicIndex].name == 'Logistics') {
-                                            Estimates.Components[componentIndex].Dynamics[dynamicIndex].PriceM2 = 0;
-                                            Estimates.Components[componentIndex].Dynamics[dynamicIndex].Sum = 0 ;
-                                        } else {
-                                            Estimates.Components[componentIndex].Dynamics[dynamicIndex].PriceM2 =  0;
-                                            Estimates.Components[componentIndex].Dynamics[dynamicIndex].Sum =  0 ;
-                                        }
-                                    });
-                                    Estimates.Components[componentIndex].Complexity = 1;
-                                    Estimates.Components[componentIndex].Sqm = Sqm;
-                                    Estimates.Components[componentIndex].TotalCost.PriceM2 = Number(response.total_sum);
-                                }
-                            });
+                            if(scope.$parent.firstIndex == estimateIndex) {
+                                Estimates.Components.forEach( (Component, componentIndex) => {
+                                    if(scope.index == componentIndex) {
+                                        let Sqm = Estimates.Components[componentIndex].Sqm;
+                                        Component.Dynamics.forEach( (Dynamic, dynamicIndex) => {
+                                            if(Estimates.Components[componentIndex].Dynamics[dynamicIndex].name == 'Details') {
+                                                Estimates.Components[componentIndex].Dynamics[dynamicIndex].PriceM2 = Number(response.detail_price) || 0;
+                                                Estimates.Components[componentIndex].Dynamics[dynamicIndex].Sum = 0;
+                                            } else if(Estimates.Components[componentIndex].Dynamics[dynamicIndex].name == 'Statics') {
+                                                Estimates.Components[componentIndex].Dynamics[dynamicIndex].PriceM2 = Number(response.statistic_price) || 0;
+                                                Estimates.Components[componentIndex].Dynamics[dynamicIndex].Sum =  0;
+                                            } else if(Estimates.Components[componentIndex].Dynamics[dynamicIndex].name == 'CAD/CAM') {
+                                                Estimates.Components[componentIndex].Dynamics[dynamicIndex].PriceM2 = Number(response.cad_cam_price) || 0;
+                                                Estimates.Components[componentIndex].Dynamics[dynamicIndex].Sum = 0;
+                                            } else if(Estimates.Components[componentIndex].Dynamics[dynamicIndex].name == 'Logistics') {
+                                                Estimates.Components[componentIndex].Dynamics[dynamicIndex].PriceM2 = 0;
+                                                Estimates.Components[componentIndex].Dynamics[dynamicIndex].Sum = 0 ;
+                                            } else {
+                                                Estimates.Components[componentIndex].Dynamics[dynamicIndex].PriceM2 =  0;
+                                                Estimates.Components[componentIndex].Dynamics[dynamicIndex].Sum =  0 ;
+                                            }
+                                        });
+                                        Estimates.Components[componentIndex].Complexity = 1;
+                                        Estimates.Components[componentIndex].Sqm = Sqm;
+                                        Estimates.Components[componentIndex].TotalCost.PriceM2 = Number(response.total_sum);
+                                    }
+                                });
+                            };
                         });
                         let finalJson = {...scope.ResultEngineeringEstimate.costEstimate, ...scope.EngineeringEstimate};
                         scope.ResultEngineeringEstimate.costEstimate =   JSON.parse(JSON.stringify(finalJson));
