@@ -3,7 +3,7 @@
 @section('admin-content')
 @include('flash::message') 
     <div class="content-page"  ng-app="Myapp">
-        <div class="content" ng-controller="EnqController">
+        <div class="content" ng-controller="dashboardController">
 
             @include('admin.includes.top-bar')
   
@@ -54,7 +54,7 @@
 									<div class="col-md-3">
 										<div class="live-status-bg">
 											<h3>New Enquiries</h3>
-											<p class="count">30</p>
+											<p class="count">{{$result['new_enquiries']}}</p>
 											<span class="btn btn-success">
 												<i class="mdi mdi-comment-plus-outline"></i>
 											</span>
@@ -63,7 +63,7 @@
 									<div class="col-md-3">
 										<div class="live-status-bg">
 											<h3>Unattended Enquiries</h3>
-											<p class="count">10</p>
+											<p class="count">{{$result['unattended_enquiries']}}</p>
 											<span class="btn btn-danger">
 												<i class="mdi mdi-comment-remove-outline"></i>
 											</span>
@@ -72,7 +72,7 @@
 									<div class="col-md-3">
 										<div class="live-status-bg">
 											<h3>Ready for Project</h3>
-											<p class="count">15</p>
+											<p class="count">{{$result['ready_for_projects']}}</p>
 											<span class="btn btn-primary">
 												<i class="mdi mdi-comment-check-outline"></i>
 											</span>
@@ -81,7 +81,7 @@
 									<div class="col-md-3">
 										<div class="live-status-bg">
 											<h3>Waiting for Customer Response</h3>
-											<p class="count">5</p>
+											<p class="count">{{$result['waiting_for_customer_response']}}</p>
 											<span class="btn btn-secondary text-white">
 												<i class="mdi mdi-comment-processing-outline"></i>
 											</span>
@@ -103,7 +103,7 @@
 												   <i class="mdi mdi-comment-plus-outline widget-icon text-success"></i>
 											   </div>
 											   <h3 class="card-heading">New Enquiries</h3>											   
-												   <div class="text-success me-2"><i class="mdi mdi-arrow-up-bold fa-2x"></i> <span class="fa-2x">40</span></div>
+												   <div class="text-success me-2"><i class="mdi mdi-arrow-up-bold fa-2x"></i> <span class="fa-2x">{{$result['new_enquiries_last_month']}}</span></div>
 												   <span class="text-nowrap">Since last month</span>  
 										   </div> <!-- end card-body-->
 									   </div> <!-- end card-->
@@ -115,7 +115,7 @@
 												   <i class="mdi mdi-comment-remove-outline widget-icon text-danger"></i>
 											   </div>
 											   <h3 class="card-heading">Lost Enquiries</h3>
-												   <div class="text-danger me-2"><i class="mdi mdi-arrow-down-bold fa-2x"></i> <span class="fa-2x">3</span></div>
+												   <div class="text-danger me-2"><i class="mdi mdi-arrow-down-bold fa-2x"></i> <span class="fa-2x">{{$result['lost_enquiries_last_month']}}</span></div>
 												   <span class="text-nowrap">Since last month</span>
 										   </div> <!-- end card-body-->
 									   </div> <!-- end card-->
@@ -158,96 +158,7 @@
 						   </div> <!-- end col -->
 					   </div>
 					   <!-- end row -->
-   
-					   <div class="row">
-						   <div class="col-lg-12">
-							   <div class="card shadow-sm">
-								   <div class="card-header bg-light">
-								   <h4 class="header-title text-uppercase mt-2"><strong>Enquiries Summary​</strong></h4>
-									   <div >
-										   <form class="d-flex p-2 justify-content-between">
-											   <div>
-												   <small>Date / Month</small>
-												   <input type="date" name="" id="" class="form-control">
-											   </div>
-											   <div>
-												   <small>Type of Delivery</small>
-												   <select name="" id="" class="form-select">
-													   <option value="">-- Choose -- </option>
-													   <option value="">Type of Delivery 1</option>
-													   <option value="">Type of Delivery 2</option>
-													   <option value="">Others</option>
-												   </select>
-											   </div>
-											   <div>
-												   <small>Type of Project</small>
-												   <select name="" id="" class="form-select">
-													   <option value="">-- Choose -- </option>
-													   <option value="">New contructions</option>
-													   <option value="">Old contructions</option>
-													   <option value="">Others</option>
-												   </select>
-											   </div>
-											   <div>
-												   <small>Customer</small>
-												   <select name="" id="" class="form-select">
-													   <option value="">-- Choose -- </option>
-													   <option value="">Customer 1</option>
-													   <option value="">Customer 2</option>
-													   <option value="">Customer 3</option>
-												   </select>
-											   </div>
-											   <div>
-												   <small>Project Name</small>
-												   <select name="" id="" class="form-select">
-													   <option value="">-- Choose -- </option>
-													   <option value="">Project Name 1</option>
-													   <option value="">Project Name 2</option>
-													   <option value="">Project Name 3</option>
-												   </select>
-											   </div>
-											   <div>
-												   <small>Search by Name | E.No</small>
-												   <input type="text" name="" id="" placeholder="Type to Search .." class="form-control">
-											   </div>
-											   <div>
-												   <small style="opacity:0">Search</small>
-												   <button type="submit" class="btn btn-primary form-control"><i class="fa fa-search"></i></button>
-											   </div>
-										   </form> 
-									   </div>
-								   </div>
-								   <div class="card-body ">
-									   <table datatable="ng" dt-options="vm.dtOptions" class="table custom dt-responsive nowrap custom table-striped">
-										   <thead>
-											   <tr>
-												   <th>S.No</th>
-												   <th>Enquiry No</th>
-												   <th>Contact Person</th>
-												   <th>Enquiry Date</th>
-												   <th>Email</th>
-												   <th>Mobile Number</th>
-												   <th>Actions</th>
-											   </tr>
-										   </thead>
-										   <tbody>
-												<tr ng-repeat="(index,m) in module_get">
-													<td> @{{ index+1 }}</td>
-													<td> @{{ m.enquiry_number }}</td>
-													<td> @{{ m.contact_person }}</td>
-													<td> @{{ m.enquiry_date }}</td>
-													<td> @{{ m.email }}</td>
-													<td>@{{ m.mobile_no }}</td>
-													<td>
-														<a class="btn btn-outline-primary btn-sm  rounded-pill shadow-sm" href="{{ route('view-enquiry') }}/@{{ m.customer_id }}"><i class="fa fa-edit"></i></a>
-													</td>
-												</tr> 
-										   </tbody>
-									   </table>
-								   </div>
-							   </div>
-						   </div> <!-- end col--> 
-					   </div>
+							@include('admin.dashboard.table.enquiry-summary')
 					   <!-- end row -->
 				   </div>
 				   <!-- container --> 
@@ -358,6 +269,6 @@
 	</script>
 
 	{{-- ======== Angular Controllers ========== --}}
-	<script src="{{ asset("public/custom/js/ngControllers/dashboard/enquiry.js") }}"></script>
+	<script src="{{ asset("public/custom/js/ngControllers/admin/dashboard.js") }}"></script>
 @endpush
 

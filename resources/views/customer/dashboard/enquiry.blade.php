@@ -79,7 +79,7 @@
                                                     <i class="mdi mdi-comment-plus-outline widget-icon text-success"></i>
                                                 </div>
                                                 <h3 class="card-heading">Completed Projects</h3>
-                                                <div class="text-success me-2"><span class="fa-2x">40</span></div>
+                                                <div class="text-success me-2"><span class="fa-2x">{{$completedProject}}</span></div>
                                             </div> <!-- end card-body-->
                                         </div> <!-- end card-->
                                     </div> <!-- end col-->

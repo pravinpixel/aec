@@ -24,10 +24,10 @@ use Illuminate\Support\Facades\Log;
 class Bim360ApiHelper
 {
    private $base_url = "https://developer.api.autodesk.com/";
-   private $clientId = "oqlXBJL6lr0Gcn7mQp2s1GfuTBi7I13g";
-   private $clientSecret = "tTREY5lFAF0pEH7G";
-   private $accountId = "083663d7-cf19-423e-8b8b-1d9c4a444fab";
-   private $hubId = "b.083663d7-cf19-423e-8b8b-1d9c4a444fab";
+   private $clientId = "vUi1doN0vho73XGLoRj6GnyU4IdOs4UO";
+   private $clientSecret = "zAOFro8yrsIGGUAf";
+   private $accountId = "7b3c5d3b-785d-458f-9aa5-2e7062887929";
+   private $hubId = "b.7b3c5d3b-785d-458f-9aa5-2e7062887929";
 
    // private $clientId = "tAY4ATBA78LG9PZG3geOW7cbDyxs4JGR";
    // private $clientSecret = "8fWzMPGVZH5bGfC6";
