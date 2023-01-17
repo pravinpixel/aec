@@ -30,7 +30,7 @@ class Wizard extends Component
     public $employee_id,$country_code = 47, $display_name, $first_name, $last_name, $job_title, $email, $image, $number;
     public $currentStep = 1, $share_point_status = 0, $successMessage = '', $sharePointAccess = [];
     public $employees, $roles = [],  $id, $is_uploaded, $uploaded_image, $completed_wizard = 0;
-    public $share_folder_name  = null;
+    public $share_folder_name  = null, $reference_number, $job_role, $mobile_number, $is_upload, $projects = [];
     public function __construct()
     {
         $this->id = Route::current()->parameter('id');
