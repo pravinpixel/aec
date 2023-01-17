@@ -33,7 +33,7 @@
                                     <div class="col-sm">
                                         <div class="live-status-bg">
                                             <h3>New Projects</h3>
-                                            <p class="count">10</p>
+                                            <p class="count">{{$new_project}}</p>
                                             <span class="btn btn-success">
                                                 <i class="mdi mdi-coffee-outline"></i>
                                             </span>
@@ -43,7 +43,7 @@
                                     <div class="col-sm">
                                         <div class="live-status-bg">
                                             <h3>Current Projects</h3>
-                                            <p class="count">25</p>
+                                            <p class="count">{{$current_project}}</p>
                                             <span class="btn btn-primary">
                                                 <i class="mdi mdi-gift-outline"></i>
                                             </span>
@@ -53,7 +53,7 @@
                                     <div class="col-sm">
                                         <div class="live-status-bg">
                                             <h3>Completed Projects</h3>
-                                            <p class="count">50</p>
+                                            <p class="count">{{$completed_project}}</p>
                                             <span class="btn btn-warning text-white">
                                                 <i class="mdi mdi-comment-check-outline"></i>
                                             </span>
@@ -63,7 +63,7 @@
                                     <div class="col-sm">
                                         <div class="live-status-bg">
                                             <h3>New Variation Orders</h3>
-                                            <p class="count">5</p>
+                                            <p class="count">{{$new_variation_orders}}</p>
                                             <span class="btn btn-secondary text-white">
                                                 <i class="mdi mdi-format-list-checks"></i>
                                             </span>
@@ -72,8 +72,8 @@
                                     <!--end card-->
                                     <div class="col-sm">
                                         <div class="live-status-bg">
-                                            <h3>Ready for Projet</h3>
-                                            <p class="count">25</p>
+                                            <h3>Ready for Project</h3>
+                                            <p class="count">{{$ready_for_project}}</p>
                                             <span class="btn btn-info text-white">
                                                 <i class="mdi mdi-playlist-check"></i>
                                             </span>
