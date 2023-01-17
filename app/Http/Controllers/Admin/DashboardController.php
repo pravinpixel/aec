@@ -98,7 +98,12 @@ class DashboardController extends Controller
 
     public function projectDashboard()
     { 
-        return view('admin.dashboard.project');
+        $result['new_project'] = Project::where('status','Un-Established')->count();
+        $result['current_project'] = Project::where('status','Live')->count();
+        $result['completed_project'] = Project::where('status','Completed')->count();
+        $result['new_variation_orders'] = 0;
+        $result['ready_for_project'] = 0;
+        return view('admin.dashboard.project', with($result));
     }
 
     public function economyDashboard()
