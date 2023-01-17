@@ -15,7 +15,7 @@
                                                     <input type="text" style="border:none !important;padding:6px!important;padding-left:5px!important"
                                                         id="decWid"
                                                         ng-change="checkDate(enquiry_summary.from_date)" class="form-control form-control-sm"
-                                                        id="project_date" name="start_date" ng-model="enquiry_summary.from_date" required
+                                                        id="project_date" name="start_date" ng-model="enquiry_summary.from_date"
                                                         autocomplete="off"
                                                         placeholder="DD/MM/YYYY"
                                                     />
