@@ -12,7 +12,7 @@
             </tr>
         </thead>
         <tbody>
-           @if(count($projects) < 0)
+           @if(count($projects) > 0)
                 @foreach($projects as $i =>  $project)
                     <tr>
                         <td class="table-user d-flex">
