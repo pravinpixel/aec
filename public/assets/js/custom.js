@@ -230,7 +230,20 @@ ProjectQuickView = (id, element, chat) => {
         }
     });
 }
-
+LiveProjectQuickView = (id, element, chat) => {
+    startLoader(element)
+    axios.post(`${APP_URL}/project-quick-view`,{
+        project_id   : id,
+        preview_table : 1,
+        chat_box     : chat, // true | false
+    }).then((response) => {
+        if(response.status === 200) {
+            $("#LiveProjectQuickViewPopUp").modal('show')
+            document.getElementById("LiveProjectQuickViewPopUpContent").innerHTML = response.data
+            stopLoader(element)
+        }
+    });
+}
 
 viewCustomerEnquiryProposal = (id) => {
     axios.get(`${APP_URL}/proposal-quick-view/${id}`).then((response) => {
