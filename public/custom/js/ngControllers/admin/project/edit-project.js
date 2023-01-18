@@ -172,7 +172,7 @@ app.controller('ConnectPlatformController', function ($scope, $http, API_URL, $l
                     create: false,
                     delete: false,
                     rename: false,
-                    download: false,
+                    download: true,
                 },
                 itemView: {
                     details: {
@@ -238,8 +238,8 @@ app.controller('ConnectPlatformController', function ($scope, $http, API_URL, $l
 
                         })
                 },
-                onCurrentDirectoryChanged: onDirItemClick
-
+                onCurrentDirectoryChanged: onDirItemClick,
+                onItemDownloading: onItemDownloading
             }).dxFileManager('instance');
         });
 
@@ -251,6 +251,12 @@ app.controller('ConnectPlatformController', function ($scope, $http, API_URL, $l
                 fileManager.refresh();
             });
     }
+
+    function onItemDownloading(args) {
+        let downloadUrl = `${API_URL}sharepoint/download-files?url=${args.item.dataItem.serverRelativeUrl}&name=${args.item.dataItem.name}`;
+        window.open(downloadUrl, '_blank');
+    }
+
 
     function onItemClick(args) {
         let updated = false;
@@ -747,7 +753,7 @@ app.controller('ReviewAndSubmit', function ($scope, $http, API_URL, $timeout) {
                 create: false,
                 delete: false,
                 rename: false,
-                download: false,
+                download: true,
             },
             itemView: {
                 details: {

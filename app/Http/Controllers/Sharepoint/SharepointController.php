@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 use App\Models\Project;
 use App\Services\GlobalService;
+use Illuminate\Http\Response;
 
 class SharepointController extends Controller
 {
@@ -173,13 +174,32 @@ class SharepointController extends Controller
                     'name' => $nestedItem['Name'],
                     'isDirectory' => false,
                     'dateModified' => $nestedItem['TimeLastModified'],
-                    'size'=> $nestedItem['Length']
+                    'size'=> $nestedItem['Length'],
+                    'serverRelativeUrl' => $nestedItem['ServerRelativeUrl']
                 ];
             }
         }
         return $items;
     }
 
+
+    public function downloadFile(Request $request)
+    {
+        $path = $request->input('url');
+        $name = $request->input('name');
+        $token = $this->getToken();
+        $url = $this->getUrl("GetFileByServerRelativeUrl('".$path."')")."/\$value";
+        $res =  Http::withHeaders([
+            'Authorization' =>  'Bearer '.$token,
+            'Content-Type' => 'octet-stream',
+            'Accept'=> 'application/json;odata=verbose'
+        ])->get( $url );
+        $headers = ['Content-Type: application/octet-stream'];
+        $responseJson = $res->getBody()->getContents();
+        $pathToFile = storage_path('app/'.$name);
+        file_put_contents( $pathToFile, $responseJson ); 
+        return response()->download($pathToFile, $name, $headers);
+    }
 
     public function getProjectFiles(Request $request) {
         $response['folders']= $this->getFiles($request->input('url'));

@@ -189,7 +189,7 @@ formatData = (project) => {
             create: false,
             delete: true,
             rename: false,
-            download: false,
+            download: true,
           },
           itemView: {
             details: {
@@ -2197,7 +2197,7 @@ formatData = (project) => {
             create: false,
             delete: false,
             rename: false,
-            download: false,
+            download: true,
           },
           itemView: {
             details: {
@@ -2486,7 +2486,8 @@ formatData = (project) => {
 
                 })
         },
-        onCurrentDirectoryChanged: onDirItemClick
+        onCurrentDirectoryChanged: onDirItemClick,
+        onItemDownloading: onItemDownloading
 
       }).dxFileManager('instance');
 
@@ -2497,6 +2498,11 @@ formatData = (project) => {
             var fileManager = $("#file-manager-liveproject").dxFileManager("instance");
             fileManager.refresh();
         });
+      }
+
+      function onItemDownloading(args) {
+        let downloadUrl = `${API_URL}sharepoint/download-files?url=${args.item.dataItem.serverRelativeUrl}&name=${args.item.dataItem.name}`;
+        window.open(downloadUrl, '_blank');
       }
 
     function onItemClick(args) {
