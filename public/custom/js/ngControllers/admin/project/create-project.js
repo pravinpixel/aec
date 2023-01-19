@@ -2494,6 +2494,14 @@ formatData = (project) => {
         }).dxFileManager('instance');
       });
 
+    function onDirItemClick(args) {
+        $http.get(`${API_URL}sharepoint/list-files?url=${args.directory.dataItem.relativePath}`)
+            .then((res) => {
+                args.directory.dataItem['items'] = res.data.folders;
+                var fileManager = $("#file-manager-liveproject").dxFileManager("instance");
+                fileManager.refresh();
+            });
+    }
 
     function onItemClick(args) {
         let updated = false;
