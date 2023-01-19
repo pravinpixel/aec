@@ -163,84 +163,85 @@ app.controller('ConnectPlatformController', function ($scope, $http, API_URL, $l
                 $("#switch2").prop('checked', true);
             }
 
-
-            const fileManager = $('#file-manager').dxFileManager({
-                name: 'fileManager',
-                fileSystemProvider: fileSystem,
-                height: 450,
-                permissions: {
-                    create: false,
-                    delete: false,
-                    rename: false,
-                    download: true,
-                },
-                itemView: {
-                    details: {
-                        columns: [
-                            'thumbnail', 'name',
-                            'dateModified', 'size',
-                        ],
+            $(() => {
+                const fileManager = $('#file-manager').dxFileManager({
+                    name: 'fileManager',
+                    fileSystemProvider: fileSystem,
+                    height: 450,
+                    permissions: {
+                        create: false,
+                        delete: false,
+                        rename: false,
+                        download: true,
                     },
-                    showParentFolder: false,
-                },
-                toolbar: {
-                    items: [
-                        {
-                            name: 'showNavPane',
-                            visible: true,
+                    itemView: {
+                        details: {
+                            columns: [
+                                'thumbnail', 'name',
+                                'dateModified', 'size',
+                            ],
                         },
-                        'separator', 'create',
-                        {
-                            widget: 'dxMenu',
-                            location: 'before',
-                            options: {
-                                onItemClick,
+                        showParentFolder: false,
+                    },
+                    toolbar: {
+                        items: [
+                            {
+                                name: 'showNavPane',
+                                visible: true,
                             },
-                        },
-                        'refresh',
-                        {
-                            name: 'separator',
-                            location: 'after',
-                        },
-                        'switchView',
-                    ]
-                },
-                onContextMenuItemClick: onItemClick,
-                onDirectoryCreating: function (e) {
-                    let path = e.parentDirectory.relativeName + '/' + e.name;
-                    $http.put(`${API_URL}project/sharepoint-folder/${project_id}`, { data: fileSystem, path: path })
-                        .then((res) => {
-                            if (res.data.status == false) {
-                                Message('danger', res.data.msg);
-                                return false;
-                            }
-                            Message('success', 'updated successfully');
-                        })
-                },
-                onItemDeleting: function (e) {
-                    let path = e.item.relativeName;
-                    console.log(path);
-                    $http.post(`${API_URL}project/sharepoint-folder-delete/${project_id}`, { data: fileSystem, path: path })
-                        .then((res) => {
-                            if (res.data.status == false) {
-                                Message('danger', res.data.msg);
-                                return false;
-                            }
-                            Message('success', 'deleted successfully');
-                        })
-                    return true;
-                },
-                onItemRenamed: function (e) {
+                            'separator', 'create',
+                            {
+                                widget: 'dxMenu',
+                                location: 'before',
+                                options: {
+                                    onItemClick,
+                                },
+                            },
+                            'refresh',
+                            {
+                                name: 'separator',
+                                location: 'after',
+                            },
+                            'switchView',
+                        ]
+                    },
+                    onContextMenuItemClick: onItemClick,
+                    onDirectoryCreating: function (e) {
+                        let path = e.parentDirectory.relativeName + '/' + e.name;
+                        $http.put(`${API_URL}project/sharepoint-folder/${project_id}`, { data: fileSystem, path: path })
+                            .then((res) => {
+                                if (res.data.status == false) {
+                                    Message('danger', res.data.msg);
+                                    return false;
+                                }
+                                Message('success', 'updated successfully');
+                            })
+                    },
+                    onItemDeleting: function (e) {
+                        let path = e.item.relativeName;
+                        console.log(path);
+                        $http.post(`${API_URL}project/sharepoint-folder-delete/${project_id}`, { data: fileSystem, path: path })
+                            .then((res) => {
+                                if (res.data.status == false) {
+                                    Message('danger', res.data.msg);
+                                    return false;
+                                }
+                                Message('success', 'deleted successfully');
+                            })
+                        return true;
+                    },
+                    onItemRenamed: function (e) {
 
-                    $http.put(`${API_URL}project/sharepoint-folder/${project_id}`, { data: fileSystem })
-                        .then((res) => {
-                            Message('success', 'updated successfully');
+                        $http.put(`${API_URL}project/sharepoint-folder/${project_id}`, { data: fileSystem })
+                            .then((res) => {
+                                Message('success', 'updated successfully');
 
-                        })
-                },
-                onCurrentDirectoryChanged: onDirItemClick,
-                onItemDownloading: onItemDownloading
-            }).dxFileManager('instance');
+                            })
+                    },
+                    onCurrentDirectoryChanged: onDirItemClick,
+                    onItemDownloading: onItemDownloading
+                }).dxFileManager('instance');
+            })
         });
 
     function onDirItemClick(args) {
@@ -251,12 +252,6 @@ app.controller('ConnectPlatformController', function ($scope, $http, API_URL, $l
                 fileManager.refresh();
             });
     }
-
-    function onItemDownloading(args) {
-        let downloadUrl = `${API_URL}sharepoint/download-files?url=${args.item.dataItem.serverRelativeUrl}&name=${args.item.dataItem.name}`;
-        window.open(downloadUrl, '_blank');
-    }
-
 
     function onItemClick(args) {
         let updated = false;

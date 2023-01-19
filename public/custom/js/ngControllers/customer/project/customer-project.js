@@ -2069,11 +2069,6 @@ app.controller('DocumentController', function($scope, $http, API_URL, $timeout, 
       }
     }
 
-    function onItemDownloading(args) {
-      let downloadUrl = `${API_URL}sharepoint/download-files?url=${args.item.dataItem.serverRelativeUrl}&name=${args.item.dataItem.name}`;
-      window.open(downloadUrl, '_blank');
-    }
-
     function onDirItemClick(args) {
       $http.get(`${API_URL}sharepoint/list-files?url=${args.directory.dataItem.relativePath}`)
           .then((res) => {
