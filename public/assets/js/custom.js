@@ -437,3 +437,8 @@ getAutodeskView = (document_id) =>{
         window.open(`${APP_URL}/viewmodel/${document_id}`);
     });
 }
+
+function onItemDownloading(args) {
+    let downloadUrl = `${APP_URL}/sharepoint/download-files?url=${args.item.dataItem.serverRelativeUrl}&name=${args.item.dataItem.name}`;
+    window.open(downloadUrl, '_blank');
+}
