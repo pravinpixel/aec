@@ -87,6 +87,16 @@ class GlobalServiceProvider extends Controller
         return Carbon::parse($date)->format($format);
     }
 
+    public function DBSDateFormat($date)
+    {
+        return Carbon::parse($date)->startOfDay();
+    }
+
+    public function DBEDateFormat($date)
+    {
+        return Carbon::parse($date)->endOfDay();
+    }
+    
     public function DBDateFormatWithTime($date)
     {
         $format = Config::get('global.db_date_format_with_time');
