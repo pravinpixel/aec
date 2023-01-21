@@ -14,36 +14,13 @@
 					<!-- Start Content-->
 					<div>
 					   <!-- start page title -->
-					   <div class="row">
-						   <div class="col-12">
-							   <div class="page-title-box">
-								   <div class="page-title-right d-flex">
-								   		
-									   <div class="dropdown float-end">
-										   <a href="#" class="dropdown-toggle arrow-none btn btn-success mr-3" data-bs-toggle="dropdown" aria-expanded="false">
-											   <i class="mdi mdi-calendar"></i>
-										   </a>
-										   <div class="dropdown-menu dropdown-menu-end">
-											   <!-- item-->
-											   <a href="javascript:void(0);" class="dropdown-item">Weekly</a>
-											   <!-- item-->
-											   <a href="javascript:void(0);" class="dropdown-item">1 Monthly</a>
-											   <!-- item-->
-											   <a href="javascript:void(0);" class="dropdown-item">1 Quarter</a>
-											   <!-- item-->
-											   <a href="javascript:void(0);" class="dropdown-item">1 Year</a>
-										   </div>
-									   </div>
-									   <form class="d-flex">
-										   <a href="javascript: void(0);" class="btn btn-primary ms-2">
-											   <i class="mdi mdi-autorenew"></i>
-										   </a>
-									   </form>
-								   </div>
-								    
-								   <h4 class="page-title">Dashboard</h4>
-							   </div>
-						   </div>
+					   <div class="row my-2">
+					   		<div class="col-6"> 		
+								<h4 class="page-title">Dashboard</h4>
+							</div>
+						   	<div class="col-6"> 		
+								<input type="text" id="_date" ng-model="enquiry_summary.date" class="form-control" name="daterange" value="01/01/2018 - 01/15/2018" />
+							</div>
 					   </div>
 					   <!-- end page title -->
 
@@ -173,13 +150,14 @@
 @push('custom-scripts')
 		@if (Route::is('admin-dashboard'))
 			<script>
+				var category = {!! json_encode($result['category'])!!}
+				var count = {!! json_encode($result['category_count'])!!}
+				
 				var options = {
+					floating: false,
 					series: [{
-						name: 'series1',
-						data: [31, 40, 28, 51, 42, 109, 100]
-					}, {
-						name: 'series2',
-						data: [11, 32, 45, 32, 34, 52, 41]
+						name: 'Enquiries',
+						data: count
 					}],
 					chart: {
 						height: 350,
@@ -191,13 +169,22 @@
 					stroke: {
 						curve: 'smooth'
 					},
+					yaxis: [
+						{
+							labels: {
+								formatter: function(val) {
+									return val.toFixed(0);
+								}
+							}
+						}
+					],
 					xaxis: {
-						type: 'datetime',
-						categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"]
+						type: 'date',
+						categories: category
 					},
 					tooltip: {
 						x: {
-							format: 'dd/MM/yy HH:mm'
+							format: 'dd/MM/yy'
 						},
 					},
 				};
@@ -206,66 +193,34 @@
 			</script> 
 		@endif
 
-	{{-- =========  MOTHLY SALES REPORTS Chart ============== --}}
-	<script>
-		(dataColors = $("#distributed-column").data("colors")) && (colors = dataColors.split(","));
-			options = {
-				chart: {
-					height: 380,
-					type: "bar",
-					toolbar: {
-						show: !1
-					},
-					events: {
-						click: function(o, a, t) {
-							console.log(o, a, t)
-						}
-					}
-				},
-				colors: colors,
-				plotOptions: {
-					bar: {
-						columnWidth: "45%",
-						distributed: !0
-					}
-				},
-				dataLabels: {
-					enabled: !1
-				},
-				series: [{
-					data: [21, 22, 10, 28, 16, 21, 13, 30]
-				}],
-				xaxis: {
-					categories: ["John", "Joe", "Jake", "Amber", "Peter", "Mary", "David", "Lily"],
-					labels: {
-						style: {
-							colors: colors,
-							fontSize: "14px"
-						}
-					}
-				},
-				legend: {
-					offsetY: 7
-				},
-				grid: {
-					row: {
-						colors: ["transparent", "transparent"],
-						opacity: .2
-					},
-					borderColor: "#f1f3fa"
-				}
-			};
-			(chart = new ApexCharts(document.querySelector("#distributed-column"), options)).render();
-	</script>
-
 	{{-- ================ ENQUIRIES CHRT ============= --}}
 	<script> 
-		function (t) {
-			"use strict";
-			t(document).ready(function (e) {
-				t.Dashboard.init()
-			})
-		}(window.jQuery);
+		$(function() {
+			let date =  {!! json_encode($date) !!};
+			let baseUrl = $("#baseurl").val();
+			$('input[name="daterange"]').daterangepicker({
+				opens: 'left',
+				timePicker: true,
+				startDate: date.start_date,
+				endDate: date.end_date,
+				locale: {
+					format: 'DD-MM-Y'
+				},
+				ranges: {
+				'Today': [moment(), moment()],
+				'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+				'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+				'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+				'This Month': [moment().startOf('month'), moment().endOf('month')],
+				'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
+				'This Quarter': [moment().quarter(moment().quarter()).startOf('quarter'),moment().quarter(moment().quarter()).endOf('quarter') ],
+				'This Year':[moment().startOf('year'), moment().endOf('year')]
+				}
+			}, function(start, end, label) {
+				let url = `${baseUrl}admin/dashboard?start_date=${moment(start).format('DD-MM-Y')}&end_date=${moment(end).format('DD-MM-Y')}`;
+				location.href = url;
+			});
+		});
 	</script>
 
 	{{-- ======== Angular Controllers ========== --}}

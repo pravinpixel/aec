@@ -25,12 +25,14 @@ class DashboardController extends Controller
                     ->groupBy('projects.customer_id')
                     ->get()[0]->new_invoice;
         $totalUnpaidInvoices   = $totalNewInvoices;
+        $completedProject = Project::where('status', 'Completed')->count();
 
         $data['totalActiveEnquiries']  = $totalActiveEnquiries;
         $data['totalWaitingApprovals'] = $totalWaitingApprovals;
         $data['totalNewInvoices']      = $totalNewInvoices;
         $data['totalUnpaidInvoices']   = $totalUnpaidInvoices;
-        $data['completedProject']      = Project::where('status', 'Completed')->count();
+        $data['completedProject']      = $completedProject;
+        
         return view('customer.dashboard.enquiry')->with($data); 
     }
     public function projectDashboard() {
