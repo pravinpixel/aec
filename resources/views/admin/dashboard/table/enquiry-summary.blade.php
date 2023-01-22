@@ -61,11 +61,11 @@
 												   <small>Search by E.No</small>
 												   <input type="text" name="" id="" placeholder="Type to Search .." class="form-control" ng-model="enquiry_summary.search_by">
 											   </div>
-											   <div>
+											   <div class="mx-1">
 												   <small style="opacity:0">Search</small>
 												   <button type="submit" class="btn btn-primary form-control" ng-click="applyFilter()"><i class="fa fa-search"></i></button>
 											   </div>
-                                               <div>
+                                               <div class="mx-1">
 												   <small style="opacity:0">Reset</small>
 												   <button type="reset" class="btn btn-primary form-control" ng-click="resetFilter()"><i class="fa fa-refresh"></i></button>
 											   </div>
