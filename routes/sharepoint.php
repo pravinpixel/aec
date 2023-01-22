@@ -8,5 +8,6 @@ Route::group(['prefix' => 'sharepoint', 'middleware'=>'common', 'as' => 'sharepo
     Route::get('list-all-folders/{id}',[SharepointController::class,'listAllFolder']);
     Route::get('list-files', [SharepointController::class,'getProjectFiles']);
     Route::get('list-folders/{id}', [SharepointController::class,'getProjectFolders']);
+    Route::get('folder-has-permission', [SharepointController::class,'folderHasPermission']);
     Route::get('download-files',[SharepointController::class, 'downloadFile']);
 });

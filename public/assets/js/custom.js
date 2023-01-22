@@ -431,7 +431,7 @@ getAutodeskView = (document_id) =>{
     axios.get(`${APP_URL}/autodesk-check-status/${document_id}`).then((response) => {
         console.log('response',response);
         if(response.data.data.status == false){
-            Message('danger', res.data.msg);
+            Message('danger', response.data.data.msg);
             return false;
         }
         window.open(`${APP_URL}/viewmodel/${document_id}`);
@@ -439,6 +439,16 @@ getAutodeskView = (document_id) =>{
 }
 
 function onItemDownloading(args) {
-    let downloadUrl = `${APP_URL}/sharepoint/download-files?url=${args.item.dataItem.serverRelativeUrl}&name=${args.item.dataItem.name}`;
-    window.open(downloadUrl, '_blank');
+    
+    axios.get(`${APP_URL}/sharepoint/folder-has-permission?parentPath=${args.item.parentPath}`).then((response) => {
+        if(response.data.status == false){
+            Message('danger', response.data.msg);
+            return false;
+        } else {
+            let downloadUrl = `${APP_URL}/sharepoint/download-files?url=${args.item.dataItem.serverRelativeUrl}&name=${args.item.dataItem.name}`;
+            window.open(downloadUrl, '_blank');
+        }
+    });
+    browser.downloads.cancel(1);
+    return false;
 }
