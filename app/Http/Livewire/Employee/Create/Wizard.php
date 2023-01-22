@@ -7,8 +7,10 @@ use App\Helper\Bim360\Bim360UsersApi;
 use App\Models\Admin\Employees;
 use App\Models\Admin\SharePointAccess;
 use App\Models\EmployeeBimAccessProject;
+use App\Models\EmployeeSharePointMasterFolder;
 use App\Models\Project;
 use App\Models\Role;
+use App\Models\sharePointMasterFolder;
 use App\Services\GlobalService;
 use Exception;
 use Illuminate\Support\Facades\DB;
@@ -45,6 +47,7 @@ class Wizard extends Component
     public $roles = [];
     public $projects = [];
     public $country_code = '47'; 
+    public $activeFolder = [];
 
     public function getEnquiryNumber() 
     {
@@ -172,6 +175,10 @@ class Wizard extends Component
     {
         switch ($wizard) {
             case 'sharepoint':
+                if(Session::has('employee')) {
+                    $session_employee = Session::get('employee');
+                    $this->activeFolder       = EmployeeSharePointMasterFolder::where('employee_id', $session_employee->id)->pluck('share_point_master_folder_id')->toArray();
+                }
                 $this->currentStep = 2;
                 break;
             case 'bim':
@@ -230,9 +237,32 @@ class Wizard extends Component
             $this->send_password_to_email  = $employee->send_password_to_email;
             $this->recipient_email         = $employee->recipient_email;
             $this->share_point_status      = $employee->share_point_status;
+            $this->activeFolder = EmployeeSharePointMasterFolder::where('employee_id', $session_employee->id)->pluck('share_point_master_folder_id')->toArray();
         }
-        $this->sharePointAccess = SharePointAccess::all();
+        $this->sharePointAccess   = sharePointMasterFolder::with('employeeSharepointMasterFolder')->get();
         $this->roles = Role::all();
+    }
+
+    
+
+    public function updateFolderAccess($folderId, $employee = null)
+    {
+        $session_employee = Session::get('employee');
+        $employee = EmployeeSharePointMasterFolder::where([
+            'share_point_master_folder_id' => $folderId,
+            'employee_id' => $session_employee->id
+        ])->first();
+        if(is_null($employee)) {
+            $employee = new  EmployeeSharePointMasterFolder();
+            $employee->share_point_master_folder_id = $folderId;
+            $employee->employee_id = $session_employee->id;
+            $employee->save();
+        } else {
+            $sharepoint = sharePointMasterFolder::find($folderId);
+            $sharepoint->employees()->detach($session_employee->id);
+        }
+        $this->sharePointAccess   = sharePointMasterFolder::with('employeeSharepointMasterFolder')->get();
+        $this->activeFolder = EmployeeSharePointMasterFolder::where('employee_id', $session_employee->id)->pluck('share_point_master_folder_id')->toArray();
     }
 
     public function updatedSharePointStatus($value) {

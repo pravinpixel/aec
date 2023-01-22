@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Sharepoint;
 
 use App\Http\Controllers\Controller;
+use App\Models\EmployeeSharePointMasterFolder;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
@@ -10,8 +11,10 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 use App\Models\Project;
+use App\Models\sharePointMasterFolder;
 use App\Services\GlobalService;
 use Illuminate\Http\Response;
+use Laracasts\Flash\Flash;
 
 class SharepointController extends Controller
 {
@@ -182,11 +185,33 @@ class SharepointController extends Controller
         return $items;
     }
 
+    public function folderHasPermission(Request $request)
+    {
+        $parentPath = $request->input('parentPath');
+        $folderObj = sharePointMasterFolder::where('name','like','%'.$parentPath.'%')->first();
+        if(is_null($folderObj)) {
+            return response(['status' => false, 'msg' => __('Sharepoint Folder Access Denied')]);
+        }
+       
+        $hasPermission = EmployeeSharePointMasterFolder::where([
+            'share_point_master_folder_id' => $folderObj->id,
+            'employee_id' => Admin()->id
+        ])->first();
+
+        if(is_null($hasPermission)) {
+            Flash::error("Sharepoint Folder Access Denied");
+            return response(['status' => false, 'msg' => __('Sharepoint Folder Access Denied')]);
+        }
+        return response(['status' => true, 'msg' => __('grand access')]);
+    }
+
+
 
     public function downloadFile(Request $request)
     {
         $path = $request->input('url');
         $name = $request->input('name');
+        
         $token = $this->getToken();
         $url = $this->getUrl("GetFileByServerRelativeUrl('".$path."')")."/\$value";
         $res =  Http::withHeaders([
@@ -199,6 +224,7 @@ class SharepointController extends Controller
         $pathToFile = storage_path('app/'.$name);
         file_put_contents( $pathToFile, $responseJson ); 
         return response()->download($pathToFile, $name, $headers);
+        
     }
 
     public function getProjectFiles(Request $request) {
