@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Enquiry;
 use App\Models\Customer;
 use App\Models\DeliveryType;
+use App\Models\InvoicePlan;
 use App\Models\Project;
 use App\Models\ProjectType;
 use App\Services\GlobalService;
@@ -30,9 +31,11 @@ class DashboardController extends Controller
             $fromDate = Carbon::now()->subDays(30)->startOfDay();
             $toDate = Carbon::now()->endOfDay();
         }
+        $previousMonthFromDate = Carbon::now()->parse('first day of last month'); 
+        $previousMonthToDate = Carbon::now()->parse('last day of last month');  
+        $now = Carbon::now();
         $result['new_enquiries'] = Enquiry::where('status','Submitted')
                                     ->whereBetween('enquiry_date', [$fromDate, $toDate])
-                                    ->whereNull('project_id')
                                     ->count();
         $result['unattended_enquiries'] = Enquiry::where(['status' => 'Submitted' , 'project_status' => 'Unattended'])
                                         ->where('enquiry_number', '!=','Draft')
@@ -45,10 +48,8 @@ class DashboardController extends Controller
                                         ->whereNull('project_id')
                                         ->count();
         $result['waiting_for_customer_response'] = Enquiry::where('proposal_sharing_status',1)->whereNull('project_id')->count();
-
-        
         $result['new_enquiries_last_month'] = Enquiry::where('status','Submitted')
-                                                ->whereBetween('enquiry_date', [$fromDate, $toDate])
+                                                ->whereBetween('enquiry_date', [$previousMonthFromDate, $now])
                                                 ->count();
         $result['lost_enquiries_last_month'] = Enquiry::whereNotNull('deleted_at')
                                                 ->whereBetween('enquiry_date', [$fromDate, $toDate])
@@ -66,6 +67,12 @@ class DashboardController extends Controller
                     ->groupBy('enquiryDate')
                     ->pluck('id','enquiryDate'); 
         $result['category'] = $monthList;
+        $result['total_enquiry'] = $enquiryCount->values()->sum();
+        $result['current_month_amount'] = InvoicePlan::whereBetween('created_at', [$fromDate, $toDate])
+                                            ->sum('project_cost'); 
+           
+        $result['previous_month_amount'] = InvoicePlan::whereBetween('created_at', [$previousMonthFromDate, $previousMonthToDate])
+                                        ->sum('project_cost');
         foreach($monthList as $value) {
             $monthCount[] = $enquiryCount[$value] ?? 0;
         }
@@ -114,7 +121,7 @@ class DashboardController extends Controller
                             ->when(request('from_date'), function($q) use($fromDate, $toDate){
                                 $q->whereBetween('enquiry_date',[$fromDate, $toDate]);
                             })
-                            ->where(['status' => 'Submitted' , 'project_status' => 'Unattended'])
+                            ->where(['status' => 'Submitted'])
                             ->orderBy('id', 'desc');
             return DataTables::eloquent($dataDb)
             ->editColumn('enquiry_number', function($dataDb){
