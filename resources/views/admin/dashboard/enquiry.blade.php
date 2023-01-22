@@ -111,21 +111,21 @@
 													<p class="text-muted mb-0 mt-3">Current Month</p>
 													<h3 class="fw-normal mb-3">
 														<small class="mdi mdi-checkbox-blank-circle text-primary align-middle me-1"></small>
-														<span>$58,254</span>
+														<span>${{$result['current_month_amount']}}</span>
 													</h3>
 												</div>
 												<div class="col-md-6">
 													<p class="text-muted mb-0 mt-3">Previous Month</p>
 													<h3 class="fw-normal mb-3">
 														<small class="mdi mdi-checkbox-blank-circle text-success align-middle me-1"></small>
-														<span>$69,524</span>
+														<span>${{$result['previous_month_amount']}}</span>
 													</h3>
 												</div>
 											</div>
 										</div>
 
 										<div class="dash-item-overlay d-none d-md-block" dir="ltr">
-											<h5>Total Enquiries: 125</h5>
+											<h5>Total Enquiries: {{$result['total_enquiry']}}</h5>
 										</div>
 										<div dir="ltr">
 											<div id="revenue-chart" class="apex-charts mt-3" data-currentMonth="12,30,23,45" data-colors="#163269,#0acf97"></div>

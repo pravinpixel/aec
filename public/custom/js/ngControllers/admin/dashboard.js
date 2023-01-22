@@ -34,11 +34,11 @@ app.controller('dashboardController', function ($scope, $http, API_URL, $compile
                 }
             }
         ],
-        rowCallback: function( row, data ) {
-            if(data.is_new_enquiry == 1){
-                $(row).addClass('active-table-row');
-            }
-        },
+        // rowCallback: function( row, data ) {
+        //     if(data.is_new_enquiry == 1){
+        //         $(row).addClass('active-table-row');
+        //     }
+        // },
         createdRow: function ( row, data, index ) {
             $compile(row)($scope);  //add this to compile the DOM
         }
