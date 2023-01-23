@@ -162,6 +162,34 @@ class DashboardController extends Controller
         $result['completed_project'] = Project::where('status', 'Completed')->count();
         $result['new_variation_orders'] = 0;
         $result['ready_for_project'] = 0;
+        $fromDate = Carbon::now()->startOfYear();
+        $toDate = Carbon::now()->endOfYear();
+
+        $monthList = $this->getMonthListFromDate($fromDate, $toDate);
+        $monthCount = [];
+        $projectCount = Project::whereBetween('created_at', [$fromDate, $toDate])
+            ->select(DB::raw('count(id) as id, DATE_FORMAT(created_at, "%Y-%b") AS projectDate'))
+            ->groupBy('projectDate')
+            ->pluck('id', 'projectDate');
+        $result['category'] = $monthList;
+        foreach ($monthList as $value) {
+            $monthCount[] = $projectCount[$value] ?? 0;
+        }
+        $result['category'] = $monthList;
+        $result['category_count'] = $monthCount;
+        $sale_by_series = [];
+        $sale_by_customer = [];
+        $sales = Project::join('invoice_plans', 'invoice_plans.project_id', '=','projects.id')
+            ->join('customers', 'customers.id', '=','projects.customer_id')
+            ->select(DB::raw('SUM(project_cost) as projectCost,
+                full_name as customerName
+            '))
+            ->whereBetween('projects.created_at', [$fromDate, $toDate])
+            ->groupBy('customer_id')
+            ->pluck('projectCost','customerName');
+
+        $result['sale_by_series'] = $sales->values();
+        $result['sale_by_customer'] = $sales->keys();
         return view('admin.dashboard.project', with($result));
     }
 
