@@ -514,6 +514,8 @@
         });
     </script>
     <script>
+        var categories = {!! json_encode($category) !!}
+		var data = {!! json_encode($category_count) !!}
         Highcharts.chart('sales-chart', {
             chart: {
                 type: 'area'
@@ -522,7 +524,7 @@
                 text: ''
             },
             xAxis: {
-                categories: ['Jan 1', 'Jan 5', 'Jan 9', 'Jan 13', 'Jan 17', 'Jan 21', 'Jan 25', 'Jan 29']
+                categories: categories
             },
             yAxis: {
                 title: {
@@ -541,19 +543,18 @@
                 showInLegend: false,
                 name: 'Total Sales',
                 color: '#008ffb',
-                data: [0, 30, 10, 0, 120, 50, 80, 20]
+                data: data
             }]
         });
     </script>
 
     <script>
+        var categories = {!! json_encode($sale_by_customer) !!}
+		var data = {!! json_encode($sale_by_series) !!}
+       
         var options = {
             series: [{
-                name: 'Customer 1',
-                data: [44, 55, 41, 67, 22, 43]
-            }, {
-                name: 'Customer 2',
-                data: [13, 23, 20, 8, 13, 27]
+                data: data
             }],
             chart: {
                 type: 'bar',
@@ -584,13 +585,13 @@
             },
             xaxis: {
                 type: 'category',
-                categories: ['Customer 1', 'Customer 2', 'Customer 3', 'Customer 4', 'Customer 5', 'Customer 6'],
+                categories: categories
             },
             yaxis: {
-                categories: [0, 40, 80, 120, 160, 200, 240],
+                // categories: [0, 40, 80, 120, 160, 200, 240],
                 labels: {
                     formatter: function(val) {
-                        return val + " K"
+                        return val + "K"
                     }
                 }
             },
