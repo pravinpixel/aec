@@ -10,8 +10,10 @@ use App\Models\Admin\Employees;
 use App\Models\Admin\SharePointAccess;
 use App\Models\Employee;
 use App\Models\EmployeeBimAccessProject;
+use App\Models\EmployeeSharePointMasterFolder;
 use App\Models\Project;
 use App\Models\Role;
+use App\Models\sharePointMasterFolder;
 use App\Services\GlobalService;
 use Autodesk\Forge\Client\Model\Projects;
 use Exception;
@@ -30,7 +32,7 @@ class Wizard extends Component
     public $employee_id,$country_code = 47, $display_name, $first_name, $last_name, $job_title, $email, $image, $number;
     public $currentStep = 1, $share_point_status = 0, $successMessage = '', $sharePointAccess = [];
     public $employees, $roles = [],  $id, $is_uploaded, $uploaded_image, $completed_wizard = 0;
-    public $share_folder_name  = null, $reference_number, $job_role, $mobile_number, $is_upload, $projects = [];
+    public $share_folder_name  = null, $reference_number, $job_role, $mobile_number, $is_upload, $projects = [], $activeFolder =[];
     public function __construct()
     {
         $this->id = Route::current()->parameter('id');
@@ -52,7 +54,28 @@ class Wizard extends Component
         $this->share_point_status = $employee->share_point_status;
         $this->is_uploaded        = true;
         $this->roles              = Role::all();
-        $this->sharePointAccess   = SharePointAccess::all();
+        $this->sharePointAccess   = sharePointMasterFolder::with('employeeSharepointMasterFolder')->get();
+        $this->activeFolder       = EmployeeSharePointMasterFolder::where('employee_id', $this->id)->pluck('share_point_master_folder_id')->toArray();
+    }
+
+    public function updateFolderAccess($folderId, $employee = null)
+    {
+        $employee = EmployeeSharePointMasterFolder::where([
+            'share_point_master_folder_id' => $folderId,
+            'employee_id' => $this->id
+        ])->first();
+        if(is_null($employee)) {
+            $employee = new  EmployeeSharePointMasterFolder();
+            $employee->share_point_master_folder_id = $folderId;
+            $employee->employee_id = $this->id;
+            $employee->save();
+        } else {
+            $sharepoint = sharePointMasterFolder::find($folderId);
+            $sharepoint->employees()->detach($this->id);
+        }
+        $this->sharePointAccess   = sharePointMasterFolder::with('employeeSharepointMasterFolder')->get();
+        $this->activeFolder       = EmployeeSharePointMasterFolder::where('employee_id', $this->id)->pluck('share_point_master_folder_id')->toArray();
+
     }
 
     public function updatedImage($newValue)
@@ -281,6 +304,7 @@ class Wizard extends Component
     {
         switch ($wizard) {
             case 'sharepoint':
+                $this->activeFolder       = EmployeeSharePointMasterFolder::where('employee_id', $this->id)->pluck('share_point_master_folder_id')->toArray();
                 $this->currentStep = 2;
                 break;
             case 'bim':

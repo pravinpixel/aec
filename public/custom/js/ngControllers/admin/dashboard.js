@@ -22,9 +22,12 @@ app.controller('dashboardController', function ($scope, $http, API_URL, $compile
         columns       : [
             {data: 'id', name: 'id', visible: false},
             {data: 'enquiry_number', name: 'enquiry_number'},
+            {data: 'enquiry_date', name: 'enquiry_date'},
+            {data: 'projectType', name: 'projectType.project_type_name'},
             {data: 'contact_person', name: 'contact_person'},
             {data: 'email', name: 'email'},
-            {data: 'enquiry_date', name: 'enquiry_date'},
+            {data: 'no_of_building', name: 'no_of_building'},
+            {data: 'buildingType', name: 'buildingType.building_type_name'},
             {data: 'project_name', name: 'project_name'},
             {data: 'mobile_no', name: 'mobile_no'},
             {
@@ -34,11 +37,11 @@ app.controller('dashboardController', function ($scope, $http, API_URL, $compile
                 }
             }
         ],
-        rowCallback: function( row, data ) {
-            if(data.is_new_enquiry == 1){
-                $(row).addClass('active-table-row');
-            }
-        },
+        // rowCallback: function( row, data ) {
+        //     if(data.is_new_enquiry == 1){
+        //         $(row).addClass('active-table-row');
+        //     }
+        // },
         createdRow: function ( row, data, index ) {
             $compile(row)($scope);  //add this to compile the DOM
         }

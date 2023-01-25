@@ -31,12 +31,14 @@ class DashboardController extends Controller
         }
        
         $totalUnpaidInvoices   = $totalNewInvoices;
+        $completedProject = Project::where('status', 'Completed')->count();
 
         $data['totalActiveEnquiries']  = $totalActiveEnquiries;
         $data['totalWaitingApprovals'] = $totalWaitingApprovals;
         $data['totalNewInvoices']      = $totalNewInvoices;
         $data['totalUnpaidInvoices']   = $totalUnpaidInvoices;
-        $data['completedProject']      = Project::where('status', 'Completed')->count();
+        $data['completedProject']      = $completedProject;
+        
         return view('customer.dashboard.enquiry')->with($data); 
     }
     public function projectDashboard() {

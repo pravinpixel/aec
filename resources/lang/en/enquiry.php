@@ -54,4 +54,6 @@ return [
     'follow_up_date'              => 'Follow Up Date',
     'estimation_assigned'         => 'Estimation assigned successfully',
     'email'                       => 'Email',
+    'building_type'               => 'Building Type',
+    'project_type'                => 'Project Type'
 ];

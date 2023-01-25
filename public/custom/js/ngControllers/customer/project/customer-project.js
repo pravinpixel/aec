@@ -1727,7 +1727,7 @@ app.controller('ReviewAndSubmit', function($scope, $http, API_URL, $timeout)
           create: false,
           delete: false,
           rename: false,
-          download: false,
+          download: true,
         },
         itemView:
         {
@@ -2052,8 +2052,9 @@ app.controller('DocumentController', function($scope, $http, API_URL, $timeout, 
                       Message('success', 'updated successfully');
                    
                   })
-              }
-     
+              },
+              onCurrentDirectoryChanged: onDirItemClick,
+              onItemDownloading: onItemDownloading
     }).dxFileManager('instance');
     function onItemClick(args) {
       
@@ -2066,6 +2067,15 @@ app.controller('DocumentController', function($scope, $http, API_URL, $timeout, 
       if (updated) {
         fileManager.refresh();
       }
+    }
+
+    function onDirItemClick(args) {
+      $http.get(`${API_URL}sharepoint/list-files?url=${args.directory.dataItem.relativePath}`)
+          .then((res) => {
+              args.directory.dataItem['items'] = res.data.folders;
+              var fileManager = $("#file-manager").dxFileManager("instance");
+              fileManager.refresh();
+          });
     }
   });
   const fileSystem = [

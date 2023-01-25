@@ -61,11 +61,11 @@
 												   <small>Search by E.No</small>
 												   <input type="text" name="" id="" placeholder="Type to Search .." class="form-control" ng-model="enquiry_summary.search_by">
 											   </div>
-											   <div>
+											   <div class="mx-1">
 												   <small style="opacity:0">Search</small>
 												   <button type="submit" class="btn btn-primary form-control" ng-click="applyFilter()"><i class="fa fa-search"></i></button>
 											   </div>
-                                               <div>
+                                               <div class="mx-1">
 												   <small style="opacity:0">Reset</small>
 												   <button type="reset" class="btn btn-primary form-control" ng-click="resetFilter()"><i class="fa fa-refresh"></i></button>
 											   </div>
@@ -78,9 +78,12 @@
 											   <tr>
 												   <th>@lang('enquiry.s_no')</th>
 												   <th>@lang('enquiry.enquiry_no')</th>
+												   <th>@lang('enquiry.enquiry_date')</th>
+												   <th>@lang('enquiry.project_type')</th>
 												   <th>@lang('enquiry.contact_person')</th>
                                                    <th>@lang('enquiry.email')</th>
-												   <th>@lang('enquiry.enquiry_date')</th>
+                                                   <th>@lang('enquiry.no_of_building')</th>
+                                                   <th>@lang('enquiry.building_type')</th>
 												   <th>@lang('enquiry.project_name')</th>
 												   <th>@lang('enquiry.mobile_no')</th>
 												   <th>@lang('global.action')</th>
