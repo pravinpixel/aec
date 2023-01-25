@@ -23,7 +23,13 @@ class DashboardController extends Controller
                     ->where('projects.customer_id', Customer()->id) 
                     ->select(DB::raw('SUM(no_of_invoice) AS new_invoice' ))
                     ->groupBy('projects.customer_id')
-                    ->get()[0]->new_invoice;
+                    ->get();
+        if(isset($totalNewInvoices[0]->new_invoice)) {
+            $totalNewInvoices =  $totalNewInvoices[0]->new_invoice;
+        } else {
+            $totalNewInvoices =  0;
+        }
+       
         $totalUnpaidInvoices   = $totalNewInvoices;
 
         $data['totalActiveEnquiries']  = $totalActiveEnquiries;
