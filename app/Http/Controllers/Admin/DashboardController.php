@@ -102,7 +102,7 @@ class DashboardController extends Controller
                 $fromDate = Carbon::now()->subDays(30)->startOfDay();
                 $toDate = Carbon::now()->endOfDay();
             }
-            $dataDb = Enquiry::with('customer')
+            $dataDb = Enquiry::with(['customer','projectType','buildingType'])
                 ->when(request('type_of_project'), function ($q) {
                     $q->where('project_type_id', request('type_of_project'));
                 })
@@ -138,7 +138,12 @@ class DashboardController extends Controller
                 ->addColumn('email', function ($dataDb) {
                     return $dataDb->customer->email ?? '';
                 })
-
+                ->addColumn('projectType', function($dataDb){
+                    return $dataDb->projectType->project_type_name ?? '';
+                })
+                ->addColumn('buildingType', function($dataDb){
+                    return $dataDb->buildingType->building_type_name ?? '';
+                })
                 ->addColumn('action', function ($dataDb) {
                     return '<div class="dropdown">
                             <button class="btn btn-light btn-sm border shadow-sm" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

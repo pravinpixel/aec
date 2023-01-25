@@ -78,9 +78,12 @@
 											   <tr>
 												   <th>@lang('enquiry.s_no')</th>
 												   <th>@lang('enquiry.enquiry_no')</th>
+												   <th>@lang('enquiry.enquiry_date')</th>
+												   <th>@lang('enquiry.project_type')</th>
 												   <th>@lang('enquiry.contact_person')</th>
                                                    <th>@lang('enquiry.email')</th>
-												   <th>@lang('enquiry.enquiry_date')</th>
+                                                   <th>@lang('enquiry.no_of_building')</th>
+                                                   <th>@lang('enquiry.building_type')</th>
 												   <th>@lang('enquiry.project_name')</th>
 												   <th>@lang('enquiry.mobile_no')</th>
 												   <th>@lang('global.action')</th>
