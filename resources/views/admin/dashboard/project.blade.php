@@ -591,7 +591,7 @@
                 // categories: [0, 40, 80, 120, 160, 200, 240],
                 labels: {
                     formatter: function(val) {
-                        return val + "K"
+                        return val
                     }
                 }
             },
