@@ -493,7 +493,7 @@ class ProjectRepository implements ProjectRepositoryInterface, ConnectionPlatfor
     {
         $formatFolder = [];
         $isPresentCustomerInput = false;
-        $sharepointFolders = sharePointMasterFolder::where('status', 1)->get();
+        $sharepointFolders = sharePointMasterFolder::where('status', '1')->get();
         foreach($sharepointFolders as $sharepointFolder) {
             if($isPresentCustomerInput == false && $sharepointFolder->name == "Customer Input") {
                 $isPresentCustomerInput = true;
