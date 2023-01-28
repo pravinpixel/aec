@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 @section('admin-content')
-    <div class="content-page">
-        <div class="content">
+    <div class="content-page"  ng-app="Myapp">
+        <div class="content" ng-controller="projectController">
             @include('admin.includes.top-bar')
             <!-- Start Content-->
             <div class="container-fluid ">
@@ -379,76 +379,7 @@
                         </div>
                         <!-- end row -->
 
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="table-responsive">
-                                            <table class="table table-hover project-dashboard-table">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Month</th>
-                                                        <th>S.No</th>
-                                                        <th>Project ID</th>
-                                                        <th>Customer Name</th>
-                                                        <th>Project Name</th>
-                                                        <th>Building Site</th>
-                                                        <th>Delivery Type</th>
-                                                        <th>Original Price</th>
-                                                        <th>VR - 1</th>
-                                                        <th>VR - 2</th>
-                                                        <th>Total Amount</th>
-                                                        <th>Enginerring Hours</th>
-                                                        <th>Strat Date</th>
-                                                        <th>End Date</th>
-                                                        <th>% Completed</th>
-                                                        <th>Comments</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>Jan</td>
-                                                        <td>01</td>
-                                                        <td>P016</td>
-                                                        <td>Trefab AS</td>
-                                                        <td>Skoldhasgda Eneboling</td>
-                                                        <td>Jorpeland</td>
-                                                        <td>Panel</td>
-                                                        <td class="text-end">₹ 49,556.00</td>
-                                                        <td class="text-end">₹ 10,000.00</td>
-                                                        <td class="text-end"></td>
-                                                        <td class="text-end">₹ 59,556.00</td>
-                                                        <td>120</td>
-                                                        <td class="no-wrap">21-Jan-2022</td>
-                                                        <td class="no-wrap">30-May-2022</td>
-                                                        <td>100%</td>
-                                                        <td>100% Invoiced</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Feb</td>
-                                                        <td>02</td>
-                                                        <td>P017</td>
-                                                        <td>Egersung Betong Tek AS</td>
-                                                        <td>Stange Ungdomsskole tapper og amfi</td>
-                                                        <td>Stange</td>
-                                                        <td>Precast</td>
-                                                        <td class="text-end no-wrap">₹ 156,899.00</td>
-                                                        <td class="text-end no-wrap">₹ 40,000.00</td>
-                                                        <td class="text-end no-wrap"></td>
-                                                        <td class="text-end no-wrap">₹ 196,899.00</td>
-                                                        <td>250</td>
-                                                        <td class="no-wrap">05-Feb-2022</td>
-                                                        <td class="no-wrap">30-Aug-2022</td>
-                                                        <td>50%</td>
-                                                        <td>50% Invoiced</td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> <!-- end col-->
-                        </div>
+                        @include('admin.dashboard.table.project-summary')
                         <!-- end row -->
 
                     </div>
@@ -541,7 +472,7 @@
             },
             series: [{
                 showInLegend: false,
-                name: 'Total Sales',
+                name: 'Total Project',
                 color: '#008ffb',
                 data: data
             }]
@@ -556,6 +487,18 @@
             series: [{
                 data: data
             }],
+            tooltip: {
+                y: {
+                formatter: function(val) {
+                    return val;
+                },
+                title: {
+                    formatter: function (seriesName) {
+                    return 'Amount'
+                    }
+                }
+                }
+            },
             chart: {
                 type: 'bar',
                 height: 385,
@@ -748,4 +691,5 @@
 
 
     <!-- end demo js-->
+    <script src="{{ asset("public/custom/js/ngControllers/admin/project/dashboard.js") }}"></script>
 @endpush

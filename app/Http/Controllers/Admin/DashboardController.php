@@ -198,6 +198,66 @@ class DashboardController extends Controller
         return view('admin.dashboard.project', with($result));
     }
 
+    public function getProjectSummary(Request $request)
+    {
+        if ($request->ajax() == true) {
+            $format = config('global.model_date_format');
+            if (request('start_date') && request('end_date')) {
+                $fromDate = GlobalService::DBSDateFormat(request('start_date'));;
+                $toDate = GlobalService::DBEDateFormat(request('end_date'));
+            } else {
+                $fromDate = Carbon::now()->subDays(30)->startOfDay();
+                $toDate = Carbon::now()->endOfDay();
+            }
+            $dataDb = Project::with(['customer','deliveryType','invoicePlan'])
+                ->orderBy('id', 'desc');
+            return DataTables::eloquent($dataDb)
+                ->editColumn('reference_number', function ($dataDb) {
+                    return '
+                    <button type="button" class="btn-quick-view">
+                        <b>' . $dataDb->reference_number . '</b></button>';
+                })
+                ->addColumn('customer', function($dataDb) {
+                    return $dataDb->customer->full_name;
+                })
+                ->addColumn('deliveryType', function($dataDb) {
+                    return $dataDb->deliveryType->delivery_type_name;
+                })
+                ->addColumn('original_price', function($dataDb) {
+                    return '';
+                })
+                ->addColumn('vr_one', function($dataDb) {
+                    return '';
+                })
+                ->addColumn('vr_two', function($dataDb) {
+                    return '';
+                })
+                ->addColumn('invoicePlan', function($dataDb) {
+                    return $dataDb->invoicePlan->project_cost ?? 0;
+                })
+                ->addColumn('engineering_hours', function($dataDb) {
+                    return '';
+                })
+                ->editColumn('start_date', function ($dataDb) use($format) {
+                
+                    return Carbon::parse($dataDb->enquiry_date)->format($format);
+                })
+                ->editColumn('delivery_date', function ($dataDb) use($format) {
+                   
+                    return Carbon::parse($dataDb->enquiry_date)->format($format);
+                })
+                ->editColumn('created_at', function ($dataDb) use($format) {
+                    
+                    return Carbon::parse($dataDb->enquiry_date)->format($format);
+                })
+                ->addColumn('completed_percentage', function($dataDb){
+                    return '';
+                })
+                ->rawColumns(['action', 'reference_number'])
+                ->make(true);
+        }
+    }
+
     public function economyDashboard()
     {
         return view('admin.dashboard.economy');

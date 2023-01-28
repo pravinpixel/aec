@@ -33,6 +33,20 @@ return [
     "document"              =>        "Documents",
     "notes"                 =>        "Notes",
     "invoiceplan"           =>         "Invoice Plan",
-    "generalnotes"          =>         "General Notes"
+    "generalnotes"          =>         "General Notes",
 
+    'reference_no'          => 'Reference No',
+    'customer_name'         => 'Customer Name',
+    'project_name'          => 'Project Name',
+    'building_site'         => 'Building Site',
+    'delivery_type'         => 'Delivery Type',
+    'original_price'        => 'Original Price',
+    'vr_one'                => 'VR-1',
+    'vr_two'                => 'VR-2',
+    'total_amount'          => 'Total Amount',
+    'end_date'              => 'End Date',
+    'comments'              => 'Comments',
+    'engineering_hours'     => 'Engineering Hours',
+    'completed_percentage'  => 'Completed(%)',
+    'delivery_date'         => 'Delivery Date'
 ];

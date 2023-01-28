@@ -75,6 +75,10 @@ class Project extends Model
     //     $this->attributes['updated_by'] = Admin()->id ?? null;
     // }
 
+    public function deliveryType()
+    {
+        return $this->belongsTo(DeliveryType::class);
+    }
 
     public function customerdatails()
     {

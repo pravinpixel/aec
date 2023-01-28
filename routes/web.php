@@ -84,6 +84,7 @@ Route::prefix('admin')->middleware('common')->group(function () {
     Route::get('/project-economy', [DashboardController::class,'economyDashboard'])->name("admin-economy-dashboard");
     Route::post('/allow-notification', [DashboardController::class,'allowNotification'])->name("admin.allow-notification");
     Route::get('/get-enquiry-summary',[DashboardController::class,'getEnquirySummary'])->name('get-enquiry-summary');
+    Route::get('/get-project-summary',[DashboardController::class,'getProjectSummary'])->name('get-project-summary');
     // ======== END: Dashborads========== 
 
 
