@@ -225,7 +225,9 @@ class ProjectController extends Controller
         $loop_one =  $request->data;
        
       
-      
+        $total_completed_count = 0;
+        $total_overall = [];
+        $final_status_percentage = [];
         $result = [];
 
         $project = Project::find($request->id);
@@ -238,7 +240,6 @@ class ProjectController extends Controller
         foreach ($loop_one as $row_one) {
 
             $subParent = $this->updateIndex();
-
             $result[] = [
                 "project_id"    =>   $request->id,
                 "id"            =>  $subParent,
@@ -270,13 +271,15 @@ class ProjectController extends Controller
                     "type"          =>  "project",
                     "status"        => 0
                 ];
-
+                
                 foreach ($row_two['data'] as  $row_three) {
-
-                  
-
                    
+                    $total_overall[] = 1; 
+
                     $statuscon =  isset($row_three['status'])  ? 1 : 0;
+                    if($statuscon == 1) {
+                        $final_status_percentage[] = $statuscon;
+                    }
                     $deliverydate =  isset($row_three['delivery_date'])  ? new DateTime($row_three['delivery_date']) : NULL;
                     
                     $result[] = [
@@ -286,17 +289,21 @@ class ProjectController extends Controller
                         "text"        =>   $row_three['task_list'],
                         "duration"    =>   0,
                         "progress"    =>   0,
-                        "start_date"  =>   new DateTime($row_three['start_date']),
-                        "end_date"    =>   new DateTime($row_three['end_date']),
+                        // "start_date"  =>   new DateTime($row_three['start_date']),
+                        // "end_date"    =>   new DateTime($row_three['end_date']),
                         "delivery_date"    =>   $deliverydate,
                         "type"        =>   "project",
                         "status"      =>   $statuscon, 
                     ];
                 }
+                $total_completed_count = array_sum($final_status_percentage);
             }
         } 
-
-   
+       
+    
+        $percentage = round((($total_completed_count / array_sum($total_overall))*100),2);
+        $project->progress_percentage = $percentage;
+        $project->save();
 
         if($request->update === true) {
 

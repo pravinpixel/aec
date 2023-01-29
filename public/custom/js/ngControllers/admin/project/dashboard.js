@@ -26,7 +26,7 @@ app.controller('projectController', function ($scope, $http, API_URL, $compile) 
             {data: 'engineering_hours', name: 'engineering_hours'},
             {data: 'start_date', name: 'start_date'},
             {data: 'delivery_date', name: 'delivery_date'},
-            {data: 'completed_percentage', name: 'completed_percentage'}
+            {data: 'progress_percentage', name: 'progress_percentage'}
         ],
     
         createdRow: function ( row, data, index ) {

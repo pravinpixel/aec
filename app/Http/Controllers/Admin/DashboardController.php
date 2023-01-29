@@ -166,7 +166,7 @@ class DashboardController extends Controller
         $result['current_project'] = Project::where('status', 'Live')->count();
         $result['completed_project'] = Project::where('status', 'Completed')->count();
         $result['new_variation_orders'] = 0;
-        $result['ready_for_project'] = 0;
+        $result['ready_for_project'] = Project::where(['status'=> 'Un-Established','is_new_project'=> 1])->count();
         $fromDate = Carbon::now()->startOfYear();
         $toDate = Carbon::now()->endOfYear();
 
@@ -182,8 +182,7 @@ class DashboardController extends Controller
         }
         $result['category'] = $monthList;
         $result['category_count'] = $monthCount;
-        $sale_by_series = [];
-        $sale_by_customer = [];
+
         $sales = Project::join('invoice_plans', 'invoice_plans.project_id', '=','projects.id')
             ->join('customers', 'customers.id', '=','projects.customer_id')
             ->select(DB::raw('SUM(project_cost) as projectCost,
@@ -195,6 +194,13 @@ class DashboardController extends Controller
 
         $result['sale_by_series'] = $sales->values();
         $result['sale_by_customer'] = $sales->keys();
+        $running_projects = Project::whereBetween('created_at', [$fromDate, $toDate])
+                ->whereIn('status', ['In-Progress','Live'])
+                ->select('progress_percentage',
+                'project_name', 
+                 DB::raw('TIMEDIFF(delivery_date, start_date) AS time_diff'))
+                ->get();
+        $result['running_projects'] = $running_projects;
         return view('admin.dashboard.project', with($result));
     }
 
@@ -236,7 +242,8 @@ class DashboardController extends Controller
                     return $dataDb->invoicePlan->project_cost ?? 0;
                 })
                 ->addColumn('engineering_hours', function($dataDb) {
-                    return '';
+                    $totalDuration = Carbon::parse($dataDb->delivery_date)->diffInMinutes($dataDb->start_date);
+                    return gmdate('H:i:s', $totalDuration);
                 })
                 ->editColumn('start_date', function ($dataDb) use($format) {
                 
@@ -250,8 +257,8 @@ class DashboardController extends Controller
                     
                     return Carbon::parse($dataDb->enquiry_date)->format($format);
                 })
-                ->addColumn('completed_percentage', function($dataDb){
-                    return '';
+                ->editColumn('progress_percentage',  function ($dataDb){
+                    return $dataDb->progress_percentage.'%';
                 })
                 ->rawColumns(['action', 'reference_number'])
                 ->make(true);

@@ -1,4 +1,13 @@
 @extends('layouts.admin')
+
+@push('custom-styles')
+<style>
+    .css-running-projects{
+        height: 300px;
+        overflow-y: scroll;
+    }
+</style>
+@endpush
 @section('admin-content')
     <div class="content-page"  ng-app="Myapp">
         <div class="content" ng-controller="projectController">
@@ -30,6 +39,17 @@
                         <div class="row g-0">
                             <div class="col-xl-12">
                                 <div class="row g-2 m-0">
+                                       
+                                    <div class="col-sm">
+                                        <div class="live-status-bg">
+                                            <h3>Ready for Project</h3>
+                                            <p class="count">{{$ready_for_project}}</p>
+                                            <span class="btn btn-info text-white">
+                                                <i class="mdi mdi-playlist-check"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+
                                     <div class="col-sm">
                                         <div class="live-status-bg">
                                             <h3>New Projects</h3>
@@ -66,16 +86,6 @@
                                             <p class="count">{{$new_variation_orders}}</p>
                                             <span class="btn btn-secondary text-white">
                                                 <i class="mdi mdi-format-list-checks"></i>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <!--end card-->
-                                    <div class="col-sm">
-                                        <div class="live-status-bg">
-                                            <h3>Ready for Project</h3>
-                                            <p class="count">{{$ready_for_project}}</p>
-                                            <span class="btn btn-info text-white">
-                                                <i class="mdi mdi-playlist-check"></i>
                                             </span>
                                         </div>
                                     </div>
@@ -230,104 +240,31 @@
                                             <option value="">Task</option>
                                         </select>
                                     </div>
-                                    <div class="card-body">
+                                    <div class="card-body  css-running-projects">
                                         <table class="table table-hover running-projects">
                                             <tbody>
-                                                <tr>
-                                                    <td width="50">
-                                                        <div class="running-project-name bg-primary-lighten text-primary">F
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        Falcon <span class="badge bg-primary ms-1">90%</span>
-                                                    </td>
-                                                    <td class="text-end">
-                                                        58:20:00
-                                                    </td>
-                                                    <td width="100">
-                                                        <div class="progress" style="height: 5px;">
-                                                            <div class="progress-bar bg-primary" role="progressbar"
-                                                                style="width: 90%;" aria-valuenow="90" aria-valuemin="0"
-                                                                aria-valuemax="100"></div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div class="running-project-name bg-success-lighten text-success">R
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        Regin <span class="badge bg-success ms-1">78%</span>
-                                                    </td>
-                                                    <td class="text-end">
-                                                        31:50:00
-                                                    </td>
-                                                    <td>
-                                                        <div class="progress" style="height: 5px;">
-                                                            <div class="progress-bar bg-success" role="progressbar"
-                                                                style="width: 78%;" aria-valuenow="78" aria-valuemin="0"
-                                                                aria-valuemax="100"></div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div
-                                                            class="running-project-name bg-secondary-lighten text-secondary">
-                                                            B</div>
-                                                    </td>
-                                                    <td>
-                                                        Boots4 <span class="badge bg-secondary ms-1">79%</span>
-                                                    </td>
-                                                    <td class="text-end">
-                                                        25:20:00
-                                                    </td>
-                                                    <td>
-                                                        <div class="progress" style="height: 5px;">
-                                                            <div class="progress-bar bg-secondary" role="progressbar"
-                                                                style="width: 79%;" aria-valuenow="79" aria-valuemin="0"
-                                                                aria-valuemax="100"></div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div class="running-project-name bg-warning-lighten text-warning">R
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        Raven <span class="badge bg-warning ms-1 text-dark">38%</span>
-                                                    </td>
-                                                    <td class="text-end">
-                                                        12:50:00
-                                                    </td>
-                                                    <td>
-                                                        <div class="progress" style="height: 5px;">
-                                                            <div class="progress-bar bg-warning" role="progressbar"
-                                                                style="width: 38%;" aria-valuenow="38" aria-valuemin="0"
-                                                                aria-valuemax="100"></div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div class="running-project-name bg-info-lighten text-info">S</div>
-                                                    </td>
-                                                    <td>
-                                                        Slick <span class="badge bg-info ms-1">40%</span>
-                                                    </td>
-                                                    <td class="text-end">
-                                                        21:20:00
-                                                    </td>
-                                                    <td>
-                                                        <div class="progress" style="height: 5px;">
-                                                            <div class="progress-bar bg-info" role="progressbar"
-                                                                style="width: 40%;" aria-valuenow="40" aria-valuemin="0"
-                                                                aria-valuemax="100"></div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
+                                                @foreach($running_projects as $running_project)
+                                                    <tr>
+                                                        <td width="50">
+                                                            <div class="running-project-name bg-primary-lighten text-primary">{{strtoupper(mb_substr($running_project->project_name, 0, 1))}}
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            {{$running_project->project_name}} <span class="badge bg-primary ms-1"> {{$running_project->progress_percentage}} %</span>
+                                                        </td>
+                                                        <td class="text-end">
+                                                            {{$running_project->time_diff}}
+                                                        </td>
+                                                        <td width="100">
+                                                            <div class="progress" style="height: 5px;">
+                                                                <div class="progress-bar bg-primary" role="progressbar"
+                                                                    style="width:{{$running_project->progress_percentage}}%" aria-valuenow="{{$running_project->progress_percentage}}" aria-valuemin="0"
+                                                                    aria-valuemax="100"></div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                                
                                             </tbody>
                                         </table>
                                     </div>
@@ -391,6 +328,8 @@
         <!-- content -->
     </div>
 @endsection
+
+
 @push('custom-scripts')
     <script>
         $(".has-submenu a.nav-link").click(function() {
