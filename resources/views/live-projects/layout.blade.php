@@ -7,7 +7,7 @@
         @stack('live-project-custom-styles')
     </head> 
     <body>
-
+        <ul class="notifications"></ul>
         <!-- Begin page -->
         <div class="wrapper"> 
             <!-- ========== Left Sidebar Start ========== -->
@@ -31,6 +31,7 @@
         <script src="{{ asset('public/assets/js/custom.js') }}"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.2/axios.min.js" integrity="sha512-QTnb9BQkG4fBYIt9JGvYmxPpd6TBeKp6lsUrtiVQsrJ9sb33Bn9s0wMQO9qVBFbPX3xHRAsBHvXlcsrnJjExjg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="{{ asset('public/custom/js/ngControllers/alerts.js') }}"></script>
         <script>
             const swalWithBootstrapButtons = Swal.mixin({
                 customClass: {

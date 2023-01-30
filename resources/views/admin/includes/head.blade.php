@@ -48,7 +48,7 @@
 {{-- <link rel="stylesheet" type="text/css" href="{{ asset('public/assets/css/cdns/dx.light.css') }}" /> --}}
 <link rel="stylesheet" type="text/css" href="https://cdn3.devexpress.com/jslib/21.2.5/css/dx.light.css" />
 <link rel="stylesheet" href="{{ asset('public/custom/css/date-picker.css') }}"> 
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
 
 <style>
     .font-weight-bold {

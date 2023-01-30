@@ -49,11 +49,7 @@
                             if(response.data.status) {
                                 element.parentNode.parentNode.remove()
                                 $(`#${element.attributes[1]['nodeValue']}`).html(response.data.progress)
-                                Toast.fire({
-                                    icon: 'success',
-                                    title: 'Successfully Deleted !',
-                                    backdrop: 'swal2-backdrop-hide',
-                                })
+                                Alert.success('Successfully Deleted !')
                             }
                         }) 
                     }
@@ -74,12 +70,8 @@
                     if (result.isConfirmed) { 
                         axios.delete(`{{ route('live-project.sub-task.delete') }}/${sub_task_id}`).then((response) => {
                             if(response.data.status) {
-                                element.parentNode.parentNode.remove()
-                                Toast.fire({
-                                    icon: 'success',
-                                    title: 'Successfully Deleted !',
-                                    backdrop: 'swal2-backdrop-hide',
-                                })
+                                element.parentNode.parentNode.remove() 
+                                Alert.success('Successfully Deleted !')
                             }
                         }) 
                     }
@@ -122,11 +114,7 @@
                     var task_id     = $('#taskId').val()
                     axios.post(`{{ route('live-project.sub-task.create') }}/${sub_task_id}`,InputData).then((response) => {
                         if(response.data.status) { 
-                            Toast.fire({
-                                icon: 'success',
-                                title: 'Task to be Created!',
-                                backdrop: 'swal2-backdrop-hide',
-                            })
+                            Alert.success('Task to be Created!')
                             $('#create-live-project-task-modal').toggleClass('modal-d-none')
                             reFreshTask(task_id)
                         }

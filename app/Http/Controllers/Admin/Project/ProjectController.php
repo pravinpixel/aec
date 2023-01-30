@@ -490,10 +490,10 @@ class ProjectController extends Controller
                     $commentCount = $dataDb->comments->count();
                     $projectComments = $commentCount == 0 ? '' : $commentCount;
                      return '
-                    <button type="button" ng-click=getQuickProject("create_project",' . $dataDb->id . ') class="btn-quick-view" ng-click=toggle("edit",' . $dataDb->id . ')>
-                        <b>' . $dataDb->reference_number . '</b>
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">'.$projectComments.'</span>
-                    </button>
+                        <button type="button" ng-click=getQuickProject("create_project",' . $dataDb->id . ') class="btn-quick-view" ng-click=toggle("edit",' . $dataDb->id . ')>
+                            <b>' . $dataDb->reference_number . '</b>
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">'.$projectComments.'</span>
+                        </button>
                 ';
                 })
                 ->editColumn('start_date', function ($dataDb) { 
@@ -589,6 +589,7 @@ class ProjectController extends Controller
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 <a class="dropdown-item" href="'.route('live-projects-data', $dataDb->id).'">View/Edit</a>
+                                <a class="dropdown-item" href="'.route('live-project.menus-index',['menu_type'=>'overview','id'=> $dataDb->id]).'">Edit / View</a>
                                 <a class="dropdown-item" onclick="EnquiryQuickView('.$dataDb->id.' , this)" >View Enquiry</a>
                                 <a type="button" class="dropdown-item delete-modal" data-header-title="Delete" data-title="Are you sure to delete this enquiry" data-action="'.route('enquiry.delete', $dataDb->id).'" data-method="DELETE" data-bs-toggle="modal" data-bs-target="#primary-header-modal">Delete</a>
                             </div>
