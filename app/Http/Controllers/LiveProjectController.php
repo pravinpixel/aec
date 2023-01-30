@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Issues;
 use App\Models\LiveProjectSubSubTasks;
-use App\Models\LiveProjectSubTasks;
-use App\Models\LiveProjectTasks;
+use App\Models\LiveProjectSubTasks; 
 use App\Repositories\LiveProjectRepository;
 use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
+
 class LiveProjectController extends Controller
 {
     protected $LiveProjectRepository;
@@ -129,5 +131,17 @@ class LiveProjectController extends Controller
             "status" => true,
             "progress" => "$result",
         ]);
+    }
+    public function issues(Request $request)
+    {
+        if($request->ajax()) { 
+            return DataTables::of(Issues::select('*'))->addIndexColumn()
+                    ->addColumn('action', function($row){
+                        $btn = '<a href="javascript:void(0)" class="edit btn btn-primary btn-sm">View</a>';
+                        return $btn;
+                    })
+                    ->rawColumns(['action'])
+                    ->make(true);
+        }
     }
 }
