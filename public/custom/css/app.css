@@ -818,3 +818,17 @@ sup {
     color: #0C326C !important;
     font-weight: bold !important;
  }
+ .custom-modal-title {
+    font-size: 15px;
+    font-weight: bold;
+    margin: 0 !important;
+    color: black !important;
+}
+.bg-light-2 {
+    background: #fafafa !important;
+}
+.custom-label {
+    font-size: 13px !important;
+    padding-bottom: 5px !important;
+    display: block;;
+}
