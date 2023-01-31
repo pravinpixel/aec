@@ -1100,7 +1100,7 @@
                                         <h4 class="header-title mb-4">Project Status</h4>
 
                                         <div class="my-4 chartjs-chart" style="height: 202px;">
-                                            <canvas id="project-status-chart" data-colors="#0acf97,#163269,#fa5c7c"></canvas>
+                                            <canvas id="project-status-chart" data-colors="#0acf97,#163269,#cc001a"></canvas>
                                         </div>
 
                                         <div class="row text-center mt-2 py-2">

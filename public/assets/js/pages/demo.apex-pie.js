@@ -1,4 +1,4 @@
-var colors = ["#163269", "#6c757d", "#0acf97", "#fa5c7c", "#e3eaef"],
+var colors = ["#163269", "#6c757d", "#0acf97", "#cc001a", "#e3eaef"],
     dataColors = $("#simple-pie").data("colors");
     dataLabels = $("#simple-pie").data("labels");
     dataSerires = $("#simple-pie").data("series");
@@ -48,7 +48,7 @@ var options = {
 chart.render();
 
 
-colors = ["#39afd1", "#ffbc00", "#313a46", "#fa5c7c", "#0acf97"];
+colors = ["#39afd1", "#ffbc00", "#313a46", "#cc001a", "#0acf97"];
 (dataColors = $("#simple-donut").data("colors")) && (colors = dataColors.split(","));
 options = {
     chart: {
@@ -116,7 +116,7 @@ options = {
     }]
 };
 (chart = new ApexCharts(document.querySelector("#monochrome-pie"), options)).render();
-colors = ["#163269", "#6c757d", "#0acf97", "#fa5c7c", "#e3eaef"];
+colors = ["#163269", "#6c757d", "#0acf97", "#cc001a", "#e3eaef"];
 (dataColors = $("#gradient-donut").data("colors")) && (colors = dataColors.split(","));
 options = {
     chart: {
@@ -152,7 +152,7 @@ options = {
     }
 };
 (chart = new ApexCharts(document.querySelector("#gradient-donut"), options)).render();
-colors = ["#39afd1", "#ffbc00", "#313a46", "#fa5c7c", "#0acf97"];
+colors = ["#39afd1", "#ffbc00", "#313a46", "#cc001a", "#0acf97"];
 (dataColors = $("#patterned-donut").data("colors")) && (colors = dataColors.split(","));
 options = {
     chart: {
@@ -264,7 +264,7 @@ options = {
     }]
 };
 (chart = new ApexCharts(document.querySelector("#image-pie"), options)).render();
-colors = ["#163269", "#6c757d", "#0acf97", "#fa5c7c"];
+colors = ["#163269", "#6c757d", "#0acf97", "#cc001a"];
 (dataColors = $("#update-donut").data("colors")) && (colors = dataColors.split(","));
 options = {
     chart: {

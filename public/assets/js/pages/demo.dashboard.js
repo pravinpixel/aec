@@ -17,9 +17,9 @@
 					right: 0
 				}
 			},
-			colors: ["#163269", "#0acf97", "#fa5c7c", "#ffbc00"]
+			colors: ["#163269", "#0acf97", "#cc001a", "#ffbc00"]
 		};
-		var e = ["#163269", "#0acf97", "#fa5c7c", "#ffbc00"],
+		var e = ["#163269", "#0acf97", "#cc001a", "#ffbc00"],
 			t = o("#revenue-chart").data("colors");
 		    t && (e = t.split(","));
       
@@ -142,7 +142,7 @@
 			}
 		};
 		new ApexCharts(document.querySelector("#high-performing-product"), r).render();
-		e = ["#163269", "#0acf97", "#fa5c7c", "#ffbc00"];
+		e = ["#163269", "#0acf97", "#cc001a", "#ffbc00"];
 		(t = o("#average-sales").data("colors")) && (e = t.split(","));
 		r = {
 			chart: {

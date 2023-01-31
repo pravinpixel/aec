@@ -17,8 +17,10 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.2/css/buttons.dataTables.min.css">
     <link rel="stylesheet" href="https://unpkg.com/filepond/dist/filepond.css" />
     <link rel="stylesheet" href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css">
-    <style>.row {margin: 0 !important}.ck-editor__editable { min-height: 200px !important; } .filepond--credits {display: none}</style>
-@endpush 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
+    <style>.select2-selection--multiple .select2-selection__choice {background: none !important} .row {margin: 0 !important}.ck-editor__editable { min-height: 200px !important; } .filepond--credits {display: none}</style>
+@endpush
 @push('live-project-custom-scripts')  
     <script src="{{ asset('public/assets/js/ckeditor.js') }}"></script> 
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
@@ -29,8 +31,23 @@
     <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
     <script src="https://unpkg.com/filepond/dist/filepond.min.js"></script>
     <script src="https://unpkg.com/jquery-filepond/filepond.jquery.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
         $(function () { 
+            $('#multiple-select').select2( {
+                theme: "bootstrap-5",
+                width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
+                placeholder: $( this ).data( 'placeholder' ),
+                closeOnSelect: false,
+                allowClear: true,
+                dropdownParent: $('#create-issues-modal')
+            } );
+            $('.single-select-field').select2( {
+                theme: "bootstrap-5",
+                width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
+                placeholder: $( this ).data( 'placeholder' ), 
+                dropdownParent: $('#create-issues-modal')
+            });
             FilePond.registerPlugin(FilePondPluginImagePreview);
             $('.attachments').filepond({
                 allowMultiple: true,
@@ -61,7 +78,7 @@
             });
             $('#issues-table_filter').append(`
                 <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#create-issues-modal">Create Issue</button>
-            `)
+            `) 
         });
     </script>
 @endpush

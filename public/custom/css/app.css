@@ -526,7 +526,7 @@ sup {
     position: relative
 }
 .cost_estimate_comments {
-    background: #fa5c7c;
+    background: #cc001a;
     height: 16px;
     position: absolute;
     width: 16px;
@@ -699,12 +699,8 @@ sup {
     padding-bottom : 0 !important
 }
 .select2-container .select2-selection--single {
-    height: auto !important;
-    padding: 4px 0.9rem !important;
-    line-height:1.5 !important;
-    border-radius: none !important;
-    border: none !important;
-    background: transparent !important;
+    outline: none !important;
+    box-shadow: none !important;
 }
 .select2-selection__rendered {
     padding: 0 !important;
@@ -829,6 +825,6 @@ sup {
 }
 .custom-label {
     font-size: 13px !important;
-    padding-bottom: 5px !important;
+    padding-bottom: 5px ;
     display: block;;
 }

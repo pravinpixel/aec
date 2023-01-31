@@ -1,4 +1,4 @@
-var colors = ["#163269", "#0acf97", "#fa5c7c"],
+var colors = ["#163269", "#0acf97", "#cc001a"],
     dataColors = $("#basic-column").data("colors");
 dataColors && (colors = dataColors.split(","));
     var options = {
@@ -275,7 +275,7 @@ options = {
     }
 };
 (chart = new ApexCharts(document.querySelector("#full-stacked-column"), options)).render();
-colors = ["#fa5c7c"];
+colors = ["#cc001a"];
 (dataColors = $("#rotate-labels-column").data("colors")) && (colors = dataColors.split(","));
 options = {
     annotations: {
@@ -362,7 +362,7 @@ options = {
                 ranges: [{
                     from: -100,
                     to: -46,
-                    color: "#fa5c7c"
+                    color: "#cc001a"
                 }, {
                     from: -45,
                     to: 0,
@@ -406,7 +406,7 @@ options = {
 };
 (chart = new ApexCharts(document.querySelector("#negative-value-column"), options)).render();
 
-colors = ["#163269", "#6c757d", "#0acf97", "#fa5c7c", "#ffbc00", "#39afd1", "#e3eaef", "#313a46"];
+colors = ["#163269", "#6c757d", "#0acf97", "#cc001a", "#ffbc00", "#39afd1", "#e3eaef", "#313a46"];
 
 (dataColors = $("#distributed-column").data("colors")) && (colors = dataColors.split(","));
 options = {

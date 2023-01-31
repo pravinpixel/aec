@@ -363,7 +363,7 @@
                                                                     <div class="row">
                                                                         <div class="col-md-6 shadow py-4">
                                                                             <h4 class="header-title text-center">Project Status</h4>
-                                                                            <div id="average-sales" class="apex-charts mb-4 mt-4"data-colors="#163269,#0acf97,#fa5c7c,#ffbc00"></div>
+                                                                            <div id="average-sales" class="apex-charts mb-4 mt-4"data-colors="#163269,#0acf97,#cc001a,#ffbc00"></div>
                                                                         </div>
                                                                         <div class="col-md-6">
                                                                             <div class="chart-widget-list mt-md-5 p-md-4">
@@ -675,7 +675,7 @@
                                                                     <div class="row">
                                                                         <div class="col-md-6 shadow py-4">
                                                                             <h4 class="header-title text-center">Project Status</h4>
-                                                                            <div id="average-sales" class="apex-charts mb-4 mt-4"data-colors="#163269,#0acf97,#fa5c7c,#ffbc00"></div>
+                                                                            <div id="average-sales" class="apex-charts mb-4 mt-4"data-colors="#163269,#0acf97,#cc001a,#ffbc00"></div>
                                                                         </div>
                                                                         <div class="col-md-6">
                                                                             <div class="chart-widget-list mt-md-5 p-md-4">

@@ -147,7 +147,7 @@
 									   <h4 class="header-title mb-3">Customers wise sales count</h4>
    
 									   <div dir="ltr">
-										   <div id="simple-pie" class="apex-charts" data-series="20,80" data-labels="New Users,Old users" data-colors="#163269,#6c757d,#0acf97,#fa5c7c,#e3eaef"></div>
+										   <div id="simple-pie" class="apex-charts" data-series="20,80" data-labels="New Users,Old users" data-colors="#163269,#6c757d,#0acf97,#cc001a,#e3eaef"></div>
 									   </div>
 										   
 								   </div> <!-- end card-body-->
@@ -311,7 +311,7 @@
 								   <div class="card-body">
 									   <h4 class="header-title">Mothly Sales Reports</h4>
 									   <div dir="ltr">
-										   <div id="distributed-column" class="apex-charts" data-colors="#163269,#6c757d,#0acf97,#fa5c7c,#ffbc00,#39afd1,#e3eaef,#313a46"></div>
+										   <div id="distributed-column" class="apex-charts" data-colors="#163269,#6c757d,#0acf97,#cc001a,#ffbc00,#39afd1,#e3eaef,#313a46"></div>
 									   </div>
 								   </div>
 							   </div> <!-- end card-->
