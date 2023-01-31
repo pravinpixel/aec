@@ -9,6 +9,7 @@ use App\Models\LiveProjectSubSubTasks;
 use App\Models\LiveProjectSubTasks;
 use App\Models\LiveProjectTasks;
 use App\Models\Project; 
+use App\Repositories\IssuesRepository;
 class LiveProjectRepository implements LiveProjectInterFace
 {
     public $projectModel;
@@ -17,6 +18,7 @@ class LiveProjectRepository implements LiveProjectInterFace
     public $LiveProjectTasks;
     public $LiveProjectSubTasks;
     public $LiveProjectSubSubTasks;
+    public $IssuesRepository;
     
     function __construct(
         Project $projectModel, 
@@ -24,7 +26,8 @@ class LiveProjectRepository implements LiveProjectInterFace
         LiveProjectGranttLink $LiveProjectGranttLink,
         LiveProjectTasks $LiveProjectTasks,
         LiveProjectSubTasks $LiveProjectSubTasks,
-        LiveProjectSubSubTasks $LiveProjectSubSubTasks
+        LiveProjectSubSubTasks $LiveProjectSubSubTasks,
+        IssuesRepository $IssuesRepository
     )
     {
         $this->projectModel           = $projectModel;
@@ -33,6 +36,7 @@ class LiveProjectRepository implements LiveProjectInterFace
         $this->LiveProjectTasks       = $LiveProjectTasks;
         $this->LiveProjectSubTasks    = $LiveProjectSubTasks;
         $this->LiveProjectSubSubTasks = $LiveProjectSubSubTasks;
+        $this->IssuesRepository = $IssuesRepository;
     }
     public function wizard_tabs_index($menu_type,$project_id)
     {
@@ -47,6 +51,13 @@ class LiveProjectRepository implements LiveProjectInterFace
         session()->put('current_project', $project);
         $wizard_menus = config('live-project.wizard_menus');  
         return view('live-projects.index', compact('wizard_menus', "project", $project)); 
+    }
+    public function wizard_tabs_store($reuqest,$menu_type,$project_id)
+    {
+        if($menu_type == 'issues') {
+            return $this->IssuesRepository->store($reuqest,$project_id);
+        }
+        return false;
     }
     public function get_milestones($project_id) // Project_id
     {

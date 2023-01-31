@@ -1,86 +1,90 @@
 <div id="create-issues-modal" class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false"  tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-right modal-dialog-scrollable" role="document">
-        <div class="modal-content h-100 w-100">
+        <form class="modal-content h-100 w-100" action="{{ route('live-project.menus-store', ['menu_type' => request()->route()->menu_type, 'id' => session()->get('current_project')->id]) }}" enctype="multipart/form-data" method="POST"> 
+            @csrf
             <div class="modal-header bg-light-2">
                 <h1 class="custom-modal-title">New Issue</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
             </div>
             <div class="modal-body p-3">
                 <div class="mb-3">
-                    <span class="custom-label">Issue Title</span>
-                    <input type="text" name="title" class="form-control form-control-sm" placeholder="Type here...">
+                    <span class="custom-label">Issue Title <sup>*</sup></span>
+                    <input type="text" name="title" class="form-control form-control-sm" placeholder="Type here..." required>
                 </div>
                 <div class="mb-3">
                     <span class="custom-label">Descriptions</span>
-                    <textarea class="editor" name="descriptions"></textarea>
+                    <textarea class="editor" name="descriptions" ></textarea>
                 </div>
                 <div class="mb-3">
-                    <span class="custom-label">Attachments</span>
-                    <input type="file" name="attachments" class="form-control form-control-sm attachments" multiple>
+                    <span class="custom-label">Attachments <sup>*</sup></span>
+                    <input type="file" name="attachments[]" class="form-control form-control-sm attachments" multiple required>
                 </div>
-                <h1 class="custom-modal-title">Issue Informations</h1>
-                <div class="my-3">
-                    <span class="custom-label">Assign Type </span>
-                    <div class="form-check form-check-inline">
-                        <input type="radio" id="customRadio3" name="customRadio1" class="form-check-input">
-                        <label class="custom-label" for="customRadio3">Internel</label>
+                <hr class="my-3">
+                <h1 class="custom-modal-title">Issue Information</h1>
+                <span class="custom-label mt-3">Assign Type <sup>*</sup></span>
+                <div class="row">
+                    <div class="col ps-0 mb-3">
+                        <label class="form-control form-control-sm d-flex align-items-center" for="assign_type_in">
+                            <input type="radio" id="assign_type_in" name="assign_type" class="form-check-input me-2 my-0" required>
+                            Internel
+                        </label>
                     </div>
-                    <div class="form-check form-check-inline">
-                        <input type="radio" id="customRadio4" name="customRadio1" class="form-check-input">
-                        <label class="custom-label" for="customRadio4">Externel (customers)</label>
+                    <div class="col mb-3">
+                        <label class="form-control form-control-sm d-flex align-items-center" for="assign_type_ex">
+                            <input type="radio" id="assign_type_ex" name="assign_type" class="form-check-input me-2 my-0" required>
+                            Externel (customers)
+                        </label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col ps-0 mb-3">
-                        <span class="custom-label">Assignee</span>
-                        <select name="assignee" class="form-select form-select-sm single-select-field"  data-placeholder="-- select --">
-                            <option value="Prabhu">Prabhu</option>
-                            <option value="Surya">Surya</option>
-                            <option value="Deepack">Deepack</option>
+                        <span class="custom-label">Assignee <sup>*</sup></span> 
+                        <select name="assignee" class="form-select form-select-sm single-select-field"  data-placeholder="-- select --" required>
+                            <option value="">-- select --</option>
+                            @foreach (getTeamByProjectId(Project()->id) as $user)
+                                <option value="{{ $user['id'] }}">{{ $user['display_name'] }}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="col p-0 mb-3">
-                        <span class="custom-label">Priority</span>
-                        <select name="priority" class="form-select form-select-sm single-select-field"  data-placeholder="-- select --">
+                        <span class="custom-label">Priority<sup>*</sup></span>
+                        <select name="priority" class="form-select form-select-sm single-select-field"  data-placeholder="-- select --" required>
                             <option value="">-- select --</option>
-                            <option value="CRITICAL">Critical</option>
-                            <option value="HIGH">High</option>
-                            <option value="MEDIUM">Medium</option>
-                            <option value="LOW">Low</option>
+                            <option value="CRITICAL">🔴&emsp;Critical</option>
+                            <option value="HIGH">🟠&emsp;High</option>
+                            <option value="MEDIUM">🟡&emsp;Medium</option>
+                            <option value="LOW">🟢&emsp;Low</option>
                         </select>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col ps-0 mb-3">
-                        <span class="custom-label">Due Date</span>
-                        <div class="input-group date">
-                            <input type="date" name="due_date" class="form-control form-control-sm" id="date"/>
-                            <span class="input-group-append">
-                              <span class="input-group-text bg-light d-block btn-sm">
-                                <i class="fa fa-calendar"></i>
-                              </span>
-                            </span>
-                        </div>
+                        <span class="custom-label">Due Date <sup>*</sup></span>
+                        <input type="date" name="due_date" class="form-control form-control-sm" required/>
                     </div>
                     <div class="col p-0 mb-3">
-                        <span class="custom-label">Requester</span>
-                        <select name="requester" class="form-select form-select-sm">
+                        <span class="custom-label">Requester <sup>*</sup></span>
+                        <select name="requester" class="form-select form-select-sm single-select-field" data-placeholder="-- select --" required>
                             <option value="">-- select --</option>
+                            @foreach (getAllAdmin() as $user)
+                                <option {{ auth()->user()->id == $user['id'] ? 'selected' : '' }} value="{{ $user['id'] }}">{{ $user['display_name'] }}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
                 <div class="mb-3">
                     <span class="custom-label">Tags</span>
-                    <select class="form-select form-select-sm" id="multiple-select" data-placeholder="-- Select --" multiple>
-                        <option>Christmas Island</option>
-                        <option>South Sudan</option>
+                    <select name="tags[]" class="form-select form-select-sm" id="multiple-select" data-placeholder="-- Select --" multiple>
+                        @foreach (getAllAdmin() as $user)
+                            <option value="{{ $user['id'] }}">{{ $user['display_name'] }}</option>
+                        @endforeach
                     </select> 
                 </div> 
             </div> 
             <div class="modal-footer">
-                <button type="button" class="btn-sm btn btn-danger rounded-pill">Save changes</button>
-                <button type="button" class="btn-sm btn btn-outline-danger rounded-pill" data-bs-dismiss="modal">Cancel</button>
-            </div>
-        </div><!-- /.modal-content -->
+                <button type="submit" class="btn-sm btn btn-primary rounded-pill">Save changes</button>
+                <button type="button" class="btn-sm btn btn-outline-primary rounded-pill" data-bs-dismiss="modal">Cancel</button>
+            </div> 
+        </form><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal --> 

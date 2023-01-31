@@ -24,10 +24,14 @@ class LiveProjectController extends Controller
 
     public function store(Request $reuqest, $menu_type ,$id)
     {
-        return redirect()->route('live-project.menus-index',[
-            "menu_type" => $reuqest->menu_type,
-            "id" => $id
-        ]);
+        $result = $this->LiveProjectRepository->wizard_tabs_store($reuqest,$menu_type,$id);
+        if(!$result) {
+            return redirect()->route('live-project.menus-index',[
+                "menu_type" => $reuqest->menu_type,
+                "id" => $id
+            ]);
+        }
+        return  $result;
     }
 
     public function milestones_index($project_id)

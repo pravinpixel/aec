@@ -21,8 +21,8 @@
         </div>
         @foreach ($wizard_menus as $key => $menu)
             @if (request()->route()->menu_type === $menu['slug'])
-                <form
-                    action="{{ route('live-project.menus-store', ['menu_type' => $menu['slug'], 'id' => session()->get('current_project')->id]) }}"
+                <form action="{{ route('live-project.menus-store', ['menu_type' => $menu['slug'], 'id' => session()->get('current_project')->id]) }}"
+                    enctype="multipart/form-data"
                     method="post">
                     @csrf
                     <div class="card-body">
@@ -55,14 +55,19 @@
                 </form>
             @endif
         @endforeach
-    </div>
-    <form onsubmit="event.preventDefault()" id="live-project-sub-tasks-model-form">
-        <div id="live-project-sub-tasks-model" class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false"  tabindex="-1" role="dialog" aria-labelledby="fullWidthModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-full-width modal-dialog-scrollable">
-                <div class="custom modal-content" id="live-project-sub-tasks-model-content">
-                    <i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i>
+    </div> 
+    @if (request()->route()->menu_type == 'task-list')
+        <form onsubmit="event.preventDefault()" id="live-project-sub-tasks-model-form">
+            <div id="live-project-sub-tasks-model" class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false"  tabindex="-1" role="dialog" aria-labelledby="fullWidthModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-full-width modal-dialog-scrollable">
+                    <div class="custom modal-content" id="live-project-sub-tasks-model-content">
+                        <i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i>
+                    </div>
                 </div>
             </div>
-        </div>
-    </form>
+        </form>
+    @endif
+    @if (request()->route()->menu_type == 'issues') 
+        @include('live-projects.modals.create-issue')
+    @endif
 @endsection
