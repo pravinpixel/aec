@@ -15,9 +15,10 @@ class CreateIssuesTable extends Migration
     {
         Schema::create('issues', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('project_id');
+            $table->string('status')->default('NEW');
             $table->string('title');
             $table->longText('description');
-            $table->longText('attachments');
             $table->string('type');
             $table->integer('request_id');
             $table->string('request_name');
@@ -27,6 +28,7 @@ class CreateIssuesTable extends Migration
             $table->date('due_date');
             $table->json('tags');
             $table->boolean('convert_variation_order')->default(false);
+            $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');
             $table->timestamps();
         });
     }

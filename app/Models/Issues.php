@@ -11,6 +11,7 @@ class Issues extends Model
 
     protected $fillable = [
         'title',
+        'status',
         'description',
         'attachments',
         'type',

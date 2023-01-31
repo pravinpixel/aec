@@ -53,5 +53,7 @@
             })
         </script>
         @stack('live-project-custom-scripts')
+        @if (session()->get('success'))<script>Alert.success("{{ session()->get('success') }}")</script>@endif
+        @if (session()->get('danger'))<script>Alert.danger("{{ session()->get('danger') }}")</script>@endif
     </body>
 </html>

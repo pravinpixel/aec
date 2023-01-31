@@ -1,14 +1,20 @@
-<table class="table table-bordred" id="issues-table">
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Title</th>
-            <th>Descritons</th>
-            <th>Action</th>
-        </tr>
-    </thead>
-    <tbody></tbody>
-</table> 
+<div>
+    <table class="table table-bordred table-sm table-centered border" id="issues-table">
+        <thead>
+            <tr class="bg-light-2">
+                <th>#Id</th>
+                <th>Status</th>
+                <th>Type</th>
+                <th>Title</th>
+                <th>Assignee</th> 
+                <th>Due Date</th> 
+                <th>Priority</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>    
+</div> 
 
 @push('live-project-custom-styles') 
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css">
@@ -35,7 +41,9 @@
 
     <script>
         $(function () {  
-            $("#datepicker" ).datepicker();
+            $("#datepicker" ).datepicker({
+                dateFormat : 'yy-mm-dd'
+            });
             $('#multiple-select').select2( {
                 theme: "bootstrap-5",
                 width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
@@ -66,23 +74,26 @@
                 processing: true,
                 serverSide: true,
                 ajax: "{{ route('live-project.issues.ajax',Project()->id) }}",
-                paging:false,
                 columns: [
-                    {data: 'id', name: 'id'},
-                    {data: 'title', name: 'title'},
-                    {data: 'description', name: 'description'},
+                    {data: 'issue_id', name: 'id'}, 
+                    {data: 'status_type', name: 'status'},
+                    {data: 'type', name: 'type'},
+                    {data: 'title_type', name: 'title'},
+                    {data: 'assignee_name', name: 'assignee_name'},
+                    {data: 'due_date', name: 'due_date'},
+                    {data: 'priority_type', name: 'priority'},
                     {data: 'action', name: 'action', orderable: false, searchable: false},
                 ],
-                // dom: 'Bfrtip',
-                // buttons: [{
-                //     extend: 'colvis',
-                //     // columnText: function ( dt, idx, title ) {
-                //     //     return (idx+1)+': '+title;
-                //     // }
-                // }]
+                dom: 'Bfrtip',
+                buttons: [{
+                    extend: 'colvis',
+                    // columnText: function ( dt, idx, title ) {
+                    //     return (idx+1)+': '+title;
+                    // }
+                }]
             });
             $('#issues-table_filter').append(`
-                <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#create-issues-modal">Create Issue</button>
+                <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#create-issues-modal"> <i class="fa fa-plus"></i> New Issue</button>
             `) 
         });
     </script>

@@ -4,6 +4,7 @@ use App\Helper\Notify;
 use App\Models\Admin\Employees;
 use App\Models\Admin\MailTemplate;
 use App\Models\Admin\PropoalVersions;
+use App\Models\Customer;
 use App\Models\Enquiry;
 use App\Models\Inbox;
 use App\Models\Role as ModelsRole;
@@ -165,6 +166,17 @@ if(!function_exists('getEnquiryBtId')) {
        return  Enquiry::find($id);
     }
 }
+if(!function_exists('getEmployeeById')) {
+    function getEmployeeById($id){
+       return  Employees::find($id);
+    }
+} 
+if(!function_exists('getCustomerById')) {
+    function getCustomerById($id){
+       return  Customer::find($id);
+    }
+} 
+
 
 if(!function_exists('setFileIcon')) {
     function setFileIcon($path){

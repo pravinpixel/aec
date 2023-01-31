@@ -137,4 +137,9 @@ class Project extends Model
     {
         return $this->hasMany(LiveProjectTasks::class,'project_id','id');
     }
+
+    public function Issues()
+    {
+        return $this->hasMany(Issues::class,'project_id','id');
+    }
 }

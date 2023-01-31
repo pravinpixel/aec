@@ -25,13 +25,13 @@
                 <div class="row">
                     <div class="col ps-0 mb-3">
                         <label class="form-control form-control-sm d-flex align-items-center" for="assign_type_in">
-                            <input type="radio" id="assign_type_in" name="assign_type" class="form-check-input me-2 my-0" required>
+                            <input type="radio" value="INTERNAL" id="assign_type_in" name="assign_type" class="form-check-input me-2 my-0" required>
                             Internel
                         </label>
                     </div>
                     <div class="col mb-3">
                         <label class="form-control form-control-sm d-flex align-items-center" for="assign_type_ex">
-                            <input type="radio" id="assign_type_ex" name="assign_type" class="form-check-input me-2 my-0" required>
+                            <input type="radio" value="EXTERNAL" id="assign_type_ex" name="assign_type" class="form-check-input me-2 my-0" required>
                             Externel (customers)
                         </label>
                     </div>

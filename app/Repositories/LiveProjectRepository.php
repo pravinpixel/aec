@@ -10,6 +10,8 @@ use App\Models\LiveProjectSubTasks;
 use App\Models\LiveProjectTasks;
 use App\Models\Project; 
 use App\Repositories\IssuesRepository;
+use Laracasts\Flash\Flash;
+
 class LiveProjectRepository implements LiveProjectInterFace
 {
     public $projectModel;
@@ -52,10 +54,10 @@ class LiveProjectRepository implements LiveProjectInterFace
         $wizard_menus = config('live-project.wizard_menus');  
         return view('live-projects.index', compact('wizard_menus', "project", $project)); 
     }
-    public function wizard_tabs_store($reuqest,$menu_type,$project_id)
+    public function wizard_tabs_store($request,$menu_type,$project_id)
     {
         if($menu_type == 'issues') {
-            return $this->IssuesRepository->store($reuqest,$project_id);
+            return $this->IssuesRepository->store($request,$project_id);
         }
         return false;
     }
