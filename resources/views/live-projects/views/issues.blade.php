@@ -1,20 +1,127 @@
 <div>
+    <ul class="nav nav-tabs nav-bordered mb-2">
+        <li class="nav-item">
+            <a href="#home-b1" data-bs-toggle="tab" aria-expanded="false" class="nav-link active" onclick="tablesearch(null)">
+                <i class="mdi mdi-home-variant d-md-none d-block"></i>
+                <span class="d-none d-md-block">All</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="#profile-b1" data-bs-toggle="tab" aria-expanded="true" class="nav-link" onclick="tablesearch('INTERNAL')">
+                <i class="mdi mdi-account-circle d-md-none d-block"></i>
+                <span class="d-none d-md-block">Internal</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="#settings-b1" data-bs-toggle="tab" aria-expanded="false" class="nav-link" onclick="tablesearch('EXTERNAL')">
+                <i class="mdi mdi-settings-outline d-md-none d-block"></i>
+                <span class="d-none d-md-block">Customer</span>
+            </a>
+        </li>
+        <li class="end-0 me-3 position-absolute">
+            <button type="button" class="btn btn-light btn-sm border" data-bs-toggle="modal" data-bs-target="#issues-filters"><i class="fa fa-filter" aria-hidden="true"></i></button>
+            <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#create-issues-modal"> <i class="fa fa-plus"></i> New Issue</button>
+        </li>
+    </ul>
     <table class="table table-bordred table-sm table-centered border" id="issues-table">
         <thead>
             <tr class="bg-light-2">
                 <th>#Id</th>
                 <th>Status</th>
                 <th>Type</th>
-                <th>Title</th>
+                <th width="250px">Title</th>
                 <th>Assignee</th> 
                 <th>Due Date</th> 
                 <th>Priority</th>
+                <th>Request Date</th>                
                 <th>Action</th>
             </tr>
         </thead>
         <tbody></tbody>
-    </table>    
-</div> 
+    </table>
+</div>
+<div class="modal fade" id="issues-filters" tabindex="-1" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="custom-modal-title" id="myCenterModalLabel">Advance Filters</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <div class="d-flex">
+                        <div class="col me-2">
+                            <span class="custom-label">Priority</span>
+                            <select name="priority" id="filterPriority" class="form-select form-select-sm select-filters"  data-placeholder="-- select --" required>
+                                <option value="">-- select --</option>
+                                <option value="CRITICAL">🔴 Critical</option>
+                                <option value="HIGH">🟠 High</option>
+                                <option value="MEDIUM">🟡 Medium</option>
+                                <option value="LOW">🟢 Low</option>
+                            </select>
+                        </div>
+                        <div class="col">
+                            <span class="custom-label">Ticket Status</span>
+                            <select name="Status" id="filterStatus" class="form-select form-select-sm select-filters"  data-placeholder="-- select --" required>
+                                <option value="">-- select --</option>
+                                <option value="HIGH">🟣 New</option>
+                                <option value="LOW">🟢 Open</option>
+                                <option value="MEDIUM">🟡 Pending</option>
+                                <option value="CRITICAL">🔴 Closed</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <span class="custom-label">Due Date</span>
+                    <div class="d-flex">
+                        <div class="d-flex border rounded me-2">
+                            <input type="text" id="filterDueStartDate" name="due_start_date" class="form-control form-control-sm border-0 custom-datepicker" required placeholder="Start Date"/>
+                            <div class="fa fa-calendar btn"></div>
+                        </div>
+                        <div class="d-flex border rounded">
+                            <input type="text" id="filterDueEndDate" name="due_end_date" class="form-control form-control-sm border-0 custom-datepicker"  required placeholder="End Date"/>
+                            <div class="fa fa-calendar btn"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <span class="custom-label">Request Date</span>
+                    <div class="d-flex">
+                        <div class="d-flex border rounded me-2">
+                            <input type="text" id="filterRequestStartDate" name="request_start_date" class="form-control form-control-sm border-0 custom-datepicker" required placeholder="Start Date"/>
+                            <div class="fa fa-calendar btn"></div>
+                        </div>
+                        <div class="d-flex border rounded">
+                            <input type="text" id="filterRequestEndDate" name="request_end_date" class="form-control form-control-sm border-0 custom-datepicker"  required placeholder="End Date"/>
+                            <div class="fa fa-calendar btn"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="d-flex">
+                        <div class="col me-2">
+                            <span class="custom-label">Issue Type</span>
+                            <select name="type" id="filterIssueType" id class="form-select form-select-sm select-filters"  data-placeholder="-- select --" required>
+                                <option value="">-- select --</option>
+                                <option value="INTERNAL">🔴 Internal</option>
+                                <option value="EXTERNAL">🟠 External</option>
+                            </select>
+                        </div>
+                        <div class="col">
+                            <span class="custom-label">Issue #ID</span>
+                            <input type="number" id="filterIssueId" class="form-control form-control-sm">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" onclick="clearAdvaceFilters()" class="btn btn-sm btn-outline-primary">Clear</button>
+                <button type="button" onclick="advanceFilters()" class="btn btn-sm btn-primary">Filter</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal --> 
 
 @push('live-project-custom-styles') 
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css">
@@ -38,10 +145,9 @@
     <script src="https://unpkg.com/jquery-filepond/filepond.jquery.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
-
     <script>
         $(function () {  
-            $("#datepicker" ).datepicker({
+            $(".custom-datepicker" ).datepicker({
                 dateFormat : 'yy-mm-dd'
             });
             $('#multiple-select').select2( {
@@ -58,6 +164,13 @@
                 placeholder: $( this ).data( 'placeholder' ), 
                 dropdownParent: $('#create-issues-modal')
             });
+            $('.select-filters').select2( {
+                theme: "bootstrap-5",
+                width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
+                placeholder: $( this ).data( 'placeholder' ), 
+                dropdownParent: $('#issues-filters'),
+                allowClear: true
+            });
             FilePond.registerPlugin(FilePondPluginImagePreview);
             $('.attachments').filepond({
                 allowMultiple: true,
@@ -70,31 +183,71 @@
             }).catch( error => {
                 console.error( error );
             } );
-            var table = $('#issues-table').DataTable({
-                processing: true,
-                serverSide: true,
-                ajax: "{{ route('live-project.issues.ajax',Project()->id) }}",
-                columns: [
-                    {data: 'issue_id', name: 'id'}, 
-                    {data: 'status_type', name: 'status'},
-                    {data: 'issue_type', name: 'type'},
-                    {data: 'title_type', name: 'title'},
-                    {data: 'assignee_name', name: 'assignee_name'},
-                    {data: 'due_date', name: 'due_date'},
-                    {data: 'priority_type', name: 'priority'},
-                    {data: 'action', name: 'action', orderable: false, searchable: false},
-                ],
-                // dom: 'Bfrtip',
-                // buttons: [{
-                //     extend: 'colvis',
-                //     columnText: function ( dt, idx, title ) {
-                //         return (idx+1)+': '+title;
-                //     }
-                // }]
-            });
-            $('#issues-table_filter').append(`
-                <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#create-issues-modal"> <i class="fa fa-plus"></i> New Issue</button>
-            `) 
+            FatchTable = (search,filters) => {
+                $('#issues-table').DataTable({
+                    processing: true,
+                    serverSide: true,
+                    ajax: {
+                        url: "{{ route('live-project.issues.ajax',Project()->id) }}",
+                        data: {
+                            filters : filters,
+                            search : {
+                                regex:false,
+                                value: search
+                            }
+                        }
+                    },
+                    columns: [
+                        {data: 'issue_id', name: 'id'}, 
+                        {data: 'status_type', name: 'status'},
+                        {data: 'issue_type', name: 'type'},
+                        {data: 'title_type', name: 'title'},
+                        {data: 'assignee_name', name: 'assignee_name'},
+                        {data: 'due_date', name: 'due_date'},
+                        {data: 'priority_type', name: 'priority'},
+                        {data: 'requested_date', name: 'created_at'},
+                        {data: 'action', name: 'action', orderable: false, searchable: false},
+                    ],
+                    // dom: 'Bfrtip',
+                    // buttons: [{
+                    //     extend: 'colvis',
+                    //     columnText: function ( dt, idx, title ) {
+                    //         return (idx+1)+': '+title;
+                    //     }
+                    // }]
+                });
+            }
+            FatchTable(null)
+            tablesearch = (search) => {
+                $('#issues-table').DataTable().destroy();  
+                FatchTable(search)
+            }
+            advanceFilters = () => {
+                const filters = {
+                    Priority        : $('#filterPriority').val(),
+                    Status          : $('#filterStatus').val(),
+                    DueStartDate    : $('#filterDueStartDate').val(),
+                    DueEndDate      : $('#filterDueEndDate').val(),
+                    RequestStartDate: $('#filterRequestStartDate').val(),
+                    RequestEndDate  : $('#filterRequestEndDate').val(),
+                    IssueType       : $('#filterIssueType').val(),
+                    IssueId         : $('#filterIssueId').val(),
+                }
+                $('#issues-table').DataTable().destroy();
+                FatchTable(null,filters)
+            }
+            clearAdvaceFilters = () => {
+                $('#filterPriority').val("").trigger('change');
+                $('#filterStatus').val("").trigger('change');
+                $('#filterDueStartDate').val("")
+                $('#filterDueEndDate').val("")
+                $('#filterRequestStartDate').val("")
+                $('#filterRequestEndDate').val("")
+                $('#filterIssueType').val("").trigger('change');
+                $('#filterIssueId').val("")
+                $('#issues-table').DataTable().destroy();
+                FatchTable(null)
+            }
         });
     </script>
 @endpush

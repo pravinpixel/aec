@@ -62,7 +62,7 @@
                     <div class="col ps-0 mb-3">
                         <span class="custom-label">Due Date <sup>*</sup></span>
                         <div class="d-flex border rounded">
-                            <input type="text" name="due_date" class="form-control form-control-sm border-0" id="datepicker" required/>
+                            <input type="text" name="due_date" class="form-control form-control-sm border-0 custom-datepicker"  required/>
                             <div class="fa fa-calendar btn"></div>
                         </div>
                     </div>

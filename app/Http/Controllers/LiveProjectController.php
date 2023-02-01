@@ -6,6 +6,7 @@ use App\Models\Issues;
 use App\Models\LiveProjectSubSubTasks;
 use App\Models\LiveProjectSubTasks; 
 use App\Repositories\LiveProjectRepository;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Yajra\DataTables\DataTables;
@@ -137,14 +138,40 @@ class LiveProjectController extends Controller
     public function issues(Request $request)
     {
         if($request->ajax()) { 
-            $table = DataTables::of(Issues::select('*'));
+            $Issues = Issues::select('*');
+            if($request->filters) {
+                $Issues->when(isset($request->filters['Priority']),function($q) use ($request) {
+                    $q->where('priority',$request->filters['Priority']);
+                });
+                $Issues->when(isset($request->filters['Status']),function($q) use ($request) {
+                    $q->where('status',$request->filters['Status']);
+                });
+                $Issues->when(isset($request->filters['IssueType']),function($q) use ($request) {
+                    $q->where('type',$request->filters['IssueType']);
+                });
+                $Issues->when(isset($request->filters['IssueType']),function($q) use ($request) {
+                    $q->where('type',$request->filters['IssueType']);
+                });
+                $Issues->when(isset($request->filters['DueStartDate']) && isset($request->filters['DueEndDate']),function($q) use ($request) {
+                    $q->whereDate('due_date', '>=' , $request->filters['DueStartDate']);
+                    $q->whereDate('due_date', '<=' , $request->filters['DueEndDate']);
+                });
+                $Issues->when(isset($request->filters['RequestStartDate']) && isset($request->filters['RequestEndDate']),function($q) use ($request) {
+                    $q->whereDate('created_at', '>=' , $request->filters['RequestStartDate']);
+                    $q->whereDate('created_at', '<=' , $request->filters['RequestEndDate']);
+                });
+            }
+            $table = DataTables::of($Issues);
             $table->addIndexColumn(); 
             $table->addColumn('issue_type', function($row){
                 if($row->type == 'INTERNAL') {
-                    return '<small class="badge bg-primary"><i style="transform: rotate(-45deg)" class="fa fa-ticket" aria-hidden="true"></i> Internal</small>';
+                    return '<small class="badge bg-danger rounded-pill"><i style="transform: rotate(-45deg)" class="fa fa-ticket" aria-hidden="true"></i> Internal</small>';
                 } else {
-                    return '<small class="badge bg-warning"><i style="transform: rotate(-45deg)" class="fa fa-ticket" aria-hidden="true"></i> External</small>';
+                    return '<small class="badge badge-danger-lighten rounded-pill"><i style="transform: rotate(-45deg)" class="fa fa-ticket" aria-hidden="true"></i> External</small>';
                 }
+            });
+            $table->addColumn('requested_date', function($row){ 
+                return Carbon::parse($row->created_at)->format('Y-m-d');
             });
             $table->addColumn('title_type', function($row){ 
                 return Str::limit($row->title,28,' ...');
@@ -154,7 +181,7 @@ class LiveProjectController extends Controller
             });
             $table->addColumn('status_type', function($row){ 
                 if($row->status == 'NEW') {
-                    return '<span class="badge badge-danger-lighten">New</span>';
+                    return '<span class="badge badge-dark-lighten">New</span>';
                 }
             });
             $table->addColumn('priority_type', function($row){ 
@@ -174,7 +201,7 @@ class LiveProjectController extends Controller
                     <i class="fa fa-trash text-danger btn-sm"></i>
                 ';
             });
-            $table->rawColumns(['action','issue_id','priority_type','status_type','issue_type']);
+            $table->rawColumns(['action','issue_id','priority_type','status_type','issue_type','requested_date']);
             return $table->make(true);
         }
     }

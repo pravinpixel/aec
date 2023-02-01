@@ -49,7 +49,7 @@
 <link rel="stylesheet" type="text/css" href="https://cdn3.devexpress.com/jslib/21.2.5/css/dx.light.css" />
 <link rel="stylesheet" href="{{ asset('public/custom/css/date-picker.css') }}"> 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
 <style>
     .font-weight-bold {
         font-weight: bold !important
