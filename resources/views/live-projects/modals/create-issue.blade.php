@@ -51,10 +51,9 @@
                         <span class="custom-label">Priority<sup>*</sup></span>
                         <select name="priority" class="form-select form-select-sm single-select-field"  data-placeholder="-- select --" required>
                             <option value="">-- select --</option>
-                            <option value="CRITICAL">🔴&emsp;Critical</option>
-                            <option value="HIGH">🟠&emsp;High</option>
-                            <option value="MEDIUM">🟡&emsp;Medium</option>
-                            <option value="LOW">🟢&emsp;Low</option>
+                            @foreach (Priorities() as $priority) 
+                                <option value="{{ $priority['type'] }}">{{ $priority['text'] }}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>

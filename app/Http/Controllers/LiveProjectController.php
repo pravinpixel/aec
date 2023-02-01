@@ -177,7 +177,7 @@ class LiveProjectController extends Controller
                 return Str::limit($row->title,28,' ...');
             });
             $table->addColumn('issue_id', function($row){ // '.Project()->reference_number.'
-                return '<button type="button" class="btn-quick-view">ISS/00'.$row->id.'</button>';
+                return '<button type="button" class="btn-quick-view">'.$row->issue_id.'</button>';
             });
             $table->addColumn('status_type', function($row){ 
                 if($row->status == 'NEW') {

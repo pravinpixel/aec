@@ -48,5 +48,13 @@ return [
     'comments'              => 'Comments',
     'engineering_hours'     => 'Engineering Hours',
     'completed_percentage'  => 'Completed(%)',
-    'delivery_date'         => 'Delivery Date'
+    'delivery_date'         => 'Delivery Date',
+    'CRITICAL' => "🔴 Critical",
+    'HIGH'     => "🟠 High",
+    'MEDIUM'   => "🟡 Medium",
+    'LOW'      => "🟢 Low",
+    "NEW"      => "🟣 New",
+    "OPEN"     => "🟢 Open",
+    "PENDING"  => "🟡 Pending",
+    "CLOSED"   => "🔴 Closed",
 ];

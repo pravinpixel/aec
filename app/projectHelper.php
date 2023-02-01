@@ -35,3 +35,25 @@ if(!function_exists('issue_id')) {
         return 'TIK/'.date('Y').'/'.$number;
     }
 } 
+
+if(!function_exists('Priorities')) {
+    function Priorities()    {
+        return [
+            [ "type" => "CRITICAL", "text" => __('project.CRITICAL'), ],
+            [ "type" => "HIGH", "text" => __('project.HIGH'), ],
+            [ "type" => "MEDIUM", "text" => __('project.MEDIUM'), ],
+            [ "type" => "LOW", "text" => __('project.LOW'), ]
+        ];
+    }
+} 
+
+if(!function_exists('TicketStatus')) {
+    function TicketStatus()    {
+        return [
+            [ "type" => "NEW", "text" => __('project.NEW'), ],
+            [ "type" => "OPEN", "text" => __('project.OPEN'), ],
+            [ "type" => "PENDING", "text" => __('project.PENDING'), ],
+            [ "type" => "CLOSED", "text" => __('project.CLOSED'),]
+        ];
+    }
+} 
