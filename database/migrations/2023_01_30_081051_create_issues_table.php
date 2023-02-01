@@ -15,6 +15,7 @@ class CreateIssuesTable extends Migration
     {
         Schema::create('issues', function (Blueprint $table) {
             $table->id();
+            $table->string('issue_id');
             $table->unsignedBigInteger('project_id');
             $table->string('status')->default('NEW');
             $table->string('title');

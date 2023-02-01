@@ -69,5 +69,7 @@
     @endif
     @if (request()->route()->menu_type == 'issues') 
         @include('live-projects.modals.create-issue')
+        @include('live-projects.modals.filter-issue')
+        @include('live-projects.modals.detail-issue')         
     @endif
 @endsection

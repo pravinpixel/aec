@@ -10,6 +10,7 @@ class Issues extends Model
     use HasFactory;
 
     protected $fillable = [
+        'issue_id',
         'title',
         'status',
         'description',
