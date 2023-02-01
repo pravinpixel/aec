@@ -149,8 +149,8 @@ class LiveProjectController extends Controller
                 $Issues->when(isset($request->filters['IssueType']),function($q) use ($request) {
                     $q->where('type',$request->filters['IssueType']);
                 });
-                $Issues->when(isset($request->filters['IssueType']),function($q) use ($request) {
-                    $q->where('type',$request->filters['IssueType']);
+                $Issues->when(isset($request->filters['IssueId']),function($q) use ($request) {
+                    $q->where('issue_id',$request->filters['IssueId']);
                 });
                 $Issues->when(isset($request->filters['DueStartDate']) && isset($request->filters['DueEndDate']),function($q) use ($request) {
                     $q->whereDate('due_date', '>=' , $request->filters['DueStartDate']);
@@ -197,12 +197,22 @@ class LiveProjectController extends Controller
             });
             $table->addColumn('action', function($row){
                 return '
-                    <i class="fa fa-eye text-success"></i>
+                    <i onclick="showIssue('.$row->id.')" class="fa fa-eye text-success"></i>
                     <i class="fa fa-trash text-danger btn-sm"></i>
                 ';
             });
             $table->rawColumns(['action','issue_id','priority_type','status_type','issue_type','requested_date']);
             return $table->make(true);
         }
+    }
+
+    public function show_issues($id)
+    {
+        $issue = Issues::with('IssuesAttachments')->find($id);
+        $view  = view('live-projects.templates.issues-model',compact('issue'));
+        return response([
+            "title" => $issue->title,
+            "view"  => "$view",
+        ]);
     }
 }

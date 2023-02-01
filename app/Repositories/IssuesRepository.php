@@ -3,7 +3,7 @@ namespace App\Repositories;
 use App\Models\Issues;
 use App\Models\Project;
 use Illuminate\Support\Facades\Storage;
-
+use Haruncpi\LaravelIdGenerator\IdGenerator;
 class IssuesRepository {
     public $Issues,$Project;
     function __construct(Issues $issues,Project $Project) {
@@ -14,6 +14,7 @@ class IssuesRepository {
     { 
         $Issues =  $this->Project->findOrFail($id); 
         $created_issue = $Issues->Issues()->create([
+            "issue_id" =>  issue_id(),
             'title'         => $request->title,
             'description'   => $request->descriptions,
             'type'          => $request->assign_type,
