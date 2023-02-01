@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
-    <style>input:focus,select:focus {border: 1px solid royalblue !important} sup {color: red} .datepicker {width: 270px !important} .select2-selection--multiple .select2-selection__choice {background: none !important} .row {margin: 0 !important}.ck-editor__editable { min-height: 200px !important; } .filepond--credits {display: none}</style>
+    <style>.dataTables_length{margin-bottom: 0 !important} input:focus,select:focus {border: 1px solid royalblue !important} sup {color: red} .datepicker {width: 270px !important} .select2-selection--multiple .select2-selection__choice {background: none !important} .row {margin: 0 !important}.ck-editor__editable { min-height: 200px !important; } .filepond--credits {display: none}</style>
 @endpush
 @push('live-project-custom-scripts')  
     <script src="{{ asset('public/assets/js/ckeditor.js') }}"></script> 
@@ -77,20 +77,20 @@
                 columns: [
                     {data: 'issue_id', name: 'id'}, 
                     {data: 'status_type', name: 'status'},
-                    {data: 'type', name: 'type'},
+                    {data: 'issue_type', name: 'type'},
                     {data: 'title_type', name: 'title'},
                     {data: 'assignee_name', name: 'assignee_name'},
                     {data: 'due_date', name: 'due_date'},
                     {data: 'priority_type', name: 'priority'},
                     {data: 'action', name: 'action', orderable: false, searchable: false},
                 ],
-                dom: 'Bfrtip',
-                buttons: [{
-                    extend: 'colvis',
-                    // columnText: function ( dt, idx, title ) {
-                    //     return (idx+1)+': '+title;
-                    // }
-                }]
+                // dom: 'Bfrtip',
+                // buttons: [{
+                //     extend: 'colvis',
+                //     columnText: function ( dt, idx, title ) {
+                //         return (idx+1)+': '+title;
+                //     }
+                // }]
             });
             $('#issues-table_filter').append(`
                 <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#create-issues-modal"> <i class="fa fa-plus"></i> New Issue</button>

@@ -23,16 +23,13 @@ class LiveProjectController extends Controller
         return $this->LiveProjectRepository->wizard_tabs_index($menu_type,$id);  
     }
 
-    public function store(Request $reuqest, $menu_type ,$id)
+    public function store(Request $request, $menu_type ,$id)
     {
-        $result = $this->LiveProjectRepository->wizard_tabs_store($reuqest,$menu_type,$id); 
-        if(!$result) {
-            return redirect()->route('live-project.menus-index',[
-                "menu_type" => $reuqest->menu_type,
-                "id" => $id
-            ]);
+        if($request->form_type == 'CREATE_ISSUE') {
+            $this->LiveProjectRepository->wizard_tabs_store($request,$menu_type,$id); 
+            return redirect()->back()->with('success',"Successfuly Created!"); 
         }
-        return redirect()->back()->with('success',"Successfuly Created!"); 
+        return redirect()->route('live-project.menus-index',["menu_type" => $request->menu_type,"id" => $id]);
     }
 
     public function milestones_index($project_id)
@@ -141,7 +138,14 @@ class LiveProjectController extends Controller
     {
         if($request->ajax()) { 
             $table = DataTables::of(Issues::select('*'));
-            $table->addIndexColumn();
+            $table->addIndexColumn(); 
+            $table->addColumn('issue_type', function($row){
+                if($row->type == 'INTERNAL') {
+                    return '<small class="badge bg-primary"><i style="transform: rotate(-45deg)" class="fa fa-ticket" aria-hidden="true"></i> Internal</small>';
+                } else {
+                    return '<small class="badge bg-warning"><i style="transform: rotate(-45deg)" class="fa fa-ticket" aria-hidden="true"></i> External</small>';
+                }
+            });
             $table->addColumn('title_type', function($row){ 
                 return Str::limit($row->title,28,' ...');
             });
@@ -157,9 +161,9 @@ class LiveProjectController extends Controller
                 if($row->priority == 'CRITICAL') {
                     return "<small>🔴 ".ucfirst(strtolower($row->priority))." </small>";
                 }elseif($row->priority == 'HIGH') {
-                    return "<small>🔴 ".ucfirst(strtolower($row->priority))." </small>";
-                }elseif($row->priority == 'MEDIUM') {
                     return "<small>🟠 ".ucfirst(strtolower($row->priority))." </small>";
+                }elseif($row->priority == 'MEDIUM') {
+                    return "<small>🟡 ".ucfirst(strtolower($row->priority))." </small>";
                 }elseif($row->priority == 'LOW') {
                     return "<small>🟢 ".ucfirst(strtolower($row->priority))." </small>";
                 }
@@ -170,7 +174,7 @@ class LiveProjectController extends Controller
                     <i class="fa fa-trash text-danger btn-sm"></i>
                 ';
             });
-            $table->rawColumns(['action','issue_id','priority_type','status_type']);
+            $table->rawColumns(['action','issue_id','priority_type','status_type','issue_type']);
             return $table->make(true);
         }
     }

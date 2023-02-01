@@ -2,6 +2,7 @@
 namespace App\Repositories;
 use App\Models\Issues;
 use App\Models\Project;
+use Illuminate\Support\Facades\Storage;
 
 class IssuesRepository {
     public $Issues,$Project;
@@ -10,8 +11,9 @@ class IssuesRepository {
         $this->Project = $Project;
     }
     public function store($request,$id)
-    {
-        return $this->Project->findOrFail($id)->Issues()->create([
+    { 
+        $Issues =  $this->Project->findOrFail($id); 
+        $created_issue = $Issues->Issues()->create([
             'title'         => $request->title,
             'description'   => $request->descriptions,
             'type'          => $request->assign_type,
@@ -23,5 +25,13 @@ class IssuesRepository {
             'due_date'      => $request->due_date,
             'tags'          => json_encode($request->tags),
         ]);
+        if($request->has('attachments')) {
+            foreach ($request->attachments as $key => $attachment) { 
+                $created_issue->IssuesAttachments()->create([
+                    "file_path" => Storage::put('issues',$attachment)
+                ]);
+            }
+        }
+        return true;
     }
 }

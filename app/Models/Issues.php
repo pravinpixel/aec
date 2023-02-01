@@ -24,4 +24,8 @@ class Issues extends Model
         'tags',
         'convert_variation_order'
     ];
+    public function IssuesAttachments()
+    {
+        return $this->hasMany(IssuesAttachments::class,'issue_id','id');
+    }
 }
