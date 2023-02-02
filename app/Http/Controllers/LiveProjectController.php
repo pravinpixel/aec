@@ -202,8 +202,9 @@ class LiveProjectController extends Controller
             });
             $table->addColumn('action', function($row){
                 return '
-                    <span onclick="showIssue('.$row->id.',this)"><i class="fa fa-eye text-success"></i></span>
-                    <i onclick="deleteIssue('.$row->id.',this)" class="fa fa-trash text-danger btn-sm"></i>
+                    <i class="fa fa-share btn-outline-danger" onclick="convertVariation('.$row->id.',this)" title="Convert to variation Order"></i>
+                    <span onclick="showIssue('.$row->id.',this)" title="View" class="mx-1"><i class="fa fa-eye text-success"></i></span>
+                    <i onclick="deleteIssue('.$row->id.',this)" title="Delete" class="fa fa-trash text-danger"></i>
                 ';
             });
             $table->rawColumns(['action','issue_id','priority_type','status_type','issue_type','requested_date']);

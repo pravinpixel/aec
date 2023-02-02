@@ -31,7 +31,7 @@
             <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#create-issues-modal"> <i class="fa fa-plus"></i> New Issue</button>
         </li>
     </ul>
-    <table class="table table-bordred table-sm table-centered border" id="issues-table">
+    <table class="table table-bordred table-sm table-centered border table-hover" id="issues-table">
         <thead>
             <tr class="bg-light-2">
                 <th>#Issue Id</th>
@@ -47,7 +47,7 @@
         </thead>
         <tbody></tbody>
     </table>
-</div> 
+</div>  
 
 @push('live-project-custom-styles') 
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css">
@@ -227,6 +227,10 @@
                         }) 
                     }
                 })
+            }
+            convertVariation = (id) =>  {
+                $('#detail-issue-modal').modal('hide')
+                $('#convertToVariationModal').modal('show')
             }
         });
     </script>

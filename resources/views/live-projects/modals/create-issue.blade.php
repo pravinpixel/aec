@@ -85,8 +85,8 @@
                 </div> 
             </div> 
             <div class="modal-footer">
-                <button type="submit" class="btn-sm btn btn-primary rounded-pill">Save changes</button>
                 <button type="button" class="btn-sm btn btn-outline-primary rounded-pill" data-bs-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn-sm btn btn-primary rounded-pill ms-1">Create</button>
             </div> 
         </form><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
