@@ -71,8 +71,7 @@
         </div><!-- /.modal-dialog -->
     </div>
 @endif
-
-@if ($status == 'CHAT_BUTTON' && $status != 0)
+@if ($status == 'CHAT_BUTTON')
     <button type="button"  class="btn-sm btn btn-success position-relative" onclick="PreviousChatHistory(this, '{{ $moduleId }}', '{{ $moduleName }}' , '{{ $menuName }}' )" data-bs-toggle="modal" data-bs-target="#viewMyInbox{{ $menuName }}">
         <i class="fa fa-send me-1"></i>
         <span class="cost_estimate_comments_ul">
