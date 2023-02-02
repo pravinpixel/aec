@@ -5147,8 +5147,7 @@ textarea.form-control-lg {
   border-top: 1px solid #dee2e6;
   border-bottom-right-radius: calc(0.2rem - 1px);
   border-bottom-left-radius: calc(0.2rem - 1px); }
-  .modal-footer > * {
-    margin: 0.25rem; }
+
 
 @media (min-width: 576px) {
   .modal-dialog {

@@ -12,20 +12,20 @@
                             <span class="custom-label">Priority</span>
                             <select name="priority" id="filterPriority" class="form-select form-select-sm select-filters"  data-placeholder="-- select --" required>
                                 <option value="">-- select --</option>
-                                <option value="CRITICAL">🔴 Critical</option>
-                                <option value="HIGH">🟠 High</option>
-                                <option value="MEDIUM">🟡 Medium</option>
-                                <option value="LOW">🟢 Low</option>
+                                @foreach (Priorities() as $priority) 
+                                    <option value="{{ $priority['type'] }}">{{ $priority['text'] }}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="col">
                             <span class="custom-label">Ticket Status</span>
                             <select name="Status" id="filterStatus" class="form-select form-select-sm select-filters"  data-placeholder="-- select --" required>
                                 <option value="">-- select --</option>
-                                <option value="HIGH">🟣 New</option>
-                                <option value="LOW">🟢 Open</option>
-                                <option value="MEDIUM">🟡 Pending</option>
-                                <option value="CRITICAL">🔴 Closed</option>
+                                @foreach (TicketStatus() as $ticket) 
+                                    <option value="{{ $ticket['type'] }}">
+                                        {{ $ticket['text'] }}
+                                    </option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -74,7 +74,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" onclick="clearAdvaceFilters()" class="btn btn-sm btn-outline-primary">Clear</button>
+                <button type="button" onclick="clearAdvaceFilters()" class="btn btn-sm btn-outline-primary me-2">Clear</button>
                 <button type="button" onclick="advanceFilters()" class="btn btn-sm btn-primary">Filter</button>
             </div>
         </div><!-- /.modal-content -->

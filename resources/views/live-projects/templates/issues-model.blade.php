@@ -1,4 +1,4 @@
-<div class="modal-content p-0">
+<div class="modal-content p-0 h-100 w-100">
     <div class="modal-body p-0">
         <ul class="bg-white sticky-top nav nav-tabs nav-bordered m-0">
             <li class="nav-item">
@@ -16,10 +16,8 @@
                         <span>Attachments</span>
                     </a>
                 </li>
-            @endif
-            <li class="nav-item position-absolute end-0 m-2 mt-1">
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
-            </li>
+            @endif 
+            <button type="button" class="btn-close top-0 mt-2" data-bs-dismiss="modal" aria-hidden="true"></button>
         </ul>
         <div class="tab-content p-2">
             <div class="tab-pane show active" id="properties-b1">
@@ -35,9 +33,9 @@
                             <b>Type</b> : <span>{{ $issue->type }}</span>
                         </div>
                         <h5>Issue Descriptions:</h5>
-                        <p class="text-muted mb-2"> 
+                        <div class="border rounded p-1 mb-3"> 
                             {!! $issue->description !!}
-                        </p>
+                        </div>
                         <div class="row">
                             <div class="col-md-3 ps-0">
                                 <div>
@@ -123,7 +121,7 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-outline-success btn-sm">Convert to Variation <i class="fa fa-share" aria-hidden="true"></i> </button>
+        <button class="btn btn-outline-danger btn-sm me-2">Convert to Variation <i class="fa fa-share" aria-hidden="true"></i> </button>
         <x-chat-box
             status="CHAT_BUTTON"
             :moduleId="Project()->id"

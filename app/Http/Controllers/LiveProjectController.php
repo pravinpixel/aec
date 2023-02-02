@@ -179,10 +179,15 @@ class LiveProjectController extends Controller
             $table->addColumn('issue_id', function($row){ // '.Project()->reference_number.'
                 return '<button type="button" class="btn-quick-view" onclick="showIssue('.$row->id.' , this)" >'.$row->issue_id.'</button>';
             });
-            $table->addColumn('status_type', function($row){ 
-                if($row->status == 'NEW') {
-                    return '<span class="badge badge-dark-lighten">New</span>';
-                }
+            $table->addColumn('status_type', function($row){  
+                return '
+                    <select name="Status" onchange="ChangeIssueStatus('.$row->id.',this)" class="rounded-pill shadow-sm border border-light" value="'.$row->ststus.'" style="outline:none">
+                        <option '.select_status("NEW",$row).' value="NEW">'.__('project.NEW').'</option>
+                        <option '.select_status("OPEN",$row).' value="OPEN">'.__('project.OPEN').'</option>
+                        <option '.select_status("PENDING",$row).' value="PENDING">'.__('project.PENDING').'</option>
+                        <option '.select_status("CLOSED",$row).' value="CLOSED">'.__('project.CLOSED').'</option>
+                    </select>
+                ';
             });
             $table->addColumn('priority_type', function($row){ 
                 if($row->priority == 'CRITICAL') {
@@ -226,5 +231,11 @@ class LiveProjectController extends Controller
                 "status"  => false,
             ]);
         }
+    }
+    public function change_status_issues(Request $request, $id)
+    {
+        return Issues::find($id)->update([
+            "status" =>$request->status
+        ]);
     }
 }

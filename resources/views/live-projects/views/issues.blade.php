@@ -18,21 +18,29 @@
                 <span class="d-none d-md-block">Customer</span>
             </a>
         </li>
-        <li class="end-0 me-3 position-absolute">
-            <button type="button" class="btn btn-light btn-sm border" data-bs-toggle="modal" data-bs-target="#issues-filters"><i class="fa fa-filter" aria-hidden="true"></i></button>
+        <li class="end-0 me-2 position-absolute  d-flex">
+            <div class="dropdown">
+                <button type="button" class="btn btn-light btn-sm border dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="fa fa-eye"></i>  Show / Hide
+                </button>
+                <div class="dropdown-menu">
+                    <ul class="list-group m-0 border-0" id="columnFilterMenu"></ul>
+                </div>
+            </div>
+            <button type="button" class="btn btn-light btn-sm border mx-1" data-bs-toggle="modal" data-bs-target="#issues-filters"><i class="fa fa-filter" aria-hidden="true"></i></button>
             <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#create-issues-modal"> <i class="fa fa-plus"></i> New Issue</button>
         </li>
     </ul>
     <table class="table table-bordred table-sm table-centered border" id="issues-table">
         <thead>
             <tr class="bg-light-2">
-                <th>#Id</th>
-                <th>Status</th>
+                <th>#Issue Id</th>
+                <th width="200px">Title</th>
                 <th>Type</th>
-                <th width="250px">Title</th>
                 <th>Assignee</th> 
-                <th>Due Date</th> 
                 <th>Priority</th>
+                <th>Due Date</th> 
+                <th width="100px">Status</th>
                 <th>Request Date</th>                
                 <th>Action</th>
             </tr>
@@ -56,8 +64,6 @@
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.3.2/js/dataTables.buttons.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.3.2/js/buttons.colVis.min.js"></script>
     <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
     <script src="https://unpkg.com/filepond/dist/filepond.min.js"></script>
     <script src="https://unpkg.com/jquery-filepond/filepond.jquery.js"></script>
@@ -102,7 +108,7 @@
                 console.error( error );
             } );
             FatchTable = (filters) => {
-                $('#issues-table').DataTable({
+                var table = $('#issues-table').DataTable({
                     processing: true,
                     serverSide: true,
                     ajax: {
@@ -113,23 +119,32 @@
                     },
                     columns: [
                         {data: 'issue_id', name: 'id'}, 
-                        {data: 'status_type', name: 'status'},
-                        {data: 'issue_type', name: 'type'},
                         {data: 'title_type', name: 'title'},
+                        {data: 'issue_type', name: 'type'},
                         {data: 'assignee_name', name: 'assignee_name'},
-                        {data: 'due_date', name: 'due_date'},
                         {data: 'priority_type', name: 'priority'},
+                        {data: 'due_date', name: 'due_date'},
+                        {data: 'status_type', name: 'status'},
                         {data: 'requested_date', name: 'created_at'},
                         {data: 'action', name: 'action', orderable: false, searchable: false},
                     ],
-                    // dom: 'Bfrtip',
-                    // buttons: [{
-                    //     extend: 'colvis',
-                    //     columnText: function ( dt, idx, title ) {
-                    //         return (idx+1)+': '+title;
-                    //     }
-                    // }]
-                });
+                    drawCallback: function( settings ) {
+                        var thead = $('#issues-table thead tr')
+                        var checkBox = "" 
+                        Object.entries(thead[0].childNodes).map((item,i) => {
+                            var  column = ['Action','#Issue Id','Title','Status']
+                            if(column.includes(item[1].innerText) == false) {
+                                checkBox += `
+                                    <li class="list-group-item d-flex align-item-center ps-2 py-1">
+                                        <input class="form-check-input me-1" type="checkbox" onclick="hideColumn(${i},this)" checked />
+                                        ${item[1].innerText}
+                                    </li>
+                                `
+                            }
+                        })
+                        $('#columnFilterMenu').html(checkBox)
+                    }
+                }); 
             }
             FatchTable(null)
             tablesearch = (search) => {
@@ -151,6 +166,10 @@
                 }
                 $('#issues-table').DataTable().destroy();
                 FatchTable(filters)
+            }
+            hideColumn = (column,element) => {
+                $('#issues-table').DataTable().column(column).visible(element.checked);
+                // $('#issues-table').DataTable().columns.adjust().draw( false );
             }
             clearAdvaceFilters = () => {
                 $('#filterPriority').val("").trigger('change');
@@ -180,6 +199,11 @@
                         stopLoader(element)
                     }
                 })
+            }
+            ChangeIssueStatus = (id,element) => {
+                axios.put(`{{ route('live-project.change-status-issues.ajax') }}/${id}`,{
+                    status : element.value
+                });
             }
             deleteIssue = (id) => {  
                 swalWithBootstrapButtons.fire({

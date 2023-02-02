@@ -96,6 +96,11 @@ if (!function_exists('getFileSize')) {
         return $bytes;
     }
 }
+if(!function_exists('select_status')) {
+    function select_status ($status,$row) {
+        return  $status == $row->status ? 'selected' : '';
+    }
+}
 if(!function_exists('color')) {
     function color()
     {
