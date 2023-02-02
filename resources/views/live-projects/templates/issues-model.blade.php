@@ -1,135 +1,134 @@
-<div class="row">
-    <div class="col-8 ps-0">
-        <div class="row m-0">
-            <div class="col">
-                <div class="card shadow-sm border">
-                    <div class="card-header">
-                        <div class="custom-modal-title text-secondary">PROPERTIES</div>
-                    </div>
+<div class="modal-content p-0">
+    <div class="modal-body p-0">
+        <ul class="bg-white sticky-top nav nav-tabs nav-bordered m-0">
+            <li class="nav-item">
+                <a href="#properties-b1" data-bs-toggle="tab" aria-expanded="false" class="nav-link active">
+                    <span>
+                        <i class="fa fa-tachometer" aria-hidden="true"></i>
+                        Overview
+                    </span>
+                </a>
+            </li>
+            @if (count($issue->IssuesAttachments) > 0)
+                <li class="nav-item">
+                    <a href="#Attachments-b1" data-bs-toggle="tab" aria-expanded="false" class="nav-link">
+                        <i class="fa fa-paperclip" aria-hidden="true"></i>
+                        <span>Attachments</span>
+                    </a>
+                </li>
+            @endif
+            <li class="nav-item position-absolute end-0 m-2 mt-1">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+            </li>
+        </ul>
+        <div class="tab-content p-2">
+            <div class="tab-pane show active" id="properties-b1">
+                <div class="card d-block shadow-sm border h-100 m-0">
                     <div class="card-body">
-                        <div class="mb-3">
-                            <span class="custom-label">#Issue Ticket ID</span>
-                            <input type="text" class="form-control form-control-sm" value="{{ $issue->issue_id }}"
-                                readonly>
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <h4 class="">{{ $issue->title }}</h4>
                         </div>
                         <div class="mb-3">
-                            <span class="custom-label">Priority<sup>*</sup></span>
-                            <select name="priority" class="form-select form-select-sm issue-select"
-                                data-placeholder="-- select --" required>
-                                <option value="">-- select --</option>
-                                @foreach (Priorities() as $priority)
-                                    <option {{ $issue->priority == $priority['type'] ? 'selected' : '' }}
-                                        value="{{ $priority['type'] }}">{{ $priority['text'] }}</option>
-                                @endforeach
-                            </select>
+                            <b>Status</b> : <span>{{ __('project.'.$issue->status)  }}</span>
                         </div>
-                        <div>
-                            <span class="custom-label">Ticket Status</span>
-                            <select name="Status" id="filterStatus" class="form-select form-select-sm issue-select"
-                                data-placeholder="-- select --" required>
-                                <option value="">-- select --</option>
-                                @foreach (TicketStatus() as $status)
-                                    <option {{ $issue->status == $status['type'] ? 'selected' : '' }}
-                                        value="{{ $status['type'] }}">{{ $status['text'] }}</option>
-                                @endforeach
-                            </select>
+                        <div class="mb-3">
+                            <b>Type</b> : <span>{{ $issue->type }}</span>
                         </div>
-                    </div> <!-- end card-body-->
-                </div> <!-- end card-->
-            </div>
-            <div class="col">
-                <div class="card shadow-sm border">
-                    <div class="card-header">
-                        <div class="custom-modal-title text-secondary">ISSUE INFORMATION </div>
+                        <h5>Issue Descriptions:</h5>
+                        <p class="text-muted mb-2"> 
+                            {!! $issue->description !!}
+                        </p> 
+                        <div class="row">
+                            <div class="col-md-3 ps-0">
+                                <div>
+                                    <h5>Requested Date</h5>
+                                    <p>{{ $issue->created_at->format('Y-m-d') }}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div>
+                                    <h5>Due Date</h5>
+                                    <p>{{ $issue->due_date }}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div>
+                                    <h5>Priority</h5>
+                                    <p>{{ __('project.'.$issue->priority) }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <h5>Assignee :</h5>
+                            <a href="javascript:void(0);"  class="d-inline-block" title="{{ getUser($issue->assignee_id)->first_name }}">
+                                <div class="d-flex align-items-center">
+                                    {!! getUserAvatar($issue->assignee_id) !!}
+                                    <div class="text-capitalize ps-1">
+                                        <small>{{ getUser($issue->assignee_id)->first_name }}</small> <br>
+                                        <small class="text-dark">{{ getUserRole($issue->assignee_id)->name }}</small>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div id="tooltip-container">
+                            <h5>#Tag Members:</h5>
+                            @foreach (json_decode($issue->tags) as $tager_id)
+                                <a href="javascript:void(0);"  class="d-inline-block" title="{{ getUser($tager_id)->first_name }}">
+                                    <div class="d-flex align-items-center">
+                                        {!! getUserAvatar($tager_id) !!}
+                                        <div class="text-capitalize ps-1">
+                                            <small>{{ getUser($tager_id)->first_name }}</small> <br>
+                                            <small class="text-dark">{{ getUserRole($tager_id)->name }}</small>
+                                        </div>
+                                    </div>
+                                </a>
+                            @endforeach 
+                        </div>
                     </div>
-                    <div class="card-body">
-                        <div class="mb-3">
-                            <span class="custom-label">Assignee</span>
-                            <input type="text" class="form-control form-control-sm"
-                                value="{{ $issue->assignee_name }}" readonly>
-                        </div>
-                        <div class="mb-3">
-                            <span class="custom-label">Requester</span>
-                            <input type="text" class="form-control form-control-sm" value="{{ $issue->request_name }}" readonly>
-                        </div>
-                        <div class="mb-3">
-                            <span class="custom-label">Due Date</span>
-                            <input type="text" class="form-control form-control-sm" value="{{ $issue->due_date }}" readonly>
-                        </div>
-                    </div> <!-- end card-body-->
-                </div> <!-- end card-->
+                </div>
             </div>
+            @if (count($issue->IssuesAttachments) > 0)
+                <div class="tab-pane" id="Attachments-b1">
+                    <div class="row">
+                        @foreach ($issue->IssuesAttachments as $attachment)
+                            <div class="col-6 ps-0">
+                                <div class="card mt-2 mb-1 shadow-none border text-start">
+                                    <div class="row align-items-center p-1 d-flex">
+                                        <div class="col-auto ps-0">
+                                            <div class="avatar-sm">
+                                                <span class="avatar-title rounded" style="background-color: {{ color() }}">
+                                                    {{ getFileType($attachment->file_path) }}
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col ps-0">
+                                            <a href="javascript:void(0);" class="text-muted fw-bold">
+                                                {{ Str::limit($attachment->file_path,15) }}
+                                            </a>
+                                            <p class="mb-0">{{ getFileSize($attachment->file_path) }}</p>
+                                        </div>
+                                        <div class="col-auto">
+                                            <!-- Button -->
+                                            <a href="{{ asset("storage/app/".$attachment->file_path) }}" download class="btn btn-link btn-lg text-muted">
+                                                <i class="fa fa-download"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            @endif
         </div>
-        <div class="card shadow-sm border">
-            <div class="card-header">
-                <div class="custom-modal-title text-secondary">DESCRIPTION</div>
-            </div>
-            <div class="card-body">
-                <div class="small">{!! $issue->description !!}</div>
-            </div> <!-- end card-body-->
-        </div> <!-- end card-->
     </div>
-
-    <div class="col ps-0">
-        <div class="card text-start mb-2 border">
-            <div class="card-body">
-                <div class="d-flex align-items-start">
-                    <h5 class="mt-0 mb-0 font-14">Chat Box</h5>
-                </div>
-                <hr>
-                <ul class="conversation__box" style="height: 450px">
-                    <li class="left__conversation">
-                        <div>
-                            <h5 class="m-0 mb-1 font-14">
-                                Rhonda D
-                                <small>10:04</small>
-                            </h5>
-                            <p class="m-0 font-14">Yeah everything is fine</p>
-                        </div>
-                    </li>
-                    <li class="right__conversation">
-                        <div>
-                            <h5 class="m-0 mb-1 font-14">Dominic</h5>
-                            <p class="m-0 font-14">Wow that's great</p>
-                            <small>10:04</small>
-                        </div>
-                    </li>
-                    <li class="left__conversation">
-                        <div>
-                            <h5 class="m-0 mb-1 font-14">Rhonda D</h5>
-                            <p class="m-0 font-14">Let's have it today if you are free</p>
-                            <small>10:04</small>
-                        </div>
-                    </li>
-                    <li class="right__conversation">
-                        <div>
-                            <h5 class="m-0 mb-1 font-14">Dominic</h5>
-                            <p class="m-0 font-14">Sure thing! let me know if 2pm works for you</p>
-                            <small>10:04</small>
-                        </div>
-                    </li>
-                    <li class="left__conversation">
-                        <div>
-                            <h5 class="m-0 mb-1 font-14"> Rhonda D </h5>
-                            <p class="m-0 font-14">Sorry, I have another meeting scheduled at 2pm. Can we have it at 3pm
-                                instead?</p>
-                            <small>10:04</small>
-                        </div>
-                    </li>
-                    <li class="left__conversation">
-                        <div>
-                            <h5 class="m-0 mb-1 font-14">Rhonda D</h5>
-                            <p class="m-0 font-14">We can also discuss about the presentation talk format if you have
-                                some extra mins</p>
-                            <small>10:04</small>
-                        </div>
-                    </li>
-                </ul>
-                <div class="input-group pt-2 border-top">
-                    <input type="search" class="form-control form-control-sm" placeholder="Type here...">
-                    <button class="btn btn-sm btn-success">Send a message</button>
-                </div>
-            </div>
-        </div>
+    <div class="modal-footer">
+        <button class="btn btn-outline-success btn-sm">Convert to Variation <i class="fa fa-share" aria-hidden="true"></i> </button>
+        <x-chat-box
+            status="CHAT_BUTTON"
+            :moduleId="Project()->id"
+            moduleName="project"
+            :menuName="str_replace('/','_',$issue->issue_id)"
+        />
     </div>
 </div>

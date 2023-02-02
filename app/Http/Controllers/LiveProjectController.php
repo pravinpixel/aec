@@ -177,7 +177,7 @@ class LiveProjectController extends Controller
                 return Str::limit($row->title,28,' ...');
             });
             $table->addColumn('issue_id', function($row){ // '.Project()->reference_number.'
-                return '<button type="button" class="btn-quick-view">'.$row->issue_id.'</button>';
+                return '<button type="button" class="btn-quick-view" onclick="showIssue('.$row->id.' , this)" >'.$row->issue_id.'</button>';
             });
             $table->addColumn('status_type', function($row){ 
                 if($row->status == 'NEW') {
@@ -197,7 +197,9 @@ class LiveProjectController extends Controller
             });
             $table->addColumn('action', function($row){
                 return '
-                    <i onclick="showIssue('.$row->id.')" class="fa fa-eye text-success"></i>
+                    <span onclick="showIssue('.$row->id.' , this)"> 
+                        <i class="fa fa-eye text-success"></i>
+                    </span>
                     <i class="fa fa-trash text-danger btn-sm"></i>
                 ';
             });
@@ -211,7 +213,6 @@ class LiveProjectController extends Controller
         $issue = Issues::with('IssuesAttachments')->find($id);
         $view  = view('live-projects.templates.issues-model',compact('issue'));
         return response([
-            "title" => $issue->title,
             "view"  => "$view",
         ]);
     }

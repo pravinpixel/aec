@@ -166,11 +166,11 @@
                 $('#issues-table').DataTable().destroy();
                 FatchTable(null)
             }
-            showIssue = (id) => {   
+            showIssue = (id,element) => {  
+                startLoader(element)
                 axios.get(`{{ route('live-project.show-issues.ajax') }}/${id}`).then((response) => { 
                     $('#detail-issue-modal').modal('show')
                     $('#detail-issue-modal-content').html(response.data.view)
-                    $('#detail-issue-modal-title').html(response.data.title)
                     if(response.data) {
                         $('.issue-select').select2( {
                             theme: "bootstrap-5",
@@ -179,6 +179,7 @@
                             dropdownParent: $('#detail-issue-modal'),
                             allowClear: true
                         });
+                        stopLoader(element)
                     }
                 })
             }
