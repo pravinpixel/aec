@@ -26,7 +26,7 @@
                 <div class="card d-block shadow-sm border h-100 m-0">
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center mb-2">
-                            <h4 class="">{{ $issue->title }}</h4>
+                            <h4 class=""> {{ $issue->issue_id }} | <span class="text-primary">{{ $issue->title }}</span></h4>
                         </div>
                         <div class="mb-3">
                             <b>Status</b> : <span>{{ __('project.'.$issue->status)  }}</span>
@@ -37,7 +37,7 @@
                         <h5>Issue Descriptions:</h5>
                         <p class="text-muted mb-2"> 
                             {!! $issue->description !!}
-                        </p> 
+                        </p>
                         <div class="row">
                             <div class="col-md-3 ps-0">
                                 <div>

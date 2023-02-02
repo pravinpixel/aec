@@ -101,7 +101,7 @@
             }).catch( error => {
                 console.error( error );
             } );
-            FatchTable = (search,filters) => {
+            FatchTable = (filters) => {
                 $('#issues-table').DataTable({
                     processing: true,
                     serverSide: true,
@@ -109,10 +109,6 @@
                         url: "{{ route('live-project.issues.ajax',Project()->id) }}",
                         data: {
                             filters : filters,
-                            search : {
-                                regex:false,
-                                value: search
-                            }
                         }
                     },
                     columns: [
@@ -137,8 +133,10 @@
             }
             FatchTable(null)
             tablesearch = (search) => {
-                $('#issues-table').DataTable().destroy();  
-                FatchTable(search)
+                $('#issues-table').DataTable().destroy();
+                FatchTable({
+                    IssueType : search
+                })
             }
             advanceFilters = () => {
                 const filters = {
@@ -152,7 +150,7 @@
                     IssueId         : $('#filterIssueId').val(),
                 }
                 $('#issues-table').DataTable().destroy();
-                FatchTable(null,filters)
+                FatchTable(filters)
             }
             clearAdvaceFilters = () => {
                 $('#filterPriority').val("").trigger('change');
