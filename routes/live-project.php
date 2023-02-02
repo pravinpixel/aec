@@ -18,6 +18,7 @@ Route::group(['prefix' => 'live', 'middleware' => 'common'], function () {
 
     // Issue 
     Route::get('/issues/{project_id?}', [LiveProjectController::class, 'issues'])->name('live-project.issues.ajax');
+    Route::delete('/delete-issues/{delete_issues?}', [LiveProjectController::class, 'delete_issues'])->name('live-project.delete-issues.ajax');
     Route::get('/get-issue/{id?}', [LiveProjectController::class, 'show_issues'])->name('live-project.show-issues.ajax');
 });
 

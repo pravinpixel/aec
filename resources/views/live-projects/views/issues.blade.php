@@ -181,6 +181,29 @@
                     }
                 })
             }
+            deleteIssue = (id) => {  
+                swalWithBootstrapButtons.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes, delete it!',
+                    cancelButtonText: 'No, cancel',
+                    reverseButtons: true,
+                    allowOutsideClick :false,
+                    allowEscapeKey:false
+                }).then((result) => {
+                    if (result.isConfirmed) { 
+                        axios.delete(`{{ route('live-project.delete-issues.ajax') }}/${id}`).then((response) => {
+                            if(response.data.status) {
+                                Alert.success('Successfully Deleted !')
+                                $('#issues-table').DataTable().destroy();
+                                FatchTable(null)
+                            }
+                        }) 
+                    }
+                })
+            }
         });
     </script>
 @endpush

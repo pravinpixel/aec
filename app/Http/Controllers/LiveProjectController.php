@@ -197,10 +197,8 @@ class LiveProjectController extends Controller
             });
             $table->addColumn('action', function($row){
                 return '
-                    <span onclick="showIssue('.$row->id.' , this)"> 
-                        <i class="fa fa-eye text-success"></i>
-                    </span>
-                    <i class="fa fa-trash text-danger btn-sm"></i>
+                    <span onclick="showIssue('.$row->id.',this)"><i class="fa fa-eye text-success"></i></span>
+                    <i onclick="deleteIssue('.$row->id.',this)" class="fa fa-trash text-danger btn-sm"></i>
                 ';
             });
             $table->rawColumns(['action','issue_id','priority_type','status_type','issue_type','requested_date']);
@@ -215,5 +213,18 @@ class LiveProjectController extends Controller
         return response([
             "view"  => "$view",
         ]);
+    }
+    public function delete_issues($id)
+    {
+        try {
+            Issues::with('IssuesAttachments')->find($id)->delete();
+            return response([
+                "status"  => true,
+            ]);
+        } catch (\Throwable $th) {
+            return response([
+                "status"  => false,
+            ]);
+        }
     }
 }
