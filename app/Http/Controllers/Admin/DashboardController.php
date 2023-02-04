@@ -204,6 +204,41 @@ class DashboardController extends Controller
         return view('admin.dashboard.project', with($result));
     }
 
+    public function totalSale()
+    {
+        $fromDate = Carbon::now()->startOfYear();
+        $toDate = Carbon::now()->endOfYear();
+        $monthList = $this->getMonthListFromDate($fromDate, $toDate);
+        $monthCount = [];
+        $projectCount = Project::whereBetween('created_at', [$fromDate, $toDate])
+            ->select(DB::raw('count(id) as id, DATE_FORMAT(created_at, "%Y-%b") AS projectDate'))
+            ->groupBy('projectDate')
+            ->pluck('id', 'projectDate');
+        $result['category'] = $monthList;
+        foreach ($monthList as $value) {
+            $monthCount[] = $projectCount[$value] ?? 0;
+        }
+        $result['category'] = $monthList;
+        $result['category_count'] = $monthCount;
+    }
+
+    public function saleByCustomer()
+     {
+        $fromDate = Carbon::now()->startOfYear();
+        $toDate = Carbon::now()->endOfYear();
+        $sales = Project::join('invoice_plans', 'invoice_plans.project_id', '=','projects.id')
+            ->join('customers', 'customers.id', '=','projects.customer_id')
+            ->select(DB::raw('SUM(project_cost) as projectCost,
+                full_name as customerName
+            '))
+            ->whereBetween('projects.created_at', [$fromDate, $toDate])
+            ->groupBy('customer_id')
+            ->pluck('projectCost','customerName');
+
+        $result['sale_by_series'] = $sales->values();
+        $result['sale_by_customer'] = $sales->keys();
+     }
+
     public function getProjectSummary(Request $request)
     {
         if ($request->ajax() == true) {
@@ -215,7 +250,7 @@ class DashboardController extends Controller
                 $fromDate = Carbon::now()->subDays(30)->startOfDay();
                 $toDate = Carbon::now()->endOfDay();
             }
-            $dataDb = Project::with(['customer','deliveryType','invoicePlan'])
+            $dataDb = Project::with(['customer','deliveryType','invoicePlan','enquiry'])
                 ->orderBy('id', 'desc');
             return DataTables::eloquent($dataDb)
                 ->editColumn('reference_number', function ($dataDb) {
@@ -230,12 +265,9 @@ class DashboardController extends Controller
                     return $dataDb->deliveryType->delivery_type_name;
                 })
                 ->addColumn('original_price', function($dataDb) {
-                    return '';
+                    return $dataDb->enquiry->costEstimate->total_cost ?? 0;
                 })
-                ->addColumn('vr_one', function($dataDb) {
-                    return '';
-                })
-                ->addColumn('vr_two', function($dataDb) {
+                ->addColumn('vr', function($dataDb) {
                     return '';
                 })
                 ->addColumn('invoicePlan', function($dataDb) {

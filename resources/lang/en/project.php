@@ -43,6 +43,7 @@ return [
     'original_price'        => 'Original Price',
     'vr_one'                => 'VR-1',
     'vr_two'                => 'VR-2',
+    'vr'                    => 'VR',
     'total_amount'          => 'Total Amount',
     'end_date'              => 'End Date',
     'comments'              => 'Comments',
