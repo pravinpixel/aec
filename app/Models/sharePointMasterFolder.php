@@ -11,7 +11,7 @@ class sharePointMasterFolder extends Model
 {
     use HasFactory;
     protected $fillable=[
-        'name','status'
+        'name','status','is_final_delivery'
     ];
     protected $casts = [
         'created_at' => "datetime:d/m/Y - h:i:s A",
