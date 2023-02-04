@@ -59,6 +59,7 @@
                 <tr>
                     <th>Name</th>
                     <th>Status</th>
+                    <th>Final Delivery</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -71,6 +72,16 @@
                                 data-switch="success" />
                             <label for="switch__@{{ id }}" data-on-label="On"
                                 ng-click="changeFolderStatus(folder.id, folder.status)" data-off-label="Off"></label>
+                        </div>
+                        <span ng-if="folder.status == 1" class="d-none">1</span>
+                        <span ng-if="folder.status == 0" class="d-none">0</span>
+                    </td>
+                    <td>
+                        <div>
+                            <input type="checkbox" id="switch_final_delivery__@{{ id }}" ng-checked="folder.is_final_delivery == 1"
+                                data-switch="success" />
+                            <label for="switch_final_delivery__@{{ id }}" data-on-label="On"
+                                ng-click="changeFinalDeliveryStatus(folder.id)" data-off-label="Off"></label>
                         </div>
                         <span ng-if="folder.status == 1" class="d-none">1</span>
                         <span ng-if="folder.status == 0" class="d-none">0</span>
@@ -195,6 +206,21 @@
                     Message('success', 'state changed sucessfully!');
                     $scope.getFolders();
                     console.log(response)
+                }, function errorCallback(response) {
+                    Message('danger', response.data.errors.name[0]);
+                });
+            }
+
+            $scope.changeFinalDeliveryStatus = (id) => {
+                $http({
+                    method: 'POST',
+                    url: `${API_URL}admin/setup/final-delivery/${id}`,
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }).then(function successCallback(response) {
+                    Message('success', response.data.msg);
+                    $scope.getFolders();
                 }, function errorCallback(response) {
                     Message('danger', response.data.errors.name[0]);
                 });

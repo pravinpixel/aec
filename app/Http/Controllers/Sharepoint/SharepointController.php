@@ -123,7 +123,10 @@ class SharepointController extends Controller
        
         $responseJson = $res->getBody()->getContents();
         $responseData = json_decode($responseJson, true);
-    
+        $customer = Customer();
+        if($customer) {
+            $final_delivery = sharePointMasterFolder::where('is_final_delivery',1)->first();
+        }
         $data = array();
         foreach($responseData as $res){
             $rescollection = $res['results'];
@@ -149,10 +152,20 @@ class SharepointController extends Controller
                         }
                     }
                 }
-                $data[] = array('name' => $resdata['Name'],
-                'relativePath' => $resdata['ServerRelativeUrl'],
-                'isDirectory' => ($resdata['ItemCount'] != 0 ? true : false),
-                'items'         =>  $items, ); 
+                if($customer) {
+                    if(strtolower($final_delivery->name) == strtolower($resdata['Name'])) {
+                        $data[] = array('name' => $resdata['Name'],
+                        'relativePath' => $resdata['ServerRelativeUrl'],
+                        'isDirectory' => ($resdata['ItemCount'] != 0 ? true : false),
+                        'items'         =>  $items, ); 
+                    }    
+                } else {
+                    $data[] = array('name' => $resdata['Name'],
+                    'relativePath' => $resdata['ServerRelativeUrl'],
+                    'isDirectory' => ($resdata['ItemCount'] != 0 ? true : false),
+                    'items'         =>  $items, ); 
+                }
+            
             }
         }
         return $data;

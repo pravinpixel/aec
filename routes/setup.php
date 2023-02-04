@@ -46,6 +46,7 @@ Route::prefix('admin/setup')->middleware('common')->group(function () {
     // update status 
     Route::resource('/files',sharePointFolderMasterController::class);
     Route::post('/state-change',[sharePointFolderMasterController::class,'stateChange']);
+    Route::post('/final-delivery/{id}',[sharePointFolderMasterController::class,'finalDelivery']);
     Route::post('get-edit-folder',[sharePointFolderMasterController::class,'getFolder']);
     Route::post('get-update-folder',[sharePointFolderMasterController::class,'folderUpdate']);
     Route::post('delete-folder',[sharePointFolderMasterController::class,'deleteFolder']);

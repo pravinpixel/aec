@@ -13,8 +13,7 @@
                                     <th>@lang('project.building_site')</th>
                                      <th>@lang('project.delivery_type')</th>
                                     <th>@lang('project.original_price')</th>
-                                    <th>@lang('project.vr_one')</th>
-                                    <th>@lang('project.vr_two')</th>
+                                    <th>@lang('project.vr')</th>
                                     <th>@lang('project.total_amount')</th>
                                     <th>@lang('project.engineering_hours')</th>
                                     <th>@lang('project.start_date')</th>

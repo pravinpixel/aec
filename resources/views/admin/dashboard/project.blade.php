@@ -268,10 +268,10 @@
                                             </tbody>
                                         </table>
                                     </div>
-                                    <div class="card-footer text-center">
+                                    <!-- <div class="card-footer text-center">
                                         <a href="#">Show all projects <span
                                                 class="mdi mdi-chevron-right"></span></a>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                             <!-- end col -->

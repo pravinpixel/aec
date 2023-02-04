@@ -17,6 +17,7 @@ class CreateSharePointMasterFoldersTable extends Migration
             $table->id();
             $table->string('name');
             $table->enum('status',['0','1'])->default('1');
+            $table->tinyInteger('is_final_delivery')->default(0);
             $table->timestamps();
         });
     }

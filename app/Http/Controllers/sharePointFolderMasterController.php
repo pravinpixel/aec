@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\sharePointMasterFolder;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class sharePointFolderMasterController extends Controller
 {
@@ -139,5 +140,13 @@ class sharePointFolderMasterController extends Controller
                 'msg'=>'folder deleted'
             ]);
         }
+    }
+
+
+    public function finalDelivery($id)
+    {
+        sharePointMasterFolder::find($id)->update(['is_final_delivery'=> 1]);
+        sharePointMasterFolder::where('id','!=',$id)->update(['is_final_delivery'=>0]);
+        return response(['status' => true, 'msg' =>__('Final delivery folder set successfully')], Response::HTTP_OK);
     }
 }
