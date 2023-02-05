@@ -144,28 +144,13 @@
                                 <h4 class="header-title text-uppercase">Total Sales</h4>
                                 <div class="card">
                                     <div class="card-header">
-                                        <div class="dropdown float-end ms-2">
-                                            <a href="#" class="dropdown-toggle arrow-none btn btn-light btn-xs border"
-                                                data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class="mdi mdi-dots-vertical"></i>
-                                            </a>
-                                            <div class="dropdown-menu dropdown-menu-end">
-                                                <!-- item-->
-                                                <a href="javascript:void(0);" class="dropdown-item">Weekly</a>
-                                                <!-- item-->
-                                                <a href="javascript:void(0);" class="dropdown-item">1 Monthly</a>
-                                                <!-- item-->
-                                                <a href="javascript:void(0);" class="dropdown-item">1 Quarter</a>
-                                                <!-- item-->
-                                                <a href="javascript:void(0);" class="dropdown-item">1 Year</a>
-                                            </div>
-                                        </div>
-                                        <select name="" id="" class="form-select float-end w-auto">
+                                       
+                                        <select onchange="totalSaleFilter()"  name="total_sale_filter" id="total_sale_filter" class="form-select float-end w-auto">
                                             <option value="">-- Choose -- </option>
-                                            <option value="" selected>1 Month</option>
-                                            <option value="">1 Quarter</option>
-                                            <option value="">1 Year</option>
-                                            <option value="">2 Years</option>
+                                            <option value="one_month" selected>1 Month</option>
+                                            <option value="one_quarter">1 Quarter</option>
+                                            <option value="one_year">1 Year</option>
+                                            <option value="two_year">2 Years</option>
                                         </select>
                                     </div>
                                     <div class="card-body">
@@ -180,29 +165,13 @@
                                 <h4 class="header-title text-uppercase">Sales by Customer</h4>
                                 <div class="card">
                                     <div class="card-header">
-                                        <div class="dropdown float-end ms-2">
-                                            <a href="#"
-                                                class="dropdown-toggle arrow-none btn btn-light btn-xs border"
-                                                data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class="mdi mdi-dots-vertical"></i>
-                                            </a>
-                                            <div class="dropdown-menu dropdown-menu-end">
-                                                <!-- item-->
-                                                <a href="javascript:void(0);" class="dropdown-item">Weekly</a>
-                                                <!-- item-->
-                                                <a href="javascript:void(0);" class="dropdown-item">1 Monthly</a>
-                                                <!-- item-->
-                                                <a href="javascript:void(0);" class="dropdown-item">1 Quarter</a>
-                                                <!-- item-->
-                                                <a href="javascript:void(0);" class="dropdown-item">1 Year</a>
-                                            </div>
-                                        </div>
-                                        <select name="" id="" class="form-select float-end w-auto">
+                                        
+                                        <select onchange="saleByCustomer()" name="sale_by_customer" id="sale_by_customer" class="form-select float-end w-auto">
                                             <option value="">-- Choose -- </option>
-                                            <option value="" selected>1 Month</option>
-                                            <option value="">1 Quarter</option>
-                                            <option value="">1 Year</option>
-                                            <option value="">2 Years</option>
+                                            <option value="one_month" selected>1 Month</option>
+                                            <option value="one_quarter">1 Quarter</option>
+                                            <option value="one_year">1 Year</option>
+                                            <option value="two_year">2 Years</option>
                                         </select>
                                     </div>
                                     <div class="card-body">
@@ -298,7 +267,7 @@
                                                 <a href="javascript:void(0);" class="dropdown-item">1 Year</a>
                                             </div>
                                         </div>
-                                        <select name="" id="" class="form-select float-end w-auto">
+                                        <select name="filter" id="" class="form-select float-end w-auto">
                                             <option value="">-- Choose -- </option>
                                             <option value="" selected>1 Month</option>
                                             <option value="">1 Quarter</option>
@@ -384,9 +353,8 @@
         });
     </script>
     <script>
-        var categories = {!! json_encode($category) !!}
-		var data = {!! json_encode($category_count) !!}
-        Highcharts.chart('sales-chart', {
+        const baseUrl = $("#baseurl").val();
+        var Highcharts =  Highcharts.chart('sales-chart', {
             chart: {
                 type: 'area'
             },
@@ -394,7 +362,7 @@
                 text: ''
             },
             xAxis: {
-                categories: categories
+                categories: []
             },
             yAxis: {
                 title: {
@@ -413,9 +381,23 @@
                 showInLegend: false,
                 name: 'Total Project',
                 color: '#008ffb',
-                data: data
+                data: []
             }]
         });
+       
+        function totalSaleFilter(){
+            let value = $("#total_sale_filter").val();
+            axios.post(`${baseUrl}admin/get-total-sales`,{filter: value}).then((response) => { 
+                var chart = $('#sales-chart').highcharts();
+                chart.xAxis[0].update({categories:response.data.category}, true);
+                chart.series[0].update({data:response.data.category_count}, true);
+                chart.redraw();
+            });
+        }
+       
+        $(function(){
+            totalSaleFilter();
+        })
     </script>
 
     <script>
@@ -485,20 +467,43 @@
             }
         };
 
-        var chart = new ApexCharts(document.querySelector("#customer-sales-chart"), options);
-        chart.render();
+        var sales_chart = new ApexCharts(document.querySelector("#customer-sales-chart"), options);
+        sales_chart.render();
+
+        // function saleByCustomer(){
+        //     let value = $("#sale-by-customer").val();
+        //     axios.post(`${baseUrl}admin/get-total-sales`,{filter: value}).then((response) => { 
+        //         sales_chart.updateOptions({
+        //             xaxis: {
+        //                 categories: response.data.sale_by_customer
+        //             },
+        //             series: [{
+        //                 data: response.data.sale_by_series
+        //             }],
+        //         });
+        //         sales_chart.render();
+        //     });
+        // }
+        // saleByCustomer();
     </script>
 
+
+
     <script>
+
+        var estimated_hours = {!! json_encode($estimated_hours) !!}
+		var customers = {!! json_encode($estimated_customers) !!}
+
+
         var options = {
             series: [{
-                name: 'Income',
+                name: 'Estimated Hours',
                 type: 'column',
-                data: [35, 40, 50, 30, 20, 60, 30, 10]
+                data: estimated_hours
             }, {
-                name: 'Revenue',
+                name: 'Actual Hours',
                 type: 'line',
-                data: [35, 20, 30, 30, 10, 50, 20, 8]
+                data: []
             }],
             chart: {
                 height: 312,
@@ -519,9 +524,7 @@
                 offsetX: 110
             },
             xaxis: {
-                categories: ['Customer 1', 'Customer 2', 'Customer 3', 'Customer 4', 'Customer 5', 'Customer 6',
-                    'Customer 7', 'Customer 8'
-                ],
+                categories: customers,
             },
             yaxis: [{
                     axisTicks: {
@@ -537,7 +540,7 @@
                         }
                     },
                     title: {
-                        text: " ",
+                        text: 'Hours',
                         style: {
                             color: '#008FFB',
                         }
