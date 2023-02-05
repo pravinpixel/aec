@@ -108,14 +108,14 @@
                 </div>
             </li> 
             @endif
-            @if(userHasAccess('project_schedule_index'))
+            <!-- @if(userHasAccess('project_schedule_index'))
             <li class="side-nav-item ">
                 <a href="#" class="side-nav-link">
                     <i class="fa fa-server" aria-hidden="true"></i>
                     <span> Projects Schedule </span>
                 </a> 
             </li> 
-            @endif
+            @endif -->
             @if(userRole()->slug == 'admin')
             <li class="side-nav-item {{ Route::is(["admin-employee-control-view","admin.employee-add","admin.employeeEdit"]) ? "menuitem-active" : ""}}">
                 <a data-bs-toggle="collapse" href="#Administration" aria-expanded="false" aria-controls="Administration" class="side-nav-link">
