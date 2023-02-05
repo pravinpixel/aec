@@ -200,6 +200,9 @@ class SharepointController extends Controller
 
     public function folderHasPermission(Request $request)
     {
+        if(Customer()) {
+            return response(['status' => true, 'msg' => __('grand access')]);
+        }
         $parentPath = $request->input('parentPath');
         $folderObj = sharePointMasterFolder::where('name','like','%'.$parentPath.'%')->first();
         if(is_null($folderObj)) {

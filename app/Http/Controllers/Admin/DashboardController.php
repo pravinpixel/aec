@@ -172,16 +172,6 @@ class DashboardController extends Controller
 
         $monthList = $this->getMonthListFromDate($fromDate, $toDate);
         $monthCount = [];
-        $projectCount = Project::whereBetween('created_at', [$fromDate, $toDate])
-            ->select(DB::raw('count(id) as id, DATE_FORMAT(created_at, "%Y-%b") AS projectDate'))
-            ->groupBy('projectDate')
-            ->pluck('id', 'projectDate');
-        $result['category'] = $monthList;
-        foreach ($monthList as $value) {
-            $monthCount[] = $projectCount[$value] ?? 0;
-        }
-        $result['category'] = $monthList;
-        $result['category_count'] = $monthCount;
 
         $sales = Project::join('invoice_plans', 'invoice_plans.project_id', '=','projects.id')
             ->join('customers', 'customers.id', '=','projects.customer_id')
@@ -194,6 +184,18 @@ class DashboardController extends Controller
 
         $result['sale_by_series'] = $sales->values();
         $result['sale_by_customer'] = $sales->keys();
+
+
+        $estimatedHours = Project::join('customers', 'customers.id', '=','projects.customer_id')
+            ->select(DB::raw('from_unixtime( SUM(TIMESTAMPDIFF(SECOND, start_date, delivery_date)), "%H:%i:%s") AS hours,
+            full_name'))
+            ->whereBetween('projects.created_at', [$fromDate, $toDate])
+            ->groupBy('customer_id')
+            ->pluck('hours','full_name');
+
+        $result['estimated_customers'] = $estimatedHours->keys();
+        $result['estimated_hours'] = $estimatedHours->values();
+
         $running_projects = Project::whereBetween('created_at', [$fromDate, $toDate])
                 ->whereIn('status', ['In-Progress','Live'])
                 ->select('progress_percentage',
@@ -204,10 +206,34 @@ class DashboardController extends Controller
         return view('admin.dashboard.project', with($result));
     }
 
-    public function totalSale()
+
+    public function getFromAndToDate($value)
     {
-        $fromDate = Carbon::now()->startOfYear();
-        $toDate = Carbon::now()->endOfYear();
+        switch ($value){
+            case 'one_quarter':
+                $fromDate = Carbon::now()->subMonth(3)->startOfMonth();
+                $toDate = Carbon::now()->endOfMonth();
+                break;
+            case 'one_year':
+                $fromDate = Carbon::now()->startOfYear();
+                $toDate = Carbon::now()->endOfYear();
+                break;
+            case 'two_year':
+                $fromDate = Carbon::now()->subYear(1)->startOfMonth();
+                $toDate = Carbon::now()->endOfMonth();
+                break;
+            default:
+                $fromDate = Carbon::now()->startOfMonth();
+                $toDate = Carbon::now()->endOfMonth();
+                break;
+        }
+        return [$fromDate, $toDate];
+    }
+
+    public function totalSale(Request $request)
+    {
+        $date = $request->input('filter');
+        list($fromDate, $toDate) = $this->getFromAndToDate($date);
         $monthList = $this->getMonthListFromDate($fromDate, $toDate);
         $monthCount = [];
         $projectCount = Project::whereBetween('created_at', [$fromDate, $toDate])
@@ -220,12 +246,13 @@ class DashboardController extends Controller
         }
         $result['category'] = $monthList;
         $result['category_count'] = $monthCount;
+        return $result;
     }
 
-    public function saleByCustomer()
+    public function saleByCustomer(Request $request)
      {
-        $fromDate = Carbon::now()->startOfYear();
-        $toDate = Carbon::now()->endOfYear();
+        $date = $request->input('filter');
+        list($fromDate, $toDate) = $this->getFromAndToDate($date);
         $sales = Project::join('invoice_plans', 'invoice_plans.project_id', '=','projects.id')
             ->join('customers', 'customers.id', '=','projects.customer_id')
             ->select(DB::raw('SUM(project_cost) as projectCost,
@@ -237,6 +264,7 @@ class DashboardController extends Controller
 
         $result['sale_by_series'] = $sales->values();
         $result['sale_by_customer'] = $sales->keys();
+        return $result;
      }
 
     public function getProjectSummary(Request $request)
