@@ -24,6 +24,7 @@ Route::group(['prefix' => 'live', 'middleware' => 'common'], function () {
     Route::get('/create-issue-variation/{issue_id?}', [LiveProjectController::class, 'create_issue_variation'])->name('live-project.create-issue-variation.ajax'); 
     Route::post('/store-issue-variation/{issue_id?}', [LiveProjectController::class, 'store_issue_variation'])->name('live-project.create-issue-variation'); 
     Route::get('/get-issue-variation/{id}', [LiveProjectController::class, 'variation_order'])->name('live-project.index-issue-variation.ajax'); 
+    Route::get('/show-variation-order/{id?}', [LiveProjectController::class, 'show_variation_order'])->name('live-project.show-variation.ajax');  
 });
 
 Route::group(['prefix' => 'admin', 'middleware' => 'common'], function () {
