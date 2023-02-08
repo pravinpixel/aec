@@ -1,6 +1,6 @@
 Message = function (type, head) {
     $("#alert").html(`
-        <div class="alert alert-custom alert-${type} fade show text-center" role="alert" data-bs-dismiss="alert" aria-label="Close">
+        <div class="alert alert-custom alert-${type} fade show center" role="alert" data-bs-dismiss="alert" aria-label="Close-text">
             <strong>${head}</strong>
         </div>
     `);
@@ -13,16 +13,20 @@ const notifications = document.querySelector(".notifications")
 const toastDetails = {
     timer: 5000,
     success: {
-        icon: 'fa-circle-check',
+        class:'success-text',
+        icon: 'fa-solid fa-circle-check',
     },
     error: {
-        icon: 'fa-circle-xmark',
+        class:'error-text',
+        icon: 'fa-solid fa-circle-xmark',
     },
     warning: {
-        icon: 'fa-triangle-exclamation',
+        class:'warning-text',
+        icon: 'fa-solid fa-triangle-exclamation',
     },
     info: {
-        icon: 'fa-circle-info',
+        class:'info-text',
+        icon: 'fa-solid fa-circle-info',
     }
 }
 
@@ -33,13 +37,12 @@ const Alert = {
         setTimeout(() => Toaster.remove(), 500); // Removing the toast after 500ms
     },
     createToast :function (type, message) {
-        const { icon } = toastDetails[type];
         const Toaster = document.createElement("li"); 
         Toaster.className = `shadow-lg border alert-toaster ${type}`;
         Toaster.innerHTML = `
             <div class="column">
-                <i class="fa-solid ${icon}"></i> 
-                <span><b>${message}</b></span> 
+                <i class="${toastDetails[type]['icon']}"></i> 
+                <span class="${toastDetails[type]['class']}"><b>${message}</b></span> 
             </div> 
             <i class="fa-solid fa-xmark" onclick="Alert.removeToast(this.parentElement)"></i>
         `;

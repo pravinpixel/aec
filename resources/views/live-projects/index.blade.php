@@ -9,8 +9,7 @@
         <div class="card-header bg-light">
             <nav class="wizard-nav">
                 @foreach ($wizard_menus as $menu)
-                    <a href="{{ route('live-project.menus-index', ['menu_type' => $menu['slug'], 'id' => session()->get('current_project')->id]) }}"
-                        class="wizard-tab {{ request()->route()->menu_type === $menu['slug'] ? 'active' : '' }}">
+                    <a href="{{ route('live-project.menus-index', ['menu_type' => $menu['slug'], 'id' => session()->get('current_project')->id]) }}"  class="wizard-tab {{ request()->route()->menu_type === $menu['slug'] ? 'active' : '' }}">
                         <div class="wizard-tab-icon">
                             {!! $menu['icon'] !!}
                         </div>
@@ -71,60 +70,6 @@
         @include('live-projects.modals.create-issue')
         @include('live-projects.modals.filter-issue')
         @include('live-projects.modals.detail-issue')     
-        <div id="convertToVariationModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="convertToVariationModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-right modal-dialog-scrollable" style="width: 50% !important"> 
-                <div class="modal-content h-100 w-100">
-                    <div class="modal-header">
-                        <h4 class="custom-modal-title" id="convertToVariationModalLabel">Convert to Variation Order</h4>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div>
-                            <div class="mb-3">
-                                <label class="form-label">Ticket Title </label>
-                                <input type="text" class="form-control">
-                            </div>
-                            <div class="row">
-                                <div class="col ps-0">
-                                    <div class="mb-3">
-                                        <label class="form-label">Project Name</label>
-                                        <input type="text" class="form-control" value="{{ Project()->project_name }}" readonly>
-                                    </div> 
-                                </div>
-                                <div class="col pe-0">
-                                    <div class="mb-3">
-                                        <label class="form-label">Client Name</label>
-                                        <input type="text" class="form-control" value="{{ Project()->project_name }}" readonly>
-                                    </div>
-                                </div>
-                            </div> 
-                            <div class="row">
-                                <div class="col ps-0">
-                                    <div class="mb-3">
-                                        <label class="form-label">Estimated Hours * </label>
-                                        <input type="text" class="form-control" >
-                                    </div>
-                                </div>
-                                <div class="col pe-0">
-                                    <div class="mb-3">
-                                        <label class="form-label">Price/Hr *</label>
-                                        <input type="text" class="form-control" >
-                                    </div>
-                                </div>
-                            </div> 
-
-                            <div class="mb-3">
-                                <label class="form-label">Description of Variation*</label>
-                                <textarea class="form-control" rows="10" spellcheck="false"></textarea>
-                            </div> 
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn-sm btn btn-outline-primary rounded-pill" data-bs-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn-sm btn btn-primary rounded-pill ms-1">Create</button>
-                    </div>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-        </div><!-- /.modal -->    
+        @include('live-projects.modals.variation-order')
     @endif
 @endsection

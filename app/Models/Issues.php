@@ -29,4 +29,9 @@ class Issues extends Model
     {
         return $this->hasMany(IssuesAttachments::class,'issue_id','id');
     }
+
+    public function VariationOrder()
+    {
+        return $this->hasOne(VariationOrder::class,'issue_id','id');
+    }
 }

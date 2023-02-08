@@ -87,7 +87,21 @@
   --alert-warning: #E9BD0C;
   --alert-info: #3498DB;
 }
-
+.success-text {
+  color: var(--alert-success);
+}
+.error-text {
+  color: var(--alert-error);
+}
+.info-text {
+  color: var(--alert-info);
+}
+.warning-text {
+  color: var(--alert-warning);
+}
+.success-text {
+  color: var(--alert-success);
+}
 .notifications {
   position: fixed;
   top: 30px;
