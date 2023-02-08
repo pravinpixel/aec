@@ -42,7 +42,7 @@
                 <th>Due Date</th> 
                 <th width="100px">Status</th>
                 <th>Request Date</th>                
-                <th>Action</th>
+                <th class="text-center">Action</th>
             </tr>
         </thead>
         <tbody></tbody>
@@ -228,9 +228,16 @@
                     }
                 })
             }
-            convertVariation = (id) =>  {
+            convertVariation = (id,element) =>  {
                 $('#detail-issue-modal').modal('hide')
-                $('#convertToVariationModal').modal('show')
+                startLoader(element)
+                axios.get(`{{ route('live-project.create-issue-variation.ajax') }}/${id}`).then((response) => { 
+                    $('#create-variation-order').modal('show')
+                    $('#create-variation-order-content').html(response.data.view)
+                    if(response.data) {
+                        stopLoader(element)
+                    }
+                })
             }
         });
     </script>
