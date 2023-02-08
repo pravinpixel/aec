@@ -280,8 +280,8 @@ class LiveProjectController extends Controller
         $variations = VariationOrder::with('Issues')->where('project_id',$id)->select('*');
         $table      = DataTables::of($variations->get());
         $table->addIndexColumn(); 
-        $table->addColumn('issue_id', function($row){ // '.Project()->reference_number.'
-            return '<button type="button" class="btn-quick-view bg-warning fw-bold shadow-none border-dark border text-dark" onclick="showIssue('.$row->issue_id.' , this)" >'.$row->Issues->issue_id.'</button>';
+        $table->addColumn('variation_id', function($row){ // '.Project()->reference_number.'
+            return '<button type="button" class="btn-quick-view bg-warning fw-bold shadow-none border-dark border text-dark" onclick="showVariationOrder('.$row->id.' , this)" >'.$row->Issues->issue_id.'/VO/'.$row->id.'</button>';
         });
         $table->addColumn('date_time', function($row){ 
             return $row->created_at;
@@ -289,7 +289,14 @@ class LiveProjectController extends Controller
         $table->addColumn('action', function($row){
             return  '<i class="fa fa-trash text-danger"></i>';
         });
-        $table->rawColumns(['action','issue_id','date_time']);
+        $table->rawColumns(['action','variation_id','date_time']);
         return $table->make(true);
+    }
+    public function show_variation_order($id) {
+        $variation = VariationOrder::with('Issues')->find($id);
+        $view  = view('live-projects.templates.show-variation-order',compact('variation'));
+        return response([
+            "view"  => "$view",
+        ]);
     }
 }
