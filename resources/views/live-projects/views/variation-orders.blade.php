@@ -2,10 +2,10 @@
     <table class="table table-bordred table-sm table-centered border table-hover" id="variation-order-table">
         <thead>
             <tr class="bg-light-2"> 
-                <th>#Issue Id</th>
+                <th>#Issue Variation Id</th>
                 <th>Title</th>
                 <th>Hours</th>
-                <th>Price</th>
+                <th>Price (kr)</th>
                 <th>Date & Time</th> 
                 <th class="text-center">Action</th>
             </tr>
@@ -13,7 +13,6 @@
         <tbody></tbody>
     </table>
 </div>
-
 @push('live-project-custom-styles')
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.2/css/buttons.dataTables.min.css">
@@ -35,7 +34,7 @@
                     }
                 },
                 columns: [
-                    { data:'issue_id', name:'issue_id'},
+                    { data:'variation_id', name:'variation_id'},
                     { data:'title', name:'title'},
                     { data:'hours', name:'hours'},
                     { data:'price', name:'price'},
@@ -45,5 +44,13 @@
             });
         }
         FatchTable(null)
+        showVariationOrder = (id, element) => {
+            startLoader(element)
+            axios.get(`{{ route('live-project.show-variation.ajax') }}/${id}`).then((response) => { 
+                $('#detail-variation-modal').modal('show')
+                $('#detail-variation-modal-content').html(response.data.view)
+                stopLoader(element)
+            })
+        }
     </script>
 @endpush
