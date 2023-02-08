@@ -16,6 +16,7 @@ class CreateVariationOrdersTable extends Migration
         Schema::create('variation_orders', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('issue_id');
+            $table->integer('project_id');
             $table->string('title');
             $table->string('hours');
             $table->string('price');

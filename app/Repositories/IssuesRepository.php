@@ -10,7 +10,7 @@ class IssuesRepository {
         $this->Project = $Project;
     }
     public function store($request,$id)
-    { 
+    {
         $Issues =  $this->Project->findOrFail($id); 
         $created_issue = $Issues->Issues()->create([
             "issue_id"      =>  'TIK/' . date('Y') . '/' . (count($Issues->Issues) + 1),
