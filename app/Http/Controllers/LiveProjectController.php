@@ -287,16 +287,27 @@ class LiveProjectController extends Controller
             return $row->created_at;
         });
         $table->addColumn('action', function($row){
-            return  '<i class="fa fa-trash text-danger"></i>';
+            return '
+                <span onclick="showVariationOrder('.$row->id.',this)" title="View" class="mx-1"><i class="fa fa-eye text-success"></i></span>
+                <i onclick="deleteVariationOrder('.$row->id.',this)" title="Delete" class="fa fa-trash text-danger"></i>
+            ';
         });
         $table->rawColumns(['action','variation_id','date_time']);
         return $table->make(true);
     }
     public function show_variation_order($id) {
         $variation = VariationOrder::with('Issues')->find($id);
-        $view  = view('live-projects.templates.show-variation-order',compact('variation'));
+        $view = view('live-projects.templates.show-variation-order',compact('variation'));
         return response([
             "view"  => "$view",
         ]);
+    }
+    public function delete_variation_order($id) {
+        $variation = VariationOrder::find($id);
+        if($variation->delete()) {
+            return response([
+                "status"  => true,
+            ]);
+        }
     }
 }
