@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Issues;
 use App\Models\LiveProjectSubSubTasks;
-use App\Models\LiveProjectSubTasks; 
+use App\Models\LiveProjectSubTasks;
+use App\Models\VariationOrder;
 use App\Repositories\LiveProjectRepository;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -136,10 +137,10 @@ class LiveProjectController extends Controller
             "progress" => "$result",
         ]);
     }
-    public function issues(Request $request)
+    public function issues(Request $request,$id)
     {
         if($request->ajax()) { 
-            $Issues = Issues::with('VariationOrder')->select('*');
+            $Issues = Issues::with('VariationOrder')->where('project_id',$id)->select('*');
             if($request->filters) {
                 $Issues->when(isset($request->filters['Priority']),function($q) use ($request) {
                     $q->where('priority',$request->filters['Priority']);
@@ -164,6 +165,12 @@ class LiveProjectController extends Controller
             }
             $table = DataTables::of($Issues);
             $table->addIndexColumn(); 
+            $table->addColumn('issue_id', function($row){ // '.Project()->reference_number.'
+                if(is_null($row->VariationOrder)) {
+                    return '<button type="button" class="btn-quick-view" onclick="showIssue('.$row->id.' , this)" >'.$row->issue_id.'</button>';
+                }
+                return '<button type="button" class="btn-quick-view bg-warning fw-bold shadow-none border-dark border text-dark" onclick="showIssue('.$row->id.' , this)" >'.$row->issue_id.'</button>';
+            });
             $table->addColumn('issue_type', function($row){
                 if($row->type == 'INTERNAL') {
                     return '<small class="badge bg-danger rounded-pill"><i style="transform: rotate(-45deg)" class="fa fa-ticket" aria-hidden="true"></i> Internal</small>';
@@ -176,10 +183,7 @@ class LiveProjectController extends Controller
             });
             $table->addColumn('title_type', function($row){ 
                 return Str::limit($row->title,28,' ...');
-            });
-            $table->addColumn('issue_id', function($row){ // '.Project()->reference_number.'
-                return '<button type="button" class="btn-quick-view" onclick="showIssue('.$row->id.' , this)" >'.$row->issue_id.'</button>';
-            });
+            }); 
             $table->addColumn('status_type', function($row){  
                 return '
                     <select name="Status" onchange="ChangeIssueStatus('.$row->id.',this)" class="rounded-pill shadow-sm border border-light" value="'.$row->ststus.'" style="outline:none">
@@ -255,7 +259,13 @@ class LiveProjectController extends Controller
     { 
         $issue = Issues::with('VariationOrder')->find($id);
         if(is_null($issue->VariationOrder)) {
-            $issue->VariationOrder()->create($request->all());
+            $issue->VariationOrder()->create([
+                'project_id'  => $issue->project_id,
+                'title'       => $request->title,
+                'hours'       => $request->hours,
+                'price'       => $request->price,
+                'description' => $request->description
+            ]);
             Flash::success('Variation Order Created !');
             $menu_type = 'variation-orders';
         } else {
@@ -265,5 +275,21 @@ class LiveProjectController extends Controller
             'menu_type' => $menu_type ?? session()->get('menu_type'),
             'id'        => session()->get('current_project')->id]
         );
+    }
+    public function variation_order($id) {
+        $variations = VariationOrder::with('Issues')->where('project_id',$id)->select('*');
+        $table      = DataTables::of($variations->get());
+        $table->addIndexColumn(); 
+        $table->addColumn('issue_id', function($row){ // '.Project()->reference_number.'
+            return '<button type="button" class="btn-quick-view bg-warning fw-bold shadow-none border-dark border text-dark" onclick="showIssue('.$row->issue_id.' , this)" >'.$row->Issues->issue_id.'</button>';
+        });
+        $table->addColumn('date_time', function($row){ 
+            return $row->created_at;
+        });
+        $table->addColumn('action', function($row){
+            return  '<i class="fa fa-trash text-danger"></i>';
+        });
+        $table->rawColumns(['action','issue_id','date_time']);
+        return $table->make(true);
     }
 }
