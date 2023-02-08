@@ -55,5 +55,10 @@
         @stack('live-project-custom-scripts')
         @if (session()->get('success'))<script>Alert.success("{{ session()->get('success') }}")</script>@endif
         @if (session()->get('danger'))<script>Alert.danger("{{ session()->get('danger') }}")</script>@endif
+        @if (session()->get('flash_notification'))
+            @foreach (session()->get('flash_notification')->toArray() as $message)
+                <script>Alert.{{ $message['level'] == 'danger' ? 'error' : $message['level'] }}("{!! $message['message'] !!}")</script> 
+            @endforeach
+        @endif
     </body>
 </html>

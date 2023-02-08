@@ -5,9 +5,8 @@ use App\Models\Admin\Employees;
 use App\Models\Customer;
 use App\Models\ProjectTeamSetup;
 use App\Models\Role;
-use App\Models\User;
-use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Illuminate\Support\Facades\Storage;
+use Random\Randomizer;
 
 if (!function_exists('getTeamByProjectId')) {
     function getTeamByProjectId($id)
@@ -71,7 +70,12 @@ if (!function_exists('getFileType')) {
     function getFileType($file)
     { 
         $file_type = '.'.ucfirst(explode('/',Storage::mimeType($file))[1]); 
-        return $file_type == '.Vnd.openxmlformats-officedocument.spreadsheetml.sheet' ? '.xlsx' : $file_type;
+        if($file_type == '.Vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
+            return '.xlsx';
+        } elseif($file_type == '.Svg+xml') {
+            return '.svg';
+        }
+        return $file_type ;
     }
 }
 
@@ -104,7 +108,16 @@ if(!function_exists('select_status')) {
 if(!function_exists('color')) {
     function color()
     {
-        return 'rgb(' . rand(0, 255) . ',' . rand(0, 255) . ',' . rand(0, 255) . ')'; #using the inbuilt random function
+        $input = array(
+            "#5D3891",
+            "#D61355",
+            "#F2921D",
+            "#A61F69",
+            "#00425A",
+            "#301E67",
+            "#0081B4",
+        );
+        return $input[array_rand($input)];
     }
 }
 if(!function_exists('getUser')) {

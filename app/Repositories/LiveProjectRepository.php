@@ -10,7 +10,6 @@ use App\Models\LiveProjectSubTasks;
 use App\Models\LiveProjectTasks;
 use App\Models\Project; 
 use App\Repositories\IssuesRepository;
-use Laracasts\Flash\Flash;
 
 class LiveProjectRepository implements LiveProjectInterFace
 {
@@ -51,6 +50,7 @@ class LiveProjectRepository implements LiveProjectInterFace
                 break;
         }
         session()->put('current_project', $project);
+        session()->put('menu_type', $menu_type);
         $wizard_menus = config('live-project.wizard_menus');  
         return view('live-projects.index', compact('wizard_menus', "project", $project)); 
     }

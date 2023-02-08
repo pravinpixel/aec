@@ -9,6 +9,7 @@ use App\Repositories\LiveProjectRepository;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Laracasts\Flash\Flash;
 use Yajra\DataTables\DataTables;
 
 class LiveProjectController extends Controller
@@ -138,7 +139,7 @@ class LiveProjectController extends Controller
     public function issues(Request $request)
     {
         if($request->ajax()) { 
-            $Issues = Issues::select('*');
+            $Issues = Issues::with('VariationOrder')->select('*');
             if($request->filters) {
                 $Issues->when(isset($request->filters['Priority']),function($q) use ($request) {
                     $q->where('priority',$request->filters['Priority']);
@@ -201,9 +202,12 @@ class LiveProjectController extends Controller
                 }
             });
             $table->addColumn('action', function($row){
-                return '
-                    <i class="fa fa-share btn-outline-danger" onclick="convertVariation('.$row->id.',this)" title="Convert to variation Order"></i>
-                    <span onclick="showIssue('.$row->id.',this)" title="View" class="mx-1"><i class="fa fa-eye text-success"></i></span>
+                if(is_null($row->VariationOrder)) {
+                    $btnConvert = '<span onclick="convertVariation('.$row->id.',this)" title="Convert to variation Order" class="mx-1"><i class="fa fa-share text-warning"></i></span>';
+                } else {
+                    $btnConvert = '<span title="Variation Order Already Exist" class="mx-1"><i class="fa fa-share text-secondary" style="cursor: not-allowed !important"></i></span>';
+                }
+                return $btnConvert.'<span onclick="showIssue('.$row->id.',this)" title="View" class="mx-1"><i class="fa fa-eye text-success"></i></span>
                     <i onclick="deleteIssue('.$row->id.',this)" title="Delete" class="fa fa-trash text-danger"></i>
                 ';
             });
@@ -216,6 +220,14 @@ class LiveProjectController extends Controller
     {
         $issue = Issues::with('IssuesAttachments')->find($id);
         $view  = view('live-projects.templates.issues-model',compact('issue'));
+        return response([
+            "view"  => "$view",
+        ]);
+    }
+    public function create_issue_variation($id)
+    {
+        $issue = Issues::find($id);
+        $view  = view('live-projects.templates.create-variation',compact('issue'));
         return response([
             "view"  => "$view",
         ]);
@@ -238,5 +250,20 @@ class LiveProjectController extends Controller
         return Issues::find($id)->update([
             "status" =>$request->status
         ]);
+    }
+    public function store_issue_variation(Request $request,$id)
+    { 
+        $issue = Issues::with('VariationOrder')->find($id);
+        if(is_null($issue->VariationOrder)) {
+            $issue->VariationOrder()->create($request->all());
+            Flash::success('Variation Order Created !');
+            $menu_type = 'variation-orders';
+        } else {
+            Flash::error('Variation Order Already Exist !');
+        }
+        return redirect()->route('live-project.menus-index', [
+            'menu_type' => $menu_type ?? session()->get('menu_type'),
+            'id'        => session()->get('current_project')->id]
+        );
     }
 }
