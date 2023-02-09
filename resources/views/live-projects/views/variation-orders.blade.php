@@ -40,14 +40,33 @@
             });
         }
         FatchTable(null)
+        FectVariationVersionTable = (id) => {
+            $('#variation-versions-table').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    url: `{{ route('live-project.variation-version.ajax') }}/${id}`,
+                },
+                columns: [
+                    { data:'id', name:'id'},
+                    { data:'title', name:'title'},
+                    { data:'hours', name:'hours'},
+                    { data:'price', name:'price'},
+                    { data:'status', name:'status'},
+                    { data: 'action', name: 'action', orderable: false, searchable: false }
+                ]
+            });
+        }
         showVariationOrder = (id, element) => {
             startLoader(element)
             axios.get(`{{ route('live-project.show-variation.ajax') }}/${id}`).then((response) => { 
                 $('#detail-variation-modal').modal('show')
                 $('#detail-variation-modal-content').html(response.data.view)
+                FectVariationVersionTable(id)
                 stopLoader(element)
             })
         }
+        
         deleteVariationOrder = (id) => {  
             swalWithBootstrapButtons.fire({
                 title: 'Are you sure?',

@@ -6,6 +6,7 @@ use App\Models\Issues;
 use App\Models\LiveProjectSubSubTasks;
 use App\Models\LiveProjectSubTasks;
 use App\Models\VariationOrder;
+use App\Models\VariationOrderVersions;
 use App\Repositories\LiveProjectRepository;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -312,5 +313,31 @@ class LiveProjectController extends Controller
                 "status"  => true,
             ]);
         }
+    }
+    public function variation_version($id) {
+        $variations = VariationOrderVersions::where('variation_id',$id)->select('*');
+        $table  = DataTables::of($variations->get());
+        $table->addIndexColumn(); 
+        $table->addColumn('status', function($row){
+            return '<span class="badge bg-primary rounded-pill">New VO</span>';
+        });
+        $table->addColumn('action', function($row){
+            return '
+                <div class="dropdown btn-group">
+                    <button class="btn btn-light border btn-sm shadow-sm" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-end">
+                    <a class="dropdown-item" href="#"><i class="fa fa-clone me-1"></i> Duplicate</a>
+                        <a class="dropdown-item" href="#"><i class="fa fa-eye me-1"></i> View / Edit</a>
+                        <a class="dropdown-item" href="#"><i class="fa fa-envelope me-1"></i> Send</a>
+                        <a class="dropdown-item" href="#"><i class="fa fa-commenting me-1"></i> Chart</a>
+                        <a class="dropdown-item text-danger" href="#"><i class="fa fa-trash me-1"></i> Delete</a>
+                    </div>
+                </div>
+            ';
+        });
+        $table->rawColumns(['action','status']);
+        return $table->make(true);
     }
 }
