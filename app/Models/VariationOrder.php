@@ -9,7 +9,7 @@ class VariationOrder extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'project_id' 
+        'project_id',
     ];
     
     public function Issues(){
