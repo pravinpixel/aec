@@ -33,7 +33,6 @@
         </span>
     @endif
 @endif
-
 @if($status != 'CHAT_ICON')
     <div id="viewMyInbox{{ $menuName }}" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" data-bs-backdrop="static" style="background: #1313136e">
         <div class="modal-dialog shadow-sm border-start modal-md-2 modal-right w-100">
@@ -75,8 +74,14 @@
     <button type="button"  class="btn-sm btn btn-success position-relative" onclick="PreviousChatHistory(this, '{{ $moduleId }}', '{{ $moduleName }}' , '{{ $menuName }}' )" data-bs-toggle="modal" data-bs-target="#viewMyInbox{{ $menuName }}">
         <i class="fa fa-send me-1"></i>
         <span class="cost_estimate_comments_ul">
-            Send a Comments {{ $status }}
+            Send a Comments
         </span>
+        {!! getModuleMenuMessagesCount($moduleName, $moduleId, $menuName , 'element') !!}
+    </button>
+@endif
+@if ($status == 'CHAT_LINK_ICON')
+    <button type="button" class="btn-sm btn px-1 btn-light border text-primary position-relative" onclick="PreviousChatHistory(this, '{{ $moduleId }}', '{{ $moduleName }}' , '{{ $menuName }}' )" data-bs-toggle="modal" data-bs-target="#viewMyInbox{{ $menuName }}">
+        <i class="fa fa-commenting"></i> 
         {!! getModuleMenuMessagesCount($moduleName, $moduleId, $menuName , 'element') !!}
     </button>
 @endif
