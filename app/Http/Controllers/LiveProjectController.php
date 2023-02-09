@@ -319,7 +319,9 @@ class LiveProjectController extends Controller
         $table  = DataTables::of($variations->get());
         $table->addIndexColumn();   
         $table->addColumn('status', function($row){
-            return '<span class="badge bg-primary rounded-pill">New VO</span>';
+            if($row->status == 'NEW') {
+                return '<span class="badge bg-primary rounded-pill">New</span>';
+            }
         });
         $table->addColumn('action', function($row){
             return '
@@ -328,16 +330,39 @@ class LiveProjectController extends Controller
                         <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
                     </button>
                     <div class="dropdown-menu dropdown-menu-end">
-                    <a class="dropdown-item" href="#"><i class="fa fa-clone me-1"></i> Duplicate</a>
-                        <a class="dropdown-item" href="#"><i class="fa fa-eye me-1"></i> View / Edit</a>
-                        <a class="dropdown-item" href="#"><i class="fa fa-envelope me-1"></i> Send</a>
-                        <a class="dropdown-item" href="#"><i class="fa fa-commenting me-1"></i> Chart</a>
-                        <a class="dropdown-item text-danger" href="#"><i class="fa fa-trash me-1"></i> Delete</a>
+                        <button onclick=ViewVersion('.$row->id.',"DUPLICATE") class="dropdown-item"><i class="fa fa-clone me-1"></i> Duplicate</button>
+                        <button onclick=ViewVersion('.$row->id.',"VIEW_OR_EDIT") class="dropdown-item"><i class="fa fa-eye me-1"></i> View / Edit</button>
+                        <button onclick="SendMailVersion('.$row->id.')" class="dropdown-item"><i class="fa fa-envelope me-1"></i> Send</button>
+                        <button onclick="ChartVersion('.$row->id.')" class="dropdown-item"><i class="fa fa-commenting me-1"></i> Chat</button>
+                        <button onclick="DeleteVersion('.$row->id.')" class="dropdown-item text-danger"><i class="fa fa-trash me-1"></i> Delete</button>
                     </div>
                 </div>
             ';
         });
         $table->rawColumns(['action','status']);
         return $table->make(true);
+    }
+    public function view_version($id,$mode) {
+        $variation = VariationOrderVersions::find($id);
+        $view = view('live-projects.templates.view-variation-version',compact('variation','mode'));
+        return response([
+            "view"  => "$view",
+        ]); 
+    }
+    
+    public function  store_version(Request $request,$id,$mode) {
+        if($mode === 'DUPLICATE') { 
+            $variations         = VariationOrder::with('VariationOrderVersions')->find(VariationOrderVersions::find($id)->variation_id);
+            $totalVersion       = count($variations->VariationOrderVersions) + 1;
+            $request['version'] = 'V '. $totalVersion;
+            VariationOrderVersions::create($request->all());
+        } elseif($mode === 'VIEW_OR_EDIT') {
+            VariationOrderVersions::find($id)->update($request->all());
+        }
+        return response([
+            "status" => true,
+            "message" => 'Changes Saved!',
+            "variation_id" => $request->variation_id
+        ]);
     }
 }

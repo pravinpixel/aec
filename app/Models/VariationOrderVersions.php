@@ -11,6 +11,7 @@ class VariationOrderVersions extends Model
 
     protected $fillable = [
         'version',
+        'variation_id',
         'project_id',
         'title',
         'hours',

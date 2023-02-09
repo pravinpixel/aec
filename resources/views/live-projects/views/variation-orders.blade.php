@@ -66,8 +66,7 @@
                 FectVariationVersionTable(id)
                 stopLoader(element)
             })
-        }
-        
+        } 
         deleteVariationOrder = (id) => {  
             swalWithBootstrapButtons.fire({
                 title: 'Are you sure?',
@@ -90,6 +89,27 @@
                     }) 
                 }
             })
+        }
+        ViewVersion = (id, mode) => {
+            axios.get(`{{ route("live-project.view-version.ajax") }}/${id}/${mode}`).then((response) => {
+                $('#detail-variation-modal').modal('hide')
+                $('#create-variation-order').modal('show')
+                $('#create-variation-order-content').html(response.data.view)
+            });
+        }
+        StoreVersion  = (id, mode, element) => {
+            event.preventDefault(); 
+            const formData = new FormData(element)
+            var version_data = {}
+            for (const pair of formData.entries()) {
+                version_data = {...version_data,[pair[0]]:pair[1]}
+            }
+            axios.post(`{{ route("live-project.store-version.ajax") }}/${id}/${mode}`,version_data).then((response) => {
+                $('#variation-versions-table').DataTable().destroy();
+                FectVariationVersionTable(response.data.variation_id)
+                $('#create-variation-order').modal('hide')
+                $('#detail-variation-modal').modal('show')
+            });
         }
     </script>
 @endpush
