@@ -186,7 +186,7 @@
                         </div>
                         <div class="custom-td custom-td-sm">
                             <div class="custom-row  text-center p-0">
-                                <input type="number" get-cost-details-total="[index]" onkeypress="return isNumber(event)"
+                                <input type="number" ng-disabled="C.type_id != 5" get-cost-details-total="[index]" onkeypress="return isNumber(event)"
                                     name="C.Rib.Sum" ng-model="C.Rib.Sum" ng-value="C.Rib.Sum"
                                     class="form-control  rounded-0 text-center form-control-sm">
                             </div>
