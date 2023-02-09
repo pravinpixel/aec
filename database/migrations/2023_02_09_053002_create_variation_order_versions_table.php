@@ -20,6 +20,7 @@ class CreateVariationOrderVersionsTable extends Migration
             $table->string('title');
             $table->string('hours');
             $table->string('price');
+            $table->string('status');
             $table->longText('description');
             $table->foreign('variation_id')->references('id')->on('variation_orders')->onDelete('cascade');
             $table->timestamps();
