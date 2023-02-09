@@ -9,14 +9,13 @@ class VariationOrder extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'project_id',
-        'title',
-        'hours',
-        'price',
-        'description'
+        'project_id' 
     ];
     
     public function Issues(){
         return $this->belongsTo(Issues::class,'issue_id','id');
+    }
+    public function VariationOrderVersions(){
+        return $this->hasMany(VariationOrderVersions::class,'variation_id','id');
     }
 }

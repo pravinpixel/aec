@@ -259,7 +259,10 @@ class LiveProjectController extends Controller
     { 
         $issue = Issues::with('VariationOrder')->find($id);
         if(is_null($issue->VariationOrder)) {
-            $issue->VariationOrder()->create([
+            $VariationOrder = $issue->VariationOrder()->create([
+                'project_id'  => $issue->project_id
+            ]);
+            $VariationOrder->VariationOrderVersions()->create([
                 'project_id'  => $issue->project_id,
                 'title'       => $request->title,
                 'hours'       => $request->hours,
@@ -280,19 +283,19 @@ class LiveProjectController extends Controller
         $variations = VariationOrder::with('Issues')->where('project_id',$id)->select('*');
         $table      = DataTables::of($variations->get());
         $table->addIndexColumn(); 
-        $table->addColumn('variation_id', function($row){ // '.Project()->reference_number.'
+        $table->addColumn('variation_id', function($row){
             return '<button type="button" class="btn-quick-view bg-warning fw-bold shadow-none border-dark border text-dark" onclick="showVariationOrder('.$row->id.' , this)" >'.$row->Issues->issue_id.'/VO/'.$row->id.'</button>';
         });
-        $table->addColumn('date_time', function($row){ 
-            return $row->created_at;
+        $table->addColumn('total_versions', function($row){ 
+            return 1;
         });
         $table->addColumn('action', function($row){
             return '
-                <span onclick="showVariationOrder('.$row->id.',this)" title="View" class="mx-1"><i class="fa fa-eye text-success"></i></span>
-                <i onclick="deleteVariationOrder('.$row->id.',this)" title="Delete" class="fa fa-trash text-danger"></i>
+                <span onclick="showVariationOrder('.$row->id.',this)" title="View" class="mx-1 text-success"><i class="fa fa-eye"></i></span>
+                <span onclick="deleteVariationOrder('.$row->id.',this)" title="Delete" class="mx-1"><i class="fa fa-trash text-danger"></i></span>
             ';
         });
-        $table->rawColumns(['action','variation_id','date_time']);
+        $table->rawColumns(['action','variation_id']);
         return $table->make(true);
     }
     public function show_variation_order($id) {

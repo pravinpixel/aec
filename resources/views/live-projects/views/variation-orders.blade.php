@@ -4,9 +4,7 @@
             <tr class="bg-light-2"> 
                 <th>#Issue Variation Id</th>
                 <th>Title</th>
-                <th>Hours</th>
-                <th>Price (kr)</th>
-                <th>Date & Time</th> 
+                <th>Total Versions</th> 
                 <th class="text-center">Action</th>
             </tr>
         </thead>
@@ -34,11 +32,9 @@
                     }
                 },
                 columns: [
-                    { data:'variation_id', name:'variation_id'},
-                    { data:'title', name:'title'},
-                    { data:'hours', name:'hours'},
-                    { data:'price', name:'price'},
-                    { data:'date_time', name:'date_time'},
+                    { data:'issues.issue_id', name:'issues.issue_id'},
+                    { data:'issues.title', name:'issues.title'},
+                    { data:'total_versions', name:'total_versions'},
                     { data: 'action', name: 'action', orderable: false, searchable: false }
                 ]
             });

@@ -16,13 +16,16 @@
                 <div class="card d-block shadow-sm border h-100 m-0">
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center mb-2">
-                            <h4 class=""> {{ $variation->Issues->issue_id.'/VO/'.$variation->id }} | <span class="text-primary">{{ $variation->title }}</span></h4>
+                            <h4 class=""> {{ $variation->Issues->issue_id.'/VO/'.$variation->id }} | <span class="text-primary">{{ $variation->Issues->title }}</span></h4>
                         </div>
                         <div class="mb-3">
                             <b>Estimated Hours </b> : <span>{{ $variation->hours  }}</span>
                         </div>
                         <div class="mb-3">
                             <b>Price/Hr</b> : <span>{{ $variation->price }} Kr</span>
+                        </div>
+                        <div class="mb-3">
+                            <b>Total Price</b> : <span>{{ $variation->price * $variation->hours }} Kr</span>
                         </div>
                         <h5>Issue Descriptions:</h5>
                         <p> {{ $variation->description }}</p>

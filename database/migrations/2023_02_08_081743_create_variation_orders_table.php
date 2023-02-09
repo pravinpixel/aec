@@ -17,10 +17,6 @@ class CreateVariationOrdersTable extends Migration
             $table->id();
             $table->unsignedBigInteger('issue_id');
             $table->integer('project_id');
-            $table->string('title');
-            $table->string('hours');
-            $table->string('price');
-            $table->longText('description');
             $table->foreign('issue_id')->references('id')->on('issues')->onDelete('cascade');
             $table->timestamps();
         });
