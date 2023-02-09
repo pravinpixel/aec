@@ -8,29 +8,31 @@
     <div class="modal-body">
         <div class="mb-3">
             <label class="form-label">Title </label>
-            <input type="text" name="title" class="form-control"  value="{{ $variation->title }}" required>
+            <input type="text" name="title" class="form-control"  value="{{ $variation->title }}" required {{ $mode == 'VIEW' ? 'readonly' : '' }}>
         </div>
         <div class="mb-3">
             <label class="form-label">Description of Variation*</label>
-            <textarea class="form-control" name="description" rows="10" spellcheck="false" required>{{ $variation->description }}</textarea>
+            <textarea class="form-control" name="description" rows="10" spellcheck="false" required {{ $mode == 'VIEW' ? 'readonly' : '' }}>{{ $variation->description }}</textarea>
         </div>
         <div class="row m-0">
             <div class="col ps-0">
                 <div class="mb-3">
                     <label class="form-label">Estimated Hours * </label>
-                    <input type="number" class="form-control" name="hours" value="{{ $variation->hours }}" required>
+                    <input type="number" class="form-control" name="hours" value="{{ $variation->hours }}" required {{ $mode == 'VIEW' ? 'readonly' : '' }}>
                 </div>
             </div>
             <div class="col pe-0">
                 <div class="mb-3">
                     <label class="form-label">Price/Hr *</label>
-                    <input type="number" class="form-control" name="price" value="{{ $variation->price }}" required>
+                    <input type="number" class="form-control" name="price" value="{{ $variation->price }}" required {{ $mode == 'VIEW' ? 'readonly' : '' }}>
                 </div>
             </div>
         </div>
     </div>
-    <div class="modal-footer">
-        <button type="button" class="btn-sm btn btn-outline-primary rounded-pill" data-bs-dismiss="modal" onclick="$('#detail-variation-modal').modal('show')">Cancel</button>
-        <button type="submit" class="btn-sm btn btn-primary rounded-pill ms-1">Create</button>
-    </div>
+    @if($mode == 'EDIT' || $mode == 'DUPLICATE')
+        <div class="modal-footer">
+            <button type="button" class="btn-sm btn btn-outline-primary rounded-pill" data-bs-dismiss="modal" onclick="$('#detail-variation-modal').modal('show')">Cancel</button>
+            <button type="submit" class="btn-sm btn btn-primary rounded-pill ms-1">Save Changes</button>
+        </div>
+    @endif
 </form>

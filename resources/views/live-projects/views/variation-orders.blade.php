@@ -135,5 +135,8 @@
                 }
             })
         }
+        SendMailVersion = (id) => {
+            alert('Under development ...')
+        }
     </script>
 @endpush

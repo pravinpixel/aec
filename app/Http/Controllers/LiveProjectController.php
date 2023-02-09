@@ -328,15 +328,16 @@ class LiveProjectController extends Controller
             $status     = "CHAT_LINK_ICON";
             $moduleName = "project";
             $moduleId   = $row->project_id;
-            $menuName   = "VEARIATION_ORDER_".str_replace(' ','_',$row->version);
-            $chatButton = new ChatBox($status,$moduleName,$moduleId,$menuName); 
+            $menuName   = "VARIATION_ORDER_".str_replace(' ','_',$row->version);
+            $chatButton = new ChatBox($status,$moduleName,$moduleId,$menuName);
             return '<div class="dropdown btn-group">
                         <button class="btn btn-sm btn-light border" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
                         </button>
                         <div class="dropdown-menu dropdown-menu-end"> 
+                            <button onclick=ViewVersion('.$row->id.',"VIEW") class="dropdown-item"><i class="fa fa-eye me-1"></i> View </button>
+                            <button onclick=ViewVersion('.$row->id.',"EDIT") class="dropdown-item"><i class="fa fa-pen me-1"></i> Edit</button>
                             <button onclick=ViewVersion('.$row->id.',"DUPLICATE") class="dropdown-item"><i class="fa fa-clone me-1"></i> Duplicate</button>
-                            <button onclick=ViewVersion('.$row->id.',"VIEW_OR_EDIT") class="dropdown-item"><i class="fa fa-eye me-1"></i> View / Edit</button>
                             <button onclick="SendMailVersion('.$row->id.')" class="dropdown-item"><i class="fa fa-envelope me-1"></i> Send</button>
                             <button onclick="DeleteVersion('.$row->id.')" class="dropdown-item text-danger"><i class="fa fa-trash me-1"></i> Delete</button>
                         </div>
