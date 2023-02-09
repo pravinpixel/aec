@@ -325,8 +325,8 @@ class LiveProjectController extends Controller
         });
         $table->addColumn('action', function($row){
             return '
-                <div class="dropdown btn-group">
-                    <button class="btn btn-light border btn-sm shadow-sm" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <div class="dropdown">
+                    <button class="btn btn-sm" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
                     </button>
                     <div class="dropdown-menu dropdown-menu-end">
@@ -364,5 +364,15 @@ class LiveProjectController extends Controller
             "message" => 'Changes Saved!',
             "variation_id" => $request->variation_id
         ]);
+    }
+    public function delete_version($id) {
+        $version = VariationOrderVersions::find($id);
+        $variation_id = $version->variation_id ;
+        if($version->delete()) {
+            return response([
+                "status"       => true,
+                "variation_id" => $variation_id
+            ]);
+        }
     }
 }

@@ -96,7 +96,7 @@
                 $('#create-variation-order').modal('show')
                 $('#create-variation-order-content').html(response.data.view)
             });
-        }
+        } 
         StoreVersion  = (id, mode, element) => {
             event.preventDefault(); 
             const formData = new FormData(element)
@@ -109,7 +109,31 @@
                 FectVariationVersionTable(response.data.variation_id)
                 $('#create-variation-order').modal('hide')
                 $('#detail-variation-modal').modal('show')
+                Alert.success(response.data.message)
             });
+        }
+        DeleteVersion = (id) => {  
+            swalWithBootstrapButtons.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'No, cancel',
+                reverseButtons: true,
+                allowOutsideClick :false,
+                allowEscapeKey:false
+            }).then((result) => {
+                if (result.isConfirmed) { 
+                    axios.delete(`{{ route('live-project.delete-version.ajax') }}/${id}`).then((response) => {
+                        if(response.data.status) {
+                            Alert.success('Successfully Deleted !')
+                            $('#variation-versions-table').DataTable().destroy();
+                            FectVariationVersionTable(response.data.variation_id)
+                        }
+                    }) 
+                }
+            })
         }
     </script>
 @endpush
