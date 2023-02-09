@@ -124,7 +124,7 @@
                 allowOutsideClick :false,
                 allowEscapeKey:false
             }).then((result) => {
-                if (result.isConfirmed) { 
+                if (result.isConfirmed) {
                     axios.delete(`{{ route('live-project.delete-version.ajax') }}/${id}`).then((response) => {
                         if(response.data.status) {
                             Alert.success('Successfully Deleted !')

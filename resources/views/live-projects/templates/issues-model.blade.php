@@ -121,7 +121,7 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-outline-danger btn-sm me-2" onclick="convertVariation({{ $issue->id }})"> Convert to Variation <i class="fa fa-share" aria-hidden="true"></i> </button>
+        <button class="btn btn-outline-danger btn-sm me-2" onclick="convertVariation({{ $issue->id }},this)"> Convert to Variation <i class="fa fa-share" aria-hidden="true"></i> </button>
         <x-chat-box
             status="CHAT_BUTTON"
             :moduleId="Project()->id"

@@ -349,7 +349,6 @@ class LiveProjectController extends Controller
             "view"  => "$view",
         ]); 
     }
-    
     public function  store_version(Request $request,$id,$mode) {
         if($mode === 'DUPLICATE') { 
             $variations         = VariationOrder::with('VariationOrderVersions')->find(VariationOrderVersions::find($id)->variation_id);
