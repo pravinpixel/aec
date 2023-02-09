@@ -10,6 +10,7 @@ class VariationOrderVersions extends Model
     use HasFactory;
 
     protected $fillable = [
+        'version',
         'project_id',
         'title',
         'hours',

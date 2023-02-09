@@ -10,6 +10,7 @@ use App\Models\VariationOrderVersions;
 use App\Repositories\LiveProjectRepository;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Laracasts\Flash\Flash;
 use Yajra\DataTables\DataTables;
@@ -263,7 +264,9 @@ class LiveProjectController extends Controller
             $VariationOrder = $issue->VariationOrder()->create([
                 'project_id'  => $issue->project_id
             ]);
+            $totalVersion = count($VariationOrder->VariationOrderVersions) + 1;
             $VariationOrder->VariationOrderVersions()->create([
+                'version'     => 'V '. $totalVersion,
                 'project_id'  => $issue->project_id,
                 'title'       => $request->title,
                 'hours'       => $request->hours,
@@ -281,14 +284,11 @@ class LiveProjectController extends Controller
         );
     }
     public function variation_order($id) {
-        $variations = VariationOrder::with('Issues')->where('project_id',$id)->select('*');
+        $variations = VariationOrder::with('Issues','VariationOrderVersions')->where('project_id',$id)->select('*');
         $table      = DataTables::of($variations->get());
-        $table->addIndexColumn(); 
-        $table->addColumn('variation_id', function($row){
-            return '<button type="button" class="btn-quick-view bg-warning fw-bold shadow-none border-dark border text-dark" onclick="showVariationOrder('.$row->id.' , this)" >'.$row->Issues->issue_id.'/VO/'.$row->id.'</button>';
-        });
+        $table->addIndexColumn();  
         $table->addColumn('total_versions', function($row){ 
-            return 1;
+            return count($row->VariationOrderVersions);
         });
         $table->addColumn('action', function($row){
             return '
@@ -296,7 +296,7 @@ class LiveProjectController extends Controller
                 <span onclick="deleteVariationOrder('.$row->id.',this)" title="Delete" class="mx-1"><i class="fa fa-trash text-danger"></i></span>
             ';
         });
-        $table->rawColumns(['action','variation_id']);
+        $table->rawColumns(['action']);
         return $table->make(true);
     }
     public function show_variation_order($id) {
@@ -317,7 +317,7 @@ class LiveProjectController extends Controller
     public function variation_version($id) {
         $variations = VariationOrderVersions::where('variation_id',$id)->select('*');
         $table  = DataTables::of($variations->get());
-        $table->addIndexColumn(); 
+        $table->addIndexColumn();   
         $table->addColumn('status', function($row){
             return '<span class="badge bg-primary rounded-pill">New VO</span>';
         });

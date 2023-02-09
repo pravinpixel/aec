@@ -12,7 +12,7 @@
                         <table class="table" id="variation-versions-table">
                             <thead>
                                 <tr>
-                                    <th scope="col">#Version</th>
+                                    <th width="80px">#Version</th>
                                     <th scope="col">Title</th>
                                     <th scope="col">Hours</th>
                                     <th scope="col">Price</th>

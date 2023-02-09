@@ -47,8 +47,9 @@
                 ajax: {
                     url: `{{ route('live-project.variation-version.ajax') }}/${id}`,
                 },
+                order: [[0, 'desc']],
                 columns: [
-                    { data:'id', name:'id'},
+                    { data:'version', name:'version'},
                     { data:'title', name:'title'},
                     { data:'hours', name:'hours'},
                     { data:'price', name:'price'},

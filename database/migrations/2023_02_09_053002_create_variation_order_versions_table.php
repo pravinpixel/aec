@@ -16,6 +16,7 @@ class CreateVariationOrderVersionsTable extends Migration
         Schema::create('variation_order_versions', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('variation_id');
+            $table->string('version');
             $table->integer('project_id');
             $table->string('title');
             $table->string('hours');
