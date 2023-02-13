@@ -7,6 +7,7 @@ use App\Models\Admin\PropoalVersions;
 use App\Models\Customer;
 use App\Models\Enquiry;
 use App\Models\Inbox;
+use App\Models\Project;
 use App\Models\Role as ModelsRole;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -106,6 +107,18 @@ if(!function_exists('getCustomerByEnquiryId')) {
     function getCustomerByEnquiryId($id)
     {
         return Enquiry::with('customer')->findOrFail($id)->customer;
+    }
+}
+if(!function_exists('getCustomerByProjectId')) {
+    function getCustomerByProjectId($id)
+    {
+        return Project::with('customer')->findOrFail($id)->customer;
+    }
+}
+if(!function_exists('getProjectId')) {
+    function getProjectId($id)
+    {
+        return Project::findOrFail($id);
     }
 }
 if(! function_exists('SetDateFormat')) {

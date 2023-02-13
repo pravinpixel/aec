@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\variationVersionMail;
 use App\Models\Issues;
 use App\Models\LiveProjectSubSubTasks;
 use App\Models\LiveProjectSubTasks;
@@ -12,6 +13,7 @@ use App\View\Components\ChatBox;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Laracasts\Flash\Flash;
 use Yajra\DataTables\DataTables;
@@ -323,6 +325,9 @@ class LiveProjectController extends Controller
             if($row->status == 'NEW') {
                 return '<span class="badge bg-primary rounded-pill">New</span>';
             }
+            if($row->status == 'SENT') {
+                return '<span class="badge bg-success rounded-pill">Sent</span>';
+            }
         });
         $table->addColumn('action', function($row){
             $status     = "CHAT_LINK_ICON";
@@ -338,7 +343,7 @@ class LiveProjectController extends Controller
                             <button onclick=ViewVersion('.$row->id.',"VIEW") class="dropdown-item"><i class="fa fa-eye me-1"></i> View </button>
                             <button onclick=ViewVersion('.$row->id.',"EDIT") class="dropdown-item"><i class="fa fa-pen me-1"></i> Edit</button>
                             <button onclick=ViewVersion('.$row->id.',"DUPLICATE") class="dropdown-item"><i class="fa fa-clone me-1"></i> Duplicate</button>
-                            <button onclick="SendMailVersion('.$row->id.')" class="dropdown-item"><i class="fa fa-envelope me-1"></i> Send</button>
+                            <button onclick="SendMailVersion('.$row->id.',this)" class="dropdown-item"><i class="fa fa-envelope me-1"></i> Send</button>
                             <button onclick="DeleteVersion('.$row->id.')" class="dropdown-item text-danger"><i class="fa fa-trash me-1"></i> Delete</button>
                         </div>
                         '.$chatButton->render().'
@@ -378,5 +383,18 @@ class LiveProjectController extends Controller
                 "variation_id" => $variation_id
             ]);
         }
+    }
+    public function send_mail_version($id)
+    {
+        $version = VariationOrderVersions::findOrFail($id);
+        Mail::to(getCustomerByProjectId($version->project_id)->email)->send(new variationVersionMail($version));
+        $version->update([
+            "status" => 'SENT'
+        ]);
+        return response([
+            "status"       => true,
+            "message"      => 'Mail Sended Succesfully !',
+            "variation_id" => $version->variation_id
+        ]);
     }
 }
