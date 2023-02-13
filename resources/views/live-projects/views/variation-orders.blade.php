@@ -119,10 +119,9 @@
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonText: 'Yes, delete it!',
-                cancelButtonText: 'No, cancel',
-                reverseButtons: true,
+                cancelButtonText: 'No, cancel', 
                 allowOutsideClick :false,
-                allowEscapeKey:false
+                allowEscapeKey:false,
             }).then((result) => {
                 if (result.isConfirmed) {
                     axios.delete(`{{ route('live-project.delete-version.ajax') }}/${id}`).then((response) => {
@@ -135,8 +134,39 @@
                 }
             })
         }
-        SendMailVersion = (id) => {
-            alert('Under development ...')
+        SendMailVersion = (id,element) => { 
+            swalWithBootstrapButtons.fire({
+                html:`
+                    <img src="{{ asset('public/assets/images/mail-loader.gif') }}" style="height: 100px;object-fit: cover;width:250px"/> 
+                    <h3 class="text-primary">Mail Sending Onprocess...</h3>
+                    <p>may be it's take some time please wait on the tab.</p>
+                `,
+                allowOutsideClick :false,
+                background:'rgb(252 254 252)',
+                backdrop: `rgb(0 0 0 / 70%)`,
+                allowEscapeKey:false,
+                showConfirmButton:false
+            })
+            axios.post(`{{ route("live-project.send-mail-version.ajax") }}/${id}`).then((response) => {
+                if(response.data.status) {
+                    Swal.close()
+                    Swal.fire({
+                        text: response.data.message,
+                        icon: 'success',
+                        showCancelButton: false,
+                        confirmButtonText: 'Okay !',
+                        cancelButtonText: 'No, cancel', 
+                        allowOutsideClick :false,
+                        allowEscapeKey:false,
+                        customClass: {
+                            confirmButton: 'btn btn-success rounded-pill',
+                        },
+                        buttonsStyling: false
+                    })
+                    $('#variation-versions-table').DataTable().destroy();
+                    FectVariationVersionTable(response.data.variation_id)
+                }
+            })
         }
     </script>
 @endpush
