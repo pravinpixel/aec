@@ -14,12 +14,14 @@
                 <div class="content container-fluid">
                     <!-- start page title -->
                     <div class="row">
-                        <div class="col-12">
-                            <div class="page-title-box">
-                                <h4 class="page-title float-start">Dashboard</h4>
-                                <h4 class="page-title text-uppercase text-end float-end"><strong>Month</strong></h4>
-                            </div>
-                        </div>
+                        <div class="row my-2">
+					   		<div class="col-6"> 		
+								<h4 class="page-title">Dashboard</h4>
+							</div>
+						   	<div class="col-6"> 		
+								<input type="text" id="_date" ng-model="enquiry_summary.date" class="form-control" name="daterange"/>
+							</div>
+					   </div>
                     </div>
                     <!-- end page title -->
                     <div class="main">
@@ -99,7 +101,7 @@
                             </div> <!-- end col -->
 
                             <div class="col-xl-9 col-lg-9">
-                                <h4 class="header-title text-uppercase">Enquiries vs Projects</h4>
+                                <h4 class="header-title text-uppercase">Enquiries</h4>
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="chart-content-bg">
@@ -109,7 +111,7 @@
                                                     <h3 class="fw-normal mb-3">
                                                         <small
                                                             class="mdi mdi-checkbox-blank-circle text-primary align-middle me-1"></small>
-                                                        <span>$58,254</span>
+                                                        <span>${{$current_month_amount}}</span>
                                                     </h3>
                                                 </div>
                                                 <div class="col-md-6">
@@ -117,16 +119,18 @@
                                                     <h3 class="fw-normal mb-3">
                                                         <small
                                                             class="mdi mdi-checkbox-blank-circle text-success align-middle me-1"></small>
-                                                        <span>$69,524</span>
+                                                        <span>${{$previous_month_amount}}</span>
                                                     </h3>
                                                 </div>
                                             </div>
                                         </div>
 
                                         <div class="dash-item-overlay d-none d-md-block" dir="ltr">
-                                            <h5>Total Enquiries: 125</h5>
+                                            <h5>Total Enquiries: {{$total_enquiry}}</h5>
                                         </div>
-                                            <div id="revenue-chart" class="apex-charts mt-3"></div>
+                                        <div dir="ltr">
+											<div id="revenue-chart-total-enquiry" class="mt-3" data-currentMonth="12,30,23,45" data-colors="#163269,#0acf97"></div>
+										</div>
                                     </div> <!-- end card-body-->
                                 </div> <!-- end card-->
                             </div> <!-- end col -->
@@ -134,6 +138,19 @@
                         <!-- end row -->
 
                         <div class="row">
+                    
+
+                            <div class="col-xl-12 col-lg-12">
+                                <h4 class="header-title text-uppercase">Total Projects</h4>
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div id="customer-sales-chart"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end col -->
+
+
                             <div class="col-xl-12 col-lg-12">
                                 <h4 class="header-title text-uppercase">
                                     Project Status
@@ -175,41 +192,6 @@
                                     <!-- end card-body-->
                                 </div>
                                 <!-- end card-->
-                            </div>
-                            <!-- end col -->
-
-                            <div class="col-xl-12 col-lg-12">
-                                <h4 class="header-title text-uppercase">Total Sales</h4>
-                                <div class="card">
-                                    <div class="card-header">
-                                        <div class="dropdown float-end ms-2">
-                                            <a href="#" class="dropdown-toggle arrow-none btn btn-light btn-xs border"
-                                                data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class="mdi mdi-dots-vertical"></i>
-                                            </a>
-                                            <div class="dropdown-menu dropdown-menu-end">
-                                                <!-- item-->
-                                                <a href="javascript:void(0);" class="dropdown-item">Weekly</a>
-                                                <!-- item-->
-                                                <a href="javascript:void(0);" class="dropdown-item">1 Monthly</a>
-                                                <!-- item-->
-                                                <a href="javascript:void(0);" class="dropdown-item">1 Quarter</a>
-                                                <!-- item-->
-                                                <a href="javascript:void(0);" class="dropdown-item">1 Year</a>
-                                            </div>
-                                        </div>
-                                        <select name="" id="" class="form-select float-end w-auto">
-                                            <option value="">-- Choose -- </option>
-                                            <option value="" selected>1 Month</option>
-                                            <option value="">1 Quarter</option>
-                                            <option value="">1 Year</option>
-                                            <option value="">2 Years</option>
-                                        </select>
-                                    </div>
-                                    <div class="card-body">
-                                        <div id="sales-chart"></div>
-                                    </div>
-                                </div>
                             </div>
                             <!-- end col -->
 
@@ -265,8 +247,49 @@
     <script src="{{ asset('public/assets/js/pages/demo.dashboard-analytics.js') }}"></script>
 
 
+    <script>
+                var category = {!! json_encode($category)!!}
+				var count = {!! json_encode($category_count)!!}
+				
+				var options = {
+					floating: false,
+					series: [{
+						name: 'Enquiries',
+						data: count
+					}],
+					chart: {
+						height: 350,
+						type: 'area'
+					},
+					dataLabels: {
+						enabled: false
+					},
+					stroke: {
+						curve: 'smooth'
+					},
+					yaxis: [
+						{
+							labels: {
+								formatter: function(val) {
+									return val.toFixed(0);
+								}
+							}
+						}
+					],
+					xaxis: {
+						type: 'date',
+						categories: category
+					},
+					tooltip: {
+						x: {
+							format: 'dd/MM/yy'
+						},
 
-    @if (Route::is('customers-dashboard'))
+					},
+				};
+				var chart = new ApexCharts(document.querySelector("#revenue-chart-total-enquiry"), options);
+				chart.render();
+        </script>
 		<script>
         document.addEventListener("DOMContentLoaded", function() {
             document.querySelectorAll('.sidebar .nav-link').forEach(function(element) {
@@ -297,47 +320,12 @@
             }) // forEach
         });
     </script>
-		<script>
+    <script>
         $(".has-submenu a.nav-link").click(function() {
             $(".has-submenu a.nav-link").removeClass("active");
             $(this).addClass("active");
             $(this).closest('.has-submenu').addClass("active");
         });
-    </script>
-        <script>
-            var options = {
-                series: [{
-                    name: 'series1',
-                    data: [31, 40, 28, 51, 42, 109, 100]
-                }, {
-                    name: 'series2',
-                    data: [11, 32, 45, 32, 34, 52, 41]
-                }],
-                chart: {
-                    height: 350,
-                    type: 'area'
-                },
-                dataLabels: {
-                    enabled: false
-                },
-                stroke: {
-                    curve: 'smooth'
-                },
-                xaxis: {
-                    type: 'datetime',
-                    categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z",
-                        "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z",
-                        "2018-09-19T06:30:00.000Z"
-                    ]
-                },
-                tooltip: {
-                    x: {
-                        format: 'dd/MM/yy HH:mm'
-                    },
-                },
-            };
-            var chart = new ApexCharts(document.querySelector("#revenue-chart"), options);
-            chart.render();
         </script>
         <script>
             var options = {
@@ -376,7 +364,9 @@
             chart.render();
         </script>
         <script>
-        Highcharts.chart('sales-chart', {
+        var sale_categories = {!! json_encode($total_category) !!}
+		var sale_data = {!! json_encode($total_category_count) !!}
+        Highcharts.chart('customer-sales-chart', {
             chart: {
                 type: 'area'
             },
@@ -384,7 +374,7 @@
                 text: ''
             },
             xAxis: {
-                categories: ['Jan 1', 'Jan 5', 'Jan 9', 'Jan 13', 'Jan 17', 'Jan 21', 'Jan 25', 'Jan 29']
+                categories: sale_categories
             },
             yAxis: {
                 title: {
@@ -401,11 +391,38 @@
             },
             series: [{
                 showInLegend: false,
-                name: 'Total Sales',
+                name: 'Total Project',
                 color: '#008ffb',
-                data: [0, 30, 10, 0, 120, 50, 80, 20]
+                data: sale_data
             }]
         });
     </script>
-    @endif
+    <script> 
+		$(function() {
+			let date =  {!! json_encode($date) !!};
+			let baseUrl = $("#baseurl").val();
+			$('input[name="daterange"]').daterangepicker({
+				opens: 'left',
+				timePicker: true,
+				startDate: date.start_date,
+				endDate: date.end_date,
+				locale: {
+					format: 'DD-MM-Y'
+				},
+				ranges: {
+				'Today': [moment(), moment()],
+				'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+				'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+				'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+				'This Month': [moment().startOf('month'), moment().endOf('month')],
+				'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
+				'This Quarter': [moment().quarter(moment().quarter()).startOf('quarter'),moment().quarter(moment().quarter()).endOf('quarter') ],
+				'This Year':[moment().startOf('year'), moment().endOf('year')]
+				}
+			}, function(start, end, label) {
+				let url = `${baseUrl}customers/dashboard?start_date=${moment(start).format('DD-MM-Y')}&end_date=${moment(end).format('DD-MM-Y')}`;
+				location.href = url;
+			});
+		});
+	</script>
 @endpush

@@ -5,6 +5,8 @@ namespace App\Services;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use App\Models\Config as ConfigModel;
+use DateInterval;
+use DatePeriod;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
@@ -218,5 +220,17 @@ class GlobalServiceProvider extends Controller
             return json_decode($config->sharepoint_access_token, true);
         }
         return false;
+    }
+
+
+    public function getMonthListFromDate(Carbon $start_date, Carbon $end_date)
+    {
+        $interval = DateInterval::createFromDateString('1 month');
+        $period   = new DatePeriod($start_date, $interval, $end_date);
+        $months = array();
+        foreach ($period as $dt) {
+            $months[] = $dt->format("Y-M");
+        }
+        return $months;
     }
 }

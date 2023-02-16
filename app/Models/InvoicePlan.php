@@ -22,4 +22,9 @@ class InvoicePlan extends Model
         'invoice_data',
         'project_id'
     ];
+
+    public function project()
+    {
+        return $this->belongsTo(Project::class);
+    }
 }
