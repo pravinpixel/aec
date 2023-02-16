@@ -19,7 +19,7 @@
 								<h4 class="page-title">Dashboard</h4>
 							</div>
 						   	<div class="col-6"> 		
-								<input type="text" id="_date" ng-model="enquiry_summary.date" class="form-control" name="daterange" value="01/01/2018 - 01/15/2018" />
+								<input type="text" id="_date" ng-model="enquiry_summary.date" class="form-control" name="daterange"/>
 							</div>
 					   </div>
 					   <!-- end page title -->

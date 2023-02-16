@@ -141,7 +141,7 @@
                             <!-- end col -->
 
                             <div class="col-xl-6 col-lg-6 col-md-12">
-                                <h4 class="header-title text-uppercase">Total Sales</h4>
+                                <h4 class="header-title text-uppercase">Total Projects</h4>
                                 <div class="card">
                                     <div class="card-header">
                                        

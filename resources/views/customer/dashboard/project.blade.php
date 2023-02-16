@@ -41,7 +41,7 @@
                                         <div class="card-body">
                                             <i class='uil-layer-group float-end  dashboard-icon'></i>
                                             <h6 class=" text-primary mt-0 ">Total</h6>
-                                            <h2 class="my-2 h4">109</h2>
+                                            <h2 class="my-2 h4">{{$total}}</h2>
                                         </div> <!-- end card-body-->
                                     </div>
                                     <!--end card-->
@@ -50,7 +50,7 @@
                                         <div class="card-body">
                                             <i class='uil-presentation-check float-end  dashboard-icon'></i>
                                             <h6 class=" text-success mt-0">Completed</h6>
-                                            <h2 class="my-2 h4">84</h2>
+                                            <h2 class="my-2 h4">{{$completed}}</h2>
                                         </div> <!-- end card-body-->
                                     </div>
                                     <!--end card-->
@@ -59,14 +59,14 @@
                                         <div class="card-body">
                                             <i class='uil-chart-growth-alt float-end  dashboard-icon'></i>
                                             <h6 class=" text-warning mt-0">Inprogress</h6>
-                                            <h2 class="my-2 h4">25</h2>
+                                            <h2 class="my-2 h4">{{$in_progress}}</h2>
                                         </div> <!-- end card-body-->
                                     </div>
                                     <div class="card col-sm tilebox-one">
                                         <div class="card-body">
                                             <i class='uil-usd-circle float-end  dashboard-icon'></i>
                                             <h6 class=" text-danger mt-0">Total Cost</h6>
-                                            <h2 class="my-2 h4">840000</h2>
+                                            <h2 class="my-2 h4">{{$total_cost}}</h2>
                                         </div> <!-- end card-body-->
                                     </div>
                                     <!--end card-->
@@ -75,7 +75,7 @@
                                         <div class="card-body">
                                             <i class='uil-bill float-end  dashboard-icon'></i>
                                             <h6 class=" text-info mt-0">Invoiced Amount</h6>
-                                            <h2 class="my-2 h4"  >252510</h2>
+                                            <h2 class="my-2 h4"  >{{$total_amount}}</h2>
                                         </div> <!-- end card-body-->
                                     </div>
                                 </div>

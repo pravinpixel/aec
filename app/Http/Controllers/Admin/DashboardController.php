@@ -60,7 +60,7 @@ class DashboardController extends Controller
         $result['projects'] = Project::select('project_name', 'id')->get();
         $date['start_date'] = GlobalService::dateFormat($fromDate);
         $date['end_date'] = GlobalService::dateFormat($toDate);
-        $monthList = $this->getMonthListFromDate($fromDate, $toDate);
+        $monthList = GlobalService::getMonthListFromDate($fromDate, $toDate);
         $monthCount = [];
         $enquiryCount = Enquiry::whereBetween('enquiry_date', [$fromDate, $toDate])
             ->select(DB::raw('count(id) as id, DATE_FORMAT(enquiry_date, "%Y-%b") AS enquiryDate'))
@@ -78,17 +78,6 @@ class DashboardController extends Controller
         }
         $result['category_count'] = $monthCount;
         return view('admin.dashboard.enquiry', compact('result', 'date'));
-    }
-
-    public function getMonthListFromDate(Carbon $start_date, Carbon $end_date)
-    {
-        $interval = DateInterval::createFromDateString('1 month');
-        $period   = new DatePeriod($start_date, $interval, $end_date);
-        $months = array();
-        foreach ($period as $dt) {
-            $months[] = $dt->format("Y-M");
-        }
-        return $months;
     }
 
     public function getEnquirySummary(Request $request)
@@ -170,7 +159,7 @@ class DashboardController extends Controller
         $fromDate = Carbon::now()->startOfYear();
         $toDate = Carbon::now()->endOfYear();
 
-        $monthList = $this->getMonthListFromDate($fromDate, $toDate);
+        $monthList = GlobalService::getMonthListFromDate($fromDate, $toDate);
         $monthCount = [];
 
         $sales = Project::join('invoice_plans', 'invoice_plans.project_id', '=','projects.id')
@@ -234,7 +223,7 @@ class DashboardController extends Controller
     {
         $date = $request->input('filter');
         list($fromDate, $toDate) = $this->getFromAndToDate($date);
-        $monthList = $this->getMonthListFromDate($fromDate, $toDate);
+        $monthList = GlobalService::getMonthListFromDate($fromDate, $toDate);
         $monthCount = [];
         $projectCount = Project::whereBetween('created_at', [$fromDate, $toDate])
             ->select(DB::raw('count(id) as id, DATE_FORMAT(created_at, "%Y-%b") AS projectDate'))
