@@ -303,6 +303,9 @@ class LiveProjectController extends Controller
         $variations = VariationOrder::with('Issues','VariationOrderVersions')->where('project_id',$id)->select('*');
         $table      = DataTables::of($variations->get());
         $table->addIndexColumn();  
+        $table->addColumn('variation_id', function($row){
+            return '<button type="button" class="btn-quick-view bg-warning fw-bold shadow-none border-dark border text-dark" onclick="showVariationOrder('.$row->id.',this)" >'.$row->issues->issue_id.'</button>';
+        });
         $table->addColumn('total_versions', function($row){ 
             return count($row->VariationOrderVersions);
         });
@@ -312,7 +315,7 @@ class LiveProjectController extends Controller
                 <span onclick="deleteVariationOrder('.$row->id.',this)" title="Delete" class="mx-1"><i class="fa fa-trash text-danger"></i></span>
             ';
         });
-        $table->rawColumns(['action']);
+        $table->rawColumns(['action','variation_id']);
         return $table->make(true);
     }
     public function show_variation_order($id) {
@@ -332,37 +335,30 @@ class LiveProjectController extends Controller
     }
     public function variation_version($id) {
         $variations = VariationOrderVersions::where('variation_id',$id)->select('*');
-        $table  = DataTables::of($variations->get());
+        $table      = DataTables::of($variations->get());
         $table->addIndexColumn();   
-        $table->addColumn('status', function($row){
-            if($row->status == 'NEW') {
-                return '<span class="badge bg-primary rounded-pill">New</span>';
-            }
-            if($row->status == 'SENT') {
-                return '<span class="badge bg-success rounded-pill">Sent</span>';
-            }
+         $table->addColumn('version_id', function($row){
+            return '<button type="button" class="btn-quick-view bg-warning fw-bold shadow-none border-dark border text-dark" onclick=ViewVersion('.$row->id.',"VIEW") >'.$row->version.'</button>';
+        });
+        $table->addColumn('status', function($row) {
+            return VariationStatus($row->status);
         });
         $table->addColumn('action', function($row){
-            $status     = "CHAT_LINK_ICON";
-            $moduleName = "project";
-            $moduleId   = $row->project_id;
-            $menuName   = "VARIATION_ORDER_".str_replace(' ','_',$row->version);
-            $chatButton = new ChatBox($status,$moduleName,$moduleId,$menuName);
+            $chatButton = new ChatBox(
+                "CHAT_LINK_ICON",
+                "project",
+                $row->project_id,
+                "VARIATION_ORDER_".str_replace(' ','_',$row->version)
+            ); 
             return '<div class="dropdown btn-group">
                         <button class="btn btn-sm btn-light border" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
                         </button>
-                        <div class="dropdown-menu dropdown-menu-end"> 
-                            <button onclick=ViewVersion('.$row->id.',"VIEW") class="dropdown-item"><i class="fa fa-eye me-1"></i> View </button>
-                            <button onclick=ViewVersion('.$row->id.',"EDIT") class="dropdown-item"><i class="fa fa-pen me-1"></i> Edit</button>
-                            <button onclick=ViewVersion('.$row->id.',"DUPLICATE") class="dropdown-item"><i class="fa fa-clone me-1"></i> Duplicate</button>
-                            <button onclick="SendMailVersion('.$row->id.',this)" class="dropdown-item"><i class="fa fa-envelope me-1"></i> Send</button>
-                            <button onclick="DeleteVersion('.$row->id.')" class="dropdown-item text-danger"><i class="fa fa-trash me-1"></i> Delete</button>
-                        </div>
+                        <div class="dropdown-menu dropdown-menu-end">'.variationOrderMenu($row).'</div>
                         '.$chatButton->render().'
                     </div>';
         });
-        $table->rawColumns(['action','status']);
+        $table->rawColumns(['action','status','version_id']);
         return $table->make(true);
     }
     public function view_version($id,$mode) {
@@ -373,12 +369,16 @@ class LiveProjectController extends Controller
         ]); 
     }
     public function  store_version(Request $request,$id,$mode) {
-        if($mode === 'DUPLICATE') { 
-            $variations         = VariationOrder::with('VariationOrderVersions')->find(VariationOrderVersions::find($id)->variation_id);
-            $totalVersion       = count($variations->VariationOrderVersions) + 1;
+        if($mode === 'DUPLICATE') {
+            $variationVersions  = VariationOrderVersions::where('variation_id', $request->variation_id)->get();
+            foreach ($variationVersions as $key => $variation) {
+                $variation->update(["status" => 'OBSOLETE']);
+            }
+            $totalVersion       = count($variationVersions) + 1;
             $request['version'] = 'V '. $totalVersion;
+            $request['staus']   = 'NEW';
             VariationOrderVersions::create($request->all());
-        } elseif($mode === 'VIEW_OR_EDIT') {
+        } elseif($mode === 'EDIT') {
             VariationOrderVersions::find($id)->update($request->all());
         }
         return response([

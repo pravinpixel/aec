@@ -4,8 +4,6 @@ namespace App\Repositories;
 
 use App\Interfaces\RoleRepositoryInterface;
 use App\Models\Admin\Employees;
-use App\Models\BuildingType;
-use App\Models\DeliveryType;
 use App\Models\Role;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 

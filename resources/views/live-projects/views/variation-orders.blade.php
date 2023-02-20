@@ -32,7 +32,7 @@
                     }
                 },
                 columns: [
-                    { data:'issues.issue_id', name:'issues.issue_id'},
+                    { data:'variation_id', name:'issues.issue_id'},
                     { data:'issues.title', name:'issues.title'},
                     { data:'total_versions', name:'total_versions'},
                     { data: 'action', name: 'action', orderable: false, searchable: false }
@@ -49,7 +49,7 @@
                 },
                 order: [[0, 'desc']],
                 columns: [
-                    { data:'version', name:'version'},
+                    { data:'version_id', name:'version'},
                     { data:'title', name:'title'},
                     { data:'hours', name:'hours'},
                     { data:'price', name:'price'},
