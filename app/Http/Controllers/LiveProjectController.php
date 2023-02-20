@@ -84,6 +84,19 @@ class LiveProjectController extends Controller
             "view"   => "$view"
         ]);
     }
+
+    public function sub_task_change_order_index(Request $request)
+    {
+        foreach ($request->data as $key => $task) {
+            LiveProjectSubSubTasks::find($task)->update([
+                'sort_order' =>  $key + 1
+            ]);
+        }
+        return response()->json([
+            "status" => true
+        ]);
+    }
+
     public function update_sub_sub_task(Request $request,$sub_sub_task_id)
     {
         $task = LiveProjectSubSubTasks::find($sub_sub_task_id);

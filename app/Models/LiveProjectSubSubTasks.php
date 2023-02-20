@@ -11,6 +11,7 @@ class LiveProjectSubSubTasks extends Model
 
     protected $fillable = [
         'name',
+        'sort_order',
         'assign_to',
         'status',
         'start_date',

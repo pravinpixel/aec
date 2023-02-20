@@ -16,7 +16,7 @@
                     <div class="d-flex align-items-center pe-3 me-3 border-end" id="{{ slugable($sub_task->name,'_progress_bar') }}">
                         {!! generateProgressBar($sub_task->progress_percentage) !!}
                     </div>
-                    <h5 class="m-0 text-capitalize text-black"> {{ $sub_task->name }}</h5>
+                    <h5 class="m-0 text-capitalize text-black"> {{ $sub_task->name }} </h5>
                 </div>
                 <button type="button" onclick="deleteLiveProjectSubTask('{{ $sub_task->id }}', this)" class="btn btn-sm btn-outline-danger rounded"><i class="mdi mdi-trash-can"></i> Delete all</button>
             </div>
@@ -24,7 +24,7 @@
                 <table class="table m-0 table-hover table-sm">
                     <thead>
                         <tr>
-                            <th class="text-secondary font-14">Deliverable Name</th>
+                            <th colspan="2" class="text-secondary font-14">Deliverable Name</th>
                             <th class="text-secondary font-14">Assign To</th>
                             <th class="text-secondary font-14">Start date</th>
                             <th class="text-secondary font-14">End date</th>
@@ -35,10 +35,13 @@
                             </th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="sortable">
                         @if (count($sub_task->SubSubTasks))
                             @foreach ($sub_task->SubSubTasks as $key => $sub_sub_task)
-                                <tr class="{{ slugable($sub_task->name,$key + 1) }}">
+                                <tr data-id="{{ $sub_sub_task->id }}" class="{{ slugable($sub_task->name,$key + 1) }}">
+                                    <td>
+                                        <i class="btn btn-sm border py-0 p-1 shadow-sm btn-light mdi-arrow-collapse-vertical mdi"></i>
+                                    </td>
                                     <td>
                                         <input type="text" {{ $sub_sub_task->status == 1 ? 'disabled' : '' }}  onkeypress="setLiveProjectSubSubTask('name','{{ $sub_sub_task->id }}',this)" value="{{ $sub_sub_task->name }}" class="custom input_{{ slugable($sub_task->name,$key + 1) }}" required>
                                     </td>

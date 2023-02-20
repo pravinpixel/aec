@@ -1,7 +1,11 @@
 <div id="task-app">
     <i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i>
-</div> 
+</div>  
+@push('live-project-custom-styles')
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+@endpush
 @push('live-project-custom-scripts') 
+    <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function() { 
             setAllTask = () => {
@@ -21,6 +25,20 @@
                     if (response.data.status) {
                         $('#live-project-sub-tasks-model').modal('show')
                         $('#live-project-sub-tasks-model-content').html(response.data.view)
+                        $( "#sortable" ).sortable({
+                            axis: 'y',
+                            placeholder: "ui-state-highlight",
+                            axis: 'y',
+                            stop: function (event, ui) {
+                                var data = $(this).sortable('toArray', { attribute: "data-id"}) 
+                                axios.post(`{{ route('live-project.sub-task-change-order') }}`,{
+                                    data : data
+                                }).then((response) => {
+                                    console.log(response.data)
+                                });
+                            }
+                        });
+                        // $( "#sortable" ).disableSelection();
                     }
                 })
             }

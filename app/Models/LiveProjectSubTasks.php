@@ -19,6 +19,6 @@ class LiveProjectSubTasks extends Model
     ];
     public function SubSubTasks()
     {
-        return $this->hasMany(LiveProjectSubSubTasks::class,'sub_task_id','id');
+        return $this->hasMany(LiveProjectSubSubTasks::class,'sub_task_id','id')->orderBy('sort_order');
     }
 }

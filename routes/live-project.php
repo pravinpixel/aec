@@ -10,6 +10,8 @@ Route::group(['prefix' => 'live', 'middleware' => 'common'], function () {
     Route::get('/get-milestones/{project_id?}', [LiveProjectController::class, 'milestones_index'])->name('live-project.milestones-index');
     Route::get('/task-list/{project_id}', [LiveProjectController::class, 'task_list_index'])->name('live-project.task-list-index');
     Route::get('/sub-task-list/{task_id?}', [LiveProjectController::class, 'sub_task_index'])->name('live-project.sub-task-index');
+    Route::post('/sub-task-change-order', [LiveProjectController::class, 'sub_task_change_order_index'])->name('live-project.sub-task-change-order');
+    
     Route::post('/update-sub-sub-task/{sub_sub_task_id?}', [LiveProjectController::class, 'update_sub_sub_task'])->name('live-project.sub-sub-task.update');
     Route::delete('/delete-sub-sub-task/{sub_sub_task_id?}', [LiveProjectController::class, 'delete_sub_sub_task'])->name('live-project.sub-sub-task.delete');
     Route::post('/create-sub-task/{sub_sub_task_id?}', [LiveProjectController::class, 'create_sub_task'])->name('live-project.sub-task.create');
