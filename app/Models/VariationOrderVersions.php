@@ -17,6 +17,7 @@ class VariationOrderVersions extends Model
         'hours',
         'price',
         'status',
-        'description'
-    ]; 
+        'description',
+        'comments'
+    ];
 }

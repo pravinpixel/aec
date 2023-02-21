@@ -23,6 +23,7 @@ class CreateVariationOrderVersionsTable extends Migration
             $table->string('price');
             $table->string('status')->default('NEW');
             $table->longText('description');
+            $table->longText('comments')->default(null);
             $table->foreign('variation_id')->references('id')->on('variation_orders')->onDelete('cascade');
             $table->timestamps();
         });

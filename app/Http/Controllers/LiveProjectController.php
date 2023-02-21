@@ -318,10 +318,13 @@ class LiveProjectController extends Controller
             return count($row->VariationOrderVersions);
         });
         $table->addColumn('action', function($row){
-            return '
-                <span onclick="showVariationOrder('.$row->id.',this)" title="View" class="mx-1 text-success"><i class="fa fa-eye"></i></span>
-                <span onclick="deleteVariationOrder('.$row->id.',this)" title="Delete" class="mx-1"><i class="fa fa-trash text-danger"></i></span>
-            ';
+            if(AuthUser() == 'ADMIN') {
+                return '
+                    <span onclick="showVariationOrder('.$row->id.',this)" title="View" class="mx-1 text-success"><i class="fa fa-eye"></i></span>
+                    <span onclick="deleteVariationOrder('.$row->id.',this)" title="Delete" class="mx-1"><i class="fa fa-trash text-danger"></i></span>
+                ';
+            }
+            return '<span onclick="showVariationOrder('.$row->id.',this)" title="View" class="mx-1 text-success"><i class="fa fa-eye"></i></span>';
         });
         $table->rawColumns(['action','variation_id']);
         return $table->make(true);
@@ -345,7 +348,7 @@ class LiveProjectController extends Controller
         $variations = VariationOrderVersions::where('variation_id',$id)->select('*');
         $table      = DataTables::of($variations->get());
         $table->addIndexColumn();   
-         $table->addColumn('version_id', function($row){
+        $table->addColumn('version_id', function($row){
             return '<button type="button" class="btn-quick-view bg-warning fw-bold shadow-none border-dark border text-dark" onclick=ViewVersion('.$row->id.',"VIEW") >'.$row->version.'</button>';
         });
         $table->addColumn('status', function($row) {
@@ -357,7 +360,7 @@ class LiveProjectController extends Controller
                 "project",
                 $row->project_id,
                 "VARIATION_ORDER_".str_replace(' ','_',$row->version)
-            ); 
+            );
             return '<div class="dropdown btn-group">
                         <button class="btn btn-sm btn-light border" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
@@ -371,7 +374,7 @@ class LiveProjectController extends Controller
     }
     public function view_version($id,$mode) {
         $variation = VariationOrderVersions::find($id);
-        $view = view('live-projects.templates.view-variation-version',compact('variation','mode'));
+        $view      = view('live-projects.templates.view-variation-version',compact('variation','mode'));
         return response([
             "view"  => "$view",
         ]); 

@@ -1,5 +1,3 @@
-<div>
-    @if ($access)
-        {{ $slot }}
-    @endif
-</div>
+@if ($access)
+    {{ $slot }}
+@endif

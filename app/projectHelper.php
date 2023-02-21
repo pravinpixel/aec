@@ -168,13 +168,23 @@ if (!function_exists('VariationStatus')) {
             return '<span class="badge bg-primary rounded-pill">New</span>';
         }
         if($status == 'SENT') {
-            return '<span class="badge bg-success rounded-pill">Sent</span>';
+            if(AuthUser() == 'ADMIN') {
+                return '<span class="badge bg-success rounded-pill">Sent</span>';
+            } else {
+                return '<span class="badge bg-success rounded-pill">Awaiting</span>';
+            }
         }
         if($status == 'OBSOLETE') {
             return '<span class="badge bg-danger rounded-pill">OBSOLETE</span>';
         }
-        if($status == 'RESPONSE') {
-            return '<span class="badge bg-warning rounded-pill">RESPONSE</span>';
+        if($status == 'ACCEPT') {
+            return '<span class="badge bg-success rounded-pill">Accepted</span>';
+        }
+        if($status == 'CHANGE_REQUEST') {
+            return '<span class="badge bg-warning text-dark rounded-pill">Change request</span>';
+        }
+        if($status == 'DENY') {
+            return '<span class="badge bg-danger  rounded-pill">Denied</span>';
         }
         return '<span class="badge bg-dark rounded-pill">NAN</span>';
     }
@@ -183,32 +193,32 @@ if (!function_exists('VariationStatus')) {
 if (!function_exists('variationOrderMenu')) {
     function variationOrderMenu($row)
     {
-        if($row->status == 'NEW') {
-            return  '
-                <button onclick=ViewVersion('.$row->id.',"VIEW") class="dropdown-item"><i class="fa fa-eye me-1"></i> View </button>
-                <button onclick=ViewVersion('.$row->id.',"EDIT") class="dropdown-item"><i class="fa fa-pen me-1"></i> Edit</button>
-                <button onclick="SendMailVersion('.$row->id.',this)" class="dropdown-item"><i class="fa fa-envelope me-1"></i> Send</button>
-                <button onclick="DeleteVersion('.$row->id.')" class="dropdown-item text-danger"><i class="fa fa-trash me-1"></i> Delete</button>
-            ';
+        if(AuthUser() == 'ADMIN') {
+            if($row->status == 'NEW') {
+                return  '
+                    <button onclick=ViewVersion('.$row->id.',"VIEW") class="dropdown-item"><i class="fa fa-eye me-1"></i> View </button>
+                    <button onclick=ViewVersion('.$row->id.',"EDIT") class="dropdown-item"><i class="fa fa-pen me-1"></i> Edit</button>
+                    <button onclick="SendMailVersion('.$row->id.',this)" class="dropdown-item"><i class="fa fa-envelope me-1"></i> Send</button>
+                    <button onclick="DeleteVersion('.$row->id.')" class="dropdown-item text-danger"><i class="fa fa-trash me-1"></i> Delete</button>
+                ';
+            }
+            if($row->status == 'SENT') {
+                return  '
+                    <button onclick=ViewVersion('.$row->id.',"VIEW") class="dropdown-item"><i class="fa fa-eye me-1"></i> View </button>
+                ';
+            }
+            if($row->status == 'OBSOLETE') {
+                return  '
+                    <button onclick=ViewVersion('.$row->id.',"VIEW") class="dropdown-item"><i class="fa fa-eye me-1"></i> View </button>
+                ';
+            }
+            if($row->status == 'RESPONSE') {
+                return  '
+                    <button onclick=ViewVersion('.$row->id.',"DUPLICATE") class="dropdown-item"><i class="fa fa-clone me-1"></i> Duplicate</button>
+                    <button onclick=ViewVersion('.$row->id.',"VIEW") class="dropdown-item"><i class="fa fa-eye me-1"></i> View </button>
+                ';
+            }
         }
-        if($row->status == 'SENT') {
-            return  '
-                <button onclick=ViewVersion('.$row->id.',"VIEW") class="dropdown-item"><i class="fa fa-eye me-1"></i> View </button>
-            ';
-        }
-        if($row->status == 'OBSOLETE') {
-            return  '
-                <button onclick=ViewVersion('.$row->id.',"VIEW") class="dropdown-item"><i class="fa fa-eye me-1"></i> View </button>
-            ';
-        }
-        if($row->status == 'RESPONSE') {
-            return  '
-                <button onclick=ViewVersion('.$row->id.',"DUPLICATE") class="dropdown-item"><i class="fa fa-clone me-1"></i> Duplicate</button>
-                <button onclick=ViewVersion('.$row->id.',"VIEW") class="dropdown-item"><i class="fa fa-eye me-1"></i> View </button>
-            ';
-        }
-        return  '
-            <button onclick=ViewVersion('.$row->id.',"VIEW") class="dropdown-item"><i class="fa fa-eye me-1"></i> View </button>
-        ';
+        return  '<button onclick=ViewVersion('.$row->id.',"VIEW") class="dropdown-item"><i class="fa fa-eye me-1"></i> View </button>';
     }
 }
