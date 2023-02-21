@@ -70,5 +70,16 @@
                 <script>Alert.{{ $message['level'] == 'danger' ? 'error' : $message['level'] }}("{!! $message['message'] !!}")</script> 
             @endforeach
         @endif
+        <script>
+            // var countWorker;
+            // if(typeof(Worker) !== "undefined") {
+            //     if(typeof(countWorker) == "undefined") {
+            //         countWorker = new Worker("{{ url('/') }}/services/countWorker.js");
+            //     }
+            //     countWorker.onmessage = function(event) {
+            //         console.log(event.data)
+            //     };
+            // } 
+        </script>
     </body>
 </html>

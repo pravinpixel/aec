@@ -168,7 +168,7 @@ if(!function_exists('getModuleMenuMessagesCount')) {
         if($type == 'element') {
             if($count != 0) {
                 return'
-                    <small class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                    <small class="position-absolute text-white top-0 start-100 translate-middle badge rounded-pill bg-danger">
                         '.$count.'
                     </small>
                 ';

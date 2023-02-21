@@ -54,12 +54,12 @@
         <div id="gantt_here"></div>
     </div>
 </div>
-
+ 
 <x-chat-box
     status="1"
     :moduleId="Project()->id"
     moduleName="project"
-    menuName="{{ __('app.Milestones') }}"
+    menuName="{{ strtoupper(request()->route()->menu_type) }}"
 />
 
 @push('live-project-custom-styles')

@@ -37,11 +37,11 @@
                     <h5 class="m-0"> 
                         Notification
                     </h5>
-                </div>
+                </div> 
                 <div class="list-group">
                     @if ((count(getNotificationMessages()) != 0))
                         @foreach (getNotificationMessages()->take(10) as $msg)
-                            <a href="javascript:void(0);" onclick="EnquiryQuickView('{{ $msg->module_id }}' , this)" class="list-group-item list-group-item-action p-2">
+                            <a href="javascript:void(0);" data-class="{{ $msg->menu_name }}" onclick="EnquiryQuickView('{{ $msg->module_id }}' , this)" class="list-group-item list-group-item-action p-2">
                                 <div class="d-flex justify-content-between">
                                     <div>
                                         <img src="https://cdn-icons-png.flaticon.com/512/547/547133.png" width="25px" alt="">

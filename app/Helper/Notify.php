@@ -140,7 +140,7 @@ class Notify {
     {
         $messages_count = false;
         if($data['user_type'] == 'ADMIN') {
-            if($data['module_name'] == 'Enquiry') {
+            if($data['module_name'] == 'Enquiry'  || $data['module_name'] == 'project') {
                 $messages_count = Inbox::where([
                     "module_name" => $data["module_name"],
                     "module_id"   => $data["module_id"],
@@ -150,8 +150,7 @@ class Notify {
                 ])->count();
             }
         } elseif($data['user_type'] == 'CUSTOMER') {
-
-            if($data['module_name'] == 'Enquiry') {
+            if($data['module_name'] == 'Enquiry' || $data['module_name'] == 'project') {
                 $messages_count = Inbox::where([
                     "module_name" => $data["module_name"],
                     "module_id"   => $data["module_id"],
@@ -171,19 +170,27 @@ class Notify {
     public static function getModuleMenuMessagesCount($data)
     {
         $messages_count = false;
+       
         if($data['user_type'] == 'ADMIN') {
-            if($data['module_name'] == 'Enquiry' || $data['module_name'] == 'enquiry') {
+            if($data['module_name'] == 'Enquiry' || $data['module_name'] == 'project') {
+
+                if($data['module_name'] == 'project') {
+                    $Enquiry = Enquiry::with('customer')->where('project_id',$data['module_id'])->first(); 
+                } else {
+                    $Enquiry = Enquiry::with('customer')->find($data['module_id']); 
+                }
+                
                 $messages_count = Inbox::where([
                     "module_name" => $data["module_name"],
                     "module_id"   => $data["module_id"],
                     "menu_name"   => $data["menu_name"],
                     "sender_role" => 'CUSTOMER',
-                    "sender_id"   =>  getCustomerByEnquiryId($data["module_id"])->id,
+                    "sender_id"   => $Enquiry->customer->id,
                     "read_status" => 0
                 ])->count();
             }
         } elseif($data['user_type'] == 'CUSTOMER') {
-            if($data['module_name'] == 'Enquiry' || $data['module_name'] == 'enquiry') {
+            if($data['module_name'] == 'Enquiry' || $data['module_name'] == 'project') {
                 $messages_count = Inbox::where([
                     "module_name" => $data["module_name"],
                     "module_id"   => $data["module_id"],

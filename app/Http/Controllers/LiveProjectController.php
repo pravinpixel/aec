@@ -349,7 +349,9 @@ class LiveProjectController extends Controller
         $table      = DataTables::of($variations->get());
         $table->addIndexColumn();   
         $table->addColumn('version_id', function($row){
-            return '<button type="button" class="btn-quick-view bg-warning fw-bold shadow-none border-dark border text-dark" onclick=ViewVersion('.$row->id.',"VIEW") >'.$row->version.'</button>';
+            return '<button type="button" class="btn-quick-view bg-warning fw-bold shadow-none border-dark border text-dark" onclick=ViewVersion('.$row->id.',"VIEW") >
+                    '.$row->version.'
+                </button>';
         });
         $table->addColumn('status', function($row) {
             return VariationStatus($row->status);

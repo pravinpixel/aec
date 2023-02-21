@@ -9,7 +9,14 @@
         <div class="card-header bg-light">
             <nav class="wizard-nav">
                 @foreach ($wizard_menus[AuthUser()] as $menu) 
-                    <a href="{{ route('live-project.menus-index', ['menu_type' => $menu['slug'], 'id' => session()->get('current_project')->id]) }}"  class="wizard-tab {{ request()->route()->menu_type === $menu['slug'] ? 'active' : '' }}">
+                    <a href="{{ route('live-project.menus-index', ['menu_type' => $menu['slug'], 'id' => session()->get('current_project')->id]) }}"  class="position-relative wizard-tab {{ request()->route()->menu_type === $menu['slug'] ? 'active' : '' }}">
+                        {!! getModuleMenuMessagesCount(
+                            'project', 
+                            session()->get('current_project')->id, 
+                            strtoupper(str_replace(' ','_',$menu['slug'])) , 
+                            'element') 
+                        !!}
+                        {{-- {{ strtoupper(str_replace('-','_',$menu['slug'])) }} --}}
                         <div class="wizard-tab-icon">
                             {!! $menu['icon'] !!}
                         </div>
