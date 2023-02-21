@@ -158,7 +158,12 @@ class LiveProjectController extends Controller
     public function issues(Request $request,$id)
     {
         if($request->ajax()) { 
-            $Issues = Issues::with('VariationOrder')->where('project_id',$id)->select('*');
+            $Issues = Issues::with('VariationOrder')
+            ->where('project_id',$id)
+            ->when(AuthUser() == 'CUSTOMER',function($q) {
+                $q->where('type','EXTERNAL');
+            })
+            ->select('*');
             if($request->filters) {
                 $Issues->when(isset($request->filters['Priority']),function($q) use ($request) {
                     $q->where('priority',$request->filters['Priority']);
@@ -224,10 +229,13 @@ class LiveProjectController extends Controller
                 }
             });
             $table->addColumn('action', function($row){
-                if(is_null($row->VariationOrder)) {
-                    $btnConvert = '<span onclick="convertVariation('.$row->id.',this)" title="Convert to variation Order" class="mx-1"><i class="fa fa-share text-warning"></i></span>';
-                } else {
-                    $btnConvert = '<span title="Variation Order Already Exist" class="mx-1"><i class="fa fa-share text-secondary" style="cursor: not-allowed !important"></i></span>';
+                $btnConvert = '';
+                if(AuthUser() == 'ADMIN') {
+                    if(is_null($row->VariationOrder)) {
+                        $btnConvert = '<span onclick="convertVariation('.$row->id.',this)" title="Convert to variation Order" class="mx-1"><i class="fa fa-share text-warning"></i></span>';
+                    } else {
+                        $btnConvert = '<span title="Variation Order Already Exist" class="mx-1"><i class="fa fa-share text-secondary" style="cursor: not-allowed !important"></i></span>';
+                    }
                 }
                 return $btnConvert.'<span onclick="showIssue('.$row->id.',this)" title="View" class="mx-1"><i class="fa fa-eye text-success"></i></span>
                     <i onclick="deleteIssue('.$row->id.',this)" title="Delete" class="fa fa-trash text-danger"></i>

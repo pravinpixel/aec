@@ -21,22 +21,24 @@
                     <input type="file" name="attachments[]" class="form-control form-control-sm attachments" multiple required>
                 </div>
                 <hr class="my-3">
-                <h1 class="custom-modal-title">Issue Information</h1>
-                <span class="custom-label mt-3">Assign Type <sup>*</sup></span>
-                <div class="row">
-                    <div class="col ps-0 mb-3">
-                        <label class="form-control form-control-sm d-flex align-items-center" for="assign_type_in">
-                            <input type="radio" value="INTERNAL" id="assign_type_in" name="assign_type" class="form-check-input me-2 my-0" required>
-                            Internel
-                        </label>
+                <h1 class="custom-modal-title pb-3">Issue Information</h1>
+                <x-admin-layout>
+                    <span class="custom-label">Assign Type <sup>*</sup></span>
+                    <div class="row">
+                        <div class="col ps-0 mb-3">
+                            <label class="form-control form-control-sm d-flex align-items-center" for="assign_type_in">
+                                <input type="radio" value="INTERNAL" id="assign_type_in" name="assign_type" class="form-check-input me-2 my-0" required>
+                                Internel
+                            </label>
+                        </div>
+                        <div class="col mb-3">
+                            <label class="form-control form-control-sm d-flex align-items-center" for="assign_type_ex">
+                                <input type="radio" value="EXTERNAL" id="assign_type_ex" name="assign_type" class="form-check-input me-2 my-0" required>
+                                Externel (customers)
+                            </label>
+                        </div>
                     </div>
-                    <div class="col mb-3">
-                        <label class="form-control form-control-sm d-flex align-items-center" for="assign_type_ex">
-                            <input type="radio" value="EXTERNAL" id="assign_type_ex" name="assign_type" class="form-check-input me-2 my-0" required>
-                            Externel (customers)
-                        </label>
-                    </div>
-                </div>
+                </x-admin-layout>
                 <div class="row">
                     <div class="col ps-0 mb-3">
                         <span class="custom-label">Assignee <sup>*</sup></span> 
@@ -57,6 +59,9 @@
                         </select>
                     </div>
                 </div>
+                <x-customer-layout>
+                    <input type="hidden" value="EXTERNAL" name="assign_type">
+                </x-customer-layout>
                 <div class="row">
                     <div class="col ps-0 mb-3">
                         <span class="custom-label">Due Date <sup>*</sup></span>
@@ -73,18 +78,22 @@
                                 @foreach (getAllAdmin() as $user)
                                     <option {{ auth()->user()->id == $user['id'] ? 'selected' : '' }} value="{{ $user['id'] }}">{{ $user['display_name'] }}</option>
                                 @endforeach
+                                @else 
+                                <option selected value="{{ Customer()->id }}">{{  Customer()->full_name }}</option>
                             @endif
                         </select>
                     </div>
                 </div>
-                <div class="mb-3">
-                    <span class="custom-label">Tags</span>
-                    <select name="tags[]" class="form-select form-select-sm" id="multiple-select" data-placeholder="-- Select --" multiple>
-                        @foreach (getAllAdmin() as $user)
-                            <option value="{{ $user['id'] }}">{{ $user['display_name'] }}</option>
-                        @endforeach
-                    </select> 
-                </div> 
+                <x-admin-layout>
+                    <div class="mb-3">
+                        <span class="custom-label">Tags</span>
+                        <select name="tags[]" class="form-select form-select-sm" id="multiple-select" data-placeholder="-- Select --" multiple>
+                            @foreach (getAllAdmin() as $user)
+                                <option value="{{ $user['id'] }}">{{ $user['display_name'] }}</option>
+                            @endforeach
+                        </select> 
+                    </div> 
+                </x-admin-layout>
             </div> 
             <div class="modal-footer">
                 <button type="button" class="btn-sm btn btn-outline-primary rounded-pill" data-bs-dismiss="modal">Cancel</button>

@@ -68,20 +68,22 @@
                                 </div>
                             </a>
                         </div>
-                        <div id="tooltip-container">
-                            <h5>#Tag Members:</h5>
-                            @foreach (json_decode($issue->tags) as $tager_id)
-                                <a href="javascript:void(0);"  class="d-inline-block" title="{{ getUser($tager_id)->first_name }}">
-                                    <div class="d-flex align-items-center">
-                                        {!! getUserAvatar($tager_id) !!}
-                                        <div class="text-capitalize ps-1">
-                                            <small>{{ getUser($tager_id)->first_name }}</small> <br>
-                                            <small class="text-dark">{{ getUserRole($tager_id)->name }}</small>
+                        @if ($issue->tags != 'null')
+                            <div id="tooltip-container">
+                                <h5>#Tag Members:</h5>
+                                @foreach (json_decode($issue->tags) as $tager_id)
+                                    <a href="javascript:void(0);"  class="d-inline-block" title="{{ getUser($tager_id)->first_name }}">
+                                        <div class="d-flex align-items-center">
+                                            {!! getUserAvatar($tager_id) !!}
+                                            <div class="text-capitalize ps-1">
+                                                <small>{{ getUser($tager_id)->first_name }}</small> <br>
+                                                <small class="text-dark">{{ getUserRole($tager_id)->name }}</small>
+                                            </div>
                                         </div>
-                                    </div>
-                                </a>
-                            @endforeach 
-                        </div>
+                                    </a>
+                                @endforeach 
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -121,7 +123,11 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-outline-danger btn-sm me-2" onclick="convertVariation({{ $issue->id }},this)"> Convert to Variation <i class="fa fa-share" aria-hidden="true"></i> </button>
+        <x-admin-layout>
+            <button class="btn btn-outline-danger btn-sm me-2" onclick="convertVariation({{ $issue->id }},this)"> 
+                Convert to Variation <i class="fa fa-share" aria-hidden="true"></i> 
+            </button>
+        </x-admin-layout>
         <x-chat-box
             status="CHAT_BUTTON"
             :moduleId="Project()->id"
