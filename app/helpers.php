@@ -96,6 +96,19 @@ if(!function_exists('AuthUser')) {
     }
 }
 
+if(!function_exists('AuthUserData')) {
+    function AuthUserData(){
+        if(!is_null(Admin()))   {
+            return Auth::user();
+        }
+        if(!is_null(Customer()))   {
+            return Auth::guard('customers')->user();
+        }
+    }
+}
+
+ 
+
 if(!function_exists('str_replace_all')) {
     function str_replace_all($key, $value, $subject) {
         $subject = str_replace($key, $value, $subject);

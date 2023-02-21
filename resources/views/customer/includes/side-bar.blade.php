@@ -64,12 +64,7 @@
                     </ul>
                 </div>
             </li> 
-            
-
-
-
-
-
+             
             <li class="side-nav-item  {{ Route::is(["list-projects","customer-live-projects-data"]) ? "menuitem-active" : ""}}">
                 <a data-bs-toggle="collapse" href="#Project" aria-expanded="false" aria-controls="Sales" class="side-nav-link">
                     <i class="fa fa-layer-group" aria-hidden="true"></i>

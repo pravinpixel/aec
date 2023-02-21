@@ -68,10 +68,12 @@
                     <div class="col p-0 mb-3">
                         <span class="custom-label">Requester <sup>*</sup></span>
                         <select name="requester" class="form-select form-select-sm single-select-field" data-placeholder="-- select --" required>
-                            <option value="">-- select --</option>
-                            @foreach (getAllAdmin() as $user)
-                                <option {{ auth()->user()->id == $user['id'] ? 'selected' : '' }} value="{{ $user['id'] }}">{{ $user['display_name'] }}</option>
-                            @endforeach
+                            <option value="">-- select --</option> 
+                            @if (AuthUser() == 'ADMIN')
+                                @foreach (getAllAdmin() as $user)
+                                    <option {{ auth()->user()->id == $user['id'] ? 'selected' : '' }} value="{{ $user['id'] }}">{{ $user['display_name'] }}</option>
+                                @endforeach
+                            @endif
                         </select>
                     </div>
                 </div>

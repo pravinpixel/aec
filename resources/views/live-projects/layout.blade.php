@@ -11,12 +11,22 @@
         <!-- Begin page -->
         <div class="wrapper"> 
             <!-- ========== Left Sidebar Start ========== -->
-                @include('admin.includes.side-bar')
+                @if(AuthUser() == 'ADMIN')
+                    @include('admin.includes.side-bar')
+                @endif
+                @if(AuthUser() == 'CUSTOMER')
+                   @include('customer.includes.side-bar')
+                @endif
             <!--========== Left Sidebar End ========== -->
             <!--========== Start Page Content here ==========-->
                 <div class="main-content-rapper" >
                     <div class="content-page">
-                        @include('admin.includes.top-bar')
+                        @if(AuthUser() == 'ADMIN')
+                            @include('admin.includes.top-bar')
+                        @endif
+                        @if(AuthUser() == 'CUSTOMER')
+                            @include('customer.includes.top-bar')
+                        @endif
                         @yield('admin-content')
                     </div>
             </div>
