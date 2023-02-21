@@ -11,26 +11,30 @@ class Notify {
     public static function send($data)
     {
         if(!is_null(Admin())) {
-            $sender_role = userRole()->name;
+            $sender_role = strtoupper(userRole()->name);
             $sender_id   = Admin()->id;
             $sender_name = Admin()->display_name;
         }
 
         if(!is_null(Customer())) {
-            $sender_role = "Customer";
+            $sender_role = "CUSTOMER";
             $sender_id   = Customer()->id;
             $sender_name = Customer()->full_name;
         }
 
         if($data['module_name'] == 'enquiry' || $data['module_name'] == 'project') {
-            $Enquiry = Enquiry::with('customer')->find($data['module_id']); 
-            if($sender_role == 'Customer') {
+            if($data['module_name'] == 'project') {
+                $Enquiry = Enquiry::with('customer')->where('project_id',$data['module_id'])->first(); 
+            } else {
+                $Enquiry = Enquiry::with('customer')->find($data['module_id']); 
+            }
+            if($sender_role == 'CUSTOMER') {
                 $adminTokens   = Employees::whereNotNull('token')->pluck('token')->toArray(); 
-                $receiver_role = "Admin" ;
+                $receiver_role = "ADMIN" ;
                 $receiver_id   = 1;
                 $token         = $adminTokens;
             }
-            if($sender_role == 'Admin') {
+            if($sender_role == 'ADMIN') {
                 $receiver_role = "CUSTOMER" ;
                 $receiver_id   = $Enquiry->customer->id;
                 $token         = $Enquiry->customer->token;
@@ -65,17 +69,17 @@ class Notify {
                     module_name   = "'.$data['module_name'].'" and
                     module_id     = "'.$data['module_id'].'" and
                     menu_name     = "'.$data['menu_name'].'" and
-                    sender_role   = "Customer" and
+                    sender_role   = "CUSTOMER" and
                     sender_id     = '.Customer()->id.' and
-                    receiver_role = "Admin"
+                    receiver_role = "ADMIN"
                 )or( 
                     module_name   = "'.$data['module_name'].'" and
                     module_id     = "'.$data['module_id'].'" and
                     menu_name     = "'.$data['menu_name'].'" and
-                    sender_role   = "Admin" and
-                    receiver_role = "Customer" and
+                    sender_role   = "ADMIN" and
+                    receiver_role = "CUSTOMER" and
                     receiver_id   = '.Customer()->id.'
-            )')->latest()->get();
+            )')->latest()->get();  
         } 
         if(!is_null(Admin())) {
             $messages = Inbox::where([
@@ -97,7 +101,7 @@ class Notify {
         foreach(array_reverse($messages->toArray()) as $msg ) {
 
             if(!is_null(Admin())) {
-                if($msg['sender_role'] == 'Customer') {
+                if($msg['sender_role'] == 'CUSTOMER') {
                     $messageClass = "message_left";
                 } else {
                     $messageClass = "message_right";
@@ -105,7 +109,7 @@ class Notify {
             }
 
             if(!is_null(Customer())) {
-                if($msg['sender_role'] == 'Admin') {
+                if($msg['sender_role'] == 'ADMIN') {
                     $messageClass = "message_left";
                 } else {
                     $messageClass = "message_right";
@@ -140,7 +144,7 @@ class Notify {
                 $messages_count = Inbox::where([
                     "module_name" => $data["module_name"],
                     "module_id"   => $data["module_id"],
-                    "sender_role" => 'Customer',
+                    "sender_role" => 'CUSTOMER',
                     "sender_id"   =>  getCustomerByEnquiryId($data["module_id"])->id,
                     "read_status" => 0
                 ])->count();
@@ -151,7 +155,7 @@ class Notify {
                 $messages_count = Inbox::where([
                     "module_name" => $data["module_name"],
                     "module_id"   => $data["module_id"],
-                    "sender_role" => 'Admin',
+                    "sender_role" => 'ADMIN',
                     "read_status" => 0
                 ])->count();
             }
@@ -173,7 +177,7 @@ class Notify {
                     "module_name" => $data["module_name"],
                     "module_id"   => $data["module_id"],
                     "menu_name"   => $data["menu_name"],
-                    "sender_role" => 'Customer',
+                    "sender_role" => 'CUSTOMER',
                     "sender_id"   =>  getCustomerByEnquiryId($data["module_id"])->id,
                     "read_status" => 0
                 ])->count();
@@ -184,7 +188,7 @@ class Notify {
                     "module_name" => $data["module_name"],
                     "module_id"   => $data["module_id"],
                     "menu_name"   => $data["menu_name"],
-                    "sender_role" => 'Admin',
+                    "sender_role" => 'ADMIN',
                     "read_status" => 0
                 ])->count();
             }
