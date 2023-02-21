@@ -36,6 +36,7 @@ class DashboardController extends Controller
         $now = Carbon::now();
         $result['new_enquiries'] = Enquiry::where('status', 'Submitted')
             ->whereBetween('enquiry_date', [$fromDate, $toDate])
+            ->whereNull('project_id')
             ->count();
         $result['unattended_enquiries'] = Enquiry::where(['status' => 'Submitted', 'project_status' => 'Unattended'])
             ->where('enquiry_number', '!=', 'Draft')
@@ -47,7 +48,9 @@ class DashboardController extends Controller
             ->whereBetween('enquiry_date', [$fromDate, $toDate])
             ->whereNull('project_id')
             ->count();
-        $result['waiting_for_customer_response'] = Enquiry::where('proposal_sharing_status', 1)->whereNull('project_id')->count();
+        $result['waiting_for_customer_response'] = Enquiry::where(['proposal_email_status'=> 1])
+            ->whereBetween('enquiry_date', [$fromDate, $toDate])
+            ->whereNull('project_id')->count();
         $result['new_enquiries_last_month'] = Enquiry::where('status', 'Submitted')
             ->whereBetween('enquiry_date', [$previousMonthFromDate, $now])
             ->count();
