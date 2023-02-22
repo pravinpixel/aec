@@ -17,6 +17,8 @@ class customerLayout extends Component
     {
         if (!is_null(Customer())) {
             $this->access = true;
+        } else {
+            $this->access = false;
         }
     }
 

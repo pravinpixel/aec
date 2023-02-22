@@ -16,6 +16,8 @@ class adminLayout extends Component
     {
         if(!is_null(Admin())) {
             $this->access = true;
+        } else {
+            $this->access = false;
         }
     }
 
