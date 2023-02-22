@@ -1,7 +1,7 @@
 <?php
 namespace App\Interfaces;
 
-interface LiveProjectInterFace {
+interface LiveProjectInterface {
     public function get_milestones($id);
     public function store_milestones($id,$request);
     public function update_milestones($project_id,$task_id,$request);

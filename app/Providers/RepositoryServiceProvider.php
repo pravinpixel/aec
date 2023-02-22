@@ -31,7 +31,7 @@ use App\Interfaces\ProjectTicketRepositoryInterface;
 use App\Interfaces\TicketCommentRepositoryInterface;
 use App\Interfaces\TicketcommentsReplayinterface;
 use App\Interfaces\CheckSheetInterface;
-use App\Interfaces\LiveProjectInterFace;
+use App\Interfaces\LiveProjectInterface;
 use App\Repositories\DeliveryListRepository;
 use App\Interfaces\ProjectChatRepositoryInterface;
 use App\Repositories\CheckSheetRepository;
@@ -236,7 +236,7 @@ class RepositoryServiceProvider extends ServiceProvider
             ProjectChatRepository::class
         );
         $this->app->bind(
-            LiveProjectInterFace::class,
+            LiveProjectInterface::class,
             LiveProjectRepository::class
         );
     }

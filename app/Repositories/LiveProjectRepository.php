@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Interfaces\LiveProjectInterFace; 
+use App\Interfaces\LiveProjectInterface; 
 use App\Models\LiveProjectGranttLink;
 use App\Models\LiveProjectGranttTask;
 use App\Models\LiveProjectSubSubTasks;
@@ -11,7 +11,7 @@ use App\Models\LiveProjectTasks;
 use App\Models\Project; 
 use App\Repositories\IssuesRepository;
 
-class LiveProjectRepository implements LiveProjectInterFace
+class LiveProjectRepository implements LiveProjectInterface
 {
     public $projectModel;
     public $LiveProjectGranttTask;
