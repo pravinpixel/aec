@@ -17,9 +17,7 @@ class customerLayout extends Component
     {
         if (!is_null(Customer())) {
             $this->access = true;
-        } else {
-            $this->access = false;
-        }
+        }  
     }
 
     /**
@@ -29,6 +27,7 @@ class customerLayout extends Component
      */
     public function render()
     {
-        return view('components.customer-layout');
+        $access = $this->access;
+        return view('components.customer-layout',compact('access'));
     }
 }

@@ -16,8 +16,6 @@ class adminLayout extends Component
     {
         if(!is_null(Admin())) {
             $this->access = true;
-        } else {
-            $this->access = false;
         }
     }
 
@@ -28,6 +26,7 @@ class adminLayout extends Component
      */
     public function render()
     {
-        return view('components.admin-layout');
+        $access = $this->access;
+        return view('components.admin-layout',compact('access'));
     }
 }
