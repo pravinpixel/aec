@@ -1,3 +1,3 @@
-@if (!is_null(Customer()))
+@if ($access)
     {{ $slot }}
 @endif
