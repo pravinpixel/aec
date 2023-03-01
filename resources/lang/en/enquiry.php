@@ -55,5 +55,6 @@ return [
     'estimation_assigned'         => 'Estimation assigned successfully',
     'email'                       => 'Email',
     'building_type'               => 'Building Type',
-    'project_type'                => 'Project Type'
+    'project_type'                => 'Project Type',
+    'delivery_type'               => 'Delivery Type'
 ];

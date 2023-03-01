@@ -23,6 +23,7 @@ app.controller('dashboardController', function ($scope, $http, API_URL, $compile
             {data: 'id', name: 'id', visible: false},
             {data: 'enquiry_number', name: 'enquiry_number'},
             {data: 'enquiry_date', name: 'enquiry_date'},
+            {data: 'deliveryType', name: 'deliveryType.delivery_type_name'},
             {data: 'projectType', name: 'projectType.project_type_name'},
             {data: 'contact_person', name: 'contact_person'},
             {data: 'email', name: 'email'},
