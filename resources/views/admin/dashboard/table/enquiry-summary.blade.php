@@ -79,6 +79,7 @@
 												   <th>@lang('enquiry.s_no')</th>
 												   <th>@lang('enquiry.enquiry_no')</th>
 												   <th>@lang('enquiry.enquiry_date')</th>
+												   <th>@lang('enquiry.delivery_type')</th>
 												   <th>@lang('enquiry.project_type')</th>
 												   <th>@lang('enquiry.contact_person')</th>
                                                    <th>@lang('enquiry.email')</th>
