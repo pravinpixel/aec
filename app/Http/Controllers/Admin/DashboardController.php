@@ -87,13 +87,14 @@ class DashboardController extends Controller
     {
         if ($request->ajax() == true) {
 
-            if (request('start_date') && request('end_date')) {
-                $fromDate = GlobalService::DBSDateFormat(request('start_date'));;
-                $toDate = GlobalService::DBEDateFormat(request('end_date'));
+            if(request('from_date')) {
+                $fromDate = Carbon::parse(request('from_date'))->startOfDay();
             } else {
                 $fromDate = Carbon::now()->subDays(30)->startOfDay();
-                $toDate = Carbon::now()->endOfDay();
             }
+           
+            $toDate = Carbon::now()->endOfDay();
+        
             $dataDb = Enquiry::with(['customer','projectType','buildingType'])
                 ->when(request('type_of_project'), function ($q) {
                     $q->where('project_type_id', request('type_of_project'));
@@ -113,8 +114,7 @@ class DashboardController extends Controller
                 ->when(request('from_date'), function ($q) use ($fromDate, $toDate) {
                     $q->whereBetween('enquiry_date', [$fromDate, $toDate]);
                 })
-                ->where(['status' => 'Submitted'])
-                ->orderBy('id', 'desc');
+                ->where(['status' => 'Submitted']);
             return DataTables::eloquent($dataDb)
                 ->editColumn('enquiry_number', function ($dataDb) {
                     return '
@@ -270,8 +270,7 @@ class DashboardController extends Controller
                 $fromDate = Carbon::now()->subDays(30)->startOfDay();
                 $toDate = Carbon::now()->endOfDay();
             }
-            $dataDb = Project::with(['customer','deliveryType','invoicePlan','enquiry'])
-                ->orderBy('id', 'desc');
+            $dataDb = Project::with(['customer','deliveryType','invoicePlan','enquiry']);
             return DataTables::eloquent($dataDb)
                 ->editColumn('reference_number', function ($dataDb) {
                     return '
