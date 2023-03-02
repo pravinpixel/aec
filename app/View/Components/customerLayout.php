@@ -16,7 +16,7 @@ class customerLayout extends Component
     public function __construct()
     {
         if (Customer() !== null) {
-            $this->access = false;
+            $this->access = true;
         }
     }
 

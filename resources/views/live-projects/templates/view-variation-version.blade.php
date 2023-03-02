@@ -14,8 +14,7 @@
             </div>
             <div class="mb-3">
                 <label class="form-label">Description of Variation*</label>
-                <textarea class="form-control" name="description" rows="10" spellcheck="false" required
-                    {{ $mode == 'VIEW' ? 'readonly' : '' }}>{{ $variation->description }}</textarea>
+                <textarea class="form-control" name="description" rows="10" spellcheck="false" required {{ $mode == 'VIEW' ? 'readonly' : '' }}>{{ $variation->description }}</textarea>
             </div> 
             <div class="row m-0">
                 <div class="col ps-0">
@@ -54,7 +53,8 @@
         <input type="hidden" name="variation_id" class="form-control" value="{{ $variation->variation_id }}">
         <div class="modal-header">
             <h4 class="custom-modal-title" id="create-variation-orderLabel"> 
-                <b class="text-primary">{{ str_replace('_', ' ', $mode) }}</b> - VERSION - {{ $variation->version }}
+                <b class="text-primary">{{ str_replace('_', ' ', $mode) }}</b>
+                 - VERSION - {{ $variation->version }}
             </h4>
             <button type="button" class="btn-close" data-bs-dismiss="modal" onclick="$('#detail-variation-modal').modal('show')"></button>
         </div>
@@ -94,9 +94,9 @@
                     <option {{ $variation->status == 'DENY' ? 'selected' : ''  }} value="DENY">🔴 Deny</option>
                 </select>
             </div>
-            <div class="mb-3" style="{{ $variation->status  != 'CHANGE_REQUEST' ? 'display: none' : ''}}" id="comments">
+            <div class="mb-3" class="{{ $variation->status  === 'CHANGE_REQUEST' ? 'd-block' : 'd-none'}}" id="comments">
                 <label class="form-label">Comments</label>
-                <textarea class="form-control" name="comments" rows="5" spellcheck="false" required>{{ $variation->comments }}</textarea>
+                <textarea  class="form-control" name="comments" rows="5" spellcheck="false" required>{{ $variation->comments }}</textarea>
             </div>
         </div>
         <div class="modal-footer">
