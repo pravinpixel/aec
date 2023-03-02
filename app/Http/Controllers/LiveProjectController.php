@@ -158,12 +158,7 @@ class LiveProjectController extends Controller
     public function issues(Request $request,$id)
     {
         if($request->ajax()) { 
-            $Issues = Issues::with('VariationOrder')
-            ->where('project_id',$id)
-            ->when(AuthUser() == 'CUSTOMER',function($q) {
-                $q->where('type','EXTERNAL');
-            })
-            ->select('*');
+            $Issues = $id != 0 ? getIssuesByProjectId($id) : getIssuesByUserId(AuthUserData()->id);
             if($request->filters) {
                 $Issues->when(isset($request->filters['Priority']),function($q) use ($request) {
                     $q->where('priority',$request->filters['Priority']);
