@@ -148,7 +148,7 @@
             @endif
             @if(userHasAccess('task_index'))
             <li class="side-nav-item">
-                <a href="#" class="side-nav-link">
+                <a href="{{ route('issues.index') }}" class="side-nav-link">
                     <i class="fa fa-tasks" aria-hidden="true"></i>
                     <span> Issues </span>
                 </a> 
