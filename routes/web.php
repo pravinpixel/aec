@@ -38,6 +38,7 @@ use App\Http\Controllers\Auth\AuthCustomerController;
 use App\Http\Controllers\WebNotificationController;
 use App\Http\Controllers\PushNotificationController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\CommonController;
 use App\Http\Controllers\HelperController;
 use App\Http\Controllers\InboxController;
 use App\Http\Controllers\Sharepoint\SharepointController;
@@ -345,4 +346,8 @@ Route::post('/get-message', [InboxController::class , 'get_message']);
 Route::get('list-folder/{projectid}', function($id){
     $sharepoint = new SharepointController();
     return  $sharepoint->listAllFolder($id);
+});
+
+Route::group(['middleware' => 'common'], function () {
+    Route::get('/issues',[CommonController::class,'issues'])->name('issues.index');
 });

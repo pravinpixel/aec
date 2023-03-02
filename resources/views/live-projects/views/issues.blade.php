@@ -34,19 +34,22 @@
                 </div>
                 <button type="button" class="btn btn-light btn-sm border mx-1" data-bs-toggle="modal"
                     data-bs-target="#issues-filters"><i class="fa fa-filter" aria-hidden="true"></i></button>
-                <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
-                    data-bs-target="#create-issues-modal"> <i class="fa fa-plus"></i> New Issue</button>
+                @if (request()->route()->getName() != 'issues.index')
+                    <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
+                        data-bs-target="#create-issues-modal"> <i class="fa fa-plus"></i> New Issue</button>
+                @endif
             </li>
         </ul>
     </x-admin-layout>
     <x-customer-layout>
         <ul class="nav nav-tabs nav-bordered mb-2">
             <li class="nav-item">
-                <a href="#home-b1" data-bs-toggle="tab" aria-expanded="false" class="nav-link active" onclick="tablesearch(null)">
+                <a href="#home-b1" data-bs-toggle="tab" aria-expanded="false" class="nav-link active"
+                    onclick="tablesearch(null)">
                     <i class="mdi mdi-home-variant d-md-none d-block"></i>
                     <span class="d-none d-md-block">Issues summary</span>
                 </a>
-            </li> 
+            </li>
             <li class="end-0 me-2 position-absolute  d-flex">
                 <div class="dropdown">
                     <button type="button" class="btn btn-light btn-sm border dropdown-toggle" data-bs-toggle="dropdown"
@@ -59,8 +62,10 @@
                 </div>
                 <button type="button" class="btn btn-light btn-sm border mx-1" data-bs-toggle="modal"
                     data-bs-target="#issues-filters"><i class="fa fa-filter" aria-hidden="true"></i></button>
-                <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
-                    data-bs-target="#create-issues-modal"> <i class="fa fa-plus"></i> New Issue</button>
+                @if (request()->route()->getName() != 'issues.index')
+                    <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
+                        data-bs-target="#create-issues-modal"> <i class="fa fa-plus"></i> New Issue</button>
+                @endif
             </li>
         </ul>
     </x-customer-layout>
@@ -88,7 +93,8 @@
     <link rel="stylesheet" href="https://unpkg.com/filepond/dist/filepond.css" />
     <link rel="stylesheet" href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
     <style>
         .dataTables_length {
@@ -181,7 +187,7 @@
                     processing: true,
                     serverSide: true,
                     ajax: {
-                        url: "{{ route('live-project.issues.ajax', Project()->id) }}",
+                        url: "{{ route('live-project.issues.ajax',request()->route()->getName() == 'issues.index'? 0: Project()->id) }}",
                         data: {
                             filters: filters,
                         }

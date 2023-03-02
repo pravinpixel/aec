@@ -1,6 +1,6 @@
 <div id="create-issues-modal" class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false"  tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-xl modal-right modal-dialog-scrollable" role="document">
-        <form class="modal-content h-100 w-100" action="{{ route('live-project.menus-store', ['menu_type' => request()->route()->menu_type, 'id' => session()->get('current_project')->id]) }}" enctype="multipart/form-data" method="POST"> 
+        <form class="modal-content h-100 w-100" action="{{ route('live-project.menus-store', ['menu_type' => request()->route()->menu_type ?? "7", 'id' => session()->get('current_project')->id]) ?? "6" }}" enctype="multipart/form-data" method="POST"> 
             @csrf
             <input type="hidden" name="form_type" value="CREATE_ISSUE">
             <div class="modal-header bg-light-2">
