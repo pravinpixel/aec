@@ -1,6 +1,7 @@
 
 <?php
 
+use App\Http\Controllers\Sharepoint\SharepointController;
 use App\Models\Admin\Employees;
 use App\Models\Customer;
 use App\Models\Issues;
@@ -248,5 +249,12 @@ if (!function_exists('getIssuesByProjectId')) {
                 $q->where('type', 'EXTERNAL');
             })
             ->select('*');
+    }
+}
+if (!function_exists('ProjectDocuments')) {
+    function ProjectDocuments($id)
+    {
+        $controller = new SharepointController();
+        return  $controller->listAllFolder($id);
     }
 }
