@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\variationVersionMail;
+use App\Models\InvoicePlan;
 use App\Models\Issues;
 use App\Models\LiveProjectSubSubTasks;
 use App\Models\LiveProjectSubTasks;
@@ -417,5 +418,17 @@ class LiveProjectController extends Controller
             "message"      => 'Mail Sended Succesfully !',
             "variation_id" => $version->variation_id
         ]);
+    }
+
+    public function get_invoice_by_project($id)
+    {
+        $data = InvoicePlan::where('project_id',$id)->first();
+        return [
+            "id"            => $data->id,
+            "no_of_invoice" => $data->no_of_invoice,
+            "project_cost"  => $data->project_cost,
+            "project_id"    => $data->project_id,
+            "invoices"      => json_decode($data->invoice_data)->invoices
+        ];
     }
 }

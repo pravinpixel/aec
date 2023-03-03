@@ -136,7 +136,7 @@ if(!function_exists('getProjectId')) {
 }
 if(! function_exists('SetDateFormat')) {
     function SetDateFormat($date) {
-        return Carbon::parse($date)->format('d/m/Y');
+        return Carbon::parse($date)->format('d/ m/ Y');
     }
 }
 if(! function_exists('SetDateTimeFormat')) {

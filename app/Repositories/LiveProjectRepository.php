@@ -45,6 +45,9 @@ class LiveProjectRepository implements LiveProjectInterface
             case 'task-list': 
                 $project = $this->projectModel->with('LiveProjectTasks','Customer')->find($project_id);
                 break;
+            case 'invoice-status' :
+                $project = $this->projectModel->with('invoicePlan')->find($project_id); 
+                break;
             default:
                 $project = $this->projectModel->with('Customer')->find($project_id);
                 break;
