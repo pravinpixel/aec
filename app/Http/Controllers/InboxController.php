@@ -74,4 +74,12 @@ class InboxController extends Controller
             "Message"       => "Success"
         ],200);
     }
+    public function set_unread_message(Request $request) {
+        return Notify::setUnreadMessages([
+            'module_name' => $request->module_name,
+            'module_id'   => $request->module_id,
+            'menu_name'   => $request->menu_name,
+            'read_status' => $request->read_status
+        ]); 
+    }
 }

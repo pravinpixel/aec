@@ -342,6 +342,8 @@ Route::post('/save-token', [InboxController::class , 'store'])->name('save-token
  
 Route::post('/send-message', [InboxController::class , 'send_message']);
 Route::post('/get-message', [InboxController::class , 'get_message']);
+Route::post('/set-unread-message', [InboxController::class , 'set_unread_message']);
+
 
 Route::get('list-folder/{projectid}', function($id){
     $sharepoint = new SharepointController();

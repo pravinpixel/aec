@@ -2,7 +2,7 @@
     $invoice = $project->invoicePlan;
     $invoices = json_decode($project->invoicePlan->invoice_data)->invoices;
 @endphp 
-<table class="table table-bordered m-0">
+<table class="table table-bordered">
     <thead>
         <tr>
             <th colspan="2" class="text-center font-16">Invoices</th>
@@ -45,3 +45,9 @@
         @endforeach
     </tbody>
 </table>
+<x-chat-box
+    status="1"
+    :moduleId="Project()->id"
+    moduleName="project"
+    menuName="{{ strtoupper(request()->route()->menu_type) }}"
+/>

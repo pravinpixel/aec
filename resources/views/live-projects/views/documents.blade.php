@@ -1,4 +1,4 @@
-<section id="documents-section">
+<section id="documents-section" class="mb-3">
     <div class="p-3 text-center">
         <h4 class="fw-bold ">Documents Fetching from share point</h4>
         <div class="text-primary">
@@ -7,6 +7,12 @@
         </div>
     </div>
 </section>
+<x-chat-box
+    status="1"
+    :moduleId="Project()->id"
+    moduleName="project"
+    menuName="{{ strtoupper(request()->route()->menu_type) }}"
+/>
 @push('live-project-custom-scripts')
     <script>
         const renderHTML = (data) => {

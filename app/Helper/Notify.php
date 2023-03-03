@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Helper;
 
 use App\Models\Admin\Employees;
@@ -7,35 +8,36 @@ use App\Models\Inbox;
 use App\Notifications\InboxNotification;
 use Illuminate\Support\Facades\Notification;
 
-class Notify {
+class Notify
+{
     public static function send($data)
     {
-        if(!is_null(Admin())) {
+        if (!is_null(Admin())) {
             $sender_role = strtoupper(userRole()->name);
             $sender_id   = Admin()->id;
             $sender_name = Admin()->display_name;
         }
 
-        if(!is_null(Customer())) {
+        if (!is_null(Customer())) {
             $sender_role = "CUSTOMER";
             $sender_id   = Customer()->id;
             $sender_name = Customer()->full_name;
         }
 
-        if($data['module_name'] == 'enquiry' || $data['module_name'] == 'project') {
-            if($data['module_name'] == 'project') {
-                $Enquiry = Enquiry::with('customer')->where('project_id',$data['module_id'])->first(); 
+        if ($data['module_name'] == 'enquiry' || $data['module_name'] == 'project') {
+            if ($data['module_name'] == 'project') {
+                $Enquiry = Enquiry::with('customer')->where('project_id', $data['module_id'])->first();
             } else {
-                $Enquiry = Enquiry::with('customer')->find($data['module_id']); 
+                $Enquiry = Enquiry::with('customer')->find($data['module_id']);
             }
-            if($sender_role == 'CUSTOMER') {
-                $adminTokens   = Employees::whereNotNull('token')->pluck('token')->toArray(); 
-                $receiver_role = "ADMIN" ;
+            if ($sender_role == 'CUSTOMER') {
+                $adminTokens   = Employees::whereNotNull('token')->pluck('token')->toArray();
+                $receiver_role = "ADMIN";
                 $receiver_id   = 1;
                 $token         = $adminTokens;
             }
-            if($sender_role == 'ADMIN') {
-                $receiver_role = "CUSTOMER" ;
+            if ($sender_role == 'ADMIN') {
+                $receiver_role = "CUSTOMER";
                 $receiver_id   = $Enquiry->customer->id;
                 $token         = $Enquiry->customer->token;
             }
@@ -52,80 +54,71 @@ class Notify {
             'menu_name'     =>  $data['menu_name'],
             'send_date'     =>  now()->format('d-m-Y H:m')
         ]);
-        
-        Notification::send(null,new InboxNotification(
+
+        Notification::send(null, new InboxNotification(
             $data['message'],
-            ucfirst($sender_name)." - ".strtolower($sender_role),
+            ucfirst($sender_name) . " - " . strtolower($sender_role),
             $token
         ));
-     
-        return static::getMessages($data); 
+
+        return static::getMessages($data);
     }
 
     public static function getMessages($data)
-    { 
-        if(!is_null(Customer())) {
+    {
+        if (!is_null(Customer())) {
             $messages = Inbox::whereRaw('(
-                    module_name   = "'.$data['module_name'].'" and
-                    module_id     = "'.$data['module_id'].'" and
-                    menu_name     = "'.$data['menu_name'].'" and
+                    module_name   = "' . $data['module_name'] . '" and
+                    module_id     = "' . $data['module_id'] . '" and
+                    menu_name     = "' . $data['menu_name'] . '" and
                     sender_role   = "CUSTOMER" and
-                    sender_id     = '.Customer()->id.' and
+                    sender_id     = ' . Customer()->id . ' and
                     receiver_role = "ADMIN"
                 )or( 
-                    module_name   = "'.$data['module_name'].'" and
-                    module_id     = "'.$data['module_id'].'" and
-                    menu_name     = "'.$data['menu_name'].'" and
+                    module_name   = "' . $data['module_name'] . '" and
+                    module_id     = "' . $data['module_id'] . '" and
+                    menu_name     = "' . $data['menu_name'] . '" and
                     sender_role   = "ADMIN" and
                     receiver_role = "CUSTOMER" and
-                    receiver_id   = '.Customer()->id.'
-            )')->latest()->get();  
-        } 
-        if(!is_null(Admin())) {
+                    receiver_id   = ' . Customer()->id . '
+            )')->latest()->get();
+        }
+        if (!is_null(Admin())) {
             $messages = Inbox::where([
                 "module_name" => $data["module_name"],
                 "module_id"   => $data["module_id"],
                 "menu_name"   => $data["menu_name"],
-            ])->latest()->get(); 
+            ])->latest()->get();
         }
-  
-        if($data['read_status'] ?? false) {
-            foreach($messages as $row) {
-                Inbox::find($row->id)->update(['read_status' => 1]);
-            }
-        }
-        
+        $conversation = '';
+        foreach (array_reverse($messages->toArray()) as $msg) {
 
-        $conversation = '';     
-
-        foreach(array_reverse($messages->toArray()) as $msg ) {
-
-            if(!is_null(Admin())) {
-                if($msg['sender_role'] == 'CUSTOMER') {
+            if (!is_null(Admin())) {
+                if ($msg['sender_role'] == 'CUSTOMER') {
                     $messageClass = "message_left";
                 } else {
                     $messageClass = "message_right";
                 }
             }
 
-            if(!is_null(Customer())) {
-                if($msg['sender_role'] == 'ADMIN') {
+            if (!is_null(Customer())) {
+                if ($msg['sender_role'] == 'ADMIN') {
                     $messageClass = "message_left";
                 } else {
                     $messageClass = "message_right";
                 }
             }
-             
+
             $conversation .= '
-                <li class="'.$messageClass.'" >
+                <li class="' . $messageClass . '" >
                     <div class="message-container">
-                        <div class="text-message">'.$msg['message'].'</div>
-                        <small class="text-secondary">'.SetDateTimeFormat($msg['send_date']).'</small>
+                        <div class="text-message">' . $msg['message'] . '</div>
+                        <small class="text-secondary">' . SetDateTimeFormat($msg['send_date']) . '</small>
                     </div>
                 </li>
             ';
         }
-         
+
         return $conversation != '' ? $conversation : '
             <li class="bg-light rounded shadow-sm p-2">
                 <div class="text-center w-100">
@@ -135,12 +128,17 @@ class Notify {
             </li>
         ';
     }
-
+    public static function setUnreadMessages($data)
+    {
+        return Inbox::where('receiver_id',AuthUserData()->id)->where('receiver_role', AuthUser())->update([
+            "read_status" => "1"
+        ]);
+    }
     public static function getModuleMessagesCount($data)
     {
         $messages_count = false;
-        if($data['user_type'] == 'ADMIN') {
-            if($data['module_name'] == 'Enquiry'  || $data['module_name'] == 'project') {
+        if ($data['user_type'] == 'ADMIN') {
+            if ($data['module_name'] == 'Enquiry'  || $data['module_name'] == 'project') {
                 $messages_count = Inbox::where([
                     "module_name" => $data["module_name"],
                     "module_id"   => $data["module_id"],
@@ -149,8 +147,8 @@ class Notify {
                     "read_status" => 0
                 ])->count();
             }
-        } elseif($data['user_type'] == 'CUSTOMER') {
-            if($data['module_name'] == 'Enquiry' || $data['module_name'] == 'project') {
+        } elseif ($data['user_type'] == 'CUSTOMER') {
+            if ($data['module_name'] == 'Enquiry' || $data['module_name'] == 'project') {
                 $messages_count = Inbox::where([
                     "module_name" => $data["module_name"],
                     "module_id"   => $data["module_id"],
@@ -159,10 +157,10 @@ class Notify {
                 ])->count();
             }
         }
-        if($messages_count) {
+        if ($messages_count) {
             return '
                 <small class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                    '.$messages_count.'
+                    ' . $messages_count . '
                 </small>
             ';
         }
@@ -170,16 +168,16 @@ class Notify {
     public static function getModuleMenuMessagesCount($data)
     {
         $messages_count = false;
-       
-        if($data['user_type'] == 'ADMIN') {
-            if($data['module_name'] == 'Enquiry' || $data['module_name'] == 'project') {
 
-                if($data['module_name'] == 'project') {
-                    $Enquiry = Enquiry::with('customer')->where('project_id',$data['module_id'])->first(); 
+        if ($data['user_type'] == 'ADMIN') {
+            if ($data['module_name'] == 'Enquiry' || $data['module_name'] == 'project') {
+
+                if ($data['module_name'] == 'project') {
+                    $Enquiry = Enquiry::with('customer')->where('project_id', $data['module_id'])->first();
                 } else {
-                    $Enquiry = Enquiry::with('customer')->find($data['module_id']); 
+                    $Enquiry = Enquiry::with('customer')->find($data['module_id']);
                 }
-                
+
                 $messages_count = Inbox::where([
                     "module_name" => $data["module_name"],
                     "module_id"   => $data["module_id"],
@@ -189,8 +187,8 @@ class Notify {
                     "read_status" => 0
                 ])->count();
             }
-        } elseif($data['user_type'] == 'CUSTOMER') {
-            if($data['module_name'] == 'Enquiry' || $data['module_name'] == 'project') {
+        } elseif ($data['user_type'] == 'CUSTOMER') {
+            if ($data['module_name'] == 'Enquiry' || $data['module_name'] == 'project') {
                 $messages_count = Inbox::where([
                     "module_name" => $data["module_name"],
                     "module_id"   => $data["module_id"],
@@ -199,10 +197,10 @@ class Notify {
                     "read_status" => 0
                 ])->count();
             }
-        } 
-        
-        if($messages_count) {
-            return $messages_count ;
+        }
+
+        if ($messages_count) {
+            return $messages_count;
         }
     }
 }

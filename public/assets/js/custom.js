@@ -289,12 +289,13 @@ PreviousChatHistory = (element, module_id, module_name, menu_name) => {
         }
     })
     startLoader(element)
-    axios.post(`${APP_URL}/get-message`, {
+    const payload = {
         module_id   : module_id,
         module_name : module_name,
         menu_name   : menu_name,
         read_status: 1
-    }).then(function (response) {
+    }
+    axios.post(`${APP_URL}/get-message`, payload ).then(function (response) {
         $(`.inbox_conversation_list_${menu_name}`).html(response.data.conversations)
         $(`.inbox_conversation_list_${menu_name}`).stop().animate({
             scrollTop: $(`.inbox_conversation_list_${menu_name}`)[0].scrollHeight
@@ -304,6 +305,9 @@ PreviousChatHistory = (element, module_id, module_name, menu_name) => {
             if(item[1].name == 'message') {
                 item[1].value = ''
             }
+        })
+        axios.post(`${APP_URL}/set-unread-message`, payload ).then(function (response){
+            console.log(response.data)
         })
         refreshData()
     });

@@ -14,7 +14,7 @@
             </div>
             <div class="mb-3">
                 <label class="form-label">Description of Variation*</label>
-                <textarea class="form-control" name="description" rows="10" spellcheck="false" required {{ $mode == 'VIEW' ? 'readonly' : '' }}>{{ $variation->description }}</textarea>
+                <textarea class="form-control" name="description" rows="10" spellcheck="false"   {{ $mode == 'VIEW' ? 'readonly' : '' }}>{{ $variation->description }}</textarea>
             </div> 
             <div class="row m-0">
                 <div class="col ps-0">
