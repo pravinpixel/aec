@@ -58,7 +58,6 @@ if (!function_exists('TicketStatus')) {
         return [
             ["type" => "NEW", "text" => __('project.NEW'),],
             ["type" => "OPEN", "text" => __('project.OPEN'),],
-            ["type" => "PENDING", "text" => __('project.PENDING'),],
             ["type" => "CLOSED", "text" => __('project.CLOSED'),]
         ];
     }
