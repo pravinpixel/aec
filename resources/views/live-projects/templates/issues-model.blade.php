@@ -27,7 +27,14 @@
                             <h4 class=""> {{ $issue->issue_id }} | <span class="text-primary">{{ $issue->title }}</span></h4>
                         </div>
                         <div class="mb-3">
-                            <b>Status</b> : <span>{{ __('project.'.$issue->status)  }}</span>
+                            <b>Status</b> :
+                            <span>
+                                <select name="Status" onchange="ChangeIssueStatus('{{ $issue->id }}',this)" class="rounded-pill shadow-sm border border-light" value="{{ $issue->ststus }}" style="outline:none">
+                                    <option {{ select_status("NEW",$issue) }} value="NEW">{{ __('project.NEW') }}</option>
+                                    <option {{ select_status("OPEN",$issue) }} value="OPEN">{{ __('project.OPEN') }}</option>
+                                    <option {{ select_status("CLOSED",$issue) }} value="CLOSED">{{ __('project.CLOSED') }}</option>
+                                </select>
+                            </span>
                         </div>
                         <div class="mb-3">
                             <b>Type</b> : <span>{{ $issue->type }}</span>
@@ -120,7 +127,7 @@
                     </div>
                 </div>
             @endif
-        </div>
+        </div> 
     </div>
     <div class="modal-footer">
         <x-admin-layout>
