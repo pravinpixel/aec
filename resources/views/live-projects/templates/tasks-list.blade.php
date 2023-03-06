@@ -26,11 +26,11 @@
                                     </div>
                                     <div>
                                         <h6 class="text-primary"><i class="fa fa-list me-1"></i> Sub Tasks ({{ count($task->SubTasks) }})</h6>
-                                        <ul>
+                                        <ul class="list-group">
                                             @foreach ($task->SubTasks as $subtask)
-                                                <li>
+                                                <li class="list-group-item">
                                                     <div class="d-flex align-items-center justify-content-between w-100">
-                                                        <b>{{ $subtask->name }}</b>
+                                                        <small class="text-dark">{{ $subtask->name }}</small>
                                                         <div class="text-center">
                                                             {!! generateProgressBar($subtask->progress_percentage,'bg-primary') !!}
                                                         </div>
