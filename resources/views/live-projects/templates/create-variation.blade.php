@@ -46,9 +46,14 @@
             </div>
         </div>
     </div>
-    <div class="modal-footer">
-        <button type="button" class="btn-sm btn btn-outline-primary rounded-pill"
-            data-bs-dismiss="modal">Cancel</button>
-        <button type="submit" class="btn-sm btn btn-primary rounded-pill ms-1">Create</button>
+    <div class="modal-footer d-flex justify-content-between align-items-center">
+        <label for="send_mail">
+            <input type="checkbox" name="send_mail" value="true" id="send_mail" class="form-check-input">
+           <span class="ps-1"> Notify on mail</span>
+        </label>
+        <div>
+            <button type="button" class="btn-sm btn btn-outline-primary rounded-pill" data-bs-dismiss="modal" onclick="$('#detail-variation-modal').modal('show')">Cancel</button>
+            <button type="submit" class="btn-sm btn btn-primary rounded-pill ms-1">Save Changes</button>
+        </div>
     </div>
 </form>

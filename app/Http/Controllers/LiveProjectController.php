@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\liveProject\variationMail;
 use App\Mail\variationVersionMail;
 use App\Models\InvoicePlan;
 use App\Models\Issues;
@@ -13,7 +14,6 @@ use App\Repositories\LiveProjectRepository;
 use App\View\Components\ChatBox;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Laracasts\Flash\Flash;
@@ -278,8 +278,8 @@ class LiveProjectController extends Controller
         ]);
     }
     public function store_issue_variation(Request $request,$id)
-    { 
-        $issue = Issues::with('VariationOrder')->find($id);
+    {  
+        $issue = Issues::with('VariationOrder')->find($id); 
         if(is_null($issue->VariationOrder)) {
             $VariationOrder = $issue->VariationOrder()->create([
                 'project_id'  => $issue->project_id
@@ -294,6 +294,18 @@ class LiveProjectController extends Controller
                 'description' => $request->description
             ]);
             Flash::success('Variation Order Created !');
+            if((bool) $request->send_mail) {
+                $customer = getCustomerByProjectId($issue->project_id);
+                sendMail(new variationMail(), [
+                    "name"         => $customer->full_name,
+                    "avatar"       => $customer->image,
+                    "email"        => $customer->email,
+                    "mobile_no"    => $customer->mobile_no,
+                    "company_name" => $customer->company_name,
+                    "variation"    => $VariationOrder
+                ]);
+                dD("s");
+            }
             $menu_type = 'variation-orders';
         } else {
             Flash::error('Variation Order Already Exist !');

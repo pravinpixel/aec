@@ -2,6 +2,7 @@
 <?php
 
 use App\Http\Controllers\Sharepoint\SharepointController;
+use App\Jobs\emailJob;
 use App\Models\Admin\Employees;
 use App\Models\Customer;
 use App\Models\Issues;
@@ -264,5 +265,12 @@ if (!function_exists('DatePickerFormat')) {
     function DatePickerFormat($date)
     {
         return  Carbon::parse(str_replace('/','-',$date))->format('Y-m-d');
+    }
+}
+
+if (!function_exists('sendMail')) {
+    function sendMail($modal,$data)
+    {
+        return dispatch(new emailJob( new $modal(),$data));
     }
 }
