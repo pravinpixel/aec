@@ -43,6 +43,12 @@
                 })
             }
             setLiveProjectSubSubTask = (type, sub_sub_task_id, element) => { 
+                var inputs = $(`.${element.parentNode.parentNode.classList[0]} input[type=date]`)
+                const start_date    = inputs[0]
+                const end_date      = inputs[1]
+                const delivery_date = inputs[2] 
+                end_date.setAttribute('min',start_date.value)
+                delivery_date.setAttribute('min',end_date.value)
                 axios.post(`{{ route('live-project.sub-sub-task.update') }}/${sub_sub_task_id}`, {
                     type: type,
                     value: element.value

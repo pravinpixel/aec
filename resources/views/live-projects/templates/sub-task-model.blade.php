@@ -59,16 +59,18 @@
                                         </select>
                                     </td>
                                     <td>
-                                        <input type="date" {{ $sub_sub_task->status == 1 ? 'disabled' : '' }} onchange="setLiveProjectSubSubTask('start_date','{{ $sub_sub_task->id }}',this)" value="{{ $sub_sub_task->start_date }}" class="custom input_{{ slugable($sub_task->name,$key + 1) }}"  required>
+                                        <input type="date" {{ $sub_sub_task->status == 1 ? 'disabled' : '' }} onchange="setLiveProjectSubSubTask('start_date','{{ $sub_sub_task->id }}',this)" value="{{ DatePickerFormat($sub_sub_task->start_date) }}" class="custom input_{{ slugable($sub_task->name,$key + 1) }}"  required>
                                     </td>
                                     <td>
-                                        <input type="date" {{ $sub_sub_task->status == 1 ? 'disabled' : '' }}  onchange="setLiveProjectSubSubTask('end_date','{{ $sub_sub_task->id }}',this)" value="{{ $sub_sub_task->end_date }}" class="custom input_{{ slugable($sub_task->name,$key + 1) }}" required >
+                                        <input type="date" {{ $sub_sub_task->status == 1 ? 'disabled' : '' }}  onchange="setLiveProjectSubSubTask('end_date','{{ $sub_sub_task->id }}',this)" min="{{ DatePickerFormat($sub_sub_task->start_date) }}" value="{{ DatePickerFormat($sub_sub_task->end_date) }}" class="custom input_{{ slugable($sub_task->name,$key + 1) }}" required >
                                     </td> 
                                     <td>
                                         <input type="date"
                                         {{ $sub_sub_task->status == 1 ? 'disabled' : '' }} 
                                             onchange="setLiveProjectSubSubTask('delivery_date','{{ $sub_sub_task->id }}',this)"
-                                            value="{{ $sub_sub_task->delivery_date }}" class="custom input_{{ slugable($sub_task->name,$key + 1) }}" required>
+                                            value="{{ DatePickerFormat($sub_sub_task->delivery_date) }}" 
+                                            min="{{ DatePickerFormat($sub_sub_task->end_date) }}"
+                                            class="custom input_{{ slugable($sub_task->name,$key + 1) }}" required>
                                     </td>
                                     <td>
                                         <div class="form-check ps-0 form-checkbox-success d-flex justify-content-center">

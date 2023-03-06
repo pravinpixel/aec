@@ -8,6 +8,7 @@ use App\Models\Issues;
 use App\Models\Project;
 use App\Models\ProjectTeamSetup;
 use App\Models\Role;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 use Random\Randomizer;
 
@@ -256,5 +257,12 @@ if (!function_exists('ProjectDocuments')) {
     {
         $controller = new SharepointController();
         return  $controller->listAllFolder($id);
+    }
+}
+
+if (!function_exists('DatePickerFormat')) {
+    function DatePickerFormat($date)
+    {
+        return  Carbon::parse(str_replace('/','-',$date))->format('Y-m-d');
     }
 }
