@@ -73,8 +73,8 @@
                 text: "You won't be able to revert this!",
                 icon: 'warning',
                 showCancelButton: true,
-                confirmButtonText: 'Yes, delete it!',
-                cancelButtonText: 'No, cancel',
+                confirmButtonText: 'Yes, cancel it!',
+                cancelButtonText: 'No',
                 reverseButtons: true,
                 allowOutsideClick :false,
                 allowEscapeKey:false
@@ -82,7 +82,7 @@
                 if (result.isConfirmed) { 
                     axios.delete(`{{ route('live-project.delete-variation.ajax') }}/${id}`).then((response) => {
                         if(response.data.status) {
-                            Alert.success('Successfully Deleted !')
+                            Alert.info('Variation order canceled !')
                             $('#variation-order-table').DataTable().destroy();
                             FatchTable(null)
                         }

@@ -208,7 +208,6 @@ class LiveProjectController extends Controller
                     <select name="Status" onchange="ChangeIssueStatus('.$row->id.',this)" class="rounded-pill shadow-sm border border-light" value="'.$row->ststus.'" style="outline:none">
                         <option '.select_status("NEW",$row).' value="NEW">'.__('project.NEW').'</option>
                         <option '.select_status("OPEN",$row).' value="OPEN">'.__('project.OPEN').'</option>
-                        <option '.select_status("PENDING",$row).' value="PENDING">'.__('project.PENDING').'</option>
                         <option '.select_status("CLOSED",$row).' value="CLOSED">'.__('project.CLOSED').'</option>
                     </select>
                 ';
@@ -285,7 +284,7 @@ class LiveProjectController extends Controller
                 'project_id'  => $issue->project_id
             ]);
             $totalVersion = count($VariationOrder->VariationOrderVersions) + 1;
-            $VariationOrder->VariationOrderVersions()->create([
+            $VariationOrderVersion = $VariationOrder->VariationOrderVersions()->create([
                 'version'     => 'V '. $totalVersion,
                 'project_id'  => $issue->project_id,
                 'title'       => $request->title,
@@ -302,9 +301,8 @@ class LiveProjectController extends Controller
                     "email"        => $customer->email,
                     "mobile_no"    => $customer->mobile_no,
                     "company_name" => $customer->company_name,
-                    "variation"    => $VariationOrder
+                    "variation"    => $VariationOrderVersion
                 ]);
-                dD("s");
             }
             $menu_type = 'variation-orders';
         } else {
@@ -329,7 +327,7 @@ class LiveProjectController extends Controller
             if(AuthUser() == 'ADMIN') {
                 return '
                     <span onclick="showVariationOrder('.$row->id.',this)" title="View" class="mx-1 text-success"><i class="fa fa-eye"></i></span>
-                    <span onclick="deleteVariationOrder('.$row->id.',this)" title="Delete" class="mx-1"><i class="fa fa-trash text-danger"></i></span>
+                    <span onclick="deleteVariationOrder('.$row->id.',this)" title="Cancel Variation Order" class="mx-1"><i class="fa fa-ban text-danger"></i> Cancel</span>
                 ';
             }
             return '<span onclick="showVariationOrder('.$row->id.',this)" title="View" class="mx-1 text-success"><i class="fa fa-eye"></i></span>';
