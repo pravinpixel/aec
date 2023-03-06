@@ -204,13 +204,7 @@ class LiveProjectController extends Controller
                 return Str::limit($row->title,28,' ...');
             }); 
             $table->addColumn('status_type', function($row){  
-                return '
-                    <select name="Status" onchange="ChangeIssueStatus('.$row->id.',this)" class="rounded-pill shadow-sm border border-light" value="'.$row->ststus.'" style="outline:none">
-                        <option '.select_status("NEW",$row).' value="NEW">'.__('project.NEW').'</option>
-                        <option '.select_status("OPEN",$row).' value="OPEN">'.__('project.OPEN').'</option>
-                        <option '.select_status("CLOSED",$row).' value="CLOSED">'.__('project.CLOSED').'</option>
-                    </select>
-                ';
+                return '<span class="badge text-dark border rounded-pill">'.__('project.'.$row->status).'</span>';
             });
             $table->addColumn('priority_type', function($row){ 
                 if($row->priority == 'CRITICAL') {
@@ -244,6 +238,7 @@ class LiveProjectController extends Controller
     public function show_issues($id)
     {
         $issue = Issues::with('IssuesAttachments')->find($id);
+        $issue->status == 'NEW' ?  $issue->update(['status'=>'OPEN']) : null;
         $view  = view('live-projects.templates.issues-model',compact('issue'));
         return response([
             "view"  => "$view",
