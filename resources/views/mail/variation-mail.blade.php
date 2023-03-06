@@ -1,18 +1,11 @@
 @component('mail::message')
-# Introduction
-
-The body of your message.
-<h1>{{ $data['name'] }}</h1>
-<h1>{{ $data['avatar'] }}</h1>
-<h1>{{ $data['email'] }}</h1>
-<h1>{{ $data['mobile_no'] }}</h1>
-<h1>{{ $data['company_name'] }}</h1>
-<h1>{{ $data['variation'] }}</h1>
-
-@component('mail::button', ['url' => ''])
-Button Text
-@endcomponent
-
-Thanks,<br>
+<h3>
+    <img src="{{ $data['avatar'] }}" style="border-radius:50px;margin-right:10px" height="35">
+    {{ ucfirst($data['name']) }}
+</h3>
+<h2>{{ $data['variation']['title'] }}</h2>
+<p>{{ $data['variation']['description'] }}</p>
+<p><br> For more details, <a href="{{ url('/login') }}">click here</a>.</p>
+<b>Thanks</b>,<br>
 {{ config('app.name') }}
 @endcomponent
