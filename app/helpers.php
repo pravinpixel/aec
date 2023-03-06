@@ -269,18 +269,18 @@ if(!function_exists('changeProposalStatus')) {
         }
     }
     if(!function_exists('generateProgressBar')) {
-        function generateProgressBar($count){
+        function generateProgressBar($count,$class = null){
             if ($count == 0) {
                 $progress_bar = '
                     <div class="progress border border-white shadow" style="width: 100px">
-                        <div class="progress-bar progress-bar-striped bg-secondary text-white" role="progressbar" style="width: 100%;">0%</div>
+                        <div class="'.$class.' progress-bar progress-bar-striped bg-secondary text-white" role="progressbar" style="width: 100%;">0%</div>
                     </div>
                 ';
             } else {
                 $width = $count < 25 ? 25 : $count;
                 $progress_bar = '
                     <div class="progress border border-darkgreen shadow" style="width: 100px">
-                        <div class="progress-bar progress-bar-striped progress-bar-animated darkgreen" role="progressbar" style="width: '.$width.'%;" aria-valuenow="'.$width.'" aria-valuemin="0" aria-valuemax="100">'. (int)$count .'%</div>
+                        <div class="'.$class.' progress-bar progress-bar-striped progress-bar-animated darkgreen" role="progressbar" style="width: '.$width.'%;" aria-valuenow="'.$width.'" aria-valuemin="0" aria-valuemax="100">'. (int)$count .'%</div>
                     </div>
                 ';
             } 
