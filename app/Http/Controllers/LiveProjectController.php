@@ -222,14 +222,24 @@ class LiveProjectController extends Controller
                 $btnConvert = '';
                 if(AuthUser() == 'ADMIN') {
                     if(is_null($row->VariationOrder)) {
-                        $btnConvert = '<span onclick="convertVariation('.$row->id.',this)" title="Convert to variation Order" class="mx-1"><i class="fa fa-share text-warning"></i></span>';
-                    } else {
-                        $btnConvert = '<span title="Variation Order Already Exist" class="mx-1"><i class="fa fa-share text-secondary" style="cursor: not-allowed !important"></i></span>';
-                    }
+                        $btnConvert = '<button type="button" onclick="convertVariation('.$row->id.',this)" title="Convert to variation Order" class="dropdown-item"><i class="fa fa-share me-1"></i> Convert Variation</button>';
+                    } 
                 }
-                return $btnConvert.'<span onclick="showIssue('.$row->id.',this)" title="View" class="mx-1"><i class="fa fa-eye text-success"></i></span>
-                    <i onclick="deleteIssue('.$row->id.',this)" title="Delete" class="fa fa-trash text-danger"></i>
-                ';
+                // return $btnConvert.'<span onclick="showIssue('.$row->id.',this)" title="View" class="mx-1"><i class="fa fa-eye text-success"></i></span>
+                //     <i onclick="deleteIssue('.$row->id.',this)" title="Delete" class="fa fa-trash text-danger"></i>
+                // ';
+                return '<div class="dropdown text-center">
+                            <button class="btn btn-sm btn-light border" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-end">
+                                '.$btnConvert.'
+                                <button type="button" onclick=showIssue('.$row->id.',this) class="dropdown-item"><i class="fa fa-eye me-1"></i> View </button>
+                                <button type="button" onclick=showIssue('.$row->id.',this) class="dropdown-item"><i class="fa fa-pen me-1"></i> Edit</button>
+                                <button type="button" onclick="SendMailVersion(' . $row->id . ',this)" class="dropdown-item"><i class="fa fa-envelope me-1"></i> Send</button>
+                                <button type="button" onclick="deleteIssue('.$row->id.',this)"  class="dropdown-item text-danger"><i class="fa fa-trash me-1"></i> Delete</button>
+                            </div>
+                        </div>';
             });
             $table->rawColumns(['action','issue_id','priority_type','status_type','issue_type','requested_date']);
             return $table->make(true);
@@ -268,8 +278,12 @@ class LiveProjectController extends Controller
     }
     public function change_status_issues(Request $request, $id)
     {
-        return Issues::find($id)->update([
-            "status" =>$request->status
+        Issues::find($id)->update([
+            "status"  => $request->status,
+            "remarks" => $request->remarks ?? null
+        ]);
+        return response([
+            "status"  => true,
         ]);
     }
     public function store_issue_variation(Request $request,$id)

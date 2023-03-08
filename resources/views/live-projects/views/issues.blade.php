@@ -305,14 +305,50 @@
                 })
             }
             ChangeIssueStatus = (id, element) => {
-                if(element.value === 'CLOSED') {
-                    prompt('%cHello', 'color: green; background: yellow; font-size: 30px', "Harry Potter")
-                }
-                return 0;
-                function fetchAStatus() {
+                if (element.value === 'CLOSED') {
+                    $('#detail-issue-modal').modal('hide')
+                    Swal.fire({
+                        input: 'textarea',
+                        text: 'Remarks',
+                        inputPlaceholder: 'Type your remarks here...',
+                        inputAttributes: {
+                            'aria-label': 'Type your remarks here'
+                        },
+                        showCancelButton: true,
+                        allowOutsideClick: false,
+                        allowEscapeKey: false,
+                        customClass: {
+                            cancelButton: 'btn btn-light border',
+                            confirmButton: 'btn btn-primary me-2'
+                        },
+                        buttonsStyling: false,
+                        preConfirm: (data) => {
+                            if (data == '' || data == null) {
+                                Swal.showValidationMessage('Remarks is required')
+                            }
+                        }
+                    }).then((result) => {
+                        if (!result.isConfirmed) {
+                            showIssue(id, element)
+                        }
+                        if (result.value != '' && result.value !== null && result.isConfirmed) {
+                            axios.put(`{{ route('live-project.change-status-issues.ajax') }}/${id}`, {
+                                status: element.value,
+                                remarks: result.value,
+                            }).then(() => {
+                                Alert.success('Issue Status Changed!')
+                                $('#issues-table').DataTable().destroy();
+                                FatchTable(null)
+                            });
+                        }
+                    })
+                } else {
                     axios.put(`{{ route('live-project.change-status-issues.ajax') }}/${id}`, {
-                        status: element.value,
-                        remarks: remarks,
+                        status: element.value
+                    }).then(() => {
+                        Alert.success('Issue Status Changed!')
+                        $('#issues-table').DataTable().destroy();
+                        FatchTable(null)
                     });
                 }
             }
