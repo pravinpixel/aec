@@ -80,9 +80,9 @@ class DocumentarySeeder extends Seeder
                                 <p style="font-size: 15px;">The offer is based on some assumptions/caveats as follows. If these assumptions are not proved to be true, or otherwise fail or prove incorrect, this may lead to adjustments in progress/fulfilment of the deadlines for consequences from the Purchase Order that are to be perceived as the agreement in this context.</p><br>
                                 <p style="font-size: 15px;">The following assumptions are specified in connection with the offer:</p>
                                 <ol>
-                                    <li style="font-size: 15px;">Agreed project implementation plan - It is therefore assumed that we arrive at an agreed progress plan that is feasible for both parties.  AEC Prefab needs 4-5 weeks from the agreed start-up until we can deliver the product digitally. The pleas agree on a decision plan that has realistic deadlines for feedback and/or confirmation of factors that AEC Prefab needs to clarify in order to maintain the production of drawings and elements  safely in accordance with the agreed progress plan.   It should be added a couple of weeks for slack in relation to this. So 8 weeks of production time looks like a good plan on our part.</li>
-                                    <li style="font-size: 15px;">Information about existing buildings - It is assumed that TB will receive an IFC model and sufficient information about existing buildings, including structural details, for modeling the concrete structure and performing static calculations.  This means that reports from previous works are made available to AEC Prefab so that we can ensure power transmissions in a prudent manner.</li>
-                                    <li style="font-size: 15px;">Payment plan - AEC Prefab assumes that a agreed payment plan is reached that involves 50% in advance, 50% after completing the assignment, 30 days payment plan. Any changes must be clarified especially along the way.</li>
+                                    <li style="font-size: 15px;">Agreed project implementation plan - It is therefore assumed that we arrive at an agreed progress plan that is feasible for both parties.  AECPrefab needs 4-5 weeks from the agreed start-up until we can deliver the product digitally. The pleas agree on a decision plan that has realistic deadlines for feedback and/or confirmation of factors that AECPrefab needs to clarify in order to maintain the production of drawings and elements  safely in accordance with the agreed progress plan.   It should be added a couple of weeks for slack in relation to this. So 8 weeks of production time looks like a good plan on our part.</li>
+                                    <li style="font-size: 15px;">Information about existing buildings - It is assumed that TB will receive an IFC model and sufficient information about existing buildings, including structural details, for modeling the concrete structure and performing static calculations.  This means that reports from previous works are made available to AECPrefab so that we can ensure power transmissions in a prudent manner.</li>
+                                    <li style="font-size: 15px;">Payment plan - AECPrefab assumes that a agreed payment plan is reached that involves 50% in advance, 50% after completing the assignment, 30 days payment plan. Any changes must be clarified especially along the way.</li>
                                     <li style="font-size: 15px;">The caveats and provisions contained in this offer are repeated in the Purchase Order which, upon signing, applies as an agreement for the assignment.</li>
                                 </ol>
                             </td>
@@ -108,7 +108,7 @@ class DocumentarySeeder extends Seeder
                         <tr>
                             <td colspan="2">
                                 <p>
-                                    For AEC Prefab AS <br><br>
+                                    For AECPrefab AS <br><br>
                                     Sincerely,<br>
                                     Sigbjørn Daasvatn <strong style="font-size: 15px;">$admin_name</strong><br>
                                     General Manager <strong style="font-size: 15px;">$admin_role</strong>  <br>

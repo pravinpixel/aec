@@ -20,12 +20,12 @@ return [
                 "icon" => '<i class="bi bi-list-check"></i>',
                 "view" => "task-list"
             ],
-            [
-                "name" => "BIM 360",
-                "slug" => "bim-360",
-                "icon" => '<i class="bi bi-binoculars"></i>',
-                "view" => "bim-360"
-            ],
+            // [
+            //     "name" => "BIM 360",
+            //     "slug" => "bim-360",
+            //     "icon" => '<i class="bi bi-binoculars"></i>',
+            //     "view" => "bim-360"
+            // ],
             [
                 "name" => "Issues",
                 "slug" => "issues",
@@ -70,12 +70,12 @@ return [
                 "icon" => '<i class="bi bi-signpost"></i>',
                 "view" => "milestone"
             ],
-            [
-                "name" => "BIM 360",
-                "slug" => "bim-360",
-                "icon" => '<i class="bi bi-binoculars"></i>',
-                "view" => "bim-360"
-            ],
+            // [
+            //     "name" => "BIM 360",
+            //     "slug" => "bim-360",
+            //     "icon" => '<i class="bi bi-binoculars"></i>',
+            //     "view" => "bim-360"
+            // ],
             [
                 "name" => "Issues",
                 "slug" => "issues",
