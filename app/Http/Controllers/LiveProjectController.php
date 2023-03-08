@@ -16,6 +16,7 @@ use App\View\Components\ChatBox;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Laracasts\Flash\Flash;
 use Yajra\DataTables\DataTables;
@@ -35,9 +36,12 @@ class LiveProjectController extends Controller
 
     public function store(Request $request, $menu_type ,$id)
     {
-        if($request->form_type == 'CREATE_ISSUE') {
-            $this->LiveProjectRepository->wizard_tabs_store($request,$menu_type,$id); 
-            return redirect()->back()->with('success',"Successfuly Created!"); 
+        if($request->form_type == 'CREATE_ISSUE' || $request->form_type == 'EDIT_ISSUE') { 
+            $result = $this->LiveProjectRepository->wizard_tabs_store($request,$menu_type,$id);
+            if($result) {
+                return redirect()->back()->with('success',"Successfuly Saved!"); 
+            }
+            return redirect()->back()->with('info',"Invalid action"); 
         }
         return redirect()->route('live-project.menus-index',["menu_type" => $request->menu_type,"id" => $id]);
     }
@@ -274,7 +278,11 @@ class LiveProjectController extends Controller
     public function delete_issues($id)
     {
         try {
-            Issues::with('IssuesAttachments')->find($id)->delete();
+            $issue =Issues::with('IssuesAttachments')->find($id);
+            foreach( $issue->IssuesAttachments as $attachment ) {
+                Storage::delete($attachment->file_path);
+            }
+            $issue->delete();
             return response([
                 "status"  => true,
             ]);
