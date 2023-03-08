@@ -146,10 +146,10 @@
             $(".custom-datepicker").datepicker({
                 dateFormat: 'yy-mm-dd'
             });
-            $('#multiple-select').select2({
+            $('.multiple-select').select2({
                 theme: "bootstrap-5",
-                width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' :
-                    'style',
+                width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ?
+                    '100%' : 'style',
                 placeholder: $(this).data('placeholder'),
                 closeOnSelect: false,
                 allowClear: true,
@@ -157,15 +157,15 @@
             });
             $('.single-select-field').select2({
                 theme: "bootstrap-5",
-                width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' :
-                    'style',
+                width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ?
+                    '100%' : 'style',
                 placeholder: $(this).data('placeholder'),
                 dropdownParent: $('#create-issues-modal')
             });
             $('.select-filters').select2({
                 theme: "bootstrap-5",
-                width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' :
-                    'style',
+                width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ?
+                    '100%' : 'style',
                 placeholder: $(this).data('placeholder'),
                 dropdownParent: $('#issues-filters'),
                 allowClear: true
@@ -177,11 +177,47 @@
                 imagePreviewHeight: 44,
                 imagePreviewMarkupShow: true
             });
-            ClassicEditor.create(document.querySelector('.editor')).then(editor => {
+            vendorsOfEdit = () => {
+                $(".edit-custom-datepicker").datepicker({
+                    dateFormat: 'yy-mm-dd'
+                });
+                $('.edit-multiple-select').select2({
+                    theme: "bootstrap-5",
+                    width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ?
+                        '100%' : 'style',
+                    placeholder: $(this).data('placeholder'),
+                    closeOnSelect: false,
+                    allowClear: true,
+                    dropdownParent: $('#edit-issues-modal')
+                });
+                $('.edit-single-select-field').select2({
+                    theme: "bootstrap-5",
+                    width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ?
+                        '100%' : 'style',
+                    placeholder: $(this).data('placeholder'),
+                    dropdownParent: $('#edit-issues-modal')
+                });
+                FilePond.registerPlugin(FilePondPluginImagePreview); 
+                attachments =  Object.entries(document.querySelectorAll('.editPreviewAttachment')).map(item => item[1].value)
+              
+                $('.edit-attachments').filepond({
+                    allowMultiple: true,
+                    storeAsFile: true,
+                    imagePreviewHeight: 44,
+                    imagePreviewMarkupShow: true,
+                    files:attachments
+                });
+                ClassicEditor.create(document.querySelector('.editeditor'))
+                    .then(editeditor => window.editor = editeditor);
+
+                console.log(attachments)
+            }
+            var textEditor = ClassicEditor.create(document.querySelector('.editor')).then(editor => {
                 window.editor = editor;
             }).catch(error => {
                 console.error(error);
             });
+
             FatchTable = (filters) => {
                 var table = $('#issues-table').DataTable({
                     processing: true,
@@ -304,6 +340,16 @@
                     }
                 })
             }
+            editIssue = (id, element) => {
+                startLoader(element)
+                axios.get(`{{ route('live-project.edit-issues.ajax') }}/${id}`).then((response) => {
+                    $('#edit-issues-modal').modal('show')
+                    $('#edit-issues-modal-content').html(response.data.view)
+                    vendorsOfEdit()
+                    stopLoader(element)
+                })
+            }
+
             ChangeIssueStatus = (id, element) => {
                 if (element.value === 'CLOSED') {
                     $('#detail-issue-modal').modal('hide')
