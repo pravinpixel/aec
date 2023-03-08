@@ -8,6 +8,7 @@ use App\Models\InvoicePlan;
 use App\Models\Issues;
 use App\Models\LiveProjectSubSubTasks;
 use App\Models\LiveProjectSubTasks;
+use App\Models\Project;
 use App\Models\VariationOrder;
 use App\Models\VariationOrderVersions;
 use App\Repositories\LiveProjectRepository;
@@ -296,6 +297,7 @@ class LiveProjectController extends Controller
                     "email"        => $customer->email,
                     "mobile_no"    => $customer->mobile_no,
                     "company_name" => $customer->company_name,
+                    "project_name" => Project::find($issue->project_id)->project_name,
                     "variation"    => $VariationOrderVersion
                 ]);
             }
