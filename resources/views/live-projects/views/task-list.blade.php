@@ -25,7 +25,7 @@
                     if (response.data.status) {
                         $('#live-project-sub-tasks-model').modal('show')
                         $('#live-project-sub-tasks-model-content').html(response.data.view)
-                        $( "#sortable" ).sortable({
+                        $( ".sortable" ).sortable({
                             axis: 'y',
                             placeholder: "ui-state-highlight",
                             axis: 'y',

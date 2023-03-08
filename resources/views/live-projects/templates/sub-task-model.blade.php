@@ -35,7 +35,7 @@
                             </th>
                         </tr>
                     </thead>
-                    <tbody id="sortable">
+                    <tbody class="sortable">
                         @if (count($sub_task->SubSubTasks))
                             @foreach ($sub_task->SubSubTasks as $key => $sub_sub_task)
                                 <tr data-id="{{ $sub_sub_task->id }}" class="{{ slugable($sub_task->name,$key + 1) }}">
