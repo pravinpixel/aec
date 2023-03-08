@@ -1,11 +1,10 @@
 @component('mail::message')
-<h3>
-    <img src="{{ $data['avatar'] }}" style="border-radius:50px;margin-right:10px" height="35">
-    {{ ucfirst($data['name']) }}
-</h3>
-<h2>{{ $data['variation']['title'] }}</h2>
-<p>{{ $data['variation']['description'] }}</p>
-<p><br> For more details, <a href="{{ url('/login') }}">click here</a>.</p>
+<p> Dear <b>{{ ucfirst($data['name']) }}</b>,</p>
+<p>
+    This mail informed to the Variation order is shared with you to review. Kindly go through the document and please updated 
+    <b style="color:mediumSeaGreen">Approve</b> / <b style="color:tomato">Deny</b> in Variation Order document page.
+</p>
+<p><a style="color: #000000;background: #ffc107;padding: 5px 10px;border-radius: 3px;text-decoration: none;border: 1px solid #090909;font-weight: 400;" href="{{ url('/login') }}">click to here</a></p>
 <b>Thanks</b>,<br>
-{{ config('app.name') }}
+Team AECPrefab AS
 @endcomponent

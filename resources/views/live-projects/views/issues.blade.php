@@ -305,9 +305,16 @@
                 })
             }
             ChangeIssueStatus = (id, element) => {
-                axios.put(`{{ route('live-project.change-status-issues.ajax') }}/${id}`, {
-                    status: element.value
-                });
+                if(element.value === 'CLOSED') {
+                    prompt('%cHello', 'color: green; background: yellow; font-size: 30px', "Harry Potter")
+                }
+                return 0;
+                function fetchAStatus() {
+                    axios.put(`{{ route('live-project.change-status-issues.ajax') }}/${id}`, {
+                        status: element.value,
+                        remarks: remarks,
+                    });
+                }
             }
             deleteIssue = (id) => {
                 swalWithBootstrapButtons.fire({
