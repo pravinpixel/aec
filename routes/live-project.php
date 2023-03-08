@@ -23,6 +23,7 @@ Route::group(['prefix' => 'live', 'middleware' => 'common'], function () {
     Route::delete('/delete-issues/{id?}', [LiveProjectController::class, 'delete_issues'])->name('live-project.delete-issues.ajax');
     Route::put('/change-status-issues/{id?}', [LiveProjectController::class, 'change_status_issues'])->name('live-project.change-status-issues.ajax');
     Route::get('/get-issue/{id?}', [LiveProjectController::class, 'show_issues'])->name('live-project.show-issues.ajax');
+    Route::get('/edit-issue/{id?}', [LiveProjectController::class, 'edit_issue'])->name('live-project.edit-issues.ajax');
     Route::get('/create-issue-variation/{issue_id?}', [LiveProjectController::class, 'create_issue_variation'])->name('live-project.create-issue-variation.ajax'); 
     Route::post('/store-issue-variation/{issue_id?}', [LiveProjectController::class, 'store_issue_variation'])->name('live-project.create-issue-variation'); 
     Route::get('/get-issue-variation/{id}', [LiveProjectController::class, 'variation_order'])->name('live-project.index-issue-variation.ajax'); 
