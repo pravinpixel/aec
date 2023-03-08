@@ -11,6 +11,7 @@ class Issues extends Model
 
     protected $fillable = [
         'issue_id',
+        'remarks',
         'title',
         'status',
         'description',

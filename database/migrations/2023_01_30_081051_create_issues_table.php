@@ -18,6 +18,7 @@ class CreateIssuesTable extends Migration
             $table->string('issue_id');
             $table->unsignedBigInteger('project_id');
             $table->string('status')->default('NEW');
+            $table->longText('remarks')->nullable();
             $table->string('title');
             $table->longText('description');
             $table->string('type');
