@@ -9,6 +9,7 @@ use App\Models\Issues;
 use App\Models\LiveProjectSubSubTasks;
 use App\Models\LiveProjectSubTasks;
 use App\Models\Project;
+use App\Models\projectClosure;
 use App\Models\VariationOrder;
 use App\Models\VariationOrderVersions;
 use App\Repositories\LiveProjectRepository;
@@ -25,27 +26,44 @@ class LiveProjectController extends Controller
 {
     protected $LiveProjectRepository;
 
-    public function __construct(LiveProjectRepository $LiveProjectRepository){
+    public function __construct(LiveProjectRepository $LiveProjectRepository)
+    {
         $this->LiveProjectRepository  = $LiveProjectRepository;
     }
-    
-    public function index($menu_type,$id=null)
-    { 
-        return $this->LiveProjectRepository->wizard_tabs_index($menu_type,$id);  
-    }
 
-    public function store(Request $request, $menu_type ,$id)
+    public function index($menu_type, $id = null)
     {
-        if($request->form_type == 'CREATE_ISSUE' || $request->form_type == 'EDIT_ISSUE') { 
-            $result = $this->LiveProjectRepository->wizard_tabs_store($request,$menu_type,$id);
-            if($result) {
-                return redirect()->back()->with('success',"Successfuly Saved!"); 
-            }
-            return redirect()->back()->with('info',"Invalid action"); 
-        }
-        return redirect()->route('live-project.menus-index',["menu_type" => $request->menu_type,"id" => $id]);
+        return $this->LiveProjectRepository->wizard_tabs_index($menu_type, $id);
     }
 
+    public function store(Request $request, $menu_type, $id)
+    {
+        if ($request->form_type == 'CREATE_ISSUE' || $request->form_type == 'EDIT_ISSUE') {
+            $result = $this->LiveProjectRepository->wizard_tabs_store($request, $menu_type, $id);
+            if ($result) return redirect()->back()->with('success', "Successfuly Saved!");
+            return redirect()->back()->with('info', "Invalid action");
+        }
+        if ($menu_type == 'project-closure') {
+            $this->project_closure($request, $id);
+            return redirect()->route('live-project.menus-index', ["menu_type" =>'overview', "id" => $id])->with('success', "Successfuly Saved!");
+        }
+        return redirect()->route('live-project.menus-index', ["menu_type" => $request->menu_type, "id" => $id]);
+    }
+    public function project_closure($request, $id)
+    {
+        if(isset($request->internal)) {
+            projectClosure::updateOrCreate(['project_id'=>$id],[
+                "internal" => $request->internal,
+                "action_by" => AuthUserData()->full_name
+            ]);
+        } 
+        if(isset($request->external)) {
+            projectClosure::updateOrCreate(['project_id'=>$id],[
+                "external" => $request->external,
+                "action_by" => AuthUserData()->full_name
+            ]);
+        }   
+    }
     public function milestones_index($project_id)
     {
         return $this->LiveProjectRepository->get_milestones($project_id);
@@ -53,27 +71,27 @@ class LiveProjectController extends Controller
 
     public function store_milestones(Request $request, $project_id)
     {
-        return $this->LiveProjectRepository->store_milestones($project_id,$request);
+        return $this->LiveProjectRepository->store_milestones($project_id, $request);
     }
 
-    public function update_milestones(Request $request, $project_id,$task_id)
+    public function update_milestones(Request $request, $project_id, $task_id)
     {
-        return $this->LiveProjectRepository->update_milestones($project_id,$task_id,$request);
+        return $this->LiveProjectRepository->update_milestones($project_id, $task_id, $request);
     }
-    public function destroy_milestones($project_id,$task_id)
+    public function destroy_milestones($project_id, $task_id)
     {
         return $this->LiveProjectRepository->destroy_milestones($task_id);
     }
-    public function store_milestones_link(Request $request,$project_id)
+    public function store_milestones_link(Request $request, $project_id)
     {
-        return $this->LiveProjectRepository->store_milestones_link($project_id,$request);
+        return $this->LiveProjectRepository->store_milestones_link($project_id, $request);
     }
-    public function destroy_milestones_link($project_id,$link_id)
+    public function destroy_milestones_link($project_id, $link_id)
     {
-        return $this->LiveProjectRepository->destroy_milestones_link($project_id,$link_id);
+        return $this->LiveProjectRepository->destroy_milestones_link($project_id, $link_id);
     }
 
-    public function task_list_index ($project_id)
+    public function task_list_index($project_id)
     {
         $project = $this->LiveProjectRepository->task_list_index($project_id);
         return response()->json([
@@ -83,7 +101,7 @@ class LiveProjectController extends Controller
     }
 
     public function sub_task_index($task_id)
-    { 
+    {
         $view = $this->LiveProjectRepository->get_sub_task_view($task_id);
         return response()->json([
             "status" => true,
@@ -103,7 +121,7 @@ class LiveProjectController extends Controller
         ]);
     }
 
-    public function update_sub_sub_task(Request $request,$sub_sub_task_id)
+    public function update_sub_sub_task(Request $request, $sub_sub_task_id)
     {
         $task = LiveProjectSubSubTasks::find($sub_sub_task_id);
         $task->update([
@@ -124,7 +142,7 @@ class LiveProjectController extends Controller
             "progress" => "$result"
         ]);
     }
-    public function create_sub_task(Request $request,$sub_task_id)
+    public function create_sub_task(Request $request, $sub_task_id)
     {
         $LiveProjectSubTasks = LiveProjectSubTasks::find($sub_task_id);
         $LiveProjectSubTasks->SubSubTasks()->create([
@@ -143,91 +161,91 @@ class LiveProjectController extends Controller
     {
         $LiveProjectSubTasks = LiveProjectSubTasks::with('SubSubTasks')->find($sub_task_id);
         $LiveProjectSubTasks->update(['status' => 0]);
-        if(!is_null($LiveProjectSubTasks->SubSubTasks)) {
+        if (!is_null($LiveProjectSubTasks->SubSubTasks)) {
             $LiveProjectSubTasks->SubSubTasks()->delete();
-        } 
+        }
         $LiveProjectSubTasks->delete();
         return response()->json([
-            "status"   => true, 
+            "status"   => true,
         ]);
     }
 
     public function set_progress(Request $request, $project_id)
     {
-        $result = $this->LiveProjectRepository->task_status_update_and_index($project_id,$request); 
-    
+        $result = $this->LiveProjectRepository->task_status_update_and_index($project_id, $request);
+
         return response()->json([
             "status" => true,
             "progress" => "$result",
         ]);
     }
-    public function issues(Request $request,$id)
+    public function issues(Request $request, $id)
     {
-        if($request->ajax()) { 
+        if ($request->ajax()) {
             $Issues = $id != 0 ? getIssuesByProjectId($id) : getIssuesByUserId(AuthUserData()->id);
-            if($request->filters) {
-                $Issues->when(isset($request->filters['Priority']),function($q) use ($request) {
-                    $q->where('priority',$request->filters['Priority']);
+            if ($request->filters) {
+                $Issues->when(isset($request->filters['Priority']), function ($q) use ($request) {
+                    $q->where('priority', $request->filters['Priority']);
                 });
-                $Issues->when(isset($request->filters['Status']),function($q) use ($request) {
-                    $q->where('status',$request->filters['Status']);
+                $Issues->when(isset($request->filters['Status']), function ($q) use ($request) {
+                    $q->where('status', $request->filters['Status']);
                 });
-                $Issues->when(isset($request->filters['IssueType']),function($q) use ($request) {
-                    $q->where('type',$request->filters['IssueType']);
+                $Issues->when(isset($request->filters['IssueType']), function ($q) use ($request) {
+                    $q->where('type', $request->filters['IssueType']);
                 });
-                $Issues->when(isset($request->filters['IssueId']),function($q) use ($request) {
-                    $q->where('issue_id',$request->filters['IssueId']);
+                $Issues->when(isset($request->filters['IssueId']), function ($q) use ($request) {
+                    $q->where('issue_id', $request->filters['IssueId']);
                 });
-                $Issues->when(isset($request->filters['DueStartDate']) && isset($request->filters['DueEndDate']),function($q) use ($request) {
-                    $q->whereDate('due_date', '>=' , $request->filters['DueStartDate']);
-                    $q->whereDate('due_date', '<=' , $request->filters['DueEndDate']);
+                $Issues->when(isset($request->filters['DueStartDate']) && isset($request->filters['DueEndDate']), function ($q) use ($request) {
+                    $q->whereDate('due_date', '>=', $request->filters['DueStartDate']);
+                    $q->whereDate('due_date', '<=', $request->filters['DueEndDate']);
                 });
-                $Issues->when(isset($request->filters['RequestStartDate']) && isset($request->filters['RequestEndDate']),function($q) use ($request) {
-                    $q->whereDate('created_at', '>=' , $request->filters['RequestStartDate']);
-                    $q->whereDate('created_at', '<=' , $request->filters['RequestEndDate']);
+                $Issues->when(isset($request->filters['RequestStartDate']) && isset($request->filters['RequestEndDate']), function ($q) use ($request) {
+                    $q->whereDate('created_at', '>=', $request->filters['RequestStartDate']);
+                    $q->whereDate('created_at', '<=', $request->filters['RequestEndDate']);
                 });
             }
             $table = DataTables::of($Issues);
-            $table->addIndexColumn(); 
-            $table->addColumn('issue_id', function($row){ // '.Project()->reference_number.'
-                if(is_null($row->VariationOrder)) {
-                    return '<button type="button" class="btn-quick-view" onclick="showIssue('.$row->id.' , this)" >'.$row->issue_id.'</button>';
+            $table->addIndexColumn();
+            $table->addColumn('issue_id', function ($row) { // '.Project()->reference_number.'
+                if (is_null($row->VariationOrder)) {
+                    return '<button type="button" class="btn-quick-view" onclick="showIssue(' . $row->id . ' , this)" >' . $row->issue_id . '</button>';
                 }
-                return '<button type="button" class="btn-quick-view bg-warning fw-bold shadow-none border-dark border text-dark" onclick="showIssue('.$row->id.' , this)" >'.$row->issue_id.'</button>';
+                return '<button type="button" class="btn-quick-view bg-warning fw-bold shadow-none border-dark border text-dark" onclick="showIssue(' . $row->id . ' , this)" >' . $row->issue_id . '</button>';
             });
-            $table->addColumn('issue_type', function($row){
-                if($row->type == 'INTERNAL') {
+            $table->addColumn('issue_type', function ($row) {
+                if ($row->type == 'INTERNAL') {
                     return '<small class="badge bg-danger rounded-pill"><i style="transform: rotate(-45deg)" class="fa fa-ticket" aria-hidden="true"></i> Internal</small>';
                 } else {
                     return '<small class="badge badge-danger-lighten rounded-pill"><i style="transform: rotate(-45deg)" class="fa fa-ticket" aria-hidden="true"></i> External</small>';
                 }
             });
-            $table->addColumn('requested_date', function($row){ 
+            $table->addColumn('requested_date', function ($row) {
                 return Carbon::parse($row->created_at)->format('Y-m-d');
             });
-            $table->addColumn('title_type', function($row){ 
-                return Str::limit($row->title,28,' ...');
-            }); 
-            $table->addColumn('status_type', function($row){  
-                return '<span class="badge text-dark border rounded-pill">'.__('project.'.$row->status).'</span>';
+            $table->addColumn('title_type', function ($row) {
+                return Str::limit($row->title, 28, ' ...');
             });
-            $table->addColumn('priority_type', function($row){ 
-                if($row->priority == 'CRITICAL') {
-                    return "<small>🔴 ".ucfirst(strtolower($row->priority))." </small>";
-                }elseif($row->priority == 'HIGH') {
-                    return "<small>🟠 ".ucfirst(strtolower($row->priority))." </small>";
-                }elseif($row->priority == 'MEDIUM') {
-                    return "<small>🟡 ".ucfirst(strtolower($row->priority))." </small>";
-                }elseif($row->priority == 'LOW') {
-                    return "<small>🟢 ".ucfirst(strtolower($row->priority))." </small>";
+            $table->addColumn('status_type', function ($row) {
+                return '<span class="badge text-dark border rounded-pill">' . __('project.' . $row->status) . '</span>';
+            });
+            $table->addColumn('priority_type', function ($row) {
+                if ($row->priority == 'CRITICAL') {
+                    return "<small>🔴 " . ucfirst(strtolower($row->priority)) . " </small>";
+                } elseif ($row->priority == 'HIGH') {
+                    return "<small>🟠 " . ucfirst(strtolower($row->priority)) . " </small>";
+                } elseif ($row->priority == 'MEDIUM') {
+                    return "<small>🟡 " . ucfirst(strtolower($row->priority)) . " </small>";
+                } elseif ($row->priority == 'LOW') {
+                    return "<small>🟢 " . ucfirst(strtolower($row->priority)) . " </small>";
                 }
             });
-            $table->addColumn('action', function($row){
+            $table->addColumn('action', function ($row) {
                 $btnConvert = '';
-                if(AuthUser() == 'ADMIN') {
-                    if(is_null($row->VariationOrder)) {
-                        $btnConvert = '<button type="button" onclick="convertVariation('.$row->id.',this)" title="Convert to variation Order" class="dropdown-item"><i class="fa fa-share me-1"></i> Convert Variation</button>';
-                    } 
+                if (AuthUser() == 'ADMIN') {
+                    if (is_null($row->VariationOrder)) {
+                        $btnConvert = '<button type="button" onclick="convertVariation(' . $row->id . ',this)" title="Convert to variation Order" class="dropdown-item"><i class="fa fa-share me-1"></i> Convert Variation</button>';
+                    }
                 }
                 // return $btnConvert.'<span onclick="showIssue('.$row->id.',this)" title="View" class="mx-1"><i class="fa fa-eye text-success"></i></span>
                 //     <i onclick="deleteIssue('.$row->id.',this)" title="Delete" class="fa fa-trash text-danger"></i>
@@ -237,15 +255,15 @@ class LiveProjectController extends Controller
                                 <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
                             </button>
                             <div class="dropdown-menu dropdown-menu-end">
-                                '.$btnConvert.'
-                                <button type="button" onclick=showIssue('.$row->id.',this) class="dropdown-item"><i class="fa fa-eye me-1"></i> View </button>
-                                <button type="button" onclick=editIssue('.$row->id.',this) class="dropdown-item"><i class="fa fa-pen me-1"></i> Edit</button>
+                                ' . $btnConvert . '
+                                <button type="button" onclick=showIssue(' . $row->id . ',this) class="dropdown-item"><i class="fa fa-eye me-1"></i> View </button>
+                                <button type="button" onclick=editIssue(' . $row->id . ',this) class="dropdown-item"><i class="fa fa-pen me-1"></i> Edit</button>
                                 <button type="button" onclick="SendMailVersion(' . $row->id . ',this)" class="dropdown-item"><i class="fa fa-envelope me-1"></i> Send</button>
-                                <button type="button" onclick="deleteIssue('.$row->id.',this)"  class="dropdown-item text-danger"><i class="fa fa-trash me-1"></i> Delete</button>
+                                <button type="button" onclick="deleteIssue(' . $row->id . ',this)"  class="dropdown-item text-danger"><i class="fa fa-trash me-1"></i> Delete</button>
                             </div>
                         </div>';
             });
-            $table->rawColumns(['action','issue_id','priority_type','status_type','issue_type','requested_date']);
+            $table->rawColumns(['action', 'issue_id', 'priority_type', 'status_type', 'issue_type', 'requested_date']);
             return $table->make(true);
         }
     }
@@ -253,8 +271,8 @@ class LiveProjectController extends Controller
     public function show_issues($id)
     {
         $issue = Issues::with('IssuesAttachments')->find($id);
-        $issue->status == 'NEW' ?  $issue->update(['status'=>'OPEN']) : null;
-        $view  = view('live-projects.templates.issues-model',compact('issue'));
+        $issue->status == 'NEW' ?  $issue->update(['status' => 'OPEN']) : null;
+        $view  = view('live-projects.templates.issues-model', compact('issue'));
         return response([
             "view"  => "$view",
         ]);
@@ -262,7 +280,7 @@ class LiveProjectController extends Controller
     public function edit_issue($id)
     {
         $issue = Issues::with('IssuesAttachments')->find($id);
-        $view  = view('live-projects.templates.edit-issues-model',compact('issue'));
+        $view  = view('live-projects.templates.edit-issues-model', compact('issue'));
         return response([
             "view"  => "$view",
         ]);
@@ -270,7 +288,7 @@ class LiveProjectController extends Controller
     public function create_issue_variation($id)
     {
         $issue = Issues::find($id);
-        $view  = view('live-projects.templates.create-variation',compact('issue'));
+        $view  = view('live-projects.templates.create-variation', compact('issue'));
         return response([
             "view"  => "$view",
         ]);
@@ -278,8 +296,8 @@ class LiveProjectController extends Controller
     public function delete_issues($id)
     {
         try {
-            $issue =Issues::with('IssuesAttachments')->find($id);
-            foreach( $issue->IssuesAttachments as $attachment ) {
+            $issue = Issues::with('IssuesAttachments')->find($id);
+            foreach ($issue->IssuesAttachments as $attachment) {
                 Storage::delete($attachment->file_path);
             }
             $issue->delete();
@@ -302,16 +320,16 @@ class LiveProjectController extends Controller
             "status"  => true,
         ]);
     }
-    public function store_issue_variation(Request $request,$id)
-    {  
-        $issue = Issues::with('VariationOrder')->find($id); 
-        if(is_null($issue->VariationOrder)) {
+    public function store_issue_variation(Request $request, $id)
+    {
+        $issue = Issues::with('VariationOrder')->find($id);
+        if (is_null($issue->VariationOrder)) {
             $VariationOrder = $issue->VariationOrder()->create([
                 'project_id'  => $issue->project_id
             ]);
             $totalVersion = count($VariationOrder->VariationOrderVersions) + 1;
             $VariationOrderVersion = $VariationOrder->VariationOrderVersions()->create([
-                'version'     => 'V '. $totalVersion,
+                'version'     => 'V ' . $totalVersion,
                 'project_id'  => $issue->project_id,
                 'title'       => $request->title,
                 'hours'       => $request->hours,
@@ -319,7 +337,7 @@ class LiveProjectController extends Controller
                 'description' => $request->description
             ]);
             Flash::success('Variation Order Created !');
-            if((bool) $request->send_mail) {
+            if ((bool) $request->send_mail) {
                 $customer = getCustomerByProjectId($issue->project_id);
                 sendMail(new variationMail(), [
                     "name"         => $customer->full_name,
@@ -335,96 +353,105 @@ class LiveProjectController extends Controller
         } else {
             Flash::error('Variation Order Already Exist !');
         }
-        return redirect()->route('live-project.menus-index', [
-            'menu_type' => $menu_type ?? session()->get('menu_type'),
-            'id'        => session()->get('current_project')->id]
+        return redirect()->route(
+            'live-project.menus-index',
+            [
+                'menu_type' => $menu_type ?? session()->get('menu_type'),
+                'id'        => session()->get('current_project')->id
+            ]
         );
     }
-    public function variation_order($id) {
-        $variations = VariationOrder::with('Issues','VariationOrderVersions')->where('project_id',$id)->select('*');
+    public function variation_order($id)
+    {
+        $variations = VariationOrder::with('Issues', 'VariationOrderVersions')->where('project_id', $id)->select('*');
         $table      = DataTables::of($variations->get());
-        $table->addIndexColumn();  
-        $table->addColumn('variation_id', function($row){
-            return '<button type="button" class="btn-quick-view bg-warning fw-bold shadow-none border-dark border text-dark" onclick="showVariationOrder('.$row->id.',this)" >'.$row->issues->issue_id.'</button>';
+        $table->addIndexColumn();
+        $table->addColumn('variation_id', function ($row) {
+            return '<button type="button" class="btn-quick-view bg-warning fw-bold shadow-none border-dark border text-dark" onclick="showVariationOrder(' . $row->id . ',this)" >' . $row->issues->issue_id . '</button>';
         });
-        $table->addColumn('total_versions', function($row){ 
+        $table->addColumn('total_versions', function ($row) {
             return count($row->VariationOrderVersions);
         });
-        $table->addColumn('action', function($row){
-            if(AuthUser() == 'ADMIN') {
+        $table->addColumn('action', function ($row) {
+            if (AuthUser() == 'ADMIN') {
                 return '
-                    <span onclick="showVariationOrder('.$row->id.',this)" title="View" class="mx-1 text-success"><i class="fa fa-eye"></i></span>
-                    <span onclick="deleteVariationOrder('.$row->id.',this)" title="Cancel Variation Order" class="mx-1"><i class="fa fa-ban text-danger"></i> Cancel</span>
+                    <span onclick="showVariationOrder(' . $row->id . ',this)" title="View" class="mx-1 text-success"><i class="fa fa-eye"></i></span>
+                    <span onclick="deleteVariationOrder(' . $row->id . ',this)" title="Cancel Variation Order" class="mx-1"><i class="fa fa-ban text-danger"></i> Cancel</span>
                 ';
             }
-            return '<span onclick="showVariationOrder('.$row->id.',this)" title="View" class="mx-1 text-success"><i class="fa fa-eye"></i></span>';
+            return '<span onclick="showVariationOrder(' . $row->id . ',this)" title="View" class="mx-1 text-success"><i class="fa fa-eye"></i></span>';
         });
-        $table->rawColumns(['action','variation_id']);
+        $table->rawColumns(['action', 'variation_id']);
         return $table->make(true);
     }
-    public function show_variation_order($id) {
+    public function show_variation_order($id)
+    {
         $variation = VariationOrder::with('Issues')->find($id);
-        $view = view('live-projects.templates.show-variation-order',compact('variation'));
+        $view = view('live-projects.templates.show-variation-order', compact('variation'));
         return response([
             "view"  => "$view",
         ]);
     }
-    public function delete_variation_order($id) {
+    public function delete_variation_order($id)
+    {
         $variation = VariationOrder::find($id);
-        if($variation->delete()) {
+        if ($variation->delete()) {
             return response([
                 "status"  => true,
             ]);
         }
     }
-    public function variation_version($id) {
-        $variations = VariationOrderVersions::where('variation_id',$id)->select('*');
+    public function variation_version($id)
+    {
+        $variations = VariationOrderVersions::where('variation_id', $id)->select('*');
         $table      = DataTables::of($variations->get());
-        $table->addIndexColumn();   
-        $table->addColumn('version_id', function($row){
-            return '<button type="button" class="btn-quick-view bg-warning fw-bold shadow-none border-dark border text-dark" onclick=ViewVersion('.$row->id.',"VIEW") >
-                    '.$row->version.'
+        $table->addIndexColumn();
+        $table->addColumn('version_id', function ($row) {
+            return '<button type="button" class="btn-quick-view bg-warning fw-bold shadow-none border-dark border text-dark" onclick=ViewVersion(' . $row->id . ',"VIEW") >
+                    ' . $row->version . '
                 </button>';
         });
-        $table->addColumn('status', function($row) {
+        $table->addColumn('status', function ($row) {
             return VariationStatus($row->status);
         });
-        $table->addColumn('action', function($row){
+        $table->addColumn('action', function ($row) {
             $chatButton = new ChatBox(
                 "CHAT_LINK_ICON",
                 "project",
                 $row->project_id,
-                "VARIATION_ORDER_".str_replace(' ','_',$row->version)
+                "VARIATION_ORDER_" . str_replace(' ', '_', $row->version)
             );
             return '<div class="dropdown btn-group">
                         <button class="btn btn-sm btn-light border" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
                         </button>
-                        <div class="dropdown-menu dropdown-menu-end">'.variationOrderMenu($row).'</div>
-                        '.$chatButton->render().'
+                        <div class="dropdown-menu dropdown-menu-end">' . variationOrderMenu($row) . '</div>
+                        ' . $chatButton->render() . '
                     </div>';
         });
-        $table->rawColumns(['action','status','version_id']);
+        $table->rawColumns(['action', 'status', 'version_id']);
         return $table->make(true);
     }
-    public function view_version($id,$mode) {
+    public function view_version($id, $mode)
+    {
         $variation = VariationOrderVersions::find($id);
-        $view      = view('live-projects.templates.view-variation-version',compact('variation','mode'));
+        $view      = view('live-projects.templates.view-variation-version', compact('variation', 'mode'));
         return response([
             "view"  => "$view",
-        ]); 
+        ]);
     }
-    public function  store_version(Request $request,$id,$mode) {
-        if($mode === 'DUPLICATE') {
+    public function  store_version(Request $request, $id, $mode)
+    {
+        if ($mode === 'DUPLICATE') {
             $variationVersions  = VariationOrderVersions::where('variation_id', $request->variation_id)->get();
             foreach ($variationVersions as $key => $variation) {
                 $variation->update(["status" => 'OBSOLETE']);
             }
             $totalVersion       = count($variationVersions) + 1;
-            $request['version'] = 'V '. $totalVersion;
+            $request['version'] = 'V ' . $totalVersion;
             $request['staus']   = 'NEW';
             VariationOrderVersions::create($request->all());
-        } elseif($mode === 'EDIT') {
+        } elseif ($mode === 'EDIT') {
             VariationOrderVersions::find($id)->update($request->all());
         }
         return response([
@@ -433,10 +460,11 @@ class LiveProjectController extends Controller
             "variation_id" => $request->variation_id
         ]);
     }
-    public function delete_version($id) {
+    public function delete_version($id)
+    {
         $version = VariationOrderVersions::find($id);
-        $variation_id = $version->variation_id ;
-        if($version->delete()) {
+        $variation_id = $version->variation_id;
+        if ($version->delete()) {
             return response([
                 "status"       => true,
                 "variation_id" => $variation_id
@@ -459,7 +487,7 @@ class LiveProjectController extends Controller
 
     public function get_invoice_by_project($id)
     {
-        $data = InvoicePlan::where('project_id',$id)->first();
+        $data = InvoicePlan::where('project_id', $id)->first();
         return [
             "id"            => $data->id,
             "no_of_invoice" => $data->no_of_invoice,
