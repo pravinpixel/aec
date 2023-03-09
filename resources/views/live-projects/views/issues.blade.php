@@ -197,15 +197,16 @@
                     placeholder: $(this).data('placeholder'),
                     dropdownParent: $('#edit-issues-modal')
                 });
-                FilePond.registerPlugin(FilePondPluginImagePreview); 
-                attachments =  Object.entries(document.querySelectorAll('.editPreviewAttachment')).map(item => item[1].value)
-              
+                FilePond.registerPlugin(FilePondPluginImagePreview);
+                attachments = Object.entries(document.querySelectorAll('.editPreviewAttachment')).map(item =>
+                    item[1].value)
+
                 $('.edit-attachments').filepond({
                     allowMultiple: true,
                     storeAsFile: true,
                     imagePreviewHeight: 44,
                     imagePreviewMarkupShow: true,
-                    files:attachments
+                    files: attachments
                 });
                 ClassicEditor.create(document.querySelector('.editeditor'))
                     .then(editeditor => window.editor = editeditor);
@@ -432,6 +433,44 @@
                         stopLoader(element)
                     }
                 })
+            }
+            filePreview = (path) => {
+                if(path.split('.')[1] == 'pdf') {
+                    var modalContent =  `<div class="ratio ratio-16x9"><iframe src="${path}" title="YouTube video" allowfullscreen></iframe></div>`
+                } else {
+                    if(path.split('.')[1] == 'xlsx' || path.split('.')[1] == 'xls' ) {
+                        var modalContent = '<center><b>Preview not supported</b></center>'
+                    } else {
+                        var modalContent = `<center><img src="${path}" style="max-width:300px" class="mx-auto"/></center>`
+                    }
+                }
+        
+                if(document.querySelector('#filePreviewModal') !== null) {
+                    $('#filePreviewModal').remove()
+                }  
+                var madalContent = `
+                    <div class="modal fade" id="filePreviewModal" tabindex="-1" aria-labelledby="filePreviewModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg ">
+                            <div class="modal-content shadow">
+                                <div class="modal-header bg-light">
+                                    <h4 class="modal-title text-primary" id="filePreviewModalLabel">Preview</h4>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    ${modalContent}
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-light border btn-sm" data-bs-dismiss="modal">Close</button>
+                                    <a href="${path}" download class="btn btn-primary ms-1 btn-sm">
+                                        <i class="fa fa-download"></i> download
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `  
+                $('body').append(madalContent)
+                $('#filePreviewModal').modal('show')
             }
         });
     </script>
