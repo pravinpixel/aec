@@ -118,10 +118,10 @@
                 <div class="tab-pane" id="Attachments-b1">
                     <div class="row">
                         @foreach ($issue->IssuesAttachments as $attachment)
-                            <div class="col-6 ps-0">
+                            <div class="col-6 ps-0" >
                                 <div class="card mt-2 mb-1 shadow-none border text-start">
                                     <div class="row align-items-center p-1 d-flex">
-                                        <div class="col-auto ps-0">
+                                        <div class="col-auto ps-0"  title="Click to preview" onclick="filePreview('{{ asset('storage/app/' . $attachment->file_path) }}')">
                                             <div class="avatar-sm">
                                                 <span class="avatar-title rounded"
                                                     style="background-color: {{ color() }}">
@@ -129,16 +129,15 @@
                                                 </span>
                                             </div>
                                         </div>
-                                        <div class="col ps-0">
-                                            <a href="javascript:void(0);" class="text-muted fw-bold">
+                                        <div class="col ps-0"  title="Click to preview" onclick="filePreview('{{ asset('storage/app/' . $attachment->file_path) }}')">
+                                            <a href="javascript:void(0);" class="text-muted fw-bold" >
                                                 {{ Str::limit($attachment->file_path, 15) }}
                                             </a>
                                             <p class="mb-0">{{ getFileSize($attachment->file_path) }}</p>
                                         </div>
                                         <div class="col-auto">
                                             <!-- Button -->
-                                            <a href="{{ asset('storage/app/' . $attachment->file_path) }}" download
-                                                class="btn btn-link btn-lg text-muted">
+                                            <a href="{{ asset('storage/app/' . $attachment->file_path) }}" download title="Click to download" class="btn btn-link btn-lg text-muted">
                                                 <i class="fa fa-download"></i>
                                             </a>
                                         </div>
