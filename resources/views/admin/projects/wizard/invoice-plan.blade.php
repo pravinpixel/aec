@@ -14,15 +14,17 @@
                     <div class="row  align-items-center mb-2 m-0">
                         <div class="col-3"><strong>Project Start Date</strong></div>
                         <div class=" col-9 position-relative">
-                            <input type="date" class="form-control" disabled ng-model="project.start_date" placeholder="type here..">
-                            <i class="fa fa-calendar custom__date__icon" style="top: 10px;"></i>
+                            <div class="form-control">
+                                @{{ project.start_date }}
+                            </div>
                         </div>
                     </div>
                     <div class="row align-items-center mb-2 m-0">
                         <div class="col-3"><strong>Project End Date</strong></div>
                         <div class="col-9 position-relative">
-                            <input type="date" class="form-control" disabled ng-model="project.delivery_date" placeholder="type here..">
-                            <i class="fa fa-calendar custom__date__icon" style="top: 10px;"></i>
+                            <div class="form-control">
+                                @{{ project.delivery_date }}
+                            </div>
                         </div>
                     </div>
                 </div>
