@@ -29,7 +29,7 @@ if (!function_exists('getTeamByProjectId')) {
 if (!function_exists('getAllAdmin')) {
     function getAllAdmin()
     {
-        return Employees::where('job_role', 1)->select('image', 'id', 'display_name', 'reference_number')->get()->toArray();
+        return Employees::select('image', 'id', 'display_name', 'reference_number')->get()->toArray();
     }
 }
 
@@ -231,8 +231,8 @@ if (!function_exists('getIssuesByUserId')) {
     function getIssuesByUserId($id)
     {
         $project_ids =  Project::when(AuthUser() == 'CUSTOMER', function ($q) use ($id) {
-                            $q->where('customer_id', $id);
-                        })->pluck('id');
+            $q->where('customer_id', $id);
+        })->pluck('id');
         return Issues::with('VariationOrder')
             ->whereIn('project_id', $project_ids)
             ->when(AuthUser() == 'CUSTOMER', function ($q) {
@@ -263,13 +263,41 @@ if (!function_exists('ProjectDocuments')) {
 if (!function_exists('DatePickerFormat')) {
     function DatePickerFormat($date)
     {
-        return  Carbon::parse(str_replace('/','-',$date))->format('Y-m-d');
+        return  Carbon::parse(str_replace('/', '-', $date))->format('Y-m-d');
     }
 }
 
 if (!function_exists('sendMail')) {
-    function sendMail($modal,$data)
+    function sendMail($modal, $data)
     {
-        return dispatch(new emailJob( new $modal(),$data));
+        return dispatch(new emailJob(new $modal(), $data));
+    }
+}
+
+if (!function_exists('issuesCount')) {
+    function issuesCount($modal, $type)
+    {
+        if($type == 'ALL') {
+            if(Admin()->job_role != 1) {
+                $count =  $modal->issues->where('assignee_id',Admin()->id)->count();
+            } else {
+                $count =  $modal->issues->count();
+            }
+            return '<span class="badge bg-danger">' . $count . '</span>';    
+        }
+        if (AuthUser() == 'ADMIN') {
+            if(Admin()->job_role != 1) {
+                $count =  $modal->issues->whereIn('status', $type)->where('assignee_id',Admin()->id)->count();
+            } else {
+                $count =  $modal->issues->whereIn('status', $type)->count();
+            }
+            return '<span class="badge bg-danger">' . $count . '</span>';
+        }
+        if (AuthUser() == 'CUSTOMER') {
+            $count = $modal->issues->whereIn('status', $type)->count();
+            return '<span class="badge bg-danger">' . $count . '</span>';
+        }
+
+        return '<span class="badge bg-danger">0</span>';
     }
 }

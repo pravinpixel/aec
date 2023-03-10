@@ -5,6 +5,7 @@ namespace App\Helper;
 use App\Models\Admin\Employees;
 use App\Models\Enquiry;
 use App\Models\Inbox;
+use App\Models\Project;
 use App\Notifications\InboxNotification;
 use Illuminate\Support\Facades\Notification;
 
@@ -173,11 +174,11 @@ class Notify
             if ($data['module_name'] == 'Enquiry' || $data['module_name'] == 'project') {
 
                 if ($data['module_name'] == 'project') {
-                    $Enquiry = Enquiry::with('customer')->where('project_id', $data['module_id'])->first();
+                    $Enquiry = Project::with('Customer')->find($data['module_id'])->first();
                 } else {
                     $Enquiry = Enquiry::with('customer')->find($data['module_id']);
                 }
-
+               
                 $messages_count = Inbox::where([
                     "module_name" => $data["module_name"],
                     "module_id"   => $data["module_id"],

@@ -1,4 +1,4 @@
-<form class="modal-content h-100 w-100" action="{{ route('live-project.menus-store', ['menu_type' => request()->route()->menu_type ?? "7", 'id' => session()->get('current_project')->id]) ?? "6" }}" enctype="multipart/form-data" method="POST"> 
+<form class="modal-content h-100 w-100" action="{{ route('live-project.menus-store', ['menu_type' => request()->route()->menu_type ?? "none", 'id' => $issue->project_id ]) }}" enctype="multipart/form-data" method="POST"> 
     @csrf
     <input type="hidden" name="form_type" value="EDIT_ISSUE">
     <input type="hidden" name="issue_id" value="{{ $issue->id }}">
@@ -46,7 +46,7 @@
                 <span class="custom-label">Assignee <sup>*</sup></span> 
                 <select name="assignee" class="form-select form-select-sm edit-single-select-field"  data-placeholder="-- select --" required>
                     <option value="">-- select --</option>
-                    @foreach (getTeamByProjectId(Project()->id) as $user)
+                    @foreach (getTeamByProjectId($issue->project_id) as $user)
                         <option {{ $issue->assignee_id == $user['id'] ? 'selected' : '' }} value="{{ $user['id'] }}">{{ $user['display_name'] }}</option>
                     @endforeach
                 </select>

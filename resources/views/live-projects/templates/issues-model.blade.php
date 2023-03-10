@@ -1,4 +1,5 @@
 <div class="modal-content p-0 h-100 w-100">
+    
     <div class="modal-body p-0">
         <ul class="bg-white sticky-top nav nav-tabs nav-bordered m-0">
             <li class="nav-item">
@@ -156,6 +157,6 @@
                 Convert to Variation <i class="fa fa-share" aria-hidden="true"></i>
             </button>
         </x-admin-layout>
-        <x-chat-box status="CHAT_BUTTON" :moduleId="Project()->id" moduleName="project" :menuName="str_replace('/', '_', $issue->issue_id)" />
+        <x-chat-box status="CHAT_BUTTON" :moduleId="$issue->project_id" moduleName="project" :menuName="str_replace('/', '_', $issue->issue_id)" />
     </div>
 </div>
