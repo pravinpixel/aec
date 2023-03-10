@@ -69,17 +69,27 @@
             @foreach (session()->get('flash_notification')->toArray() as $message)
                 <script>Alert.{{ $message['level'] == 'danger' ? 'error' : $message['level'] }}("{!! $message['message'] !!}")</script> 
             @endforeach
-        @endif
-        <script>
-            // var countWorker;
-            // if(typeof(Worker) !== "undefined") {
-            //     if(typeof(countWorker) == "undefined") {
-            //         countWorker = new Worker("{{ url('/') }}/services/countWorker.js");
-            //     }
-            //     countWorker.onmessage = function(event) {
-            //         console.log(event.data)
-            //     };
-            // } 
-        </script>
+        @endif 
+        <div class="modal fade" id="EnquiryQuickViewPopUp" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" >
+            <div class="modal-dialog modal-xl modal-right w-100">
+                <div class="modal-content h-100 p-0" style="overflow: auto">
+                    <div id="EnquiryQuickViewPopUpContent"></div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="ProjectQuickViewPopUp" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" >
+            <div class="modal-dialog modal-xl modal-right w-100">
+                <div class="modal-content h-100 p-0" style="overflow: auto"> 
+                    <div id="ProjectQuickViewPopUpContent"></div> 
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="LiveProjectQuickViewPopUp" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" >
+            <div class="modal-dialog modal-xl modal-right w-100">
+                <div class="modal-content h-100 p-0" style="overflow: auto"> 
+                    <div id="LiveProjectQuickViewPopUpContent"></div> 
+                </div>
+            </div>
+        </div>
     </body>
 </html>

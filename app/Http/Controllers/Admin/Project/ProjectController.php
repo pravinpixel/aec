@@ -482,9 +482,8 @@ class ProjectController extends Controller
        
         if ($request->ajax() == true) {
             $dataDb = Project::with(['LiveProjectTasks','comments'=> function($q){
-                $q->where(['status' => 0, 'created_by' => 'Customer']);
-            }]);
-           
+                            $q->where(['status' => 0, 'created_by' => 'Customer']);
+                        }])->where('status', 'Live');
             return DataTables::eloquent($dataDb)
                 ->editColumn('reference_number', function ($dataDb) {
                     $commentCount = $dataDb->comments->count();
@@ -673,12 +672,16 @@ class ProjectController extends Controller
 
         $project_id = $this->getProjectId();
         $arr         = Project::whereId($project_id)->with('folders')->get(); 
-        $narr=[];
-        foreach($arr[0]['folders'] as $a){
-            $a->setAttribute('isDirectory',true);
-            array_push($narr,$a);
+        if(count($arr)) {
+            $narr=[];
+            foreach($arr[0]['folders'] as $a){
+                $a->setAttribute('isDirectory',true);
+                array_push($narr,$a);
+            }
+            $sharepoint['folders']=$narr;
+        } else {
+            $sharepoint['folders']= $arr;
         }
-        $sharepoint['folders']=$narr;
         // $sharepoint =  isset($project->sharepointFolder->folder) ? json_decode($project->sharepointFolder->folder) : [];
 
         $team_setup = [];
