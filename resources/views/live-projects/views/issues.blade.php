@@ -210,8 +210,6 @@
                 });
                 ClassicEditor.create(document.querySelector('.editeditor'))
                     .then(editeditor => window.editor = editeditor);
-
-                console.log(attachments)
             }
             var textEditor = ClassicEditor.create(document.querySelector('.editor')).then(editor => {
                 window.editor = editor;
@@ -346,6 +344,7 @@
                 axios.get(`{{ route('live-project.edit-issues.ajax') }}/${id}`).then((response) => {
                     $('#edit-issues-modal').modal('show')
                     $('#edit-issues-modal-content').html(response.data.view)
+                    console.log(response.data.view)
                     vendorsOfEdit()
                     stopLoader(element)
                 })
