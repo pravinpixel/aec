@@ -250,7 +250,7 @@ if (!function_exists('getIssuesByProjectId')) {
             ->when(AuthUser() == 'CUSTOMER', function ($q) {
                 $q->where('type', 'EXTERNAL');
             })
-            ->when(AuthUser() == 'ADMIN' && AuthUserData()->id != 1, function ($q) {
+            ->when(AuthUser() == 'ADMIN' && AuthUserData()->job_role != 1, function ($q) {
                 $q->where('assignee_id', AuthUserData()->id);
             })
             ->select('*');

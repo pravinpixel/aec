@@ -11,6 +11,8 @@ class IssueComments extends Model
 
     protected $fillable = [
         'created_by',
-        'comment'
+        'user_id',
+        'comment',
+        'unread'
     ];
 }
