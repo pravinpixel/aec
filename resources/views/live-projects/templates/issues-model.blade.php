@@ -159,25 +159,29 @@
                     </div>
                 </div>
             @endif
+
             <div class="tab-pane" id="Comments-b1">
-                <div id="comments_content"></div>
+                <div id="comments_content">
+                    @php
+                        $comments = $issue->IssueComments;
+                    @endphp
+                    @include('live-projects.templates.issue-comments')
+                </div>
                 <div class="row">
                     <div class="col-1 p-0">
                         <span class="account-user-avatar">
-                            <img src="{{ AuthUserData()->image }}" alt="user-image" class="rounded-circle img-thumbnail avatar-sm">
+                            <img src="{{ AuthUserData()->image }}" alt="user-image"
+                                class="rounded-circle img-thumbnail avatar-sm">
                         </span>
                     </div>
                     <div class="col p-0">
                         <div class="border rounded">
                             <div class="comment-area-box">
-                                <textarea 
-                                    id="comments_input"
-                                    rows="4" 
-                                    class="form-control border-0 resize-none" 
-                                    placeholder="Write something...."
-                                    spellcheck="false" style="height: 155px;"></textarea>
-                                <div class="p-2 bg-light d-flex justify-content-between align-items-center">
-                                    <button type="button" onclick="addComment()" class="btn btn-sm btn-success">
+                                <textarea id="comments_input" rows="4" class="form-control border-0 resize-none"
+                                    placeholder="Write something...." spellcheck="false" style="height: 155px;"></textarea>
+                                <div class="p-2 bg-light d-flex justify-content-end align-items-center">
+                                    <button type="button" onclick="addComment('{{ $issue->id }}')"
+                                        class="btn btn-sm btn-success  rounded-pill">
                                         <i class="uil uil-message me-1"></i>Add Comment
                                     </button>
                                 </div>

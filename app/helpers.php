@@ -115,7 +115,6 @@ if(!function_exists('str_replace_all')) {
         return $subject;
     }
 }
-
 if(!function_exists('getCustomerByEnquiryId')) {
     function getCustomerByEnquiryId($id)
     {
