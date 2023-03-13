@@ -34,6 +34,9 @@ Route::group(['prefix' => 'live', 'middleware' => 'common'], function () {
     Route::post('/store-versions/{id?}/{mode?}', [LiveProjectController::class, 'store_version'])->name('live-project.store-version.ajax');  
     Route::delete('/delete-versions/{id?}', [LiveProjectController::class, 'delete_version'])->name('live-project.delete-version.ajax');  
     Route::post('/send-mail-version/{id?}', [LiveProjectController::class, 'send_mail_version'])->name('live-project.send-mail-version.ajax');  
+    Route::post('/create-comment/{issue_id?}', [LiveProjectController::class, 'create_comment'])->name('live-project.create-comment.ajax');  
+    Route::delete('/delete-comment/{comment_id?}', [LiveProjectController::class, 'delete_comment'])->name('live-project.delete-comment.ajax');  
+    Route::put('/update-comment/{comment_id?}', [LiveProjectController::class, 'update_comment'])->name('live-project.update-comment.ajax');  
     
     // invoice
     Route::get('get-invoice-by-project/{projwct_id}',[LiveProjectController::class,'get_invoice_by_project'])->name('live-project.get-invoice-by-project.ajax');
