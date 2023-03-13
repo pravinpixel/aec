@@ -471,6 +471,9 @@
                 $('body').append(madalContent)
                 $('#filePreviewModal').modal('show')
             }
+            addComment = () => {
+                console.log($('#comments_input').val())
+            }
         });
     </script>
 @endpush

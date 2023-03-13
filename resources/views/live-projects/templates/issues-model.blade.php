@@ -1,5 +1,5 @@
 <div class="modal-content p-0 h-100 w-100">
-    
+
     <div class="modal-body p-0">
         <ul class="bg-white sticky-top nav nav-tabs nav-bordered m-0">
             <li class="nav-item">
@@ -18,6 +18,12 @@
                     </a>
                 </li>
             @endif
+            <li class="nav-item">
+                <a href="#Comments-b1" data-bs-toggle="tab" aria-expanded="false" class="nav-link">
+                    <i class="fa fa-comments" aria-hidden="true"></i>
+                    <span>Comments</span>
+                </a>
+            </li>
             <button type="button" class="btn-close top-0 mt-2" data-bs-dismiss="modal" aria-hidden="true"></button>
         </ul>
         <div class="tab-content p-2">
@@ -31,7 +37,8 @@
                         @if ($issue->status == 'CLOSED')
                             <div class="mb-3">
                                 <b>Status</b> :
-                                <span class="badge text-dark border rounded-pill">{{ __('project.'.$issue->status) }}</span>
+                                <span
+                                    class="badge text-dark border rounded-pill">{{ __('project.' . $issue->status) }}</span>
                             </div>
                             <div class="mb-3">
                                 <b>Closed Remarks</b> :
@@ -53,7 +60,7 @@
                                     </select>
                                 </span>
                             </div>
-                        @endif 
+                        @endif
 
                         <div class="mb-3">
                             <b>Type</b> : <span>{{ $issue->type }}</span>
@@ -119,10 +126,11 @@
                 <div class="tab-pane" id="Attachments-b1">
                     <div class="row">
                         @foreach ($issue->IssuesAttachments as $attachment)
-                            <div class="col-6 ps-0" >
+                            <div class="col-6 ps-0">
                                 <div class="card mt-2 mb-1 shadow-none border text-start">
                                     <div class="row align-items-center p-1 d-flex">
-                                        <div class="col-auto ps-0"  title="Click to preview" onclick="filePreview('{{ asset('storage/app/' . $attachment->file_path) }}')">
+                                        <div class="col-auto ps-0" title="Click to preview"
+                                            onclick="filePreview('{{ asset('storage/app/' . $attachment->file_path) }}')">
                                             <div class="avatar-sm">
                                                 <span class="avatar-title rounded"
                                                     style="background-color: {{ color() }}">
@@ -130,15 +138,17 @@
                                                 </span>
                                             </div>
                                         </div>
-                                        <div class="col ps-0"  title="Click to preview" onclick="filePreview('{{ asset('storage/app/' . $attachment->file_path) }}')">
-                                            <a href="javascript:void(0);" class="text-muted fw-bold" >
+                                        <div class="col ps-0" title="Click to preview"
+                                            onclick="filePreview('{{ asset('storage/app/' . $attachment->file_path) }}')">
+                                            <a href="javascript:void(0);" class="text-muted fw-bold">
                                                 {{ Str::limit($attachment->file_path, 15) }}
                                             </a>
                                             <p class="mb-0">{{ getFileSize($attachment->file_path) }}</p>
                                         </div>
                                         <div class="col-auto">
                                             <!-- Button -->
-                                            <a href="{{ asset('storage/app/' . $attachment->file_path) }}" download title="Click to download" class="btn btn-link btn-lg text-muted">
+                                            <a href="{{ asset('storage/app/' . $attachment->file_path) }}" download
+                                                title="Click to download" class="btn btn-link btn-lg text-muted">
                                                 <i class="fa fa-download"></i>
                                             </a>
                                         </div>
@@ -149,6 +159,33 @@
                     </div>
                 </div>
             @endif
+            <div class="tab-pane" id="Comments-b1">
+                <div id="comments_content"></div>
+                <div class="row">
+                    <div class="col-1 p-0">
+                        <span class="account-user-avatar">
+                            <img src="{{ AuthUserData()->image }}" alt="user-image" class="rounded-circle img-thumbnail avatar-sm">
+                        </span>
+                    </div>
+                    <div class="col p-0">
+                        <div class="border rounded">
+                            <div class="comment-area-box">
+                                <textarea 
+                                    id="comments_input"
+                                    rows="4" 
+                                    class="form-control border-0 resize-none" 
+                                    placeholder="Write something...."
+                                    spellcheck="false" style="height: 155px;"></textarea>
+                                <div class="p-2 bg-light d-flex justify-content-between align-items-center">
+                                    <button type="button" onclick="addComment()" class="btn btn-sm btn-success">
+                                        <i class="uil uil-message me-1"></i>Add Comment
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <div class="modal-footer">
