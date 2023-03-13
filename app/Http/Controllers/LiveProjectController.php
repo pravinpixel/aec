@@ -203,7 +203,7 @@ class LiveProjectController extends Controller
                 $Issues->when(isset($request->filters['RequestStartDate']) && isset($request->filters['RequestEndDate']), function ($q) use ($request) {
                     $q->whereDate('created_at', '>=', $request->filters['RequestStartDate']);
                     $q->whereDate('created_at', '<=', $request->filters['RequestEndDate']);
-                });
+                });     
             }
             $table = DataTables::of($Issues);
             $table->addIndexColumn();

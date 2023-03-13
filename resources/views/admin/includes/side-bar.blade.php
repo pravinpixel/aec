@@ -147,7 +147,7 @@
             </li> 
             @endif
             {{-- @if(userHasAccess('task_index')) --}}
-                <li class="side-nav-item">
+                <li class="side-nav-item {{ Route::is(['issues.show','issues.index']) ? "menuitem-active" : "" }}">
                     <a href="{{ route('issues.index') }}" class="side-nav-link">
                         <i class="fa fa-tasks" aria-hidden="true"></i>
                         <span> Issues </span>
