@@ -11,6 +11,7 @@ use App\Models\ProjectTeamSetup;
 use App\Models\Role;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
+use PharIo\Manifest\Author;
 use Random\Randomizer;
 
 if (!function_exists('getTeamByProjectId')) {
@@ -249,6 +250,9 @@ if (!function_exists('getIssuesByProjectId')) {
             ->when(AuthUser() == 'CUSTOMER', function ($q) {
                 $q->where('type', 'EXTERNAL');
             })
+            ->when(AuthUser() == 'ADMIN' && AuthUserData()->id != 1, function ($q) {
+                $q->where('assignee_id', AuthUserData()->id);
+            })
             ->select('*');
     }
 }
@@ -277,17 +281,17 @@ if (!function_exists('sendMail')) {
 if (!function_exists('issuesCount')) {
     function issuesCount($modal, $type)
     {
-        if($type == 'ALL') {
-            if(Admin()->job_role != 1) {
-                $count =  $modal->issues->where('assignee_id',Admin()->id)->count();
+        if ($type == 'ALL') {
+            if (Admin()->job_role != 1) {
+                $count =  $modal->issues->where('assignee_id', Admin()->id)->count();
             } else {
                 $count =  $modal->issues->count();
             }
-            return '<span class="badge bg-danger">' . $count . '</span>';    
+            return '<span class="badge bg-danger">' . $count . '</span>';
         }
         if (AuthUser() == 'ADMIN') {
-            if(Admin()->job_role != 1) {
-                $count =  $modal->issues->whereIn('status', $type)->where('assignee_id',Admin()->id)->count();
+            if (Admin()->job_role != 1) {
+                $count =  $modal->issues->whereIn('status', $type)->where('assignee_id', Admin()->id)->count();
             } else {
                 $count =  $modal->issues->whereIn('status', $type)->count();
             }
