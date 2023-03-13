@@ -352,4 +352,5 @@ Route::get('list-folder/{projectid}', function($id){
 
 Route::group(['middleware' => 'common'], function () {
     Route::get('/issues',[CommonController::class,'issues'])->name('issues.index');
+    Route::get('/issues/{id}',[CommonController::class,'issues_by_project'])->name('issues.show');
 });
