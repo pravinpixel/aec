@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Mail\liveProject\variationMail;
 use App\Mail\variationVersionMail;
 use App\Models\InvoicePlan;
+use App\Models\IssueComments;
 use App\Models\Issues;
 use App\Models\LiveProjectSubSubTasks;
 use App\Models\LiveProjectSubTasks;
@@ -45,24 +46,24 @@ class LiveProjectController extends Controller
         }
         if ($menu_type == 'project-closure') {
             $this->project_closure($request, $id);
-            return redirect()->route('live-project.menus-index', ["menu_type" =>'overview', "id" => $id])->with('success', "Successfuly Saved!");
+            return redirect()->route('live-project.menus-index', ["menu_type" => 'overview', "id" => $id])->with('success', "Successfuly Saved!");
         }
         return redirect()->route('live-project.menus-index', ["menu_type" => $request->menu_type, "id" => $id]);
     }
     public function project_closure($request, $id)
     {
-        if(isset($request->internal)) {
-            projectClosure::updateOrCreate(['project_id'=>$id],[
+        if (isset($request->internal)) {
+            projectClosure::updateOrCreate(['project_id' => $id], [
                 "internal" => $request->internal,
                 "action_by" => AuthUserData()->full_name
             ]);
-        } 
-        if(isset($request->external)) {
-            projectClosure::updateOrCreate(['project_id'=>$id],[
+        }
+        if (isset($request->external)) {
+            projectClosure::updateOrCreate(['project_id' => $id], [
                 "external" => $request->external,
                 "action_by" => AuthUserData()->full_name
             ]);
-        }   
+        }
     }
     public function milestones_index($project_id)
     {
@@ -203,7 +204,7 @@ class LiveProjectController extends Controller
                 $Issues->when(isset($request->filters['RequestStartDate']) && isset($request->filters['RequestEndDate']), function ($q) use ($request) {
                     $q->whereDate('created_at', '>=', $request->filters['RequestStartDate']);
                     $q->whereDate('created_at', '<=', $request->filters['RequestEndDate']);
-                });     
+                });
             }
             $table = DataTables::of($Issues);
             $table->addIndexColumn();
@@ -495,5 +496,34 @@ class LiveProjectController extends Controller
             "project_id"    => $data->project_id,
             "invoices"      => json_decode($data->invoice_data)->invoices
         ];
+    }
+    public function create_comment(Request $request, $id)
+    {
+        $issue = Issues::with('IssueComments')->find($id);
+        $issue->IssueComments()->create([
+            'issue_id'   => $id,
+            'user_id'    => AuthUserData()->id,
+            'created_by' => AuthUserData()->first_name,
+            'comment'    => $request->comment
+        ]);
+        $comments = Issues::with('IssueComments')->find($id)->IssueComments;
+        return view('live-projects.templates.issue-comments', compact('comments'));
+    }
+    public function delete_comment($comment_id)
+    {
+        $issue    = IssueComments::find($comment_id);
+        $issue_id = $issue->issue_id;
+        $issue->delete();
+        $comments = Issues::with('IssueComments')->find($issue_id)->IssueComments;
+        return view('live-projects.templates.issue-comments', compact('comments'));
+    }
+    public function update_comment(Request $request, $comment_id)
+    {
+        IssueComments::find($comment_id)->update([
+            'comment' => $request->comment
+        ]); 
+        return response([
+            "status" => true
+        ]);
     }
 }

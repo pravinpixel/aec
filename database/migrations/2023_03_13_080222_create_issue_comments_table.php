@@ -15,10 +15,12 @@ class CreateIssueCommentsTable extends Migration
     {
         Schema::create('issue_comments', function (Blueprint $table) {
             $table->id();
+            $table->integer('user_id');
             $table->unsignedBigInteger('issue_id');
             $table->foreign('issue_id')->references('id')->on('issues')->onDelete('cascade');
-            $table->integer('created_by');
+            $table->text('created_by');
             $table->longText('comment');
+            $table->boolean('unread')->default(false);
             $table->timestamps();
         });
     }

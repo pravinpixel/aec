@@ -344,7 +344,6 @@
                 axios.get(`{{ route('live-project.edit-issues.ajax') }}/${id}`).then((response) => {
                     $('#edit-issues-modal').modal('show')
                     $('#edit-issues-modal-content').html(response.data.view)
-                    console.log(response.data.view)
                     vendorsOfEdit()
                     stopLoader(element)
                 })
@@ -434,19 +433,21 @@
                 })
             }
             filePreview = (path) => {
-                if(path.split('.')[1] == 'pdf') {
-                    var modalContent =  `<div class="ratio ratio-16x9"><iframe src="${path}" title="YouTube video" allowfullscreen></iframe></div>`
+                if (path.split('.')[1] == 'pdf') {
+                    var modalContent =
+                        `<div class="ratio ratio-16x9"><iframe src="${path}" title="YouTube video" allowfullscreen></iframe></div>`
                 } else {
-                    if(path.split('.')[1] == 'xlsx' || path.split('.')[1] == 'xls' ) {
+                    if (path.split('.')[1] == 'xlsx' || path.split('.')[1] == 'xls') {
                         var modalContent = '<center><b>Preview not supported</b></center>'
                     } else {
-                        var modalContent = `<center><img src="${path}" style="max-width:300px" class="mx-auto"/></center>`
+                        var modalContent =
+                            `<center><img src="${path}" style="max-width:300px" class="mx-auto"/></center>`
                     }
                 }
-        
-                if(document.querySelector('#filePreviewModal') !== null) {
+
+                if (document.querySelector('#filePreviewModal') !== null) {
                     $('#filePreviewModal').remove()
-                }  
+                }
                 var madalContent = `
                     <div class="modal fade" id="filePreviewModal" tabindex="-1" aria-labelledby="filePreviewModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-lg ">
@@ -467,12 +468,63 @@
                             </div>
                         </div>
                     </div>
-                `  
+                `
                 $('body').append(madalContent)
                 $('#filePreviewModal').modal('show')
             }
-            addComment = () => {
-                console.log($('#comments_input').val())
+            addComment = (id) => {
+                var input = $('#comments_input').val();
+                if (input == '') return false
+                axios.post(`{{ route('live-project.create-comment.ajax') }}/${id}`, {
+                    comment: input
+                }).then((response) => {
+                    $('#comments_content').html(response.data)
+                    $('#comments_input').val('')
+                })
+            }
+            editComment = (element, id) => {
+                var text     = $(element).attr('data-text');
+                var textarea = $(`.${element.parentNode.parentNode.classList[0]} textarea`)
+                if(textarea.length !== 0) return false;
+                $(element.parentNode.parentNode).append(`
+                    <div class="border rounded">
+                        <div class="comment-area-box">
+                            <textarea rows="4" class="form-control border-0 resize-none"
+                                placeholder="Write something...." spellcheck="false" style="height: 100px;">${text}</textarea>
+                            <div class="p-2 bg-light d-flex justify-content-end align-items-center">
+                                <button type="button" onclick="updateComment(this,${id})" class="me-2 rounded-pill btn btn-sm btn-success">
+                                    <i class="uil uil-repeat me-1"></i>Update Comment
+                                </button>
+                                <button type="button" onclick="cancelComment(this)" class="btn rounded-pill btn-sm btn-outline-success">
+                                    <i class="uil uil-ban me-1"></i>Cancel
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `)
+            }
+            cancelComment = element => {
+                $(element.parentNode.parentNode.parentNode).remove()
+            }
+            updateComment = (element, id) => {  
+                var currentComment = $(element.parentNode.parentNode.parentNode.parentNode.childNodes[3])  
+                var newComment = element.parentNode.parentNode.childNodes[1].value
+                $(element.parentNode.parentNode.parentNode.parentNode.childNodes[5].childNodes[3]).attr('data-text',newComment)
+                startLoader(element)
+                axios.put(`{{ route('live-project.update-comment.ajax') }}/${id}`,{
+                    comment : newComment
+                }).then((response) => {
+                    stopLoader(element)
+                    cancelComment(element) 
+                    currentComment.text(newComment)
+                })
+            }
+            removeComment = (element, id) => {
+                startLoader(element)
+                axios.delete(`{{ route('live-project.delete-comment.ajax') }}/${id}`).then((response) => {
+                    stopLoader(element)
+                    $('#comments_content').html(response.data)
+                })
             }
         });
     </script>
