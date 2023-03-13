@@ -1,5 +1,4 @@
-@extends('live-projects.layout')
-
+@extends('live-projects.layout') 
 @section('admin-content')
     <h4 class="my-3">
         <span class="text-primary">Issues</span>
@@ -78,19 +77,27 @@
                     },
                     {
                         data: 'opened',
-                        name: 'opened'
+                        name: 'opened',
+                        searchable:false,
+                        sortable:false
                     },
                     {
                         data: 'closed',
-                        name: 'closed'
+                        name: 'closed',
+                        searchable:false,
+                        sortable:false
                     },
                     {
                         data: 'total_issues',
-                        name: 'total_issues'
+                        name: 'total_issues',
+                        searchable:false,
+                        sortable:false
                     },
                     {
                         data: 'action',
-                        name: 'action'
+                        name: 'action',
+                        searchable:false,
+                        sortable:false
                     }
                 ]
             });
