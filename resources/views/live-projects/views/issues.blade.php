@@ -76,6 +76,7 @@
                 <th width="200px">Title</th>
                 <th>Type</th>
                 <th>Assignee</th>
+                <th>Requester</th>
                 <th>Priority</th>
                 <th>Due Date</th>
                 <th width="100px">Status</th>
@@ -242,6 +243,10 @@
                         {
                             data: 'assignee_name',
                             name: 'assignee_name'
+                        },
+                        {
+                            data: 'request_name',
+                            name: 'request_name'
                         },
                         {
                             data: 'priority_type',
@@ -490,7 +495,7 @@
                     <div class="border rounded">
                         <div class="comment-area-box">
                             <textarea rows="4" class="form-control border-0 resize-none"
-                                placeholder="Write something...." spellcheck="false" style="height: 100px;">${text}</textarea>
+                                placeholder="Write here...." spellcheck="false" style="height: 100px;">${text}</textarea>
                             <div class="p-2 bg-light d-flex justify-content-end align-items-center">
                                 <button type="button" onclick="updateComment(this,${id})" class="me-2 rounded-pill btn btn-sm btn-success">
                                     <i class="uil uil-repeat me-1"></i>Update Comment
@@ -513,10 +518,12 @@
                 startLoader(element)
                 axios.put(`{{ route('live-project.update-comment.ajax') }}/${id}`,{
                     comment : newComment
-                }).then((response) => {
-                    stopLoader(element)
-                    cancelComment(element) 
+                }).then((response) => { 
                     currentComment.text(newComment)
+                    setInterval(() => {
+                        stopLoader(element)
+                        cancelComment(element) 
+                    }, 200);
                 })
             }
             removeComment = (element, id) => {
