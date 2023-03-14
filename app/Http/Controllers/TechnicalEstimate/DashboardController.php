@@ -69,10 +69,10 @@ class DashboardController extends Controller
             return DataTables::eloquent($dataDb)
                 ->editColumn('enquiry_number', function ($dataDb) {
                     return '
-                    <button type="button" class="btn-quick-view">
-                        <b>' . $dataDb->enquiry_number . '</b>
-                    </button>
-                ';
+                        <button type="button" class="btn-quick-view" onclick="EnquiryQuickView('.$dataDb->id.' , this)">
+                            <b>' . $dataDb->enquiry_number . '</b>
+                        </button>
+                    ';
                 })
 
                 ->addColumn('projectType', function ($dataDb) {

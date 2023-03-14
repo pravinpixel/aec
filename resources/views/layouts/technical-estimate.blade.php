@@ -55,5 +55,6 @@
                 swal("Good job!", "Project successfully created!", "success");
             }
         </script>
+        <script src="{{ asset('public/assets/js/custom.js') }}"></script>
     </body>
 </html>
