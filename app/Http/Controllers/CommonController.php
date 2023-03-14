@@ -12,12 +12,18 @@ class CommonController extends Controller
     public function issues(Request $request)
     {
         if ($request->ajax()) {
-            $dataDb = Project::with('Issues')->select('*');
-
+            $dataDb = Project::with('Issues','Issues.IssueComments')->select('*');
             return DataTables::eloquent($dataDb)
                 ->editColumn('reference_number', function ($row) {
+                    $issues = getIssuesByProjectId($row->id);
+                    $count = 0;
+                    foreach ($issues->get() as $key => $value) {
+                        $count  += $value->IssueComments->where('unread',0)->count();
+                    } 
+                    $countTemp = '<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">'.$count.'</span>';
+                    $count = $count != 0 ?  $countTemp : "";
                     return ' <button type="button" onclick="LiveProjectQuickView(' . $row->id . ' , this)"  class="btn-quick-view"  >
-                                <b>' . $row->reference_number . '</b>
+                                <b>' . $row->reference_number . '</b> '.$count.'
                             </button>';
                 })
                 ->editColumn('start_date', function ($row) {

@@ -21,7 +21,15 @@
             <li class="nav-item">
                 <a href="#Comments-b1" data-bs-toggle="tab" aria-expanded="false" class="nav-link">
                     <i class="fa fa-comments" aria-hidden="true"></i>
-                    <span>Comments</span>
+                    @php
+                        $count = $issue->IssueComments->where('unread', 0)->count();
+                    @endphp
+                    @if ($count)
+                        <span
+                            class="position-absolute bottom-0 start-100 translate-middle badge rounded-pill bg-danger">
+                            {{ $count }}
+                        </span>
+                    @endif
                 </a>
             </li>
             <button type="button" class="btn-close top-0 mt-2" data-bs-dismiss="modal" aria-hidden="true"></button>
@@ -177,8 +185,8 @@
                     <div class="col p-0">
                         <div class="border rounded">
                             <div class="comment-area-box">
-                                <textarea id="comments_input" rows="4" class="form-control border-0 resize-none"
-                                    placeholder="Write here...." spellcheck="false" style="height: 155px;"></textarea>
+                                <textarea id="comments_input" rows="4" class="form-control border-0 resize-none" placeholder="Write here...."
+                                    spellcheck="false" style="height: 155px;"></textarea>
                                 <div class="p-2 bg-light d-flex justify-content-end align-items-center">
                                     <button type="button" onclick="addComment('{{ $issue->id }}')"
                                         class="btn btn-sm btn-success  rounded-pill">
