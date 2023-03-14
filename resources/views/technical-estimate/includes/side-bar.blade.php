@@ -32,10 +32,16 @@
 
         <!--- Sidemenu -->
         <ul class="side-nav pt-3">
-            <li class="side-nav-item ">
-                <a href="{{ route('cost-estimate.dashboard') }}" class="side-nav-link">
+            <li class="side-nav-item">
+                <a href="{{ route('technical-estimate.dashboard') }}" class="side-nav-link">
                     <i class="fa fa-tachometer-alt" aria-hidden="true"></i>
                     <span> Dashboard </span>
+                </a> 
+            </li>
+            <li class="side-nav-item">
+                <a href="{{ route('technical-estimate.enquiries') }}" class="side-nav-link">
+                    <i class="fa fa-gear" aria-hidden="true"></i>
+                    <span> My Enquires</span>
                 </a> 
             </li> 
         </ul>
