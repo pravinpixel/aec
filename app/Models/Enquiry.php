@@ -238,6 +238,23 @@ class Enquiry extends Model
         return $this->hasOne(EnquiryTechnicalEstimate::class, 'enquiry_id', 'id');
     }
 
+    public function technicalEstimatePending() {
+        return $this->hasOne(EnquiryTechnicalEstimate::class, 'enquiry_id', 'id')
+        ->where('assign_to', Admin()->id)
+        ->where('assign_for_status', 0);
+    }
+
+    public function technicalEstimateVerifyed() {
+        return $this->hasOne(EnquiryTechnicalEstimate::class, 'enquiry_id', 'id')
+        ->where('assign_to', Admin()->id)
+        ->where('assign_for_status', 0);
+    }
+    
+    public function technicalEstimateTotal() {
+        return $this->hasOne(EnquiryTechnicalEstimate::class, 'enquiry_id', 'id')
+            ->where('assign_to', Admin()->id);
+    }
+
     public function costEstimate(){
         return $this->hasOne(EnquiryCostEstimate::class, 'enquiry_id', 'id');
     }
