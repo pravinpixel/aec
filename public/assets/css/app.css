@@ -12206,11 +12206,11 @@ input[data-switch="dark"]:checked + label {
   border-bottom: 1px solid #f1f3fa;
   margin-bottom: 0.5rem;
   padding-bottom: 0.5rem; }
-  .timeline-item:nth-last-child(1):before ,
-  .timeline-item:nth-child(1):before 
+  /* .timeline-item:nth-last-child(1):before , */
+  /* .timeline-item:nth-child(1):before 
   {
     display: none !important;
-  }
+  } */
   .timeline-alt .lg.timeline-item:before {
     left: 19px !important;
   }
@@ -12240,7 +12240,7 @@ input[data-switch="dark"]:checked + label {
       content: "";
       left: 9px;
       position: absolute;
-      top: -82px;
+      top: -70px;
       width: 2px;
       z-index: 0;}
     .timeline-alt .timeline-item .timeline-icon {

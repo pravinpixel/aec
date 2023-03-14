@@ -178,7 +178,7 @@
                         <div class="border rounded">
                             <div class="comment-area-box">
                                 <textarea id="comments_input" rows="4" class="form-control border-0 resize-none"
-                                    placeholder="Write something...." spellcheck="false" style="height: 155px;"></textarea>
+                                    placeholder="Write here...." spellcheck="false" style="height: 155px;"></textarea>
                                 <div class="p-2 bg-light d-flex justify-content-end align-items-center">
                                     <button type="button" onclick="addComment('{{ $issue->id }}')"
                                         class="btn btn-sm btn-success  rounded-pill">
