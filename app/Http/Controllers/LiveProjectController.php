@@ -208,11 +208,14 @@ class LiveProjectController extends Controller
             }
             $table = DataTables::of($Issues);
             $table->addIndexColumn();
-            $table->addColumn('issue_id', function ($row) { // '.Project()->reference_number.'
+            $table->addColumn('issue_id', function ($row) { // '.Project()->reference_number.'.
+                $count  = $row->IssueComments->where('unread',0)->count();
+                $countTemp = '<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">'.$count.'</span>';
+                $count = $count != 0 ?  $countTemp : "";
                 if (is_null($row->VariationOrder)) {
-                    return '<button type="button" class="btn-quick-view" onclick="showIssue(' . $row->id . ' , this)" >' . $row->issue_id . '</button>';
+                    return '<button type="button" class="btn-quick-view" onclick="showIssue(' . $row->id . ' , this)" >' . $row->issue_id.$count.'</button>';
                 }
-                return '<button type="button" class="btn-quick-view bg-warning fw-bold shadow-none border-dark border text-dark" onclick="showIssue(' . $row->id . ' , this)" >' . $row->issue_id . '</button>';
+                return '<button type="button" class="btn-quick-view bg-warning fw-bold shadow-none border-dark border text-dark" onclick="showIssue(' . $row->id . ' , this)" >' . $row->issue_id.$count.'</button>';
             });
             $table->addColumn('issue_type', function ($row) {
                 if ($row->type == 'INTERNAL') {
@@ -271,11 +274,14 @@ class LiveProjectController extends Controller
 
     public function show_issues($id)
     {
-        $issue = Issues::with('IssuesAttachments')->find($id);
+        $issue = Issues::with('IssuesAttachments','IssueComments')->find($id);
         $issue->status == 'NEW' ?  $issue->update(['status' => 'OPEN']) : null;
         $view  = view('live-projects.templates.issues-model', compact('issue'));
+        IssueComments::where('issue_id',$id)->update([
+            'unread' => true
+        ]);
         return response([
-            "view"  => "$view",
+            "view"  => "$view"
         ]);
     }
     public function edit_issue($id)
