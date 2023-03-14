@@ -5,7 +5,7 @@
         <span class="logo-lg font-weight-bold">
             <span class="page-title text-danger">
                 {{-- <b>AEC</b> <span class="text-white">Prefab</span> --}}
-                <img src="{{ asset('public/assets/images/admin/logo.png') }}" alt="AEC Prefab" width="150px">
+                <img src="{{ asset('public/assets/images/admin/logo-admin.png') }}" alt="AEC Prefab" width="150px">
             </span>
         </span>
         <span class="logo-sm font-weight-bold ">
