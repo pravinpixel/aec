@@ -354,4 +354,5 @@ Route::group(['middleware' => 'common'], function () {
     Route::get('/all-issues',[CommonController::class,'issues'])->name('issues.index');
     Route::get('/issues/live-project',[CommonController::class,'issues_project_dashboard'])->name('issues.project-dashboard');
     Route::get('/view-issues/{id}',[CommonController::class,'issues_by_project'])->name('issues.show');
+    Route::get('/get-project-manager-dashboard-data',[CommonController::class,'project_dashboard_data'])->name('issues.project-manager-dashboard-data');
 });

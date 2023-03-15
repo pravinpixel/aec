@@ -239,6 +239,10 @@ if (!function_exists('getIssuesByUserId')) {
             ->when(AuthUser() == 'CUSTOMER', function ($q) {
                 $q->where('type', 'EXTERNAL');
             })
+            ->when(AuthUser() == 'ADMIN' && AuthUserData()->job_role != 1, function ($q) {
+                $q->where('assignee_id', AuthUserData()->id)
+                ->orWhere('request_id', AuthUserData()->id);
+            })
             ->select('*');
     }
 }
@@ -281,26 +285,16 @@ if (!function_exists('sendMail')) {
 if (!function_exists('issuesCount')) {
     function issuesCount($modal, $type)
     {
+        $modal = Issues::where('project_id',$modal->id)->select('*');
         if ($type == 'ALL') {
             if (Admin()->job_role != 1) {
-                $count =  $modal->issues->where('assignee_id', Admin()->id)->count();
+                $count =  $modal->where('assignee_id', Admin()->id)
+                        ->orWhere('request_id', AuthUserData()->id)->count(); 
             } else {
-                $count =  $modal->issues->count();
+                $count =  $modal->count();
             }
             return '<span class="badge bg-danger">' . $count . '</span>';
-        }
-        if (AuthUser() == 'ADMIN') {
-            if (Admin()->job_role != 1) {
-                $count =  $modal->issues->whereIn('status', $type)->where('assignee_id', Admin()->id)->count();
-            } else {
-                $count =  $modal->issues->whereIn('status', $type)->count();
-            }
-            return '<span class="badge bg-danger">' . $count . '</span>';
-        }
-        if (AuthUser() == 'CUSTOMER') {
-            $count = $modal->issues->whereIn('status', $type)->count();
-            return '<span class="badge bg-danger">' . $count . '</span>';
-        }
+        } 
 
         return '<span class="badge bg-danger">0</span>';
     }

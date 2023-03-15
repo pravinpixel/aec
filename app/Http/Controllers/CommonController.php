@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Issues;
 use App\Models\Project;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -87,21 +88,32 @@ class CommonController extends Controller
                     $format = config('global.model_date_format');
                     return Carbon::parse($row->delivery_date)->format($format);
                 })
-                ->editColumn('opened', function ($row) {
-                    return issuesCount($row, ['OPEN', 'NEW']);
-                })
-                ->editColumn('closed', function ($row) {
-                    return issuesCount($row, ['CLOSED']);
-                })
                 ->editColumn('total_issues', function ($row) {
-                    return issuesCount($row, 'ALL');
+                    return "Issues ".issuesCount($row, 'ALL');
                 })
                 ->editColumn('action', function ($row) {
                     return "<a href=" . route('issues.show', $row->id) . " class='border btn-sm rounded-pill btn-success'><i class='fa fa-eye'></i></a>";
                 })
-                ->rawColumns(['reference_number', 'action', 'total_issues', 'opened', 'closed'])
+                ->rawColumns(['reference_number', 'action', 'total_issues'])
                 ->make(true);
         }
         return view('issues.dashboard');
+    }
+
+    public function project_dashboard_data()
+    {
+        $projects      = Project::count();
+        $issues        = Issues::where('assignee_id',AuthUserData()->id)->count();
+        $new_issues    = Issues::where('assignee_id',AuthUserData()->id)->where('status','NEW')->count();
+        $open_issues   = Issues::where('assignee_id',AuthUserData()->id)->where('status','OPEN')->count();
+        $closed_issues = Issues::where('assignee_id',AuthUserData()->id)->where('status','CLOSED')->count();
+        return response([
+            "auth_id"       => AuthUserData()->id,
+            "projects"      => $projects,
+            "issues"        => $issues,
+            "new_issues"    => $new_issues,
+            "open_issues"   => $open_issues,
+            "closed_issues" => $closed_issues
+        ]);
     }
 }

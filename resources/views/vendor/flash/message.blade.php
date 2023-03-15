@@ -5,7 +5,7 @@
             'title'      => $message['title'],
             'body'       => $message['message']
         ])
-    @else
+        @else
         <div id="alert-log" class="alert alert-custom alert-{{ $message['level']}} {{ $message['important'] ? 'alert-important' : '' }} fade show text-center" role="alert" data-bs-dismiss="alert" aria-label="Close">
             <strong>{!! $message['message'] !!}</strong>
         </div>
