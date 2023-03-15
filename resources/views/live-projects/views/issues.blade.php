@@ -441,8 +441,7 @@
                 if (path.split('.').pop() == 'pdf') {
                     var modalContent =
                         `<div class="ratio ratio-16x9"><iframe src="${path}" title="YouTube video" allowfullscreen></iframe></div>`
-                }
-                elseif(path.split('.').pop() == 'xlsx' || path.split('.').pop() == 'xls') {
+                } else if(path.split('.').pop() == 'xlsx' || path.split('.').pop() == 'xls') {
                     var modalContent = '<center><b>Preview not supported</b></center>'
                 } else {
                     var modalContent = `<center><img src="${path}" style="max-width:300px" class="mx-auto"/></center>`
