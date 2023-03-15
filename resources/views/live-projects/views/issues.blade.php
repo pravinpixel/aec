@@ -440,6 +440,7 @@
             filePreview = (element) => {
                 var file = $(element).attr('data-path')
                 var path = $(element).attr('data-file')
+                console.log(path.split('.').pop())
                 if (path.split('.').pop() == 'pdf') {
                     var modalContent = `<div class="ratio ratio-16x9"><iframe src="${file}" title="YouTube video" allowfullscreen></iframe></div>`
                 } else if(path.split('.').pop() == 'xlsx' || path.split('.').pop() == 'xls') {
