@@ -138,6 +138,7 @@
                                     <div class="row align-items-center p-1 d-flex">
                                         <div class="col-auto ps-0" title="Click to preview"
                                             onclick="filePreview('{{ asset('storage/app/' . $attachment->file_path) }}')">
+                                            {{ $attachment }}
                                             <div class="avatar-sm">
                                                 <span class="avatar-title rounded"
                                                     style="background-color: {{ color() }}">

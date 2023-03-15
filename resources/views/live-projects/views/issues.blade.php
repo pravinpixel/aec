@@ -441,13 +441,11 @@
                 if (path.split('.').pop() == 'pdf') {
                     var modalContent =
                         `<div class="ratio ratio-16x9"><iframe src="${path}" title="YouTube video" allowfullscreen></iframe></div>`
+                }
+                elseif(path.split('.').pop() == 'xlsx' || path.split('.').pop() == 'xls') {
+                    var modalContent = '<center><b>Preview not supported</b></center>'
                 } else {
-                    if (path.split('.').pop() == 'xlsx' || path.split('.').pop() == 'xls') {
-                        var modalContent = '<center><b>Preview not supported</b></center>'
-                    } else {
-                        var modalContent =
-                            `<center><img src="${path}" style="max-width:300px" class="mx-auto"/></center>`
-                    }
+                    var modalContent = `<center><img src="${path}" style="max-width:300px" class="mx-auto"/></center>`
                 }
 
                 if (document.querySelector('#filePreviewModal') !== null) {
@@ -488,9 +486,9 @@
                 })
             }
             editComment = (element, id) => {
-                var text     = $(element).attr('data-text');
+                var text = $(element).attr('data-text');
                 var textarea = $(`.${element.parentNode.parentNode.classList[0]} textarea`)
-                if(textarea.length !== 0) return false;
+                if (textarea.length !== 0) return false;
                 $(element.parentNode.parentNode).append(`
                     <div class="border rounded">
                         <div class="comment-area-box">
@@ -511,18 +509,19 @@
             cancelComment = element => {
                 $(element.parentNode.parentNode.parentNode).remove()
             }
-            updateComment = (element, id) => {  
-                var currentComment = $(element.parentNode.parentNode.parentNode.parentNode.childNodes[3])  
+            updateComment = (element, id) => {
+                var currentComment = $(element.parentNode.parentNode.parentNode.parentNode.childNodes[3])
                 var newComment = element.parentNode.parentNode.childNodes[1].value
-                $(element.parentNode.parentNode.parentNode.parentNode.childNodes[5].childNodes[3]).attr('data-text',newComment)
+                $(element.parentNode.parentNode.parentNode.parentNode.childNodes[5].childNodes[3]).attr(
+                    'data-text', newComment)
                 startLoader(element)
-                axios.put(`{{ route('live-project.update-comment.ajax') }}/${id}`,{
-                    comment : newComment
-                }).then((response) => { 
+                axios.put(`{{ route('live-project.update-comment.ajax') }}/${id}`, {
+                    comment: newComment
+                }).then((response) => {
                     currentComment.text(newComment)
                     setInterval(() => {
                         stopLoader(element)
-                        cancelComment(element) 
+                        cancelComment(element)
                     }, 200);
                 })
             }
