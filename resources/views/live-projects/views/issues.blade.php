@@ -437,16 +437,16 @@
                     }
                 })
             }
-            filePreview = (path) => {
+            filePreview = (element) => {
+                var file = $(element).attr('data-path')
+                var path = $(element).attr('data-file')
                 if (path.split('.').pop() == 'pdf') {
-                    var modalContent =
-                        `<div class="ratio ratio-16x9"><iframe src="${path}" title="YouTube video" allowfullscreen></iframe></div>`
+                    var modalContent = `<div class="ratio ratio-16x9"><iframe src="${file}" title="YouTube video" allowfullscreen></iframe></div>`
                 } else if(path.split('.').pop() == 'xlsx' || path.split('.').pop() == 'xls') {
                     var modalContent = '<center><b>Preview not supported</b></center>'
                 } else {
-                    var modalContent = `<center><img src="${path}" style="max-width:300px" class="mx-auto"/></center>`
+                    var modalContent = `<center><img src="${file}" style="max-width:300px" class="mx-auto"/></center>`
                 }
-
                 if (document.querySelector('#filePreviewModal') !== null) {
                     $('#filePreviewModal').remove()
                 }

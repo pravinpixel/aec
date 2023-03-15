@@ -137,8 +137,9 @@
                                 <div class="card mt-2 mb-1 shadow-none border text-start">
                                     <div class="row align-items-center p-1 d-flex">
                                         <div class="col-auto ps-0" title="Click to preview"
-                                            onclick="filePreview('{{ asset('storage/app/' . $attachment->file_path) }}')">
-                                            {{ $attachment }}
+                                            data-file="{{ str_replace('/','_',$attachment->file_path) }}"
+                                            data-path="{{ asset('storage/app/' . $attachment->file_path) }}"
+                                            onclick="filePreview(this)"> 
                                             <div class="avatar-sm">
                                                 <span class="avatar-title rounded"
                                                     style="background-color: {{ color() }}">
@@ -147,7 +148,9 @@
                                             </div>
                                         </div>
                                         <div class="col ps-0" title="Click to preview"
-                                            onclick="filePreview('{{ asset('storage/app/' . $attachment->file_path) }}')">
+                                        data-file="{{ str_replace('/','_',$attachment->file_path) }}"
+                                        data-path="{{ asset('storage/app/' . $attachment->file_path) }}"
+                                        onclick="filePreview(this)">
                                             <a href="javascript:void(0);" class="text-muted fw-bold">
                                                 {{ Str::limit($attachment->file_path, 15) }}
                                             </a>
