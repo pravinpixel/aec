@@ -46,10 +46,10 @@ class ChatBox extends Component
             'menu_name'     => $menuName,
         ]);
 
-        if($menuName == 'project') {
-            $customer = getCustomerByProjectId($moduleId); 
-        } else {
+        if($menuName == 'Enquiry') {
             $customer = getCustomerByEnquiryId($moduleId); 
+        } else {
+            $customer = getCustomerByProjectId($moduleId); 
         }
 
         return view('components.chat-box', compact(
