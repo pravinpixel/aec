@@ -47,6 +47,17 @@ if(!function_exists('userRole')){
         return $role;
     }
 }
+if(!function_exists('userRoleName')){
+    function userRoleName()
+    {
+        $user =  Admin();
+        $role = array();
+        if($user != ""){
+            $role = Role::find($user->job_role);
+        }
+        return strtoupper(str_replace('_','_',$role->slug));
+    }
+}
 
 if(!function_exists('proposalStatusBadge')) {
     function proposalStatusBadge($value) {

@@ -4,7 +4,7 @@ use App\Http\Controllers\Admin\Project\LiveProjectController as OldLiveProjectCo
 use App\Http\Controllers\LiveProjectController;
 use Illuminate\Support\Facades\Route;
 
-Route::group(['prefix' => 'live', 'middleware' => 'common'], function () {
+Route::group(['prefix' => 'live', 'middleware' => 'common'], function () { 
     Route::get('/project/{menu_type}/{id}', [LiveProjectController::class, 'index'])->name('live-project.menus-index');
     Route::post('/project/{menu_type}/{id}', [LiveProjectController::class, 'store'])->name('live-project.menus-store');
     Route::get('/get-milestones/{project_id?}', [LiveProjectController::class, 'milestones_index'])->name('live-project.milestones-index');
@@ -19,6 +19,7 @@ Route::group(['prefix' => 'live', 'middleware' => 'common'], function () {
     Route::post('/set-progress/{project_id?}', [LiveProjectController::class, 'set_progress'])->name('live-project.set-progress');
 
     // Issue 
+    Route::get('/issues/dashboard',[LiveProjectController::class,'dashboard'])->name('live-project.dashboard');
     Route::get('/issues/{project_id?}', [LiveProjectController::class, 'issues'])->name('live-project.issues.ajax');
     Route::delete('/delete-issues/{id?}', [LiveProjectController::class, 'delete_issues'])->name('live-project.delete-issues.ajax');
     Route::put('/change-status-issues/{id?}', [LiveProjectController::class, 'change_status_issues'])->name('live-project.change-status-issues.ajax');
