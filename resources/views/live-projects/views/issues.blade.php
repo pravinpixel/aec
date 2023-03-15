@@ -438,6 +438,7 @@
                 })
             }
             filePreview = (path) => {
+                console.log(path.split('.'))
                 if (path.split('.')[1] == 'pdf') {
                     var modalContent =
                         `<div class="ratio ratio-16x9"><iframe src="${path}" title="YouTube video" allowfullscreen></iframe></div>`
