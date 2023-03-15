@@ -4,7 +4,7 @@
         <div class="row text-center">
             <div class="col-12">
                 <div class="live-status-bg">
-                    <h3>Assigned Project</h3>
+                    <h3>Total Projects</h3>
                     <p class="count" id="project-count">0</p>
                     <span class="btn btn-primary">
                         <i class="mdi mdi-comment-check-outline"></i>
@@ -13,7 +13,7 @@
             </div>
             <div class="col-12">
                 <div class="live-status-bg">
-                    <h3>Assigned Issues</h3>
+                    <h3>Total Issues</h3>
                     <p class="count" id="issues-count">0</p>
                     <span class="btn btn-danger">
                         <i class="mdi mdi-comment-remove-outline"></i>
@@ -36,9 +36,9 @@
         axios.get("{{ route('issues.project-manager-dashboard-data') }}").then((response) => {
             $('#issues-count').html(response.data.issues)
             $('#project-count').html(response.data.projects) 
-            renderChart(response.data.new_issues,response.data.open_issues,response.data.closed_issues)
+            renderChart(response.data.new_issues,response.data.open_issues,response.data.closed_issues,response.data.issues)
         })
-        function renderChart(a,b,c) {
+        function renderChart(a,b,c,d) {
             google.charts.load('current', {
                 'packages': ['corechart']
             });
@@ -51,7 +51,7 @@
                     ['Closed Issues', c]
                 ]);
                 var options = {
-                    title: 'Issues Dashboard',
+                    title: 'Total Issues '+d,
                     is3D: true,
                     colors: ['#4199fc', '#cc001a', '#20cf98']
                 };
