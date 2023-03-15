@@ -1,3 +1,3 @@
-@if ($access)
+@if (Admin() !== null)
     {{ $slot }}
 @endif

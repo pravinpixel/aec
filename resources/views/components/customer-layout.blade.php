@@ -1,3 +1,3 @@
-@if ($access ?? false)
+@if (Customer() !== null)
     {{ $slot }}
 @endif
