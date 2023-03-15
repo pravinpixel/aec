@@ -144,7 +144,7 @@ class Notify
                     "module_name" => $data["module_name"],
                     "module_id"   => $data["module_id"],
                     "sender_role" => 'CUSTOMER',
-                    "sender_id"   =>  getCustomerByEnquiryId($data["module_id"])->id,
+                    "sender_id"   => $data['module_name'] == 'Enquiry' ? getCustomerByEnquiryId($data["module_id"])->id : getCustomerByProjectId($data["module_id"])->id,
                     "read_status" => 0
                 ])->count();
             }
