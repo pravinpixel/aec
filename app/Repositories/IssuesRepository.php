@@ -4,7 +4,6 @@ namespace App\Repositories;
 use App\Mail\issueCreateMail;
 use App\Models\Issues;
 use App\Models\Project;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 class IssuesRepository {
     public $Issues,$Project;

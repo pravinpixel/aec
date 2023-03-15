@@ -262,11 +262,12 @@ class LiveProjectController extends Controller
                                 ' . $btnConvert . '
                                 <button type="button" onclick=showIssue(' . $row->id . ',this) class="dropdown-item"><i class="fa fa-eye me-1"></i> View </button>
                                 <button type="button" onclick=editIssue(' . $row->id . ',this) class="dropdown-item"><i class="fa fa-pen me-1"></i> Edit</button>
-                                <button type="button" onclick="SendMailVersion(' . $row->id . ',this)" class="dropdown-item"><i class="fa fa-envelope me-1"></i> Send</button>
                                 <button type="button" onclick="deleteIssue(' . $row->id . ',this)"  class="dropdown-item text-danger"><i class="fa fa-trash me-1"></i> Delete</button>
                             </div>
                         </div>';
             });
+                                // <button type="button" onclick="SendMailVersion(' . $row->id . ',this)" class="dropdown-item"><i class="fa fa-envelope me-1"></i> Send</button>
+
             $table->rawColumns(['action', 'issue_id', 'priority_type', 'status_type', 'issue_type', 'requested_date']);
             return $table->make(true);
         }

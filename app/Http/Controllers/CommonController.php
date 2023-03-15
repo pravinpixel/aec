@@ -107,13 +107,17 @@ class CommonController extends Controller
         $new_issues    = Issues::where('assignee_id',AuthUserData()->id)->where('status','NEW')->count();
         $open_issues   = Issues::where('assignee_id',AuthUserData()->id)->where('status','OPEN')->count();
         $closed_issues = Issues::where('assignee_id',AuthUserData()->id)->where('status','CLOSED')->count();
+        $external_issues = Issues::where('assignee_id',AuthUserData()->id)->where('type','EXTERNAL')->count();
+        $internal_issues = Issues::where('assignee_id',AuthUserData()->id)->where('type','INTERNAL')->count();
         return response([
             "auth_id"       => AuthUserData()->id,
             "projects"      => $projects,
             "issues"        => $issues,
             "new_issues"    => $new_issues,
             "open_issues"   => $open_issues,
-            "closed_issues" => $closed_issues
+            "closed_issues" => $closed_issues,
+            "external_issues" => $external_issues,
+            "internal_issues" => $internal_issues
         ]);
     }
 }
