@@ -58,7 +58,12 @@ if(!function_exists('userRoleName')){
         return strtoupper(str_replace('_','_',$role->slug));
     }
 }
-
+// if(!function_exists('getProjectCountByAdminId')){
+//     function getProjectCountByAdminId()
+//     {
+//        $project  =   return strtoupper(str_replace('_','_',$role->slug));
+//     }
+// }
 if(!function_exists('proposalStatusBadge')) {
     function proposalStatusBadge($value) {
         switch($value){

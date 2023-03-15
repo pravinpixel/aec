@@ -14,8 +14,6 @@
                         <th class="text-center">@lang('project.project_number')</th>
                         <th class="text-center">@lang('project.start_date')</th>
                         <th class="text-center">@lang('project.delivery_date')</th>
-                        <th class="text-center">Opened</th>
-                        <th class="text-center">Closed</th>
                         <th class="text-center">Total Issues</th>
                         <th class="text-center">@lang('project.action')</th>
                     </tr>
@@ -77,18 +75,6 @@
                     {
                         data: 'delivery_date',
                         name: 'delivery_date'
-                    },
-                    {
-                        data: 'opened',
-                        name: 'opened',
-                        searchable:false,
-                        sortable:false
-                    },
-                    {
-                        data: 'closed',
-                        name: 'closed',
-                        searchable:false,
-                        sortable:false
                     },
                     {
                         data: 'total_issues',

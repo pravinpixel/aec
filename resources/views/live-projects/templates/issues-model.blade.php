@@ -18,20 +18,19 @@
                     </a>
                 </li>
             @endif
-            <li class="nav-item">
-                <a href="#Comments-b1" data-bs-toggle="tab" aria-expanded="false" class="nav-link">
-                    <i class="fa fa-comments" aria-hidden="true"></i>
-                    @php
-                        $count = $issue->IssueComments->where('unread', 0)->count();
-                    @endphp
-                    @if ($count)
-                        <span
-                            class="position-absolute bottom-0 start-100 translate-middle badge rounded-pill bg-danger">
-                            {{ $count }}
+            @php
+                $count = $issue->IssueComments->where('unread', 0)->count();
+            @endphp
+            @if ($count)
+                <li class="nav-item">
+                    <a href="#Comments-b1" data-bs-toggle="tab" aria-expanded="false" class="nav-link">
+                        <i class="fa fa-comments" aria-hidden="true"></i>
+                        <span class="position-absolute bottom-0 start-100 translate-middle badge rounded-pill bg-danger">
+                            Comments {{ $count }}
                         </span>
-                    @endif
-                </a>
-            </li>
+                    </a>
+                </li>
+            @endif
             <button type="button" class="btn-close top-0 mt-2" data-bs-dismiss="modal" aria-hidden="true"></button>
         </ul>
         <div class="tab-content p-2">
