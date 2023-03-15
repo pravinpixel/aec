@@ -438,12 +438,11 @@
                 })
             }
             filePreview = (path) => {
-                console.log(path.split('.'))
-                if (path.split('.')[1] == 'pdf') {
+                if (path.split('.').pop() == 'pdf') {
                     var modalContent =
                         `<div class="ratio ratio-16x9"><iframe src="${path}" title="YouTube video" allowfullscreen></iframe></div>`
                 } else {
-                    if (path.split('.')[1] == 'xlsx' || path.split('.')[1] == 'xls') {
+                    if (path.split('.').pop() == 'xlsx' || path.split('.').pop() == 'xls') {
                         var modalContent = '<center><b>Preview not supported</b></center>'
                     } else {
                         var modalContent =
