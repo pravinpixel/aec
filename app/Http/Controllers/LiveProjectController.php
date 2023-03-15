@@ -531,5 +531,5 @@ class LiveProjectController extends Controller
         return response([
             "status" => true
         ]);
-    }
+    } 
 }
