@@ -134,13 +134,13 @@ if(!function_exists('str_replace_all')) {
 if(!function_exists('getCustomerByEnquiryId')) {
     function getCustomerByEnquiryId($id)
     {
-        return Enquiry::with('customer')->findOrFail($id)->customer;
+        return Enquiry::with('customer')->find($id)->customer;
     }
 }
 if(!function_exists('getCustomerByProjectId')) {
     function getCustomerByProjectId($id)
     {
-        return Project::with('customer')->findOrFail($id)->customer;
+        return Project::with('customer')->find($id)->customer;
     }
 }
 if(!function_exists('getProjectId')) {
