@@ -6,17 +6,17 @@
                         <h5 class="m-0">Comments from customer</h5>
                     </div>
                     <div class="card-body">
-                        {!! $project->projectClosure->external !!}
+                        {!! $project->projectClosure->external ?? "" !!}
                     </div>
                 </div>
             </div>
             <div class="col">
                 <div class="card border shadow-sm" style="height:350px;overflow-y:auto">
                     <div class="card-header bg-light border-bottom-0">
-                        <h5 class="m-0">Your Comments</h5>
+                        <h5 class="m-0">Write your comments here...</h5>
                     </div>
                     <div class="card-body">
-                        <textarea id="admin-editor" name="internal" class="opacity-0">{!! $project->projectClosure->internal !!}</textarea>
+                        <textarea id="admin-editor" name="internal" class="opacity-0">{!! $project->projectClosure->internal ?? "" !!}</textarea>
                     </div>
                 </div> 
             </div>
@@ -30,17 +30,17 @@
                         <h5 class="m-0">Comments from team AecPrefab</h5>
                     </div>
                     <div class="card-body">
-                        {!! $project->projectClosure->internal !!}
+                        {!! $project->projectClosure->internal ?? "" !!}
                     </div>
                 </div>
             </div>
             <div class="col">
                 <div class="card border shadow-sm" style="height:350px;overflow-y:auto">
                     <div class="card-header bg-light border-bottom-0">
-                        <h5 class="m-0">Your Comments</h5>
+                        <h5 class="m-0">Write your comments here...</h5>
                     </div>
                     <div class="card-body ">
-                        <textarea id="admin-editor" name="external" height="100%" class="opacity-0">{!! $project->projectClosure->external !!}</textarea>
+                        <textarea id="admin-editor" name="external" height="100%" class="opacity-0">{!! $project->projectClosure->external ?? "" !!}</textarea>
                     </div>
                 </div>
             </div>

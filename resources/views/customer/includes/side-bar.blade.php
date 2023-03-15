@@ -47,13 +47,13 @@
                     </ul>
                 </div>
             </li> 
-            <li class="side-nav-item {{ Route::is("customers.edit-enquiry") ? "menuitem-active" : ""}}">
+            <li class="side-nav-item {{ Route::is(["customers.edit-enquiry","customers.edit-enquiry","customers.create-enquiry"]) ? "menuitem-active" : ""}}">
                 <a data-bs-toggle="collapse" href="#Sales" aria-expanded="false" aria-controls="Sales" class="side-nav-link">
                     <i class="fa fa-briefcase" aria-hidden="true"></i>
                     <span> Enquiries  </span>
                     <span class="menu-arrow"></span>
                 </a>
-                <div class="collapse {{ Route::is("customers.edit-enquiry") || route('customers.create-enquiry') ? "show" : ""}}" id="Sales">
+                <div class="collapse {{ Route::is(["customers.edit-enquiry","customers.create-enquiry"]) ? "show" : ""}}" id="Sales">
                     <ul class="side-nav-second-level">
                         <li class="{{ Route::is("customers.create-enquiry") ? "menuitem-active" : ""}}">
                             <a href="#" onclick="return window.location.assign('{{ route('customers.create-enquiry') }}')">Create Enquiry</a>
@@ -65,17 +65,17 @@
                 </div>
             </li> 
              
-            <li class="side-nav-item  {{ Route::is(["list-projects","customer-live-projects-data"]) ? "menuitem-active" : ""}}">
+            <li class="side-nav-item  {{ Route::is(["list-projects","customer-live-projects-data","live-project.menus-index"]) ? "menuitem-active" : ""}}">
                 <a data-bs-toggle="collapse" href="#Project" aria-expanded="false" aria-controls="Sales" class="side-nav-link">
                     <i class="fa fa-layer-group" aria-hidden="true"></i>
                     <span> Projects </span>
                 </a> 
-                <div class="collapse {{ Route::is("list-projects","customer-live-projects-data")  ? "show" : ""}}" id="Project">
+                <div class="collapse {{ Route::is("list-projects","customer-live-projects-data","live-project.menus-index")  ? "show" : ""}}" id="Project">
                     <ul class="side-nav-second-level">
                        {{--<li class="{{ Route::is("customers-my-projects") ? "menuitem-active" : ""}}">
                             <a href="#">Enquiry</a>
                         </li>--}} 
-                    <li class="{{ Route::is(["list-projects","customer-live-projects-data"]) ? "menuitem-active" : ""}}">
+                    <li class="{{ Route::is(["list-projects","customer-live-projects-data","live-project.menus-index"]) ? "menuitem-active" : ""}}">
                             <a href="{{ route('customer-list-projects') }}">Live project</a>
                         </li>
                         

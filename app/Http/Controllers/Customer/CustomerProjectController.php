@@ -28,7 +28,6 @@ class CustomerProjectController extends Controller
     }
     public function unestablishedProjectList(Request $request)
     {
-       
         if ($request->ajax() == true) {
             $dataDb = $this->projectRepo->unestablishedProjectList($request);
             return DataTables::eloquent($dataDb)
@@ -77,10 +76,10 @@ class CustomerProjectController extends Controller
     {
         
         if ($request->ajax() == true) {
-            //$dataDb = $this->projectRepo->liveProjectList($request);
-            $dataDb = Project::with(['comments'=> function($q){
-                $q->where(['status' => 0, 'created_by' => 'Admin']);
-            }]);
+            $dataDb = $this->projectRepo->liveProjectList($request);
+            // $dataDb = Project::with(['comments'=> function($q){
+            //     $q->where(['status' => 0, 'created_by' => 'Admin']);
+            // }]);
             //dd($dataDb);
             return DataTables::eloquent($dataDb)
                 ->editColumn('reference_number', function ($dataDb) {
@@ -172,7 +171,7 @@ class CustomerProjectController extends Controller
                                 <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <!-- <a class="dropdown-item" href="'.route('edit-projects', $dataDb->id).'">Edit</a> -->
+                                <a class="dropdown-item" href="'.route('live-project.menus-index',['menu_type'=>'overview','id'=> $dataDb->id]).'">Edit/View</a>
                                 <a class="dropdown-item" href="'.route('customer-live-projects-data', $dataDb->id).'">View/Edit</a>
                                 <a type="button" class="dropdown-item delete-modal" data-header-title="Delete" data-title="Are you sure to delete this enquiry" data-action="'.route('enquiry.delete', $dataDb->id).'" data-method="DELETE" data-bs-toggle="modal" data-bs-target="#primary-header-modal">Delete</a>
                             </div>

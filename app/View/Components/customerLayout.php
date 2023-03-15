@@ -27,6 +27,7 @@ class customerLayout extends Component
      */
     public function render()
     {
-        return view('components.customer-layout');
+        $access = $this->access;
+        return view('components.customer-layout',compact('access'));
     }
 }

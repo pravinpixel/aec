@@ -26,6 +26,7 @@ class adminLayout extends Component
      */
     public function render()
     {
-        return view('components.admin-layout');
+        $access = $this->access;
+        return view('components.admin-layout',compact('access'));
     }
 }
