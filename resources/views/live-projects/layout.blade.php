@@ -1,7 +1,6 @@
 
 <!DOCTYPE html>
 <html lang="en">
-    
     <head>
         @include('admin.includes.head')
         @stack('live-project-custom-styles')

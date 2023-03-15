@@ -4,9 +4,7 @@
 
     <head>
         @include('customer.includes.head')
-
         @stack('custom-styles')
-
     </head>
 
     <body ng-app="App">
