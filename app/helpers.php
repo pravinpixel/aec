@@ -134,13 +134,21 @@ if(!function_exists('str_replace_all')) {
 if(!function_exists('getCustomerByEnquiryId')) {
     function getCustomerByEnquiryId($id)
     {
-        return Enquiry::with('customer')->find($id)->customer;
+        try {
+            return Enquiry::with('customer')->find($id)->customer;
+        } catch (\Throwable $th) {
+            return Project::with('customer')->find($id)->customer;
+        }
     }
 }
 if(!function_exists('getCustomerByProjectId')) {
     function getCustomerByProjectId($id)
     {
-        return Project::with('customer')->find($id)->customer;
+        try {
+            return Project::with('customer')->find($id)->customer;
+        } catch (\Throwable $th) {
+            return Enquiry::with('customer')->find($id)->customer;
+        }
     }
 }
 if(!function_exists('getProjectId')) {

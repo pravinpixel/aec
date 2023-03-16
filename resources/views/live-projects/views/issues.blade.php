@@ -394,7 +394,7 @@
                     })
                 } else {
                     axios.put(`{{ route('live-project.change-status-issues.ajax') }}/${id}`, {
-                        status: element.value
+                        status: element.value   
                     }).then(() => {
                         Alert.success('Issue Status Changed!')
                         $('#issues-table').DataTable().destroy();
