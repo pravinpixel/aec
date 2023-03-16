@@ -39,12 +39,14 @@ if(!function_exists('userRole')){
     function userRole()
     {
         $user =  Admin();
-        $role = array();
         if($user != ""){
-            $role = Role::find($user->job_role);
-        }
-
-        return $role;
+            return Role::find($user->job_role);
+        } 
+        return [
+            "name"   => "Customer",
+            "status" => "1",
+            "slug"   => "customer",
+        ];
     }
 }
 if(!function_exists('userRoleName')){
@@ -336,4 +338,3 @@ if(!function_exists('changeProposalStatus')) {
         }
     }
 }
-

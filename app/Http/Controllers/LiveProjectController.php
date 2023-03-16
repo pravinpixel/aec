@@ -209,13 +209,13 @@ class LiveProjectController extends Controller
             $table = DataTables::of($Issues);
             $table->addIndexColumn();
             $table->addColumn('issue_id', function ($row) { // '.Project()->reference_number.'.
-                $count  = $row->IssueComments->where('unread',0)->count();
-                $countTemp = '<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">'.$count.'</span>';
+                $count  = $row->MyIssueComments->count();
+                $countTemp = '<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">' . $count . '</span>';
                 $count = $count != 0 ?  $countTemp : "";
                 if (is_null($row->VariationOrder)) {
-                    return '<button type="button" class="btn-quick-view" onclick="showIssue(' . $row->id . ' , this)" >' . $row->issue_id.$count.'</button>';
+                    return '<button type="button" class="btn-quick-view" onclick="showIssue(' . $row->id . ' , this)" >' . $row->issue_id . $count . '</button>';
                 }
-                return '<button type="button" class="btn-quick-view bg-warning fw-bold shadow-none border-dark border text-dark" onclick="showIssue(' . $row->id . ' , this)" >' . $row->issue_id.$count.'</button>';
+                return '<button type="button" class="btn-quick-view bg-warning fw-bold shadow-none border-dark border text-dark" onclick="showIssue(' . $row->id . ' , this)" >' . $row->issue_id . $count . '</button>';
             });
             $table->addColumn('issue_type', function ($row) {
                 if ($row->type == 'INTERNAL') {
@@ -266,8 +266,7 @@ class LiveProjectController extends Controller
                             </div>
                         </div>';
             });
-                                // <button type="button" onclick="SendMailVersion(' . $row->id . ',this)" class="dropdown-item"><i class="fa fa-envelope me-1"></i> Send</button>
-
+            // <button type="button" onclick="SendMailVersion(' . $row->id . ',this)" class="dropdown-item"><i class="fa fa-envelope me-1"></i> Send</button>
             $table->rawColumns(['action', 'issue_id', 'priority_type', 'status_type', 'issue_type', 'requested_date']);
             return $table->make(true);
         }
@@ -275,12 +274,9 @@ class LiveProjectController extends Controller
 
     public function show_issues($id)
     {
-        $issue = Issues::with('IssuesAttachments','IssueComments')->find($id);
+        $issue = Issues::with('IssuesAttachments', 'IssueComments', 'IssueComments')->find($id);
         $issue->status == 'NEW' ?  $issue->update(['status' => 'OPEN']) : null;
         $view  = view('live-projects.templates.issues-model', compact('issue'));
-        IssueComments::where('issue_id',$id)->update([
-            'unread' => true
-        ]);
         return response([
             "view"  => "$view"
         ]);
@@ -506,12 +502,29 @@ class LiveProjectController extends Controller
     }
     public function create_comment(Request $request, $id)
     {
-        $issue = Issues::with('IssueComments')->find($id);
+        $issue      = Issues::with('IssueComments')->find($id);
+        $customer   = getCustomerByProjectId($issue->project_id);
+
+        if (AuthUser() == 'CUSTOMER') {
+            $reciver_id   = $issue->request_id;
+            $reciver_name = getEmployeeById($issue->request_id)->display_name;
+            $reciver_role = 'ADMIN';
+        } else {
+            $reciver_id   = $customer->id;
+            $reciver_name = getUser($issue->assignee_id)->first_name;
+            $reciver_role = 'CUSTOMER';
+        }
+
         $issue->IssueComments()->create([
-            'issue_id'   => $id,
-            'user_id'    => AuthUserData()->id,
-            'created_by' => AuthUserData()->first_name,
-            'comment'    => $request->comment
+            'comment'             => $request->comment,
+            'sender_id'           => AuthUserData()->id,
+            'sender_name'         => AuthUserData()->first_name,
+            'sender_role'         => AuthUser(),
+            'sender_read_status'  => false,
+            'reciver_id'          => $reciver_id,
+            'reciver_name'        => $reciver_name,
+            'reciver_role'        => $reciver_role,
+            'reciver_read_status' => false
         ]);
         $comments = Issues::with('IssueComments')->find($id)->IssueComments;
         return view('live-projects.templates.issue-comments', compact('comments'));
@@ -528,9 +541,19 @@ class LiveProjectController extends Controller
     {
         IssueComments::find($comment_id)->update([
             'comment' => $request->comment
-        ]); 
+        ]);
         return response([
             "status" => true
         ]);
-    } 
+    }
+    public function set_comment_count($id)
+    {
+        IssueComments::where('issue_id', $id)
+            ->where('reciver_id', AuthUserData()->id)
+            ->where('reciver_role', userRole()['slug'])
+            ->update(['reciver_read_status' => 1]);
+        return response([
+            "status" => true
+        ]);
+    }
 }

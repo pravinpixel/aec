@@ -36,6 +36,14 @@ class Issues extends Model
         return $this->hasMany(IssueComments::class,'issue_id','id');
     }
 
+    public function MyIssueComments()
+    {
+        return $this->hasMany(IssueComments::class,'issue_id','id')
+            ->where('reciver_id',AuthUserData()->id)
+            ->where('reciver_role',userRole()['slug'])
+            ->where('reciver_read_status',0);
+    }
+
     public function VariationOrder()
     {
         return $this->hasOne(VariationOrder::class,'issue_id','id');

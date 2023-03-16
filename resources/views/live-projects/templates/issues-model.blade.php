@@ -19,10 +19,10 @@
                 </li>
             @endif
             @php
-                $count = $issue->IssueComments->where('unread', 0)->count();
+                $count = $issue->MyIssueComments->count();
             @endphp
             <li class="nav-item">
-                <a href="#Comments-b1" data-bs-toggle="tab" aria-expanded="false" class="nav-link">
+                <a href="#Comments-b1" onclick="setcommentCount('{{ $issue->id }}')" data-bs-toggle="tab" aria-expanded="false" class="nav-link">
                     <i class="fa fa-comments" aria-hidden="true"></i>
                     Comments
                     @if ($count)
@@ -33,7 +33,7 @@
                     @endif
                 </a>
             </li>
-            <button type="button" class="btn-close top-0 mt-2" data-bs-dismiss="modal" aria-hidden="true"></button>
+            <button type="button" class="btn-close top-0 mt-2" onclick="location.reload()" data-bs-dismiss="modal" aria-hidden="true"></button>
         </ul>
         <div class="tab-content p-2">
             <div class="tab-pane show active" id="properties-b1">

@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('admin-content')
-    @include('flash::message')
+    @include('flash::message') 
     <div class="content-page" ng-app="Myapp">
         <div class="content" ng-controller="dashboardController">
             @include('admin.includes.top-bar')

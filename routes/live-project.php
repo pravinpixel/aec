@@ -38,6 +38,7 @@ Route::group(['prefix' => 'live', 'middleware' => 'common'], function () {
     Route::post('/create-comment/{issue_id?}', [LiveProjectController::class, 'create_comment'])->name('live-project.create-comment.ajax');  
     Route::delete('/delete-comment/{comment_id?}', [LiveProjectController::class, 'delete_comment'])->name('live-project.delete-comment.ajax');  
     Route::put('/update-comment/{comment_id?}', [LiveProjectController::class, 'update_comment'])->name('live-project.update-comment.ajax');  
+    Route::get('/set-comment-count/{comment_id?}', [LiveProjectController::class, 'set_comment_count'])->name('live-project.set-comment-count.ajax');  
     
     // invoice
     Route::get('get-invoice-by-project/{projwct_id}',[LiveProjectController::class,'get_invoice_by_project'])->name('live-project.get-invoice-by-project.ajax');

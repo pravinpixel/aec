@@ -1,8 +1,7 @@
 @extends('layouts.customer')
 
 @section('customer-content')
-    @include('flash::message')
-
+    @include('flash::message') 
     <div class="content-page">
         <div class="content">
 

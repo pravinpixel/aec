@@ -426,6 +426,9 @@
                     }
                 })
             }
+            setcommentCount = comment_id => {
+                axios.get(`{{ route('live-project.set-comment-count.ajax') }}/${comment_id}`);
+            }
             convertVariation = (id, element) => {
                 $('#detail-issue-modal').modal('hide')
                 startLoader(element)
