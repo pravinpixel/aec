@@ -14,13 +14,13 @@
                                     <div class="d-flex align-items-center justify-content-between w-100">
                                         <b>{{ $task->name }}</b>
                                         <div class="text-center">
-                                            @if ($task->progress_percentage == 100)
+                                            @if ($task['progress_percentage'] == 100)
                                                 <span
                                                     class="badge badge-success-lighten shadow-sm border border-success rounded-pill"><i
                                                         class="mdi mdi-check-circle me-1"></i>Completed</span>
                                             @else
-                                                {{ $task->progress_percentage !== 0 ? 'Completed' : 'Pending' }}
-                                                {!! generateProgressBar($task->progress_percentage) !!}
+                                                {{ $task['progress_percentage'] !== 0 ? 'Completed' : 'Pending' }}
+                                                {!! generateProgressBar($task['progress_percentage']) !!}
                                             @endif
                                         </div>
                                     </div>
