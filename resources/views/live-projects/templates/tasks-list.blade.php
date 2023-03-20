@@ -30,8 +30,8 @@
                                             @foreach ($task->SubTasks as $subtask)
                                                 <li class="list-group-item"> 
                                                     <div class="d-flex align-items-center justify-content-between w-100">
-                                                        <small class="text-dark">{{ $subtask->name }}</small>
-                                                        <div class="text-center">
+                                                        <small class="text-dark">{{ $subtask->name }} <b class="ps-1 text-primary">( {{ $subtask->SubSubTasks->where('status',1)->count() }} / {{ $subtask->SubSubTasks->count() }} )</b> </small>
+                                                        <div class="text-center"> 
                                                             {{-- {!! generateProgressBar($subtask->progress_percentage,'bg-primary') !!} --}}
                                                             <b>{{ $subtask->progress_percentage }}%</b>
                                                         </div>
