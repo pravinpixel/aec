@@ -13,53 +13,46 @@
                 <!-- start page title -->
 
                 @include('customer.includes.page-navigater')
-
-                <div class="card ">
-
-                    <div class="card-body pt-0 p-4">
-                        <form class="form-horizontal  pt-4" method="post" action="{{ route("customer.changePassword") }}">
-                            @csrf
-                            <div class="mb-3 row">
-                                <label for="colFormLabelSm" class="col-sm-3  col-form-label">Old Password</label>
-                                <div class="col-sm-9">
-                                    <div class="input-group input-group-merge">
-                                        <input type="password" id="password" name="old_password" class="form-control p-2" placeholder="Enter your old password" required>
-                                        <div class="input-group-text" data-password="false">
-                                            <span class="password-eye"></span>
+                <div class="col-12">
+                    <div class="card border shadow-sm">
+                        <div class="card-header px-3 text-primary"><b>Change Password</b></div>
+                        <div class="card-body p-3">
+                            <form action="{{ route('customer.changePassword') }}" method="POST">
+                                @csrf
+                                <div class="row mb-3">
+                                    <div class="col-md">
+                                        <label class="small mb-1" for="inputPhone"><i class="fa fa-key me-1"></i>Current Passowrd</label>
+                                        <div class="input-group input-group-merge">
+                                            <input type="password" id="current_password" name="current_password" class="form-control form-control-sm" placeholder="Enter your password" required>
+                                            <div class="input-group-text" data-password="false">
+                                                <span class="password-eye"></span>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="mb-3 row">
-                                <label for="colFormLabelSm" class="col-sm-3  col-form-label">New Password</label>
-                                <div class="col-sm-9">
-                                    <div class="input-group input-group-merge">
-                                        <input type="password" id="password" name="password" validate-password class="form-control p-2" placeholder="Enter your new password" required>
-                                        <div class="input-group-text" data-password="false">
-                                            <span class="password-eye"></span>
+                                    </div> 
+                                    <div class="col-md">
+                                        <label class="small mb-1" for="inputPhone"><i class="fa fa-key me-1"></i>New Passowrd</label>
+                                        <div class="input-group input-group-merge">
+                                            <input type="password" id="new_password" name="new_password" class="form-control form-control-sm" placeholder="Enter your new password" required>
+                                            <div class="input-group-text" data-password="false">
+                                                <span class="password-eye"></span>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="mb-3 row">
-                                <label for="colFormLabelSm" class="col-sm-3  col-form-label">Confirm Password</label>
-                                <div class="col-sm-9">
-                                    <div class="input-group input-group-merge">
-                                        <input type="password" id="password" validate-confirm-password name="confirm_password" class="form-control p-2" placeholder="Confirm your new password" required>
-                                        <div class="input-group-text" data-password="false">
-                                            <span class="password-eye"></span>
+                                    </div> 
+                                    <div class="col-md">
+                                        <label class="small mb-1" for="inputPhone"><i class="fa fa-key me-1"></i>Confirm Passowrd</label>
+                                        <div class="input-group input-group-merge">
+                                            <input type="password" id="password" name="confirm_password" class="form-control form-control-sm" placeholder="Confirm your new passowrd" required>
+                                            <div class="input-group-text" data-password="false">
+                                                <span class="password-eye"></span>
+                                            </div>
                                         </div>
-                                    </div>
+                                    </div> 
                                 </div>
-                            </div>
-
-                            <div class="  mb-0 text-end">
-                                <button class="btn btn-primary " type="submit"> Change </button>
-                            </div>
-                        </form>
-                    </div> <!-- end card-body -->
-                </div>
-
+                                <button type="submit" class="btn btn-primary float-end btn-sm" type="button"><i class="fa fa-key me-1"></i>Change Password</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>  
             </div> <!-- container -->
 
         </div> <!-- content -->

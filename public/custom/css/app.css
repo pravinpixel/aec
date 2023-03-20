@@ -1,6 +1,9 @@
 @import url('../components/accordion.css');
 @import url('../components/buttons.css');
 
+.ck.ck-reset_all.ck-widget__type-around {
+    display: none !important;
+}
 .validation-message {
     color: #f95d7d;
     position: absolute;
