@@ -22,7 +22,8 @@
                 $count = $issue->MyIssueComments->count();
             @endphp
             <li class="nav-item">
-                <a href="#Comments-b1" onclick="setcommentCount('{{ $issue->id }}')" data-bs-toggle="tab" aria-expanded="false" class="nav-link">
+                <a href="#Comments-b1" onclick="setcommentCount('{{ $issue->id }}')" data-bs-toggle="tab"
+                    aria-expanded="false" class="nav-link">
                     <i class="fa fa-comments" aria-hidden="true"></i>
                     Comments
                     @if ($count)
@@ -33,7 +34,8 @@
                     @endif
                 </a>
             </li>
-            <button type="button" class="btn-close top-0 mt-2" onclick="location.reload()" data-bs-dismiss="modal" aria-hidden="true"></button>
+            <button type="button" class="btn-close top-0 mt-2" onclick="location.reload()" data-bs-dismiss="modal"
+                aria-hidden="true"></button>
         </ul>
         <div class="tab-content p-2">
             <div class="tab-pane show active" id="properties-b1">
@@ -57,20 +59,31 @@
                             <div class="mb-3">
                                 <b>Status</b> :
                                 <span>
-                                    <select name="Status" onchange="ChangeIssueStatus('{{ $issue->id }}',this)"
-                                        class="rounded-pill shadow-sm border border-light" value="{{ $issue->ststus }}"
-                                        style="outline:none">
-                                        <option {{ select_status('NEW', $issue) }} value="NEW">
-                                            {{ __('project.NEW') }}</option>
-                                        <option {{ select_status('OPEN', $issue) }} value="OPEN">
-                                            {{ __('project.OPEN') }}</option>
-                                        <option {{ select_status('CLOSED', $issue) }} value="CLOSED">
-                                            {{ __('project.CLOSED') }}</option>
-                                    </select>
+                                    @if (AuthUser() == 'CUSTOMER')
+                                        <select disabled class="rounded-pill shadow-sm border border-light"
+                                            value="{{ $issue->ststus }}" style="outline:none">
+                                            <option {{ select_status('NEW', $issue) }} value="NEW">
+                                                {{ __('project.NEW') }}</option>
+                                            <option {{ select_status('OPEN', $issue) }} value="OPEN">
+                                                {{ __('project.OPEN') }}</option>
+                                            <option {{ select_status('CLOSED', $issue) }} value="CLOSED">
+                                                {{ __('project.CLOSED') }}</option>
+                                        </select>
+                                    @else
+                                        <select name="Status" onchange="ChangeIssueStatus('{{ $issue->id }}',this)"
+                                            class="rounded-pill shadow-sm border border-light"
+                                            value="{{ $issue->ststus }}" style="outline:none">
+                                            <option {{ select_status('NEW', $issue) }} value="NEW">
+                                                {{ __('project.NEW') }}</option>
+                                            <option {{ select_status('OPEN', $issue) }} value="OPEN">
+                                                {{ __('project.OPEN') }}</option>
+                                            <option {{ select_status('CLOSED', $issue) }} value="CLOSED">
+                                                {{ __('project.CLOSED') }}</option>
+                                        </select>
+                                    @endif
                                 </span>
                             </div>
                         @endif
-
                         <div class="mb-3">
                             <b>Type</b> : <span>{{ $issue->type }}</span>
                         </div>

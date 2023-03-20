@@ -2,7 +2,6 @@
 @section('admin-content')
     <h4 class="my-3">
         <span class="text-primary">All Issues</span>
-        {{-- <span class="text-secondary"> / Live Projects</span> --}}
     </h4>
     <div class="card shadow-sm border">
         <div class="card-body">
@@ -25,6 +24,7 @@
             </table>
         </div>
     </div>
+    @include('live-projects.modals.detail-issue')
 @endsection
 @push('live-project-custom-styles')
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css">
@@ -136,5 +136,16 @@
         function viewIssueByProject(id) {
             alert(id)
         }
+
+        showIssue = (id, element) => {
+                startLoader(element)
+                axios.get(`{{ route('live-project.show-issues.ajax') }}/${id}`).then((response) => {
+                    $('#detail-issue-modal').modal('show')
+                    $('#detail-issue-modal-content').html(response.data.view)
+                    if (response.data) {
+                        stopLoader(element)
+                    }
+                })
+            }
     </script>
 @endpush
