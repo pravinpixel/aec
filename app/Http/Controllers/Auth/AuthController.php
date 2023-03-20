@@ -20,11 +20,14 @@ class AuthController extends Controller
 
     public function postLogin(Request $request)
     {
-        session()->put('remember',$request->remember);
-        // try {
+        session()->put('remember',$request->remember); 
+        try {
             $requestInput = array_merge($request->only(['email','password']),['is_active'=> true]);
             $employeeInput = array_merge($request->only(['email','password']),['status'=> true]);
-            if (Auth::attempt(($employeeInput), false)){
+            if (Auth::guard('customers')->attempt(($requestInput), false)) {
+                Flash::success( __('auth.login_successful'));
+                return redirect()->route('customers-dashboard');
+            } else if (Auth::attempt(($employeeInput), false)){
                 $role = Role::find(Admin()->job_role)->slug;
                 if($role == config('global.cost_estimater')) {
                     $sharepoint = new SharepointController();
@@ -41,19 +44,13 @@ class AuthController extends Controller
                     return redirect()->route('admin-dashboard');
                 }
             } else {
-                $customer = Customer::where('email',$request->email)->first();
-                // if (Auth::guard('customers')->attempt(($requestInput), false)) {
-                //     Flash::success( __('auth.login_successful'));
-                //     return redirect()->route('customers-dashboard');
-                // } else  {
-                //     Flash::error( __('auth.incorrect_email_id_and_password'));
-                //     return redirect()->route('login');
-                // }
+                Flash::error( __('auth.incorrect_email_id_and_password'));
+                return redirect()->route('login');
             }
-        // } catch  (Exception $e) {
-        //     Log::info($e->getMessage());
-        //     return redirect()->route('login');
-        // }
+        } catch  (Exception $e) {
+            Log::info($e->getMessage());
+            return redirect()->route('login');
+        }
     }
 
     public function getLogin(Request $request)
