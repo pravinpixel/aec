@@ -60,10 +60,6 @@
                         <td>{{ $project->project_name }}</td>
                     </tr>
                     <tr>
-                        <th>Project Lead </th>
-                        <td>sdgsd</td>
-                    </tr>
-                    <tr>
                         <th>Customer Name</th>
                         <td>{{ $project->Customer->full_name }}</td>
                     </tr>
