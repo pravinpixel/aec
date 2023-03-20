@@ -11,6 +11,7 @@ class projectClosure extends Model
     protected $fillable  = [
         'external',
         'internal',
-        'action_by'
+        'action_by',
+        'project_id'
     ];
 }
