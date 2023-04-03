@@ -196,7 +196,7 @@
                 dropdownParent: $('#create-issues-modal')
             });
             $('.single-select-field').select2({
-                theme: "bootstrap-5", 
+                theme: "bootstrap-5",
                 width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ?
                     '100%' : 'style',
                 placeholder: $(this).data('placeholder'),
@@ -267,7 +267,9 @@
                             filters: filters,
                         }
                     },
-                    order:[[8,'desc']],
+                    order: [
+                        [8, 'desc']
+                    ],
                     columns: [{
                             data: 'issue_id',
                             name: 'id'
@@ -393,45 +395,35 @@
                     stopLoader(element)
                 })
             }
-
+            setStatus = (id, value) => {
+                var remarks = $('#remarks').val()
+                if (remarks !== '') {
+                    axios.put(`{{ route('live-project.change-status-issues.ajax') }}/${id}`, {
+                        status: value,
+                        remarks: remarks,
+                    }).then(() => {
+                        Alert.success('Issue Status Changed!')
+                        $('#issues-table').DataTable().destroy();
+                        FatchTable(null)
+                        axios.get(`{{ route('live-project.show-issues.ajax') }}/${id}`).then(response => {
+                            $('#detail-issue-modal-content').html(response.data.view)
+                        })
+                    });
+                } else {
+                    Alert.error('Remarks is required!!')
+                }
+            }
             ChangeIssueStatus = (id, element) => {
                 if (element.value === 'CLOSED') {
-                    $('#detail-issue-modal').modal('hide')
-                    Swal.fire({
-                        input: 'textarea',
-                        text: 'Remarks',
-                        inputPlaceholder: 'Type your remarks here...',
-                        inputAttributes: {
-                            'aria-label': 'Type your remarks here'
-                        },
-                        showCancelButton: true,
-                        allowOutsideClick: false,
-                        allowEscapeKey: false,
-                        customClass: {
-                            cancelButton: 'btn btn-light border',
-                            confirmButton: 'btn btn-primary me-2'
-                        },
-                        buttonsStyling: false,
-                        preConfirm: (data) => {
-                            if (data == '' || data == null) {
-                                Swal.showValidationMessage('Remarks is required')
-                            }
-                        }
-                    }).then((result) => {
-                        if (!result.isConfirmed) {
-                            showIssue(id, element)
-                        }
-                        if (result.value != '' && result.value !== null && result.isConfirmed) {
-                            axios.put(`{{ route('live-project.change-status-issues.ajax') }}/${id}`, {
-                                status: element.value,
-                                remarks: result.value,
-                            }).then(() => {
-                                Alert.success('Issue Status Changed!')
-                                $('#issues-table').DataTable().destroy();
-                                FatchTable(null)
-                            });
-                        }
-                    })
+                    $('#status_form').html('')
+                    $('#status_form').append(`<div class="card p-3 mt-3 border">
+                       <div>
+                            <label for="remarks" class="form-label">Remarks</label>
+                            <textarea class="form-control mb-3" id="remarks" rows="3"></textarea>
+                            <button type="button" onclick="$('#status_form').html('')" class="btn btn-light border btn-sm">Cancel</button>
+                            <button type="button" onclick="setStatus(${id},'${element.value}')" class="btn btn-primary btn-sm">Change</button>
+                        </div>
+                    </div>`)
                 } else {
                     axios.put(`{{ route('live-project.change-status-issues.ajax') }}/${id}`, {
                         status: element.value

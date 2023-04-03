@@ -81,6 +81,7 @@
                                                 {{ __('project.CLOSED') }}</option>
                                         </select>
                                     @endif
+                                    <div id="status_form"></div>
                                 </span>
                             </div>
                         @endif
