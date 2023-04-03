@@ -126,6 +126,18 @@ if (!function_exists('color')) {
         return $input[array_rand($input)];
     }
 }
+if (!function_exists('getCustomerById')) {
+    function getCustomerById($id)
+    {
+        return Customer::find($id);
+    }
+}
+if (!function_exists('getEmployeeById')) {
+    function getEmployeeBtId($id)
+    {
+        return Employees::find($id);
+    }
+}
 if (!function_exists('getUser')) {
     function getUser($id)
     {
@@ -161,12 +173,16 @@ if (!function_exists('getUserAvatar')) {
     function getUserAvatar($id)
     {
         $user =  getUser($id);
-        return '
-            <img src="' . $user->image . '" class="rounded-circle img-thumbnail avatar-sm" alt="friend">
-        ';
+        return '<img src="' . $user->image . '" class="rounded-circle img-thumbnail avatar-sm" alt="friend">';
     }
 }
-
+if (!function_exists('getCustomerAvatar')) {
+    function getCustomerAvatar($id)
+    {
+        $user =  getCustomerById($id);
+        return '<img src="' . $user->image . '" class="rounded-circle img-thumbnail avatar-sm" alt="friend">';
+    }
+}
 if (!function_exists('VariationStatus')) {
     function VariationStatus($status)
     {

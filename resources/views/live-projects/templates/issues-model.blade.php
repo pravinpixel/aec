@@ -113,16 +113,30 @@
                         </div>
                         <div class="mb-3">
                             <h5>Assignee :</h5>
-                            <a href="javascript:void(0);" class="d-inline-block"
-                                title="{{ getUser($issue->assignee_id)->first_name }}">
-                                <div class="d-flex align-items-center">
-                                    {!! getUserAvatar($issue->assignee_id) !!}
-                                    <div class="text-capitalize ps-1">
-                                        <small>{{ getUser($issue->assignee_id)->first_name }}</small> <br>
-                                        <small class="text-dark">{{ getUserRole($issue->assignee_id)->name }}</small>
+                            @if ($issue->type == 'INTERNAL')
+                                <a href="javascript:void(0);" class="d-inline-block"
+                                    title="{{ getUser($issue->assignee_id)->first_name }}">
+                                    <div class="d-flex align-items-center">
+                                        {!! getUserAvatar($issue->assignee_id) !!}
+                                        <div class="text-capitalize ps-1">
+                                            <small>{{ getUser($issue->assignee_id)->first_name }}</small> <br>
+                                            <small class="text-dark">{{ $issue->assignee_name }}</small>
+                                        </div>
                                     </div>
-                                </div>
-                            </a>
+                                </a>
+                            @endif
+                            @if ($issue->type == 'EXTERNAL')
+                                <a href="javascript:void(0);" class="d-inline-block"
+                                    title="{{ getCustomerById($issue->assignee_id)->first_name }}">
+                                    <div class="d-flex align-items-center">
+                                        {!! getCustomerAvatar($issue->assignee_id) !!}
+                                        <div class="text-capitalize ps-1">
+                                            <small>{{ $issue->assignee_name }}</small> <br>
+                                            <small class="text-dark"> {{ getCustomerById($issue->assignee_id)->full_name }}</small>
+                                        </div>
+                                    </div>
+                                </a>
+                            @endif
                         </div>
                         @if ($issue->tags != 'null')
                             <div id="tooltip-container">

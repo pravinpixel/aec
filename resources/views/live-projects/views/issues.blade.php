@@ -143,7 +143,46 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
     <script>
+        var admin_data = [{
+                id: "",
+                text: '-- select --'
+            },
+            @foreach (getTeamByProjectId($project->id) as $user)
+                {
+                    id: {{ $user['id'] }},
+                    text: "{{ $user['display_name'] }}"
+                },
+            @endforeach
+        ];
+        var customer_data = [{
+            id: "",
+            text: '-- select --'
+        }, {
+            id: {{ $project->Customer->id }},
+            text: "{{ $project->Customer->first_name }}"
+        }]
+
+        toggleAssignee = (value) => {
+            $('#assignee-select-field ').empty()
+
+            $('#assignee-select-field').select2({
+                theme: "bootstrap-5",
+                data: value == 'EXTERNAL' ? customer_data : admin_data,
+                width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' :
+                    'style',
+                placeholder: $(this).data('placeholder'),
+                dropdownParent: $('#create-issues-modal')
+            });
+        }
         $(function() {
+            $('#assignee-select-field').select2({
+                theme: "bootstrap-5",
+                data: admin_data,
+                width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' :
+                    'style',
+                placeholder: $(this).data('placeholder'),
+                dropdownParent: $('#create-issues-modal')
+            });
             $(".custom-datepicker").datepicker({
                 dateFormat: 'yy-mm-dd'
             });
@@ -157,7 +196,7 @@
                 dropdownParent: $('#create-issues-modal')
             });
             $('.single-select-field').select2({
-                theme: "bootstrap-5",
+                theme: "bootstrap-5", 
                 width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ?
                     '100%' : 'style',
                 placeholder: $(this).data('placeholder'),
@@ -228,6 +267,7 @@
                             filters: filters,
                         }
                     },
+                    order:[[8,'desc']],
                     columns: [{
                             data: 'issue_id',
                             name: 'id'
@@ -394,7 +434,7 @@
                     })
                 } else {
                     axios.put(`{{ route('live-project.change-status-issues.ajax') }}/${id}`, {
-                        status: element.value   
+                        status: element.value
                     }).then(() => {
                         Alert.success('Issue Status Changed!')
                         $('#issues-table').DataTable().destroy();
@@ -444,12 +484,15 @@
                 var file = $(element).attr('data-path')
                 var path = $(element).attr('data-file')
                 if (path.split('.').pop() == 'pdf') {
-                    var modalContent = `<div class="ratio ratio-16x9"><iframe src="${file}" title="YouTube video" allowfullscreen></iframe></div>`
+                    var modalContent =
+                        `<div class="ratio ratio-16x9"><iframe src="${file}" title="YouTube video" allowfullscreen></iframe></div>`
                 } else {
-                    if(path.split('.').pop() == 'xlsx' || path.split('.').pop() == 'xls' || path.split('.').pop() == 'pptx') {
+                    if (path.split('.').pop() == 'xlsx' || path.split('.').pop() == 'xls' || path.split('.')
+                        .pop() == 'pptx') {
                         var modalContent = '<center><b>Preview not supported</b></center>'
                     } else {
-                        var modalContent = `<center><img src="${file}" style="max-width:300px" class="mx-auto"/></center>`
+                        var modalContent =
+                            `<center><img src="${file}" style="max-width:300px" class="mx-auto"/></center>`
                     }
                 }
                 if (document.querySelector('#filePreviewModal') !== null) {

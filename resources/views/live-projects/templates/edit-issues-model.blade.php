@@ -86,6 +86,7 @@
                 </select>
             </div>
         </div>
+        
         <x-admin-layout>
             <div class="mb-3">
                 <span class="custom-label">Tags</span>
