@@ -1,3 +1,4 @@
+
 <div>
     <table class="table table-bordred table-sm table-centered border table-hover" id="variation-order-table">
         <thead>

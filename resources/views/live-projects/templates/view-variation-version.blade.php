@@ -32,12 +32,14 @@
                     </div>
                 </div>
             </div>
-            <div class="mb-3">
-                <label class="form-label">Change Request Comments*</label>
-                <div class="form-control" style="height:250px">
-                    {{ $variation->comments }}
-                </div>
-            </div> 
+            @if ($variation->comments)
+                <div class="mb-3">
+                    <label class="form-label">Change Request Comments*</label>
+                    <div class="form-control" style="height:250px">
+                        {{ $variation->comments }}
+                    </div>
+                </div> 
+            @endif
         </div>
         @if ($mode == 'EDIT' || $mode == 'DUPLICATE')
             <div class="modal-footer">
@@ -87,16 +89,16 @@
             </div>
             <div class="mb-3">
                 <label class="form-label">Change Status</label>
-                <select name="status" class="form-select" required onchange="this.value == 'CHANGE_REQUEST' ? $('#comments').toggle() : $('#comments').hide()">
+                <select name="status" class="form-select" required onchange="this.value == 'CHANGE_REQUEST' ? $('#comments').toggle() : $('#comments').hide();$('#comments_input').attr('required', false)">
                     <option value="">-- Choose --</option>
                     <option {{ $variation->status == 'ACCEPT' ? 'selected' : ''  }} value="ACCEPT">🟢 Accept</option>
                     <option {{ $variation->status == 'CHANGE_REQUEST' ? 'selected' : ''  }} value="CHANGE_REQUEST">🟡 Change Request</option>
                     <option {{ $variation->status == 'DENY' ? 'selected' : ''  }} value="DENY">🔴 Deny</option>
                 </select>
             </div>
-            <div class="mb-3" class="{{ $variation->status  === 'CHANGE_REQUEST' ? 'd-block' : 'd-none'}}" id="comments">
+            <div class="mb-3" style="display:{{ $variation->status  == 'CHANGE_REQUEST' ? 'block' : 'none'}}" id="comments">
                 <label class="form-label">Comments</label>
-                <textarea  class="form-control" name="comments" rows="5" spellcheck="false" required>{{ $variation->comments }}</textarea>
+                <textarea  class="form-control" id="comments_input" required name="comments" rows="5" spellcheck="false" >{{ $variation->comments }}</textarea>
             </div>
         </div>
         <div class="modal-footer">
