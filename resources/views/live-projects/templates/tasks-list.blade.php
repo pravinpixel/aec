@@ -4,7 +4,7 @@
             <div class="card-header px-3 bg-light">
                 <h5 class="m-0">Task Details</h3>
             </div>
-            <div class="card-bodyx" style="max-height: 270px;overflow:auto">
+            <div class="card-bodyx">
                 <ol class="list-group border-0">
                     @foreach ($project->LiveProjectTasks as $i => $task)
                         @if (count($task->SubTasks) !== 0)
