@@ -18,7 +18,7 @@
                     </a>
                 </li>
             @endif
-            @if (userRole()['slug'] == 'admin' || userRole()['slug'] == 'customer')
+            @if (userRole()['slug'] == 'admin' || userRole()['slug'] == 'customer' && $issue->type == 'EXTERNAL')
                 @php
                     $count = $issue->MyIssueComments->count();
                 @endphp
@@ -204,7 +204,7 @@
                     </div>
                 </div>
             @endif
-            @if (userRole()['slug'] == 'admin' || userRole()['slug'] == 'customer')
+            @if (userRole()['slug'] == 'admin' || userRole()['slug'] == 'customer' && $issue->type == 'EXTERNAL')
                 <div class="tab-pane" id="Comments-b1">
                     <div id="comments_content">
                         @php
@@ -236,7 +236,6 @@
                     </div>
                 </div>
             @endif
-
         </div>
     </div>
     <div class="modal-footer">
