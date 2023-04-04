@@ -418,6 +418,9 @@ class LiveProjectController extends Controller
         $table->addColumn('status', function ($row) {
             return VariationStatus($row->status);
         });
+        $table->addColumn('total_price', function ($row) {
+            return (int) $row->hours *  (int) $row->price;
+        });
         $table->addColumn('action', function ($row) {
             $chatButton = new ChatBox(
                 "CHAT_LINK_ICON",
@@ -433,7 +436,7 @@ class LiveProjectController extends Controller
                         ' . $chatButton->render() . '
                     </div>';
         });
-        $table->rawColumns(['action', 'status', 'version_id']);
+        $table->rawColumns(['action', 'status', 'version_id','total_price']);
         return $table->make(true);
     }
     public function view_version($id, $mode)
@@ -442,6 +445,14 @@ class LiveProjectController extends Controller
         $view      = view('live-projects.templates.view-variation-version', compact('variation', 'mode'));
         return response([
             "view"  => "$view",
+        ]);
+    }
+    public function duplicate_version(Request $request, $id)
+    {
+        $request['variation_id'] = $id;
+        $this->store_version($request, $id, 'DUPLICATE');
+        return response([
+            "status" => true
         ]);
     }
     public function  store_version(Request $request, $id, $mode)
@@ -484,7 +495,7 @@ class LiveProjectController extends Controller
         ]);
         return response([
             "status"       => true,
-            "message"      => 'Mail Sended Succesfully !',
+            "message"      => 'Mail was sent succesfully !',
             "variation_id" => $version->variation_id
         ]);
     }

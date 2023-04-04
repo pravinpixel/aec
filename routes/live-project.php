@@ -32,6 +32,7 @@ Route::group(['prefix' => 'live', 'middleware' => 'common'], function () {
     Route::delete('/delete-variation-order/{id?}', [LiveProjectController::class, 'delete_variation_order'])->name('live-project.delete-variation.ajax');  
     Route::get('/variation-versions/{id?}', [LiveProjectController::class, 'variation_version'])->name('live-project.variation-version.ajax');  
     Route::get('/view-versions/{id?}/{mode?}', [LiveProjectController::class, 'view_version'])->name('live-project.view-version.ajax');  
+    Route::get('/duplicate-versions/{id?}/{mode?}', [LiveProjectController::class, 'duplicate_version'])->name('live-project.duplicate-version.ajax');  
     Route::post('/store-versions/{id?}/{mode?}', [LiveProjectController::class, 'store_version'])->name('live-project.store-version.ajax');  
     Route::delete('/delete-versions/{id?}', [LiveProjectController::class, 'delete_version'])->name('live-project.delete-version.ajax');  
     Route::post('/send-mail-version/{id?}', [LiveProjectController::class, 'send_mail_version'])->name('live-project.send-mail-version.ajax');  

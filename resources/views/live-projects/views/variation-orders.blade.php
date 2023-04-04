@@ -54,6 +54,7 @@
                     { data:'title', name:'title'},
                     { data:'hours', name:'hours'},
                     { data:'price', name:'price'},
+                    { data:'total_price', name:'total_price'},
                     { data:'status', name:'status'},
                     { data: 'action', name: 'action', orderable: false, searchable: false }
                 ]
@@ -90,6 +91,11 @@
                     }) 
                 }
             })
+        }
+        DuplicateVersion = (id) => {
+            axios.get(`{{ route("live-project.duplicate-version.ajax") }}/${id}`).then((response) => {
+                console.log(response.data)
+            });
         }
         ViewVersion = (id, mode) => {
             axios.get(`{{ route("live-project.view-version.ajax") }}/${id}/${mode}`).then((response) => {

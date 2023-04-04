@@ -214,7 +214,7 @@ if (!function_exists('VariationStatus')) {
 
 if (!function_exists('variationOrderMenu')) {
     function variationOrderMenu($row)
-    {
+    { 
         if (AuthUser() == 'ADMIN') {
             if ($row->status == 'NEW') {
                 return  '
@@ -234,12 +234,13 @@ if (!function_exists('variationOrderMenu')) {
                     <button onclick=ViewVersion(' . $row->id . ',"VIEW") class="dropdown-item"><i class="fa fa-eye me-1"></i> View </button>
                 ';
             }
-            if ($row->status == 'RESPONSE') {
+            if ($row->status == 'RESPONSE' || $row->status == 'CHANGE_REQUEST') {
                 return  '
                     <button onclick=ViewVersion(' . $row->id . ',"DUPLICATE") class="dropdown-item"><i class="fa fa-clone me-1"></i> Duplicate</button>
                     <button onclick=ViewVersion(' . $row->id . ',"VIEW") class="dropdown-item"><i class="fa fa-eye me-1"></i> View </button>
                 ';
             }
+            
         }
         return  '<button onclick=ViewVersion(' . $row->id . ',"VIEW") class="dropdown-item"><i class="fa fa-eye me-1"></i> View </button>';
     }
