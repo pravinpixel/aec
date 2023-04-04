@@ -163,7 +163,9 @@
         }]
 
         toggleAssignee = (value) => {
-            $('#assignee-select-field ').empty()
+
+            $('#assignee-select-field').empty()
+            $('#edit-assignee-select-field').empty()
 
             $('#assignee-select-field').select2({
                 theme: "bootstrap-5",
@@ -172,6 +174,14 @@
                     'style',
                 placeholder: $(this).data('placeholder'),
                 dropdownParent: $('#create-issues-modal')
+            });
+            $('#edit-assignee-select-field').select2({
+                theme: "bootstrap-5",
+                data: value == 'EXTERNAL' ? customer_data : admin_data,
+                width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' :
+                    'style',
+                placeholder: $(this).data('placeholder'),
+                dropdownParent: $('#edit-issues-modal')
             });
         }
         $(function() {
@@ -183,6 +193,7 @@
                 placeholder: $(this).data('placeholder'),
                 dropdownParent: $('#create-issues-modal')
             });
+            
             $(".custom-datepicker").datepicker({
                 dateFormat: 'yy-mm-dd'
             });
@@ -218,6 +229,15 @@
                 imagePreviewMarkupShow: true
             });
             vendorsOfEdit = () => {
+                $('#edit-assignee-select-field').empty()
+                $('#edit-assignee-select-field').select2({
+                    theme: "bootstrap-5",
+                    data: admin_data,
+                    width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ?
+                        '100%' : 'style',
+                    placeholder: $(this).data('placeholder'),
+                    dropdownParent: $('#edit-issues-modal')
+                });
                 $(".edit-custom-datepicker").datepicker({
                     dateFormat: 'yy-mm-dd'
                 });
@@ -405,7 +425,8 @@
                         Alert.success('Issue Status Changed!')
                         $('#issues-table').DataTable().destroy();
                         FatchTable(null)
-                        axios.get(`{{ route('live-project.show-issues.ajax') }}/${id}`).then(response => {
+                        axios.get(`{{ route('live-project.show-issues.ajax') }}/${id}`).then(
+                        response => {
                             $('#detail-issue-modal-content').html(response.data.view)
                         })
                     });

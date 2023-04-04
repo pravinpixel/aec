@@ -24,7 +24,7 @@
         </div>
         <hr class="my-3">
         <h1 class="custom-modal-title pb-3">Issue Information</h1>
-        <x-admin-layout> 
+        {{-- <x-admin-layout> 
             <span class="custom-label">Assign Type <sup>*</sup></span>
             <div class="row">
                 <div class="col ps-0 mb-3">
@@ -40,9 +40,9 @@
                     </label>
                 </div>
             </div>
-        </x-admin-layout>
+        </x-admin-layout> --}}
         <div class="row">
-            <div class="col ps-0 mb-3">
+            {{-- <div class="col ps-0 mb-3">
                 <span class="custom-label">Assignee <sup>*</sup></span> 
                 <select name="assignee" class="form-select form-select-sm edit-single-select-field"  data-placeholder="-- select --" required>
                     <option value="">-- select --</option>
@@ -50,7 +50,7 @@
                         <option {{ $issue->assignee_id == $user['id'] ? 'selected' : '' }} value="{{ $user['id'] }}">{{ $user['display_name'] }}</option>
                     @endforeach
                 </select>
-            </div> 
+            </div>  --}}
             <div class="col p-0 mb-3">
                 <span class="custom-label">Priority<sup>*</sup></span>
                 <select name="priority" class="form-select form-select-sm edit-single-select-field"  data-placeholder="-- select --" required>

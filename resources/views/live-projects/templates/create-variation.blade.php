@@ -48,7 +48,7 @@
     </div>
     <div class="modal-footer d-flex justify-content-between align-items-center">
         <label for="send_mail">
-            <input type="checkbox" name="send_mail" value="true" id="send_mail" class="form-check-input">
+            <input type="checkbox" checked name="send_mail" value="true" id="send_mail" class="form-check-input">
            <span class="ps-1"> Notify on mail</span>
         </label>
         <div>

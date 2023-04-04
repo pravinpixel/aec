@@ -18,22 +18,24 @@
                     </a>
                 </li>
             @endif
-            @php
-                $count = $issue->MyIssueComments->count();
-            @endphp
-            <li class="nav-item">
-                <a href="#Comments-b1" onclick="setcommentCount('{{ $issue->id }}')" data-bs-toggle="tab"
-                    aria-expanded="false" class="nav-link">
-                    <i class="fa fa-comments" aria-hidden="true"></i>
-                    Comments
-                    @if ($count)
-                        <span
-                            class="position-absolute bottom-0 start-100 translate-middle badge rounded-pill bg-danger">
-                            {{ $count }}
-                        </span>
-                    @endif
-                </a>
-            </li>
+            @if (userRole()['slug'] == 'admin' || userRole()['slug'] == 'customer')
+                @php
+                    $count = $issue->MyIssueComments->count();
+                @endphp
+                <li class="nav-item">
+                    <a href="#Comments-b1" onclick="setcommentCount('{{ $issue->id }}')" data-bs-toggle="tab"
+                        aria-expanded="false" class="nav-link">
+                        <i class="fa fa-comments" aria-hidden="true"></i>
+                        Comments
+                        @if ($count)
+                            <span
+                                class="position-absolute bottom-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                {{ $count }}
+                            </span>
+                        @endif
+                    </a>
+                </li>
+            @endif
             <button type="button" class="btn-close top-0 mt-2" onclick="location.reload()" data-bs-dismiss="modal"
                 aria-hidden="true"></button>
         </ul>
@@ -133,7 +135,8 @@
                                         {!! getCustomerAvatar($issue->assignee_id) !!}
                                         <div class="text-capitalize ps-1">
                                             <small>{{ $issue->assignee_name }}</small> <br>
-                                            <small class="text-dark"> {{ getCustomerById($issue->assignee_id)->full_name }}</small>
+                                            <small class="text-dark">
+                                                {{ getCustomerById($issue->assignee_id)->full_name }}</small>
                                         </div>
                                     </div>
                                 </a>
@@ -200,37 +203,39 @@
                     </div>
                 </div>
             @endif
-
-            <div class="tab-pane" id="Comments-b1">
-                <div id="comments_content">
-                    @php
-                        $comments = $issue->IssueComments;
-                    @endphp
-                    @include('live-projects.templates.issue-comments')
-                </div>
-                <div class="row">
-                    <div class="col-1 p-0">
-                        <span class="account-user-avatar">
-                            <img src="{{ AuthUserData()->image }}" alt="user-image"
-                                class="rounded-circle img-thumbnail avatar-sm">
-                        </span>
+            @if (userRole()['slug'] == 'admin' || userRole()['slug'] == 'customer')
+                <div class="tab-pane" id="Comments-b1">
+                    <div id="comments_content">
+                        @php
+                            $comments = $issue->IssueComments;
+                        @endphp
+                        @include('live-projects.templates.issue-comments')
                     </div>
-                    <div class="col p-0">
-                        <div class="border rounded">
-                            <div class="comment-area-box">
-                                <textarea id="comments_input" rows="4" class="form-control border-0 resize-none" placeholder="Write here...."
-                                    spellcheck="false" style="height: 155px;"></textarea>
-                                <div class="p-2 bg-light d-flex justify-content-end align-items-center">
-                                    <button type="button" onclick="addComment('{{ $issue->id }}')"
-                                        class="btn btn-sm btn-success  rounded-pill">
-                                        <i class="uil uil-message me-1"></i>Add Comment
-                                    </button>
+                    <div class="row">
+                        <div class="col-1 p-0">
+                            <span class="account-user-avatar">
+                                <img src="{{ AuthUserData()->image }}" alt="user-image"
+                                    class="rounded-circle img-thumbnail avatar-sm">
+                            </span>
+                        </div>
+                        <div class="col p-0">
+                            <div class="border rounded">
+                                <div class="comment-area-box">
+                                    <textarea id="comments_input" rows="4" class="form-control border-0 resize-none" placeholder="Write here...."
+                                        spellcheck="false" style="height: 155px;"></textarea>
+                                    <div class="p-2 bg-light d-flex justify-content-end align-items-center">
+                                        <button type="button" onclick="addComment('{{ $issue->id }}')"
+                                            class="btn btn-sm btn-success  rounded-pill">
+                                            <i class="uil uil-message me-1"></i>Add Comment
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            @endif
+
         </div>
     </div>
     <div class="modal-footer">
