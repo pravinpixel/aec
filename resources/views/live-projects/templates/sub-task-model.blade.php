@@ -81,7 +81,7 @@
                                                 class="form-check-input custom mx-auto input_{{ slugable($sub_task->name,$key + 1) }}" 
                                                 onchange="setTaskStatus('{{ $sub_sub_task->id }}','{{ $sub_task->id }}',this)"
                                                 value="1"  
-                                                {{ $sub_sub_task->status == 1 ? 'checked disabled' : '' }} 
+                                                {{ $sub_sub_task->status == 1 ? 'checked' : '' }} 
                                             />
                                         </div>
                                     </td>

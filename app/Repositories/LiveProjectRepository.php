@@ -196,7 +196,14 @@ class LiveProjectRepository implements LiveProjectInterface
         $LiveProjectSubSubTasks->update([
             'progress_percentage' => $sub_task_progress_count
         ]);
+        $LiveProjectTasks = LiveProjectTasks::find($LiveProjectSubSubTasks->task_id);
 
-        return generateProgressBar($LiveProjectSubSubTasks->progress_percentage);
+        $task_progress_percentage = 0;
+        foreach ($LiveProjectTasks->SubTasks as $key => $task) {
+            $task_progress_percentage += (int) $task->progress_percentage;
+        }
+        $LiveProjectTasks->progress_percentage = $task_progress_percentage / count($LiveProjectTasks->SubTasks);
+        $LiveProjectTasks->save();
+        return generateProgressBar($sub_task_progress_count);
     }
 }
