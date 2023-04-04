@@ -75,12 +75,13 @@
                                         <select name="Status" onchange="ChangeIssueStatus('{{ $issue->id }}',this)"
                                             class="rounded-pill shadow-sm border border-light"
                                             value="{{ $issue->ststus }}" style="outline:none">
-                                            <option {{ select_status('NEW', $issue) }} value="NEW">
-                                                {{ __('project.NEW') }}</option>
+                                            {{-- <option {{ select_status('NEW', $issue) }} value="NEW">
+                                                {{ __('project.NEW') }}</option> --}}
                                             <option {{ select_status('OPEN', $issue) }} value="OPEN">
                                                 {{ __('project.OPEN') }}</option>
-                                            <option {{ select_status('CLOSED', $issue) }} value="CLOSED">
-                                                {{ __('project.CLOSED') }}</option>
+                                                @if (userRole()['slug'] == 'admin')
+                                                    <option {{ select_status('CLOSED', $issue) }} value="CLOSED"> {{ __('project.CLOSED') }}</option>
+                                                @endif
                                         </select>
                                     @endif
                                     <div id="status_form"></div>
