@@ -18,7 +18,7 @@
                     </a>
                 </li>
             @endif
-            @if (userRole()['slug'] == 'admin' || userRole()['slug'] == 'customer' && $issue->type == 'EXTERNAL')
+            @if (userRole()['slug'] == 'admin' || (userRole()['slug'] == 'customer' && $issue->type == 'EXTERNAL'))
                 @php
                     $count = $issue->MyIssueComments->count();
                 @endphp
@@ -79,9 +79,10 @@
                                                 {{ __('project.NEW') }}</option> --}}
                                             <option {{ select_status('OPEN', $issue) }} value="OPEN">
                                                 {{ __('project.OPEN') }}</option>
-                                                @if (userRole()['slug'] == 'admin')
-                                                    <option {{ select_status('CLOSED', $issue) }} value="CLOSED"> {{ __('project.CLOSED') }}</option>
-                                                @endif
+                                            @if (userRole()['slug'] == 'admin')
+                                                <option {{ select_status('CLOSED', $issue) }} value="CLOSED">
+                                                    {{ __('project.CLOSED') }}</option>
+                                            @endif
                                         </select>
                                     @endif
                                     <div id="status_form"></div>
@@ -130,17 +131,31 @@
                                 </a>
                             @endif
                             @if ($issue->type == 'EXTERNAL')
-                                <a href="javascript:void(0);" class="d-inline-block"
-                                    title="{{ getCustomerById($issue->assignee_id)->first_name }}">
-                                    <div class="d-flex align-items-center">
-                                        {!! getCustomerAvatar($issue->assignee_id) !!}
-                                        <div class="text-capitalize ps-1">
-                                            <small>{{ $issue->assignee_name }}</small> <br>
-                                            <small class="text-dark">
-                                                {{ getCustomerById($issue->assignee_id)->full_name }}</small>
+                                @if (AuthUser() === 'CUSTOMER')
+                                    <a href="javascript:void(0);" class="d-inline-block"
+                                        title="{{ getCustomerById($issue->assignee_id)->first_name }}">
+                                        <div class="d-flex align-items-center">
+                                            {!! getCustomerAvatar($issue->assignee_id) !!}
+                                            <div class="text-capitalize ps-1">
+                                                <small>{{ $issue->assignee_name }}</small> <br>
+                                                <small class="text-dark">
+                                                    {{ getCustomerById($issue->assignee_id)->full_name }}</small>
+                                            </div>
                                         </div>
-                                    </div>
-                                </a>
+                                    </a>
+                                @else
+                                    <a href="javascript:void(0);" class="d-inline-block"
+                                        title="{{ AuthUserData($issue->assignee_id)->first_name }}">
+                                        <div class="d-flex align-items-center">
+                                            {!! getUserAvatar($issue->assignee_id) !!}
+                                            <div class="text-capitalize ps-1">
+                                                <small>{{ $issue->assignee_name }}</small> <br>
+                                                <small class="text-dark">
+                                                    {{ AuthUserData($issue->assignee_id)->full_name }}</small>
+                                            </div>
+                                        </div>
+                                    </a>
+                                @endif
                             @endif
                         </div>
                         @if ($issue->tags != 'null')
@@ -204,7 +219,7 @@
                     </div>
                 </div>
             @endif
-            @if (userRole()['slug'] == 'admin' || userRole()['slug'] == 'customer' && $issue->type == 'EXTERNAL')
+            @if (userRole()['slug'] == 'admin' || (userRole()['slug'] == 'customer' && $issue->type == 'EXTERNAL'))
                 <div class="tab-pane" id="Comments-b1">
                     <div id="comments_content">
                         @php
