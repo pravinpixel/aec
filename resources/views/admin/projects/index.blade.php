@@ -20,7 +20,7 @@
                 </div>
                 <section>
                     <x-accordion title="Un-Established Projects" path="admin.projects.table.unestablished" open="true" argument='null'></x-accordion>
-                    <x-accordion title="Live Projects" path="admin.projects.table.live" open="false" argument='null'></x-accordion>
+                    {{-- <x-accordion title="Live Projects" path="admin.projects.table.live" open="false" argument='null'></x-accordion> --}}
                     {{-- <x-accordion title="Completed Projects" path="admin.projects.table.completed" open="false" argument='null'></x-accordion> --}}
                 </section>
             </div>
