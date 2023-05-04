@@ -37,6 +37,13 @@
             <!--========== End Page Footer ==========-->
 
         </div>
+        <div class="modal fade" id="LiveProjectQuickViewPopUp" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" >
+            <div class="modal-dialog modal-xl modal-right w-100">
+                <div class="modal-content h-100 p-0" style="overflow: auto"> 
+                    <div id="LiveProjectQuickViewPopUpContent"></div> 
+                </div>
+            </div>
+        </div>
         <!-- END wrapper -->
 
         {{-- <!-- Right Sidebar -->

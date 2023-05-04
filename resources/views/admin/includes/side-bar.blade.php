@@ -106,14 +106,14 @@
             @endif
             @if (userHasAccess('project_index'))
                 <li
-                    class="side-nav-item {{ Route::is(['create-projects', 'list-projects', 'live-projects-data', 'edit-projects']) ? 'menuitem-active' : '' }}">
+                    class="side-nav-item {{ Route::is(['create-projects', 'list-projects', 'live-projects-data', 'edit-projects','live-project.menus-index']) ? 'menuitem-active' : '' }}">
                     <a data-bs-toggle="collapse" href="#project_creation" aria-expanded="false"
                         aria-controls="project_creation" class="side-nav-link">
                         <i class="fa fa-tachometer-alt"></i>
                         <span> Projects </span>
                         <span class="menu-arrow"></span>
                     </a>
-                    <div class="collapse {{ Route::is(['create-projects', 'list-projects', 'live-projects', 'live-projects-data']) ? 'show' : '' }}"
+                    <div class="collapse {{ Route::is(['create-projects', 'list-projects', 'live-projects', 'live-projects-data','live-project.menus-index']) ? 'show' : '' }}"
                         id="project_creation">
                         <ul class="side-nav-second-level">
                             <li class="{{ Route::is(['list-projects']) ? 'menuitem-active' : '' }}"><a
@@ -122,21 +122,22 @@
                                     onclick="return window.location.assign('{{ route('create-projects') }}')"
                                     href="#">Create New Project</a></li>
                             <li
-                                class="{{ Route::is(['live-projects', 'live-projects-data']) ? 'menuitem-active' : '' }}">
-                                <a href="{{ route('live-projects') }}">Live Project</a></li>
+                                class="{{ Route::is(['live-projects', 'live-projects-data', 'live-project.menus-index']) ? 'menuitem-active' : '' }}">
+                                <a href="{{ route('live-projects') }}">Live Project</a>
+                            </li>
                             <li><a href="#">Completed Project</a></li>
                         </ul>
                     </div>
                 </li>
             @endif
-            <!-- @if (userHasAccess('project_schedule_index'))
-<li class="side-nav-item ">
-                <a href="#" class="side-nav-link">
-                    <i class="fa fa-server" aria-hidden="true"></i>
-                    <span> Projects Schedule </span>
-                </a>
-            </li>
-@endif -->
+            {{-- @if (userHasAccess('project_schedule_index'))
+                <li class="side-nav-item ">
+                    <a href="#" class="side-nav-link">
+                        <i class="fa fa-server" aria-hidden="true"></i>
+                        <span> Projects Schedule </span>
+                    </a>
+                </li>
+            @endif --}}
             @if (userRole()->slug == 'admin')
                 <li
                     class="side-nav-item {{ Route::is(['admin-employee-control-view', 'admin.employee-add', 'admin.employeeEdit']) ? 'menuitem-active' : '' }}">
@@ -190,7 +191,8 @@
             </li>
             {{-- @endif --}}
             @if (userRoleName() == 'PROJECT_MANAGER')
-                <li class="side-nav-item {{ Route::is(['issues.show','issues.project-dashboard']) ? 'menuitem-active' : '' }}">
+                <li
+                    class="side-nav-item {{ Route::is(['issues.show', 'issues.project-dashboard']) ? 'menuitem-active' : '' }}">
                     <a href="{{ route('issues.project-dashboard') }}" class="side-nav-link">
                         <i class="fa fa-boxes" aria-hidden="true"></i>
                         <span>Live Project </span>

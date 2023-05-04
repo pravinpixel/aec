@@ -1,7 +1,10 @@
 @extends('live-projects.layout')
 
 @section('admin-content')
-    <h4 class="my-3">
+    <h4 class="my-3 d-flex align-items-center">
+        <a class="btn btn-light border me-2 rounded-pill" href="{{ route('live-projects') }}">
+            <i class="fa fa-chevron-left"></i> Live projects
+        </a>
         <span class="text-primary">{{ session()->get('current_project')->reference_number }}</span>
         <span class="text-secondary">{{ session()->get('current_project')->project_name }}</span>
     </h4>
