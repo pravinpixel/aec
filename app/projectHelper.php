@@ -6,6 +6,8 @@ use App\Jobs\emailJob;
 use App\Models\Admin\Employees;
 use App\Models\Customer;
 use App\Models\Issues;
+use App\Models\LiveProjectSubSubTasks;
+use App\Models\LiveProjectSubTasks;
 use App\Models\Project;
 use App\Models\ProjectTeamSetup;
 use App\Models\Role;
@@ -317,5 +319,26 @@ if (!function_exists('issuesCount')) {
         } 
 
         return '<span class="badge bg-danger">0</span>';
+    }
+}
+
+
+if (!function_exists('getCompleteTaskCountByProjectId')) {
+    function getCompleteTaskCountByProjectId($project_id, $type = null)
+    {
+        return LiveProjectSubSubTasks::where('project_id' , $project_id)
+        ->when(isset($type) && !empty($type), function($q) use ($type){
+            $q->where('status',$type);
+        })->count();
+    }
+}
+
+if (!function_exists('getMilestoneCountByProjectId')) {
+    function getMilestoneCountByProjectId($project_id, $type = null)
+    {
+        return LiveProjectSubTasks::where('project_id' , $project_id)
+        ->when(isset($type) && !empty($type), function($q) use ($type){
+            $q->where('progress_percentage',100);
+        })->count();
     }
 }

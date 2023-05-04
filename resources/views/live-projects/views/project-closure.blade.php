@@ -11,15 +11,15 @@
         <div class="d-flex shadow mb-2 border rounded align-items-center">
             <i class="bi bi-list-check fa-2x mx-3 text-secondary"></i>
             <div class="py-1">
-                <h5 class="border-bottom pb-1 text-success">Completed : 50</h5>
-                <h6 class="mb-0 fw-normal">Total Task : 50</h6>
+                <h5 class="border-bottom pb-1 text-success">Completed : {{ getCompleteTaskCountByProjectId($project->id, 1) }}</h5>
+                <h6 class="mb-0 fw-normal">Total Task : {{ getCompleteTaskCountByProjectId($project->id) }}</h6>
             </div>
         </div>
         <div class="d-flex shadow mb-2 border rounded align-items-center">
             <i class="bi bi-signpost fa-2x mx-3 text-secondary"></i>
             <div class="py-1">
-                <h5 class="border-bottom pb-1 text-success">Completed : 5</h5>
-                <h6 class="mb-0 fw-normal">Total Mile Stones : 5</h6>
+                <h5 class="border-bottom pb-1 text-success">Completed : {{ getMilestoneCountByProjectId($project->id, 1) }}</h5>
+                <h6 class="mb-0 fw-normal">Total Mile Stones : {{ getMilestoneCountByProjectId($project->id) }}</h6>
             </div>
         </div>
     </div>
