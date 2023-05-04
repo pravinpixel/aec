@@ -832,3 +832,6 @@ sup {
     padding-bottom: 5px;
     display: block;
 }
+.table-min-height .row:nth-child(2) {
+    min-height: 200px;
+}
