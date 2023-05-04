@@ -105,15 +105,13 @@
                 </li>
             @endif
             @if (userHasAccess('project_index'))
-                <li
-                    class="side-nav-item {{ Route::is(['create-projects', 'list-projects', 'live-projects-data', 'edit-projects','live-project.menus-index']) ? 'menuitem-active' : '' }}">
-                    <a data-bs-toggle="collapse" href="#project_creation" aria-expanded="false"
-                        aria-controls="project_creation" class="side-nav-link">
+                <li class="side-nav-item {{ Route::is(['live-project.completed','create-projects', 'list-projects', 'live-projects-data', 'edit-projects','live-project.menus-index']) ? 'menuitem-active' : '' }}">
+                    <a data-bs-toggle="collapse" href="#project_creation" aria-expanded="false" aria-controls="project_creation" class="side-nav-link">
                         <i class="fa fa-tachometer-alt"></i>
                         <span> Projects </span>
                         <span class="menu-arrow"></span>
                     </a>
-                    <div class="collapse {{ Route::is(['create-projects', 'list-projects', 'live-projects', 'live-projects-data','live-project.menus-index']) ? 'show' : '' }}"
+                    <div class="collapse {{ Route::is(['live-project.completed','create-projects', 'list-projects', 'live-projects', 'live-projects-data','live-project.menus-index']) ? 'show' : '' }}"
                         id="project_creation">
                         <ul class="side-nav-second-level">
                             <li class="{{ Route::is(['list-projects']) ? 'menuitem-active' : '' }}"><a
@@ -125,7 +123,7 @@
                                 class="{{ Route::is(['live-projects', 'live-projects-data', 'live-project.menus-index']) ? 'menuitem-active' : '' }}">
                                 <a href="{{ route('live-projects') }}">Live Project</a>
                             </li>
-                            <li><a href="#">Completed Project</a></li>
+                            <li class="{{ Route::is(['live-project.completed']) ? 'menuitem-active' : '' }}"><a href="{{ route('live-project.completed') }}">Completed Project</a></li>
                         </ul>
                     </div>
                 </li>

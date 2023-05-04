@@ -51,7 +51,7 @@ class LiveProjectController extends Controller
         if ($menu_type == 'project-closure') {
             unset($request['_token']);
             $this->project_closure($request, $id);
-            return redirect()->route('live-project.menus-index', ["menu_type" => 'overview', "id" => $id])->with('success', "Project Closed success!");
+            return redirect()->route('live-project.completed')->with('success', "Project Closed success!");
         }
         return redirect()->route('live-project.menus-index', ["menu_type" => $request->menu_type, "id" => $id]);
     }
@@ -585,5 +585,51 @@ class LiveProjectController extends Controller
         return response([
             "status" => true
         ]);
+    }
+    public function completed_project(Request $request)
+    {
+        if ($request->ajax()) {
+            $dataDb = Project::where('status', 'LIVE_PROJECT_COMPLETED')->select('*');
+            return DataTables::of($dataDb)
+                ->editColumn('reference_number', function ($dataDb) {
+                    return '
+                        <button type="button" class="btn-quick-view" onclick="ProjectQuickView(' . $dataDb->id . ' , this)" >
+                            <b>' . $dataDb->reference_number . '</b>
+                            ' . getModuleChatCount('ADMIN', 'project', $dataDb->id) . '
+                        </button>
+                    ';
+                })
+                ->editColumn('start_date', function ($dataDb) {
+                    $format = config('global.model_date_format');
+                    return Carbon::parse($dataDb->start_date)->format($format);
+                })
+                ->editColumn('delivery_date', function ($dataDb) {
+                    $format = config('global.model_date_format');
+                    return Carbon::parse($dataDb->delivery_date)->format($format);
+                })
+                ->addColumn('pipeline', function ($dataDb) {
+                    return '
+                        <div class="progress bg-light border" style="position:relative;"> 
+                            <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" role="progressbar" style="width: 100%;" aria-valuenow="100%" aria-valuemin="0" aria-valuemax="100">
+                                <small class="smallTag">100%</small>
+                            </div>
+                        </div>
+                    ';
+                })
+                // ->addColumn('action', function ($dataDb) {
+                //     return '<div class="dropdown">
+                //             <button class="btn btn-light btn-sm border shadow-sm" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                //                 <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                //             </button>
+                //             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                //                 <a class="dropdown-item" href="' . route('edit-projects', $dataDb->id) . '">View / Edit</a>
+                //                 <a type="button" class="dropdown-item delete-modal" data-header-title="Delete" data-title="Are you sure to delete this enquiry" data-action="' . route('enquiry.delete', $dataDb->id) . '" data-method="DELETE" data-bs-toggle="modal" data-bs-target="#primary-header-modal">Delete</a>
+                //             </div>
+                //         </div>';
+                // })
+                ->rawColumns(['pipeline', 'reference_number'])
+                ->make(true);
+        }
+        return view('live-projects.completed-project');
     }
 }

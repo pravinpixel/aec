@@ -88,8 +88,7 @@ app.controller('projectController', function ($scope, $http, API_URL, $compile) 
         createdRow: function ( row, data, index ) {
             $compile(row)($scope);  //add this to compile the DOM
         }
-    });
-
+    }); 
     $http({
         method: 'GET',
         url: API_URL+'admin/get-project-count',

@@ -32,6 +32,7 @@
                         @if (Route::is('admin.customer.edit')) Edit Customer @endif  
                         @if (Route::is('live-projects')) Live Projects @endif
                         @if (Route::is('admin.contract.view')) Contract View @endif
+                        @if (Route::is('live-project.completed')) Completed Projects @endif
                         @if (Route::is(['edit-projects','live-projects-data']))
                             <span>
                                 {{ session()->get('current_project')->reference_number }}
@@ -80,6 +81,7 @@
                         {{ session()->get('current_project')->project_name }}
                     </span>
                 @endif
+                @if (Route::is('live-project.completed')) Completed Projects @endif
             </h4>
         </div>
     </div>
