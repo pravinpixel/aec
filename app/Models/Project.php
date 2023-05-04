@@ -142,9 +142,9 @@ class Project extends Model
     {
         return $this->hasMany(Issues::class,'project_id','id');
     }
-    public function projectClosure()
+    public function projectComments()
     {
-        return $this->hasOne(projectClosure::class,'project_id','id');
+        return $this->hasOne(projectComments::class,'project_id','id');
     }
     public function enquiry()
     {

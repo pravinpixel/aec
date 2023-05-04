@@ -51,9 +51,15 @@ return [
                 "view" => "documents"
             ],
             [
+                "name" => "Comments",
+                "slug" => "project-comments",
+                "icon" => '<i class="bi bi-pencil-square"></i>',
+                "view" => "project-comments"
+            ],
+            [
                 "name" => "Project Closure",
                 "slug" => "project-closure",
-                "icon" => '<i class="bi bi-pencil-square"></i>',
+                "icon" => '<i class="bi bi-question-circle"></i>',
                 "view" => "project-closure"
             ],
         ],
@@ -108,4 +114,10 @@ return [
             ], 
         ]
     ],
+    "project_closure" => [
+        "Is all the tasks are completed ?",
+        "Is all the issues are close and resolved ?",
+        "Is the all the payment milestones are cleared & Paid ?",
+        "Is all the variation requests are completed ?"
+    ]
 ];

@@ -10,7 +10,7 @@ use App\Models\Issues;
 use App\Models\LiveProjectSubSubTasks;
 use App\Models\LiveProjectSubTasks;
 use App\Models\Project;
-use App\Models\projectClosure;
+use App\Models\projectComments;
 use App\Models\VariationOrder;
 use App\Models\VariationOrderVersions;
 use App\Repositories\LiveProjectRepository;
@@ -44,22 +44,23 @@ class LiveProjectController extends Controller
             if ($result) return redirect()->back()->with('success', "Successfuly Saved!");
             return redirect()->back()->with('info', "Invalid action");
         }
-        if ($menu_type == 'project-closure') {
-            $this->project_closure($request, $id);
-            return redirect()->route('live-project.menus-index', ["menu_type" => 'overview', "id" => $id])->with('success', "Successfuly Saved!");
+        if ($menu_type == 'project-comments') {
+            $this->project_comments($request, $id);
+            // return redirect()->route('live-project.menus-index', ["menu_type" => 'overview', "id" => $id])->with('success', "Successfuly Saved!");
         }
+        // dd($menu_type);
         return redirect()->route('live-project.menus-index', ["menu_type" => $request->menu_type, "id" => $id]);
     }
-    public function project_closure($request, $id)
+    public function project_comments($request, $id)
     {
         if (isset($request->internal)) {
-            projectClosure::updateOrCreate(['project_id' => $id], [
+            projectComments::updateOrCreate(['project_id' => $id], [
                 "internal" => $request->internal,
                 "action_by" => AuthUserData()->full_name
             ]);
         }
         if (isset($request->external)) {
-            projectClosure::updateOrCreate(['project_id' => $id], [
+            projectComments::updateOrCreate(['project_id' => $id], [
                 "external" => $request->external,
                 "action_by" => AuthUserData()->full_name
             ]);

@@ -1,63 +1,43 @@
-    <x-admin-layout>
-        <div class="row g-2">
-            <div class="col">
-                <div class="card shadow-sm border" style="height:350px;overflow-y:auto">
-                    <div class="card-header bg-light">
-                        <h5 class="m-0">Comments from customer</h5>
-                    </div>
-                    <div class="card-body">
-                        {!! $project->projectClosure->external ?? "" !!}
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card border shadow-sm" style="height:350px;overflow-y:auto">
-                    <div class="card-header bg-light border-bottom-0">
-                        <h5 class="m-0">Write your comments here...</h5>
-                    </div>
-                    <div class="card-body">
-                        <textarea id="admin-editor" name="internal" class="opacity-0">{!! $project->projectClosure->internal ?? "" !!}</textarea>
-                    </div>
-                </div> 
+<div class="row">
+    <div class="col-lg-4">
+        <h5>Summary</h5>
+        <div class="d-flex shadow mb-2 border rounded align-items-center">
+            <i class="bi bi-exclamation-circle fa-2x mx-3 text-secondary"></i>
+            <div class="py-1">
+                <h5 class="border-bottom pb-1 text-success">Resolved : 100</h5>
+                <h6 class="mb-0 fw-normal">Total Issues : 100 </h6>
             </div>
         </div>
-    </x-admin-layout>
-    <x-customer-layout>
-        <div class="row g-2">
-            <div class="col">
-                <div class="card shadow-sm border" style="height:350px;overflow-y:auto">
-                    <div class="card-header bg-light">
-                        <h5 class="m-0">Comments from team AecPrefab</h5>
-                    </div>
-                    <div class="card-body">
-                        {!! $project->projectClosure->internal ?? "" !!}
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card border shadow-sm" style="height:350px;overflow-y:auto">
-                    <div class="card-header bg-light border-bottom-0">
-                        <h5 class="m-0">Write your comments here...</h5>
-                    </div>
-                    <div class="card-body ">
-                        <textarea id="admin-editor" name="external" height="100%" class="opacity-0">{!! $project->projectClosure->external ?? "" !!}</textarea>
-                    </div>
-                </div>
+        <div class="d-flex shadow mb-2 border rounded align-items-center">
+            <i class="bi bi-list-check fa-2x mx-3 text-secondary"></i>
+            <div class="py-1">
+                <h5 class="border-bottom pb-1 text-success">Completed : 50</h5>
+                <h6 class="mb-0 fw-normal">Total Task : 50</h6>
             </div>
         </div>
-    </x-customer-layout>
+        <div class="d-flex shadow mb-2 border rounded align-items-center">
+            <i class="bi bi-signpost fa-2x mx-3 text-secondary"></i>
+            <div class="py-1">
+                <h5 class="border-bottom pb-1 text-success">Completed : 5</h5>
+                <h6 class="mb-0 fw-normal">Total Mile Stones : 5</h6>
+            </div>
+        </div>
+    </div>
+    <ul class="list-group col-lg-8">
+        <h5>Please confirm below </h5>
 
-    @push('live-project-custom-scripts')
-        <script src="{{ asset('public/assets/js/ckeditor.js') }}"></script>
-        <script>
-            $(function() {
-                renderEditor = (element) => {
-                    ClassicEditor.create(document.querySelector(element)).then(editeditor => {
-                        window.editor = editeditor
-                    });
-                }
-                renderEditor('#admin-editor')
-                renderEditor('#customer-editor')
-            });
-        </script>
-    @endpush
+        @foreach (config('live-project.project_closure') as $key => $item)
+            <li class="list-group-item list-group-item-action d-flex justify-content-between">
+                <div class="lead">{{ $item }}</div>
+                <div>
+                    <label for="INPUT_{{ $key }}_YES" class="mx-2 fs-5 text-uppercase fw-bold form-radio-success">
+                        <input type="radio" name="question_{{ $key }}_input" id="INPUT_{{ $key }}_YES" class="form-check-input me-1" required> Yes
+                    </label>
+                    <label for="INPUT_{{ $key }}_NO"  class="mx-2 fs-5 text-uppercase fw-bold form-radio-danger">
+                        <input type="radio" name="question_{{ $key }}_input" id="INPUT_{{ $key }}_NO"  class="form-check-input me-1" required> No
+                    </label>
+                </div>
+            </li>
+        @endforeach
+    </ul>
+</div>
