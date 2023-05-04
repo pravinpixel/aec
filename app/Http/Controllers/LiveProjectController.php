@@ -10,6 +10,7 @@ use App\Models\Issues;
 use App\Models\LiveProjectSubSubTasks;
 use App\Models\LiveProjectSubTasks;
 use App\Models\Project;
+use App\Models\projectClosure;
 use App\Models\projectComments;
 use App\Models\VariationOrder;
 use App\Models\VariationOrderVersions;
@@ -46,10 +47,27 @@ class LiveProjectController extends Controller
         }
         if ($menu_type == 'project-comments') {
             $this->project_comments($request, $id);
-            // return redirect()->route('live-project.menus-index', ["menu_type" => 'overview', "id" => $id])->with('success', "Successfuly Saved!");
         }
-        // dd($menu_type);
+        if ($menu_type == 'project-closure') {
+            unset($request['_token']);
+            $this->project_closure($request, $id);
+            return redirect()->route('live-project.menus-index', ["menu_type" => 'overview', "id" => $id])->with('success', "Project Closed success!");
+        }
         return redirect()->route('live-project.menus-index', ["menu_type" => $request->menu_type, "id" => $id]);
+    }
+    public function project_closure($request, $id)
+    {
+        $project = Project::find($id);
+        foreach ($request->all() as $key => $value) {
+            $project->projectClosure()->updateOrCreate(['project_id' => $id, "question" => $key], [
+                'project_id' => $id,
+                "question" => $key,
+                "answer" => $value,
+            ]);
+        }
+        $project->update([
+            'status' => 'LIVE_PROJECT_COMPLETED'
+        ]);
     }
     public function project_comments($request, $id)
     {
@@ -437,7 +455,7 @@ class LiveProjectController extends Controller
                         ' . $chatButton->render() . '
                     </div>';
         });
-        $table->rawColumns(['action', 'status', 'version_id','total_price']);
+        $table->rawColumns(['action', 'status', 'version_id', 'total_price']);
         return $table->make(true);
     }
     public function view_version($id, $mode)

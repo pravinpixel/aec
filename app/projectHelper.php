@@ -262,12 +262,15 @@ if (!function_exists('getIssuesByUserId')) {
             })
             ->select('*');
     }
-}
+} 
 if (!function_exists('getIssuesByProjectId')) {
-    function getIssuesByProjectId($id)
+    function getIssuesByProjectId($id, $type = null)
     {
         return Issues::with('VariationOrder')
             ->where('project_id', $id)
+            ->when(isset($type) && !empty($type), function ($q) use ($type) {
+                $q->where('status', $type);
+            })
             ->when(AuthUser() == 'CUSTOMER', function ($q) {
                 $q->where('type', 'EXTERNAL');
             })

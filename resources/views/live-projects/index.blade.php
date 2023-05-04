@@ -1,12 +1,21 @@
 @extends('live-projects.layout')
-
+@php
+    $projectClosure = count(getProjectId(session()->get('current_project')->id)->projectClosure);
+@endphp
 @section('admin-content')
-    <h4 class="my-3 d-flex align-items-center">
-        <a class="btn btn-light border me-2 rounded-pill" href="{{ route('live-projects') }}">
-            <i class="fa fa-chevron-left"></i> Live projects
-        </a>
-        <span class="text-primary">{{ session()->get('current_project')->reference_number }}</span>
-        <span class="text-secondary">{{ session()->get('current_project')->project_name }}</span>
+    <h4 class="my-3 d-flex align-items-center justify-content-between">
+        <div class="d-flex align-items-center">
+            <a class="btn btn-light border me-2 rounded-pill" href="{{ route('live-projects') }}">
+                <i class="fa fa-chevron-left"></i> Live projects
+            </a>
+            <span class="text-primary">{{ session()->get('current_project')->reference_number }}</span>
+            <span class="text-secondary">{{ session()->get('current_project')->project_name }}</span>
+        </div>
+        @if ($projectClosure > 0)
+            <span class="bg-success btn-sm rounded-pill border border-dark ">
+                <i class="bi bi-patch-check-fill fs-4 me-1"></i> <span class="fw-bold">Project Completed</span> 
+            </span>
+        @endif
     </h4>
     <div class="card border mb-3 ">
         <div class="card-header bg-light">
@@ -55,11 +64,14 @@
                                 Next <i class="bi bi-chevron-right"></i>
                             </button>
                         @endif
-                        @if ($key + 1 === count($wizard_menus[AuthUser()]))
-                            <button type="submit"
-                                href="{{ route('live-project.menus-index', ['menu_type' => $wizard_menus[AuthUser()][$key]['slug'], 'id' => session()->get('current_project')->id]) }}"
-                                class="btn btn-sm btn-success rounded-pill">
-                                <i class="bi bi-upload"></i> Submit
+                        @if ($key + 1 === count($wizard_menus[AuthUser()]) && $projectClosure == 0)
+                            <button type="submit" class="btn btn-info rounded-pill">
+                                <i class="bi bi-patch-check-fill fs-4 me-1"></i> Proceed to complete
+                            </button>
+                        @endif
+                        @if ($key + 1 === count($wizard_menus[AuthUser()]) && $projectClosure > 0)
+                            <button type="button" class="btn btn-success rounded-pill">
+                                <i class="bi bi-patch-check-fill fs-4 me-1"></i> Project Completed
                             </button>
                         @endif
                     </div>
