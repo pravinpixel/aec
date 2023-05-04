@@ -63,7 +63,7 @@ class GlobalServiceProvider extends Controller
                 $config->customer_enquiry_number += 1;
                 $config->save();
                 break;
-            case 'PRO':
+            case 'PRJ':
                 $config->project_number += 1;
                 $config->save();
                 break;

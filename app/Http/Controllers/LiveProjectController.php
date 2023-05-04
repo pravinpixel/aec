@@ -388,9 +388,9 @@ class LiveProjectController extends Controller
     {
         $variations = VariationOrder::with('Issues', 'VariationOrderVersions')->where('project_id', $id)->select('*');
         $table      = DataTables::of($variations->get());
-        $table->addIndexColumn();
         $table->addColumn('variation_id', function ($row) {
-            return '<button type="button" class="btn-quick-view bg-warning fw-bold shadow-none border-dark border text-dark" onclick="showVariationOrder(' . $row->id . ',this)" >' . $row->issues->issue_id . '</button>';
+            return $row->issues->issue_id;
+            //  '<button type="button" class="btn-quick-view bg-warning fw-bold shadow-none border-dark border text-dark" onclick="showVariationOrder(' . $row->id . ',this)" >' . $row->issues->issue_id . '</button>';
         });
         $table->addColumn('total_versions', function ($row) {
             return count($row->VariationOrderVersions);

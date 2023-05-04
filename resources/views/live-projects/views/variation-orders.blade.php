@@ -1,11 +1,10 @@
-
 <div>
     <table class="table table-bordred table-sm table-centered border table-hover" id="variation-order-table">
         <thead>
-            <tr class="bg-light-2"> 
+            <tr class="bg-light-2">
                 <th>#Issue Variation Id</th>
                 <th>Title</th>
-                <th>Total Versions</th> 
+                <th>Total Versions</th>
                 <th class="text-center">Action</th>
             </tr>
         </thead>
@@ -23,6 +22,8 @@
     <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
     <script>
         FatchTable = (filters) => {
+            const d = new Date();
+            let year = d.getFullYear();
             var table = $('#variation-order-table').DataTable({
                 processing: true,
                 serverSide: true,
@@ -32,11 +33,32 @@
                         filters: filters,
                     }
                 },
-                columns: [
-                    { data:'variation_id', name:'issues.issue_id'},
-                    { data:'issues.title', name:'issues.title'},
-                    { data:'total_versions', name:'total_versions'},
-                    { data: 'action', name: 'action', orderable: false, searchable: false }
+                columnDefs: [
+                    {
+                        render: function(data, type, row, index) {
+                            return `<button type="button" class="btn-quick-view bg-warning fw-bold shadow-none border-dark border text-dark" onclick="showVariationOrder( ${row.id} ,this)">VAR/${year}/${index.row + 1}</button>`;
+                        },
+                        targets: 0,
+                    },
+                ],
+                columns: [{
+                        data: 'variation_id',
+                        name: 'issues.issue_id'
+                    },
+                    {
+                        data: 'issues.title',
+                        name: 'issues.title'
+                    },
+                    {
+                        data: 'total_versions',
+                        name: 'total_versions'
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: false,
+                        searchable: false
+                    }
                 ]
             });
         }
@@ -48,28 +70,52 @@
                 ajax: {
                     url: `{{ route('live-project.variation-version.ajax') }}/${id}`,
                 },
-                order: [[0, 'desc']],
-                columns: [
-                    { data:'version_id', name:'version'},
-                    { data:'title', name:'title'},
-                    { data:'hours', name:'hours'},
-                    { data:'price', name:'price'},
-                    { data:'total_price', name:'total_price'},
-                    { data:'status', name:'status'},
-                    { data: 'action', name: 'action', orderable: false, searchable: false }
+                order: [
+                    [0, 'desc']
+                ], 
+                columns: [{
+                        data: 'version_id',
+                        name: 'version'
+                    },
+                    {
+                        data: 'title',
+                        name: 'title'
+                    },
+                    {
+                        data: 'hours',
+                        name: 'hours'
+                    },
+                    {
+                        data: 'price',
+                        name: 'price'
+                    },
+                    {
+                        data: 'total_price',
+                        name: 'total_price'
+                    },
+                    {
+                        data: 'status',
+                        name: 'status'
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: false,
+                        searchable: false
+                    }
                 ]
             });
         }
         showVariationOrder = (id, element) => {
             startLoader(element)
-            axios.get(`{{ route('live-project.show-variation.ajax') }}/${id}`).then((response) => { 
+            axios.get(`{{ route('live-project.show-variation.ajax') }}/${id}`).then((response) => {
                 $('#detail-variation-modal').modal('show')
                 $('#detail-variation-modal-content').html(response.data.view)
                 FectVariationVersionTable(id)
                 stopLoader(element)
             })
-        } 
-        deleteVariationOrder = (id) => {  
+        }
+        deleteVariationOrder = (id) => {
             swalWithBootstrapButtons.fire({
                 title: 'Are you sure?',
                 text: "You won't be able to revert this!",
@@ -78,40 +124,44 @@
                 confirmButtonText: 'Yes, cancel it!',
                 cancelButtonText: 'No',
                 reverseButtons: true,
-                allowOutsideClick :false,
-                allowEscapeKey:false
+                allowOutsideClick: false,
+                allowEscapeKey: false
             }).then((result) => {
-                if (result.isConfirmed) { 
+                if (result.isConfirmed) {
                     axios.delete(`{{ route('live-project.delete-variation.ajax') }}/${id}`).then((response) => {
-                        if(response.data.status) {
+                        if (response.data.status) {
                             Alert.info('Variation order canceled !')
                             $('#variation-order-table').DataTable().destroy();
                             FatchTable(null)
                         }
-                    }) 
+                    })
                 }
             })
         }
         DuplicateVersion = (id) => {
-            axios.get(`{{ route("live-project.duplicate-version.ajax") }}/${id}`).then((response) => {
+            axios.get(`{{ route('live-project.duplicate-version.ajax') }}/${id}`).then((response) => {
                 console.log(response.data)
             });
         }
         ViewVersion = (id, mode) => {
-            axios.get(`{{ route("live-project.view-version.ajax") }}/${id}/${mode}`).then((response) => {
+            axios.get(`{{ route('live-project.view-version.ajax') }}/${id}/${mode}`).then((response) => {
                 $('#detail-variation-modal').modal('hide')
                 $('#create-variation-order').modal('show')
                 $('#create-variation-order-content').html(response.data.view)
             });
-        } 
-        StoreVersion  = (id, mode, element) => {
-            event.preventDefault(); 
+        }
+        StoreVersion = (id, mode, element) => {
+            event.preventDefault();
             const formData = new FormData(element)
             var version_data = {}
             for (const pair of formData.entries()) {
-                version_data = {...version_data,[pair[0]]:pair[1]}
+                version_data = {
+                    ...version_data,
+                    [pair[0]]: pair[1]
+                }
             }
-            axios.post(`{{ route("live-project.store-version.ajax") }}/${id}/${mode}`,version_data).then((response) => {
+            axios.post(`{{ route('live-project.store-version.ajax') }}/${id}/${mode}`, version_data).then((
+                response) => {
                 $('#variation-versions-table').DataTable().destroy();
                 FectVariationVersionTable(response.data.variation_id)
                 $('#create-variation-order').modal('hide')
@@ -119,52 +169,52 @@
                 Alert.success(response.data.message)
             });
         }
-        DeleteVersion = (id) => {  
+        DeleteVersion = (id) => {
             swalWithBootstrapButtons.fire({
                 title: 'Are you sure?',
                 text: "You won't be able to revert this!",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonText: 'Yes, delete it!',
-                cancelButtonText: 'No, cancel', 
-                allowOutsideClick :false,
-                allowEscapeKey:false,
+                cancelButtonText: 'No, cancel',
+                allowOutsideClick: false,
+                allowEscapeKey: false,
             }).then((result) => {
                 if (result.isConfirmed) {
                     axios.delete(`{{ route('live-project.delete-version.ajax') }}/${id}`).then((response) => {
-                        if(response.data.status) {
+                        if (response.data.status) {
                             Alert.success('Successfully Deleted !')
                             $('#variation-versions-table').DataTable().destroy();
                             FectVariationVersionTable(response.data.variation_id)
                         }
-                    }) 
+                    })
                 }
             })
         }
-        SendMailVersion = (id,element) => { 
+        SendMailVersion = (id, element) => {
             swalWithBootstrapButtons.fire({
-                html:`
+                html: `
                     <img src="{{ asset('public/assets/images/mail-loader.gif') }}" style="height: 100px;object-fit: cover;width:250px"/> 
                     <h3 class="text-primary">Mail Sending Onprocess...</h3>
                     <p>may be it's take some time please wait on the tab.</p>
                 `,
-                allowOutsideClick :false,
-                background:'rgb(252 254 252)',
+                allowOutsideClick: false,
+                background: 'rgb(252 254 252)',
                 backdrop: `rgb(0 0 0 / 70%)`,
-                allowEscapeKey:false,
-                showConfirmButton:false
+                allowEscapeKey: false,
+                showConfirmButton: false
             })
-            axios.post(`{{ route("live-project.send-mail-version.ajax") }}/${id}`).then((response) => {
-                if(response.data.status) {
+            axios.post(`{{ route('live-project.send-mail-version.ajax') }}/${id}`).then((response) => {
+                if (response.data.status) {
                     Swal.close()
                     Swal.fire({
                         text: response.data.message,
                         icon: 'success',
                         showCancelButton: false,
                         confirmButtonText: 'Okay !',
-                        cancelButtonText: 'No, cancel', 
-                        allowOutsideClick :false,
-                        allowEscapeKey:false,
+                        cancelButtonText: 'No, cancel',
+                        allowOutsideClick: false,
+                        allowEscapeKey: false,
                         customClass: {
                             confirmButton: 'btn btn-success rounded-pill',
                         },

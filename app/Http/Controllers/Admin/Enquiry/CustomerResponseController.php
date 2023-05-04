@@ -57,7 +57,7 @@ class CustomerResponseController extends Controller
             $costEstimate = $this->enquiryRepo->getCostEstimateByEnquiryId($enquiry_id);
             $this->projectRepo->storeInvoicePlan($result->id, ['project_cost' => $costEstimate->total_cost], false);
             if($res) {
-                GlobalService::updateConfig('PRO');
+                GlobalService::updateConfig('PRJ');
                 return response(['status' => true, 'msg' => __('global.move_to_project_successfully'), 'data' => []]);
             }
             return response(['status' => false, 'msg' => __('global.something')]);

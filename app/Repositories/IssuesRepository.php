@@ -15,7 +15,7 @@ class IssuesRepository {
     {
         $Issues = $this->Project->findOrFail($id); 
         $created_issue = $Issues->Issues()->create([
-            "issue_id"      =>  'TIK/' . date('Y') . '/' . (count($Issues->Issues) + 1),
+            "issue_id"      =>  'TKT/' . date('Y') . '/' . (count($Issues->Issues) + 1),
             'title'         => $request->title,
             'description'   => $request->descriptions,
             'type'          => $request->assign_type,

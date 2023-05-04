@@ -195,7 +195,7 @@ class ProjectRepository implements ProjectRepositoryInterface, ConnectionPlatfor
         $referenceNumber = GlobalService::getProjectNumber();
         $project = $this->model->where('reference_number', $referenceNumber)->first();
         if(!empty($project)) {
-            GlobalService::updateConfig('PRO');
+            GlobalService::updateConfig('PRJ');
         }
     }
 
