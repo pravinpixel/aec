@@ -4,7 +4,7 @@
         <input type="hidden" name="variation_id" class="form-control" value="{{ $variation->variation_id }}">
         <div class="modal-header">
             <h4 class="custom-modal-title" id="create-variation-orderLabel"> <b class="text-primary">{{ str_replace('_', ' ', $mode) }}</b> - VERSION - {{ $variation->version }}</h4>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" onclick="$('#detail-variation-modal').modal('show')"></button>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" ></button>
         </div>
         <div class="modal-body">
             <div class="mb-3">

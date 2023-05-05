@@ -11,6 +11,7 @@ use App\Models\LiveProjectSubTasks;
 use App\Models\Project;
 use App\Models\ProjectTeamSetup;
 use App\Models\Role;
+use App\Models\VariationOrder;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 use PharIo\Manifest\Author;
@@ -216,35 +217,34 @@ if (!function_exists('VariationStatus')) {
 
 if (!function_exists('variationOrderMenu')) {
     function variationOrderMenu($row)
-    { 
+    {
         if (AuthUser() == 'ADMIN') {
             if ($row->status == 'NEW') {
                 return  '
-                    <button onclick=ViewVersion(' . $row->id . ',"VIEW") class="dropdown-item"><i class="fa fa-eye me-1"></i> View </button>
-                    <button onclick=ViewVersion(' . $row->id . ',"EDIT") class="dropdown-item"><i class="fa fa-pen me-1"></i> Edit</button>
-                    <button onclick="SendMailVersion(' . $row->id . ',this)" class="dropdown-item"><i class="fa fa-envelope me-1"></i> Send</button>
-                    <button onclick="DeleteVersion(' . $row->id . ')" class="dropdown-item text-danger"><i class="fa fa-trash me-1"></i> Delete</button>
+                    <button type="button" onclick=ViewVersion(' . $row->id . ',"VIEW") class="dropdown-item"><i class="fa fa-eye me-1"></i> View </button>
+                    <button type="button" onclick=ViewVersion(' . $row->id . ',"EDIT") class="dropdown-item"><i class="fa fa-pen me-1"></i> Edit</button>
+                    <button type="button" onclick="SendMailVersion(' . $row->id . ',this)" class="dropdown-item"><i class="fa fa-envelope me-1"></i> Send</button>
+                    <button type="button" onclick="DeleteVersion(' . $row->id . ')" class="dropdown-item text-danger"><i class="fa fa-trash me-1"></i> Delete</button>
                 ';
             }
             if ($row->status == 'SENT') {
                 return  '
-                    <button onclick=ViewVersion(' . $row->id . ',"VIEW") class="dropdown-item"><i class="fa fa-eye me-1"></i> View </button>
+                    <button type="button" onclick=ViewVersion(' . $row->id . ',"VIEW") class="dropdown-item"><i class="fa fa-eye me-1"></i> View </button>
                 ';
             }
             if ($row->status == 'OBSOLETE') {
                 return  '
-                    <button onclick=ViewVersion(' . $row->id . ',"VIEW") class="dropdown-item"><i class="fa fa-eye me-1"></i> View </button>
+                    <button type="button" onclick=ViewVersion(' . $row->id . ',"VIEW") class="dropdown-item"><i class="fa fa-eye me-1"></i> View </button>
                 ';
             }
             if ($row->status == 'RESPONSE' || $row->status == 'CHANGE_REQUEST') {
                 return  '
-                    <button onclick=ViewVersion(' . $row->id . ',"DUPLICATE") class="dropdown-item"><i class="fa fa-clone me-1"></i> Duplicate</button>
-                    <button onclick=ViewVersion(' . $row->id . ',"VIEW") class="dropdown-item"><i class="fa fa-eye me-1"></i> View </button>
+                    <button type="button" onclick=ViewVersion(' . $row->id . ',"DUPLICATE") class="dropdown-item"><i class="fa fa-clone me-1"></i> Duplicate</button>
+                    <button type="button" onclick=ViewVersion(' . $row->id . ',"VIEW") class="dropdown-item"><i class="fa fa-eye me-1"></i> View </button>
                 ';
             }
-            
         }
-        return  '<button onclick=ViewVersion(' . $row->id . ',"VIEW") class="dropdown-item"><i class="fa fa-eye me-1"></i> View </button>';
+        return  '<button type="button" onclick=ViewVersion(' . $row->id . ',"VIEW") class="dropdown-item"><i class="fa fa-eye me-1"></i> View </button>';
     }
 }
 if (!function_exists('getIssuesByUserId')) {
@@ -260,11 +260,11 @@ if (!function_exists('getIssuesByUserId')) {
             })
             ->when(AuthUser() == 'ADMIN' && AuthUserData()->job_role != 1, function ($q) {
                 $q->where('assignee_id', AuthUserData()->id)
-                ->orWhere('request_id', AuthUserData()->id);
+                    ->orWhere('request_id', AuthUserData()->id);
             })
             ->select('*');
     }
-} 
+}
 if (!function_exists('getIssuesByProjectId')) {
     function getIssuesByProjectId($id, $type = null)
     {
@@ -307,16 +307,16 @@ if (!function_exists('sendMail')) {
 if (!function_exists('issuesCount')) {
     function issuesCount($modal, $type)
     {
-        $modal = Issues::where('project_id',$modal->id)->select('*');
+        $modal = Issues::where('project_id', $modal->id)->select('*');
         if ($type == 'ALL') {
             if (Admin()->job_role != 1) {
                 $count =  $modal->where('assignee_id', Admin()->id)
-                        ->orWhere('request_id', AuthUserData()->id)->count(); 
+                    ->orWhere('request_id', AuthUserData()->id)->count();
             } else {
                 $count =  $modal->count();
             }
             return '<span class="badge bg-danger">' . $count . '</span>';
-        } 
+        }
 
         return '<span class="badge bg-danger">0</span>';
     }
@@ -326,19 +326,27 @@ if (!function_exists('issuesCount')) {
 if (!function_exists('getCompleteTaskCountByProjectId')) {
     function getCompleteTaskCountByProjectId($project_id, $type = null)
     {
-        return LiveProjectSubSubTasks::where('project_id' , $project_id)
-        ->when(isset($type) && !empty($type), function($q) use ($type){
-            $q->where('status',$type);
-        })->count();
+        return LiveProjectSubSubTasks::where('project_id', $project_id)
+            ->when(isset($type) && !empty($type), function ($q) use ($type) {
+                $q->where('status', $type);
+            })->count();
     }
 }
 
 if (!function_exists('getMilestoneCountByProjectId')) {
     function getMilestoneCountByProjectId($project_id, $type = null)
     {
-        return LiveProjectSubTasks::where('project_id' , $project_id)
-        ->when(isset($type) && !empty($type), function($q) use ($type){
-            $q->where('progress_percentage',100);
-        })->count();
+        return LiveProjectSubTasks::where('project_id', $project_id)
+            ->when(isset($type) && !empty($type), function ($q) use ($type) {
+                $q->where('progress_percentage', 100);
+            })->count();
+    }
+}
+if (!function_exists('getVariationOrderByProjectId')) {
+    function getVariationOrderByProjectId($id)
+    {
+        return VariationOrder::with('Issues', 'VariationOrderVersions')
+            ->where('project_id', $id)
+            ->get();
     }
 }

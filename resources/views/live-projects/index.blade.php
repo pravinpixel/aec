@@ -99,7 +99,7 @@
         @include('live-projects.modals.variation-order')
     @endif
     @if (request()->route()->menu_type == 'variation-orders')
-        @include('live-projects.modals.detail-variation-order')
+        {{-- @include('live-projects.modals.detail-variation-order') --}}
         @include('live-projects.modals.variation-order')
     @endif
 @endsection

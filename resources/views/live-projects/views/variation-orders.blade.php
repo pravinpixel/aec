@@ -1,15 +1,49 @@
-<div>
-    <table class="table table-bordred table-sm table-centered border table-hover" id="variation-order-table">
-        <thead>
-            <tr class="bg-light-2">
-                <th>#Issue Variation Id</th>
-                <th>Title</th>
-                <th>Total Versions</th>
-                <th class="text-center">Action</th>
-            </tr>
-        </thead>
-        <tbody></tbody>
-    </table>
+<div class="p-4">
+    @php $variations = getVariationOrderByProjectId(Project()->id) @endphp
+    <div class="accordion" id="variationVersionAccordion">
+        @if (count($variations) > 0)
+            @foreach ($variations as $index => $variation)
+                <div class="card mb-0 shadow-0 border rounded-0 border-bottom-0">
+                    <div class="card-header shadow-0 px-3 p-2 d-flex align-items-center justify-content-between"
+                    id="variationTitle_{{ $index }}">
+                        <div class="d-flex align-items-center">
+                            <a onclick="showVariationOrder( '{{ $variation->id }}' ,this)" data-table-id="#variation-versions-table_{{ $variation->id }}" class="fa fa-plus-circle fs-4 me-2  {{ $index == 0 ? '' : 'collapsed' }}"
+                                data-bs-toggle="collapse"  data-bs-target="#versionListView__{{ $index }}"
+                                aria-expanded="false" aria-controls="versionListView__{{ $index }}"></a>
+                            <a data-table-id="#variation-versions-table_{{ $variation->id }}" class="fa fa-minus-circle fs-4 me-2   {{ $index == 0 ? '' : 'collapsed' }}"
+                                data-bs-toggle="collapse"  data-bs-target="#versionListView__{{ $index }}"
+                                aria-expanded="false" aria-controls="versionListView__{{ $index }}"></a>
+                            <h5 class="h5 m-0 text-dark py-1">
+                                VAR/{{ date('Y') }}/{{ $index + 1 }} - {{ $variation->issues->title }}
+                            </h5>
+                        </div>
+                        <div>
+                            <div class="text-primary fw-bold">Total vesions : {{ count($variation->VariationOrderVersions) }}</div>
+                        </div>
+                    </div>
+                    <div id="versionListView__{{ $index }}" class="card-body collapse  {{ $index == 0 ? 'show' : '' }}"
+                        aria-labelledby="variationTitle_{{ $index }}">
+                        <div class="accordion-body">
+                            <table class="table" id="variation-versions-table_{{ $variation->id }}">
+                                <thead>
+                                    <tr>
+                                        <th width="80px">#Version</th>
+                                        <th scope="col">Title</th>
+                                        <th scope="col">Hours</th>
+                                        <th scope="col">Price</th>
+                                        <th scope="col">Total Price</th> 
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody> </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        @endif
+    </div>
 </div>
 @push('live-project-custom-styles')
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css">
@@ -21,50 +55,10 @@
     <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
     <script>
-        FatchTable = (filters) => {
-            const d = new Date();
-            let year = d.getFullYear();
-            var table = $('#variation-order-table').DataTable({
-                processing: true,
-                serverSide: true,
-                ajax: {
-                    url: "{{ route('live-project.index-issue-variation.ajax', Project()->id) }}",
-                    data: {
-                        filters: filters,
-                    }
-                },
-                columnDefs: [
-                    {
-                        render: function(data, type, row, index) {
-                            return `<button type="button" class="btn-quick-view bg-warning fw-bold shadow-none border-dark border text-dark" onclick="showVariationOrder( ${row.id} ,this)">VAR/${year}/${index.row + 1}</button>`;
-                        },
-                        targets: 0,
-                    },
-                ],
-                columns: [{
-                        data: 'variation_id',
-                        name: 'issues.issue_id'
-                    },
-                    {
-                        data: 'issues.title',
-                        name: 'issues.title'
-                    },
-                    {
-                        data: 'total_versions',
-                        name: 'total_versions'
-                    },
-                    {
-                        data: 'action',
-                        name: 'action',
-                        orderable: false,
-                        searchable: false
-                    }
-                ]
-            });
-        }
-        FatchTable(null)
-        FectVariationVersionTable = (id) => {
-            $('#variation-versions-table').DataTable({
+     
+        FectVariationVersionTable = (id, table_id) => {
+            $(`#variation-versions-table_${id}`).DataTable().destroy();
+            $(`#variation-versions-table_${id}`).DataTable({
                 processing: true,
                 serverSide: true,
                 ajax: {
@@ -72,7 +66,7 @@
                 },
                 order: [
                     [0, 'desc']
-                ], 
+                ],
                 columns: [{
                         data: 'version_id',
                         name: 'version'
@@ -106,12 +100,15 @@
                 ]
             });
         }
-        showVariationOrder = (id, element) => {
+        FectVariationVersionTable({{ $variations[0]->id ?? 0 }},'#variation-versions-table_{{ $variations[0]->id }}')
+        
+        showVariationOrder = (id, element) => {  
+            $(element.getAttribute('data-table-id')).DataTable().destroy();
             startLoader(element)
             axios.get(`{{ route('live-project.show-variation.ajax') }}/${id}`).then((response) => {
-                $('#detail-variation-modal').modal('show')
-                $('#detail-variation-modal-content').html(response.data.view)
-                FectVariationVersionTable(id)
+                // $('#detail-variation-modal').modal('show')
+                // $(element.getAttribute('data-bs-target')).html(response.data.view)
+                FectVariationVersionTable(id, element.getAttribute('data-table-id'))
                 stopLoader(element)
             })
         }
@@ -128,7 +125,8 @@
                 allowEscapeKey: false
             }).then((result) => {
                 if (result.isConfirmed) {
-                    axios.delete(`{{ route('live-project.delete-variation.ajax') }}/${id}`).then((response) => {
+                    axios.delete(`{{ route('live-project.delete-variation.ajax') }}/${id}`).then((
+                        response) => {
                         if (response.data.status) {
                             Alert.info('Variation order canceled !')
                             $('#variation-order-table').DataTable().destroy();
@@ -145,7 +143,6 @@
         }
         ViewVersion = (id, mode) => {
             axios.get(`{{ route('live-project.view-version.ajax') }}/${id}/${mode}`).then((response) => {
-                $('#detail-variation-modal').modal('hide')
                 $('#create-variation-order').modal('show')
                 $('#create-variation-order-content').html(response.data.view)
             });
@@ -162,10 +159,9 @@
             }
             axios.post(`{{ route('live-project.store-version.ajax') }}/${id}/${mode}`, version_data).then((
                 response) => {
-                $('#variation-versions-table').DataTable().destroy();
+                // $('#variation-versions-table').DataTable().destroy();
                 FectVariationVersionTable(response.data.variation_id)
                 $('#create-variation-order').modal('hide')
-                $('#detail-variation-modal').modal('show')
                 Alert.success(response.data.message)
             });
         }
@@ -184,7 +180,7 @@
                     axios.delete(`{{ route('live-project.delete-version.ajax') }}/${id}`).then((response) => {
                         if (response.data.status) {
                             Alert.success('Successfully Deleted !')
-                            $('#variation-versions-table').DataTable().destroy();
+                            // $('#variation-versions-table').DataTable().destroy();
                             FectVariationVersionTable(response.data.variation_id)
                         }
                     })
@@ -220,7 +216,7 @@
                         },
                         buttonsStyling: false
                     })
-                    $('#variation-versions-table').DataTable().destroy();
+                    // $('#variation-versions-table').DataTable().destroy();
                     FectVariationVersionTable(response.data.variation_id)
                 }
             })

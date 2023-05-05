@@ -835,3 +835,16 @@ sup {
 /* .dataTables_wrapper .row:nth-child(2) {
     min-height: 200px;
 } */
+.accordion  .fa-plus-circle {
+    display: none !important;
+}
+.accordion  .fa-plus-circle.collapsed {
+    display: block !important;
+}
+
+.accordion  .fa-minus-circle {
+    display: block !important;
+}
+.accordion  .fa-minus-circle.collapsed {
+    display: none !important;
+}
