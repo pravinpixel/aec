@@ -193,7 +193,7 @@
                 placeholder: $(this).data('placeholder'),
                 dropdownParent: $('#create-issues-modal')
             });
-            
+
             $(".custom-datepicker").datepicker({
                 dateFormat: 'yy-mm-dd'
             });
@@ -426,9 +426,9 @@
                         $('#issues-table').DataTable().destroy();
                         FatchTable(null)
                         axios.get(`{{ route('live-project.show-issues.ajax') }}/${id}`).then(
-                        response => {
-                            $('#detail-issue-modal-content').html(response.data.view)
-                        })
+                            response => {
+                                $('#detail-issue-modal-content').html(response.data.view)
+                            })
                     });
                 } else {
                     Alert.error('Remarks is required!!')
@@ -535,7 +535,7 @@
                 $('body').append(madalContent)
                 $('#filePreviewModal').modal('show')
             }
-            addComment = (id) => {
+            const addComment = (id) => {
                 var input = $('#comments_input').val();
                 if (input == '') return false
                 axios.post(`{{ route('live-project.create-comment.ajax') }}/${id}`, {

@@ -156,6 +156,21 @@ if (!function_exists('getUser')) {
         return $User;
     }
 }
+if (!function_exists('getUserName')) {
+    function getUserName($id)
+    {
+        $User = null;
+        $Customer = Customer::find($id);
+        $Employees = Employees::find($id);
+        if (!is_null($Customer)) {
+            $User = $Customer->first_name;
+        }
+        if (!is_null($Employees)) {
+            $User = $Employees->display_name;
+        }
+        return $User;
+    }
+}
 
 if (!function_exists('getUserRole')) {
     function getUserRole($id)
@@ -260,7 +275,9 @@ if (!function_exists('getIssuesByUserId')) {
             })
             ->when(AuthUser() == 'ADMIN' && AuthUserData()->job_role != 1, function ($q) {
                 $q->where('assignee_id', AuthUserData()->id)
-                    ->orWhere('request_id', AuthUserData()->id);
+                ->orWhere('request_id', AuthUserData()->id);
+                // ->orWhere('tags', AuthUserData()->id);
+                // in_array( AuthUserData()->id, json_decode($issue->tags));
             })
             ->select('*');
     }
@@ -348,5 +365,24 @@ if (!function_exists('getVariationOrderByProjectId')) {
         return VariationOrder::with('Issues', 'VariationOrderVersions')
             ->where('project_id', $id)
             ->get();
+    }
+}
+
+if (!function_exists('hasIssueReadPermission')) {
+    function hasIssueReadPermission($issue)
+    {
+        if(AuthUser() === 'CUSTOMER' && $issue->type === 'EXTERNAL') {
+            return true;
+        } else {
+            $employees = [];
+            foreach (json_decode($issue->tags) as $key => $user_id) {
+                $employees[] = Employees::whereId($user_id)->select('image', 'id', 'display_name', 'reference_number')->get()->first()->toArray();
+            }
+            if(in_array( AuthUserData()->id ,json_decode($issue->tags))) {
+                return true;
+            } else {
+                return false;
+            }
+        }
     }
 }

@@ -15,7 +15,7 @@ class CommonController extends Controller
     {
         if ($request->ajax()) {
             $table = DataTables::of(getIssuesByUserId(AuthUserData()->id));
-            $table->addIndexColumn();
+            $table->addIndexColumn(); 
             $table->addColumn('issue_id', function ($row) { // '.Project()->reference_number.'.
                 $count  = $row->IssueComments->where('unread', 0)->count();
                 $countTemp = '<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">' . $count . '</span>';

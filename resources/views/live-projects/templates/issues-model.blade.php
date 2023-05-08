@@ -18,7 +18,8 @@
                     </a>
                 </li>
             @endif
-            @if (userRole()['slug'] == 'admin' || (userRole()['slug'] == 'customer' && $issue->type == 'EXTERNAL'))
+            {{-- userRole()['slug'] == 'admin' || (userRole()['slug'] == 'customer' && $issue->type == 'EXTERNAL') --}}
+            @if (hasIssueReadPermission($issue))
                 @php
                     $count = $issue->MyIssueComments->count();
                 @endphp
@@ -36,8 +37,7 @@
                     </a>
                 </li>
             @endif
-            <button type="button" class="btn-close top-0 mt-2" onclick="location.reload()" data-bs-dismiss="modal"
-                aria-hidden="true"></button>
+            <button type="button" class="btn-close top-0 mt-2" onclick="location.reload()" data-bs-dismiss="modal" aria-hidden="true"></button>
         </ul>
         <div class="tab-content p-2">
             <div class="tab-pane show active" id="properties-b1">
@@ -219,7 +219,7 @@
                     </div>
                 </div>
             @endif
-            @if (userRole()['slug'] == 'admin' || (userRole()['slug'] == 'customer' && $issue->type == 'EXTERNAL'))
+            @if (hasIssueReadPermission($issue))
                 <div class="tab-pane" id="Comments-b1">
                     <div id="comments_content">
                         @php

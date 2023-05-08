@@ -54,8 +54,6 @@ class IssuesRepository {
             'type'          => $request->assign_type,
             'request_id'    => $request->requester,
             'request_name'  => getEmployeeById($request->requester)->display_name,
-            'assignee_id'   => $request->assignee,
-            'assignee_name' => getUser($request->assignee)->first_name,
             'priority'      => $request->priority,
             'due_date'      => $request->due_date,
             'tags'          => json_encode($request->tags),
