@@ -20,7 +20,7 @@ class CreateIssuesTable extends Migration
             $table->string('status')->default('NEW');
             $table->longText('remarks')->nullable();
             $table->string('title');
-            $table->longText('description');
+            $table->longText('description')->nullable();
             $table->string('type');
             $table->integer('request_id');
             $table->string('request_name');

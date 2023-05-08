@@ -67,6 +67,7 @@ app.controller('projectController', function ($scope, $http, API_URL, $compile) 
         },
         columns       : [
             {data: 'reference_number', name: 'reference_number'},
+            {data: 'enquiry_number', name: 'enquiry_number'},
             {data: 'company_name', name: 'company_name'},
             {data: 'project_name', name: 'project_name'},
             {data: 'contact_person', name: 'contact_person'},

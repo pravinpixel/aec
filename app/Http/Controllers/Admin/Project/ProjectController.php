@@ -481,21 +481,22 @@ class ProjectController extends Controller
 
     public function liveProjectList(Request $request)
     {
-
         if ($request->ajax() == true) {
             $dataDb = Project::with(['LiveProjectTasks', 'comments' => function ($q) {
                 $q->where(['status' => 0, 'created_by' => 'Customer']);
             }])->where('status', 'Live');
             return DataTables::eloquent($dataDb)
                 ->editColumn('reference_number', function ($dataDb) {
-                    $commentCount = $dataDb->comments->count();
-                    $projectComments = $commentCount == 0 ? '' : $commentCount;
-                    return '
-                     <button type="button" class="btn-quick-view" onclick="LiveProjectQuickView(' . $dataDb->id . ' , this)" >
+                    return '<button type="button" class="btn-quick-view" onclick="LiveProjectQuickView(' . $dataDb->id . ' , this)" >
                         <b>' . $dataDb->reference_number . '</b>
                         ' . getModuleChatCount('ADMIN', 'project', $dataDb->id) . '
-                    </button>
-                ';
+                    </button>';
+                })
+                ->editColumn('enquiry_number', function ($dataDb) {
+                    $enquiry_number = getEnquiryBtId($dataDb->enquiry_id)->enquiry_number;
+                    return '<button type="button" class="btn-quick-view" onclick="EnquiryQuickView(' . $dataDb->enquiry_id . ' , this)" >
+                            <b>' . $enquiry_number . '</b>
+                        </button>';
                 })
                 ->editColumn('start_date', function ($dataDb) {
                     $format = config('global.model_date_format');
@@ -591,18 +592,18 @@ class ProjectController extends Controller
                     ';
                 })
                 ->addColumn('action', function ($dataDb) {
+                    // <button class="dropdown-item" onclick="EnquiryQuickView(' . $dataDb->id . ' , this)" >View Enquiry</button>
                     return '<div class="dropdown">
                             <button class="btn btn-light btn-sm border shadow-sm" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 <a class="dropdown-item" href="' . route('live-project.menus-index', ['menu_type' => 'overview', 'id' => $dataDb->id]) . '">View / Edit</a>
-                                <button class="dropdown-item" onclick="EnquiryQuickView(' . $dataDb->id . ' , this)" >View Enquiry</button>
                                 <a type="button" class="dropdown-item delete-modal" data-header-title="Delete" data-title="Are you sure to delete this enquiry" data-action="' . route('enquiry.delete', $dataDb->id) . '" data-method="DELETE" data-bs-toggle="modal" data-bs-target="#primary-header-modal">Delete</a>
                             </div>
                         </div>';
                 })
-                ->rawColumns(['action', 'pipeline', 'reference_number'])
+                ->rawColumns(['action', 'pipeline', 'reference_number', 'enquiry_number'])
                 ->make(true);
         }
     }

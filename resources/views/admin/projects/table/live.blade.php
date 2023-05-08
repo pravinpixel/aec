@@ -3,6 +3,7 @@
         <thead>
             <tr>
                 <th class="text-center">@lang('project.project_id')</th> 
+                <th class="text-center">@lang('enquiry.enquiry_no')</th> 
                 <th class="text-center">@lang('project.company_name')</th> 
                 <th class="text-center">@lang('project.project_number')</th> 
                 <th class="text-center">@lang('project.contact_person')</th> 
