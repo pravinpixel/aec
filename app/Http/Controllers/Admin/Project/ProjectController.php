@@ -482,7 +482,7 @@ class ProjectController extends Controller
     public function liveProjectList(Request $request)
     {
         if ($request->ajax() == true) {
-            $dataDb = Project::with(['LiveProjectTasks', 'comments' => function ($q) {
+            $dataDb = Project::with(['LiveProjectTasks', 'enquiry', 'comments' => function ($q) {
                 $q->where(['status' => 0, 'created_by' => 'Customer']);
             }])->where('status', 'Live');
             return DataTables::eloquent($dataDb)
@@ -493,9 +493,8 @@ class ProjectController extends Controller
                     </button>';
                 })
                 ->editColumn('enquiry_number', function ($dataDb) {
-                    $enquiry_number = getEnquiryBtId($dataDb->enquiry_id)->enquiry_number ?? "-";
                     return '<button type="button" class="btn-quick-view" onclick="EnquiryQuickView(' . $dataDb->enquiry_id . ' , this)" >
-                            <b>' . $enquiry_number . '</b>
+                            <b>' . $dataDb->enquiry->enquiry_number . '</b>
                         </button>';
                 })
                 ->editColumn('start_date', function ($dataDb) {
