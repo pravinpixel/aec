@@ -107,11 +107,11 @@ return [
                 "view" => "documents"
             ],
             [
-                "name" => "Project Closure",
-                "slug" => "project-closure",
+                "name" => "Comments",
+                "slug" => "project-comments",
                 "icon" => '<i class="bi bi-pencil-square"></i>',
-                "view" => "project-closure"
-            ], 
+                "view" => "project-comments"
+            ],
         ]
     ],
     "project_closure" => [
