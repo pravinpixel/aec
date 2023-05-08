@@ -738,9 +738,13 @@ class EnquiryController extends Controller
                     return Carbon::parse($dataDb->enquiry_date)->format($format);
                 })
                 ->addColumn('pipeline', function ($dataDb) {
+                    $getProposal = '';
+                    if(count($dataDb->getProposal)) {
+                        $getProposal = '<a target="_blank" href="' . route("proposal.index", $dataDb->id) . '" class="btn progress-btn ' . ($dataDb->proposal_sharing_status == 1 ? "active" : "") . '" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Proposal Received"></a>';
+                    }
                     return '<div class="btn-group">
                         <button ng-click=getEnquiry("project_info",' . $dataDb->id . ') class="btn progress-btn ' . ($dataDb->project_info == 1 ? "active" : "") . '" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Project Information"></button> 
-                        <a target="_blank" href="' . route("proposal.index", $dataDb->id) . '" class="btn progress-btn ' . ($dataDb->proposal_sharing_status == 1 ? "active" : "") . '" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Proposal Received"></a>
+                        '.$getProposal.'
                         <button  class="btn progress-btn ' . ($dataDb->project_status == "Active" ? "active" : "") . '" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Proposal Approved"></button> 
                     </div>';
                 })
