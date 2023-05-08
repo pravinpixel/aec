@@ -32,7 +32,7 @@ class EmployeeController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax() == true) {
-            $data   = Employees::select('*');
+            $data   = Employees::where('id', '!=', AuthUserData()->id)->select('*');
             return DataTables::eloquent($data)
                 ->addIndexColumn() 
                 ->addColumn('reference_number', function($data){ 
