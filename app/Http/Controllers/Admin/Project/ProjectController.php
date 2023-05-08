@@ -493,7 +493,7 @@ class ProjectController extends Controller
                     </button>';
                 })
                 ->editColumn('enquiry_number', function ($dataDb) {
-                    $enquiry_number = getEnquiryBtId($dataDb->enquiry_id)->enquiry_number;
+                    $enquiry_number = getEnquiryBtId($dataDb->enquiry_id)->enquiry_number ?? "-";
                     return '<button type="button" class="btn-quick-view" onclick="EnquiryQuickView(' . $dataDb->enquiry_id . ' , this)" >
                             <b>' . $enquiry_number . '</b>
                         </button>';
