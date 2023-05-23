@@ -213,7 +213,7 @@
                 }).then(function (res) {
                     $scope.autoDeskFileType = res.data;
                 });
-            }
+            } 
             getAutoDeskFileTypes();
 
             getEnquiryCommentsCountById = (id) => {
@@ -382,6 +382,17 @@
         app.controller('Tech_Estimate', function ($scope, $http, API_URL, $location) {
             let enquiryId =  '{{ $data->id }}'
             $scope.current_user = '{{Admin()->id}}';
+            $scope.getAutodeskView = (document_id) =>{
+                axios.get(`${APP_URL}/autodesk-check-status/${document_id}`).then((response) => {
+                    console.log('response',response.data);
+                    if(response.data.data.status == false){
+                        Message('danger', response.data.data.msg);
+                        return false;
+                    } else {
+                        window.open(`${APP_URL}/viewmodel/${document_id}`)
+                    }
+                });
+            }
             getUsers = () => {
                 $http.get(`${API_URL}admin/get-technicalestimate-employee`)
                 .then(function successCallback(res){

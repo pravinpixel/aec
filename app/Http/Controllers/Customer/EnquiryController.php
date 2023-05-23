@@ -259,7 +259,7 @@ class EnquiryController extends Controller
 
     public function StoreTechnicalEstimation($data, $enquiry)
     {
-        $dataObj = json_decode(json_encode($data), FALSE);
+        $dataObj = formatBuildingComponentJSON($data);
         if (!empty($dataObj)) {
             $response = $this->customerEnquiryRepo->storeTechnicalEstimateCost($enquiry, $dataObj);
         }
@@ -267,7 +267,7 @@ class EnquiryController extends Controller
 
     public function StoreCostEstimation($data, $enquiry)
     {
-        $dataObj = json_decode(json_encode($data), FALSE);
+        $dataObj = formatBuildingComponentJSON($data);
         if (!empty($dataObj)) {
             $response = $this->customerEnquiryRepo->storeCostEstimation($enquiry, $dataObj);
         }
@@ -291,7 +291,7 @@ class EnquiryController extends Controller
 
     public function storeBuildingComponent($data, $enquiry)
     {
-        $dataObj = json_decode(json_encode($data), FALSE);
+        $dataObj = formatBuildingComponentJSON($data);
         if (!empty($dataObj)) {
             $response = $this->customerEnquiryRepo->storeBuildingComponent($enquiry, $dataObj);
             if ($response) {
