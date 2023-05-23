@@ -45,7 +45,7 @@
                                                 <a class="nav-link text-secondary {{ Route::is(['setup.check-list'])  ? 'setup-link-active' : '' }}" href="{{ route('setup.check-list') }}">Check Sheets</a>
                                                 <a class="nav-link text-secondary {{ Route::is(['setup.check-sheet'])  ? 'setup-link-active' : '' }}" href="{{ route('setup.check-sheet') }}">Check Sheet Setup</a>
                                                 <a class="nav-link text-secondary {{ Route::is(['setup.ifc-file-icon','setup.ifc-file-icon.create','setup.ifc-file-icon.edit'])  ? 'setup-link-active' : '' }}" href="{{ route('setup.ifc-file-icon') }}">General Files Icons</a>
-                                                <a class="nav-link text-secondary {{ Route::is(['files.index']) ? 'setup-link-active' : '' }}" href="{{ route('files.index') }}">Share Point Folders</a>
+                                                <a class="nav-link text-secondary {{ Route::is(['files.index']) ? 'setup-link-active' : '' }}" href="{{ route('files.index') }}">Project Template Folder</a>
                                             @endif
                                             @if ( Route::is(['setup.project-type','setup.service','setup.building-type','setup.building-component','setup.construction-type','setup.delivery-type','setup.document-type']))
                                                 <a class="nav-link text-secondary {{ Route::is(['setup.project-type'])  ? 'setup-link-active' : '' }}" href="{{ route('setup.project-type') }}">Project Type</a> 
