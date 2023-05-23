@@ -29,7 +29,7 @@
             serverSide: true,
             ajax: "{{ route('setup.roles') }}",
             columns: [
-                {data: 'id', name: 'id'},
+                {data: 'DT_RowIndex', name: 'id'},
                 {data: 'name', name: 'name'},
                 {data: 'status', name: 'status'},
                 {data: 'action', name: 'action', orderable: false, searchable: false},
