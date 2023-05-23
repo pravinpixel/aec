@@ -20,12 +20,12 @@ Route::prefix('admin/setup')->middleware('common')->group(function () {
     Route::get('/check-list',[SetupController::class, 'check_list'])->name('setup.check-list');
     Route::get('/check-sheet',[SetupController::class, 'check_sheet'])->name('setup.check-sheet');
 
-    Route::get('/ifc-file-icon',[SetupController::class, 'ifc_file_icon'])->name('setup.ifc-file-icon');
-    Route::get('/ifc-file-icon/create',[IfcFileIconController::class, 'create'])->name('setup.ifc-file-icon.create');
-    Route::post('/ifc-file-icon/create',[IfcFileIconController::class, 'store'])->name('setup.ifc-file-icon.store');
-    Route::delete('/ifc-file-icon/destroy',[IfcFileIconController::class, 'destroy'])->name('setup.ifc-file-icon.destroy');
-    Route::get('/ifc-file-icon/edit/{id}',[IfcFileIconController::class, 'edit'])->name('setup.ifc-file-icon.edit');
-    Route::post('/ifc-file-icon/update/{id}',[IfcFileIconController::class, 'update'])->name('setup.ifc-file-icon.update');
+    Route::get('/general-file-icon',[SetupController::class, 'ifc_file_icon'])->name('setup.ifc-file-icon');
+    Route::get('/general-file-icon/create',[IfcFileIconController::class, 'create'])->name('setup.ifc-file-icon.create');
+    Route::post('/general-file-icon/create',[IfcFileIconController::class, 'store'])->name('setup.ifc-file-icon.store');
+    Route::delete('/general-file-icon/destroy',[IfcFileIconController::class, 'destroy'])->name('setup.ifc-file-icon.destroy');
+    Route::get('/general-file-icon/edit/{id}',[IfcFileIconController::class, 'edit'])->name('setup.ifc-file-icon.edit');
+    Route::post('/general-file-icon/update/{id}',[IfcFileIconController::class, 'update'])->name('setup.ifc-file-icon.update');
 
     
 

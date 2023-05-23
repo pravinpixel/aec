@@ -21,6 +21,6 @@ class IfcFilesIconsSeeder extends Seeder
         IfcFilesIcons::create([ 'type' => 'pdf','icon' => 'https://cdn-icons-png.flaticon.com/512/861/861319.png']);
         IfcFilesIcons::create([ 'type' => 'xls','icon' => 'https://cdn-icons-png.flaticon.com/512/861/861319.png']);
         IfcFilesIcons::create([ 'type' => 'xlsx','icon' => 'https://cdn-icons-png.flaticon.com/512/861/861319.png']);
-        IfcFilesIcons::create([ 'type' => 'Ifc','icon' => 'https://cdn-icons-png.flaticon.com/512/861/861319.png']);
+        IfcFilesIcons::create([ 'type' => 'ifc','icon' => 'https://cdn-icons-png.flaticon.com/512/861/861319.png']);
     }
 }

@@ -44,7 +44,7 @@
                                                 <a class="nav-link text-secondary {{ Route::is(['setup.precast-estimation','setup.precast-estimation-cost-preset'])  ? 'setup-link-active' : '' }}" href="{{ route('setup.precast-estimation') }}">Precast Estimation</a>
                                                 <a class="nav-link text-secondary {{ Route::is(['setup.check-list'])  ? 'setup-link-active' : '' }}" href="{{ route('setup.check-list') }}">Check Sheets</a>
                                                 <a class="nav-link text-secondary {{ Route::is(['setup.check-sheet'])  ? 'setup-link-active' : '' }}" href="{{ route('setup.check-sheet') }}">Check Sheet Setup</a>
-                                                <a class="nav-link text-secondary {{ Route::is(['setup.ifc-file-icon','setup.ifc-file-icon.create','setup.ifc-file-icon.edit'])  ? 'setup-link-active' : '' }}" href="{{ route('setup.ifc-file-icon') }}">IFC Files Icons</a>
+                                                <a class="nav-link text-secondary {{ Route::is(['setup.ifc-file-icon','setup.ifc-file-icon.create','setup.ifc-file-icon.edit'])  ? 'setup-link-active' : '' }}" href="{{ route('setup.ifc-file-icon') }}">General Files Icons</a>
                                                 <a class="nav-link text-secondary {{ Route::is(['files.index']) ? 'setup-link-active' : '' }}" href="{{ route('files.index') }}">Share Point Folders</a>
                                             @endif
                                             @if ( Route::is(['setup.project-type','setup.service','setup.building-type','setup.building-component','setup.construction-type','setup.delivery-type','setup.document-type']))
