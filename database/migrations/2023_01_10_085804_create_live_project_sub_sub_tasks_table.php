@@ -17,6 +17,8 @@ class CreateLiveProjectSubSubTasksTable extends Migration
             $table->id();
             $table->integer('sub_task_id')->nullable();
             $table->integer('project_id')->nullable();
+            $table->integer('parent')->nullable();
+            $table->integer('chart_task_id')->nullable();
             $table->integer('sort_order')->nullable();
             $table->text('name')->nullable();
             $table->integer('assign_to')->nullable();

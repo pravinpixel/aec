@@ -72,8 +72,8 @@ class LiveProjectRepository implements LiveProjectInterface
             $project = $this->projectModel->with('GranttTasks', 'GranttLinks')->find($project_id);
             return response([
                 "status" => true,
-                "data" => $project->GranttTasks->toArray(),
-                "links" => $project->GranttLinks->toArray(),
+                "data"   => $project->GranttTasks->toArray(),
+                "links"  => $project->GranttLinks->toArray(),
             ]);
         } catch (\Throwable $th) {
             return response([

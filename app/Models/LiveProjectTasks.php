@@ -15,6 +15,8 @@ class LiveProjectTasks extends Model
         'end_date',
         'progress_percentage',
         'project_id',
+        'parent',
+        'chart_task_id'
     ];
     public function SubTasks()
     {

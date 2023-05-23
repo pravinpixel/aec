@@ -7,6 +7,7 @@ use App\Mail\variationVersionMail;
 use App\Models\InvoicePlan;
 use App\Models\IssueComments;
 use App\Models\Issues;
+use App\Models\LiveProjectGranttTask;
 use App\Models\LiveProjectSubSubTasks;
 use App\Models\LiveProjectSubTasks;
 use App\Models\Project;
@@ -144,6 +145,11 @@ class LiveProjectController extends Controller
     public function update_sub_sub_task(Request $request, $sub_sub_task_id)
     {
         $task = LiveProjectSubSubTasks::find($sub_sub_task_id);
+        if ($request->type == 'name') {
+            LiveProjectGranttTask::find($task->chart_task_id)->update([
+                'text' => $request->value
+            ]);
+        }
         $task->update([
             $request->type => $request->value
         ]);
@@ -154,6 +160,7 @@ class LiveProjectController extends Controller
     public function delete_sub_sub_task($sub_sub_task_id)
     {
         $LiveProjectSubSubTasks = LiveProjectSubSubTasks::find($sub_sub_task_id);
+        LiveProjectGranttTask::find($LiveProjectSubSubTasks->parent)->delete();
         $sub_task_id = $LiveProjectSubSubTasks->sub_task_id;
         $LiveProjectSubSubTasks->delete();
         $result = $this->LiveProjectRepository->getSubTaskProgress($sub_task_id);
@@ -165,12 +172,24 @@ class LiveProjectController extends Controller
     public function create_sub_task(Request $request, $sub_task_id)
     {
         $LiveProjectSubTasks = LiveProjectSubTasks::find($sub_task_id);
+        $LiveProjectGranttTask = LiveProjectGranttTask::create([
+            "text"          => $request->TaskName,
+            'start_date'    => $request->StartDate,
+            'end_date'      => $request->EndDate,
+            'delivery_date' => $request->DeliveryDate,
+            "parent"        => $LiveProjectSubTasks->chart_task_id,
+            "type"          => 'project',
+            "status"        => 1,
+            "project_id"    => $LiveProjectSubTasks->project_id
+        ]);
         $LiveProjectSubTasks->SubSubTasks()->create([
             'name'          => $request->TaskName,
             'assign_to'     => $request->AssignTo,
             'start_date'    => $request->StartDate,
             'end_date'      => $request->EndDate,
             'delivery_date' => $request->DeliveryDate,
+            "chart_task_id" => $LiveProjectSubTasks->chart_task_id,
+            "parent"        => $LiveProjectGranttTask->id,
             'status'        => 0
         ]);
         return response()->json([
@@ -180,6 +199,7 @@ class LiveProjectController extends Controller
     public function delete_sub_task($sub_task_id)
     {
         $LiveProjectSubTasks = LiveProjectSubTasks::with('SubSubTasks')->find($sub_task_id);
+
         $LiveProjectSubTasks->update(['status' => 0]);
         if (!is_null($LiveProjectSubTasks->SubSubTasks)) {
             $LiveProjectSubTasks->SubSubTasks()->delete();

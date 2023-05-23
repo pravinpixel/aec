@@ -295,7 +295,7 @@
                                                     <table class="shadow-sm custom border border-dark mb-0 table table-bordred bg-white">
                                                         <thead>
                                                             <tr>
-                                                                <td colspan="3" class="text-center bg-light fw-bold"> {{ $building->wall }} - {{ $key+1 }}</td>
+                                                                <td colspan="3" class="text-center text-dark bg-light fw-bold"> {{ $building->wall }} - {{ $key+1 }}</td>
                                                             </tr>
                                                             <tr>
                                                                 <td width="33%" class="bg-primary2 text-white"><b>{{ $building->wall =='Roof' ? 'Roof' : 'Floor' }}</b></td>

@@ -43,7 +43,7 @@
                                         <i class="btn btn-sm border py-0 p-1 shadow-sm btn-light mdi-arrow-collapse-vertical mdi"></i>
                                     </td>
                                     <td>
-                                        <input type="text" {{ $sub_sub_task->status == 1 ? 'disabled' : '' }}  onkeypress="setLiveProjectSubSubTask('name','{{ $sub_sub_task->id }}',this)" value="{{ $sub_sub_task->name }}" class="custom input_{{ slugable($sub_task->name,$key + 1) }}" required>
+                                        <input type="text" {{ $sub_sub_task->status == 1 ? 'disabled' : '' }}  onkeyup="setLiveProjectSubSubTask('name','{{ $sub_sub_task->id }}',this)" value="{{ $sub_sub_task->name }}" class="custom input_{{ slugable($sub_task->name,$key + 1) }}" required>
                                     </td>
                                     <td>
                                         <select {{ $sub_sub_task->status == 1 ? 'disabled' : '' }}  onchange="setLiveProjectSubSubTask('assign_to','{{ $sub_sub_task->id }}',this)" class="custom input_{{ slugable($sub_task->name,$key + 1) }}">
