@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin\Project;
 
 use App\Helper\Bim360\Bim360CompaniesApi;
-use App\Helper\Bim360\Bim360Company;
 use App\Helper\Bim360\Bim360ProjectsApi;
 use App\Helper\Bim360\Bim360UsersApi;
 use App\Http\Controllers\Controller;
@@ -25,39 +24,29 @@ use App\Models\ProjectGranttTask;
 use App\Models\GeneralNote;
 use App\Models\ProjectType;
 use App\Models\ProjectTicket;
-use App\Models\ProjectTeamSetup;
 use App\Models\Role;
 use Illuminate\Http\Response;
-use App\Repositories\CustomerRepository;
 use App\Repositories\DocumentTypeEnquiryRepository;
 use App\Repositories\ProjectRepository;
-use App\Repositories\RoleRepository;
 use App\Services\GlobalService;
 use App\Models\Admin\PropoalVersions as ProposalVersions;
 use App\Models\Admin\MailTemplate;
 use App\Models\TicketcommentsReplay;
-
 use Carbon\Carbon;
 use DateTime;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 use Laracasts\Flash\Flash;
 use Yajra\DataTables\Facades\DataTables;
-use RicorocksDigitalAgency\Soap\Facades\Soap;
 use Illuminate\Support\Facades\Mail;
 use App\Interfaces\ProjectChatRepositoryInterface;
-use App\Models\LiveProjectGranttLink;
-use App\Models\LiveProjectGranttTask;
 use App\Models\projectsFolders;
 use App\Models\TeamSetupTemplate;
 use App\Models\sharePointMasterFolder;
-use Autodesk\Forge\Client\Model\Projects;
-use CreateSharePointMasterFoldersTable;
 
 class ProjectController extends Controller
 {

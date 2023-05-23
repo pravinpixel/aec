@@ -55,7 +55,6 @@
     <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
     <script>
-     
         FectVariationVersionTable = (id, table_id) => {
             $(`#variation-versions-table_${id}`).DataTable().destroy();
             $(`#variation-versions-table_${id}`).DataTable({
@@ -101,7 +100,6 @@
             });
         }
         FectVariationVersionTable({{ $variations[0]->id ?? 0 }},'#variation-versions-table_{{ $variations[0]->id }}')
-        
         showVariationOrder = (id, element) => {  
             $(element.getAttribute('data-table-id')).DataTable().destroy();
             startLoader(element)
