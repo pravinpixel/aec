@@ -100,12 +100,6 @@
                     <span> Calender </span>
                 </a> 
             </li>
-            <li class="side-nav-item ">
-                <a href="#" class="side-nav-link">
-                    <i class="fa fa-cog" aria-hidden="true"></i>
-                    <span> Setup </span>
-                </a> 
-            </li>
         </ul>
  
         <!-- End Sidebar -->
