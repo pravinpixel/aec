@@ -29,40 +29,40 @@
                                     <h4 class="header-title text-uppercase"><strong>Live Status</strong></h4>
                                     <div class="row text-center">
                                         <div class="col-md-3">
-                                            <div class="live-status-bg">
+                                            <a class="live-status-bg d-block" href="{{ route('admin.enquiry-list') }}">
                                                 <h3>New Enquiries</h3>
                                                 <p class="count">{{ $result['new_enquiries'] }}</p>
                                                 <span class="btn btn-success">
                                                     <i class="mdi mdi-comment-plus-outline"></i>
                                                 </span>
-                                            </div>
+                                            </a>
                                         </div>
                                         <div class="col-md-3">
-                                            <div class="live-status-bg">
+                                            <a class="live-status-bg d-block" href="">
                                                 <h3>Unattended Enquiries</h3>
                                                 <p class="count">{{ $result['unattended_enquiries'] }}</p>
                                                 <span class="btn btn-danger">
                                                     <i class="mdi mdi-comment-remove-outline"></i>
                                                 </span>
-                                            </div>
+                                            </a>
                                         </div>
                                         <div class="col-md-3">
-                                            <div class="live-status-bg">
+                                            <a class="live-status-bg d-block" href="">
                                                 <h3>Ready for Project</h3>
                                                 <p class="count">{{ $result['ready_for_projects'] }}</p>
                                                 <span class="btn btn-primary">
                                                     <i class="mdi mdi-comment-check-outline"></i>
                                                 </span>
-                                            </div>
+                                            </a>
                                         </div>
                                         <div class="col-md-3">
-                                            <div class="live-status-bg">
+                                            <a class="live-status-bg d-block" href="">
                                                 <h3>Waiting for Customer Response</h3>
                                                 <p class="count">{{ $result['waiting_for_customer_response'] }}</p>
                                                 <span class="btn btn-secondary text-white">
                                                     <i class="mdi mdi-comment-processing-outline"></i>
                                                 </span>
-                                            </div>
+                                            </a>
                                         </div>
                                     </div>
                                 </div> <!-- end col -->
