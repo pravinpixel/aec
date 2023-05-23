@@ -160,7 +160,7 @@ class LiveProjectController extends Controller
     public function delete_sub_sub_task($sub_sub_task_id)
     {
         $LiveProjectSubSubTasks = LiveProjectSubSubTasks::find($sub_sub_task_id);
-        LiveProjectGranttTask::find($LiveProjectSubSubTasks->parent)->delete();
+        LiveProjectGranttTask::find($LiveProjectSubSubTasks->chart_task_id)->delete();
         $sub_task_id = $LiveProjectSubSubTasks->sub_task_id;
         $LiveProjectSubSubTasks->delete();
         $result = $this->LiveProjectRepository->getSubTaskProgress($sub_task_id);

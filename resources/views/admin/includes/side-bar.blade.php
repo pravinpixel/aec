@@ -114,11 +114,11 @@
                     <div class="collapse {{ Route::is(['live-project.completed','create-projects', 'list-projects', 'live-projects', 'live-projects-data','live-project.menus-index']) ? 'show' : '' }}"
                         id="project_creation">
                         <ul class="side-nav-second-level">
-                            <li class="{{ Route::is(['list-projects']) ? 'menuitem-active' : '' }}"><a
-                                    href="{{ route('list-projects') }}">List of Project</a></li>
                             <li class="{{ Route::is(['create-projects']) ? 'menuitem-active' : '' }}"><a
                                     onclick="return window.location.assign('{{ route('create-projects') }}')"
-                                    href="#">Create New Project</a></li>
+                                    href="#">+ Create Project</a></li>
+                            <li class="{{ Route::is(['list-projects']) ? 'menuitem-active' : '' }}"><a
+                                    href="{{ route('list-projects') }}">List of Project</a></li>
                             <li
                                 class="{{ Route::is(['live-projects', 'live-projects-data', 'live-project.menus-index']) ? 'menuitem-active' : '' }}">
                                 <a href="{{ route('live-projects') }}">Live Project</a>

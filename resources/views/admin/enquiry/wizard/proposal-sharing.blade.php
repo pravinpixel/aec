@@ -64,16 +64,16 @@
 @if(userHasAccess('proposal_sharing_index'))
     <div>
         <div class="card shadow-none p-0" class="accordion accordion-flush" id="accordionFlushExample">
-            <div class="p-2 mx-auto col-md-6">
+            <div class="p-2 mx-auto col-md-6" ng-hide="proposal.length">
                 <div>
                     <h4 class="p-2 m-0 h4 text-center"> Select Proposal type </h4>
                 </div>
-                <div class="d-flex">
-                    <select  class="form-select me-2"  ng-model="documentary.documentary_title" name="documentary_title"    ng-required="true">
+                <div class="d-flex"> 
+                    <select  class="form-select me-2" ng-disabled="proposal.length" ng-model="documentary.documentary_title" name="documentary_title"    ng-required="true">
                         <option value="" selected>Select</option>
                         <option value="@{{ emp.id }}" ng-repeat="(index,emp) in documentary_module_name">@{{ emp.documentary_title }}</option>
                     </select>
-                    <button ng-click="documentaryOneData()" class="btn btn-success float-right btn-sm" ><small> Create</small></button>
+                    <button ng-click="documentaryOneData()" ng-disabled="proposal.length" class="btn btn-success float-right btn-sm" ><small> Create</small></button>
                 </div>
             </div>
             <proposal-comment data="
