@@ -295,9 +295,12 @@
                                                     <table class="shadow-sm custom border border-dark mb-0 table table-bordred bg-white">
                                                         <thead>
                                                             <tr>
-                                                                <td width="33%" class="bg-primary2"><b>{{ $building->wall =='Roof' ? 'Roof' : 'Floor' }}</b></td>
-                                                                <td width="33%" class="bg-primary2"><b>Type of Delivery</b></td>
-                                                                <td width="33%" class="bg-primary2"><b>Total Area</b></td>
+                                                                <td colspan="3" class="text-center bg-light fw-bold"> {{ $building->wall }} - {{ $key+1 }}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td width="33%" class="bg-primary2 text-white"><b>{{ $building->wall =='Roof' ? 'Roof' : 'Floor' }}</b></td>
+                                                                <td width="33%" class="bg-primary2 text-white"><b>Type of Delivery</b></td>
+                                                                <td width="33%" class="bg-primary2 text-white"><b>Total Area</b></td>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
