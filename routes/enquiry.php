@@ -63,6 +63,7 @@ Route::group(['prefix' => 'admin', 'middleware'=> 'admin'], function(){
     Route::get('/proposal/view/{id}',[ProposalController::class,'index'])->name('index.proposal-sharing');
     Route::get('/proposal/enquiry/{id}/edit/{proposal_id}',[ProposalController::class,'edit'])->name('edit.proposal-sharing');
     Route::get('/proposal/enquiry/{id}/download/{proposal_id}',[ProposalController::class,'download'])->name('edit.download-proposal-sharing');
+    Route::get('/proposal/enquiry/download-proposal-version/{version_id?}',[ProposalController::class,'download_proposal_version'])->name('download-proposal-version');
     Route::put('/proposal/enquiry/{id}/edit/{proposal_id}',[ProposalController::class,'update'])->name('update.proposal-sharing');
 
     Route::get('/proposal/enquiry/{id}/edit/{proposal_id}/version/{Vid}',[ProposalController::class,'editVersions']);

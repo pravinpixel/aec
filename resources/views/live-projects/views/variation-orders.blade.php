@@ -5,23 +5,28 @@
             @foreach ($variations as $index => $variation)
                 <div class="card mb-0 shadow-0 border rounded-0 border-bottom-0">
                     <div class="card-header shadow-0 px-3 p-2 d-flex align-items-center justify-content-between"
-                    id="variationTitle_{{ $index }}">
+                        id="variationTitle_{{ $index }}">
                         <div class="d-flex align-items-center">
-                            <a onclick="showVariationOrder( '{{ $variation->id }}' ,this)" data-table-id="#variation-versions-table_{{ $variation->id }}" class="fa fa-plus-circle fs-4 me-2  {{ $index == 0 ? '' : 'collapsed' }}"
-                                data-bs-toggle="collapse"  data-bs-target="#versionListView__{{ $index }}"
+                            <a onclick="showVariationOrder( '{{ $variation->id }}' ,this)"
+                                data-table-id="#variation-versions-table_{{ $variation->id }}"
+                                class="fa fa-plus-circle fs-4 me-2  {{ $index == 0 ? '' : 'collapsed' }}"
+                                data-bs-toggle="collapse" data-bs-target="#versionListView__{{ $index }}"
                                 aria-expanded="false" aria-controls="versionListView__{{ $index }}"></a>
-                            <a data-table-id="#variation-versions-table_{{ $variation->id }}" class="fa fa-minus-circle fs-4 me-2   {{ $index == 0 ? '' : 'collapsed' }}"
-                                data-bs-toggle="collapse"  data-bs-target="#versionListView__{{ $index }}"
+                            <a data-table-id="#variation-versions-table_{{ $variation->id }}"
+                                class="fa fa-minus-circle fs-4 me-2   {{ $index == 0 ? '' : 'collapsed' }}"
+                                data-bs-toggle="collapse" data-bs-target="#versionListView__{{ $index }}"
                                 aria-expanded="false" aria-controls="versionListView__{{ $index }}"></a>
                             <h5 class="h5 m-0 text-dark py-1">
                                 VAR/{{ date('Y') }}/{{ $index + 1 }} - {{ $variation->issues->title }}
                             </h5>
                         </div>
                         <div>
-                            <div class="text-primary fw-bold">Total vesions : {{ count($variation->VariationOrderVersions) }}</div>
+                            <div class="text-primary fw-bold">Total vesions :
+                                {{ count($variation->VariationOrderVersions) }}</div>
                         </div>
                     </div>
-                    <div id="versionListView__{{ $index }}" class="card-body collapse  {{ $index == 0 ? 'show' : '' }}"
+                    <div id="versionListView__{{ $index }}"
+                        class="card-body collapse  {{ $index == 0 ? 'show' : '' }}"
                         aria-labelledby="variationTitle_{{ $index }}">
                         <div class="accordion-body">
                             <table class="table" id="variation-versions-table_{{ $variation->id }}">
@@ -31,7 +36,7 @@
                                         <th scope="col">Title</th>
                                         <th scope="col">Hours</th>
                                         <th scope="col">Price</th>
-                                        <th scope="col">Total Price</th> 
+                                        <th scope="col">Total Price</th>
                                         <th scope="col">Status</th>
                                         <th scope="col">Action</th>
                                     </tr>
@@ -99,13 +104,13 @@
                 ]
             });
         }
-        FectVariationVersionTable({{ $variations[0]->id ?? 0 }},'#variation-versions-table_{{ $variations[0]->id }}')
-        showVariationOrder = (id, element) => {  
+        @if (count($variations) > 0)
+            FectVariationVersionTable({{ $variations[0]->id ?? 0 }}, '#variation-versions-table_{{ $variations[0]->id }}')
+        @endif
+        showVariationOrder = (id, element) => {
             $(element.getAttribute('data-table-id')).DataTable().destroy();
             startLoader(element)
             axios.get(`{{ route('live-project.show-variation.ajax') }}/${id}`).then((response) => {
-                // $('#detail-variation-modal').modal('show')
-                // $(element.getAttribute('data-bs-target')).html(response.data.view)
                 FectVariationVersionTable(id, element.getAttribute('data-table-id'))
                 stopLoader(element)
             })
@@ -123,8 +128,7 @@
                 allowEscapeKey: false
             }).then((result) => {
                 if (result.isConfirmed) {
-                    axios.delete(`{{ route('live-project.delete-variation.ajax') }}/${id}`).then((
-                        response) => {
+                    axios.delete(`{{ route('live-project.delete-variation.ajax') }}/${id}`).then((response) => {
                         if (response.data.status) {
                             Alert.info('Variation order canceled !')
                             $('#variation-order-table').DataTable().destroy();
