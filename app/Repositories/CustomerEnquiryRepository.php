@@ -145,16 +145,17 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
     public function duplicateProposalVersion($enquiry_id, $proposal_id, $request)
     {
         changePreviousProposalStatus($enquiry_id);
-        $result     =   PropoalVersions::where("enquiry_id",$enquiry_id)->where("proposal_id", $proposal_id)->first();
+        $result               = PropoalVersions::find($proposal_id);
         $totalProposalVersion = PropoalVersions::where(["enquiry_id"=> $enquiry_id, "documentary_id"=> $result->documentary_id])->get()->count();
-        $version = 'R'.($totalProposalVersion + 1);
+        $version              = 'R'.($totalProposalVersion + 1);
+        $documentary_content  = str_replace(['R0','RO','R1','R2','R3','R4','R5','R6','R7','R8','R9'],$version, $result->documentary_content);
         $duplicate  =  new PropoalVersions;
         $duplicate  ->  proposal_id         = $proposal_id;
         $duplicate  ->  parent_id           = $result->proposal_id;
         $duplicate  ->  enquiry_id          = $enquiry_id;
         $duplicate  ->  documentary_id      = $result->documentary_id;
         $duplicate  ->  documentary_date    = $result->documentary_date;
-        $duplicate  ->  documentary_content = $result->documentary_content;
+        $duplicate  ->  documentary_content = $documentary_content;
         $duplicate  ->  pdf_file_name       = $result->pdf_file_name;
         $duplicate  ->  template_name       = $result->template_name;
         $duplicate  ->  version             = $version;
@@ -210,18 +211,19 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
     }
     public function duplicateCustomerProPosalByID($id, $proposal_id, $request)
     {
-        changePreviousProposalStatus($id);
-        $result     =   MailTemplate::where("enquiry_id", '=', $id)->where("proposal_id", '=', $proposal_id)->first();
-        $result->status = "obsolete";
+        $result               = MailTemplate::where("enquiry_id", '=', $id)->where("proposal_id", '=', $proposal_id)->first();
+        $result->status       = "obsolete";
         $totalProposalVersion = PropoalVersions::where(["enquiry_id"=> $id, "documentary_id" => $result->documentary_id])->get()->count();
-        $version = 'R'.($totalProposalVersion + 1);
-        $duplicate  =  new PropoalVersions;
+        $version              = 'R'.($totalProposalVersion + 1);
+        $documentary_content  = str_replace(['R0','RO','R1','R2','R3','R4','R5','R6','R7','R8','R9','R10','R11'],$version, $result->documentary_content);
+       
+        $duplicate            = new PropoalVersions;
         $duplicate  ->  proposal_id         = $proposal_id;
         $duplicate  ->  parent_id           = $result->proposal_id;
         $duplicate  ->  enquiry_id          = $id;
         $duplicate  ->  documentary_id      = $result->documentary_id;
         $duplicate  ->  documentary_date    = $result->documentary_date;
-        $duplicate  ->  documentary_content = $result->documentary_content;
+        $duplicate  ->  documentary_content = $documentary_content;
         $duplicate  ->  pdf_file_name       = $result->pdf_file_name;
         $duplicate  ->  template_name       = $result->template_name;
         $duplicate  ->  version             = $version;
