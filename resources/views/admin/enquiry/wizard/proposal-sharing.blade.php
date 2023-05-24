@@ -123,13 +123,21 @@
                                                 </td>
                                                 <td style="width: 10% !important" class="text-center">
                                                     <button type="button" class="btn-quick-view"
-                                                        ng-click="ViewProposeVersions(P.proposal_id , P.id)"
+                                                        ng-if="P.id"
+                                                        ng-click="ViewEditProposeVersions(P.proposal_id , P.id)"
+                                                    >
+                                                        <b>@{{ P.template_name }}</b>
+                                                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"></span>
+                                                    </button>
+                                                    <button type="button" class="btn-quick-view"
+                                                        ng-if="P.id === null"
+                                                        ng-click="ViewEditPropose(P.proposal_id)"
                                                     >
                                                         <b>@{{ P.template_name }}</b>
                                                         <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"></span>
                                                     </button>
                                                 </td>
-                                                <td style="width: 10% !important" class="text-primary text-center">@{{ P.version }}</td>
+                                                <td style="width: 10% !important" class="text-primary text-center">@{{ P.version }} - @{{ P.id }}</td>
                                                 <td style="width: 10% !important" class="text-info text-center">
                                                     <proposal-status data="P.status" />
                                                 </td>
@@ -148,7 +156,16 @@
                                                         <button type="button" class="toggle-btn btn-light btn-sm p-1 py-0 btn-light btn" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                             <i class="dripicons-dots-3 "></i>
                                                         </button>
-                                                        <div class="dropdown-menu dropdown-menu-end" ng-if="P.status == 'change_request' && P.type == 'root'" >
+                                                        <div class="dropdown-menu dropdown-menu-end">
+                                                            <button class="dropdown-item" ng-if="P.id === null" ng-click="ViewEditPropose(P.proposal_id)">View / Edit</button>
+                                                            <button class="dropdown-item" ng-if="P.id" ng-click="ViewEditProposeVersions(P.proposal_id , P.id)">View / Edit</button>
+                                                            <button class="dropdown-item" ng-click="DownloadProposal(P.proposal_id)">Download</button>
+                                                            {{-- <button class="dropdown-item" ng-click="DuplicatePropose(P.proposal_id)">Duplicate</button>
+                                                            <button class="btn dropdown-item" ng-click="showCommentsToggle(P.proposal_id, P.type)" > Chat</u></a> --}}
+                                                            <div class="dropdown-divider m-0"></div>
+                                                            <button class="dropdown-item text-danger" ng-click="DeletePropose(P.proposal_id)">Delete</button>
+                                                        </div>
+                                                        {{-- <div class="dropdown-menu dropdown-menu-end" ng-if="P.status == 'change_request' && P.type == 'root'" > 
                                                             <button class="dropdown-item" ng-click="ViewEditPropose(P.proposal_id)">View / Edit</button>
                                                             <button class="dropdown-item" ng-click="DuplicatePropose(P.proposal_id)">Duplicate</button>
                                                             <button class="dropdown-item"  ng-click="DownloadProposal(P.proposal_id)">Download</button>
@@ -158,33 +175,33 @@
                                                             <button class="dropdown-item" ng-click="ViewEditPropose(P.proposal_id)">View / Edit</button>
                                                             <button class="dropdown-item"  ng-click="DownloadProposal(P.proposal_id)">Download</button>
                                                             <button class="dropdown-item text-danger" ng-click="DeletePropose(P.proposal_id)">Delete</button>
-                                                        </div>
-
-                                                        <div class="dropdown-menu dropdown-menu-end" ng-if="P.status == 'sent' && P.type == 'root'" >
-                                                            {{-- <button class="dropdown-item" ng-click="ViewEditPropose(P.proposal_id)">View / Edit</button> --}}
+                                                        </div> --}}
+{{--  --}}
+                                                        {{--  <div class="dropdown-menu dropdown-menu-end" ng-if="P.status == 'sent' && P.type == 'root'" >
+                                                            <button class="dropdown-item" ng-click="ViewEditPropose(P.proposal_id)">View / Edit</button>
                                                             <button class="dropdown-item"  ng-click="DownloadProposal(P.proposal_id)">Download</button>
                                                             <button class="dropdown-item" ng-click="DuplicatePropose(P.proposal_id)">Duplicate</button>
                                                             <button class="btn dropdown-item"  ng-click="showCommentsToggle(P.proposal_id, P.type)" > Chat</u></a>
 
-                                                            {{-- <button class="dropdown-item text-danger" ng-click="DeletePropose(P.proposal_id)">Delete</button>  --}}
-                                                        </div>
+                                                            <button class="dropdown-item text-danger" ng-click="DeletePropose(P.proposal_id)">Delete</button> 
+                                                        </div> --}}
 
 
-                                                        <div class="dropdown-menu dropdown-menu-end" ng-if="P.status == 'awaiting' && P.type == 'child'" >
+                                                        {{-- <div class="dropdown-menu dropdown-menu-end" ng-if="P.status == 'awaiting' && P.type == 'child'" >
                                                             <button class="dropdown-item" ng-click="ViewEditProposeVersions(P.proposal_id , P.id)">View / Edit</button>
                                                             <button class="dropdown-item" ng-click="DownloadProposal(P.proposal_id)">Download</button>
                                                             <a ng-show="P.status == 'awaiting'" class="btn dropdown-item  text-danger" ng-click="DeleteProposeVersion(P.proposal_id , P.id)">Delete</a>
-                                                        </div>
-
+                                                        </div> --}}
+{{-- 
                                                         <div class="dropdown-menu dropdown-menu-end" ng-if="P.status == 'sent' && P.type == 'child'" >
-                                                            {{-- <button class="dropdown-item" ng-click="ViewEditProposeVersions(P.proposal_id , P.id)">View / Edit</button> --}}
-                                                            <button class="dropdown-item" ng-click="DuplicatePropose(P.proposal_id)">Duplicate</button>
+                                                            <button class="dropdown-item" ng-click="ViewEditProposeVersions(P.proposal_id , P.id)">View / Edit</button>
+                                                            <button class="dropdown-item" ng-click="DuplicateProposalVersion(P.id)">Duplicate </button>
                                                             <button class="dropdown-item"  ng-click="DownloadProposal(P.proposal_id)">Download</button>
                                                             <button class="btn dropdown-item"  ng-click="showCommentsToggle(P.proposal_id, P.type)" > Chat</u></a>
-                                                            {{-- <button class="dropdown-item text-danger" ng-click="DeletePropose(P.proposal_id)">Delete</button>  --}}
-                                                        </div>
+                                                            <button class="dropdown-item text-danger" ng-click="DeletePropose(P.proposal_id)">Delete</button> 
+                                                        </div> --}}
 
-                                                        <div class="dropdown-menu dropdown-menu-end" ng-if="P.status == 'approved'">
+                                                        {{-- <div class="dropdown-menu dropdown-menu-end" ng-if="P.status == 'approved'">
                                                             <button class="dropdown-item" ng-click="ViewEditProposeVersions(P.proposal_id , P.id)">View / Edit</button>
                                                             <button class="dropdown-item" ng-click="DuplicatePropose(P.proposal_id)">Duplicate</button>
                                                             <button class="dropdown-item"  ng-click="DownloadProposal(P.proposal_id)">Download</button>
@@ -192,19 +209,19 @@
                                                         </div>
 
                                                         <div class="dropdown-menu dropdown-menu-end" ng-if="P.status == 'obsolete' && P.type == 'root'">
-                                                            <button class="dropdown-item" ng-click="ViewEditProposeVersions(P.proposal_id , P.id)">View / Edit</button>
+                                                            <button class="dropdown-item" ng-click="ViewEditPropose(P.proposal_id)">View / Edit</button>
                                                             <button class="dropdown-item" ng-click="DuplicatePropose(P.proposal_id)">Duplicate</button>
                                                             <button class="dropdown-item"  ng-click="DownloadProposal(P.proposal_id)">Download</button>
                                                             <button class="btn dropdown-item"  ng-click="showCommentsToggle(P.proposal_id, P.type)" > Chat</u></a>
                                                             <button class="dropdown-item text-danger" ng-click="DeletePropose(P.proposal_id)">Delete</button>
                                                         </div>
                                                         <div class="dropdown-menu dropdown-menu-end" ng-if="P.status == 'obsolete' && P.type == 'child'">
-                                                            {{-- <button class="dropdown-item" ng-click="ViewEditProposeVersions(P.proposal_id , P.id)">View / Edit</button> --}}
-                                                            <button class="dropdown-item" ng-click="DuplicatePropose(P.proposal_id)">Duplicate</button>
+                                                            <button class="dropdown-item" ng-click="DuplicateProposalVersion(P.id)">Duplicate </button>
+                                                            <button class="dropdown-item" ng-click="ViewEditProposeVersions(P.proposal_id , P.id)">View / Edit</button>
                                                             <button class="dropdown-item"  ng-click="DownloadProposal(P.proposal_id)">Download</button>
                                                             <button class="btn dropdown-item"  ng-click="showCommentsToggle(P.proposal_id, P.type)" > Chat</u></a>
-                                                                <button class="dropdown-item text-danger" ng-click="DeletePropose(P.proposal_id)">Delete</button>
-                                                        </div>
+                                                                <button class="dropdown-item text-danger" ng-click="DeleteProposeVersion(P.id)">Delete</button>
+                                                        </div> --}}
 
 
 
@@ -215,7 +232,6 @@
                                                             <button class="dropdown-item text-danger" ng-click="DeletePropose(P.proposal_id)">Delete</button>
                                                             <a ng-show="P.status == 'awaiting'" class="btn dropdown-item" ng-click="DeleteProposeVersion(P.proposal_id , P.id)">Delete</a>
                                                         </div> --}}
-
                                                         {{-- <a class="dropdown-item" ng-click="DuplicateProposalVersion(P.proposal_id)">Duplicate</a>
                                                         <a class="dropdown-item"  ng-click="showCommentsToggle(P.id, P.type)" > Chat</u></a> --}}
                                                     </div>
@@ -223,23 +239,17 @@
                                             </tr>
                                             <tr  id="togggleTable@{{ key+1 }}" class="collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                                                 <td colspan="8" class="hiddenRow" style="padding: 0 !important">
-                                                    <table class="table custom table-bordered m-0">
+                                                    <table class="table custom table-bordered table-hover m-0">
                                                         <tbody>
                                                             <tr ng-repeat="(key2,V) in P.get_versions">
                                                                 <td  class="text-end" style="width: 6% !important">
                                                                     <div class="text-end">@{{ key+1 }}.@{{ key2+1 }}</div>
                                                                 </td>
                                                                 <td style="width: 10% !important" class="text-center">@{{ V.template_name }}</td>
-                                                                <td style="width: 10% !important" class="text-info text-center"><b><small>@{{ V.version }}</small></b></td>
-                                                                {{-- <td style="width: 10% !important" class="text-info text-center">
-                                                                    <span ng-show="V.status == 'awaiting'" class="badge badge-outline-warning rounded-pill">Awaiting</span>
-                                                                    <span ng-show="V.status == 'sent'" class="badge badge-outline-success rounded-pill">sent</span>
-                                                                    <span> @{{ V.status  }} </span>
-                                                                </td> --}}
+                                                                <td style="width: 10% !important" class="text-info text-center"><b><small>@{{ V.version }} @{{ V.id }}</small></b></td>
                                                                 <td style="width: 10% !important" class="text-info text-center">
                                                                     <proposal-status data="V.status" />
                                                                 </td>
-
                                                                 <td style="width: 28% !important" class="text-info text-center">
                                                                     <div class="proposal-comment">
                                                                         <div>@{{ V.comment }} </div>
@@ -247,7 +257,8 @@
                                                                 </td>
 
                                                                 <td style="width: 16% !important" class="text-center">
-                                                                    <small>@{{V.mail_send_date | date:"MM/dd/yyyy 'at' h:mma"}}</small>
+                                                                    <small ng-if="V.mail_send_date">@{{V.mail_send_date | date:"MM/dd/yyyy 'at' h:mma"}}</small>
+                                                                    <small ng-if="V.mail_send_date == null"> Not Yet Sent!</small>
                                                                 </td>
 
                                                                 <td style="width: 6% !important" class="text-center">
@@ -255,55 +266,11 @@
                                                                         <button type="button" class="toggle-btn btn-light btn-sm p-1 py-0 btn-light btn" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                                             <i class="dripicons-dots-3 "></i>
                                                                         </button>
-
-                                                                        <div class="dropdown-menu dropdown-menu-end" ng-if="V.status == 'change_request' && V.type == 'root'">
-                                                                            <button class="dropdown-item" ng-click="ViewEditPropose(V.proposal_id)">View</button>
-                                                                            <a class="btn dropdown-item"  ng-click="showCommentsToggle(V.proposal_id, V.type)"> Chat</u></a>
-                                                                            <button class="dropdown-item" ng-click="DuplicatePropose(V.proposal_id)">Duplicate</button>
-                                                                            <button class="dropdown-item"  ng-click="DownloadProposal(V.proposal_id)">Download</button>
-                                                                        </div>
-                                                                        <div class="dropdown-menu dropdown-menu-end" ng-if="V.status == 'approved' && V.type == 'root'">
-                                                                            <button class="dropdown-item" ng-click="ViewEditPropose(V.proposal_id)">View</button>
-                                                                            <a class="btn dropdown-item"  ng-click="showCommentsToggle(V.proposal_id, V.type)" > Chat</u></a>
-                                                                            <button class="dropdown-item" ng-click="DuplicatePropose(V.proposal_id)">Duplicate</button>
-                                                                            <button class="dropdown-item"  ng-click="DownloadProposal(V.proposal_id)">Download</button>
-                                                                        </div>
-
-                                                                        <div class="dropdown-menu dropdown-menu-end" ng-if="V.status == 'obsolete' && V.type == 'root'">
-                                                                            <button class="dropdown-item" ng-click="ViewEditPropose(V.proposal_id)">View</button>
-                                                                            <a class="btn dropdown-item"  ng-click="showCommentsToggle(V.proposal_id, V.type)" > Chat</u></a>
-                                                                            <button class="dropdown-item" ng-click="DuplicatePropose(V.proposal_id)">Duplicate</button>
-                                                                            <button class="dropdown-item"  ng-click="DownloadProposal(V.proposal_id)">Download</button>
-                                                                            <button class="dropdown-item text-danger" ng-click="DeleteProposeVersion(V.proposal_id,V.id)">Delete</button>
-                                                                        </div>
-                                                                        <div class="dropdown-menu dropdown-menu-end" ng-if="V.status == 'awaiting' && V.type == 'child'">
-                                                                            <button class="dropdown-item" ng-click="ViewEditPropose(V.proposal_id,false)">View / Edit</button>
-                                                                            <button class="dropdown-item"  ng-click="DownloadProposal(V.proposal_id)">Download</button>
-                                                                            <button class="dropdown-item text-danger" ng-click="DeleteProposeVersion(V.proposal_id,V.id)">Delete</button>
-                                                                        </div>
-                                                                        <div class="dropdown-menu dropdown-menu-end" ng-if="V.status == 'sent' && V.type == 'child'">
-                                                                            <a class="btn dropdown-item"  ng-click="showCommentsToggle(V.proposal_id, V.type)" > Chat</u></a>
-                                                                            <button class="dropdown-item" ng-click="DuplicatePropose(V.proposal_id)">Duplicate</button>
-                                                                            <button class="dropdown-item"  ng-click="DownloadProposal(V.proposal_id)">Download</button>
-                                                                        </div>
-                                                                        {{-- <div class="dropdown-menu dropdown-menu-end" ng-if="V.type == 'root'">
-                                                                            <a class="btn dropdown-item" ng-click="ViewEditPropose(V.proposal_id, false)">View</a>
-                                                                            <a class="btn dropdown-item"  ng-click="showCommentsToggle(V.proposal_id, V.type)" > Chat</u></a>
-                                                                            <button class="dropdown-item" ng-click="DuplicatePropose(V.proposal_id)">Duplicate</button>
-                                                                            <button class="dropdown-item"  ng-click="DownloadProposal(V.proposal_id)">Download</button>
-                                                                        </div>
-                                                                        {{-- <div class="dropdown-menu dropdown-menu-end" ng-if="V.type == 'child'">
-                                                                            <a class="btn dropdown-item" ng-if="V.status == 'awaiting' || V.status == 'obsolete'"          ng-click="ViewEditPropose(V.proposal_id, false)">View/Edit</a>
-                                                                            <a class="btn dropdown-item" ng-if="V.status == 'obsolete ' || V.status == 'sent '"  ng-click="showCommentsToggle(V.proposal_id, V.type)" > Chat</u></a>
-                                                                            <button class="dropdown-item" ng-if="V.status == 'obsolete ' || V.status == 'sent '" ng-click="DuplicatePropose(V.proposal_id)">Duplicate</button>
-                                                                            <button class="dropdown-item" ng-if="V.status == 'obsolete' || V.status == 'awaiting' || V.status == 'sent '"  ng-click="DownloadProposal(V.proposal_id)">Download</button>
-                                                                            <a  class="btn dropdown-item text-danger"  ng-if="V.status == 'awaiting'"               ng-click="DeleteProposeVersion(V.proposal_id , V.id)">Delete</a>
-                                                                        </div>   --}}
-                                                                        <div class="dropdown-menu dropdown-menu-end" ng-if="V.status == 'obsolete' && V.type == 'child'">
-                                                                            <button class="dropdown-item" ng-click="ViewEditProposeVersions(V.proposal_id , V.id)">View / Edit</button>
-                                                                            <button class="dropdown-item" ng-click="DuplicatePropose(V.proposal_id)">Duplicate</button>
-                                                                            <button class="dropdown-item"  ng-click="DownloadProposal(V.proposal_id)">Download</button>
-                                                                            <button class="btn dropdown-item"  ng-click="showCommentsToggle(V.proposal_id, V.type)" > Chat</u></a>
+                                                                        <div class="dropdown-menu dropdown-menu-end">
+                                                                            <button class="dropdown-item" ng-if="V.status != 'sent'" ng-click="ViewEditProposeVersions(V.proposal_id,V.id)">View / Edit</button>
+                                                                            <button class="dropdown-item" ng-if="V.status != 'awaiting'" ng-click="DuplicateProposalVersion(V.id)">Duplicate</button>
+                                                                            <button class="dropdown-item" ng-click="DownloadProposalVersion(V.id)">Download</button>
+                                                                            <div class="dropdown-divider m-0"></div>
                                                                             <button class="dropdown-item text-danger" ng-click="DeleteProposeVersion(V.proposal_id,V.id)">Delete</button>
                                                                         </div>
                                                                     </div>

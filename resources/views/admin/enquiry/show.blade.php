@@ -2144,6 +2144,14 @@
                 window.onbeforeunload = null;
                 window.location.href=newUrl;
             }
+            $scope.DownloadProposalVersion=function(version_id){
+                var url ='{{route("download-proposal-version")}}'+"/"+version_id;
+                window.onbeforeunload = function() {
+                    return true;
+                };
+                window.onbeforeunload = null;
+                window.location.href= url;
+            }
             $scope.ViewEditProposeVersions = function (proposal_id , Vid, update_status = true) {
                 $scope.proposalModal = update_status;
                 $http.get(API_URL + 'admin/proposal/enquiry/'+{{ $data->id }}+'/edit/'+proposal_id+'/version/'+Vid).then(function (response) {

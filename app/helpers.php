@@ -6,6 +6,7 @@ use App\Models\Admin\Employees;
 use App\Models\Admin\MailTemplate;
 use App\Models\Admin\PropoalVersions;
 use App\Models\Customer;
+use App\Models\Documentary\Documentary;
 use App\Models\Enquiry;
 use App\Models\Inbox;
 use App\Models\Project;
@@ -367,11 +368,66 @@ if (!function_exists('changeProposalStatus')) {
         function formatBuildingComponentJSON($data)
         {
             foreach ($data as $key => $value) {
-                if(count($value['Details']) === 0) {
+                if (count($value['Details']) === 0) {
                     unset($data[$key]);
                 }
             }
             return json_decode(json_encode($data), FALSE);
+        }
+    }
+
+    if (!function_exists('bindProposalContent')) {
+        function bindProposalContent($enquiry, $documentary, $version)
+        {
+            $documentary_content = $documentary->documentary_content;
+            $variables = [
+                '$document_title'           => $documentary->documentary_title,
+                '$enquiry_date'             => $enquiry->enquiry_date,
+                '$project_name'             => $enquiry->project_name,
+                '$project_street_name'      => isset($enquiry->project->site_address) == false ? "" : $enquiry->project->site_address,
+                '$project_city'             => isset($enquiry->project->city) == false ? "" : $enquiry->project->city,
+                '$project_state'            => isset($enquiry->project->state) == false ? "" : $enquiry->project->state,
+                '$project_country'          => isset($enquiry->project->country) == false ? "" : $enquiry->project->country,
+                '$project_zipcode'          => isset($enquiry->project->zipcode) == false ? "" : $enquiry->project->zipcode,
+                '$no_of_building'           => isset($enquiry->project->no_of_building) == false ? "" : $enquiry->project->no_of_building,
+                '$project_date'             => $enquiry->project_date,
+                '$project_delivery_date'    => isset($enquiry->project->delivery_date) == false ? "" : $enquiry->project->delivery_date,
+                '$project_in_charge_name'   => isset($enquiry->project->contact_person) == false ? "" : $enquiry->project->contact_person,
+                '$project_mobile_no'        => isset($enquiry->project->project_mobile_no) == false ? "" : $enquiry->project->project_mobile_no,
+                '$company_name'             => $enquiry->company_name,
+                '$customer_organization_no' => $enquiry->customer->organization_no,
+                '$customer_street_name'     => $enquiry->site_address,
+                '$customer_city'            => $enquiry->city,
+                '$customer_state'           => $enquiry->state,
+                '$customer_country'         => $enquiry->country,
+                '$customer_zipcode'         => $enquiry->zipcode,
+                '$contact_person'           => $enquiry->customer->contact_person,
+                '$customer_email'           => $enquiry->customer->email,
+                '$customer_mobile_no'       => $enquiry->customer->mobile_no,
+                '$admin_name'               => config('global.admin_name'),
+                '$admin_role'               => config('global.admin_role'),
+                '$admin_email'              => config('global.admin_email'),
+                '$admin_mobile_no'          => config('global.admin_mobile_no'),
+                '$logo_image_with_url'      => '<img width="150px" src="' . config('global.logo') . '" alt="AEC PREFAB LOGO" />',
+                '$signature'                => '<img width="150px" src="' . config('global.signature') . '" alt="signature" />',
+                '$company_website'          => url(''),
+                '$today_date'               => date("d-m-Y"),
+                '$calculated_total_price'   => $enquiry->costEstimate->total_cost,
+                '$building_comp_1_name'     => "",
+                '$building_comp_2_name'     => "",
+                '$building_comp_3_name'     => "",
+                '$building_comp_4_name'     => "",
+                '$building_comp_1_area'     => "",
+                '$building_comp_2_area'     => "",
+                '$building_comp_3_area'     => "",
+                '$building_comp_4_area'     => "",
+                '$offer_number'             => "",
+                '$rev_number'               => "<version>".$version."</version>",
+            ];
+            foreach ($variables as $key => $value) {
+                $documentary_content = str_replace_all($key, $value, $documentary_content);
+            }
+            return $documentary_content;
         }
     }
 }
