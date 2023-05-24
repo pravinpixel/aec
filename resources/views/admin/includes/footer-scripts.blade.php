@@ -22,7 +22,13 @@
 <script src="{{ asset('public/assets/js/cdns/admin/scrollglue.js') }}"></script>
 <script src='{{ asset('public/assets/js/cdns/admin/angular-sanitize.min.js') }}'></script>
 <script type="text/javascript" src="{{ asset('public/custom/js/date-picker.js') }}"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/md5.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-animate.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-aria.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-messages.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.js"></script>
+<script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/t-114/svg-assets-cache.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.2.5/angular-material.js"></script>
 
 <!-- ====== Ajax Call Loader Js ========== -->
 <script type='text/javascript' src='{{ asset('public/assets/js/cdns/admin/loading-bar.min.js') }}'>

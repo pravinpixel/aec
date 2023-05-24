@@ -1,6 +1,6 @@
 <div class="border-bottom">
     <br>
-    <br>
+    <br> 
     <div class="row m-0 card-body">
         <div class="col-8 mx-auto d-flex">
             <div class="mb-2 me-3">
@@ -85,11 +85,11 @@
                                 <div class="col p-0">
                                     <div class="row m-0 p-2">
                                         <div class="col-5 ">
-                                            <strong class=" align-date1 text-center m-0 span bg-warning fw-bold rounded px-1" ng-bind="checkListData.data[0].start_date | date: 'yyyy-MM-dd'" style="margin-left:75px !important"> 
+                                            <strong class=" align-date1 text-center m-0 span bg-warning fw-bold rounded px-1" ng-bind="checkListData.data[0].start_date | date: 'dd/MM/yyyy'" style="margin-left:75px !important"> 
                                             </strong>
                                         </div>
                                         <div class="col-5 custom-align">
-                                            <strong class="align-date2 text-center m-0 span bg-warning fw-bold rounded px-1" ng-bind="checkListData.data[checkListData.data.length-1].end_date | date: 'yyyy-MM-dd' ">
+                                            <strong class="align-date2 text-center m-0 span bg-warning fw-bold rounded px-1" ng-bind="checkListData.data[checkListData.data.length-1].end_date | date: 'dd/MM/yyyy' ">
                                             </strong>
                                         </div>
                                         <div class="col " style="padding:0 !important;">
@@ -119,20 +119,18 @@
                                             </select>
                                         </div>
                                         <div class="col p-1">
-                                            <datepicker date-format="dd/MM/yyyy" date-min-limit="{{ \Carbon\Carbon::yesterday()->format('Y-m-d') }}" date-set="taskListData.start_date">
-                                                <input 
-                                                    ng-model="taskListData.start_date"
-                                                    type="text"
-                                                    readonly 
-                                                    class="form-control form-control-sm text-center"
-                                                    ng-change="putEndDate(taskListData.start_date,index_2,index_3)"
-                                                />
-                                            </datepicker>
+                                            <md-datepicker 
+                                                ng-model="taskListData.start_date" 
+                                                md-placeholder="Enter date"
+                                            />
                                         </div>
                                         <div class="col p-1">
-                                            <datepicker date-format="dd/MM/yyyy"  date-min-limit="@{{ max=index_2+index_3==id ?   end_date : (max== null) ? changeFormat(taskListData.start_date) : max   }}" date-set="taskListData.end_date" id="@{{ index_2 }}@{{ index_3 }}">
-                                                <input ng-model="taskListData.end_date" type="text" readonly class="form-control form-control-sm text-center"/>
-                                            </datepicker> 
+                                            {{-- @{{ taskListData.start_date | date : 'yyyy-MM-dd HH:mm:ss Z' }} --}}
+                                            <md-datepicker 
+                                                ng-model="taskListData.end_date" 
+                                                md-placeholder="Enter date"
+                                                md-min-date="taskListData.start_date"
+                                            />
                                         </div>
                                         <div class="p-1" style="width: 50px;display:flex;justify-content:center">
                                             <i class="bi bi-trash text-danger border btn btn-sm" ng-click="delete_this_taskListData(index,index_2,$index)"></i>
@@ -152,7 +150,6 @@
     <a href="#!/invoice-plan" class="btn btn-light float-start">Prev</a>
     <a ng-click="storeToDoLists()" class="btn btn-primary">Next</a>
 </div>
-
 <style>
     .To_Do_List .timeline-step .inner-circle {
         background: var(--secondary-bg) !important;
@@ -195,298 +192,3 @@
         padding-left:86px;
     }
 </style>
-{{-- <fieldset class="accordion-item">
-    <div class="accordion-header custom m-0 position-relative" id="mulistory_header">
-        <div class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#mulistory" aria-expanded="false" aria-controls="mulistory">
-            <span class="position-relative btn py-0">MULTISTOREY FACADE PROJECT </span> 
-        </div>
-        <div class="icon m-0 position-absolute rounded-pills  " style="right: 10px;top:30%; z-index:111 !important">
-            <i data-bs-toggle="collapse" 
-                href="#mulistory" 
-                aria-expanded="true" 
-                aria-controls="mulistory" 
-                class="accordion-button custom-accordion-button bg-primary text-white toggle-btn  collapsed "
-                >
-            </i>
-        </div>
-    </div>
-    <div id="mulistory" class="accordion-collapse collapse" aria-labelledby="mulistory_header" >
-        <div class="accordion-body">  
-            <table class="m-0 table custom  ">
-                <thead>
-                    <tr>
-                        <th class="text-center">S.No</th>
-                        <th class="text-center">Deliverable Name</th>
-                        <th class="text-center">Status</th>
-                        <th class="text-center">Assign To</th>
-                        <th class="text-center">Date of Delivery</th>
-                    </tr>
-                </thead>
-                <tbody class="border">
-                    <tr>
-                        <td colspan="5" class="bg-light">
-                            <div class="text-start">
-                                <strong>1st set of delivery - Approval drawings</strong>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>Facade wall Layout</td>
-                        <td class="text-center"><input type="checkbox" name="" class="form-check-input" checked></td>
-                        <td>
-                            <select name="" class="form-select border-0  form-select-sm">
-                                <option value="">-- Project Manager --</option>
-                                <option value="">User A</option>
-                                <option value="">User B</option>
-                                <option value="">User C</option>
-                            </select>
-                        </td>
-                        <td><input type="date" name="" class=" border-0 form-control form-control-sm"></td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>2D connecting Detail Drawings</td>
-                        <td class="text-center"><input type="checkbox" name="" class="form-check-input"></td>
-                        <td>
-                            <select name="" class="form-select border-0  form-select-sm">
-                                <option value="">-- Project Manager --</option>
-                                <option value="">User A</option>
-                                <option value="">User B</option>
-                                <option value="">User C</option>
-                            </select>
-                        </td>
-                        <td><input type="date" name="" class=" border-0 form-control form-control-sm"></td>
-                    </tr>
-                    <tr>
-                        <td colspan="5" class="bg-light">
-                            <div class="text-start">
-                                <strong>2nd set of delivery - Structural Reoport</strong>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Global Structural Reports</td>
-                        <td class="text-center"><input type="checkbox" name="" class="form-check-input" checked></td>
-                        <td>
-                            <select name="" class="form-select border-0  form-select-sm">
-                                <option value="">-- Project Manager --</option>
-                                <option value="">User A</option>
-                                <option value="">User B</option>
-                                <option value="">User C</option>
-                            </select>
-                        </td>
-                        <td><input type="date" name="" class=" border-0 form-control form-control-sm"></td>
-                    </tr>
-                    
-                    <tr>
-                        <td colspan="5" class="bg-light">
-                            <div class="text-start">
-                                <strong>3rd set of delivery - Data for client Review</strong>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>Facade wall Framing</td>
-                        <td class="text-center"><input type="checkbox" name="" class="form-check-input" checked></td>
-                        <td>
-                            <select name="" class="form-select border-0  form-select-sm">
-                                <option value="">-- Project Manager --</option>
-                                <option value="">User A</option>
-                                <option value="">User B</option>
-                                <option value="">User C</option>
-                            </select>
-                        </td>
-                        <td><input type="date" name="" class=" border-0 form-control form-control-sm"></td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>Total Building Material List</td>
-                        <td class="text-center"><input type="checkbox" name="" class="form-check-input"></td>
-                        <td>
-                            <select name="" class="form-select border-0  form-select-sm">
-                                <option value="">-- Project Manager --</option>
-                                <option value="">User A</option>
-                                <option value="">User B</option>
-                                <option value="">User C</option>
-                            </select>
-                        </td>
-                        <td><input type="date" name="" class=" border-0 form-control form-control-sm"></td>
-                    </tr>
-                    <tr>
-                        <td colspan="5" class="bg-light">
-                            <div class="text-start">
-                                <strong>4th set of delivery - Data for client Review</strong>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>6</td>
-                        <td>Facade wall Installation drawing</td>
-                        <td class="text-center"><input type="checkbox" name="" class="form-check-input" checked></td>
-                        <td>
-                            <select name="" class="form-select border-0  form-select-sm">
-                                <option value="">-- Project Manager --</option>
-                                <option value="">User A</option>
-                                <option value="">User B</option>
-                                <option value="">User C</option>
-                            </select>
-                        </td>
-                        <td><input type="date" name="" class=" border-0 form-control form-control-sm"></td>
-                    </tr>
-                    <tr>
-                        <td>7</td>
-                        <td>Transport Packaging drawing</td>
-                        <td class="text-center"><input type="checkbox" name="" class="form-check-input"></td>
-                        <td>
-                            <select name="" class="form-select border-0  form-select-sm">
-                                <option value="">-- Project Manager --</option>
-                                <option value="">User A</option>
-                                <option value="">User B</option>
-                                <option value="">User C</option>
-                            </select>
-                        </td>
-                        <td><input type="date" name="" class=" border-0 form-control form-control-sm"></td>
-                    </tr>
-                    <tr>
-                        <td>8</td>
-                        <td>CNC DATA</td>
-                        <td class="text-center"><input type="checkbox" name="" class="form-check-input"></td>
-                        <td>
-                            <select name="" class="form-select border-0  form-select-sm">
-                                <option value="">-- Project Manager --</option>
-                                <option value="">User A</option>
-                                <option value="">User B</option>
-                                <option value="">User C</option>
-                            </select>
-                        </td>
-                        <td><input type="date" name="" class=" border-0 form-control form-control-sm"></td>
-                    </tr>
-                    <tr>
-                        <td>9</td>
-                        <td>Facade wall fabrication drawing</td>
-                        <td class="text-center"><input type="checkbox" name="" class="form-check-input"></td>
-                        <td>
-                            <select name="" class="form-select border-0  form-select-sm">
-                                <option value="">-- Project Manager --</option>
-                                <option value="">User A</option>
-                                <option value="">User B</option>
-                                <option value="">User C</option>
-                            </select>
-                        </td>
-                        <td><input type="date" name="" class=" border-0 form-control form-control-sm"></td>
-                    </tr>
-                    <tr>
-                        <td colspan="5" class="bg-light">
-                            <div class="text-start">
-                                <strong>Final Delivery</strong>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>10</td>
-                        <td>Final set of drawing uploaded in BIM 360</td>
-                        <td class="text-center"><input type="checkbox" name="" class="form-check-input" checked></td>
-                        <td>
-                            <select name="" class="form-select border-0  form-select-sm">
-                                <option value="">-- Project Manager --</option>
-                                <option value="">User A</option>
-                                <option value="">User B</option>
-                                <option value="">User C</option>
-                            </select>
-                        </td>
-                        <td><input type="date" name="" class=" border-0 form-control form-control-sm"></td>
-                    </tr>
-                    <tr>
-                        <td>11</td>
-                        <td>Maintaining BIM dat for every Update</td>
-                        <td class="text-center"><input type="checkbox" name="" class="form-check-input" checked></td>
-                        <td>
-                            <select name="" class="form-select border-0  form-select-sm">
-                                <option value="">-- Project Manager --</option>
-                                <option value="">User A</option>
-                                <option value="">User B</option>
-                                <option value="">User C</option>
-                            </select>
-                        </td>
-                        <td><input type="date" name="" class=" border-0 form-control form-control-sm"></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div> 
-        <div class="accordion-footer p-3 pt-0 text-center">
-            <button class="btn btn-primary">Print / Download</button>
-        </div>
-    </div>
-</fieldset>
-<fieldset class="accordion-item">
-    <div class="accordion-header custom m-0 position-relative" id="strucatural_design_header">
-        <div class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#strucatural_design" aria-expanded="false" aria-controls="strucatural_design">
-            <span class="position-relative btn py-0">STRUCTURAL DESIGN INSTALLATION DRAWING </span> 
-        </div>
-        <div class="icon m-0 position-absolute rounded-pills  " style="right: 10px;top:30%; z-index:111 !important">
-            <i data-bs-toggle="collapse" 
-                href="#strucatural_design" 
-                aria-expanded="true" 
-                aria-controls="strucatural_design" 
-                class="accordion-button custom-accordion-button bg-primary text-white toggle-btn  collapsed "
-                >
-            </i>
-        </div>
-    </div>
-    <div id="strucatural_design" class="accordion-collapse collapse" aria-labelledby="strucatural_design_header" >
-        <div class="accordion-body">  
-            <table class="m-0 table custom  ">
-                <thead>
-                    <tr>
-                        <th class="text-center">S.No</th>
-                        <th class="text-center">Deliverable Name</th>
-                        <th class="text-center">Status</th>
-                        <th class="text-center">Assign To</th>
-                        <th class="text-center">Date of Delivery</th>
-                    </tr>
-                </thead>
-                <tbody class="border">
-                    @for ($i = 1; $i < 17; $i++)
-                        <tr>
-                            <td>{{ $i }}</td>
-                            <td>
-                                {{$i == 1 ? 'Dead Load Calculation' : ''}}
-                                {{$i == 2 ? 'Design of Beam' : ''}}
-                                {{$i == 3 ? 'Design of Coloumn' : ''}}
-                                {{$i == 4 ? 'share wall Design' : ''}}
-                                {{$i == 5 ? 'Design of Anchorage in shear wall' : ''}}
-                                {{$i == 6 ? 'Roof Design' : ''}}
-                                {{$i == 7 ? 'Design of pullout strength of screw' : ''}}
-                                {{$i == 8 ? 'Design ofanchorage Bolt for wall' : ''}}
-                                {{$i == 9 ? 'Design of Angle Bar' : ''}}
-                                {{$i == 10 ? 'Design of Element' : ''}}
-                                {{$i == 11 ? 'Design of Pullout strength of screw for wall' : ''}}
-                                {{$i == 12 ? 'Design of Anchorage Bolt' : ''}}
-                                {{$i == 13 ? 'Design of Connection Between column and beam' : ''}}
-                                {{$i == 14 ? 'Design of Angle Bar for Glulam' : ''}}
-                                {{$i == 15 ? 'Design of pullout strength of screw for Glulam' : ''}}
-                                {{$i == 16 ? 'Design of column Base Connection' : ''}}
-                            </td>
-                            <td class="text-center"><input type="checkbox" name="" class="form-check-input" checked></td>
-                            <td>
-                                <select name="" class="form-select border-0  form-select-sm">
-                                    <option value="">-- Project Manager --</option>
-                                    <option value="">User A</option>
-                                    <option value="">User B</option>
-                                    <option value="">User C</option>
-                                </select>
-                            </td>
-                            <td><input type="date" name="" class=" border-0 form-control form-control-sm"></td>
-                        </tr> 
-                    @endfor
-                </tbody>
-            </table>
-        </div> 
-        <div class="accordion-footer p-3 pt-0 text-center">
-            <button class="btn btn-primary">Print / Download</button>
-        </div>
-    </div>
-</fieldset>  --}}
