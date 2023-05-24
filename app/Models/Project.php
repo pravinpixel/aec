@@ -151,6 +151,6 @@ class Project extends Model
     }
     public function enquiry()
     {
-        return $this->hasOne(Enquiry::class);
+        return $this->hasOne(Enquiry::class,'id','enquiry_id');
     }
 }
