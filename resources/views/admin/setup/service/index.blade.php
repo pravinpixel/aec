@@ -5,10 +5,10 @@
         <div class="card-header">
             <div class="align-items-center d-flex justify-content-between">
                 <h4 class="haeder-title">Service</h4>
-                <div>
-                    <label for="all" class="mx-2"><input ng-click="filter(0)" checked type="radio" name="filter" class="form-check-input me-2" id="all">All</label>
-                    <label for="type1" class="mx-2"><input ng-click="filter(2)" type="radio" name="filter" class="form-check-input me-2" id="type1">Precast</label>
-                    <label for="type2" class="mx-2"><input ng-click="filter(1)" type="radio" name="filter" class="form-check-input me-2" id="type2">Timber Frame</label>
+                <div> 
+                    <label for="all" class="mx-2"><input ng-click="filter(0)" ng-model="mtFilter" ng-value="0" checked type="radio" name="filter" class="form-check-input me-2" id="all">All</label>
+                    <label for="type1" class="mx-2"><input ng-click="filter(2)" ng-model="mtFilter" ng-value="2" type="radio" name="filter" class="form-check-input me-2" id="type1">Precast</label>
+                    <label for="type2" class="mx-2"><input ng-click="filter(1)" ng-model="mtFilter" ng-value="1" type="radio" name="filter" class="form-check-input me-2" id="type2">Timber Frame</label>
                     <button class="btn btn-primary btn-sm" ng-click="toggleService('add', 0)">Create New Service</button>
                 </div>
             </div>
@@ -102,6 +102,7 @@
 @push('custom-scripts') 
     <script>
         app.controller('serviceController', function ($scope, $http, API_URL, $location) {
+            $scope.mtFilter  = 0
             $scope.getServiceData = function($http, API_URL) {
                 $http({
                     method: 'GET',
@@ -157,15 +158,14 @@
                             method: 'DELETE',
                             url: url,                             
                         }).then(function (response) {
-                            $scope.getServiceData($http, API_URL);
+                            $scope.filter($scope.mtFilter)
                             if(response.data.status == false) {
                                 Message('warning',response.data.msg);
                             }
                             if(response.data.status == true) {
                                 Message('success', response.data.msg);
                             }  
-                        }, function (error) {
-                            console.log(error);
+                        }, function (error) { 
                             Message('warning',response.data.msg);
                             console.log('Unable to delete');
                         });
@@ -196,7 +196,7 @@
                         data: $.param($scope.module_service),
                         headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
                     }).then(function successCallback(response) {
-                        $scope.getServiceData($http, API_URL);
+                        $scope.filter($scope.mtFilter)
                         $('#primary-service-modal').modal('hide');                      
                         Message('success',response.data.msg);
                     }, function errorCallback(response) {
@@ -209,7 +209,7 @@
                         data: $.param($scope.module_service),
                         headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
                     }).then(function successCallback(response) {
-                        $scope.getServiceData($http, API_URL);
+                        $scope.filter($scope.mtFilter)
                         $('#primary-service-modal').modal('hide');                      
                         Message('success',response.data.msg);
                     }, function errorCallback(response) {
