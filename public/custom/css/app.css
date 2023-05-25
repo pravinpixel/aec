@@ -994,3 +994,8 @@ sup {
     border-right: 2px solid;
     border-radius: 4px;
 }
+.fc-day-today .fc-daygrid-day-number {
+    background: black !important;
+    font-weight: bold;
+    color: white;
+}
