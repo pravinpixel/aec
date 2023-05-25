@@ -38,6 +38,7 @@ use App\Http\Controllers\Auth\AuthCustomerController;
 use App\Http\Controllers\WebNotificationController;
 use App\Http\Controllers\PushNotificationController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\CommonController;
 use App\Http\Controllers\HelperController;
 use App\Http\Controllers\InboxController;
@@ -355,4 +356,6 @@ Route::group(['middleware' => 'common'], function () {
     Route::get('/issues/live-project',[CommonController::class,'issues_project_dashboard'])->name('issues.project-dashboard');
     Route::get('/view-issues/{id}',[CommonController::class,'issues_by_project'])->name('issues.show');
     Route::get('/get-project-manager-dashboard-data',[CommonController::class,'project_dashboard_data'])->name('issues.project-manager-dashboard-data');
+
+    Route::get('/calendar',[CalendarController::class,'index'])->name('calendar.index');
 });

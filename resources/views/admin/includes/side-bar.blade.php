@@ -224,7 +224,7 @@
                 </li>
             @endif
             <li class="side-nav-item ">
-                <a href="#" class="side-nav-link">
+                <a href="{{ route('calendar.index') }}" class="side-nav-link">
                     <i class="fa fa-calendar-check" aria-hidden="true"></i>
                     <span> Calendar </span>
                 </a>

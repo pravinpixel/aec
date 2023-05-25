@@ -984,3 +984,9 @@ sup {
     background: red;
     color: white;
 } 
+.fc-col-header-cell-cushion, .fc .fc-list-day-cushion, .fc .fc-list-table td {
+    color: #252525 !important;
+}
+.fc-createEventButton-button {
+    background-color: #009688 !important;
+}
