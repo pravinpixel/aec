@@ -74,7 +74,7 @@ return [
                 "name" => "Milestone",
                 "slug" => "milestone",
                 "icon" => '<i class="bi bi-signpost"></i>',
-                "view" => "milestone"
+                "view" => "task-list"
             ],
             // [
             //     "name" => "BIM 360",

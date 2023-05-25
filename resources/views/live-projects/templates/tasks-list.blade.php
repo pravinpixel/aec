@@ -64,6 +64,14 @@
                         <td>{{ $project->Customer->full_name }}</td>
                     </tr>
                     <tr>
+                        <th>Start Date</th>
+                        <td>{{ SetDateFormat($project->start_date) }}</td>
+                    </tr>
+                    <tr>
+                        <th>Estimated End Date</th>
+                        <td>{{ SetDateFormat($project->delivery_date) }}</td>
+                    </tr>
+                    <tr>
                         <th>Total Tasks</th>
                         <td>{{ count($project->LiveProjectTasks) }}</td>
                     </tr>
