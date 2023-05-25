@@ -25,13 +25,12 @@
                     </div>
                 </div>
                 <x-accordion title="New Enquiries" path="customer.enquiry.table.new-enquiries" open="true" argument='null'></x-accordion>
-                <x-accordion title="Active Enquiries" path="customer.enquiry.table.active-enquiries" open="false" argument='null'></x-accordion>
-                <x-accordion title="Closed Enquiries" path="customer.enquiry.table.completed-enquiries" open="false" argument='null'></x-accordion>
+                <x-accordion title="Active Enquiries" path="customer.enquiry.table.active-enquiries" open="true" argument='null'></x-accordion>
+                <x-accordion title="Closed Enquiries" path="customer.enquiry.table.completed-enquiries" open="true" argument='null'></x-accordion>
             </div> <!-- container -->
             @include('customer.enquiry.models.enquiry-filter-modal') 
             @include('customer.enquiry.models.document-modal')
             @include('customer.enquiry.models.approve-modal')
-            @include('customer.enquiry.models.chat-box')
         </div> <!-- content --> 
     </div> 
 
@@ -58,7 +57,6 @@
 @push('custom-scripts') 
     <script>
         app.controller('enquiryModalCtrl', function($scope,  $http, API_URL, $compile ) {
-            $("#customer_chat").hide(); 
             $scope.commentsCount = 0;
             $scope.getEnquiry = (type,id) =>  {
                 $(".custom-accordion-collapse").addClass('collapsed');
@@ -246,7 +244,7 @@
                 aaSorting     : [[0, 'desc']],
                 responsive: true,
                 processing: true,    
-                pageLength: 50,
+                pageLength: 10,
                 lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
                 serverSide: true,
                 columnDefs: [
@@ -286,7 +284,7 @@
                 aaSorting     : [[0, 'desc']],
                 responsive: true,
                 processing: true,    
-                pageLength: 50,
+                pageLength: 10,
                 lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
                 serverSide: true,
                 ajax          : {
@@ -331,7 +329,7 @@
                 aaSorting     : [[0, 'desc']],
                 responsive: true,
                 processing: true,    
-                pageLength: 50,
+                pageLength: 10,
                 lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
                 serverSide: true,
                 ajax          : {

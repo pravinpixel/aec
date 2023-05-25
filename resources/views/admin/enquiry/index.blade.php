@@ -22,8 +22,8 @@
                 </div>
  
                 <x-accordion title="Unattended Enquiries" path="admin.enquiry.table.unattended" open="true" argument='null'></x-accordion>
-                <x-accordion title="Active Enquiries" path="admin.enquiry.table.active" open="false" argument='null'></x-accordion>
-                <x-accordion title="Cancelled Enquiries" path="admin.enquiry.table.cancelled" open="false" argument='null'></x-accordion>
+                <x-accordion title="Active Enquiries" path="admin.enquiry.table.active" open="true" argument='null'></x-accordion>
+                <x-accordion title="Cancelled Enquiries" path="admin.enquiry.table.cancelled" open="true" argument='null'></x-accordion>
  
                 @include('admin.enquiry.models.enquiry-qucik-view')
                 @include('admin.enquiry.models.chat-box')

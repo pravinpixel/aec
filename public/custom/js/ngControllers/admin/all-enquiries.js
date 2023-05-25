@@ -330,7 +330,7 @@ app.controller('EnqController', function ($scope, $http, API_URL, $compile) {
         aaSorting     : [[0, 'desc']],
         responsive: true,
         processing: true,    
-        pageLength: 50,
+        pageLength: 10,
         lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
         serverSide: true,
         ajax          : {
@@ -374,7 +374,7 @@ app.controller('EnqController', function ($scope, $http, API_URL, $compile) {
         aaSorting     : [[0, 'desc']],
         responsive: true,
         processing: true,    
-        pageLength: 50,
+        pageLength: 10,
         lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
         serverSide: true,
         ajax          : {
@@ -419,7 +419,7 @@ app.controller('EnqController', function ($scope, $http, API_URL, $compile) {
         aaSorting     : [[0, 'desc']],
         responsive: true,
         processing: true,    
-        pageLength: 50,
+        pageLength: 10,
         lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
         serverSide: true,
         ajax          : {

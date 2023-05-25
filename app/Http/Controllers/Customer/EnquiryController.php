@@ -291,7 +291,7 @@ class EnquiryController extends Controller
 
     public function storeBuildingComponent($data, $enquiry)
     {
-        $dataObj = formatBuildingComponentJSON($data);
+        $dataObj = json_decode(json_encode($data), FALSE);
         if (!empty($dataObj)) {
             $response = $this->customerEnquiryRepo->storeBuildingComponent($enquiry, $dataObj);
             if ($response) {
@@ -664,7 +664,7 @@ class EnquiryController extends Controller
                 ->addColumn('action', function ($dataDb) {
                     return '
                         <div class="dropdown">
-                            <button class="btn btn-light btn-sm border shadow-sm" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <button class="btn py-0" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -749,13 +749,18 @@ class EnquiryController extends Controller
                     </div>';
                 })
                 ->addColumn('action', function ($dataDb) {
+                    if(count($dataDb->getProposal)) {
+                        $propossalButton = '<button class="dropdown-item" onclick="viewCustomerEnquiryProposal('.$dataDb->id.')">' . trans('enquiry.view_proposal') . '</button>';
+                    } else {
+                        $propossalButton = '<button class="dropdown-item" disabled>' . trans('enquiry.view_proposal') . '</button>';
+                    }
                     $actions = '<div class="dropdown">
-                            <button class="btn btn-light btn-sm border shadow-sm" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <button class="btn py-0" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 <a class="dropdown-item" href="' . route("customers.edit-enquiry", [$dataDb->id, 'active']) . '">' . trans('enquiry.view_edit') . '</a>
-                                <button class="dropdown-item" onclick="viewCustomerEnquiryProposal('.$dataDb->id.')">' . trans('enquiry.view_proposal') . '</button>
+                                '.$propossalButton.'
                                 <a type="button" class="dropdown-item delete-modal" data-header-title="Close Enquiry" data-title="' . trans('enquiry.popup_move_to_cancel', ['enquiry_no' => $dataDb->enquiry_number]) . '" data-action="' . route('customers.move-to-cancel', [$dataDb->id]) . '" data-method="POST" data-bs-toggle="modal" data-bs-target="#primary-header-modal">' . trans('enquiry.cancel_enquiry') . '</a>
                             </div>
                         </div>';
@@ -819,7 +824,7 @@ class EnquiryController extends Controller
                 ->addColumn('action', function ($dataDb) {
                     return '
                         <div class="dropdown">
-                            <button class="btn btn-light btn-sm border shadow-sm" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <button class="btn py-0" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
