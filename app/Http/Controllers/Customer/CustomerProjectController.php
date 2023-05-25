@@ -167,12 +167,11 @@ class CustomerProjectController extends Controller
                 })
                 ->addColumn('action', function ($dataDb) {
                     return '<div class="dropdown">
-                            <button class="btn btn-light btn-sm border shadow-sm" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <button class="btn py-0" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" href="'.route('live-project.menus-index',['menu_type'=>'overview','id'=> $dataDb->id]).'">View / Edit</a>
-                                <a type="button" class="dropdown-item delete-modal" data-header-title="Delete" data-title="Are you sure to delete this enquiry" data-action="'.route('enquiry.delete', $dataDb->id).'" data-method="DELETE" data-bs-toggle="modal" data-bs-target="#primary-header-modal">Delete</a>
+                                <a class="dropdown-item" href="'.route('live-project.menus-index',['menu_type'=>'overview','id'=> $dataDb->id]).'">View </a>
                             </div>
                         </div>';
                 })
