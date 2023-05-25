@@ -990,3 +990,7 @@ sup {
 .fc-createEventButton-button {
     background-color: #009688 !important;
 }
+.fc-h-event .fc-event-title-container {
+    border-right: 2px solid;
+    border-radius: 4px;
+}

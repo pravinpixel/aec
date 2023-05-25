@@ -27,7 +27,7 @@
                     </div>
                     <div class="input-group">
                         <input type="text" id="event-name" class="form-control w-75" placeholder="Type here..." required>
-                        <input class="form-control" id="event-color" type=color name=color value="#252525" readonly>
+                        <input class="form-control p-0" id="event-color" type=color name=color value="#252525" readonly>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -86,7 +86,7 @@
                     console.log(data)
                 },
                 eventResize: function(info) {
-                    alert(info.event.title + " end is now " + info.event.end.toISOString());
+                    alert(info.event.title + " end is now " + info.event.endStr);
                     if (!confirm("is this okay?")) {
                         info.revert();
                     }
