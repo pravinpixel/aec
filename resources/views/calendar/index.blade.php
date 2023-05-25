@@ -27,7 +27,7 @@
                     </div>
                     <div class="input-group">
                         <input type="text" id="event-name" class="form-control w-75" placeholder="Type here..." required>
-                        <input class="form-control" id="event-color" type="color" name="color" value="#252525" readonly>
+                        <input class="form-control" id="event-color" type=color name=color value="#252525" readonly>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -75,14 +75,6 @@
                 events: {
                     url: "http://url/getMonthlyEventList"
                 },
-                // events: [{
-                //     title: 'Internal team meeting',
-                //     start: '2023-05-10',
-                //     end: '2023-05-15',
-                //     color: "#845EC2",
-                //     id: 1,
-                //     editable: true
-                // }, ],
                 selectable: true,
                 selectHelper: true,
                 displayEventTime: true,
@@ -92,6 +84,15 @@
                     // var event_start = FullCalendar.formatDate(data.event.start, "Y-MM-DD");
                     // var event_end = FullCalendar.formatDate(data.event.end, "Y-MM-DD");
                     console.log(data)
+                },
+                eventResize: function(info) {
+                    alert(info.event.title + " end is now " + info.event.end.toISOString());
+                    if (!confirm("is this okay?")) {
+                        info.revert();
+                    }
+                },
+                events: {
+                    url: "{{ url('/event.json') }}"
                 },
             })
             myCalendar.render()

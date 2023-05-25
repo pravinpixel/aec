@@ -1,0 +1,219 @@
+[
+    {
+        "id": 1,
+        "title": "Palmesøndag",
+        "start": "2023-03-29",
+        "end": "2023-03-29",
+        "editable": true,
+        "color": "#0072E2"
+    },
+    {
+        "id": 2,
+        "title": "Skjærtorsdag",
+        "start": "2023-04-02",
+        "end": "2023-04-02",
+        "editable": true,
+        "color": "#009DF8"
+    },
+    {
+        "id": 3,
+        "title": "Langfredag",
+        "start": "2023-04-03",
+        "end": "2023-04-03",
+        "editable": true,
+        "color": "#00C0E3"
+    },
+    {
+        "id": 4,
+        "title": "1. påskedag",
+        "start": "2023-04-05",
+        "end": "2023-04-05",
+        "editable": true,
+        "color": "#00DBB4"
+    },
+    {
+        "id": 5,
+        "title": "2. påskedag",
+        "start": "2023-04-06",
+        "end": "2023-04-06",
+        "editable": true,
+        "color": "#86EE85"
+    },
+    {
+        "id": 6,
+        "title": "Kristi Himmelsprettsdag",
+        "start": "2023-05-14",
+        "end": "2023-05-14",
+        "editable": true,
+        "color": "#F9F871"
+    },
+    {
+        "id": 7,
+        "title": "1. pinsedag",
+        "start": "2023-05-24",
+        "end": "2023-05-24",
+        "editable": true,
+        "color": "#636AD7"
+    },
+    {
+        "id": 8,
+        "title": "2. pinsedag",
+        "start": "2023-05-25",
+        "end": "2023-05-25",
+        "editable": true,
+        "color": "#8863C8"
+    },
+    {
+        "id": 9,
+        "title": "Nyttårsdag",
+        "start": "2023-01-01",
+        "end": "2023-01-01",
+        "editable": true,
+        "color": "#A15CB7"
+    },
+    {
+        "id": 10,
+        "title": "1. mai",
+        "start": "2023-05-01",
+        "end": "2023-05-01",
+        "editable": true,
+        "color": "#B157A6"
+    },
+    {
+        "id": 11,
+        "title": "17. mai",
+        "start": "2023-05-17",
+        "end": "2023-05-17",
+        "editable": true,
+        "color": "#BC5595"
+    },
+    {
+        "id": 12,
+        "title": "1. juledag",
+        "start": "2023-12-25",
+        "end": "2023-12-25",
+        "editable": true,
+        "color": "#D6345C"
+    },
+    {
+        "id": 13,
+        "title": "2. juledag",
+        "start": "2023-12-26",
+        "end": "2023-12-26",
+        "editable": true,
+        "color": "#008A63"
+    },
+    {
+        "id": 14,
+        "title": "Nyttårsaften",
+        "start": "2023-12-31",
+        "end": "2023-12-31",
+        "editable": true,
+        "color": "#BC5700"
+    },
+    {
+        "id": 14,
+        "title": "Republic Day",
+        "start": "2023-01-26",
+        "end": "2023-01-26",
+        "editable": true,
+        "color": "#009DF8"
+    },
+    {
+        "id": 15,
+        "title": "Valentine's Day",
+        "start": "2023-02-14",
+        "end": "2023-02-14",
+        "editable": true,
+        "color": "#009DF8"
+    },
+    {
+        "id": 16,
+        "title": "March Equinox",
+        "start": "2023-03-20",
+        "end": "2023-03-20",
+        "editable": true,
+        "color": "#009DF8"
+    },
+    {
+        "id": 17,
+        "title": "Bank Holiday",
+        "start": "2023-04-01",
+        "end": "2023-04-01",
+        "editable": true,
+        "color": "#009DF8"
+    },
+    {
+        "id": 18,
+        "title": "Doctor Ambedkar's Birthday",
+        "start": "2023-04-14",
+        "end": "2023-04-14",
+        "editable": true,
+        "color": "#009DF8"
+    },
+    {
+        "id": 19,
+        "title": "Mother's Day",
+        "start": "2023-05-08",
+        "end": "2023-05-08",
+        "editable": true,
+        "color": "#009DF8"
+    },
+    {
+        "id": 20,
+        "title": "Father's Day",
+        "start": "2023-06-19",
+        "end": "2023-06-19",
+        "editable": true,
+        "color": "#009DF8"
+    },
+    {
+        "id": 21,
+        "title": "June Solstice",
+        "start": "2023-06-21",
+        "end": "2023-06-21",
+        "editable": true,
+        "color": "#009DF8"
+    },
+    {
+        "id": 22,
+        "title": "Friend ship Day",
+        "start": "2023-08-07",
+        "end": "2023-08-07",
+        "editable": true,
+        "color": "#009DF8"
+    },
+    {
+        "id": 23,
+        "title": "Independ ence Day",
+        "start": "2023-08-15",
+        "end": "2023-08-15",
+        "editable": true,
+        "color": "#009DF8"
+    },
+    {
+        "id": 24,
+        "title": "September Equinox",
+        "start": "2023-09-23",
+        "end": "2023-09-23",
+        "editable": true,
+        "color": "#009DF8"
+    },
+    {
+        "id": 25,
+        "title": "Mahatma Gandhi's Birthday",
+        "start": "2023-10-02",
+        "end": "2023-10-02",
+        "editable": true,
+        "color": "#009DF8"
+    },
+    {
+        "id": 26,
+        "title": "December Solstice",
+        "start": "2023-12-21",
+        "end": "2023-12-21",
+        "editable": true,
+        "color": "#009DF8"
+    }
+
+]
