@@ -166,6 +166,6 @@ return [
         'cad_cam_price',
         'logistic_price',
     ],
-    'logo'      => asset('public/assets/images/logo_customer.png'),
-    'signature' => asset('public/assets/images/signature.png')
+    'logo'      => 'https://crm.aecprefab.net/public/assets/images/logo_customer.png',
+    'signature' => 'https://crm.aecprefab.net/public/assets/images/signature.png'
 ];
