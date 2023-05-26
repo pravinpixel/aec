@@ -133,6 +133,7 @@
             });
         }
         FatchTable()
+
         function viewIssueByProject(id) {
             alert(id)
         }
@@ -169,23 +170,73 @@
             }
         }
         setStatus = (id, value) => {
-                var remarks = $('#remarks').val()
-                if (remarks !== '') {
-                    axios.put(`{{ route('live-project.change-status-issues.ajax') }}/${id}`, {
-                        status: value,
-                        remarks: remarks,
-                    }).then(() => {
-                        Alert.success('Issue Status Changed!')
-                        $('#live-project-table').DataTable().destroy();
-                        FatchTable(null)
-                        axios.get(`{{ route('live-project.show-issues.ajax') }}/${id}`).then(
-                            response => {
-                                $('#detail-issue-modal-content').html(response.data.view)
-                            })
-                    });
-                } else {
-                    Alert.error('Remarks is required!!')
-                }
+            var remarks = $('#remarks').val()
+            if (remarks !== '') {
+                axios.put(`{{ route('live-project.change-status-issues.ajax') }}/${id}`, {
+                    status: value,
+                    remarks: remarks,
+                }).then(() => {
+                    Alert.success('Issue Status Changed!')
+                    $('#live-project-table').DataTable().destroy();
+                    FatchTable(null)
+                    axios.get(`{{ route('live-project.show-issues.ajax') }}/${id}`).then(
+                        response => {
+                            $('#detail-issue-modal-content').html(response.data.view)
+                        })
+                });
+            } else {
+                Alert.error('Remarks is required!!')
             }
+        }
+        setcommentCount = comment_id => {
+            axios.get(`{{ route('live-project.set-comment-count.ajax') }}/${comment_id}`);
+        }
+        editComment = (element, id) => {
+            var text = $(element).attr('data-text');
+            var textarea = $(`.${element.parentNode.parentNode.classList[0]} textarea`)
+            if (textarea.length !== 0) return false;
+            $(element.parentNode.parentNode).append(`
+                    <div class="border rounded">
+                        <div class="comment-area-box">
+                            <textarea rows="4" class="form-control border-0 resize-none"
+                                placeholder="Write here...." spellcheck="false" style="height: 100px;">${text}</textarea>
+                            <div class="p-2 bg-light d-flex justify-content-end align-items-center">
+                                <button type="button" onclick="updateComment(this,${id})" class="me-2 rounded-pill btn btn-sm btn-success">
+                                    <i class="uil uil-repeat me-1"></i>Update Comment
+                                </button>
+                                <button type="button" onclick="cancelComment(this)" class="btn rounded-pill btn-sm btn-outline-success">
+                                    <i class="uil uil-ban me-1"></i>Cancel
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `)
+        }
+        cancelComment = element => {
+            $(element.parentNode.parentNode.parentNode).remove()
+        }
+        updateComment = (element, id) => {
+            var currentComment = $(element.parentNode.parentNode.parentNode.parentNode.childNodes[3])
+            var newComment = element.parentNode.parentNode.childNodes[1].value
+            $(element.parentNode.parentNode.parentNode.parentNode.childNodes[5].childNodes[3]).attr(
+                'data-text', newComment)
+            startLoader(element)
+            axios.put(`{{ route('live-project.update-comment.ajax') }}/${id}`, {
+                comment: newComment
+            }).then((response) => {
+                currentComment.text(newComment)
+                setInterval(() => {
+                    stopLoader(element)
+                    cancelComment(element)
+                }, 200);
+            })
+        }
+        removeComment = (element, id) => {
+            startLoader(element)
+            axios.delete(`{{ route('live-project.delete-comment.ajax') }}/${id}`).then((response) => {
+                stopLoader(element)
+                $('#comments_content').html(response.data)
+            })
+        }
     </script>
 @endpush
