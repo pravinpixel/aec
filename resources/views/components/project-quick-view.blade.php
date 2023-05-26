@@ -460,26 +460,22 @@
                             <th class="text-center">Percentage %</th>
                         </tr>
                     </thead>
-                    {{ dd($project['invoice_plan']) }}
-                    {{-- <tbody>
-                        @if (count($project['invoice_plan']['invoice_data'] ?? []) > 0)
-                        @if (count($project['invoice_plan']['invoice_data']->invoices))
-                        @foreach ($project['invoice_plan']['invoice_data']->invoices as $key => $invoice)
-                            <tr>
-                                <td class="text-center">{{ $key + 1 }} </td>
-                                <td class="text-center">{{ $invoice->invoice_date }}</td>
-                                <td class="text-center">{{ $invoice->amount }}</td>
-                                <td class="text-center">{{ $invoice->percentage }}</td>
-                            </tr>
-                        @endforeach
-                            
-                        @endif
+                    <tbody>
+                        @if ($project['no_of_invoice'] > 0)
+                            @foreach ($project['invoice_plan']['invoice_data']->invoices as $key => $invoice)
+                                <tr>
+                                    <td class="text-center">{{ $key + 1 }} </td>
+                                    <td class="text-center">{{ $invoice->invoice_date }}</td>
+                                    <td class="text-center">{{ $invoice->amount }}</td>
+                                    <td class="text-center">{{ $invoice->percentage }}</td>
+                                </tr>
+                            @endforeach
                         @else
                             <tr>
                                 <td class="text-center" colspan="4"> No data found </td>
                             </tr>
                         @endif
-                    </tbody> --}}
+                    </tbody>
                 </table>
             </x-accordion>
         @endif
