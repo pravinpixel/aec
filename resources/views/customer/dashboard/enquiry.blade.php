@@ -29,7 +29,7 @@
 
                                 <div class="row text-center">
                                     <div class="col-md-3">
-                                        <a href="{{ route('customers-enquiry-dashboard') }}" class="live-status-bg">
+                                        <a href="{{ route('customers-enquiry-dashboard') }}" class="live-status-bg d-block">
                                             <h3>Active Enquiries</h3>
                                             <p class="count">{{ $totalActiveEnquiries }}</p>
                                             <span class="btn btn-success">
@@ -38,7 +38,7 @@
                                         </a>
                                     </div>
                                     <div class="col-md-3">
-                                        <a href="{{ route('customers-enquiry-dashboard') }}" class="live-status-bg">
+                                        <a href="{{ route('customers-enquiry-dashboard') }}" class="live-status-bg d-block">
                                             <h3>Proposals waiting for Approval</h3>
                                             <p class="count">{{ $totalWaitingApprovals }}</p>
                                             <span class="btn btn-secondary">
@@ -47,7 +47,7 @@
                                         </a>
                                     </div>
                                     <div class="col-md-3">
-                                        <a href="{{ route('customers-enquiry-dashboard') }}" class="live-status-bg">
+                                        <a href="{{ route('customers-enquiry-dashboard') }}" class="live-status-bg d-block">
                                             <h3>New Invoices</h3>
                                             <p class="count">{{ $totalNewInvoices }}</p>
                                             <span class="btn btn-primary">
@@ -56,7 +56,7 @@
                                         </a>
                                     </div>
                                     <div class="col-md-3">
-                                        <a href="{{ route('customers-enquiry-dashboard') }}" class="live-status-bg">
+                                        <a href="{{ route('customers-enquiry-dashboard') }}" class="live-status-bg d-block">
                                             <h3>Unpaid Invoices</h3>
                                             <p class="count">{{ $totalUnpaidInvoices }}</p>
                                             <span class="btn btn-info text-white">
