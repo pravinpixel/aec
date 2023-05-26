@@ -364,7 +364,7 @@ if (!function_exists('getVariationOrderByProjectId')) {
     {
         return VariationOrder::with('Issues', 'VariationOrderVersions')
             ->where('project_id', $id)
-            ->get();
+            ->latest()->get();
     }
 }
 
