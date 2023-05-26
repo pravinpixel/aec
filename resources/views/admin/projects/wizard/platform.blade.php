@@ -90,12 +90,11 @@
                         <div class="row mx-0 mb-3">
                             <div class="col-6 px-0 pe-1">
                                 <small>* Project Start Date</small>
-                                @{{ project.start_date }}
-                                <input type="date" disabled ng-model="project.start_date" name="project_start_date" class="form-control form-control-sm" required>
+                                <input type="text" disabled ng-model="project.start_date" name="project_start_date" class="form-control form-control-sm" required>
                             </div>
                             <div class="col-6 px-0 ps-1">
                                 <small>* Project End Date</small>
-                                <input type="date" disabled ng-model="project.delivery_date" name="project_end_date"  class="form-control form-control-sm" required>
+                                <input type="text" disabled ng-model="project.delivery_date" name="project_end_date"  class="form-control form-control-sm" required>
                             </div>
                         </div>
                         <div class="mb-3">
