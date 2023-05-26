@@ -16,14 +16,9 @@
                     <input type="hidden" id="event-type">
                     <input type="hidden" id="event-id">
                     <input type="hidden" id="start-date">
-                    <input type="hidden" id="end-date">
-                    <div class="mb-3">
-                        <label for="event-name" class="form-label col-10">Event Name</label>
-                        <input type="text" id="event-name" class="form-control" placeholder="Type here..." required>
-                    </div>
+                    <input type="hidden" id="end-date"> 
                     <div>
                         <label for="event-name" class="form-label col-10">Event Color</label>
-                        {{-- <input class="form-control p-0" id="event-color" type=color name=color value="#252525" readonly> --}}
                         <div class="d-flex flex-wrap justify-content-between gap-1 p-1 bg-white border rounded">
                             @foreach (colors() as $key => $color)
                                 <input type="radio" id="picker_{{ $key }}" value="{{ $color }}"
@@ -31,6 +26,11 @@
                                 <label for="picker_{{ $key }}" style="background: {{ $color }}" class="rounded"></label>
                             @endforeach
                         </div>
+                    </div>
+                    <div class="mt-3">
+                        <label for="event-name" class="form-label col-10">Event Name</label>
+                        <textarea id="event-name" class="form-control" cols="30" rows="5" maxlength="255" required></textarea>
+                        <small>Max : 255 characters </small>
                     </div>
                 </div>
                 <div class="modal-footer d-flex justify-content-between">
