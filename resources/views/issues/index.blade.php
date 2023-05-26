@@ -77,7 +77,7 @@
     <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
     <script>
-        $(function() {
+        FatchTable = () => {
             var table = $('#live-project-table').DataTable({
                 aaSorting: [
                     [0, 'desc']
@@ -131,21 +131,42 @@
                     }
                 ],
             });
-        });
+        }
 
         function viewIssueByProject(id) {
             alert(id)
         }
 
         showIssue = (id, element) => {
-                startLoader(element)
-                axios.get(`{{ route('live-project.show-issues.ajax') }}/${id}`).then((response) => {
-                    $('#detail-issue-modal').modal('show')
-                    $('#detail-issue-modal-content').html(response.data.view)
-                    if (response.data) {
-                        stopLoader(element)
-                    }
-                })
+            startLoader(element)
+            axios.get(`{{ route('live-project.show-issues.ajax') }}/${id}`).then((response) => {
+                $('#detail-issue-modal').modal('show')
+                $('#detail-issue-modal-content').html(response.data.view)
+                if (response.data) {
+                    stopLoader(element)
+                }
+            })
+        }
+        ChangeIssueStatus = (id, element) => {
+            if (element.value === 'CLOSED') {
+                $('#status_form').html('')
+                $('#status_form').append(`<div class="card p-3 mt-3 border">
+                       <div>
+                            <label for="remarks" class="form-label">Remarks</label>
+                            <textarea class="form-control mb-3" id="remarks" rows="3"></textarea>
+                            <button type="button" onclick="$('#status_form').html('')" class="btn btn-light border btn-sm">Cancel</button>
+                            <button type="button" onclick="setStatus(${id},'${element.value}')" class="btn btn-primary btn-sm">Change</button>
+                        </div>
+                    </div>`)
+            } else {
+                axios.put(`{{ route('live-project.change-status-issues.ajax') }}/${id}`, {
+                    status: element.value
+                }).then(() => {
+                    Alert.success('Issue Status Changed!')
+                    $('#live-project-table').DataTable().destroy();
+                    FatchTable(null)
+                });
             }
+        }
     </script>
 @endpush
