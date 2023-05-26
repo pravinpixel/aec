@@ -149,8 +149,7 @@
                                                             class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"></span>
                                                     </button>
                                                 </td>
-                                                <td style="width: 10% !important" class="text-primary text-center">
-                                                    @{{ P.version }} - @{{ P.id }}</td>
+                                                <td style="width: 10% !important" class="text-primary text-center">@{{ P.version }}</td>
                                                 <td style="width: 10% !important" class="text-info text-center">
                                                     <proposal-status data="P.status" />
                                                 </td>
