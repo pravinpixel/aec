@@ -40,8 +40,7 @@ if (!function_exists('getAllAdmin')) {
 if (!function_exists('issue_id')) {
     function issue_id($issues)
     {
-        // return 'TKT/ ' . date('Y') . ' / ' . $issues + 1;
-        return true;
+        return 'TKT/' . date('Y') . '/' . $issues + 1;
     }
 }
 
