@@ -460,6 +460,7 @@
                             <th class="text-center">Percentage %</th>
                         </tr>
                     </thead>
+                    {{ dd($project['invoice_plan']) }}
                     {{-- <tbody>
                         @if (count($project['invoice_plan']['invoice_data'] ?? []) > 0)
                         @if (count($project['invoice_plan']['invoice_data']->invoices))
