@@ -90,6 +90,7 @@
                         <div class="row mx-0 mb-3">
                             <div class="col-6 px-0 pe-1">
                                 <small>* Project Start Date</small>
+                                @{{ project.start_date }}
                                 <input type="date" disabled ng-model="project.start_date" name="project_start_date" class="form-control form-control-sm" required>
                             </div>
                             <div class="col-6 px-0 ps-1">
