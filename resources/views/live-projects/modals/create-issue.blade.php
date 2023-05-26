@@ -27,30 +27,31 @@
                 </div>
                 <hr class="my-3">
                 <h1 class="custom-modal-title pb-3">Issue Information</h1>
-               
+
                 <x-admin-layout>
                     <span class="custom-label">Assign Type <sup>*</sup></span>
                     <div class="row">
                         <div class="col ps-0 mb-3">
                             <label class="form-control form-control-sm d-flex align-items-center" for="assign_type_in">
-                                <input type="radio" value="INTERNAL" onchange="toggleAssignee(this.value)" checked id="assign_type_in" name="assign_type"
-                                    class="form-check-input me-2 my-0" required>
+                                <input type="radio" value="INTERNAL" onchange="toggleAssignee(this.value)" checked
+                                    id="assign_type_in" name="assign_type" class="form-check-input me-2 my-0" required>
                                 Internel
                             </label>
                         </div>
                         <div class="col mb-3">
                             <label class="form-control form-control-sm d-flex align-items-center" for="assign_type_ex">
-                                <input type="radio" value="EXTERNAL" onchange="toggleAssignee(this.value)" id="assign_type_ex" name="assign_type"
-                                    class="form-check-input me-2 my-0" required>
+                                <input type="radio" value="EXTERNAL" onchange="toggleAssignee(this.value)"
+                                    id="assign_type_ex" name="assign_type" class="form-check-input me-2 my-0" required>
                                 Externel (customers)
                             </label>
                         </div>
                     </div>
                 </x-admin-layout>
                 <div class="row">
-                    <div class="col ps-0 mb-3" >
+                    <div class="col ps-0 mb-3">
                         <span class="custom-label">Assignee <sup>*</sup></span>
-                        <select name="assignee" class="form-select form-select-sm " id="assignee-select-field"  data-placeholder="-- select --" required>
+                        <select name="assignee" class="form-select form-select-sm " id="assignee-select-field"
+                            data-placeholder="-- select --" required>
                             <option value="">-- select --</option>
                         </select>
                     </div>
@@ -82,13 +83,13 @@
                         <select name="requester" class="form-select form-select-sm single-select-field"
                             data-placeholder="-- select --" required>
                             <option value="">-- select --</option>
-                            @if (AuthUser() == 'ADMIN')
+                            @if (AuthUser() == 'CUSTOMER')
+                                <option selected value="{{ Customer()->id }}">{{ Customer()->full_name }}</option>
+                            @else
                                 @foreach (getAllAdmin() as $user)
                                     <option {{ auth()->user()->id == $user['id'] ? 'selected' : '' }}
                                         value="{{ $user['id'] }}">{{ $user['display_name'] }}</option>
                                 @endforeach
-                            @else
-                                <option selected value="{{ Customer()->id }}">{{ Customer()->full_name }}</option>
                             @endif
                         </select>
                     </div>

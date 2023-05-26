@@ -10,22 +10,20 @@
     <ul class="notifications"></ul>
     <!-- Begin page -->
     <div class="wrapper">
-        <!-- ========== Left Sidebar Start ========== -->
-        @if (AuthUser() == 'ADMIN')
-            @include('admin.includes.side-bar')
-        @endif
+        <!-- ========== Left Sidebar Start ========== --> 
         @if (AuthUser() == 'CUSTOMER')
             @include('customer.includes.side-bar')
+            @else
+            @include('admin.includes.side-bar')
         @endif
         <!--========== Left Sidebar End ========== -->
         <!--========== Start Page Content here ==========-->
         <div class="main-content-rapper">
-            <div class="content-page">
-                @if (AuthUser() == 'ADMIN')
-                    @include('admin.includes.top-bar')
-                @endif
+            <div class="content-page"> 
                 @if (AuthUser() == 'CUSTOMER')
                     @include('customer.includes.top-bar')
+                    @else
+                    @include('admin.includes.top-bar')
                 @endif
                 @yield('admin-content')
             </div>

@@ -115,7 +115,7 @@ if (!function_exists('AuthUser')) {
     function AuthUser()
     {
         if (!is_null(Admin())) {
-            return "ADMIN";
+            return strtoupper(Auth::user()->role->slug);
         }
         if (!is_null(Customer())) {
             return "CUSTOMER";

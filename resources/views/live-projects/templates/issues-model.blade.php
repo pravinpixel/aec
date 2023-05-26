@@ -61,28 +61,17 @@
                             <div class="mb-3">
                                 <b>Status</b> :
                                 <span>
-                                    @if (AuthUser() == 'CUSTOMER')
-                                        <select disabled class="rounded-pill shadow-sm border border-light"
-                                            value="{{ $issue->ststus }}" style="outline:none">
-                                            <option {{ select_status('NEW', $issue) }} value="NEW">
-                                                {{ __('project.NEW') }}</option>
-                                            <option {{ select_status('OPEN', $issue) }} value="OPEN">
-                                                {{ __('project.OPEN') }}</option>
-                                            <option {{ select_status('CLOSED', $issue) }} value="CLOSED">
-                                                {{ __('project.CLOSED') }}</option>
-                                        </select>
-                                    @else
+                                    @if ($issue->assignee_role === AuthUser() || AuthUser() === 'ADMIN')  
                                         <select name="Status" onchange="ChangeIssueStatus('{{ $issue->id }}',this)"
                                             class="rounded-pill shadow-sm border border-light"
-                                            value="{{ $issue->ststus }}" style="outline:none">
-                                            {{-- <option {{ select_status('NEW', $issue) }} value="NEW">
-                                                {{ __('project.NEW') }}</option> --}}
-                                            <option {{ select_status('OPEN', $issue) }} value="OPEN">
-                                                {{ __('project.OPEN') }}</option>
-                                            @if (userRole()['slug'] == 'admin')
-                                                <option {{ select_status('CLOSED', $issue) }} value="CLOSED">
-                                                    {{ __('project.CLOSED') }}</option>
-                                            @endif
+                                            value="{{ $issue->status }}" style="outline:none">
+                                            <option {{ select_status('OPEN', $issue) }} value="OPEN">{{ __('project.OPEN') }}</option>
+                                            <option {{ select_status('CLOSED', $issue) }} value="CLOSED">{{ __('project.CLOSED') }}</option>
+                                        </select>
+                                        @else 
+                                        <select name="Status" disabled class="rounded-pill shadow-sm border border-light"  value="{{ $issue->status }}" style="outline:none">
+                                            <option {{ select_status('OPEN', $issue) }} value="OPEN">{{ __('project.OPEN') }}</option>
+                                            <option {{ select_status('CLOSED', $issue) }} value="CLOSED">{{ __('project.CLOSED') }}</option>
                                         </select>
                                     @endif
                                     <div id="status_form"></div>

@@ -26,6 +26,7 @@ class CreateIssuesTable extends Migration
             $table->string('request_name');
             $table->integer('assignee_id');
             $table->string('assignee_name');
+            $table->string('assignee_role')->nullable();
             $table->string('priority');
             $table->date('due_date');
             $table->json('tags');

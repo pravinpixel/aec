@@ -22,7 +22,8 @@ class IssuesRepository {
             'request_id'    => $request->requester,
             'request_name'  => getEmployeeById($request->requester)->display_name,
             'assignee_id'   => $request->assignee,
-            'assignee_name' => $request->assign_type == 'INTERNAL' ? getEmployeeById($request->assignee)->first_name : getCustomerById($request->assignee)->first_name,
+            'assignee_name' => $request->assign_type === 'INTERNAL' ? getEmployeeById($request->assignee)->first_name : getCustomerById($request->assignee)->first_name,
+            'assignee_role' => $request->assign_type === 'INTERNAL' ? strtoupper(getEmployeeById($request->assignee)->role->slug) : 'CUSTOMER',
             'priority'      => $request->priority,
             'due_date'      => $request->due_date,
             'tags'          => json_encode($request->tags),
@@ -63,7 +64,7 @@ class IssuesRepository {
                 Storage::delete($old_attachment->file_path);
             }
             $issue->IssuesAttachments()->delete();
-            foreach ($request->attachments as $key => $attachment) { 
+            foreach ($request->attachments as $attachment) { 
                 $issue->IssuesAttachments()->create([
                     "file_path" => Storage::put('issues',$attachment)
                 ]);
