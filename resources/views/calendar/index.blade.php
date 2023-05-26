@@ -1,12 +1,8 @@
 @extends('live-projects.layout')
 
 @section('admin-content')
-    <div class="col-md-11 mx-auto pt-md-4">
-        <div class="card shadow-sm border">
-            <div class="card-body">
-                <div id='calendar'></div>
-            </div>
-        </div>
+    <div class="p-4">
+        <div id='calendar'></div>
     </div>
     <div id="updateOrCreateEvent" class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -30,9 +26,12 @@
                         <input class="form-control p-0" id="event-color" type=color name=color value="#252525" readonly>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-light border" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-info shadow-sm ms-2">Save changes</button>
+                <div class="modal-footer d-flex justify-content-between">
+                    <button type="button" onclick="removeEvent()" id="delete-button" class="btn-sm btn btn-danger shadow-sm"><i class="fa fa-trash"></i></button>
+                    <div>
+                        <button type="button" class="btn-sm btn btn-light border  ms-2" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn-sm btn btn-info shadow-sm ms-2">Save changes</button>
+                    </div>
                 </div>
             </div><!-- /.modal-content -->
         </form><!-- /.modal-dialog -->
@@ -49,7 +48,7 @@
                 themeSystem: "bootstrap",
                 customButtons: {
                     createEventButton: {
-                        text: 'Create Today Event',
+                        text: '+ Create Today Event',
                         click: function() {
                             let currentDate = moment().format('YYYY-MM-DD');
                             setFormModal('CREATE', {
@@ -99,13 +98,14 @@
 
             setFormModal = (type, data) => {
                 $('#event-type').val(type)
+                $('#delete-button').css('opacity', type === 'CREATE' ? 0 : 1)
                 $('#modal-label').text(type === 'CREATE' ? 'Add New Event' : 'Edit Event')
                 $('#event-id').val(type === 'CREATE' ? "" : data.id)
                 $('#event-name').val(type === 'CREATE' ? '' : data.title)
                 $('#start-date').val(data.startStr)
                 $('#end-date').val(data.endStr)
                 $('#event-color').val(type === 'CREATE' ? '#936C00' : data.backgroundColor),
-                    $('#updateOrCreateEvent').modal('show')
+                $('#updateOrCreateEvent').modal('show')
             }
             updateOrCreateEvent = (event) => {
                 event.preventDefault()
@@ -122,6 +122,11 @@
                     end: $('#end-date').val(),
                     allDay: true
                 })
+                $('#updateOrCreateEvent').modal('hide')
+            }
+            removeEvent = () => {
+                const event_id = $('#event-id').val()
+                myCalendar.getEventById(event_id).remove()
                 $('#updateOrCreateEvent').modal('hide')
             }
         });

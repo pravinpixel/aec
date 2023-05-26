@@ -999,3 +999,6 @@ sup {
     font-weight: bold;
     color: white;
 }
+.fc .fc-view-harness-active>.fc-view {
+    background-color: white;
+}
