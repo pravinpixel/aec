@@ -57,18 +57,6 @@
                     </div>
                 </li>
             @endforeach
-            @foreach (config('live-project.project_closure') as $key => $item)
-                <li class="list-group-item list-group-item-action d-flex justify-content-between">
-                    <div class="lead">{{ $item }}</div>
-                    <div>
-                        <label for="INPUT_{{ $key }}_YES"
-                            class="mx-2 fs-5 text-uppercase fw-bold form-radio-success">
-                            <input type="checkbox" name="{{ Str::slug($item) }}" id="INPUT_{{ $key }}_YES"
-                                value="Yes" class="form-check-input me-1" required> Yes
-                        </label>
-                    </div>
-                </li>
-            @endforeach
         @endif
     </ul>
 </div>
