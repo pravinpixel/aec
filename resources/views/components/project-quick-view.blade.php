@@ -461,7 +461,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @if ($project['no_of_invoice'] > 0)
+                        @if ($project['invoice_plan']['no_of_invoice'] > 0)
                             @foreach ($project['invoice_plan']['invoice_data']->invoices as $key => $invoice)
                                 <tr>
                                     <td class="text-center">{{ $key + 1 }} </td>
