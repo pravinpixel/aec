@@ -182,6 +182,7 @@
                                                             <button class="dropdown-item"
                                                                 ng-click="DownloadProposal(P.proposal_id)">Download</button>
                                                             <button class="dropdown-item"
+                                                                ng-if="P.status == 'change_request'"
                                                                 ng-click="DuplicatePropose(P.proposal_id)">Duplicate</button>
                                                             {{-- 
                                                             <button class="btn dropdown-item" ng-click="showCommentsToggle(P.proposal_id, P.type)" > Chat</u></a> --}}
