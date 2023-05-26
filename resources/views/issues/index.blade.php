@@ -132,7 +132,7 @@
                 ],
             });
         }
-
+        FatchTable()
         function viewIssueByProject(id) {
             alert(id)
         }
