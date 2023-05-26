@@ -11,7 +11,7 @@
     @foreach ($proposals as $index => $proposal)
         <div class="tab-pane  {{ $index == 0 ? 'show active' : '' }}" id="PROPOSAL_TABS_{{ $index}}">
             <div class="row">
-                <div class="col p-0">
+                <div class="col p-0"> 
                     <div class="card border shadow-sm">
                         <div class="card-header">
                             <h5 class="card-title m-0 d-flex align-items-center justify-content-between">
@@ -43,12 +43,12 @@
                     <div class="col-md-4 pe-0">
                         <div class="card border shadow-sm">
                             <div class="card-header">
-                                <h5 class="card-title m-0">PROPOSAL ACTIONS</h5>
+                                <h5 class="card-title m-0">PROPOSAL ACTIONS </h5>
                             </div>
                             <div class="card-body">
                                 <form action="#" id="proposalActionForm">
                                     <input type="hidden" value="{{ Crypt::encryptString($proposal->proposal_id) }}" id="proposal_id_{{ $index }}_id">
-                                    <input type="hidden" value="{{ Crypt::encryptString(0) }}" id="version_id_{{ $index }}_id">
+                                    <input type="hidden" value="{{ Crypt::encryptString($proposal->id ?? 0) }}" id="version_id_{{ $index }}_id">
                                     <input type="hidden" value="{{ $proposal->enquiry_id }}" id="enquiry_id_{{ $index }}_id">
                                     <select onchange="proposalAction(this.value)" name="proposal_status" id="proposal_status_{{ $index }}_id" class="fw-bold form-select my-3" required>
                                         <option value=""> ---  Select ---</option>
