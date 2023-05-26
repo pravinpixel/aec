@@ -41,9 +41,6 @@
                         <li>
                             <a href="{{ route('customers-project-dashboard') }}">Project</a>
                         </li>
-                        <li>
-                            <a href="#">Economy</a>
-                        </li> 
                     </ul>
                 </div>
             </li> 
