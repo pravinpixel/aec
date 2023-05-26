@@ -29,40 +29,40 @@
 
                                 <div class="row text-center">
                                     <div class="col-md-3">
-                                        <div class="live-status-bg">
+                                        <a href="{{ route('customers-enquiry-dashboard') }}" class="live-status-bg">
                                             <h3>Active Enquiries</h3>
                                             <p class="count">{{ $totalActiveEnquiries }}</p>
                                             <span class="btn btn-success">
                                                 <i class="mdi mdi-comment-check-outline"></i>
                                             </span>
-                                        </div>
+                                        </a>
                                     </div>
                                     <div class="col-md-3">
-                                        <div class="live-status-bg">
+                                        <a href="{{ route('customers-enquiry-dashboard') }}" class="live-status-bg">
                                             <h3>Proposals waiting for Approval</h3>
                                             <p class="count">{{ $totalWaitingApprovals }}</p>
                                             <span class="btn btn-secondary">
                                                 <i class="mdi mdi-comment-processing-outline"></i>
                                             </span>
-                                        </div>
+                                        </a>
                                     </div>
                                     <div class="col-md-3">
-                                        <div class="live-status-bg">
+                                        <a href="{{ route('customers-enquiry-dashboard') }}" class="live-status-bg">
                                             <h3>New Invoices</h3>
                                             <p class="count">{{ $totalNewInvoices }}</p>
                                             <span class="btn btn-primary">
                                                 <i class="mdi mdi-comment-plus-outline"></i>
                                             </span>
-                                        </div>
+                                        </a>
                                     </div>
                                     <div class="col-md-3">
-                                        <div class="live-status-bg">
+                                        <a href="{{ route('customers-enquiry-dashboard') }}" class="live-status-bg">
                                             <h3>Unpaid Invoices</h3>
                                             <p class="count">{{ $totalUnpaidInvoices }}</p>
                                             <span class="btn btn-info text-white">
                                                 <i class="mdi mdi-comment-remove-outline"></i>
                                             </span>
-                                        </div>
+                                        </a>
                                     </div>
                                 </div>
                             </div> <!-- end col -->
