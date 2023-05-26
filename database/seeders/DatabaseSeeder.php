@@ -1,51 +1,36 @@
 <?php
 
 namespace Database\Seeders;
-
-use App\Models\Config;
 use Illuminate\Database\Seeder;
-
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     *
-     * @return void
-     */
     public function run()
     {
-
-        $this->call(AdminSeeder::class);
-
-        $this->call(MasterCalculationSeeder::class);
-        // $this->call(TypeSeeder::class);
-        $this->call(EstimationComponentSeeder::class);
-        $this->call(ConfigSeeder::class);
-        $this->call(CustomerSeeder::class);
-        $this->call(BuildingComponentSeeder::class);
-        $this->call(BuildingTypeSeeder::class);
-        $this->call(DeliveryTypeSeeder::class);
-        $this->call(ProjectTypeSeeder::class);
-        $this->call(OutputTypeSeeder::class);
-        $this->call(ServiceSeeder::class);
-        // $this->call(LayerSeeder::class);
-        // $this->call(LayerTypeSeeder::class);
-        $this->call(DocumentTypeSeeder::class);
-        // $this->call(-::class);
-        // $this->call(TasksTableSeeder::class);
-        // $this->call(LinksTableSeeder::class);
-        // $this->call(CostTasksTableSeeder::class);
-        // $this->call(CostLinksTableSeeder::class);
-        $this->call(DocumentarySeeder::class);
-        $this->call(SharePointAccessSeeder::class);
-        $this->call(PermissionSeeder::class);
-        $this->call(TaskListSeeder::class);
-        $this->call(CheckListSeeder::class);
-        $this->call(WoodMasterSeeder::class);
-        $this->call(PrecastSeeder::class);
-        $this->call(ActivityListSeeder::class);
-        $this->call(CheckSheetSeeder::class);
-        $this->call(IfcFilesIconsSeeder::class);
-        $this->call(SharePointMasterFolderSeeder::class);
+        $this->call([
+            AdminSeeder::class,
+            MasterCalculationSeeder::class,
+            EstimationComponentSeeder::class,
+            ConfigSeeder::class,
+            CustomerSeeder::class,
+            BuildingComponentSeeder::class,
+            BuildingTypeSeeder::class,
+            DeliveryTypeSeeder::class,
+            ProjectTypeSeeder::class,
+            OutputTypeSeeder::class,
+            ServiceSeeder::class,
+            DocumentTypeSeeder::class,
+            DocumentarySeeder::class,
+            SharePointAccessSeeder::class,
+            PermissionSeeder::class,
+            TaskListSeeder::class,
+            CheckListSeeder::class,
+            WoodMasterSeeder::class,
+            PrecastSeeder::class,
+            ActivityListSeeder::class,
+            CheckSheetSeeder::class,
+            IfcFilesIconsSeeder::class,
+            SharePointMasterFolderSeeder::class,
+            calendarSeeder::class
+        ]);
     }
 }

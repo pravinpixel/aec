@@ -17,19 +17,28 @@
                     <input type="hidden" id="event-id">
                     <input type="hidden" id="start-date">
                     <input type="hidden" id="end-date">
-                    <div class="d-flex">
+                    <div class="mb-3">
                         <label for="event-name" class="form-label col-10">Event Name</label>
-                        <label for="event-color" class="form-label">Event Color</label>
+                        <input type="text" id="event-name" class="form-control" placeholder="Type here..." required>
                     </div>
-                    <div class="input-group">
-                        <input type="text" id="event-name" class="form-control w-75" placeholder="Type here..." required>
-                        <input class="form-control p-0" id="event-color" type=color name=color value="#252525" readonly>
+                    <div>
+                        <label for="event-name" class="form-label col-10">Event Color</label>
+                        {{-- <input class="form-control p-0" id="event-color" type=color name=color value="#252525" readonly> --}}
+                        <div class="d-flex flex-wrap justify-content-between gap-1 p-1 bg-white border rounded">
+                            @foreach (colors() as $key => $color)
+                                <input type="radio" id="picker_{{ $key }}" value="{{ $color }}"
+                                    name="color-code" class="form-check-input" required>
+                                <label for="picker_{{ $key }}" style="background: {{ $color }}" class="rounded"></label>
+                            @endforeach
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer d-flex justify-content-between">
-                    <button type="button" onclick="removeEvent()" id="delete-button" class="btn-sm btn btn-danger shadow-sm"><i class="fa fa-trash"></i></button>
+                    <button type="button" onclick="removeEvent()" id="delete-button"
+                        class="btn-sm btn btn-danger shadow-sm"><i class="fa fa-trash"></i></button>
                     <div>
-                        <button type="button" class="btn-sm btn btn-light border  ms-2" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn-sm btn btn-light border  ms-2"
+                            data-bs-dismiss="modal">Close</button>
                         <button type="submit" class="btn-sm btn btn-info shadow-sm ms-2">Save changes</button>
                     </div>
                 </div>
@@ -71,63 +80,72 @@
                     left: "dayGridMonth,timeGridWeek,timeGridDay,listMonth"
                 },
                 handleWindowResize: true,
-                events: {
-                    url: "http://url/getMonthlyEventList"
-                },
                 selectable: true,
                 selectHelper: true,
                 displayEventTime: true,
-                select: (event) => setFormModal('CREATE', event),
+                select: (data) => setFormModal('CREATE', data),
                 eventClick: (data) => setFormModal('EDIT', data.event),
-                eventDrop: (data) => {
-                    // var event_start = FullCalendar.formatDate(data.event.start, "Y-MM-DD");
-                    // var event_end = FullCalendar.formatDate(data.event.end, "Y-MM-DD");
-                    console.log(data)
-                },
-                eventResize: function(info) {
-                    alert(info.event.title + " end is now " + info.event.endStr);
-                    if (!confirm("is this okay?")) {
-                        info.revert();
-                    }
-                },
+                eventDrop: (data) => updateEventApi(data.event),
+                eventResize: (data) => updateEventApi(data.event),
                 events: {
-                    url: "{{ url('/event.json') }}"
+                    url: "{{ route('calendar.events') }}",
                 },
             })
             myCalendar.render()
-
             setFormModal = (type, data) => {
                 $('#event-type').val(type)
                 $('#delete-button').css('opacity', type === 'CREATE' ? 0 : 1)
                 $('#modal-label').text(type === 'CREATE' ? 'Add New Event' : 'Edit Event')
                 $('#event-id').val(type === 'CREATE' ? "" : data.id)
                 $('#event-name').val(type === 'CREATE' ? '' : data.title)
-                $('#start-date').val(data.startStr)
-                $('#end-date').val(data.endStr)
-                $('#event-color').val(type === 'CREATE' ? '#936C00' : data.backgroundColor),
+                $('#start-date').val(type === 'CREATE' ? data.startStr : data.startStr)
+                $('#end-date').val(type === 'CREATE' ? data.endStr : (data.end == null ? data.startStr : data
+                    .endStr))
+                if (type === 'EDIT') {
+                    const checkbox = document.querySelectorAll(`input[name=color-code]`)
+                    checkbox.forEach(element => {
+                        if (element.value === data.backgroundColor) {
+                            element.checked = true
+                        }
+                    });
+                }
                 $('#updateOrCreateEvent').modal('show')
             }
             updateOrCreateEvent = (event) => {
                 event.preventDefault()
                 const formType = $('#event-type').val()
                 const event_id = $('#event-id').val()
-                if (formType === 'EDIT') {
-                    myCalendar.getEventById(event_id).remove()
-                }
-                myCalendar.addEvent({
+                axios.post(`{{ route('calendar.update-or-create') }}`, {
                     id: event_id,
                     title: $('#event-name').val(),
-                    color: $('#event-color').val(),
+                    color: $('input[name=color-code]:checked').val(),
                     start: $('#start-date').val(),
                     end: $('#end-date').val(),
-                    allDay: true
+                }).then(response => {
+                    if (formType === 'EDIT') {
+                        myCalendar.getEventById(event_id).remove()
+                    }
+                    myCalendar.addEvent(response.data)
+                    $('#updateOrCreateEvent').modal('hide')
                 })
-                $('#updateOrCreateEvent').modal('hide')
             }
             removeEvent = () => {
                 const event_id = $('#event-id').val()
+                deleteEventApi(event_id)
                 myCalendar.getEventById(event_id).remove()
                 $('#updateOrCreateEvent').modal('hide')
+            }
+            updateEventApi = (event) => {
+                axios.post(`{{ route('calendar.update-or-create') }}`, {
+                    id: event.id,
+                    title: event.title,
+                    color: event.backgroundColor,
+                    start: moment(event.start).format("Y-MM-DD"),
+                    end: moment(event.end).format("Y-MM-DD")
+                })
+            }
+            deleteEventApi = (id) => {
+                axios.delete(`{{ route('calendar.delete') }}/${id}`)
             }
         });
     </script>

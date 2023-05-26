@@ -23,15 +23,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\CostEstimationController;
 use App\Http\Controllers\Admin\GanttChartController;
 use App\Http\Controllers\Admin\EmployeeController;
-use App\Http\Controllers\Admin\Master\ProjectTypeController;
-use App\Http\Controllers\Admin\Master\DocumentTypeController;
-use App\Http\Controllers\Admin\Master\LayerController;
-use App\Http\Controllers\Admin\Master\DeliveryTypeController;
-use App\Http\Controllers\Admin\Master\LayerTypeController;
-use App\Http\Controllers\Admin\Master\ServiceController;
+
 use App\Http\Controllers\Admin\Documentary\DocumentaryController;
 use App\Http\Controllers\Admin\Master\RoleController;
-use App\Http\Controllers\Admin\Project\ProjectController;
 use App\Http\Controllers\AdminAccountController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\AuthCustomerController;
@@ -358,4 +352,8 @@ Route::group(['middleware' => 'common'], function () {
     Route::get('/get-project-manager-dashboard-data',[CommonController::class,'project_dashboard_data'])->name('issues.project-manager-dashboard-data');
 
     Route::get('/calendar',[CalendarController::class,'index'])->name('calendar.index');
+    Route::get('/calendar-events',[CalendarController::class,'events'])->name('calendar.events');
+    Route::post('/calendar/update-or-create',[CalendarController::class,'update_or_create'])->name('calendar.update-or-create');
+    Route::delete('/calendar/delete/{id?}',[CalendarController::class,'delete'])->name('calendar.delete');
+    
 });

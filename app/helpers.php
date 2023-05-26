@@ -65,12 +65,29 @@ if (!function_exists('userRoleName')) {
         return strtoupper(str_replace('_', '_', $role->slug));
     }
 }
-// if(!function_exists('getProjectCountByAdminId')){
-//     function getProjectCountByAdminId()
-//     {
-//        $project  =   return strtoupper(str_replace('_','_',$role->slug));
-//     }
-// }
+if (!function_exists('colors')) {
+    function colors()
+    {
+        return [
+            "#a61120",
+            "#f94144",
+            "#f97d5b",
+            "#f3722c",
+            "#f8961e",
+            "#f9c74f",
+            "#90be6d",
+            "#43aa8b",
+            "#800080",
+            "#f20089",
+            "#5c0099",
+            "#0c326c",
+            "#4169e1",
+            "#2196F3",
+            "#00540e",
+            "#03071e",
+        ];
+    }
+}
 if (!function_exists('proposalStatusBadge')) {
     function proposalStatusBadge($value)
     {
@@ -422,7 +439,7 @@ if (!function_exists('changeProposalStatus')) {
                 '$building_comp_3_area'     => "",
                 '$building_comp_4_area'     => "",
                 '$offer_number'             => "",
-                '$rev_number'               => "<version>".$version."</version>",
+                '$rev_number'               => "<version>" . $version . "</version>",
             ];
             foreach ($variables as $key => $value) {
                 $documentary_content = str_replace_all($key, $value, $documentary_content);
