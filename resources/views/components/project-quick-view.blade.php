@@ -461,7 +461,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @if (count($project['invoice_plan']['invoice_data']) > 0)
+                        @if (count($project['invoice_plan']['invoice_data'] ?? []) > 0)
                             @foreach ($project['invoice_plan']['invoice_data']->invoices as $key => $invoice)
                                 <tr ng-repeat="row in ">
                                     <td class="text-center">{{ $key + 1 }} </td>
