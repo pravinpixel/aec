@@ -38,7 +38,7 @@ class DocumentarySeeder extends Seeder
                         </tr>
                         <tr>
                             <td style="font-size: 15px;" style="font-size: 15px;">Our ref: $admin_name</td>
-                            <td style="font-size: 15px;">Your ref: </td>
+                            <td style="font-size: 15px;">Your ref: $contact_person</td>
                         </tr>
                         <tr>
                             <td colspan="2"><strong style="font-size: 20px;">Re.: $document_title</strong></td>
