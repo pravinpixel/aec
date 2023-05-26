@@ -93,14 +93,16 @@
             })
             myCalendar.render()
             setFormModal = (type, data) => {
+                if(data.durationEditable === false) {
+                    return false
+                }
                 $('#event-type').val(type)
                 $('#delete-button').css('opacity', type === 'CREATE' ? 0 : 1)
                 $('#modal-label').text(type === 'CREATE' ? 'Add New Event' : 'Edit Event')
                 $('#event-id').val(type === 'CREATE' ? "" : data.id)
                 $('#event-name').val(type === 'CREATE' ? '' : data.title)
                 $('#start-date').val(type === 'CREATE' ? data.startStr : data.startStr)
-                $('#end-date').val(type === 'CREATE' ? data.endStr : (data.end == null ? data.startStr : data
-                    .endStr))
+                $('#end-date').val(type === 'CREATE' ? data.endStr : (data.end == null ? data.startStr : data.endStr))
                 if (type === 'EDIT') {
                     const checkbox = document.querySelectorAll(`input[name=color-code]`)
                     checkbox.forEach(element => {
