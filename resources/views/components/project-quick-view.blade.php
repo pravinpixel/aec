@@ -460,7 +460,7 @@
                             <th class="text-center">Percentage %</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    {{-- <tbody>
                         @if (count($project['invoice_plan']['invoice_data'] ?? []) > 0)
                         @if (count($project['invoice_plan']['invoice_data']->invoices))
                         @foreach ($project['invoice_plan']['invoice_data']->invoices as $key => $invoice)
@@ -478,7 +478,7 @@
                                 <td class="text-center" colspan="4"> No data found </td>
                             </tr>
                         @endif
-                    </tbody>
+                    </tbody> --}}
                 </table>
             </x-accordion>
         @endif
