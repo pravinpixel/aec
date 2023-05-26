@@ -17,7 +17,7 @@
                                 data-bs-toggle="collapse" data-bs-target="#versionListView__{{ $index }}"
                                 aria-expanded="false" aria-controls="versionListView__{{ $index }}"></a>
                             <h5 class="h5 m-0 text-dark py-1">
-                                VAR/{{ date('Y') }}/{{ count($variations) - 1 }} - {{ $variation->issues->title }}
+                                VAR/{{ date('Y') }}/{{ (count($variations) + 1) - $index }} - {{ $variation->issues->title }}
                             </h5>
                         </div>
                         <div>
