@@ -47,6 +47,8 @@
                     </div>
                 </div>
             @endforeach
+            @else
+            <h4 class="text-center">No variation orders!</h4>
         @endif
     </div>
 </div>
