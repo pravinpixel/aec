@@ -168,5 +168,24 @@
                 });
             }
         }
+        setStatus = (id, value) => {
+                var remarks = $('#remarks').val()
+                if (remarks !== '') {
+                    axios.put(`{{ route('live-project.change-status-issues.ajax') }}/${id}`, {
+                        status: value,
+                        remarks: remarks,
+                    }).then(() => {
+                        Alert.success('Issue Status Changed!')
+                        $('#live-project-table').DataTable().destroy();
+                        FatchTable(null)
+                        axios.get(`{{ route('live-project.show-issues.ajax') }}/${id}`).then(
+                            response => {
+                                $('#detail-issue-modal-content').html(response.data.view)
+                            })
+                    });
+                } else {
+                    Alert.error('Remarks is required!!')
+                }
+            }
     </script>
 @endpush
