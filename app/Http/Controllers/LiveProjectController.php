@@ -286,10 +286,14 @@ class LiveProjectController extends Controller
             });
             $table->addColumn('action', function ($row) {
                 $btnConvert = '';
+                $btnEdit = '';
                 if (AuthUser() == 'ADMIN') {
                     if (is_null($row->VariationOrder)) {
                         $btnConvert = '<button type="button" onclick="convertVariation(' . $row->id . ',this)" title="Convert to variation Order" class="dropdown-item"><i class="fa fa-share me-1"></i> Convert Variation</button>';
                     }
+                }
+                if(hasIssueReadPermission($row)) {
+                    $btnEdit = '<button type="button" onclick=editIssue(' . $row->id . ',this) class="dropdown-item"><i class="fa fa-pen me-1"></i> Edit</button>';
                 }
                 // return $btnConvert.'<span onclick="showIssue('.$row->id.',this)" title="View" class="mx-1"><i class="fa fa-eye text-success"></i></span>
                 //     <i onclick="deleteIssue('.$row->id.',this)" title="Delete" class="fa fa-trash text-danger"></i>
@@ -301,7 +305,7 @@ class LiveProjectController extends Controller
                             <div class="dropdown-menu dropdown-menu-end">
                                 ' . $btnConvert . '
                                 <button type="button" onclick=showIssue(' . $row->id . ',this) class="dropdown-item"><i class="fa fa-eye me-1"></i> View </button>
-                                <button type="button" onclick=editIssue(' . $row->id . ',this) class="dropdown-item"><i class="fa fa-pen me-1"></i> Edit</button>
+                                ' . $btnEdit . '
                                 <button type="button" onclick="deleteIssue(' . $row->id . ',this)"  class="dropdown-item text-danger"><i class="fa fa-trash me-1"></i> Delete</button>
                             </div>
                         </div>';
