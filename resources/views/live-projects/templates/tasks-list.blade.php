@@ -7,31 +7,36 @@
             <div class="card-bodyx">
                 <ol class="list-group border-0">
                     @foreach ($project->LiveProjectTasks as $i => $task)
-                        @if (count($task->SubTasks) !== 0)
-                            <button type="button" class="list-group-item list-group-item-action"
-                                onclick="getLiveProjectSubTasks({{ $task->id }})">
-                                <div>
-                                    <div class="d-flex align-items-center justify-content-between w-100">
-                                        <b>{{ $task->name }}</b>
-                                        <div class="text-center">
-                                            @if ($task['progress_percentage'] == 100)
-                                                <span
-                                                    class="badge badge-success-lighten shadow-sm border border-success rounded-pill"><i
-                                                        class="mdi mdi-check-circle me-1"></i>Completed</span>
-                                            @else
-                                                {{ $task['progress_percentage'] !== 0 ? 'Completed' : 'Pending' }}
-                                                {!! generateProgressBar($task['progress_percentage']) !!}
-                                            @endif
-                                        </div>
+                        <button type="button" class="list-group-item list-group-item-action"
+                            onclick="getLiveProjectSubTasks({{ $task->id }})">
+                            <div>
+                                <div class="d-flex align-items-center justify-content-between w-100">
+                                    <b>{{ $task->name }}</b>
+                                    <div class="text-center">
+                                        @if ($task['progress_percentage'] == 100)
+                                            <span
+                                                class="badge badge-success-lighten shadow-sm border border-success rounded-pill"><i
+                                                    class="mdi mdi-check-circle me-1"></i>Completed</span>
+                                        @else
+                                            {{ $task['progress_percentage'] !== 0 ? 'Completed' : 'Pending' }}
+                                            {!! generateProgressBar($task['progress_percentage']) !!}
+                                        @endif
                                     </div>
+                                </div>
+                                @if (count($task->SubTasks) !== 0)
                                     <div>
-                                        <h6 class="text-primary"><i class="fa fa-list me-1"></i> Sub Tasks ({{ count($task->SubTasks) }})</h6>
+                                        <h6 class="text-primary"><i class="fa fa-list me-1"></i> Sub Tasks
+                                            ({{ count($task->SubTasks) }})</h6>
                                         <ul class="list-group">
                                             @foreach ($task->SubTasks as $subtask)
-                                                <li class="list-group-item"> 
-                                                    <div class="d-flex align-items-center justify-content-between w-100">
-                                                        <small class="text-dark">{{ $subtask->name }} <b class="ps-1 text-primary">( {{ $subtask->SubSubTasks->where('status',1)->count() }} / {{ $subtask->SubSubTasks->count() }} )</b> </small>
-                                                        <div class="text-center"> 
+                                                <li class="list-group-item">
+                                                    <div
+                                                        class="d-flex align-items-center justify-content-between w-100">
+                                                        <small class="text-dark">{{ $subtask->name }} <b
+                                                                class="ps-1 text-primary">(
+                                                                {{ $subtask->SubSubTasks->where('status', 1)->count() }}
+                                                                / {{ $subtask->SubSubTasks->count() }} )</b> </small>
+                                                        <div class="text-center">
                                                             {{-- {!! generateProgressBar($subtask->progress_percentage,'bg-primary') !!} --}}
                                                             <b>{{ $subtask->progress_percentage }}%</b>
                                                         </div>
@@ -40,9 +45,9 @@
                                             @endforeach
                                         </ul>
                                     </div>
-                                </div>
-                            </button>
-                        @endif
+                                @endif
+                            </div>
+                        </button>
                     @endforeach
                 </ol>
             </div>
