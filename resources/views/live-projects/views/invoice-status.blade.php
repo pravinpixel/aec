@@ -21,7 +21,7 @@
                         <tr>
                             <td>{{ $invoice->project_cost }}</td>
                             <td>{{ getVoCostByProjectId($project->id) }}</td>
-                            <td>{{ $invoice->project_cost *  getVoCostByProjectId($project->id)}}</td>
+                            <td>{{ $invoice->project_cost + getVoCostByProjectId($project->id)}}</td>
                             <td>{{ SetDateFormat($project->start_date) }}</td>
                             <td>{{ SetDateFormat($project->delivery_date) }}</td>
                         </tr>
