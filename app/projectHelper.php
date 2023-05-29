@@ -12,6 +12,7 @@ use App\Models\Project;
 use App\Models\ProjectTeamSetup;
 use App\Models\Role;
 use App\Models\VariationOrder;
+use App\Models\VariationOrderVersions;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 use PharIo\Manifest\Author;
@@ -215,7 +216,7 @@ if (!function_exists('VariationStatus')) {
             }
         }
         if ($status == 'OBSOLETE') {
-            return '<span class="badge bg-danger rounded-pill">OBSOLETE</span>';
+            return '<span class="badge bg-dark rounded-pill">OBSOLETE</span>';
         }
         if ($status == 'ACCEPT') {
             return '<span class="badge bg-success rounded-pill">Accepted</span>';
@@ -383,6 +384,26 @@ if (!function_exists('hasIssueReadPermission')) {
             } else {
                 return false;
             }
+        }
+    }
+
+    if (!function_exists('getVoCostByProjectId')) {
+        function getVoCostByProjectId($id)
+        {
+            $data = VariationOrderVersions::where('project_id', $id)->get();
+            $count = 0;
+            if(count($data)) {
+                foreach($data as $row) {
+                    $count  += (int)$row->price  * (int) $row->hours;
+                }
+            }
+            return $count;
+        }
+    }
+    if (!function_exists('getVOrdersByProjectId')) {
+        function getVOrdersByProjectId($id)
+        {
+            return VariationOrderVersions::where('project_id', $id)->get();
         }
     }
 }

@@ -147,7 +147,7 @@ class MailTemplateController extends Controller
         $enquiry              = Enquiry::with(['costEstimate','customer','project'])->find($request->enquireId);
         $documentary          = Documentary::find($request->documentId);
         $totalProposalVersion = PropoalVersions::where(["enquiry_id" => $enquiry->id, "documentary_id" => $documentary->id])->get()->count();
-        $version              = $totalProposalVersion !== 0 ? 'R' . ($totalProposalVersion + 1) : 'RO';
+        $version              = $totalProposalVersion !== 0 ? 'R' . ($totalProposalVersion + 1) : 'R0';
         $documentary_content  = bindProposalContent($enquiry, $documentary, $version);
         changePreviousProposalStatus($request->enquireId);
         $enquiry->customer_response = 0;

@@ -11,15 +11,17 @@
                     <thead>
                         <tr>
                             <th class="small">Project Cost</th>
-                            <th class="small">No.of Invoices</th>
+                            <th class="small">VO Cost</th>
+                            <th class="small">Total Cost</th>
                             <th class="small">Project Start date</th>
                             <th class="small">Project End date</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody> 
                         <tr>
                             <td>{{ $invoice->project_cost }}</td>
-                            <td>{{ count($invoices) }}</td>
+                            <td>{{ getVoCostByProjectId($project->id) }}</td>
+                            <td>{{ $invoice->project_cost *  getVoCostByProjectId($project->id)}}</td>
                             <td>{{ SetDateFormat($project->start_date) }}</td>
                             <td>{{ SetDateFormat($project->delivery_date) }}</td>
                         </tr>
@@ -41,6 +43,27 @@
                 <td>{{ SetDateFormat(str_replace('/','-', $invoice->invoice_date)) }}</td>
                 <td>{{ $invoice->percentage }}</td>
                 <td>{{ $invoice->amount }}</td>
+            </tr>
+        @endforeach
+    </tbody>
+</table>
+<table class="table table-bordered">
+    <thead>
+        <th colspan="4" class="text-center font-14">VO Invoices</th>
+        <tr>
+            <th scope="col" class="text-secondary">#</th>
+            <th scope="col" class="text-secondary">Date</th>
+            <th scope="col" class="text-secondary">Description</th>
+            <th scope="col" class="text-secondary">Amount</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (getVOrdersByProjectId($project->id) as $index => $row )
+            <tr>
+                <th scope="row">{{ $index +1 }}</th>
+                <td>{{ SetDateFormat($row->created_at) }}</td>
+                <td>{{ $row->description }}</td>
+                <td>{{ $row->price * $row->hours }}</td>
             </tr>
         @endforeach
     </tbody>

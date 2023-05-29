@@ -148,7 +148,7 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
         $result               = PropoalVersions::find($proposal_id);
         $totalProposalVersion = PropoalVersions::where(["enquiry_id"=> $enquiry_id, "documentary_id"=> $result->documentary_id])->get()->count();
         $version              = 'R'.($totalProposalVersion + 1);
-        $documentary_content  = str_replace(['R0','RO','R1','R2','R3','R4','R5','R6','R7','R8','R9'],$version, $result->documentary_content);
+        $documentary_content  = str_replace(['R0','R1','R2','R3','R4','R5','R6','R7','R8','R9'],$version, $result->documentary_content);
         $duplicate  =  new PropoalVersions;
         $duplicate  ->  proposal_id         = $proposal_id;
         $duplicate  ->  parent_id           = $result->proposal_id;
@@ -215,7 +215,7 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
         $result->status       = "obsolete";
         $totalProposalVersion = PropoalVersions::where(["enquiry_id"=> $id, "documentary_id" => $result->documentary_id])->get()->count();
         $version              = 'R'.($totalProposalVersion + 1);
-        $documentary_content  = str_replace(['R0','RO','R1','R2','R3','R4','R5','R6','R7','R8','R9','R10','R11'],$version, $result->documentary_content);
+        $documentary_content  = str_replace(['R0','R1','R2','R3','R4','R5','R6','R7','R8','R9','R10','R11'],$version, $result->documentary_content);
        
         $duplicate            = new PropoalVersions;
         $duplicate  ->  proposal_id         = $proposal_id;

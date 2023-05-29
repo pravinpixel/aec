@@ -370,9 +370,9 @@ class LiveProjectController extends Controller
             $VariationOrder = $issue->VariationOrder()->create([
                 'project_id'  => $issue->project_id
             ]);
-            $totalVersion = count($VariationOrder->VariationOrderVersions) + 1;
+            $totalVersion = count($VariationOrder->VariationOrderVersions);
             $VariationOrderVersion = $VariationOrder->VariationOrderVersions()->create([
-                'version'     => 'V ' . $totalVersion,
+                'version'     => 'R ' . $totalVersion,
                 'project_id'  => $issue->project_id,
                 'title'       => $request->title,
                 'hours'       => $request->hours,
@@ -501,8 +501,8 @@ class LiveProjectController extends Controller
             foreach ($variationVersions as $key => $variation) {
                 $variation->update(["status" => 'OBSOLETE']);
             }
-            $totalVersion       = count($variationVersions) + 1;
-            $request['version'] = 'V ' . $totalVersion;
+            $totalVersion       = count($variationVersions);
+            $request['version'] = 'R ' . $totalVersion;
             $request['staus']   = 'NEW';
             VariationOrderVersions::create($request->all());
         } elseif ($mode === 'EDIT') {
