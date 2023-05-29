@@ -39,7 +39,7 @@
                     <div>
                         <button type="button" class="btn-sm btn btn-light border  ms-2"
                             data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn-sm btn btn-info shadow-sm ms-2">Save changes</button>
+                        <button type="submit" class="btn-sm btn btn-info shadow-sm ms-2">Submit</button>
                     </div>
                 </div>
             </div><!-- /.modal-content -->

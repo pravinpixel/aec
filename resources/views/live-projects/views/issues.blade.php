@@ -442,7 +442,8 @@
                             <label for="remarks" class="form-label">Remarks</label>
                             <textarea class="form-control mb-3" id="remarks" rows="3"></textarea>
                             <button type="button" onclick="$('#status_form').html('')" class="btn btn-light border btn-sm">Cancel</button>
-                            <button type="button" onclick="setStatus(${id},'${element.value}')" class="btn btn-primary btn-sm">Change</button>
+                            <button type="button" onclick="setStatus(${id},'${element.value}')" class="btn btn-primary btn-sm">Close issue
+</button>
                         </div>
                     </div>`)
                 } else {

@@ -53,8 +53,8 @@
                                             <input class="form-control form-control-sm" id="inputLocation" type="text" placeholder="Enter your location" name="location" value="{{ $user->location }}">
                                         </div>
                                     </div> 
-                                    <!-- Save changes button-->
-                                    <button type="submit" class="btn btn-primary btn-sm float-end" type="button"><i class="fa fa-save me-1"></i>Save changes</button>
+                                    <!-- Submit button-->
+                                    <button type="submit" class="btn btn-primary btn-sm float-end" type="button"><i class="fa fa-save me-1"></i>Submit</button>
                                 </form>
                             </div>
                         </div> 

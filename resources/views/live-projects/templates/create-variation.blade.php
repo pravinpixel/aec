@@ -53,7 +53,7 @@
         </label>
         <div>
             <button type="button" class="btn-sm btn btn-outline-primary rounded-pill" data-bs-dismiss="modal" onclick="$('#detail-variation-modal').modal('show')">Cancel</button>
-            <button type="submit" class="btn-sm btn btn-primary rounded-pill ms-1">Save Changes</button>
+            <button type="submit" class="btn-sm btn btn-primary rounded-pill ms-1">Submit</button>
         </div>
     </div>
 </form>

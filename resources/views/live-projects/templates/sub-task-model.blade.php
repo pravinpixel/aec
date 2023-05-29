@@ -103,7 +103,7 @@
 </div>
 {{-- <div class="modal-footer">
     <button type="button" class="btn btn-light" data-bs-dismiss="modal" onclick="setAllTask()">Close</button>
-    <button type="button" class="btn btn-primary" onclick="setAllTask()">Save changes</button>
+    <button type="button" class="btn btn-primary" onclick="setAllTask()">Submit</button>
 </div> --}}
 <div id="create-live-project-task-modal" class="app-modal modal-d-none">
     <div class="card app-modal-content border shadowm-sm m-0 h-100">

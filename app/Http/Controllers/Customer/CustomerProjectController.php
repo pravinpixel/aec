@@ -166,14 +166,7 @@ class CustomerProjectController extends Controller
                     ';
                 })
                 ->addColumn('action', function ($dataDb) {
-                    return '<div class="dropdown">
-                            <button class="btn py-0" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" href="'.route('live-project.menus-index',['menu_type'=>'overview','id'=> $dataDb->id]).'">View </a>
-                            </div>
-                        </div>';
+                    return '<a class="btn btn-sm btm-light border" href="'.route('live-project.menus-index',['menu_type'=>'overview','id'=> $dataDb->id]).'"><i class="fa fa-eye" aria-hidden="true"></i></a>';
                 })
                 ->rawColumns(['action', 'pipeline', 'reference_number'])
                 ->make(true);
