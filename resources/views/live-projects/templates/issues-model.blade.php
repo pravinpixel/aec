@@ -61,7 +61,7 @@
                             <div class="mb-3">
                                 <b>Status</b> :
                                 <span>
-                                    @if ($issue->assignee_role === AuthUser() || AuthUser() === 'ADMIN')  
+                                    @if ($issue->requester_role === AuthUser() || AuthUser() === 'ADMIN')  
                                         <select name="Status" onchange="ChangeIssueStatus('{{ $issue->id }}',this)"
                                             class="rounded-pill shadow-sm border border-light"
                                             value="{{ $issue->status }}" style="outline:none">

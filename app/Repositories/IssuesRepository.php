@@ -24,6 +24,7 @@ class IssuesRepository {
             'assignee_id'   => $request->assignee,
             'assignee_name' => $request->assign_type === 'INTERNAL' ? getEmployeeById($request->assignee)->first_name : getCustomerById($request->assignee)->first_name,
             'assignee_role' => $request->assign_type === 'INTERNAL' ? strtoupper(getEmployeeById($request->assignee)->role->slug) : 'CUSTOMER',
+            'requester_role' => AuthUser(),
             'priority'      => $request->priority,
             'due_date'      => $request->due_date,
             'tags'          => json_encode($request->tags),

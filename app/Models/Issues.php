@@ -22,6 +22,7 @@ class Issues extends Model
         'assignee_id',
         'assignee_name',
         'assignee_role',
+        'requester_role',
         'priority',
         'due_date',
         'tags',
