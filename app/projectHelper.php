@@ -375,6 +375,9 @@ if (!function_exists('hasIssueReadPermission')) {
         if(AuthUser() === 'CUSTOMER' && $issue->type === 'EXTERNAL') {
             return true;
         } else {
+            if($issue->type === 'EXTERNAL') {
+                return true;
+            }
             $employees = [];
             if($issue->tags) {
                 foreach (json_decode($issue->tags) as $key => $user_id) {
