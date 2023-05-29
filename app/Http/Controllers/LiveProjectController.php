@@ -57,9 +57,9 @@ class LiveProjectController extends Controller
         return redirect()->route('live-project.menus-index', ["menu_type" => $request->menu_type, "id" => $id]);
     }
     public function project_closure($request, $id)
-    {
+    { 
         $project = Project::find($id);
-        foreach ($request->all() as $key => $value) {
+        foreach ($request->except('url') as $key => $value) {
             $project->projectClosure()->updateOrCreate(['project_id' => $id, "question" => $key], [
                 'project_id' => $id,
                 "question" => $key,
@@ -67,7 +67,8 @@ class LiveProjectController extends Controller
             ]);
         }
         $project->update([
-            'status' => 'LIVE_PROJECT_COMPLETED'
+            'status' => 'LIVE_PROJECT_COMPLETED',
+            'share_point_folder_link' => json_encode($request->url)
         ]);
     }
     public function project_comments($request, $id)

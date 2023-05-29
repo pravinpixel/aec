@@ -51,7 +51,8 @@ class Project extends Model
         'is_new_project',
         'bim_id',
         'bim_account_id',
-        'progress_percentage'
+        'progress_percentage',
+        'share_point_folder_link'
     ];
 
     public function setCreatedByAttribute()

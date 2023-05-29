@@ -28,7 +28,6 @@
     </div>
     <ul class="list-group col-lg-8">
         <h5>Please confirm below </h5>
-
         @if (count($project->projectClosure))
             @foreach ($project->projectClosure as $key => $item)
                 <li class="list-group-item list-group-item-action d-flex justify-content-between">
@@ -59,4 +58,41 @@
             @endforeach
         @endif
     </ul>
+
+    <hr>
+    <div class="col-lg-8 mx-auto">
+        <div class="modal-header border-0">
+            <h5>Share point folder link </h5>
+            @if (is_null($project->share_point_folder_link))
+                <button type="button" onclick="addUrl()" class="btn btn-primary btn-sm"><i class="fa fa-plus me-1"></i>
+                    Add</button>
+            @endif
+        </div>
+        @if (is_null($project->share_point_folder_link))
+            <div class="px-2" id="urlList">
+                <div class="input-group mb-3">
+                    <input type="url" name="url[]" class="form-control form-control-sm"
+                        placeholder="Paste URL here..." required>
+                    <button type="button" onclick="$(this).parent('div').remove()" class="btn-sm btn btn-danger"><i
+                            class="fa fa-trash"></i></button>
+                </div>
+            </div>
+            @else
+            @foreach (json_decode($project->share_point_folder_link) as $row)
+                <li class="list-group-item"><a href="{{  $row }}">{{  $row }}</a></li>
+            @endforeach
+        @endif
+    </div>
 </div>
+@push('live-project-custom-scripts')
+    <script>
+        addUrl = () => {
+            $('#urlList').append(`
+            <div class="input-group mb-3">
+                <input type="url" name="url[]" class="form-control form-control-sm" placeholder="Paste URL here..." required>
+                <button type="button" onclick="$(this).parent('div').remove()" class="btn-sm btn btn-danger"><i class="fa fa-trash"></i></button>
+            </div>
+        `)
+        }
+    </script>
+@endpush
