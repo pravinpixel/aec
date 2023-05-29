@@ -292,9 +292,9 @@ class LiveProjectController extends Controller
                         $btnConvert = '<button type="button" onclick="convertVariation(' . $row->id . ',this)" title="Convert to variation Order" class="dropdown-item"><i class="fa fa-share me-1"></i> Convert Variation</button>';
                     }
                 }
-                if(hasIssueReadPermission($row)) {
+                if($row->requester_role === AuthUser() || AuthUser() === 'ADMIN') {
                     $btnEdit = '<button type="button" onclick=editIssue(' . $row->id . ',this) class="dropdown-item"><i class="fa fa-pen me-1"></i> Edit</button>';
-                }
+                } 
                 // return $btnConvert.'<span onclick="showIssue('.$row->id.',this)" title="View" class="mx-1"><i class="fa fa-eye text-success"></i></span>
                 //     <i onclick="deleteIssue('.$row->id.',this)" title="Delete" class="fa fa-trash text-danger"></i>
                 // ';
