@@ -91,11 +91,13 @@
             <div class="mb-3">
                 <span class="custom-label">Tags</span>
                 <select name="tags[]" class="form-select form-select-sm edit-multiple-select"  data-placeholder="-- Select --" multiple>
-                    @foreach (getAllAdmin() as $user)
-                        <option  {{ in_array($user['id'],json_decode($issue->tags)) ? 'selected' : '' }} value="{{ $user['id'] }}">{{ $user['display_name'] }}</option>
-                    @endforeach
+                    @if (json_decode($issue->tags))
+                        @foreach (getAllAdmin() as $user)
+                            <option  {{ in_array($user['id'],json_decode($issue->tags)) ? 'selected' : '' }} value="{{ $user['id'] }}">{{ $user['display_name'] }}</option>
+                        @endforeach
+                    @endif
                 </select> 
-            </div> 
+            </div>  
         </x-admin-layout>
     </div> 
     <div class="modal-footer">
