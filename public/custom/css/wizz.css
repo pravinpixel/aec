@@ -4,6 +4,7 @@ fieldset:hover .legend {
 }
 .custom.modal-content {
     background-color: whitesmoke;
+    min-height: calc(100vh - 80px);
 }
 select.custom, input[type=text].custom {
     text-transform: capitalize ;

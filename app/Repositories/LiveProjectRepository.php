@@ -193,19 +193,24 @@ class LiveProjectRepository implements LiveProjectInterface
                 $completed_sub2_tasks++;
             }
         }
-        $per_task_percentage     = 100 / count($LiveProjectSubSubTasks->SubSubTasks);
-        $sub_task_progress_count = $completed_sub2_tasks * $per_task_percentage;
-        $LiveProjectSubSubTasks->update([
-            'progress_percentage' => $sub_task_progress_count
-        ]);
+        if(count($LiveProjectSubSubTasks->SubSubTasks)) {
+            $per_task_percentage     = 100 / count($LiveProjectSubSubTasks->SubSubTasks);
+            $sub_task_progress_count = $completed_sub2_tasks * $per_task_percentage;
+            $LiveProjectSubSubTasks->update([
+                'progress_percentage' => $sub_task_progress_count
+            ]);
+        }
         $LiveProjectTasks = LiveProjectTasks::find($LiveProjectSubSubTasks->task_id);
 
-        $task_progress_percentage = 0;
-        foreach ($LiveProjectTasks->SubTasks as $key => $task) {
-            $task_progress_percentage += (int) $task->progress_percentage;
+        if(count($LiveProjectTasks->SubTasks)) {
+            $task_progress_percentage = 0;
+            foreach ($LiveProjectTasks->SubTasks as $key => $task) {
+                $task_progress_percentage += (int) $task->progress_percentage;
+            }
+            $LiveProjectTasks->progress_percentage = $task_progress_percentage / count($LiveProjectTasks->SubTasks);
+            $LiveProjectTasks->save();
         }
-        $LiveProjectTasks->progress_percentage = $task_progress_percentage / count($LiveProjectTasks->SubTasks);
-        $LiveProjectTasks->save();
+
         return generateProgressBar($sub_task_progress_count);
     }
 }
