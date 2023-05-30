@@ -14,7 +14,7 @@ class CommonController extends Controller
     public function issues(Request $request)
     {
         if ($request->ajax()) {
-            $data = Issues::with('Project','Project.Customer')->when(!is_null($request->filter), function ($q) use ($request) {
+            $data = Issues::whereIn('status',['OPEN','NEW'])->with('Project','Project.Customer')->when(!is_null($request->filter), function ($q) use ($request) {
                 if(!is_null($request->filter[1])) {
                     $q->where($request->filter[0], $request->filter[1]);
                 }
