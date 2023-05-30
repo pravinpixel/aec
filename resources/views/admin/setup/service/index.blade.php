@@ -233,7 +233,7 @@
                         data: $.param({'status':0}),
                         headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
                     }).then(function (response) {
-                        $scope.getServiceData($http, API_URL);
+                        $scope.filter($scope.mtFilter)
                         Message('success',response.data.msg);
                     }), (function (error) {
                         console.log(error);
