@@ -4,24 +4,43 @@
         <span class="text-primary">All Issues</span>
     </h4>
     <div class="card shadow-sm border">
+        <div class="card-header">
+            <div class="col-md-6 p-0 ms-auto">
+                <div class="input-group">
+                    <input onchange="setFilter(null)" type="radio" name="filter" class="btn-check" id="all-issues" checked>
+                    <label class="btn btn-outline-dark rounded-start" for="all-issues">All</label>
+                    <input onchange="setFilter(['type','INTERNAL'])" type="radio" name="filter" class="btn-check"
+                        id="internal-issues">
+                    <label class="btn btn-outline-dark" for="internal-issues">Internal</label>
+                    <input onchange="setFilter(['type','EXTERNAL'])" type="radio" name="filter" class="btn-check"
+                        id="external-issues">
+                    <label class="btn btn-outline-dark" for="external-issues">External</label>
+                    <select id="select" onchange="setFilter(['project_id',this.value])" class="form-select"></select>
+                </div>
+            </div>
+        </div>
         <div class="card-body">
-            <table class="table custom custom dt-responsive nowrap  w-100" id="live-project-table">
-                <thead>
-                    <tr class="bg-light-2">
-                        <th>#Issue Id</th>
-                        <th width="200px">Title</th>
-                        <th>Type</th>
-                        <th>Assignee</th>
-                        <th>Requester</th>
-                        <th>Priority</th>
-                        <th>Due Date</th>
-                        <th width="100px">Status</th>
-                        <th>Request Date</th>
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
+            <div class="table-responsive">
+                <table class="table custom custom dt-responsive nowrap w-100" id="live-project-table">
+                    <thead>
+                        <tr class="bg-light-2">
+                            <th>#Issue Id</th>
+                            <th width="200px">Title</th>
+                            <th>Type</th>
+                            <th width="300px">Project</th>
+                            <th>Customer</th>
+                            <th>Assignee</th>
+                            <th>Requester</th>
+                            <th>Priority</th>
+                            <th>Due Date</th>
+                            <th width="100px">Status</th>
+                            <th>Request Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
     @include('live-projects.modals.detail-issue')
@@ -70,21 +89,26 @@
             display: none
         }
     </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" />
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
 @endpush
 @push('live-project-custom-scripts')
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
-        FatchTable = () => {
+        FatchTable = (data) => {
             var table = $('#live-project-table').DataTable({
                 aaSorting: [
                     [0, 'desc']
                 ],
+                destroy: true,
                 responsive: true,
                 processing: true,
-                pageLength: 50,
+                pageLength: 10,
                 lengthMenu: [
                     [10, 25, 50, -1],
                     [10, 25, 50, "All"]
@@ -92,6 +116,9 @@
                 serverSide: true,
                 ajax: {
                     url: "{{ route('issues.index') }}",
+                    data: {
+                        filter: data
+                    }
                 },
                 columns: [{
                         data: 'issue_id',
@@ -104,6 +131,14 @@
                     {
                         data: 'issue_type',
                         name: 'type'
+                    },
+                    {
+                        data: 'project.project_name',
+                        name: 'project_id'
+                    },
+                    {
+                        data: 'project.customer.full_name',
+                        name: 'project_id'
                     },
                     {
                         data: 'assignee_name',
@@ -133,6 +168,9 @@
             });
         }
         FatchTable()
+        setFilter = (data) => {
+            FatchTable(data)
+        }
 
         function viewIssueByProject(id) {
             alert(id)
@@ -238,5 +276,26 @@
                 $('#comments_content').html(response.data)
             })
         }
+        $('#select').select2({
+            theme: 'bootstrap-5',
+            placeholder: '-- choose project --',
+            allowClear: true,
+            selectionCssClass: 'border-dark border',
+            dropdownCssClass: 'border-dark border',
+            width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
+            ajax: {
+                url: "{{ route('get-all-projects') }}",
+                data: function(params) {
+                    return {
+                        search: params.term,
+                    };
+                },
+                processResults: function(data) {
+                    return {
+                        results: data
+                    };
+                }
+            },
+        });
     </script>
 @endpush

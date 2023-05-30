@@ -14,9 +14,14 @@ class CommonController extends Controller
     public function issues(Request $request)
     {
         if ($request->ajax()) {
-            $table = DataTables::of(getIssuesByUserId(AuthUserData()->id));
-            $table->addIndexColumn(); 
-            $table->addColumn('issue_id', function ($row) { // '.Project()->reference_number.'.
+            $data = Issues::with('Project','Project.Customer')->when(!is_null($request->filter), function ($q) use ($request) {
+                if(!is_null($request->filter[1])) {
+                    $q->where($request->filter[0], $request->filter[1]);
+                }
+            })->select('*');
+            $table = DataTables::of($data);
+            $table->addIndexColumn();
+            $table->addColumn('issue_id', function ($row) { 
                 $count  = $row->IssueComments->where('unread', 0)->count();
                 $countTemp = '<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">' . $count . '</span>';
                 $count = $count != 0 ?  $countTemp : "";
@@ -51,7 +56,7 @@ class CommonController extends Controller
                 } elseif ($row->priority == 'LOW') {
                     return "<small>🟢 " . ucfirst(strtolower($row->priority)) . " </small>";
                 }
-            }); 
+            });
             $table->rawColumns(['issue_id', 'priority_type', 'status_type', 'issue_type', 'requested_date']);
             return $table->make(true);
         }
@@ -89,7 +94,7 @@ class CommonController extends Controller
                     return Carbon::parse($row->delivery_date)->format($format);
                 })
                 ->editColumn('total_issues', function ($row) {
-                    return "Issues ".issuesCount($row, 'ALL');
+                    return "Issues " . issuesCount($row, 'ALL');
                 })
                 ->editColumn('action', function ($row) {
                     return "<a href=" . route('issues.show', $row->id) . " class='border btn-sm rounded-pill btn-success'><i class='fa fa-eye'></i></a>";
@@ -103,12 +108,12 @@ class CommonController extends Controller
     public function project_dashboard_data()
     {
         $projects      = Project::count();
-        $issues        = Issues::where('assignee_id',AuthUserData()->id)->count();
-        $new_issues    = Issues::where('assignee_id',AuthUserData()->id)->where('status','NEW')->count();
-        $open_issues   = Issues::where('assignee_id',AuthUserData()->id)->where('status','OPEN')->count();
-        $closed_issues = Issues::where('assignee_id',AuthUserData()->id)->where('status','CLOSED')->count();
-        $external_issues = Issues::where('assignee_id',AuthUserData()->id)->where('type','EXTERNAL')->count();
-        $internal_issues = Issues::where('assignee_id',AuthUserData()->id)->where('type','INTERNAL')->count();
+        $issues        = Issues::where('assignee_id', AuthUserData()->id)->count();
+        $new_issues    = Issues::where('assignee_id', AuthUserData()->id)->where('status', 'NEW')->count();
+        $open_issues   = Issues::where('assignee_id', AuthUserData()->id)->where('status', 'OPEN')->count();
+        $closed_issues = Issues::where('assignee_id', AuthUserData()->id)->where('status', 'CLOSED')->count();
+        $external_issues = Issues::where('assignee_id', AuthUserData()->id)->where('type', 'EXTERNAL')->count();
+        $internal_issues = Issues::where('assignee_id', AuthUserData()->id)->where('type', 'INTERNAL')->count();
         return response([
             "auth_id"       => AuthUserData()->id,
             "projects"      => $projects,
@@ -119,5 +124,12 @@ class CommonController extends Controller
             "external_issues" => $external_issues,
             "internal_issues" => $internal_issues
         ]);
+    }
+
+    public function projects(Request $request)
+    {
+        return Project::when(!is_null($request->search) && !empty($request->search), function($q) use ($request) {
+            $q->where('project_name','LIKE', "%$request->search%");
+        })->select('project_name as text', 'id')->get();
     }
 }

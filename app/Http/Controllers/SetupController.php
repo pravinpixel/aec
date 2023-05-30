@@ -11,6 +11,7 @@ use Yajra\DataTables\Facades\DataTables;
 
 class SetupController extends Controller
 {
+    public $roleRepository;
     public function __construct(RoleRepositoryInterface $roleRepository)
     {
         $this->roleRepository = $roleRepository;

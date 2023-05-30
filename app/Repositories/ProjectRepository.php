@@ -20,8 +20,6 @@ use App\Models\sharePointMasterFolder;
 use App\Models\TeamSetupTemplate;
 use App\Services\GlobalService;
 use Carbon\Carbon;
-use Exception;
-use Illuminate\Support\Facades\Log;
 use DateTime;
 
 class ProjectRepository implements ProjectRepositoryInterface, ConnectionPlatformInterface
@@ -46,14 +44,14 @@ class ProjectRepository implements ProjectRepositoryInterface, ConnectionPlatfor
         ConnectionPlatform $connectionPlatform,
         CustomerEnquiryRepositoryInterface $customerEnquiryRepository
     ) {
-        $this->model                = $project;
-        $this->projectAssignModel   = $projectAssignModel;
-        $this->projectTeamSetup     = $projectTeamSetup;
-        $this->invoicePlan          = $invoicePlan;
-        $this->teamSetupTemplate    = $teamSetupTemplate;
-        $this->sharepointFolder     = $sharepointFolder;
-        $this->connectionPlatform   = $connectionPlatform;
-        $this->customerEnquiryRepo     = $customerEnquiryRepository;
+        $this->model               = $project;
+        $this->projectAssignModel  = $projectAssignModel;
+        $this->projectTeamSetup    = $projectTeamSetup;
+        $this->invoicePlan         = $invoicePlan;
+        $this->teamSetupTemplate   = $teamSetupTemplate;
+        $this->sharepointFolder    = $sharepointFolder;
+        $this->connectionPlatform  = $connectionPlatform;
+        $this->customerEnquiryRepo = $customerEnquiryRepository;
     }
 
     public function create($enquiry_id, $data)

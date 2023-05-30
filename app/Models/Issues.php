@@ -50,4 +50,9 @@ class Issues extends Model
     {
         return $this->hasOne(VariationOrder::class,'issue_id','id');
     }
+
+    public function Project()
+    {
+        return $this->belongsTo(Project::class,'project_id','id');
+    }
 }
