@@ -37,14 +37,13 @@
                     <button type="button" onclick="removeEvent()" id="delete-button"
                         class="btn-sm btn btn-danger shadow-sm"><i class="fa fa-trash"></i></button>
                     <div>
-                        <button type="button" class="btn-sm btn btn-light border  ms-2"
-                            data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn-sm btn btn-light border ms-2" data-bs-dismiss="modal">Close</button>
                         <button type="submit" class="btn-sm btn btn-info shadow-sm ms-2">Submit</button>
                     </div>
                 </div>
-            </div><!-- /.modal-content -->
-        </form><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
+            </div>
+        </form>
+    </div>
 @endsection
 @push('live-project-custom-scripts')
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.7/index.global.min.js'></script>
@@ -95,10 +94,10 @@
             setFormModal = (type, data) => {
                 if(data.durationEditable === false) {
                     return false
-                }
+                } 
                 $('#event-type').val(type)
                 $('#delete-button').css('opacity', type === 'CREATE' ? 0 : 1)
-                $('#modal-label').text(type === 'CREATE' ? 'Add New Event' : 'Edit Event')
+                $('#modal-label').text(`${type === 'CREATE' ? 'Create' : 'Edit'} Event on | ${data.end == null ? data.startStr : `${data.startStr} to ${data.endStr}`}`)
                 $('#event-id').val(type === 'CREATE' ? "" : data.id)
                 $('#event-name').val(type === 'CREATE' ? '' : data.title)
                 $('#start-date').val(type === 'CREATE' ? data.startStr : data.startStr)
