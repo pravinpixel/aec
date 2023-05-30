@@ -171,11 +171,13 @@ class LiveProjectRepository implements LiveProjectInterface
                     $completed_sub2_tasks++;
                 }
             }
-            $per_task_percentage     = 100 / count($sub_task->SubSubTasks);
-            $sub_task_progress_count = $completed_sub2_tasks * $per_task_percentage;
-            $sub_task->update([
-                'progress_percentage' => $sub_task_progress_count
-            ]);
+            if(count($sub_task->SubSubTasks)) {
+                $per_task_percentage     = 100 / count($sub_task->SubSubTasks);
+                $sub_task_progress_count = $completed_sub2_tasks * $per_task_percentage;
+                $sub_task->update([
+                    'progress_percentage' => $sub_task_progress_count
+                ]);
+            }
         }
         $task->update([
             'progress_percentage' => $total_sub_task_percentage / count($task->SubTasks)

@@ -4,6 +4,7 @@
 use App\Http\Controllers\Sharepoint\SharepointController;
 use App\Jobs\emailJob;
 use App\Models\Admin\Employees;
+use App\Models\CheckSheet;
 use App\Models\Customer;
 use App\Models\Issues;
 use App\Models\LiveProjectSubSubTasks;
@@ -276,7 +277,7 @@ if (!function_exists('getIssuesByUserId')) {
             })
             ->when(AuthUser() == 'ADMIN' && AuthUserData()->job_role != 1, function ($q) {
                 $q->where('assignee_id', AuthUserData()->id)
-                ->orWhere('request_id', AuthUserData()->id);
+                    ->orWhere('request_id', AuthUserData()->id);
                 // ->orWhere('tags', AuthUserData()->id);
                 // in_array( AuthUserData()->id, json_decode($issue->tags));
             })
@@ -372,18 +373,18 @@ if (!function_exists('getVariationOrderByProjectId')) {
 if (!function_exists('hasIssueReadPermission')) {
     function hasIssueReadPermission($issue)
     {
-        if(AuthUser() === 'CUSTOMER' && $issue->type === 'EXTERNAL') {
+        if (AuthUser() === 'CUSTOMER' && $issue->type === 'EXTERNAL') {
             return true;
         } else {
-            if($issue->type === 'EXTERNAL') {
+            if ($issue->type === 'EXTERNAL') {
                 return true;
             }
             $employees = [];
-            if($issue->tags) {
+            if ($issue->tags) {
                 foreach (json_decode($issue->tags) as $key => $user_id) {
                     $employees[] = Employees::whereId($user_id)->select('image', 'id', 'display_name', 'reference_number')->get()->first()->toArray();
                 }
-                if(in_array( AuthUserData()->id ,json_decode($issue->tags))) {
+                if (in_array(AuthUserData()->id, json_decode($issue->tags))) {
                     return true;
                 } else {
                     return false;
@@ -391,7 +392,6 @@ if (!function_exists('hasIssueReadPermission')) {
             } else {
                 return false;
             }
-            
         }
     }
 
@@ -400,8 +400,8 @@ if (!function_exists('hasIssueReadPermission')) {
         {
             $data = VariationOrderVersions::where('project_id', $id)->get();
             $count = 0;
-            if(count($data)) {
-                foreach($data as $row) {
+            if (count($data)) {
+                foreach ($data as $row) {
                     $count  += (int)$row->price  * (int) $row->hours;
                 }
             }
@@ -412,6 +412,12 @@ if (!function_exists('hasIssueReadPermission')) {
         function getVOrdersByProjectId($id)
         {
             return VariationOrderVersions::where('project_id', $id)->get();
+        }
+    }
+    if (!function_exists('checSheetList')) {
+        function checSheetList()
+        {
+            return CheckSheet::all();
         }
     }
 }

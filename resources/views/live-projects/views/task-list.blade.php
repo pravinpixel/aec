@@ -177,6 +177,19 @@
                     element.checked = false
                 }
             }
+            addNewTask = (project_id) => {
+                axios.post(`{{ route('live-project.task-list-create') }}/${project_id}`,{
+                    task_id : $(`#new_task_id`).val()
+                }).then((res) => {
+                    $('#create-live-task').modal('hide')
+                    setAllTask()
+                })
+            }
+            deleteSubtask = (id) => {
+                if(confirm('Are you sure? want to delete this item? ')) {
+                    axios.delete(`{{ route('live-project.task-list-delete') }}/${id}`).then(() => setAllTask())
+                }
+            }
         });
     </script>
 @endpush

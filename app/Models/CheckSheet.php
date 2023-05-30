@@ -19,4 +19,8 @@ class CheckSheet extends Model
         'name',
         'is_active',
     ];
+
+    public function CheckList(){
+        return $this->hasMany(CheckList::class, 'task_list_category', 'id');
+    }
 }
