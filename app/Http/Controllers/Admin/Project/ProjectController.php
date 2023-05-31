@@ -333,8 +333,8 @@ class ProjectController extends Controller
 
         $grouped    =   $list->groupBy('task_list_category')->map(function ($item) use ($start_date, $end_date, $project_manager) {
             $tasks  =   $item->map(function ($task) use ($start_date, $end_date, $project_manager) {
-                $task->{"start_date"}    = SetDateFormat($start_date);
-                $task->{"end_date"}      = SetDateFormat($end_date);
+                $task->{"start_date"}    = $start_date;
+                $task->{"end_date"}      = $end_date;
                 // $task->assign_to = (string)$project_manager->id ?? "";
                 $task->assign_to = $project_manager->id ?? null;
                 return $task;

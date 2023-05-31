@@ -1021,3 +1021,9 @@ input[name=color-code]:checked + label {
 .fc-timegrid-slot {
     display: none;
 }
+.text-center  .md-datepicker-input {
+    text-align: center !important;
+    background: gold;
+    font-weight: bold;
+    font-size: 15px;
+}

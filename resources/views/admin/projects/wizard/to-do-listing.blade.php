@@ -84,16 +84,26 @@
                                 </div>
                                 <div class="col p-0">
                                     <div class="row m-0 p-2">
-                                        <div class="col-5 ">
-                                            <strong class=" align-date1 text-center m-0 span bg-warning fw-bold rounded px-1" ng-bind="checkListData.data[0].start_date | date: 'dd/MM/yyyy'" style="margin-left:75px !important"> 
-                                            </strong>
+                                        <div class="col ps-4">
+                                            <md-datepicker 
+                                                md-hide-icons="all"
+                                                ng-disabled
+                                                class="text-center"
+                                                ng-model="checkListData.data[0].start_date" 
+                                                md-placeholder="Enter date"
+                                            />
                                         </div>
-                                        <div class="col-5 custom-align">
-                                            <strong class="align-date2 text-center m-0 span bg-warning fw-bold rounded px-1" ng-bind="checkListData.data[checkListData.data.length-1].end_date | date: 'dd/MM/yyyy' ">
-                                            </strong>
+                                        <div class="col">
+                                            <md-datepicker 
+                                                md-hide-icons="all"
+                                                ng-disabled
+                                                class="text-center"
+                                                ng-model="checkListData.data[checkListData.data.length-1].end_date" 
+                                                md-placeholder="Enter date"
+                                            /> 
                                         </div>
-                                        <div class="col " style="padding:0 !important;">
-                                            <i class="fa fa-plus btn-sm btn btn-success" ng-click="createTaskListData(index,index_2)" style="margin-left:40px;"></i>
+                                        <div class="col-1" style="padding:0 !important;">
+                                            <i class="fa fa-plus btn-sm btn btn-success" ng-click="createTaskListData(index,index_2)" ></i>
                                         </div>
                                     </div>
                                 </div>
@@ -118,16 +128,16 @@
                                                 ></option>
                                             </select>
                                         </div>
-                                        <div class="col p-1">
+                                        <div class="col p-1"> 
                                             <md-datepicker 
                                                 ng-model="taskListData.start_date" 
                                                 md-placeholder="Enter date"
                                             />
                                         </div>
-                                        <div class="col p-1">
-                                            {{-- @{{ taskListData.start_date | date : 'yyyy-MM-dd HH:mm:ss Z' }} --}}
+                                        <div class="col p-1"> 
                                             <md-datepicker 
                                                 ng-model="taskListData.end_date" 
+                                                ng-value="taskListData.end_date" 
                                                 md-placeholder="Enter date"
                                                 md-min-date="taskListData.start_date"
                                             />
