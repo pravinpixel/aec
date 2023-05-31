@@ -16,20 +16,22 @@
                     <input type="hidden" id="event-type">
                     <input type="hidden" id="event-id">
                     <input type="hidden" id="start-date">
-                    <input type="hidden" id="end-date"> 
+                    <input type="hidden" id="end-date">
                     <div>
-                        <label for="event-name" class="form-label col-10">Event Color</label>
-                        <div class="d-flex flex-wrap justify-content-between gap-1 p-1 bg-white border rounded">
-                            @foreach (colors() as $key => $color)
-                                <input type="radio" id="picker_{{ $key }}" value="{{ $color }}"
-                                    name="color-code" class="form-check-input" required>
-                                <label for="picker_{{ $key }}" style="background: {{ $color }}" class="rounded"></label>
-                            @endforeach
+                        <div class="row gap-2">
+                            <div class="col-8 pe-0">
+                                <label for="event-name" class="form-label col-10">Event Name</label>
+                                <textarea id="event-name" class="form-control" cols="30" style="height: 130px" maxlength="255" required></textarea>
+                            </div>
+                            <div class="col ps-0">
+                                <label  class="form-label col-10">Event Color</label>
+                                @foreach (colors() as $key => $color)
+                                    <input type="radio" id="picker_{{ $key }}" value="{{ $color }}"
+                                        name="color-code" class="form-check-input" required>
+                                    <label for="picker_{{ $key }}" style="background: {{ $color }}" class="w-100 p-2 rounded"></label>
+                                @endforeach
+                            </div>
                         </div>
-                    </div>
-                    <div class="mt-3">
-                        <label for="event-name" class="form-label col-10">Event Name</label>
-                        <textarea id="event-name" class="form-control" cols="30" rows="5" maxlength="255" required></textarea>
                         <small>Max : 255 characters </small>
                     </div>
                 </div>
@@ -37,7 +39,8 @@
                     <button type="button" onclick="removeEvent()" id="delete-button"
                         class="btn-sm btn btn-danger shadow-sm"><i class="fa fa-trash"></i></button>
                     <div>
-                        <button type="button" class="btn-sm btn btn-light border ms-2" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn-sm btn btn-light border ms-2"
+                            data-bs-dismiss="modal">Close</button>
                         <button type="submit" class="btn-sm btn btn-info shadow-sm ms-2">Submit</button>
                     </div>
                 </div>
@@ -92,16 +95,19 @@
             })
             myCalendar.render()
             setFormModal = (type, data) => {
-                if(data.durationEditable === false) {
+                if (data.durationEditable === false) {
                     return false
-                } 
+                }
                 $('#event-type').val(type)
                 $('#delete-button').css('opacity', type === 'CREATE' ? 0 : 1)
-                $('#modal-label').text(`${type === 'CREATE' ? 'Create' : 'Edit'} Event on | ${data.end == null ? data.startStr : `${data.startStr} to ${data.endStr}`}`)
+                $('#modal-label').text(
+                    `${type === 'CREATE' ? 'Create' : 'Edit'} Event on | ${data.end == null ? data.startStr : `${data.startStr} to ${data.endStr}`}`
+                    )
                 $('#event-id').val(type === 'CREATE' ? "" : data.id)
                 $('#event-name').val(type === 'CREATE' ? '' : data.title)
                 $('#start-date').val(type === 'CREATE' ? data.startStr : data.startStr)
-                $('#end-date').val(type === 'CREATE' ? data.endStr : (data.end == null ? data.startStr : data.endStr))
+                $('#end-date').val(type === 'CREATE' ? data.endStr : (data.end == null ? data.startStr : data
+                    .endStr))
                 if (type === 'EDIT') {
                     const checkbox = document.querySelectorAll(`input[name=color-code]`)
                     checkbox.forEach(element => {

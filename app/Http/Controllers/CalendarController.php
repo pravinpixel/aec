@@ -20,8 +20,9 @@ class CalendarController extends Controller
                 "title"    => $event['title'],
                 "start"    => $event['start'],
                 "end"      => $event['end'],
-                "editable" => AuthUser() === 'ADMIN' ? true : (is_null($event['user_id']) ? false : true),
-                "color"    => $event['color']
+                "editable" => AuthUserData()->id === $event->user_id ? true : false,
+                "color"    => $event['color'],
+                "all-day" => false
             ];
         }
         return $result;

@@ -1004,8 +1004,6 @@ sup {
 }
 input[name=color-code] + label {
     position: relative;
-    height: 50px;
-    width: 50px;
     cursor: pointer;
 }
 input[name=color-code]  {
@@ -1017,6 +1015,9 @@ input[name=color-code] + label {
     
 }
 input[name=color-code]:checked + label {
-    border: 2px white solid !important;
+    border: 3px black solid !important;
     box-shadow: 0 2px 5px #000000a3;
+}
+.fc-timegrid-slot {
+    display: none;
 }
