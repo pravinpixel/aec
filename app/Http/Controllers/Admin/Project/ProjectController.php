@@ -482,9 +482,12 @@ class ProjectController extends Controller
                     </button>';
                 })
                 ->editColumn('enquiry_number', function ($dataDb) {
-                    return '<button type="button" class="btn-quick-view" onclick="EnquiryQuickView(' . $dataDb->enquiry_id . ' , this)" >
-                            <b>' . $dataDb->enquiry->enquiry_number . '</b>
-                        </button>';
+                    if($dataDb->enquiry) {
+                        return '<button type="button" class="btn-quick-view" onclick="EnquiryQuickView(' . $dataDb->enquiry_id . ' , this)" >
+                                <b>' . $dataDb->enquiry->enquiry_number . '</b>
+                            </button>';
+                    }
+                    return '<b class="d-block text-center border border-dark bg-light rounded small">N/A</b>';
                 })
                 ->editColumn('start_date', function ($dataDb) {
                     $format = config('global.model_date_format');
