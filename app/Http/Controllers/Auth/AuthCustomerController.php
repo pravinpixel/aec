@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Mail\certificationMail;
 use App\Mail\RegisterCustomerMail;
 use App\Mail\RemainderCustomerMail;
 use App\Models\Customer;
@@ -15,6 +16,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Laracasts\Flash\Flash;
 use Illuminate\Support\Facades\Validator;
+
 class AuthCustomerController extends Controller
 {
     public function getSignUp()
@@ -27,29 +29,28 @@ class AuthCustomerController extends Controller
         $this->validate(request(), [
             'first_name' => 'required',
             'last_name'  => 'required',
-            'email'      => ['required','email','regex:/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/','unique:customers'],
-            'password'   => ['required','confirmed','min:8']
-        ],[
+            'email'      => ['required', 'email', 'regex:/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/', 'unique:customers'],
+            'password'   => ['required', 'confirmed', 'min:8']
+        ], [
             "email.unique" => "Verification mail already sent, check your inbox"
         ]);
         try {
-            $customerData = array_merge(request(['first_name', 'last_name', 'email', 'password']),['is_active'=> false]);
+            $customerData = array_merge(request(['first_name', 'last_name', 'email', 'password']), ['is_active' => false]);
             $insert = Customer::create($customerData);
-            if($insert) {
+            if ($insert) {
                 $customer = Customer::find($insert->id);
                 $this->sendMail([
                     'full_name' => $customer->full_name,
                     'route'     => route('company-info', encrypt($customer->id)),
                     'email'     => $customer->email
                 ]);
-                Flash::success( __('auth.email_send_for_verification'));
+                Flash::success(__('auth.email_send_for_verification'));
                 return redirect()->route('login');
             }
-            Flash::success( __('global.something'));
+            Flash::success(__('global.something'));
             return redirect()->route('admin-dashboard');
-
-        } catch  (Exception $e) {
-            Flash::error( __('global.something'));
+        } catch (Exception $e) {
+            Flash::error(__('global.something'));
             Log::info($e->getMessage());
             return redirect()->route('login');
         }
@@ -57,29 +58,36 @@ class AuthCustomerController extends Controller
 
     public function signup_resend($email)
     {
-        $customer = Customer::where('email' , $email)->first();
+        $customer = Customer::where('email', $email)->first();
         $this->sendMail([
             'full_name' => $customer->full_name,
             'route'     => route('company-info', encrypt($customer->id)),
             'email'     => $customer->email
         ]);
-        Flash::success( __('auth.resend_email_success'));
+        Flash::success(__('auth.resend_email_success'));
         return redirect()->route('login');
     }
 
     public function sendMail($details)
     {
-       return Mail::to($details['email'])->send(new \App\Mail\RegisterCustomerMail($details));
+        return Mail::to($details['email'])->send(new \App\Mail\RegisterCustomerMail($details));
     }
-     public function sendRemainderMail($details)
+    public function sendRemainderMail($details)
     {
-       return Mail::to($details['email'])->send(new \App\Mail\RemainderCustomerMail($details));
+        return Mail::to($details['email'])->send(new \App\Mail\RemainderCustomerMail($details));
     }
 
     public function CompanyInfo($id)
     {
-              $id          = decrypt($id);
-              $customer    = Customer::findOrFail( $id );
+
+        $id                = decrypt($id);
+        $customer          = Customer::findOrFail($id);
+        Mail::to($customer->email)->send(new \App\Mail\WelcomeEmail([
+            "name"         => $customer->full_name,
+            "email"        => $customer->email,
+            "mobile_no"    => $customer->mobile_no,
+            "company_name" => $customer->company_name,
+        ]));
         $data['id']        = encrypt($id);
         $data['email']     = $customer->email;
         $data['mobile_no'] = $customer->mobile_no;
@@ -93,17 +101,17 @@ class AuthCustomerController extends Controller
             'organization_no' => 'required',
             'fax'             => 'max:8',
             'phone_no'        => 'max:15',
-            'mobile_no'       => ['required','regex:/^\d{8}$|^\d{12}$/']
+            'mobile_no'       => ['required', 'regex:/^\d{8}$|^\d{12}$/']
         ]);
 
-        $response         = Http::get('https://hotell.difi.no/api/json/brreg/enhetsregisteret?query='.$request->company_name);
-        if(count($response->json()['entries'])) {
-            $GetDataByZipCode = Http::get('https://api.zippopotam.us/NO/'.$response->json()['entries'][0]['forradrpostnr']);
+        $response         = Http::get('https://hotell.difi.no/api/json/brreg/enhetsregisteret?query=' . $request->company_name);
+        if (count($response->json()['entries'])) {
+            $GetDataByZipCode = Http::get('https://api.zippopotam.us/NO/' . $response->json()['entries'][0]['forradrpostnr']);
         }
 
         $id = decrypt($id);
-        $customer                  = Customer::findOrFail( $id );
-        if(!is_null($customer->organization_no)) {
+        $customer                  = Customer::findOrFail($id);
+        if (!is_null($customer->organization_no)) {
             Flash::error(__('This Email ID is already registered with our portal... Please login with your credentials'));
             return back();
         }
@@ -117,17 +125,25 @@ class AuthCustomerController extends Controller
         $customer->is_active       = true;
         $customer->isRegistered    = '1';
 
-        if(count($response->json()['entries'])) {
-            $customer->address         = "NO-".$GetDataByZipCode->json()['post code']." ".$GetDataByZipCode->json()['places'][0]['place name'].", ".$GetDataByZipCode->json()['places'][0]['state'].", ".$GetDataByZipCode->json()['country'].".";
+        if (count($response->json()['entries'])) {
+            $customer->address         = "NO-" . $GetDataByZipCode->json()['post code'] . " " . $GetDataByZipCode->json()['places'][0]['place name'] . ", " . $GetDataByZipCode->json()['places'][0]['state'] . ", " . $GetDataByZipCode->json()['country'] . ".";
             $customer->postal_code     = $GetDataByZipCode->json()['post code'];
             $customer->city            = $GetDataByZipCode->json()['places'][0]['place name'];
             $customer->state           = $GetDataByZipCode->json()['places'][0]['state'];
             $customer->country         = $GetDataByZipCode->json()['country'];
         }
 
-        if($customer->save()) {
+
+        if ($customer->save()) {
             $this->createEnquiry($customer);
             Flash::success(__('setup completed successfully'));
+
+            Mail::to($customer['email'])->send(new \App\Mail\CertificationMail([
+                "name"         => $customer->full_name,
+                "email"        => $customer->email,
+                "mobile_no"    => $customer->mobile_no,
+                "company_name" => $customer->company_name,
+            ]));
             // return redirect(route('login'));
             return view('admin.customer.certification');
         }
@@ -155,45 +171,47 @@ class AuthCustomerController extends Controller
         } catch (\Exception $ex) {
             Log::info($ex->getMessage());
         }
-
     }
-    function checkEmailExists(Request $req){
-        $emailExists=Customer::where('email',$req->input('email'))->exists();
-        if($emailExists){
-            $getCustomer=Customer::where('email',$req->input('email'))->first();
-            if($getCustomer->isRegistered=='0'){
+    function checkEmailExists(Request $req)
+    {
+        $emailExists = Customer::where('email', $req->input('email'))->exists();
+        if ($emailExists) {
+            $getCustomer = Customer::where('email', $req->input('email'))->first();
+            if ($getCustomer->isRegistered == '0') {
                 return response()->json([
-                    'msg'=>'exists'
+                    'msg' => 'exists'
                 ]);
-            }
-            else{
+            } else {
                 return response()->json([
-                    'msg'=>'registered'
+                    'msg' => 'registered'
                 ]);
             }
         }
         return response()->json([
-            'msg'=>'not exists'
+            'msg' => 'not exists'
         ]);
     }
-    function emailExistResendEmail(Request $req){
-        $validate=Validator::make($req->all(),[
-            'first_name'=>'required',
-            'last_name'=>'required'
+    function emailExistResendEmail(Request $req)
+    {
+        $validate = Validator::make(
+            $req->all(),
+            [
+                'first_name' => 'required',
+                'last_name' => 'required'
 
-        ],
-        [
-            'first_name.required'=>'please fill out the first name',
-            'last_name.required'=>'please fill out the last name'
-        ]);
-        if($validate->fails()){
+            ],
+            [
+                'first_name.required' => 'please fill out the first name',
+                'last_name.required' => 'please fill out the last name'
+            ]
+        );
+        if ($validate->fails()) {
             return response()->json([
-                'msg'=>'errors',
-                'errors'=>$validate->errors()->toArray()
+                'msg' => 'errors',
+                'errors' => $validate->errors()->toArray()
             ]);
-        }
-        else{
-            $customer=customer::where('email',$req->email)->first();
+        } else {
+            $customer = customer::where('email', $req->email)->first();
 
             $this->sendMail([
                 'full_name' => $customer->full_name,
@@ -206,19 +224,19 @@ class AuthCustomerController extends Controller
             ]);
         }
     }
-    public function sendRemainder(Request $req){
-        $customer=Customer::find($req->id);
+    public function sendRemainder(Request $req)
+    {
+        $customer = Customer::find($req->id);
         $customerData = [
             'full_name' => $customer->full_name,
             'route'     => route('company-info', encrypt($customer->id)),
             'email'     => $customer->email
         ];
 
-       $mail = Mail::to($customerData['email'])->send(new RemainderCustomerMail($customerData));
+        $mail = Mail::to($customerData['email'])->send(new RemainderCustomerMail($customerData));
 
         return response()->json([
-            'id is'=>$customer
+            'id is' => $customer
         ]);
     }
-
 }
