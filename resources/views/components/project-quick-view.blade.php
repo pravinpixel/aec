@@ -506,10 +506,10 @@
                                                 <tr>
                                                     <td colspan="3"></td>
                                                     <td class="text-center"><span
-                                                            class="bg-warning fw-bold rounded px-1">{{ $to_do->project_start_date }}</span>
+                                                            class="bg-warning fw-bold rounded px-1">{{ str_replace('00:00:00', '', $to_do->project_start_date) }}</span>
                                                     </td>
                                                     <td class="text-center"><span
-                                                            class="bg-warning fw-bold rounded px-1">{{ $to_do->project_end_date }}</span>
+                                                            class="bg-warning fw-bold rounded px-1">{{ str_replace('00:00:00', '', $to_do->project_end_date) }}</span>
                                                     </td>
                                                 </tr>
                                             </thead>
@@ -536,8 +536,10 @@
                                                                         @endif
                                                                     @endforeach
                                                                 </td>
-                                                                <td class="text-center">{{ $item->start_date }}</td>
-                                                                <td class="text-center">{{ $item->end_date }}</td>
+                                                                <td class="text-center">
+                                                                    {{ SetDateFormat($item->start_date) }}</td>
+                                                                <td class="text-center">
+                                                                    {{ SetDateFormat($item->end_date) }}</td>
                                                             </tr>
                                                         @endforeach
                                                     </tbody>
