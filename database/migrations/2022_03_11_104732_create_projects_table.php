@@ -62,7 +62,7 @@ class CreateProjectsTable extends Migration
             $table->string('bim_project_type')->default('Residential');
             $table->string('bim_account_id')->nullable();
             $table->string('bim_id')->nullable();
-            $table->text('share_point_folder_link ')->nullable();
+            $table->text('share_point_folder_link')->nullable();
             $table->timestamps();
         });
     }

@@ -13,6 +13,7 @@ use App\Models\Project;
 use App\Models\Role as ModelsRole;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Spatie\Permission\Models\Role;
 
@@ -449,6 +450,41 @@ if (!function_exists('changeProposalStatus')) {
                 $documentary_content = str_replace_all($key, $value, $documentary_content);
             }
             return $documentary_content;
+        }
+    }
+    if (!function_exists('dateDBFormat')) {
+        function dateDBFormat($request)
+        {
+            $start_date = Carbon::parse($request->start_date)->startOfDay();
+            $end_date   = Carbon::parse($request->end_date)->endOfDay();
+            return [
+                $start_date,
+                $end_date
+            ];
+        }
+    }
+    if (!function_exists('getDays')) {
+        function getDays($request)
+        {
+            $date = "2023-06-01";
+            $labels = [];
+            for ($i = 0; $i <= $request->filter; $i++) {
+                $labels[] = date('Y-m-d', strtotime($date . '+' . $i.' Days'));
+            }
+            return  $labels;
+        }
+    }
+
+    if (!function_exists('in_date_array')) {
+        function in_date_array($weekDay, $enq_dates)
+        {
+            $state = 0;
+            foreach ($enq_dates as $row) {
+                if ($weekDay == $row['date']) {
+                    $state = $row;
+                }
+            }
+            return  $state;
         }
     }
 }

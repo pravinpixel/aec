@@ -1027,3 +1027,7 @@ input[name=color-code]:checked + label {
     font-weight: bold;
     font-size: 15px;
 }
+.btn-check:checked + .btn-outline-light {
+    background-color: #6c757d !important;
+    color: #eef2f7 !important;
+}

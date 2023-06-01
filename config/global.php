@@ -167,5 +167,22 @@ return [
         'logistic_price',
     ],
     'logo'      => 'https://crm.aecprefab.net/public/assets/images/logo_customer.png',
-    'signature' => 'https://crm.aecprefab.net/public/assets/images/signature.png'
+    'signature' => 'https://crm.aecprefab.net/public/assets/images/signature.png',
+    "filters" => [
+        [
+            "name" => 'Week',
+            "slug" => 'WEEK',
+            "value" => 7
+        ],
+        [
+            "name" => 'Month',
+            "slug" => 'MONTH',
+            "value" => 30
+        ],
+        [
+            "name" => 'Year',
+            "slug" => 'YEAR',
+            "value" => 365
+        ]
+    ]
 ];

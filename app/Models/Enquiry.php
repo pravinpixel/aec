@@ -66,7 +66,8 @@ class Enquiry extends Model
         'response_status',
         'project_assign_to',
         'is_customer_active_enquiry',
-        'customer_response'
+        'customer_response',
+        "created_at"
     ];
 
     public function getCreatedAtAttribute($date)
