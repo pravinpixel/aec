@@ -14,14 +14,22 @@ class CommonController extends Controller
     public function issues(Request $request)
     {
         if ($request->ajax()) {
-            $data = Issues::whereIn('status',['OPEN','NEW'])->with('Project','Project.Customer')->when(!is_null($request->filter), function ($q) use ($request) {
-                if(!is_null($request->filter[1])) {
-                    $q->where($request->filter[0], $request->filter[1]);
-                }
-            })->select('*');
+            $data = Issues::whereIn('status', ['OPEN', 'NEW'])
+                ->with('Project', 'Project.Customer')
+                ->when(!is_null($request->filter), function ($q) use ($request) {
+                    if(!is_null($request->filter["type"])) {
+                        $q->where("type", $request->filter["type"]);
+                    }
+                }) 
+                ->when(!is_null($request->filter), function ($q) use ($request) {
+                    if(!is_null($request->filter["project_id"])) {
+                        $q->where("project_id", $request->filter["project_id"]);
+                    }
+                })
+                ->select('*');
             $table = DataTables::of($data);
             $table->addIndexColumn();
-            $table->addColumn('issue_id', function ($row) { 
+            $table->addColumn('issue_id', function ($row) {
                 $count  = $row->IssueComments->where('unread', 0)->count();
                 $countTemp = '<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">' . $count . '</span>';
                 $count = $count != 0 ?  $countTemp : "";
@@ -128,8 +136,8 @@ class CommonController extends Controller
 
     public function projects(Request $request)
     {
-        return Project::when(!is_null($request->search) && !empty($request->search), function($q) use ($request) {
-            $q->where('project_name','LIKE', "%$request->search%");
+        return Project::when(!is_null($request->search) && !empty($request->search), function ($q) use ($request) {
+            $q->where('project_name', 'LIKE', "%$request->search%");
         })->select('project_name as text', 'id')->get();
     }
 }

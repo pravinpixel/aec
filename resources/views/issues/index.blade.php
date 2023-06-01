@@ -7,12 +7,12 @@
         <div class="card-header">
             <div class="col-md-6 p-0 ms-auto">
                 <div class="input-group">
-                    <input onchange="setFilter(null)" type="radio" name="filter" class="btn-check" id="all-issues" checked>
+                    <input onchange="setFilter()" type="radio" value="" name="filter" class="btn-check" id="all-issues" checked>
                     <label class="btn btn-outline-dark rounded-start" for="all-issues">All</label>
-                    <input onchange="setFilter(['type','INTERNAL'])" type="radio" name="filter" class="btn-check"
+                    <input onchange="setFilter()" value="INTERNAL" type="radio" name="filter" class="btn-check"
                         id="internal-issues">
                     <label class="btn btn-outline-dark" for="internal-issues">Internal</label>
-                    <input onchange="setFilter(['type','EXTERNAL'])" type="radio" name="filter" class="btn-check"
+                    <input onchange="setFilter()" value="EXTERNAL" type="radio" name="filter" class="btn-check"
                         id="external-issues">
                     <label class="btn btn-outline-dark" for="external-issues">External</label>
                     <select id="select" onchange="setFilter(['project_id',this.value])" class="form-select"></select>
@@ -168,8 +168,11 @@
             });
         }
         FatchTable()
-        setFilter = (data) => {
-            FatchTable(data)
+        setFilter = ( ) => {
+            FatchTable({
+                type : $('input:checked').val(),
+                project_id : $('#select').val()
+            })
         }
 
         function viewIssueByProject(id) {
@@ -287,8 +290,8 @@
                 url: "{{ route('get-all-projects') }}",
                 data: function(params) {
                     return {
-                        search: params.term,
-                    };
+                        params : params.term,
+                    }
                 },
                 processResults: function(data) {
                     return {

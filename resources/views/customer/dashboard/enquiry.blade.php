@@ -24,7 +24,7 @@
                         <div class="row text-center">
                             <div class="col-md-3">
                                 <div>
-                                    <a href="{{ route('customers-enquiry-dashboard') }}" class="live-status-bg d-block">
+                                    <a href="{{ route('customers-my-enquiries') }}" class="live-status-bg d-block">
                                         <h3>Active Enquiries</h3>
                                         <p class="count">{{ $totalActiveEnquiries }}</p>
                                         <span class="btn btn-success">
@@ -33,7 +33,7 @@
                                     </a>
                                 </div>
                                 <div>
-                                    <a href="{{ route('customers-enquiry-dashboard') }}" class="live-status-bg d-block">
+                                    <a href="{{ route('customers-my-enquiries') }}" class="live-status-bg d-block">
                                         <h3>Proposals waiting for Approval</h3>
                                         <p class="count">{{ $totalWaitingApprovals }}</p>
                                         <span class="btn btn-secondary">
