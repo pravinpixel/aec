@@ -466,10 +466,20 @@ if (!function_exists('changeProposalStatus')) {
     if (!function_exists('getDays')) {
         function getDays($request)
         {
-            $date = "2023-06-01";
             $labels = [];
-            for ($i = 0; $i <= $request->filter; $i++) {
-                $labels[] = date('Y-m-d', strtotime($date . '+' . $i.' Days'));
+            if (!is_null($request->daycount)) {
+                $date = Carbon::now()->format('d-m-Y');
+                for ($i = 0; $i <= $request->daycount; $i++) {
+                    $labels[] = date('d-m-Y', strtotime($date . '+' . $i . ' Days'));
+                }
+            } else {
+                $date       = $request->start_date;
+                $startDate  = Carbon::parse($date);
+                $endDate    = Carbon::parse($request->end_date);
+                $diffInDays = $startDate->diffInDays($endDate);
+                for ($i = 0; $i <= $diffInDays; $i++) {
+                    $labels[] = date('d-m-Y', strtotime($date . '+' . $i . ' Days'));
+                }
             }
             return  $labels;
         }

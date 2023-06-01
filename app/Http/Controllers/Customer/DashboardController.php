@@ -15,11 +15,17 @@ class DashboardController extends Controller
     protected $customerId;
     public function enquiryAjaxDashboard(Request $request)
     {
-        $start_date = Carbon::now()->startOfDay();
-        $end_date   = Carbon::now()->addDays($request->filter)->endOfDay();
-         
+
+        if (!is_null($request->daycount)) {
+            $start_date = Carbon::now()->startOfDay();
+            $end_date   = Carbon::now()->addDays($request->daycount)->endOfDay();
+        } else {
+            $start_date = $request->start_date;
+            $end_date   = $request->end_date;
+        }
+
         $subQuery = "SELECT GROUP_CONCAT( concat(total, '_', e_date) ) enquiry FROM ";
-        $rawQuery = DB::raw($subQuery . "(select count(*) as total, date(enquiry_date) as e_date, enquiry_date, customer_id from aec_enquiries GROUP BY date(enquiry_date) ) as f where customer_id = ".Customer()->id."  and enquiry_date BETWEEN " . "'$start_date'" . " AND " . "'$end_date'");
+        $rawQuery = DB::raw($subQuery . "(select count(*) as total, date(enquiry_date) as e_date, enquiry_date, customer_id from aec_enquiries GROUP BY date(enquiry_date) ) as f where customer_id = " . Customer()->id . "  and enquiry_date BETWEEN " . "'$start_date'" . " AND " . "'$end_date'");
         // dD($rawQuery);
         $enquiry  = DB::select($rawQuery);
 
@@ -33,14 +39,14 @@ class DashboardController extends Controller
         $labels = getDays($request);
         $enquiryCounts   = [];
         foreach ($labels as $key => $weekDay) {
-            $result = in_date_array($weekDay, $enq_dates);
+            $result = in_date_array(Carbon::parse($weekDay)->format('Y-m-d'), $enq_dates);
             if ($result) {
                 $enquiryCounts[] = (int) $result['count'];
             } else {
                 $enquiryCounts[] = 0;
             }
         }
-       
+
         return response([
             "labels" => $labels,
             "data"   => $enquiryCounts
@@ -141,15 +147,5 @@ class DashboardController extends Controller
             ->sum('project_cost');
         $data['total_amount'] = 0;
         return view('customer.dashboard.project', with($data));
-    }
-
-    public function getDateFromRequest($type, $request)
-    {
-        if ($type === 'START') {
-            return Carbon::parse(Carbon::now())->startOfDay();
-        } 
-        if ($type === 'END') {
-            return Carbon::parse(Carbon::now()->addDays($request->filter))->endOfDay();
-        } 
-    }
+    } 
 }
