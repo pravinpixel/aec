@@ -270,10 +270,10 @@ if (!function_exists('getIssuesByUserId')) {
         $project_ids =  Project::when(AuthUser() == 'CUSTOMER', function ($q) use ($id) {
             $q->where('customer_id', $id);
         })->pluck('id');
-        return Issues::with('VariationOrder')
+        return Issues::with('VariationOrder','Project', 'Project.Customer')
             ->whereIn('project_id', $project_ids)
             ->when(AuthUser() == 'CUSTOMER', function ($q) {
-                $q->where('type', 'EXTERNAL');
+                $q->where('type', 'EXTERNAL')->whereIn('status', ['OPEN', 'NEW']);
             })
             ->when(AuthUser() == 'ADMIN' && AuthUserData()->job_role != 1, function ($q) {
                 $q->where('assignee_id', AuthUserData()->id)

@@ -1031,3 +1031,6 @@ input[name=color-code]:checked + label {
     background-color: #6c757d !important;
     color: #eef2f7 !important;
 }
+.btn-outline-light  {
+    border-color: #ced4da !important;
+}

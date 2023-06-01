@@ -13,21 +13,8 @@ class CommonController extends Controller
 {
     public function issues(Request $request)
     {
-        if ($request->ajax()) {
-            $data = Issues::whereIn('status', ['OPEN', 'NEW'])
-                ->with('Project', 'Project.Customer')
-                ->when(!is_null($request->filter), function ($q) use ($request) {
-                    if(!is_null($request->filter["type"])) {
-                        $q->where("type", $request->filter["type"]);
-                    }
-                }) 
-                ->when(!is_null($request->filter), function ($q) use ($request) {
-                    if(!is_null($request->filter["project_id"])) {
-                        $q->where("project_id", $request->filter["project_id"]);
-                    }
-                })
-                ->select('*');
-            $table = DataTables::of($data);
+        if ($request->ajax()) { 
+            $table = DataTables::of(getIssuesByUserId(AuthUserData()->id));
             $table->addIndexColumn();
             $table->addColumn('issue_id', function ($row) {
                 $count  = $row->IssueComments->where('unread', 0)->count();

@@ -8,13 +8,13 @@
             <div class="col-md-6 p-0 ms-auto">
                 <div class="input-group">
                     <input onchange="setFilter()" type="radio" value="" name="filter" class="btn-check" id="all-issues" checked>
-                    <label class="btn btn-outline-dark rounded-start" for="all-issues">All</label>
+                    <label class="btn btn-outline-light text-secondary rounded-start" for="all-issues">All</label>
                     <input onchange="setFilter()" value="INTERNAL" type="radio" name="filter" class="btn-check"
                         id="internal-issues">
-                    <label class="btn btn-outline-dark" for="internal-issues">Internal</label>
+                    <label class="btn btn-outline-light text-secondary" for="internal-issues">Internal</label>
                     <input onchange="setFilter()" value="EXTERNAL" type="radio" name="filter" class="btn-check"
                         id="external-issues">
-                    <label class="btn btn-outline-dark" for="external-issues">External</label>
+                    <label class="btn btn-outline-light text-secondary" for="external-issues">External</label>
                     <select id="select" onchange="setFilter(['project_id',this.value])" class="form-select"></select>
                 </div>
             </div>
@@ -283,8 +283,6 @@
             theme: 'bootstrap-5',
             placeholder: '-- choose project --',
             allowClear: true,
-            selectionCssClass: 'border-dark border',
-            dropdownCssClass: 'border-dark border',
             width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
             ajax: {
                 url: "{{ route('get-all-projects') }}",
