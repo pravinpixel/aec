@@ -104,7 +104,7 @@
                 <select id="new_task_id" class="form-select">
                     <option value="">-- Select --</option>
                     @foreach (checSheetList() as $row)
-                        <option value="{{ $row->id }}">{{ $row->name }}</option>
+                        <option value="{{ $row->name }}">{{ $row->name }}</option>
                     @endforeach
                 </select>
             </div>

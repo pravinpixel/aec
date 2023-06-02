@@ -22,4 +22,8 @@ class LiveProjectTasks extends Model
     {
         return $this->hasMany(LiveProjectSubTasks::class,'task_id','id');
     }
+    public function LiveProjectSubTasks()
+    {
+        return $this->hasMany(LiveProjectSubTasks::class,'task_id','id');
+    }
 }

@@ -66,7 +66,6 @@ class ProjectController extends Controller
 
     public function __construct(
         ProjectRepository $projectRepo,
-
         ProjectTicketRepositoryInterface $ProjectTicket,
         CustomerEnquiryRepositoryInterface $customerEnquiryRepo,
         CustomerRepositoryInterface $customerRepo,
@@ -323,37 +322,7 @@ class ProjectController extends Controller
 
     public function checkListMasterGroupList(Request $request)
     {
-        $project              =     Project::findOrFail($request->project_id);
-        $project_manager_id   =     Role::where('slug', config('global.project_manager'))->first();
-        $project_manager      =     Employees::where('job_role', $project_manager_id->id)->where('status', 1)->first();
-
-        $start_date     =   $project->start_date;
-        $end_date       =   $project->delivery_date;
-        $list           =   CheckList::where("name",  '=', $request->data)->with('getTaskList')->latest()->get();
-
-        $grouped    =   $list->groupBy('task_list_category')->map(function ($item) use ($start_date, $end_date, $project_manager) {
-            $tasks  =   $item->map(function ($task) use ($start_date, $end_date, $project_manager) {
-                $task->{"start_date"}    = $start_date;
-                $task->{"end_date"}      = $end_date;
-                // $task->assign_to = (string)$project_manager->id ?? "";
-                $task->assign_to = $project_manager->id ?? null;
-                return $task;
-            });
-            return [
-                'name'          => $item[0]->getTaskList->task_list_name,
-                'data'          => $tasks,
-                'start_date'    => $item[0]->start_date,
-                'end_date'      => $item[count($item) - 1]->end_date
-            ];
-        });
-
-        $result = [
-            "name"               => $request->data,
-            "project_start_date" => SetDateFormat($project->start_date),
-            "project_end_date"   => SetDateFormat($project->delivery_date),
-            "data"               => $grouped
-        ];
-
+        $result = $this->projectRepo->bindTodoList($request);
         return response()->json(['status' => true, 'data' => $result], 201);
     }
 
@@ -482,7 +451,7 @@ class ProjectController extends Controller
                     </button>';
                 })
                 ->editColumn('enquiry_number', function ($dataDb) {
-                    if($dataDb->enquiry) {
+                    if ($dataDb->enquiry) {
                         return '<button type="button" class="btn-quick-view" onclick="EnquiryQuickView(' . $dataDb->enquiry_id . ' , this)" >
                                 <b>' . $dataDb->enquiry->enquiry_number . '</b>
                             </button>';

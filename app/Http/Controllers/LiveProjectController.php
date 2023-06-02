@@ -23,16 +23,17 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Laracasts\Flash\Flash;
 use Yajra\DataTables\DataTables;
-use App\Models\CheckSheet;
 use App\Models\LiveProjectTasks;
+use App\Repositories\ProjectRepository;
 
 class LiveProjectController extends Controller
 {
-    protected $LiveProjectRepository;
+    protected $LiveProjectRepository, $projectRepo;
 
-    public function __construct(LiveProjectRepository $LiveProjectRepository)
+    public function __construct(LiveProjectRepository $LiveProjectRepository, ProjectRepository $projectRepo)
     {
         $this->LiveProjectRepository  = $LiveProjectRepository;
+        $this->projectRepo        = $projectRepo;
     }
 
     public function index($menu_type, $id = null)
@@ -58,7 +59,7 @@ class LiveProjectController extends Controller
         return redirect()->route('live-project.menus-index', ["menu_type" => $request->menu_type, "id" => $id]);
     }
     public function project_closure($request, $id)
-    { 
+    {
         $project = Project::find($id);
         foreach ($request->except('url') as $key => $value) {
             $project->projectClosure()->updateOrCreate(['project_id' => $id, "question" => $key], [
@@ -174,7 +175,7 @@ class LiveProjectController extends Controller
     public function create_sub_task(Request $request, $sub_task_id)
     {
         $LiveProjectSubTasks = LiveProjectSubTasks::find($sub_task_id);
-        
+
         $LiveProjectGranttTask = LiveProjectGranttTask::create([
             "text"          => $request->TaskName,
             'start_date'    => $request->StartDate,
@@ -203,7 +204,7 @@ class LiveProjectController extends Controller
     {
         $LiveProjectSubTasks = LiveProjectSubTasks::with('SubSubTasks')->find($sub_task_id);
         LiveProjectGranttTask::find($LiveProjectSubTasks->chart_task_id)->delete();
-        LiveProjectGranttTask::where('parent',$LiveProjectSubTasks->chart_task_id)->delete();
+        LiveProjectGranttTask::where('parent', $LiveProjectSubTasks->chart_task_id)->delete();
         $LiveProjectSubTasks->update(['status' => 0]);
         if (!is_null($LiveProjectSubTasks->SubSubTasks)) {
             $LiveProjectSubTasks->SubSubTasks()->delete();
@@ -295,9 +296,9 @@ class LiveProjectController extends Controller
                         $btnConvert = '<button type="button" onclick="convertVariation(' . $row->id . ',this)" title="Convert to variation Order" class="dropdown-item"><i class="fa fa-share me-1"></i> Convert Variation</button>';
                     }
                 }
-                if($row->requester_role === AuthUser() || AuthUser() === 'ADMIN') {
+                if ($row->requester_role === AuthUser() || AuthUser() === 'ADMIN') {
                     $btnEdit = '<button type="button" onclick=editIssue(' . $row->id . ',this) class="dropdown-item"><i class="fa fa-pen me-1"></i> Edit</button>';
-                } 
+                }
                 // return $btnConvert.'<span onclick="showIssue('.$row->id.',this)" title="View" class="mx-1"><i class="fa fa-eye text-success"></i></span>
                 //     <i onclick="deleteIssue('.$row->id.',this)" title="Delete" class="fa fa-trash text-danger"></i>
                 // ';
@@ -661,52 +662,124 @@ class LiveProjectController extends Controller
         return view('live-projects.completed-project');
     }
 
-    public function create_task(Request $request,$id)
+    public function create_task(Request $request, $id)
     {
-        $project = Project::find($id);
-        $check   = CheckSheet::with('CheckList')->find($request->task_id);
-        $chart = LiveProjectGranttTask::create([
-            "text"          => $check->name,
-            "progress"      => "0.00",
-            'start_date'    => $project->start_date,
-            'end_date'      => $project->delivery_date,
-            "parent"        => "0",
-            "type"          => 'project',
+        $task = $this->projectRepo->bindTodoList([
+            "project_id" => $id,
+            "data" => $request->task_id
+        ]);
+        $LiveProjectGranttTask = LiveProjectGranttTask::create([
+            "text"             => $task['name'],
+            "progress"         => "0.00",
+            'start_date'       => $task['project_start_date'],
+            'end_date'         => $task['project_end_date'],
+            "parent"           => "0",
+            "type"             => 'project',
+            "project_id"       => $id,
+            "status"           => 1,
+            "project_end_date" => $task['project_end_date']
+        ]);
+        $LiveProjectTasks =  LiveProjectTasks::create([
+            'name'          => $task['name'],
+            'slug'          => Str::slug($task['name']),
+            'start_date'    => $task['project_start_date'],
+            'end_date'      => $task['project_end_date'],
+            "chart_task_id" => $LiveProjectGranttTask->id,
             "project_id"    => $id,
-            "status"        => 1,
-            "delivery_date" => $project->delivery_date
-        ]); 
-        $LiveProjectTasks =  $project->LiveProjectTasks()->create([
-            'name'       => $check->name,
-            'slug'       => Str::slug($check->name),
-            'start_date' => $project->start_date,
-            'end_date'   => $project->delivery_date,
-            "chart_task_id" => $chart->id,
-            "project_id"    => $id,
             "parent"        => "0",
-        ]); 
-        foreach ($check->CheckList as $key => $row) {
+        ]);
+        foreach ($task['data'] as $sub_task) {
             $subChart =  LiveProjectGranttTask::create([
-                "text"          => $row->task_list,
+                "text"          => $sub_task['name'],
                 "progress"      => "0.00",
-                'start_date'    => $project->start_date,
-                'end_date'      => $project->delivery_date,
-                "project_id"    => $project->id,
+                'start_date'    => $task['project_start_date'],
+                'end_date'      => $task['project_end_date'],
+                "project_id"    => $id,
                 "type"          => 'project',
-                "parent"    => $chart->id,
+                "parent"        => $LiveProjectGranttTask->id,
                 "status"        => 1,
-                "delivery_date" => $project->delivery_date
+                "delivery_date" => $task['project_end_date'],
             ]);
-            $LiveProjectTasks->SubTasks()->create([
-                'name'          => $row->task_list,
-                'slug'          => Str::slug($check->task_list),
-                'start_date'    => $project->start_date,
-                'end_date'      => $project->delivery_date,
-                'project_id'    => $project->id,
-                "chart_task_id" => $subChart->id,
-                "parent"        => $subChart->id,
+            $LiveProjectSubTasks = LiveProjectSubTasks::create([
+                'task_id'       => $LiveProjectTasks->id,
+                'name'          => $sub_task['name'],
+                'slug'          => Str::slug($sub_task['name']),
+                'start_date'    => $task['project_start_date'],
+                'end_date'      => $task['project_end_date'],
+                "project_id"    => $id,
+                'parent'        => $subChart->id,
+                'chart_task_id' => $subChart->id
             ]);
+            foreach($sub_task['data'] as $sub_sub_task) {
+                $subSubChart =  LiveProjectGranttTask::create([
+                    "text"          => $sub_sub_task['task_list'],
+                    "progress"      => "0.00",
+                    'start_date'    => $sub_sub_task['start_date'],
+                    'end_date'      => $sub_sub_task['end_date'],
+                    "project_id"    => $id,
+                    "type"          => 'project',
+                    "parent"        => $subChart->id,
+                    "status"        => 1,
+                    "delivery_date" => $sub_sub_task['end_date'],
+                ]);
+                LiveProjectSubSubTasks::create([
+                    'sub_task_id'   => $LiveProjectSubTasks->id,
+                    "name"          => $sub_sub_task['task_list'],
+                    'start_date'    => $sub_sub_task['start_date'],
+                    'end_date'      => $sub_sub_task['end_date'],
+                    "delivery_date" => $sub_sub_task['end_date'],
+                    "project_id"    => $id,
+                    'parent'        => $subSubChart->id,
+                    'chart_task_id' => $subSubChart->id
+                ]);
+            }
         }
+        // $project = Project::find($id);
+        // $check   = CheckSheet::with('CheckList','CheckList.getTaskList')->find($request->task_id);
+        // dd($check);
+        // $chart = LiveProjectGranttTask::create([
+        //     "text"          => $check->name,
+        //     "progress"      => "0.00",
+        //     'start_date'    => $project->start_date,
+        //     'end_date'      => $project->delivery_date,
+        //     "parent"        => "0",
+        //     "type"          => 'project',
+        //     "project_id"    => $id,
+        //     "status"        => 1,
+        //     "delivery_date" => $project->delivery_date
+        // ]); 
+        // $LiveProjectTasks =  $project->LiveProjectTasks()->create([
+        //     'name'       => $check->name,
+        //     'slug'       => Str::slug($check->name),
+        //     'start_date' => $project->start_date,
+        //     'end_date'   => $project->delivery_date,
+        //     "chart_task_id" => $chart->id,
+        //     "project_id"    => $id,
+        //     "parent"        => "0",
+        // ]); 
+        // foreach ($check->CheckList as $key => $row) {
+        //     dd($row);
+        //     $subChart =  LiveProjectGranttTask::create([
+        //         "text"          => $row->task_list,
+        //         "progress"      => "0.00",
+        //         'start_date'    => $project->start_date,
+        //         'end_date'      => $project->delivery_date,
+        //         "project_id"    => $project->id,
+        //         "type"          => 'project',
+        //         "parent"    => $chart->id,
+        //         "status"        => 1,
+        //         "delivery_date" => $project->delivery_date
+        //     ]);
+        //     $LiveProjectTasks->SubTasks()->create([
+        //         'name'          => $row->task_list,
+        //         'slug'          => Str::slug($check->task_list),
+        //         'start_date'    => $project->start_date,
+        //         'end_date'      => $project->delivery_date,
+        //         'project_id'    => $project->id,
+        //         "chart_task_id" => $subChart->id,
+        //         "parent"        => $subChart->id,
+        //     ]);
+        // }
         return response()->json([
             "status" => true
         ]);
@@ -715,8 +788,8 @@ class LiveProjectController extends Controller
     {
         $task = LiveProjectTasks::find($id);
         LiveProjectGranttTask::find($task->chart_task_id)->delete();
-        LiveProjectGranttTask::where('parent',$task->chart_task_id)->delete();
-        foreach($task->SubTasks as $sub) {
+        LiveProjectGranttTask::where('parent', $task->chart_task_id)->delete();
+        foreach ($task->SubTasks as $sub) {
             $sub->SubSubTasks()->delete();
         }
         $task->SubTasks()->delete();

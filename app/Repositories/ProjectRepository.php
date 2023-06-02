@@ -6,6 +6,7 @@ use App\Interfaces\ConnectionPlatformInterface;
 use App\Interfaces\ProjectRepositoryInterface;
 use App\Interfaces\CustomerEnquiryRepositoryInterface;
 use App\Models\Admin\Employees;
+use App\Models\CheckList;
 use App\Models\ConnectionPlatform;
 use App\Models\InvoicePlan;
 use App\Models\LiveProjectGranttLink;
@@ -15,6 +16,7 @@ use App\Models\ProjectAssignToUser;
 use App\Models\ProjectGranttLink;
 use App\Models\ProjectGranttTask;
 use App\Models\ProjectTeamSetup;
+use App\Models\Role;
 use App\Models\SharepointFolder;
 use App\Models\sharePointMasterFolder;
 use App\Models\TeamSetupTemplate;
@@ -593,5 +595,39 @@ class ProjectRepository implements ProjectRepositoryInterface, ConnectionPlatfor
             }
         }
         return true;
+    }
+
+    public function bindTodoList($request)
+    {
+        $project              =     Project::findOrFail($request['project_id']);
+        $project_manager_id   =     Role::where('slug', config('global.project_manager'))->first();
+        $project_manager      =     Employees::where('job_role', $project_manager_id->id)->where('status', 1)->first();
+
+        $start_date     =   $project->start_date;
+        $end_date       =   $project->delivery_date;
+        $list           =   CheckList::where("name",  '=', $request['data'])->with('getTaskList')->latest()->get();
+
+        $grouped    =   $list->groupBy('task_list_category')->map(function ($item) use ($start_date, $end_date, $project_manager) {
+            $tasks  =   $item->map(function ($task) use ($start_date, $end_date, $project_manager) {
+                $task->{"start_date"}    = $start_date;
+                $task->{"end_date"}      = $end_date;
+                // $task->assign_to = (string)$project_manager->id ?? "";
+                $task->assign_to = $project_manager->id ?? null;
+                return $task;
+            });
+            return [
+                'name'          => $item[0]->getTaskList->task_list_name,
+                'data'          => $tasks,
+                'start_date'    => $item[0]->start_date,
+                'end_date'      => $item[count($item) - 1]->end_date
+            ];
+        });
+
+        return [
+            "name"               => $request['data'],
+            "project_start_date" => SetDateFormat($project->start_date),
+            "project_end_date"   => SetDateFormat($project->delivery_date),
+            "data"               => $grouped
+        ];
     }
 }
