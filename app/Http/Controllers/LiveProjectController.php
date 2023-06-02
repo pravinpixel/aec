@@ -733,53 +733,7 @@ class LiveProjectController extends Controller
                     'chart_task_id' => $subSubChart->id
                 ]);
             }
-        }
-        // $project = Project::find($id);
-        // $check   = CheckSheet::with('CheckList','CheckList.getTaskList')->find($request->task_id);
-        // dd($check);
-        // $chart = LiveProjectGranttTask::create([
-        //     "text"          => $check->name,
-        //     "progress"      => "0.00",
-        //     'start_date'    => $project->start_date,
-        //     'end_date'      => $project->delivery_date,
-        //     "parent"        => "0",
-        //     "type"          => 'project',
-        //     "project_id"    => $id,
-        //     "status"        => 1,
-        //     "delivery_date" => $project->delivery_date
-        // ]); 
-        // $LiveProjectTasks =  $project->LiveProjectTasks()->create([
-        //     'name'       => $check->name,
-        //     'slug'       => Str::slug($check->name),
-        //     'start_date' => $project->start_date,
-        //     'end_date'   => $project->delivery_date,
-        //     "chart_task_id" => $chart->id,
-        //     "project_id"    => $id,
-        //     "parent"        => "0",
-        // ]); 
-        // foreach ($check->CheckList as $key => $row) {
-        //     dd($row);
-        //     $subChart =  LiveProjectGranttTask::create([
-        //         "text"          => $row->task_list,
-        //         "progress"      => "0.00",
-        //         'start_date'    => $project->start_date,
-        //         'end_date'      => $project->delivery_date,
-        //         "project_id"    => $project->id,
-        //         "type"          => 'project',
-        //         "parent"    => $chart->id,
-        //         "status"        => 1,
-        //         "delivery_date" => $project->delivery_date
-        //     ]);
-        //     $LiveProjectTasks->SubTasks()->create([
-        //         'name'          => $row->task_list,
-        //         'slug'          => Str::slug($check->task_list),
-        //         'start_date'    => $project->start_date,
-        //         'end_date'      => $project->delivery_date,
-        //         'project_id'    => $project->id,
-        //         "chart_task_id" => $subChart->id,
-        //         "parent"        => $subChart->id,
-        //     ]);
-        // }
+        } 
         return response()->json([
             "status" => true
         ]);

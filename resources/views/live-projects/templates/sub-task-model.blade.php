@@ -115,7 +115,7 @@
             <input type="hidden" id="taskId" value="{{ $task->id }}"/>
             <div class="mb-3">
                 <label for="TaskName" class="form-label">Deliverable Name</label>
-                <input type="text" id="TaskName"  class="form-control form-control-sm" placeholder="Type here...">
+                <input type="text" id="TaskName" class="form-control form-control-sm" placeholder="Type here...">
             </div> 
             <div class="mb-3">
                 <label for="AssignTo" class="form-label">Assign To</label>
