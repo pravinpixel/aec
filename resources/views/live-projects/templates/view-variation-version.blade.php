@@ -36,7 +36,7 @@
                             <td>{{ $variation->price * $variation->hours }}</td>
                         </tr>
                         @if ($variation->comments)
-                            <tr>
+                            <tr class="bg-light">
                                 <td><b>Change Request Comments</b></td>
                                 {{-- <td>:</td> --}}
                                 <td>{{ $variation->comments }}</td>

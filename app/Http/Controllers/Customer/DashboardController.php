@@ -25,10 +25,9 @@ class DashboardController extends Controller
         }
 
         $subQuery = "SELECT GROUP_CONCAT( concat(total, '_', e_date) ) enquiry FROM ";
-        $rawQuery = DB::raw($subQuery . "(select count(*) as total, date(enquiry_date) as e_date, enquiry_date, customer_id from aec_enquiries GROUP BY date(enquiry_date) ) as f where customer_id = " . Customer()->id . "  and enquiry_date BETWEEN " . "'$start_date'" . " AND " . "'$end_date'");
-        // dD($rawQuery);
+        $rawQuery = DB::raw($subQuery . "(select count(*) as total, date(enquiry_date) as e_date, enquiry_date, customer_id,status,project_id from aec_enquiries GROUP BY date(enquiry_date) ) as f where customer_id = " . Customer()->id . " and status = 'Submitted' and enquiry_date BETWEEN " . "'$start_date'" . " AND " . "'$end_date'");
+        // dd($rawQuery);
         $enquiry  = DB::select($rawQuery);
-
         $enq_dates = [];
         foreach (explode(',', $enquiry[0]->enquiry) as $key => $value) {
             $enq_dates[] = [
@@ -64,7 +63,9 @@ class DashboardController extends Controller
         // }
 
         $customerId = Customer()->id;
-        $totalActiveEnquiries  = Enquiry::where("customer_id", Customer()->id)->where('status', 'Submitted')
+       
+        $totalActiveEnquiries  = Enquiry::where("customer_id", Customer()->id)
+            ->where('status', 'Submitted')
             ->whereNull('project_id')
             ->count();
         $root = DB::select("select count(*) as count from aec_enquiry_proposal aep left join aec_enquiries ae  on ae.id = aep.enquiry_id where aep.proposal_status = 'awaiting' AND  ae.customer_id = {$customerId}")[0];
