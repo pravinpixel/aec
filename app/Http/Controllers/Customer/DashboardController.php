@@ -9,35 +9,39 @@ use App\Models\InvoicePlan;
 use App\Models\Project;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class DashboardController extends Controller
 {
     protected $customerId;
     public function enquiryAjaxDashboard(Request $request)
     {
-
         if (!is_null($request->daycount)) {
-            $start_date = Carbon::now()->startOfDay();
-            $end_date   = Carbon::now()->addDays($request->daycount)->endOfDay();
+            $start_date = Carbon::now()->subDays($request->daycount)->startOfDay()->format('Y-m-d');
+            $end_date   = Carbon::now()->format('Y-m-d');
         } else {
             $start_date = $request->start_date;
             $end_date   = $request->end_date;
         }
-
-        $subQuery = "SELECT GROUP_CONCAT( concat(total, '_', e_date) ) enquiry FROM ";
-        $rawQuery = DB::raw($subQuery . "(select count(*) as total, date(enquiry_date) as e_date, enquiry_date, customer_id,status,project_id from aec_enquiries GROUP BY date(enquiry_date) ) as f where customer_id = " . Customer()->id . " and status = 'Submitted' and enquiry_date BETWEEN " . "'$start_date'" . " AND " . "'$end_date'");
+      
+        $subEnquiryQuery = "SELECT GROUP_CONCAT( concat(total, '_', e_date) ) enquiry FROM ";
+        $rawEnquiryQuery = DB::raw($subEnquiryQuery . "(select count(*) as total, date(enquiry_date) as e_date, enquiry_date, customer_id,status,project_id from aec_enquiries GROUP BY date(enquiry_date) ) as f where customer_id = " . Customer()->id . " and status = 'Submitted' and enquiry_date BETWEEN " . "'$start_date'" . " AND " . "'$end_date'");
         // dd($rawQuery);
-        $enquiry  = DB::select($rawQuery);
+        $enquiry  = DB::select($rawEnquiryQuery);
         $enq_dates = [];
-        foreach (explode(',', $enquiry[0]->enquiry) as $key => $value) {
-            $enq_dates[] = [
-                "count" => explode('_', $value)[0],
-                "date" => explode('_', $value)[1]
-            ];
+        if (!empty(explode(',', $enquiry[0]->enquiry))) {
+            foreach (explode(',', $enquiry[0]->enquiry) as $key => $value) {
+                if (!empty($value)) {
+                    $enq_dates[] = [
+                        "count" => explode('_', $value)[0],
+                        "date" => explode('_', $value)[1]
+                    ];
+                }
+            }
         }
-        $labels = getDays($request);
-        $enquiryCounts   = [];
-        foreach ($labels as $key => $weekDay) {
+        $labels        = getDays($request);
+        $enquiryCounts = [];
+        foreach ($labels as $weekDay) {
             $result = in_date_array(Carbon::parse($weekDay)->format('Y-m-d'), $enq_dates);
             if ($result) {
                 $enquiryCounts[] = (int) $result['count'];
@@ -45,10 +49,16 @@ class DashboardController extends Controller
                 $enquiryCounts[] = 0;
             }
         }
-
+     
         return response([
             "labels" => $labels,
-            "data"   => $enquiryCounts
+            "datasets"   => [
+                [
+                    "label" => "Enquiries",
+                    "data" =>  $enquiryCounts,
+                    "borderWidth" => 1
+                ]
+            ]
         ]);
     }
     public function enquiryDashboard(Request $request)
@@ -63,7 +73,7 @@ class DashboardController extends Controller
         // }
 
         $customerId = Customer()->id;
-       
+
         $totalActiveEnquiries  = Enquiry::where("customer_id", Customer()->id)
             ->where('status', 'Submitted')
             ->whereNull('project_id')
@@ -148,5 +158,5 @@ class DashboardController extends Controller
             ->sum('project_cost');
         $data['total_amount'] = 0;
         return view('customer.dashboard.project', with($data));
-    } 
+    }
 }

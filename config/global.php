@@ -170,19 +170,19 @@ return [
     'signature' => 'https://crm.aecprefab.net/public/assets/images/signature.png',
     "filters" => [
         [
-            "name" => 'Week',
+            "name" => 'Last 7 days',
             "slug" => 'WEEK',
             "value" => 7
         ],
         [
-            "name" => 'Month',
+            "name" => 'Last 30 days',
             "slug" => 'MONTH',
             "value" => 30
         ],
         [
-            "name" => 'Year',
+            "name" => 'Last 90 days',
             "slug" => 'YEAR',
-            "value" => 365
+            "value" => 90
         ]
     ]
 ];

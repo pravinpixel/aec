@@ -48,7 +48,7 @@
                                         <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
                                             @foreach (config('global.filters') as $key => $filter)
                                                 <input type="radio" class="btn-check"
-                                                    onchange="filterChart('{{ $filter['value'] }}')" name="btnradio"
+                                                    onclick="filterChart('{{ $filter['value'] }}')" name="btnradio"
                                                     id="btnradio{{ $filter['slug'] }}" autocomplete="off"
                                                     {{ $key == 0 ? 'checked' : '' }}>
                                                 <label class="btn btn-outline-light text-secondary"
@@ -89,21 +89,14 @@
     <script>
         const ctx = document.getElementById('enquiryChartContainer');
         var myChart = new Chart(ctx);
-        renderChart = (data) => {
+        renderChart = (chartResponse) => {
             myChart = new Chart(ctx, {
                 type: 'bar',
-                data: {
-                    labels: data.labels,
-                    datasets: [{
-                        label: "Enquiries",
-                        data: data.data,
-                        borderWidth: 1
-                    }]
-                },
+                data: chartResponse,
                 options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true
+                    plugins: {
+                        legend: {
+                            display: false
                         }
                     }
                 }

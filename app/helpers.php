@@ -470,7 +470,7 @@ if (!function_exists('changeProposalStatus')) {
             if (!is_null($request->daycount)) {
                 $date = Carbon::now()->format('d-m-Y');
                 for ($i = 0; $i <= $request->daycount; $i++) {
-                    $labels[] = date('d-m-Y', strtotime($date . '+' . $i . ' Days'));
+                    $labels[] = date('d-m-Y', strtotime($date . '-' . $i . ' Days'));
                 }
             } else {
                 $date       = $request->start_date;
@@ -481,7 +481,7 @@ if (!function_exists('changeProposalStatus')) {
                     $labels[] = date('d-m-Y', strtotime($date . '+' . $i . ' Days'));
                 }
             }
-            return  $labels;
+            return  array_reverse($labels);
         }
     }
 
