@@ -20,10 +20,10 @@ class CustomerProjectController extends Controller
         ProjectRepository $projectRepo
     ) {
         $this->projectRepo        = $projectRepo;
-       
     }
 
-    public function index(Request $request){
+    public function index(Request $request)
+    {
         return view('customer.projects.index');
     }
     public function unestablishedProjectList(Request $request)
@@ -74,7 +74,7 @@ class CustomerProjectController extends Controller
 
     public function liveProjectList(Request $request)
     {
-        
+
         if ($request->ajax() == true) {
             $dataDb = $this->projectRepo->liveProjectList($request);
             // $dataDb = Project::with(['comments'=> function($q){
@@ -83,14 +83,12 @@ class CustomerProjectController extends Controller
             //dd($dataDb);
             return DataTables::eloquent($dataDb)
                 ->editColumn('reference_number', function ($dataDb) {
-                    $commentCount = $dataDb->comments->count();
-                    $projectComments = $commentCount == 0 ? '' : $commentCount;
                     return '
-                    <button type="button" ng-click=getQuickProject("create_project",' . $dataDb->id . ') class="btn-quick-view" ng-click=toggle("edit",' . $dataDb->id . ')>
-                        <b>' . $dataDb->reference_number . '</b>
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">'.$projectComments.'</span>
-                    </button>
-                ';
+                        <a type="button" class="btn-quick-view px-1" href="' . route('live-project.menus-index', ['menu_type' => 'overview', 'id' => $dataDb->id]) . '">
+                            <i class="fa fa-eye" aria-hidden="true"></i>
+                            <b>' . $dataDb->reference_number . '</b>
+                        </a>
+                    ';
                 })
                 ->editColumn('start_date', function ($dataDb) {
                     $format = config('global.model_date_format');
@@ -103,100 +101,104 @@ class CustomerProjectController extends Controller
                 ->addColumn('pipeline', function ($dataDb) {
                     $totaloverall = array();
                     $result = array();
-                    $projechtchart =  isset($dataDb->gantt_chart_data) ? json_decode($dataDb->gantt_chart_data) :array();
-                    foreach($projechtchart as $projectdata){
-                        foreach($projectdata->data as $key=>$prodata){
+                    $projechtchart =  isset($dataDb->gantt_chart_data) ? json_decode($dataDb->gantt_chart_data) : array();
+                    foreach ($projechtchart as $projectdata) {
+                        foreach ($projectdata->data as $key => $prodata) {
                             $finalstatuspercentage = array();
                             $overall = count($prodata->data);
                             $totaloverall[] = $overall;
-                            foreach($prodata->data as $finaldata){
+                            foreach ($prodata->data as $finaldata) {
                                 $delivery_date = isset($finaldata->delivery_date) ? Carbon::parse($finaldata->delivery_date)->format('Y-m-d') : '';
 
-              
-                                if(isset($finaldata->status) &&  $finaldata->status !=  ''){
-                                 $finalstatuspercentage[] =   $finaldata->status;
-                                } 
-                                $gnttname[] = $finaldata->task_list;
-                              
-                                $date_now = date("Y-m-d"); // this format is string comparable
-                                
-                                if (isset($delivery_date) && $date_now > $delivery_date) {
-                                 $datetime1 = new DateTime($date_now);
-                                 $datetime2 = new DateTime($delivery_date);
-                                 $intervalday[] = $datetime1->diff($datetime2)->days * 24;
-                                }else{
-                                 $intervalday[] = 0;
-                                }
-                                 
-                              
-             
-                                $days = (strtotime($finaldata->start_date) - strtotime($finaldata->end_date)) / (60 * 60 * 24);
-                                $start  = date_create(str_replace('/','-',$finaldata->start_date));
-                                $end    = date_create(str_replace('/','-',$finaldata->end_date)); // Current time and date
-                                $diff   = date_diff( $start, $end );
-                                $seriesdata[] = array('y'=>$diff->days * 24,
-                                                     'color'=>'#008ffb' );
 
-                            
+                                if (isset($finaldata->status) &&  $finaldata->status !=  '') {
+                                    $finalstatuspercentage[] =   $finaldata->status;
+                                }
+                                $gnttname[] = $finaldata->task_list;
+
+                                $date_now = date("Y-m-d"); // this format is string comparable
+
+                                if (isset($delivery_date) && $date_now > $delivery_date) {
+                                    $datetime1 = new DateTime($date_now);
+                                    $datetime2 = new DateTime($delivery_date);
+                                    $intervalday[] = $datetime1->diff($datetime2)->days * 24;
+                                } else {
+                                    $intervalday[] = 0;
+                                }
+
+
+
+                                $days = (strtotime($finaldata->start_date) - strtotime($finaldata->end_date)) / (60 * 60 * 24);
+                                $start  = date_create(str_replace('/', '-', $finaldata->start_date));
+                                $end    = date_create(str_replace('/', '-', $finaldata->end_date)); // Current time and date
+                                $diff   = date_diff($start, $end);
+                                $seriesdata[] = array(
+                                    'y' => $diff->days * 24,
+                                    'color' => '#008ffb'
+                                );
+
+
                                 $completecount = count($finalstatuspercentage);
                                 $totalcompletecount[] = $completecount;
-                                $rearr[] = array('name' =>$finaldata->get_task_list->task_list_name ?? ' ',
-                                                'completed'=> round(($completecount /$overall )*100),2);
+                                $rearr[] = array(
+                                    'name' => $finaldata->get_task_list->task_list_name ?? ' ',
+                                    'completed' => round(($completecount / $overall) * 100), 2
+                                );
                             }
                         }
+                    }
+                    if (count($projechtchart) > 0) {
 
-                    }
-                    if(count($projechtchart) > 0){
-         
-                        $result = array('overall'=> round(((array_sum($totalcompletecount) / array_sum($totaloverall))*100),2),
-                        'completed' => $rearr);
+                        $result = array(
+                            'overall' => round(((array_sum($totalcompletecount) / array_sum($totaloverall)) * 100), 2),
+                            'completed' => $rearr
+                        );
                         //dd($result);
-                    }else{
-                        $result = array('overall'=> 0,
-                        'completed' => 0);
+                    } else {
+                        $result = array(
+                            'overall' => 0,
+                            'completed' => 0
+                        );
                     }
-                    $width = $result['overall'] == 0 ? '0%' : $result['overall'].'%';
+                    $width = $result['overall'] == 0 ? '0%' : $result['overall'] . '%';
                     $color = $result['overall'] == 0 ? 'bg-danger' : 'bg-success';
                     return '
                         <div class="progress bg-light border" style="position:relative;"> 
-                            <div class="progress-bar '.$color.' progress-bar-striped progress-bar-animated" role="progressbar" style="width: '.$width.';" aria-valuenow="'. $result['overall'].'" aria-valuemin="0" aria-valuemax="100">
-                                <small class="smallTag">'. $result['overall'].'%</small>
+                            <div class="progress-bar ' . $color . ' progress-bar-striped progress-bar-animated" role="progressbar" style="width: ' . $width . ';" aria-valuenow="' . $result['overall'] . '" aria-valuemin="0" aria-valuemax="100">
+                                <small class="smallTag">' . $result['overall'] . '%</small>
                             </div>
                         </div>
                     ';
                 })
-                ->addColumn('action', function ($dataDb) {
-                    return '<a class="btn btn-sm btm-light border" href="'.route('live-project.menus-index',['menu_type'=>'overview','id'=> $dataDb->id]).'"><i class="fa fa-eye" aria-hidden="true"></i></a>';
-                })
-                ->rawColumns(['action', 'pipeline', 'reference_number'])
+                ->rawColumns(['pipeline', 'reference_number'])
                 ->make(true);
         }
     }
 
-    public function live($id){
-        if(!empty(Customer()->id)){
+    public function live($id)
+    {
+        if (!empty(Customer()->id)) {
             $seen_user = 'Customer';
-        }else{
+        } else {
             $seen_user = 'Admin';
         }
-       $issuescount =  TicketcommentsReplay :: Where('project_id',$id)
-                                ->Where('seen_user',$seen_user)
-                                ->where('status',0)
-                                ->count();
-        $data =array('issues' => ($issuescount != '0') ? $issuescount : '');
-        $chat=projectComment::where('project_id',$id)->get();
-       
-        return view('customer.projects.live-project.index', compact('id','data','chat')); 
-    }
-    public function approveOrDeny(Request $request){
-        $ticket_id = $request->ticket_id;
-        $ticket_comment_id =$request->ticket_comment_id;
-        $type               = $request->type;
-        $comment            = isset($request->comment) ? $request->comment :'';
-        ProjectTicket ::Where(['id'=>$ticket_id])
-                     ->update(['variation_status' => $request->type,'action_comment' =>$comment,'customer_response' =>2]); 
-         return response(['status' => true, 'msg' => 'Variation Updated']);
-        }
+        $issuescount =  TicketcommentsReplay::Where('project_id', $id)
+            ->Where('seen_user', $seen_user)
+            ->where('status', 0)
+            ->count();
+        $data = array('issues' => ($issuescount != '0') ? $issuescount : '');
+        $chat = projectComment::where('project_id', $id)->get();
 
-    
+        return view('customer.projects.live-project.index', compact('id', 'data', 'chat'));
+    }
+    public function approveOrDeny(Request $request)
+    {
+        $ticket_id = $request->ticket_id;
+        $ticket_comment_id = $request->ticket_comment_id;
+        $type               = $request->type;
+        $comment            = isset($request->comment) ? $request->comment : '';
+        ProjectTicket::Where(['id' => $ticket_id])
+            ->update(['variation_status' => $request->type, 'action_comment' => $comment, 'customer_response' => 2]);
+        return response(['status' => true, 'msg' => 'Variation Updated']);
+    }
 }

@@ -79,6 +79,9 @@ if (!function_exists('storagePath')) {
 if (!function_exists('getFileType')) {
     function getFileType($file)
     {
+        if (Storage::exists($file) === false) {
+            return "";
+        }
         $file_type = '.' . ucfirst(explode('/', Storage::mimeType($file))[1]);
         if ($file_type == '.Vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
             return '.xlsx';
@@ -93,6 +96,9 @@ if (!function_exists('getFileType')) {
 if (!function_exists('getFileSize')) {
     function getFileSize($file)
     {
+        if (Storage::exists($file) === false) {
+            return 0;
+        }
         $bytes =  Storage::size($file);
         if ($bytes >= 1073741824) {
             $bytes = number_format($bytes / 1073741824, 2) . ' GB';
@@ -270,7 +276,7 @@ if (!function_exists('getIssuesByUserId')) {
         $project_ids =  Project::when(AuthUser() == 'CUSTOMER', function ($q) use ($id) {
             $q->where('customer_id', $id);
         })->pluck('id');
-        return Issues::with('VariationOrder','Project', 'Project.Customer')
+        return Issues::with('VariationOrder', 'Project', 'Project.Customer')
             ->whereIn('project_id', $project_ids)
             ->when(AuthUser() == 'CUSTOMER', function ($q) {
                 $q->where('type', 'EXTERNAL')->whereIn('status', ['OPEN', 'NEW']);

@@ -74,12 +74,12 @@ app.controller('CustomerprojectController', function ($scope, $http, API_URL, $c
             {data: 'start_date', name: 'start_date'},
             {data: 'delivery_date', name: 'delivery_date'},
             {data: 'pipeline', name: 'pipeline'},
-            {
-                data         : 'action', name: 'action', orderable: false, searchable: false,
-                fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
-                    $("a", nTd).tooltip({container: 'body'});
-                }
-            }
+            // {
+            //     data         : 'action', name: 'action', orderable: false, searchable: false,
+            //     fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
+            //         $("a", nTd).tooltip({container: 'body'});
+            //     }
+            // }
         ],
         rowCallback: function( row, data ) {
            if(data.is_new_enquiry == 1){

@@ -7,7 +7,6 @@
             <th class="text-center">@lang('project.start_date')</th> 
             <th class="text-center">@lang('project.delivery_date')</th>
             <th class="text-center">@lang('project.pipeline')</th>
-            <th class="text-center">@lang('project.action')</th>
         </tr>
     </thead>
     <tbody> </tbody>
