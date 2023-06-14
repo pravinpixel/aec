@@ -387,12 +387,16 @@ if (!function_exists('hasIssueReadPermission')) {
             }
             $employees = [];
             if ($issue->tags) {
-                foreach (json_decode($issue->tags) as $key => $user_id) {
-                    $employees[] = Employees::whereId($user_id)->select('image', 'id', 'display_name', 'reference_number')->get()->first()->toArray();
-                }
-                if (in_array(AuthUserData()->id, json_decode($issue->tags))) {
-                    return true;
-                } else {
+                try {
+                    foreach (json_decode($issue->tags ?? []) as $key => $user_id) {
+                        $employees[] = Employees::whereId($user_id)->select('image', 'id', 'display_name', 'reference_number')->get()->first()->toArray();
+                    }
+                    if (in_array(AuthUserData()->id, json_decode($issue->tags))) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } catch (\Throwable $th) {
                     return false;
                 }
             } else {

@@ -2,13 +2,33 @@
     font-size: 12px !important;
     background-color: #EBF4FE;
     color: #4199FC;
-    border:1px solid #4199FC;
-    border-radius: 2px;
-    box-shadow: 0 0 2px #4199FC;
+    border: 1px solid #4199FC;
+    border-radius: 3px;
     position: relative;
 }
+
 .btn-quick-view:hover {
     background-color: #4199FC;
     color: #EBF4FE;
-    border:1px solid #EBF4FE; 
+    border: 1px solid #EBF4FE;
+}
+
+.external-chip {
+    background-color: purple;
+    color: white;
+    padding: 0 5px;
+    width: 80px;
+    display: block;
+    font-size: 14px;
+    border-radius: 3px
+}
+
+.internal-chip {
+    background-color: orange;
+    color: white;
+    padding: 0 5px;
+    width: 80px;
+    display: block;
+    font-size: 14px;
+    border-radius: 3px
 }

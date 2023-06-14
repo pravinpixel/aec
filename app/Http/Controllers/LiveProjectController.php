@@ -263,9 +263,9 @@ class LiveProjectController extends Controller
             });
             $table->addColumn('issue_type', function ($row) {
                 if ($row->type == 'INTERNAL') {
-                    return '<span class="text-primary fw-bold">• <small>Internal</small></b></span>';
+                    return '<span class="internal-chip">• Internal</b></span>';
                 } else {
-                    return '<span class="text-danger fw-bold">• <small>External</small></b></span>';
+                    return '<span class="external-chip">• External</b></span>';
                 }
             });
             $table->addColumn('requested_date', function ($row) {

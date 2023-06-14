@@ -14,7 +14,16 @@ class CommonController extends Controller
     public function issues(Request $request)
     {
         if ($request->ajax()) { 
-            $table = DataTables::of(getIssuesByUserId(AuthUserData()->id));
+            $Issues = getIssuesByUserId(AuthUserData()->id);
+            if (!is_null($request->filter)) {
+                $Issues->when(isset($request->filter['type']), function ($q) use ($request) {
+                    $q->where('type', $request->filter['type']);
+                });
+                $Issues->when(isset($request->filter['project_id']), function ($q) use ($request) {
+                    $q->where('project_id', $request->filter['project_id']);
+                }); 
+            }
+            $table = DataTables::of($Issues);
             $table->addIndexColumn();
             $table->addColumn('issue_id', function ($row) {
                 $count  = $row->IssueComments->where('unread', 0)->count();
@@ -27,9 +36,9 @@ class CommonController extends Controller
             });
             $table->addColumn('issue_type', function ($row) {
                 if ($row->type == 'INTERNAL') {
-                    return '<span class="text-primary fw-bold">• <small>Internal</small></b></span>';
+                    return '<span class="internal-chip">• Internal</b></span>';
                 } else {
-                    return '<span class="text-danger fw-bold">• <small>External</small></b></span>';
+                    return '<span class="external-chip">• External</b></span>';
                 }
             });
             $table->addColumn('requested_date', function ($row) {
@@ -67,7 +76,7 @@ class CommonController extends Controller
     {
         if ($request->ajax()) {
             $dataDb = Project::with('Issues', 'Issues.IssueComments')->select('*');
-            return DataTables::eloquent($dataDb)
+            return DataTables::of($dataDb)
                 ->editColumn('reference_number', function ($row) {
                     $issues = getIssuesByProjectId($row->id);
                     $count = 0;
