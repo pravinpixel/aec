@@ -1,4 +1,4 @@
-<table id="inactive-customer-table" class="table custom custom dt-responsive nowrap  w-100">
+<table id="inactive-customer-table" class="table dt-responsive custom nowrap w-100">
     <thead>
         <tr>
             <th class="text-left"> @lang('enquiry.s_no')</th>

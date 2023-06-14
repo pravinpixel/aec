@@ -76,7 +76,7 @@ class ProjectRepository implements ProjectRepositoryInterface, ConnectionPlatfor
         $fromDate = isset($request->from_date) ? Carbon::parse($request->from_date)->format('Y-m-d') : now()->subDays(config('global.date_period'));
         $toDate = isset($request->from_date) ? Carbon::parse($request->to_date)->format('Y-m-d') : now();
         $projectType = isset($request->project_type) ? $request->project_type : false;
-        $dataDb =  $this->model::where('status', 'In-Progress');
+        $dataDb =  $this->model::where('status', 'UN_ESTABLISHED');
         if ($role_id == '') {
             $dataDb->where('customer_id', $seenBy);
         }
@@ -94,7 +94,7 @@ class ProjectRepository implements ProjectRepositoryInterface, ConnectionPlatfor
         $fromDate = isset($request->from_date) ? Carbon::parse($request->from_date)->format('Y-m-d') : now()->subDays(config('global.date_period'));
         $toDate = isset($request->from_date) ? Carbon::parse($request->to_date)->format('Y-m-d') : now();
         $projectType = isset($request->project_type) ? $request->project_type : false;
-        $dataDb =  $this->model::where('status', 'Live');
+        $dataDb =  $this->model::where('status', 'LIVE');
         if ($role_id == '') {
             $dataDb->where('customer_id', $seenBy);
         }

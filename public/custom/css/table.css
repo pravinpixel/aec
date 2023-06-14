@@ -24,3 +24,8 @@
 .hide-page-size .dataTables_length {
     display: none !important;
 }
+table.dataTable.dtr-inline.collapsed > tbody > tr > td.dtr-control:before, table.dataTable.dtr-inline.collapsed > tbody > tr > th.dtr-control:before {
+    position: unset !important;
+    display: inline-block !important;
+    margin-right: 10px !important;
+}

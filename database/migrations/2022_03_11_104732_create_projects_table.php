@@ -37,7 +37,7 @@ class CreateProjectsTable extends Migration
             $table->integer('total_cost')->nullable();
             $table->datetime('start_date')->nullable();
             $table->datetime('delivery_date')->nullable();
-            $table->string('status')->default('In-Progress');
+            $table->string('status')->default('UN_ESTABLISHED');
             $table->string('address_one')->nullable();
             $table->string('address_two')->nullable();
             $table->string('time_zone')->default('Europe/Amsterdam');

@@ -69,7 +69,7 @@ class LiveProjectController extends Controller
             ]);
         }
         $project->update([
-            'status' => 'LIVE_PROJECT_COMPLETED',
+            'status' => 'COMPLETED',
             'share_point_folder_link' => json_encode($request->url)
         ]);
     }
@@ -617,7 +617,7 @@ class LiveProjectController extends Controller
     public function completed_project(Request $request)
     {
         if ($request->ajax()) {
-            $dataDb = Project::where('status', 'LIVE_PROJECT_COMPLETED')->select('*');
+            $dataDb = Project::where('status', 'COMPLETED')->select('*');
             return DataTables::of($dataDb)
                 ->editColumn('reference_number', function ($dataDb) {
                     return '

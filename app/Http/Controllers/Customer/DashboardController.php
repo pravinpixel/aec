@@ -151,7 +151,7 @@ class DashboardController extends Controller
         $data['total'] =  Project::where('customer_id', $this->customerId)->count();
 
         $data['completed'] = Project::where(['customer_id' => $this->customerId, 'status' => 'Completed'])->count();
-        $data['in_progress'] = Project::where('customer_id', $this->customerId)->whereIn('status', ['Live', 'In-Progress'])->count();
+        $data['in_progress'] = Project::where('customer_id', $this->customerId)->whereIn('status', ['LIVE', 'UN_ESTABLISHED'])->count();
         $data['total_cost'] = InvoicePlan::with(['project' => function ($q) {
             return $q->where('customer_id', $this->customerId);
         }])

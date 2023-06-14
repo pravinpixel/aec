@@ -158,7 +158,7 @@ class DashboardController extends Controller
     public function projectDashboard()
     {
         $result['new_project'] = Project::where('status', 'Un-Established')->count();
-        $result['current_project'] = Project::where('status', 'Live')->count();
+        $result['current_project'] = Project::where('status', 'LIVE')->count();
         $result['completed_project'] = Project::where('status', 'Completed')->count();
         $result['new_variation_orders'] = 0;
         $result['ready_for_project'] = Project::where(['status'=> 'Un-Established','is_new_project'=> 1])->count();
@@ -192,7 +192,7 @@ class DashboardController extends Controller
         $result['estimated_hours'] = $estimatedHours->values();
 
         $running_projects = Project::whereBetween('created_at', [$fromDate, $toDate])
-                ->whereIn('status', ['In-Progress','Live'])
+                ->whereIn('status', ['UN_ESTABLISHED','LIVE'])
                 ->select('progress_percentage',
                 'project_name', 
                  DB::raw('TIMEDIFF(delivery_date, start_date) AS time_diff'))

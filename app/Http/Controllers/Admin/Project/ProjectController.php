@@ -442,7 +442,7 @@ class ProjectController extends Controller
         if ($request->ajax() == true) {
             $dataDb = Project::with(['LiveProjectTasks', 'enquiry', 'comments' => function ($q) {
                 $q->where(['status' => 0, 'created_by' => 'Customer']);
-            }])->where('status', 'Live');
+            }])->where('status', 'LIVE');
             return DataTables::eloquent($dataDb)
                 ->editColumn('reference_number', function ($dataDb) {
                     return '<button type="button" class="btn-quick-view" onclick="LiveProjectQuickView(' . $dataDb->id . ' , this)" >
@@ -785,7 +785,7 @@ class ProjectController extends Controller
                     $res = $this->moveFileToSharepoint($project->enquiry_id, $project);
                 }
             }
-            $this->projectRepo->draftOrSubmit($project_id, ['is_submitted' => 1, 'status' => 'Live']);
+            $this->projectRepo->draftOrSubmit($project_id, ['is_submitted' => 1, 'status' => 'LIVE']);
             return  response(['status' => true, 'msg' => 'Project submitted successfully']);
         } else if ($type == 'review_and_save') {
             $this->projectRepo->draftOrSubmit($project_id, ['is_submitted' => 0]);
@@ -858,7 +858,7 @@ class ProjectController extends Controller
                 $this->createBimProject($project);
                 $this->addMemberToProject($project);
             }
-            $this->projectRepo->draftOrSubmit($id, ['is_submitted' => true, 'status' => 'Live']);
+            $this->projectRepo->draftOrSubmit($id, ['is_submitted' => true, 'status' => 'LIVE']);
             return response(['status' => true, 'msg' => 'Project submitted successfully']);
         } else if ($type == 'review_and_save') {
             $this->projectRepo->draftOrSubmit($id, ['is_submitted' => false]);
@@ -1580,7 +1580,7 @@ class ProjectController extends Controller
 
     public function getProjectCount()
     {
-        $unestablishedCount = Project::where(['status' => 'In-Progress', 'is_new_project' => 1])->get()->count();
+        $unestablishedCount = Project::where(['status' => 'UN_ESTABLISHED', 'is_new_project' => 1])->get()->count();
         return ['unestablishedCount' => $unestablishedCount];
     }
 

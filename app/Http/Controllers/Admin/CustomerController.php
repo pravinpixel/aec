@@ -155,7 +155,7 @@ class CustomerController extends Controller
         $id = Customer()->id;
         $customer = Customer::find($id);
         $paymentDue = true;
-        $activeProject = Project::where(['customer_id'=> $id, 'status'=> 'live'])->get()->count();
+        $activeProject = Project::where(['customer_id'=> $id, 'status'=> 'LIVE'])->get()->count();
         return view('customer.pages.profile', compact('customer','activeProject','paymentDue'));
     }
 

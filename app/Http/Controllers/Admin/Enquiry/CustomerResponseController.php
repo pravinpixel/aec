@@ -147,7 +147,7 @@ class CustomerResponseController extends Controller
             'company_name'     => $enquiry->customer->company_name,
             'start_date'       => $enquiry->project_date,
             'delivery_date'    => $enquiry->project_delivery_date,
-            'status'           => 'In-Progress'
+            'status'           => 'UN_ESTABLISHED'
         ];
     }
 

@@ -27,76 +27,7 @@
         </div>
         @include('admin.projects.quick-view')
     </div>
-@endsection
-@push('custom-styles')
-<style>
-    .smallTag{
-        font-size: 10px;
-        position: absolute;
-        top: 0;
-        left: 40%;
-        font-weight: 700 !important;
-        color: #4299FA !important;
-    }
-</style>
-@endpush
+@endsection 
 @push('custom-scripts')
-    <script src="{{ asset('public/custom/js/ngControllers/admin/project/list.js') }}"></script> 
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
-    <script>
-        var liveproject_completed = $('#live-project-completed-table').DataTable({
-            aaSorting: [
-                [0, 'desc']
-            ],
-            responsive: true,
-            processing: true,
-            pageLength: 50,
-            lengthMenu: [
-                [10, 25, 50, -1],
-                [10, 25, 50, "All"]
-            ],
-            serverSide: true,
-            ajax: {
-                url: "{{ route('live-project.completed') }}",
-                dataType: 'json',
-            },
-            columns: [{
-                    data: 'reference_number',
-                    name: 'reference_number'
-                },
-                {
-                    data: 'company_name',
-                    name: 'company_name'
-                },
-                {
-                    data: 'project_name',
-                    name: 'project_name'
-                },
-                {
-                    data: 'contact_person',
-                    name: 'contact_person'
-                },
-                {
-                    data: 'start_date',
-                    name: 'start_date'
-                },
-                {
-                    data: 'delivery_date',
-                    name: 'delivery_date'
-                },
-                {
-                    data: 'pipeline',
-                    name: 'pipeline'
-                },
-            ],
-            rowCallback: function(row, data) {
-                if (data.is_new_enquiry == 1) {
-                    $(row).addClass('font-weight-bold bg-light');
-                }
-            },
-        });
-    </script>
-@endpush
+    <script src="{{ asset("public/custom/js/ngControllers/admin/project/list.js") }}"></script> 
+@endpush 

@@ -1,3 +1,4 @@
+
 app.controller('projectController', function ($scope, $http, API_URL, $compile) {
       
     $scope.projectTypes = [];
@@ -90,6 +91,57 @@ app.controller('projectController', function ($scope, $http, API_URL, $compile) 
             $compile(row)($scope);  //add this to compile the DOM
         }
     }); 
+    var liveproject_completed = $('#live-project-completed-table').DataTable({
+        aaSorting: [
+            [0, 'desc']
+        ],
+        responsive: true,
+        processing: true,
+        pageLength: 10,
+        lengthMenu: [
+            [10, 25, 50, -1],
+            [10, 25, 50, "All"]
+        ],
+        serverSide: true,
+        ajax: {
+            url:  API_URL +'live/project/completed',
+            dataType: 'json',
+        },
+        columns: [{
+                data: 'reference_number',
+                name: 'reference_number'
+            },
+            {
+                data: 'company_name',
+                name: 'company_name'
+            },
+            {
+                data: 'project_name',
+                name: 'project_name'
+            },
+            {
+                data: 'contact_person',
+                name: 'contact_person'
+            },
+            {
+                data: 'start_date',
+                name: 'start_date'
+            },
+            {
+                data: 'delivery_date',
+                name: 'delivery_date'
+            },
+            {
+                data: 'pipeline',
+                name: 'pipeline'
+            },
+        ],
+        rowCallback: function(row, data) {
+            if (data.is_new_enquiry == 1) {
+                $(row).addClass('font-weight-bold bg-light');
+            }
+        },
+    });
     $http({
         method: 'GET',
         url: API_URL+'admin/get-project-count',

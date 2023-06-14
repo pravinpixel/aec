@@ -6,7 +6,7 @@
         <section>
             <x-accordion title="Completed Projects" path="false" open="true" argument='null'>
                 <div class="table-min-height">
-                    <table class="table custom custom dt-responsive nowrap  w-100" id="live-project-completed-table">
+                    <table class="table dt-responsive custom nowrap w-100" id="live-project-completed-table">
                         <thead>
                             <tr>
                                 <th class="text-center">@lang('project.project_id')</th>

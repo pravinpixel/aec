@@ -106,7 +106,7 @@ class AuthController extends Controller
     public function deactivateAccount(Request $request)
     {
         $id = Customer()->id;
-        $totalProject = Project::where(['customer_id'=> $id, 'status'=> 'live'])->get()->count();
+        $totalProject = Project::where(['customer_id'=> $id, 'status'=> 'LIVE'])->get()->count();
         if($totalProject > 0) {
             Flash::error('Can not deactivate your account');
             return redirect(route('customers-dashboard'));
