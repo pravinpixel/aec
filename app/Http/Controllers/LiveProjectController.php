@@ -263,9 +263,9 @@ class LiveProjectController extends Controller
             });
             $table->addColumn('issue_type', function ($row) {
                 if ($row->type == 'INTERNAL') {
-                    return '<small class="badge bg-danger rounded-pill"><i style="transform: rotate(-45deg)" class="fa fa-ticket" aria-hidden="true"></i> Internal</small>';
+                    return '<span class="text-primary fw-bold">• <small>Internal</small></b></span>';
                 } else {
-                    return '<small class="badge badge-danger-lighten rounded-pill"><i style="transform: rotate(-45deg)" class="fa fa-ticket" aria-hidden="true"></i> External</small>';
+                    return '<span class="text-danger fw-bold">• <small>External</small></b></span>';
                 }
             });
             $table->addColumn('requested_date', function ($row) {

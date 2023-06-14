@@ -28,9 +28,10 @@
                             <th width="200px">Title</th>
                             <th>Type</th>
                             <th width="300px">Project</th>
+                            <th>Company</th>
                             <th>Customer</th>
-                            <th>Assignee</th>
-                            <th>Requester</th>
+                            <th>Assign to​</th>
+                            <th>Originator​</th>
                             <th>Priority</th>
                             <th>Due Date</th>
                             <th width="100px">Status</th>
@@ -134,6 +135,10 @@
                     },
                     {
                         data: 'project.project_name',
+                        name: 'project_id'
+                    },
+                    {
+                        data: 'project.customer.company_name',
                         name: 'project_id'
                     },
                     {

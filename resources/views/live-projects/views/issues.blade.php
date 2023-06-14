@@ -75,8 +75,8 @@
                 <th>#Issue Id</th>
                 <th width="200px">Title</th>
                 <th>Type</th>
-                <th>Assignee</th>
-                <th>Requester</th>
+                <th>Assign to​</th>
+                <th>Originator​</th>
                 <th>Priority</th>
                 <th>Due Date</th>
                 <th width="100px">Status</th>

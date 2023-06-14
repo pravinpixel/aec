@@ -29,7 +29,7 @@
                 <h1 class="custom-modal-title pb-3">Issue Information</h1>
 
                 <x-admin-layout>
-                    <span class="custom-label">Assign Type <sup>*</sup></span>
+                    <span class="custom-label">Issue Type <sup>*</sup></span>
                     <div class="row">
                         <div class="col ps-0 mb-3">
                             <label class="form-control form-control-sm d-flex align-items-center" for="assign_type_in">
@@ -49,7 +49,7 @@
                 </x-admin-layout>
                 <div class="row">
                     <div class="col ps-0 mb-3">
-                        <span class="custom-label">Assignee <sup>*</sup></span>
+                        <span class="custom-label">Assign to​ <sup>*</sup></span>
                         <select name="assignee" class="form-select form-select-sm " id="assignee-select-field"
                             data-placeholder="-- select --" required>
                             <option value="">-- select --</option>
@@ -79,7 +79,7 @@
                         </div>
                     </div>
                     <div class="col p-0 mb-3">
-                        <span class="custom-label">Requester <sup>*</sup></span>
+                        <span class="custom-label">Originator​ <sup>*</sup></span>
                         <select name="requester" class="form-select form-select-sm single-select-field"
                             data-placeholder="-- select --" required>
                             <option value="">-- select --</option>
