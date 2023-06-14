@@ -456,7 +456,7 @@ class ProjectController extends Controller
                                 <b>' . $dataDb->enquiry->enquiry_number . '</b>
                             </button>';
                     }
-                    return '<b class="d-block text-center border border-dark bg-light rounded small">N/A</b>';
+                    return '<span class="btn-na">N/A</span>';
                 })
                 ->editColumn('start_date', function ($dataDb) {
                     $format = config('global.model_date_format');

@@ -16611,7 +16611,6 @@ input[type=date]{
   font-weight:  bold !important;
 }
 
-
 #unestablished-table tr ,
 .active-table-row {
   background: #d3f7e3 !important;
@@ -16626,7 +16625,7 @@ input[type=date]{
 }
 #unestablished-table tr   th,
 #unestablished-table tr  td,
-#unestablished-table tr  span,
+/* #unestablished-table tr  span, */
 #unestablished-table tr  small,
 #unestablished-table tr  a,
 #unestablished-table tr  i {

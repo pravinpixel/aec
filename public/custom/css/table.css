@@ -29,3 +29,37 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td.dtr-control:before, table
     display: inline-block !important;
     margin-right: 10px !important;
 }
+.btn-na {
+    display: block;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 700;
+    border: 1px solid #98a6ad;
+    color: #5c5c5c;
+    border-radius: 2px;
+    box-shadow: 0 0 2px #ececec;
+}
+table.dataTable > tbody > tr.child {
+    display: table;
+}
+.child .dropdown {
+    display: inherit;
+}
+.dtr-title {
+    font-weight: lighter !important;
+    width: 130px !important;
+    position: relative ;
+}
+.dtr-title::after {
+    content: ':';
+    position: absolute;
+    right: 20px;
+    font-weight: bold;
+}
+table .progress {
+    display: inline-block !important;
+    min-width: 80px;
+}
+tr.child {
+    background: #f1f3f4 !important;
+}
