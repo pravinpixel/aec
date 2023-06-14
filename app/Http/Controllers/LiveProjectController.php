@@ -292,7 +292,7 @@ class LiveProjectController extends Controller
                 $btnConvert = '';
                 $btnEdit = '';
                 if (AuthUser() == 'ADMIN') {
-                    if (is_null($row->VariationOrder)) {
+                    if ($row->type == "EXTERNAL" || !is_null($row->VariationOrder)) {
                         $btnConvert = '<button type="button" onclick="convertVariation(' . $row->id . ',this)" title="Convert to variation Order" class="dropdown-item"><i class="fa fa-share me-1"></i> Convert Variation</button>';
                     }
                 }
