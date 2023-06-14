@@ -1,12 +1,18 @@
 @import url('../components/accordion.css');
 @import url('../components/buttons.css');
 
+::-webkit-scrollbar {
+    height: 5px !important;
+}
+
 .ck.ck-reset_all.ck-widget__type-around {
     display: none !important;
 }
+
 .dataTables_wrapper .dt-row {
     overflow: auto !important;
 }
+
 .validation-message {
     color: #f95d7d;
     position: absolute;
@@ -985,54 +991,69 @@ sup {
 ._720kb-datepicker-calendar-day._720kb-datepicker-today {
     background: red;
     color: white;
-} 
-.fc-col-header-cell-cushion, .fc .fc-list-day-cushion, .fc .fc-list-table td {
+}
+
+.fc-col-header-cell-cushion,
+.fc .fc-list-day-cushion,
+.fc .fc-list-table td {
     color: #252525 !important;
 }
+
 .fc-createEventButton-button {
-    background-color: royalblue  !important;
+    background-color: royalblue !important;
 }
+
 .fc-h-event .fc-event-title-container {
     border-right: 2px solid;
     border-radius: 4px;
 }
+
 .fc-day-today .fc-daygrid-day-number {
     background: black !important;
     font-weight: bold;
     color: white;
 }
+
 .fc .fc-view-harness-active>.fc-view {
     background-color: white;
 }
-input[name=color-code] + label {
+
+input[name=color-code]+label {
     position: relative;
     cursor: pointer;
 }
-input[name=color-code]  {
+
+input[name=color-code] {
     position: absolute;
     z-index: -1;
 }
-input[name=color-code] + label {
+
+input[name=color-code]+label {
     border: rgba(123, 77, 77, 0) 2px solid !important;
-    
+
 }
-input[name=color-code]:checked + label {
+
+input[name=color-code]:checked+label {
     border: 3px black solid !important;
     box-shadow: 0 2px 5px #000000a3;
 }
+
 .fc-timegrid-slot {
     display: none;
 }
-.text-center  .md-datepicker-input {
+
+.text-center .md-datepicker-input {
     text-align: center !important;
     background: gold;
     font-weight: bold;
     font-size: 15px;
 }
-.btn-check:checked + .btn-outline-light {
+
+.btn-check:checked+.btn-outline-light {
     background-color: #6c757d !important;
     color: #eef2f7 !important;
 }
-.btn-outline-light  {
+
+.btn-outline-light {
     border-color: #ced4da !important;
 }

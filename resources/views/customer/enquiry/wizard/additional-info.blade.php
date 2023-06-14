@@ -1,7 +1,7 @@
 <form class="row m-0 pt-3" ng-submit="submitAdditionalinfoForm()" name="additionalinfoForm" novalidate id="additionalInformation">
     <div class="col-sm-8 mx-auto">
         <div>
-            <h3 class="text-center">Specify additional details</h3>
+            <h3 class="text-center">Additional details​</h3>
             <p class="aa"></p>
             <div class="py-3">
                 <div class="form-floating" id="additional_info_text_editor"> 

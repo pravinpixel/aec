@@ -1,16 +1,16 @@
 <form class="row p-3 m-0" id="buildingComponent" name="buildingComponentForm" novalidate>
     <div class="rounded-pill d-flex justify-content-between alert bg-light align-items-center shadow-sm border  col-5 mx-auto" role="alert">
         <div>
-            <strong>Do you want to Enter Manually ?</strong>
+            <strong>Do you want to upload as doc?​</strong>
         </div>
         <div class="d-flex">
-            <label for="flexRadioDefault1" class="rounded-pill mx-3 btn btn-sm btn-success border shadow-sm">
+            <label for="flexRadioDefault1" class="rounded-pill mx-3 btn btn-sm btn-primary border shadow-sm">
                 <input class="form-check-input border shadow-sm border-dark" type="radio" id="flexRadioDefault1" name="buildingComponent_" ng-checked="showHideBuildingComponent == 0" ng-model="showHideBuildingComponent" ng-value="false">
-                <strong>  Yes </strong>
+                <strong>  No </strong>
             </label>
-            <label for="flexRadioDefault"  class="rounded-pill  btn btn-sm btn-primary border shadow-sm">
+            <label for="flexRadioDefault"  class="rounded-pill  btn btn-sm btn-success border shadow-sm">
                 <input class="form-check-input border shadow-sm border-dark" type="radio" id="flexRadioDefault" ng-checked="showHideBuildingComponent == 1" name="buildingComponent_" ng-model="showHideBuildingComponent" ng-value="true">
-                <label class="form-check-label" for="flexRadioDefault"> No </label>
+                <label class="form-check-label" for="flexRadioDefault"> Yes </label>
             </label>
         </div>
     </div>

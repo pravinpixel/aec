@@ -1191,7 +1191,7 @@
                                         <div class="col-sm-6 mx-auto">
                                             <div >
                                                 
-                                                <h3 class="text-center">Specify additional details</h3>
+                                                <h3 class="text-center">Additional details​</h3>
                                 
                                                 <div class="py-3">
                                                     <div class="form-floating">
