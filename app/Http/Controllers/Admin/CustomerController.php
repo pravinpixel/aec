@@ -135,12 +135,16 @@ class CustomerController extends Controller
      */
     public function destroy($id)
     {
-        $customer = Customer::findOrFail($id);
-        if($customer->forceDelete()) {
-            Flash::success(__('global.deleted'));
-            return redirect(route('admin.customer.index'));
+        $customer = Customer::with('Projects')->withTrashed($id)->find($id);
+        if(!is_null($customer->enquiry) && !is_null($customer->Projects)) {
+            if(count($customer->enquiry) === 0 && count($customer->Projects) === 0) {
+                if($customer->delete()) {
+                    Flash::success(__('global.deleted'));
+                    return redirect(route('admin.customer.index'));
+                }
+            }
         }
-        Flash::error(__('global.something'));
+        Flash::error("You can't delete this customer, need to delete all enquiries and projects");
         return redirect(route('admin.customer.index'));
     }
 

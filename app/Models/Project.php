@@ -70,12 +70,6 @@ class Project extends Model
        return json_decode($value);
     }
 
-
-    // public function setUpdatedByAttribute()
-    // {
-    //     $this->attributes['updated_by'] = Admin()->id ?? null;
-    // }
-
     public function deliveryType()
     {
         return $this->belongsTo(DeliveryType::class);
