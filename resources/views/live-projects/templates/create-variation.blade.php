@@ -32,16 +32,22 @@
             <textarea class="form-control" name="description" rows="10" spellcheck="false" required></textarea>
         </div>
         <div class="row">
-            <div class="col ps-0">
+            <div class="col-6">
                 <div class="mb-3">
                     <label class="form-label">Estimated Hours * </label>
-                    <input type="number" class="form-control" name="hours" required>
+                    <input type="number" class="form-control" onkeyup="calculateTotalCost()" name="hours" required>
                 </div>
             </div>
-            <div class="col pe-0">
+            <div class="col-6">
                 <div class="mb-3">
                     <label class="form-label">Price/Hr *</label>
-                    <input type="number" class="form-control" name="price" required>
+                    <input type="number" class="form-control" onkeyup="calculateTotalCost()" name="price" required>
+                </div>
+            </div>
+            <div class="col ">
+                <div class="mb-3">
+                    <label class="form-label">Total Estimated Cost: </label>
+                    <input type="text" name="total_estimate_cost" class="form-control" readonly id="totalEstimate">
                 </div>
             </div>
         </div>

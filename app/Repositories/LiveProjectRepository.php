@@ -54,7 +54,7 @@ class LiveProjectRepository implements LiveProjectInterface
         session()->put('current_project', $project);
         session()->put('menu_type', $menu_type);
         $wizard_menus = config('live-project.wizard_menus');
-        return view('live-projects.index', compact('wizard_menus', "project", $project));
+        return view('live-projects.index', compact('wizard_menus', "project"));
     }
     public function wizard_tabs_store($request, $menu_type, $project_id)
     {

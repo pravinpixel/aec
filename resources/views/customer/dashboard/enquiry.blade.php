@@ -51,8 +51,7 @@
                                                     onclick="filterChart('{{ $filter['value'] }}')" name="btnradio"
                                                     id="btnradio{{ $filter['slug'] }}" autocomplete="off"
                                                     {{ $key == 0 ? 'checked' : '' }}>
-                                                <label class="btn btn-outline-light text-secondary"
-                                                    for="btnradio{{ $filter['slug'] }}">{{ $filter['name'] }}</label>
+                                                <label class="btn btn-outline-light text-secondary"  for="btnradio{{ $filter['slug'] }}">{{ $filter['name'] }}</label>
                                             @endforeach
                                         </div>
                                         <div>
