@@ -301,7 +301,7 @@
                                 <table class="shadow-sm custom border border-dark mb-0 table table-bordred bg-white">
                                     <thead class="table-secondary text-dark">
                                         <tr class="bg-light text-center fw-bold">
-                                            <th colspan="3"  > Wall @{{ i + 1 }}</th>
+                                            <th colspan="3"  > @{{ building_component.WallName }} @{{ i + 1 }}</th>
                                         </tr>
                                         <tr>
                                             <th>@{{ building_component.WallName =='Roof' ? 'Roof' : 'Floor' }}</th>
