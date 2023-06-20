@@ -365,7 +365,7 @@
             });
 
             $scope.newEnquieyFilter = () => {
-                newEnquiry.draw();
+                newEnquiry.draw(); 
                 activeEnquiry.draw();
                 completedEnquiry.draw();
                 $scope.enquiry_from_date = '';

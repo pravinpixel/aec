@@ -3,7 +3,7 @@
         <div class="modal-content  h-100">
             <div class="modal-header">
                 <h4 class="modal-title" id="myLargeModalLabel">Proposal</h4>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+                <button onclick=" $('#active-enquiries').DataTable().draw();"  type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
             </div>
             <div class="modal-body pt-0"  style="overflow: auto">
                 <div id="CustomerViewProposalModalContent">
