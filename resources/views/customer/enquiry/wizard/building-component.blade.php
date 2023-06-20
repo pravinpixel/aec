@@ -297,9 +297,12 @@
                             <b>@{{ building_component.WallName }}</b>
                         </td>
                         <td>
-                            <div class="py-2" ng-repeat="detail in building_component.Details">
+                            <div class="py-2" ng-repeat="(i, detail ) in building_component.Details">
                                 <table class="shadow-sm custom border border-dark mb-0 table table-bordred bg-white">
                                     <thead class="table-secondary text-dark">
+                                        <tr class="bg-light text-center fw-bold">
+                                            <th colspan="3"  > Wall @{{ i + 1 }}</th>
+                                        </tr>
                                         <tr>
                                             <th>@{{ building_component.WallName =='Roof' ? 'Roof' : 'Floor' }}</th>
                                             <th>Type of Delivery</th>
