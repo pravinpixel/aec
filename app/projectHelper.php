@@ -4,6 +4,7 @@
 use App\Http\Controllers\Sharepoint\SharepointController;
 use App\Jobs\emailJob;
 use App\Models\Admin\Employees;
+use App\Models\AecUsers;
 use App\Models\CheckSheet;
 use App\Models\Customer;
 use App\Models\Issues;
@@ -26,7 +27,7 @@ if (!function_exists('getTeamByProjectId')) {
         $employees = [];
         foreach ($teamSetup as $key => $users) {
             foreach ($users as $key => $user_id) {
-                $employees[] = Employees::whereId($user_id)->select('image', 'id', 'full_name', 'reference_number')->get()->first()->toArray();
+                $employees[] = Employees::with('AecUsers')->find($user_id)->AecUsers->toArray();
             }
         }
         return $employees;
@@ -35,7 +36,7 @@ if (!function_exists('getTeamByProjectId')) {
 if (!function_exists('getAllAdmin')) {
     function getAllAdmin()
     {
-        return Employees::select('image', 'id', 'full_name', 'reference_number')->get()->toArray();
+        return AecUsers::where('job_role', '!=', 0)->get()->toArray();
     }
 }
 
@@ -389,7 +390,7 @@ if (!function_exists('hasIssueReadPermission')) {
             if ($issue->tags) {
                 try {
                     foreach (json_decode($issue->tags ?? []) as $key => $user_id) {
-                        $employees[] = Employees::whereId($user_id)->select('image', 'id', 'full_name', 'reference_number')->get()->first()->toArray();
+                        $employees[] = Employees::with('AecUsers')->find($user_id)->AecUsers->toArray();
                     }
                     if (in_array(AuthUserData()->id, json_decode($issue->tags))) {
                         return true;
@@ -431,12 +432,10 @@ if (!function_exists('hasIssueReadPermission')) {
         }
     }
 
-    if (!function_exists('getAssignee')) {
-        function getAssignee($id)
+    if (!function_exists('AecUser')) {
+        function AecUser($id)
         {
-            dd(AuthUserData());
-            // $request->assign_type === 'INTERNAL' ? getEmployeeById($request->assignee)->first_name : getCustomerById($request->requester)->first_name,
-            // $request->assign_type === 'INTERNAL' ? strtoupper(getEmployeeById($request->assignee)->role->slug) : 'CUSTOMER',
+            return AecUsers::with('Role')->find($id);
         }
     }
 }

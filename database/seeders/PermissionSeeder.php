@@ -112,6 +112,7 @@ class PermissionSeeder extends Seeder
            $role3 = Role::create(['name' => 'Cost Estimate','status' => 1, 'slug' => 'cost_estimate']);
            $role4 = Role::create(['name' => 'Delivery Manager','status' => 1, 'slug' => 'delivery_manager']);
            $role5 = Role::create(['name' => 'Project Manager','status' => 1, 'slug' => 'project_manager']);
+           $role6 = Role::create(['name' => 'Aec Customer','status' => 1, 'slug' => 'aec_customer']);
         
            $role1->givePermissionTo('enquiry_index');
            $role1->givePermissionTo('enquiry_add');

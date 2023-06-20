@@ -47,6 +47,7 @@ class CreateCustomersTable extends Migration
             $table->rememberToken();
             $table->string('token')->nullable();
             $table->enum('isRegistered',[0,1])->default(0);
+            $table->integer('aec_user_id')->nullable();
             $table->timestamps();
         });
     }

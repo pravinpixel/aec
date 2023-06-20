@@ -17,9 +17,9 @@ class Customer extends Authenticatable
         'updated_at' => "datetime:d/m/Y - h:i:s A",
     ];
     protected $dates  = [
-            'created_at',
-            'updated_at',
-            'enquiry_date'
+        'created_at',
+        'updated_at',
+        'enquiry_date'
     ];
 
     protected $hidden = [
@@ -60,15 +60,20 @@ class Customer extends Authenticatable
     ];
     public function assigncustomerdetails()
     {
-        return $this->hasOne(TicketComments::class,'assigned','id');
+        return $this->hasOne(TicketComments::class, 'assigned', 'id');
     }
 
+    public function AecUsers()
+    {
+        return $this->hasOne(AecUsers::class, 'id', 'aec_user_id');
+    }
+    
     public function setPasswordAttribute($password)
     {
         $this->attributes['password'] = Hash::make($password);
         $first_name = $this->attributes['first_name'] ?? $this->attributes['contact_person'] ?? "";
         $last_name = $this->attributes['last_name'] ?? "";
-        if(isset($first_name)) {
+        if (isset($first_name)) {
             $this->attributes['full_name'] = "{$first_name} {$last_name}";
         }
     }
@@ -105,21 +110,21 @@ class Customer extends Authenticatable
     public function layers()
     {
         return $this->belongsToMany(Layer::class)
-                        ->wherePivot('is_active',1)
-                        ->withTimestamps();
+            ->wherePivot('is_active', 1)
+            ->withTimestamps();
     }
 
     public function customerdatails()
     {
-        return $this->hasOne(Project::class,'customer_id','id');
-    } 
+        return $this->hasOne(Project::class, 'customer_id', 'id');
+    }
 
     public function Projects()
     {
-        return $this->hasMany(Project::class,'customer_id','id');
-    } 
-    public function comments(){
+        return $this->hasMany(Project::class, 'customer_id', 'id');
+    }
+    public function comments()
+    {
         return $this->morphMany(projectComment::class, 'commentable');
     }
-
 }

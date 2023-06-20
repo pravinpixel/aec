@@ -79,12 +79,12 @@
                         </div>
                     </div>
                     <div class="col p-0 mb-3">
-                        <span class="custom-label">Originator​ <sup>*</sup></span>
+                        <span class="custom-label">Originator <sup>*</sup></span>
                         <select name="requester" class="form-select form-select-sm single-select-field"
                             data-placeholder="-- select --" required>
                             <option value="">-- select --</option>
                             @if (AuthUser() == 'CUSTOMER')
-                                <option selected value="{{ Customer()->id }}">{{ Customer()->full_name }}</option>
+                                <option selected value="{{ Customer()->AecUsers->id }}">{{ Customer()->AecUsers->full_name }}</option>
                             @else
                                 @foreach (getAllAdmin() as $user)
                                     <option {{ auth()->user()->id == $user['id'] ? 'selected' : '' }}

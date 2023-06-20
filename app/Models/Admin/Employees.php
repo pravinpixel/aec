@@ -2,6 +2,7 @@
 
 namespace App\Models\Admin;
 
+use App\Models\AecUsers;
 use App\Models\projectComment;
 use App\Models\Role;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -17,6 +18,7 @@ class Employees extends Authenticatable
     use HasRoles,SoftDeletes;
 
     protected $fillable =[
+        'aec_user_id',
         'id',
         'reference_number',
         'employee_id',
@@ -80,7 +82,10 @@ class Employees extends Authenticatable
     {
         return $this->hasOne(Role::class, 'id', 'job_role');
     }
- 
+    public function AecUsers()
+    {
+        return $this->hasOne(AecUsers::class, 'id', 'aec_user_id');
+    }
 
     public function assigndetails()
     {

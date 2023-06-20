@@ -13,21 +13,21 @@ class IssuesRepository {
     }
     public function store($request,$id)
     {
-        $Issues = $this->Project->findOrFail($id); 
+        $Issues = $this->Project->findOrFail($id);  
         $created_issue = $Issues->Issues()->create([
-            "issue_id"      =>  'TKT/' . date('Y') . '/' . (count($Issues->Issues) + 1),
-            'title'         => $request->title,
-            'description'   => $request->descriptions,
-            'type'          => $request->assign_type,
-            'request_id'    => $request->requester,
-            'request_name'  => getEmployeeById($request->requester)->full_name,
-            'assignee_id'   => $request->assignee,
-            'assignee_name' => AuthUserData()->full_name, // request->requester == id
-            'assignee_role' => getUserRole(AuthUserData()->id)->name, // request->requester == id
-            'requester_role' => AuthUser(),
-            'priority'      => $request->priority,
-            'due_date'      => $request->due_date,
-            'tags'          => json_encode($request->tags),
+            "issue_id"       => 'TKT/' . date('Y') . '/' . (count($Issues->Issues) + 1),
+            'title'          => $request->title,
+            'description'    => $request->descriptions,
+            'type'           => $request->assign_type,
+            'request_id'     => $request->requester,
+            'request_name'   => AecUser($request->requester)->full_name,
+            'assignee_id'    => $request->assignee,
+            'assignee_name'  => AecUser($request->assignee)->full_name,
+            'assignee_role'  => AecUser($request->assignee)->role->name,    // request->requester == id
+            'requester_role' => AecUser($request->requester)->role->name,
+            'priority'       => $request->priority,
+            'due_date'       => $request->due_date,
+            'tags'           => json_encode($request->tags)
         ]);
         if((bool) $request->send_mail) {
             $customer = getCustomerByProjectId($created_issue->project_id);

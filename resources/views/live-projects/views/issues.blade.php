@@ -158,8 +158,8 @@
             id: "",
             text: '-- select --'
         }, {
-            id: {{ $project->Customer->id }},
-            text: "{{ $project->Customer->first_name }}"
+            id: {{ $project->Customer->AecUsers->id }},
+            text: "{{ $project->Customer->AecUsers->full_name }}"
         }]
 
         toggleAssignee = (value) => {
