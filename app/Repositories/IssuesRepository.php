@@ -14,7 +14,6 @@ class IssuesRepository {
     public function store($request,$id)
     {
         $Issues = $this->Project->findOrFail($id); 
-        dd($request->all());
         $created_issue = $Issues->Issues()->create([
             "issue_id"      =>  'TKT/' . date('Y') . '/' . (count($Issues->Issues) + 1),
             'title'         => $request->title,
@@ -23,7 +22,7 @@ class IssuesRepository {
             'request_id'    => $request->requester,
             'request_name'  => getEmployeeById($request->requester)->display_name,
             'assignee_id'   => $request->assignee,
-            'assignee_name' => $request->assign_type === 'INTERNAL' ? getEmployeeById($request->assignee)->first_name : getCustomerById($request->assignee)->first_name,
+            'assignee_name' => $request->assign_type === 'INTERNAL' ? getEmployeeById($request->assignee)->first_name : getCustomerById($request->requester)->first_name,
             'assignee_role' => $request->assign_type === 'INTERNAL' ? strtoupper(getEmployeeById($request->assignee)->role->slug) : 'CUSTOMER',
             'requester_role' => AuthUser(),
             'priority'      => $request->priority,
