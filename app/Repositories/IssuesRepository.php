@@ -14,7 +14,7 @@ class IssuesRepository {
     public function store($request,$id)
     {
         $Issues = $this->Project->findOrFail($id); 
-        dd(getCustomerById($request->assignee));
+        dd($request->all());
         $created_issue = $Issues->Issues()->create([
             "issue_id"      =>  'TKT/' . date('Y') . '/' . (count($Issues->Issues) + 1),
             'title'         => $request->title,
