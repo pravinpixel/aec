@@ -52,7 +52,7 @@
                                                 @foreach (getManagers() as $manager)
                                                     <option
                                                         {{ $manager['id'] == $sub_sub_task->assign_to ? 'selected' : '' }}
-                                                        value="{{ $manager['id'] }}">{{ $manager['display_name'] }}
+                                                        value="{{ $manager['id'] }}">{{ $manager['full_name'] }}
                                                     </option>
                                                 @endforeach
                                             @endif
@@ -123,7 +123,7 @@
                     <option value="">-- choose --</option>
                     @if (count(getManagers()))
                         @foreach (getManagers() as $manager)
-                            <option value="{{ $manager['id'] }}">{{ $manager['display_name'] }}</option>
+                            <option value="{{ $manager['id'] }}">{{ $manager['full_name'] }}</option>
                         @endforeach
                     @endif
                 </select>

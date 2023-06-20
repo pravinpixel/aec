@@ -26,7 +26,7 @@ class Wizard extends Component
 {
     public $first_name;
     public $last_name;
-    public $display_name;
+    public $full_name;
     public $email;
     public $job_role;
     public $location;
@@ -84,7 +84,7 @@ class Wizard extends Component
                 'job_role'      => ['required'],
                 'first_name'    => ['required'],
                 'last_name'     => ['required'],
-                'display_name'  => ['required', Rule::unique('employees')->ignore($employee->id)],
+                'full_name'  => ['required', Rule::unique('employees')->ignore($employee->id)],
                 'mobile_number' => ['required',$pattern,Rule::unique('employees')->ignore($employee->id)],
             ], $customMessages); 
             if ($this->password) {
@@ -98,7 +98,7 @@ class Wizard extends Component
                 'job_role'      => ['required'],
                 'first_name'    => ['required'],
                 'last_name'     => ['required'],
-                'display_name'  => ['required', Rule::unique('employees')],
+                'full_name'  => ['required', Rule::unique('employees')],
                 'password'      => ['required','min:8'],
                 'mobile_number' => ['required', $pattern]
             ], $customMessages); 
@@ -107,7 +107,7 @@ class Wizard extends Component
         }
         $employee->first_name              = $this->first_name;
         $employee->last_name               = $this->last_name;
-        $employee->display_name            = $this->display_name;
+        $employee->full_name            = $this->full_name;
         $employee->email                   = $this->email; 
         $employee->location                = $this->location;
         $employee->job_title               = $this->job_title;
@@ -210,7 +210,7 @@ class Wizard extends Component
     {
         $this->first_name   = '';
         $this->last_name    = '';
-        $this->display_name = '';
+        $this->full_name = '';
         $this->user_name    = '';
         $this->domains      = '';
         $this->email        = '';
@@ -227,7 +227,7 @@ class Wizard extends Component
             $employee = Employees::find($session_employee->id);
             $this->first_name              = $employee->first_name;
             $this->last_name               = $employee->last_name;
-            $this->display_name            = $employee->display_name;
+            $this->full_name            = $employee->full_name;
             $this->email                   = $employee->email;
             $this->job_role                = $employee->job_role;
             $this->job_title               = $employee->job_title;
@@ -287,7 +287,7 @@ class Wizard extends Component
             $api          = new  Bim360UsersApi();
             $input["company_id"] = env('BIMDEFAULTCOMPANY');
             $input["email"]      = $employee->email;
-            $input["nickname"]   = $employee->display_name;
+            $input["nickname"]   = $employee->full_name;
             $input["first_name"] = $employee->first_name;
             $input["last_name"]  = $employee->last_name;
             $roleName = Role::find($employee->job_role)->name;

@@ -9,8 +9,8 @@
         <div class="mb-3">
             <div class="mb-3">
                 <label class="form-label" >Display Name​<sup class="text-danger">*</sup></label>
-                <input type="text" class="form-control" placeholder="Type Here..."  wire:model="display_name" required>
-                @error('display_name') <span class="error">{{ $message }}</span> @enderror
+                <input type="text" class="form-control" placeholder="Type Here..."  wire:model="full_name" required>
+                @error('full_name') <span class="error">{{ $message }}</span> @enderror
             </div>
         </div>
     </div>

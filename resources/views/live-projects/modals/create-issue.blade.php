@@ -88,7 +88,7 @@
                             @else
                                 @foreach (getAllAdmin() as $user)
                                     <option {{ auth()->user()->id == $user['id'] ? 'selected' : '' }}
-                                        value="{{ $user['id'] }}">{{ $user['display_name'] }}</option>
+                                        value="{{ $user['id'] }}">{{ $user['full_name'] }}</option>
                                 @endforeach
                             @endif
                         </select>
@@ -100,7 +100,7 @@
                         <select name="tags[]" class="form-select form-select-sm multiple-select"
                             data-placeholder="-- Select --" multiple>
                             @foreach (getAllAdmin() as $user)
-                                <option value="{{ $user['id'] }}">{{ $user['display_name'] }}</option>
+                                <option value="{{ $user['id'] }}">{{ $user['full_name'] }}</option>
                             @endforeach
                         </select>
                     </div>

@@ -111,7 +111,7 @@ class TechEstimateController extends Controller
             $result = $this->technicalEstimate->assignUser($enquiry,$request->assign_to, $type);
             $employee = Employees::find($request->assign_to);
             $details = [
-                'name' => $employee->display_name,
+                'name' => $employee->full_name,
                 'route' => route('technical-estimate.show', $enquiry->id),
                 'enquiry_number' => $enquiry->enquiry_number
             ];

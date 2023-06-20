@@ -530,7 +530,7 @@
                                                                 <td class="text-center text-capitalize">
                                                                     @foreach (getManagers() as $manager)
                                                                         @if ($manager['id'] === $item->assign_to)
-                                                                            {{ $manager['display_name'] }}
+                                                                            {{ $manager['full_name'] }}
                                                                         @else
                                                                             -
                                                                         @endif

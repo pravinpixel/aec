@@ -30,7 +30,7 @@
                                     <div class="row mb-1">
                                         <div class="col-md-6 mb-2">
                                             <label class="small mb-1" for="inputUsername"><i class="fa fa-user-circle me-1"></i> Display Name </label>
-                                            <input class="form-control form-control-sm" id="inputDisplay Name" type="text" placeholder="Enter your Display Name" name="display_name" value="{{ $user->display_name }}">
+                                            <input class="form-control form-control-sm" id="inputDisplay Name" type="text" placeholder="Enter your Display Name" name="full_name" value="{{ $user->full_name }}">
                                         </div>
                                         <div class="col-md-6 mb-2">
                                             <label class="small mb-1" for="inputFirstName"><i class="fa fa-user me-1"></i>First name</label>

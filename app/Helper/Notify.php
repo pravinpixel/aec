@@ -16,7 +16,7 @@ class Notify
         if (!is_null(Admin())) {
             $sender_role = strtoupper(userRole()->name);
             $sender_id   = Admin()->id;
-            $sender_name = Admin()->display_name;
+            $sender_name = Admin()->full_name;
         }
 
         if (!is_null(Customer())) {

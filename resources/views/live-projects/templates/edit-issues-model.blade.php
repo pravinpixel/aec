@@ -47,7 +47,7 @@
                 <select name="assignee" class="form-select form-select-sm edit-single-select-field"  data-placeholder="-- select --" required>
                     <option value="">-- select --</option>
                     @foreach (getTeamByProjectId($issue->project_id) as $user)
-                        <option {{ $issue->assignee_id == $user['id'] ? 'selected' : '' }} value="{{ $user['id'] }}">{{ $user['display_name'] }}</option>
+                        <option {{ $issue->assignee_id == $user['id'] ? 'selected' : '' }} value="{{ $user['id'] }}">{{ $user['full_name'] }}</option>
                     @endforeach
                 </select>
             </div>  --}}
@@ -78,7 +78,7 @@
                     <option value="">-- select --</option> 
                     @if (AuthUser() == 'ADMIN')
                         @foreach (getAllAdmin() as $user)
-                            <option {{ $issue->request_id == $user['id'] ? 'selected' : '' }} value="{{ $user['id'] }}">{{ $user['display_name'] }}</option>
+                            <option {{ $issue->request_id == $user['id'] ? 'selected' : '' }} value="{{ $user['id'] }}">{{ $user['full_name'] }}</option>
                         @endforeach
                         @else 
                         <option selected value="{{ Customer()->id }}">{{  Customer()->full_name }}</option>
@@ -93,7 +93,7 @@
                 <select name="tags[]" class="form-select form-select-sm edit-multiple-select"  data-placeholder="-- Select --" multiple>
                     @if (json_decode($issue->tags))
                         @foreach (getAllAdmin() as $user)
-                            <option  {{ in_array($user['id'],json_decode($issue->tags)) ? 'selected' : '' }} value="{{ $user['id'] }}">{{ $user['display_name'] }}</option>
+                            <option  {{ in_array($user['id'],json_decode($issue->tags)) ? 'selected' : '' }} value="{{ $user['id'] }}">{{ $user['full_name'] }}</option>
                         @endforeach
                     @endif
                 </select> 

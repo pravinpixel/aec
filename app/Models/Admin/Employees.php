@@ -22,7 +22,7 @@ class Employees extends Authenticatable
         'employee_id',
         'first_name',
         'last_name',
-        'display_name',
+        'full_name',
         'user_name',
         'domains',
         'email',

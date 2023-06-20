@@ -118,7 +118,7 @@
             columns: [
                 {data: 'DT_RowIndex', name: 'id'},
                 {data: 'reference_number', name: 'reference_number'},
-                {data: 'display_name', name: 'display_name'},
+                {data: 'full_name', name: 'full_name'},
                 {data: 'email', name: 'email'},
                 {data: 'mobile_number', name: 'mobile_number'},
                 {data: 'role', name: 'role'},
@@ -135,7 +135,7 @@
             columns: [
                 {data: 'DT_RowIndex', name: 'id'},
                 {data: 'reference_number', name: 'reference_number'},
-                {data: 'display_name', name: 'display_name'},
+                {data: 'full_name', name: 'full_name'},
                 {data: 'email', name: 'email'},
                 {data: 'mobile_number', name: 'mobile_number'},
                 {data: 'role', name: 'role'},

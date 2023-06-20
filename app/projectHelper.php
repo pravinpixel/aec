@@ -26,7 +26,7 @@ if (!function_exists('getTeamByProjectId')) {
         $employees = [];
         foreach ($teamSetup as $key => $users) {
             foreach ($users as $key => $user_id) {
-                $employees[] = Employees::whereId($user_id)->select('image', 'id', 'display_name', 'reference_number')->get()->first()->toArray();
+                $employees[] = Employees::whereId($user_id)->select('image', 'id', 'full_name', 'reference_number')->get()->first()->toArray();
             }
         }
         return $employees;
@@ -35,7 +35,7 @@ if (!function_exists('getTeamByProjectId')) {
 if (!function_exists('getAllAdmin')) {
     function getAllAdmin()
     {
-        return Employees::select('image', 'id', 'display_name', 'reference_number')->get()->toArray();
+        return Employees::select('image', 'id', 'full_name', 'reference_number')->get()->toArray();
     }
 }
 
@@ -174,7 +174,7 @@ if (!function_exists('getUserName')) {
             $User = $Customer->first_name;
         }
         if (!is_null($Employees)) {
-            $User = $Employees->display_name;
+            $User = $Employees->full_name;
         }
         return $User;
     }
@@ -389,7 +389,7 @@ if (!function_exists('hasIssueReadPermission')) {
             if ($issue->tags) {
                 try {
                     foreach (json_decode($issue->tags ?? []) as $key => $user_id) {
-                        $employees[] = Employees::whereId($user_id)->select('image', 'id', 'display_name', 'reference_number')->get()->first()->toArray();
+                        $employees[] = Employees::whereId($user_id)->select('image', 'id', 'full_name', 'reference_number')->get()->first()->toArray();
                     }
                     if (in_array(AuthUserData()->id, json_decode($issue->tags))) {
                         return true;
@@ -428,6 +428,15 @@ if (!function_exists('hasIssueReadPermission')) {
         function checSheetList()
         {
             return CheckSheet::all();
+        }
+    }
+
+    if (!function_exists('getAssignee')) {
+        function getAssignee($id)
+        {
+            dd(AuthUserData());
+            // $request->assign_type === 'INTERNAL' ? getEmployeeById($request->assignee)->first_name : getCustomerById($request->requester)->first_name,
+            // $request->assign_type === 'INTERNAL' ? strtoupper(getEmployeeById($request->assignee)->role->slug) : 'CUSTOMER',
         }
     }
 }

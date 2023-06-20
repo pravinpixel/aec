@@ -29,7 +29,7 @@ class Wizard extends Component
 {
     use WithFileUploads;
 
-    public $employee_id,$country_code = 47, $display_name, $first_name, $last_name, $job_title, $email, $image, $number;
+    public $employee_id,$country_code = 47, $full_name, $first_name, $last_name, $job_title, $email, $image, $number;
     public $currentStep = 1, $share_point_status = 0, $successMessage = '', $sharePointAccess = [];
     public $employees, $roles = [],  $id, $is_uploaded, $uploaded_image, $completed_wizard = 0;
     public $share_folder_name  = null, $reference_number, $job_role, $mobile_number, $is_upload, $projects = [], $activeFolder =[];
@@ -41,7 +41,7 @@ class Wizard extends Component
     public function mount() {
         $employee                 = Employees::findOrFail($this->id);
         $this->reference_number   = $employee->reference_number;
-        $this->display_name       = $employee->display_name;
+        $this->full_name       = $employee->full_name;
         $this->first_name         = $employee->first_name;
         $this->last_name          = $employee->last_name;
         $this->job_title          = $employee->job_title;
@@ -126,13 +126,13 @@ class Wizard extends Component
             'job_role'      => ['required'],
             'first_name'    => ['required'],
             'last_name'     => ['required'],
-            'display_name'  => ['required', Rule::unique('employees')->ignore($employee->id)],
+            'full_name'  => ['required', Rule::unique('employees')->ignore($employee->id)],
             'mobile_number' => ['required',$pattern,Rule::unique('employees')->ignore($employee->id)],
         ], $customMessages);
 
         $employee->first_name    = $this->first_name;
         $employee->last_name     = $this->last_name;
-        $employee->display_name  = $this->display_name;
+        $employee->full_name  = $this->full_name;
         $employee->email         = $this->email;
         $employee->job_title     = $this->job_title;
         $employee->job_role      = $this->job_role;
@@ -327,7 +327,7 @@ class Wizard extends Component
             $input["company_id"] = env('BIMDEFAULTCOMPANY');
             $input["email"]      = $employee->email;
             $input['bim_id']     = $employee->bim_id ?? Null;
-            $input["nickname"]   = $employee->display_name;
+            $input["nickname"]   = $employee->full_name;
             $input["first_name"] = $employee->first_name;
             $input["last_name"]  = $employee->last_name;
             $roleName = Role::find($employee->job_role)->name;

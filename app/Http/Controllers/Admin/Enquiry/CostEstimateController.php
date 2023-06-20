@@ -127,7 +127,7 @@ class  CostEstimateController extends Controller
             $result =  $this->costEstimate->assignUser($enquiry,$request->assign_to,  $type);
             $employee = Employees::find($request->assign_to);
             $details = [
-                'name' => $employee->display_name,
+                'name' => $employee->full_name,
                 'route' => route('cost-estimate.show', $enquiry->id),
                 'enquiry_number' => $enquiry->enquiry_number
             ];

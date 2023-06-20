@@ -150,7 +150,7 @@
             @foreach (getTeamByProjectId($project->id) as $user)
                 {
                     id: {{ $user['id'] }},
-                    text: "{{ $user['display_name'] }}"
+                    text: "{{ $user['full_name'] }}"
                 },
             @endforeach
         ];

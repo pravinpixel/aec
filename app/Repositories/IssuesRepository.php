@@ -20,10 +20,10 @@ class IssuesRepository {
             'description'   => $request->descriptions,
             'type'          => $request->assign_type,
             'request_id'    => $request->requester,
-            'request_name'  => getEmployeeById($request->requester)->display_name,
+            'request_name'  => getEmployeeById($request->requester)->full_name,
             'assignee_id'   => $request->assignee,
-            'assignee_name' => $request->assign_type === 'INTERNAL' ? getEmployeeById($request->assignee)->first_name : getCustomerById($request->requester)->first_name,
-            'assignee_role' => $request->assign_type === 'INTERNAL' ? strtoupper(getEmployeeById($request->assignee)->role->slug) : 'CUSTOMER',
+            'assignee_name' => AuthUserData()->full_name, // request->requester == id
+            'assignee_role' => getUserRole(AuthUserData()->id)->name, // request->requester == id
             'requester_role' => AuthUser(),
             'priority'      => $request->priority,
             'due_date'      => $request->due_date,
@@ -36,7 +36,7 @@ class IssuesRepository {
                 "project_name" => $Issues->project_name,
                 "name"         => $customer->full_name,
                 "issue_id"     => $created_issue->issue_id,
-                'request_name' => getEmployeeById($request->requester)->display_name
+                'request_name' => getEmployeeById($request->requester)->full_name
             ]);
         }
         if($request->has('attachments')) {
@@ -55,7 +55,7 @@ class IssuesRepository {
             'description'   => $request->descriptions,
             'type'          => $request->assign_type,
             'request_id'    => $request->requester,
-            'request_name'  => getEmployeeById($request->requester)->display_name,
+            'request_name'  => getEmployeeById($request->requester)->full_name,
             'priority'      => $request->priority,
             'due_date'      => $request->due_date,
             'tags'          => json_encode($request->tags),

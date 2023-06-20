@@ -8,8 +8,8 @@
         
         <div class="my-2 col-md-12 px-2">                                             
             <label class="form-label">Display name <sup class="text-danger">*</sup></label>
-            <input type="text" wire:model="display_name" class="form-control form-control-sm">
-            @error('display_name') <span class="error">{{ $message }}</span> @enderror
+            <input type="text" wire:model="full_name" class="form-control form-control-sm">
+            @error('full_name') <span class="error">{{ $message }}</span> @enderror
         </div>
         <div class="my-2 col-md-12 px-2">                                             
             <label class="form-label">Department</label>

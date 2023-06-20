@@ -565,7 +565,7 @@ class LiveProjectController extends Controller
 
         if (AuthUser() == 'CUSTOMER') {
             $reciver_id   = $issue->request_id;
-            $reciver_name = getEmployeeById($issue->request_id)->display_name;
+            $reciver_name = getEmployeeById($issue->request_id)->full_name;
             $reciver_role = 'ADMIN';
         } else {
             $reciver_id   = $customer->id;

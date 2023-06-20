@@ -328,7 +328,7 @@ if (!function_exists('changeProposalStatus')) {
             $role = ModelsRole::where('slug', 'project_manager')->first();
             $managers = [];
             if (!empty($role)) {
-                $managers = Employees::where('job_role', $role->id)->select('display_name', 'id')->get()->toArray();
+                $managers = Employees::where('job_role', $role->id)->select('full_name', 'id')->get()->toArray();
             }
             return $managers;
         }
