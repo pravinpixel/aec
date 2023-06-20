@@ -138,7 +138,7 @@ class AuthCustomerController extends Controller
             $this->createEnquiry($customer);
             Flash::success(__('setup completed successfully'));
 
-            Mail::to($customer['email'])->send(new \App\Mail\CertificationMail([
+            Mail::to($customer['email'])->send(new \App\Mail\WelcomeEmail([
                 "name"         => $customer->full_name,
                 "email"        => $customer->email,
                 "mobile_no"    => $customer->mobile_no,
