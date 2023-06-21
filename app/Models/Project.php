@@ -156,4 +156,9 @@ class Project extends Model
     {
         return $this->hasOne(Enquiry::class,'id','enquiry_id');
     }
+    public function VariationOrderVersionsByStatus($status)
+    {
+        return $this->hasMany(VariationOrderVersions::class,'project_id','id')->where("status", $status)->count();
+    }
+    
 }

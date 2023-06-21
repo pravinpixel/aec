@@ -183,23 +183,14 @@ if (!function_exists('getUserName')) {
 
 if (!function_exists('getUserRole')) {
     function getUserRole($id)
-    {
-        $User = null;
-        $Customer = Customer::find($id);
-        $Employees = Employees::find($id);
-        if (!is_null($Customer)) {
-            $User = $Customer;
-        }
-        if (!is_null($Employees)) {
-            $User = $Employees;
-        }
-        return Role::find($User->job_role);
+    { 
+        return AecUser($id)->Role;
     }
 }
 if (!function_exists('getUserAvatar')) {
     function getUserAvatar($id)
     {
-        $user =  getUser($id);
+        $user =  AecUser($id);
         return '<img src="' . $user->image . '" class="rounded-circle img-thumbnail avatar-sm" alt="friend">';
     }
 }

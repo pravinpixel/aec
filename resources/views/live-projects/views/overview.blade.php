@@ -46,26 +46,6 @@
             <strong>  Project End Date - </strong> 
             <span class="lead"><i class="fa fa-calendar mx-1"></i> {{ SetDateFormat($project->delivery_date) }}</span>
         </div>
-    </div>
-    <div class="my-2 col-md-4">
-        <div class="card border">
-            <div class="card-header text-center">
-                <div>
-                    <div class="pie mb-0" data-value="{{ $project->progress_percentage }}%"></div>
-                    <div class="h5 m-0">Overall Progress</div>
-                </div>
-            </div>
-            <div class="card-body">
-                <ul class="list-group">
-                    @foreach ($project->LiveProjectParentTasks as $task)
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <span>{{ $task->name }}</span>
-                            <b>{{ $task->progress_percentage }}%</b>
-                        </li>
-                    @endforeach
-                </ul>
-            </div>
-        </div>
     </div> 
     <div class="my-2 col-md-4">
         <div class="card border">
@@ -90,4 +70,47 @@
             </div>
         </div>
     </div>
-</div>
+    <div class="my-2 col-md-4">
+        <div class="card border">
+            <div class="card-header text-center">
+                <div>
+                    <div class="pie mb-0" data-value="{{ $project->progress_percentage }}%"></div>
+                    <div class="h5 m-0">Overall Progress</div>
+                </div>
+            </div>
+            <div class="card-body">
+                <ul class="list-group">
+                    @foreach ($project->LiveProjectParentTasks as $task)
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span>{{ $task->name }}</span>
+                            <b>{{ $task->progress_percentage }}%</b>
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
+        </div>
+    </div> 
+    <div class="my-2 col-md-4">
+        <div class="card border">
+            <div class="card-header text-center">
+                <div class="h4 m-0">Variation orders</div>
+            </div>
+            <div class="card-body">
+                <ul class="list-group">
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span class="fw-bold">Approved</span>
+                        <b class="rounded-pill btn py-0 fw-bold btn-sm text-white bg-success">{{ $project->VariationOrderVersionsByStatus("ACCEPT") }}</b>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span class="fw-bold">Pending</span>
+                        <b class="rounded-pill btn py-0 fw-bold btn-sm text-white bg-warning">{{ $project->VariationOrderVersionsByStatus("NEW") }}</b>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span class="fw-bold">Rejected</span>
+                        <b class="rounded-pill btn py-0 fw-bold btn-sm text-white bg-danger">{{ $project->VariationOrderVersionsByStatus("DENY") }}</b>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div> 
