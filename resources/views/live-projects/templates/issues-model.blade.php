@@ -122,13 +122,13 @@
                             @if ($issue->type == 'EXTERNAL')
                                 @if (AuthUser() === 'CUSTOMER')
                                     <a href="javascript:void(0);" class="d-inline-block"
-                                        title="{{ getCustomerById($issue->assignee_id)->first_name }}">
+                                        title="{{  AecUser($issue->assignee_id)->full_name  }}">
                                         <div class="d-flex align-items-center">
                                             {!! getCustomerAvatar($issue->assignee_id) !!}
                                             <div class="text-capitalize ps-1">
                                                 <small>{{ $issue->assignee_name }}</small> <br>
                                                 <small class="text-dark">
-                                                    {{ getCustomerById($issue->assignee_id)->full_name }}</small>
+                                                    {{ AecUser($issue->assignee_id)->full_name }}</small>
                                             </div>
                                         </div>
                                     </a>
@@ -151,12 +151,13 @@
                             <div id="tooltip-container">
                                 <h5>#Tag Members:</h5>
                                 @foreach (json_decode($issue->tags) as $tager_id)
+                            
                                     <a href="javascript:void(0);" class="d-inline-block"
-                                        title="{{ getUser($tager_id)->first_name }}">
+                                        title="{{ AecUser($tager_id)->full_name }}">
                                         <div class="d-flex align-items-center">
                                             {!! getUserAvatar($tager_id) !!}
                                             <div class="text-capitalize ps-1">
-                                                <small>{{ getUser($tager_id)->first_name }}</small> <br>
+                                                <small>{{ AecUser($tager_id)->full_name }}</small> <br>
                                                 <small class="text-dark">{{ getUserRole($tager_id)->name }}</small>
                                             </div>
                                         </div>

@@ -132,9 +132,17 @@ class Project extends Model
     {
         return $this->hasMany(LiveProjectTasks::class,'project_id','id');
     }
+    public function LiveProjectParentTasks()
+    {
+        return $this->hasMany(LiveProjectTasks::class,'project_id','id')->where('parent',0);
+    }
     public function Issues()
     {
         return $this->hasMany(Issues::class,'project_id','id');
+    } 
+    public function IssuesCount($status)
+    { 
+        return $this->hasMany(Issues::class,'project_id','id')->where('status', $status)->count();
     }
     public function projectComments()
     {

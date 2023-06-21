@@ -206,7 +206,7 @@ if (!function_exists('getUserAvatar')) {
 if (!function_exists('getCustomerAvatar')) {
     function getCustomerAvatar($id)
     {
-        $user =  getCustomerById($id);
+        $user =  AecUser($id);
         return '<img src="' . $user->image . '" class="rounded-circle img-thumbnail avatar-sm" alt="friend">';
     }
 }
