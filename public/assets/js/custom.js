@@ -283,11 +283,11 @@ proposalActionSubmit = (index) => {
 
 PreviousChatHistory = (element, module_id, module_name, menu_name) => {
 
-    Object.entries(element.childNodes).map((item) => {
-        if(item[1].localName == 'small') {
-            item[1].classList.add('d-none')
-        }
-    })
+    // Object.entries(element.childNodes).map((item) => {
+    //     if(item[1].localName == 'small') {
+    //         item[1].classList.add('d-none')
+    //     }
+    // })
     startLoader(element)
     const payload = {
         module_id   : module_id,
@@ -306,9 +306,9 @@ PreviousChatHistory = (element, module_id, module_name, menu_name) => {
                 item[1].value = ''
             }
         })
-        axios.post(`${APP_URL}/set-unread-message`, payload ).then(function (response){
-            console.log(response.data)
-        })
+        // axios.post(`${APP_URL}/set-unread-message`, payload ).then(function (response){
+        //     console.log(response.data)
+        // })
         refreshData()
     });
 }

@@ -87,6 +87,7 @@ class CustomerProjectController extends Controller
                         <a type="button" class="btn-quick-view px-1" href="' . route('live-project.menus-index', ['menu_type' => 'overview', 'id' => $dataDb->id]) . '">
                             <i class="fa fa-eye" aria-hidden="true"></i>
                             <b>' . $dataDb->reference_number . '</b>
+                            '.getModuleChatCount('CUSTOMER','PROJECT',$dataDb->id).' 
                         </a>
                     ';
                 })

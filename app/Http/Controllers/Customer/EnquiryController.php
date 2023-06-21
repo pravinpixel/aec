@@ -640,6 +640,7 @@ class EnquiryController extends Controller
                     return ' 
                         <button type="button" class="btn-quick-view" onclick="EnquiryQuickView('.$dataDb->id.' , this ,0)" >
                             <b>'. $dataDb->enquiry_number.'</b> 
+                            '.getModuleChatCount('CUSTOMER','ENQUIRY',$dataDb->id).'
                         </button>
                     ';
                 })
@@ -709,7 +710,7 @@ class EnquiryController extends Controller
                     $data = '
                          <button type="button" class="btn-quick-view"  onclick="EnquiryQuickView('. $dataDb->id .' ,this)">
                             ' . $dataDb->enquiry_number . '
-                            '.getModuleChatCount('CUSTOMER','Enquiry',$dataDb->id).' 
+                            '.getModuleChatCount('CUSTOMER','ENQUIRY',$dataDb->id).' 
                         ';
                     if ($commentCount != 0) {
                         $data .= '<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" >' . $commentCount . ' </span>';
@@ -796,7 +797,7 @@ class EnquiryController extends Controller
                     return ' 
                         <button type="button" class="btn-quick-view" onclick="EnquiryQuickView('.$dataDb->id.' , this)" >
                             <b>'. $dataDb->enquiry_number.'</b>
-                            '.getModuleChatCount('CUSTOMER','Enquiry',$dataDb->id).' 
+                            '.getModuleChatCount('CUSTOMER','ENQUIRY',$dataDb->id).' 
                         </button>
                     ';
                 })

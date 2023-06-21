@@ -222,11 +222,11 @@ if (!function_exists('getModuleMenuMessagesCount')) {
     {
         $count = Notify::getModuleMenuMessagesCount([
             'user_type'   => AuthUser(),
-            'module_name' => $module_name,
+            'module_name' => strtoupper($module_name),
             'module_id'   => $module_id,
             'menu_name'   => $menu_name
         ]);
-        // element
+         
         if ($type == 'element') {
             if ($count != 0) {
                 return '

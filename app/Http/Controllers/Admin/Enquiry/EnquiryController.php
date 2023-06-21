@@ -188,7 +188,7 @@ class EnquiryController extends Controller
                 return '
                     <button type="button" class="btn-quick-view" onclick="EnquiryQuickView('.$dataDb->id.' , this)" >
                         <b>'. $dataDb->enquiry_number.'</b>
-                        '.getModuleChatCount('ADMIN','Enquiry',$dataDb->id).'
+                        '.getModuleChatCount('ADMIN','ENQUIRY',$dataDb->id).'
                     </button>
                 ';
             })

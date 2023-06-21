@@ -50,7 +50,7 @@ class InboxController extends Controller
     {
         $conversations = Notify::send([
             "message"       => $request->message,
-            'module_name'   => $request->module_name,
+            'module_name'   => strtoupper($request->module_name),
             'module_id'     => $request->module_id,
             'menu_name'     => $request->menu_name,
         ]);
