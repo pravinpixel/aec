@@ -400,7 +400,7 @@ class ProjectController extends Controller
                     return '
                         <button type="button" class="btn-quick-view" onclick="ProjectQuickView(' . $dataDb->id . ' , this)" >
                             <b>' . $dataDb->reference_number . '</b>
-                            ' . getModuleChatCount('ADMIN', 'project', $dataDb->id) . '
+                            ' . getModuleChatCount('ADMIN', 'PROJECT', $dataDb->id) . '
                         </button>
                     ';
                 })
@@ -447,13 +447,14 @@ class ProjectController extends Controller
                 ->editColumn('reference_number', function ($dataDb) {
                     return '<button type="button" class="btn-quick-view" onclick="LiveProjectQuickView(' . $dataDb->id . ' , this)" >
                         <b>' . $dataDb->reference_number . '</b>
-                        ' . getModuleChatCount('ADMIN', 'project', $dataDb->id) . '
+                        ' . getModuleChatCount('ADMIN', 'LIVE_PROJECT', $dataDb->id) . '
                     </button>';
                 })
                 ->editColumn('enquiry_number', function ($dataDb) {
                     if ($dataDb->enquiry) {
                         return '<button type="button" class="btn-quick-view" onclick="EnquiryQuickView(' . $dataDb->enquiry_id . ' , this)" >
                                 <b>' . $dataDb->enquiry->enquiry_number . '</b>
+                                ' . getModuleChatCount('ADMIN', 'ENQUIRY', $dataDb->enquiry_id) . '
                             </button>';
                     }
                     return '<span class="btn-na">N/A</span>';

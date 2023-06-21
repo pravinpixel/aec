@@ -10,7 +10,7 @@
 <x-chat-box
     status="1"
     :moduleId="Project()->id"
-    moduleName="project"
+    moduleName="LIVE_PROJECT"
     menuName="{{ strtoupper(request()->route()->menu_type) }}"
 />
 @push('live-project-custom-scripts')

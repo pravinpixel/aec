@@ -25,9 +25,10 @@
                 <div class="list-group">
                     @if ((count(getNotificationMessages()) != 0))
                         @foreach (getNotificationMessages()->take(10) as $msg)
+                        {{-- $msg->module_name --}}
                             <a href="javascript:void(0);" onclick="EnquiryQuickView('{{ $msg->module_id }}' , this)" class="list-group-item list-group-item-action p-2">
                                 <div class="d-flex justify-content-between">
-                                    <div>
+                                    <div> 
                                         <img src="https://cdn-icons-png.flaticon.com/512/547/547133.png" width="25px" alt="">
                                     </div>
                                     <div class="w-100 px-2">

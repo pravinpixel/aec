@@ -25,8 +25,8 @@ class Notify
             $sender_name = Customer()->full_name;
         }
 
-        if ($data['module_name'] == 'ENQUIRY' || $data['module_name'] == 'PROJECT') {
-            if ($data['module_name'] == 'PROJECT') {
+        if ($data['module_name'] == 'ENQUIRY' || $data['module_name'] == 'PROJECT' || $data['module_name']  == 'LIVE_PROJECT') {
+            if ($data['module_name'] == 'PROJECT' || $data['module_name'] == 'LIVE_PROJECT') {
                 $Enquiry = Enquiry::with('customer')->where('project_id', $data['module_id'])->first();
             } else {
                 $Enquiry = Enquiry::with('customer')->find($data['module_id']);
@@ -140,7 +140,7 @@ class Notify
     {
         $messages_count = false;
         if ($data['user_type'] == 'ADMIN') {
-            if ($data['module_name'] == 'ENQUIRY'  || $data['module_name'] == 'PROJECT') {
+            if ($data['module_name'] == 'ENQUIRY'  || $data['module_name'] == 'PROJECT' ||  $data['module_name'] == 'LIVE_PROJECT') {
                 $messages_count = Inbox::where([
                     "module_name" => $data["module_name"],
                     "module_id"   => $data["module_id"],
@@ -150,7 +150,7 @@ class Notify
                 ])->count();
             }
         } elseif ($data['user_type'] == 'CUSTOMER') {
-            if ($data['module_name'] == 'ENQUIRY' || $data['module_name'] == 'PROJECT') {
+            if ($data['module_name'] == 'ENQUIRY' || $data['module_name'] == 'PROJECT' ||  $data['module_name'] == 'LIVE_PROJECT') {
                 $messages_count = Inbox::where([
                     "module_name" => $data["module_name"],
                     "module_id"   => $data["module_id"],
@@ -171,9 +171,9 @@ class Notify
     {
         $messages_count = false;
         if ($data['user_type'] == 'ADMIN') {
-            if ($data['module_name'] == 'ENQUIRY' || $data['module_name'] == 'PROJECT') {
+            if ($data['module_name'] == 'ENQUIRY' || $data['module_name'] == 'PROJECT' ||  $data['module_name'] == 'LIVE_PROJECT') {
 
-                if ($data['module_name'] == 'PROJECT') {
+                if ($data['module_name'] == 'PROJECT' ||  $data['module_name'] == 'LIVE_PROJECT') {
                     $Enquiry = Project::with('Customer')->find($data['module_id'])->first();
                 } else {
                     $Enquiry = Enquiry::with('customer')->find($data['module_id']);
@@ -189,7 +189,7 @@ class Notify
                 ])->count();
             }
         } elseif ($data['user_type'] == 'CUSTOMER') {
-            if ($data['module_name'] == 'ENQUIRY' || $data['module_name'] == 'PROJECT') {
+            if ($data['module_name'] == 'ENQUIRY' || $data['module_name'] == 'PROJECT' ||  $data['module_name'] == 'LIVE_PROJECT') {
                 $messages_count = Inbox::where([
                     "module_name" => $data["module_name"],
                     "module_id"   => $data["module_id"],

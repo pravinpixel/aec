@@ -68,9 +68,10 @@
         @endforeach
     </tbody>
 </table>
+
 <x-chat-box
     status="1"
     :moduleId="Project()->id"
-    moduleName="project"
-    menuName="{{ strtoupper(request()->route()->menu_type) }}"
+    moduleName="LIVE_PROJECT"
+    menuName="{{ str_replace('-','_',strtoupper(request()->route()->menu_type)) }}"
 />

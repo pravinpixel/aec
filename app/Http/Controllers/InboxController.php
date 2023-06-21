@@ -52,7 +52,7 @@ class InboxController extends Controller
             "message"       => $request->message,
             'module_name'   => strtoupper($request->module_name),
             'module_id'     => $request->module_id,
-            'menu_name'     => $request->menu_name,
+            'menu_name'     => strtoupper(str_replace('-','_',$request->menu_name)),
         ]);
 
         return response()->json([

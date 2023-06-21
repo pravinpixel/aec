@@ -13,7 +13,7 @@
 @endphp
 @php
     $PreviousChatHistory = getModuleMenuMessagesCount($moduleName, $moduleId, $menuName, 0 )
-@endphp 
+@endphp  
 @if($status == 1)
     <div>
         {!! $form !!}
