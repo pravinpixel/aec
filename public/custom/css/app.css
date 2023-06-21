@@ -9,9 +9,9 @@
     display: none !important;
 }
 
-.dataTables_wrapper .dt-row {
+/* .dataTables_wrapper .dt-row {
     overflow: auto !important;
-}
+} */
 
 .validation-message {
     color: #f95d7d;
