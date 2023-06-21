@@ -164,7 +164,6 @@
                                                     <small>@{{ P.mail_send_date | date: "MM/dd/yyyy 'at' h:mma" }} </small>
                                                 </td>
                                                 <td style="width: 6% !important" class="text-center">
-                                                    X
                                                     <div class="dropdown">
                                                         <button type="button"
                                                             class="toggle-btn btn-light btn-sm p-1 py-0 btn-light btn"
