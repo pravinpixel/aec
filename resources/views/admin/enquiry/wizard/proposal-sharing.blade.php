@@ -164,6 +164,7 @@
                                                     <small>@{{ P.mail_send_date | date: "MM/dd/yyyy 'at' h:mma" }} </small>
                                                 </td>
                                                 <td style="width: 6% !important" class="text-center">
+                                                    X
                                                     <div class="dropdown">
                                                         <button type="button"
                                                             class="toggle-btn btn-light btn-sm p-1 py-0 btn-light btn"
@@ -172,13 +173,13 @@
                                                             <i class="dripicons-dots-3 "></i>
                                                         </button>
                                                         <div class="dropdown-menu dropdown-menu-end">
-                                                            <button class="dropdown-item" ng-if="P.id === null &&  P.status !== 'sent"
+                                                            <button class="dropdown-item" ng-if="P.status != 'obsolete' && P.status != 'sent'"
                                                                 ng-click="ViewEditPropose(P.proposal_id)">View /
                                                                 Edit</button>
-                                                            <button class="dropdown-item" ng-if="P.id && P.status !== 'sent" ng-click="ViewEditProposeVersions(P.proposal_id , P.id)">View
-                                                                / Edit</button>
+                                                            {{-- <button class="dropdown-item" ng-if="P.id && P.status !== 'sent" ng-click="ViewEditProposeVersions(P.proposal_id , P.id)">View
+                                                                / Edit</button> --}}
                                                             <button class="dropdown-item" ng-click="DownloadProposal(P.proposal_id)">Download</button>
-                                                            <button class="dropdown-item" ng-if="P.status != 'awaiting' && P.status != 'sent'" ng-click="DuplicatePropose(P.proposal_id)">Duplicate</button>
+                                                            <button class="dropdown-item" ng-if="P.status != 'obsolete' && P.status != 'sent'" ng-click="DuplicatePropose(P.proposal_id)">Duplicate</button>
                                                             {{--
                                                             <button class="btn dropdown-item" ng-click="showCommentsToggle(P.proposal_id, P.type)" > Chat</u></a> --}}
                                                             <div class="dropdown-divider m-0"></div>
@@ -303,7 +304,7 @@
                                                                         </button>
                                                                         <div class="dropdown-menu dropdown-menu-end">
                                                                             <button class="dropdown-item"
-                                                                                ng-if="V.status != 'sent'"
+                                                                                ng-if="V.status != 'sent' && V.status != 'obsolete'"
                                                                                 ng-click="ViewEditProposeVersions(V.proposal_id,V.id)">View
                                                                                 / Edit</button>
                                                                             <button class="dropdown-item"
