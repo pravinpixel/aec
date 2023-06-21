@@ -172,22 +172,17 @@
                                                             <i class="dripicons-dots-3 "></i>
                                                         </button>
                                                         <div class="dropdown-menu dropdown-menu-end">
-                                                            <button class="dropdown-item" ng-if="P.id === null"
+                                                            <button class="dropdown-item" ng-if="P.id === null &&  P.status !== 'sent"
                                                                 ng-click="ViewEditPropose(P.proposal_id)">View /
                                                                 Edit</button>
-                                                            <button class="dropdown-item" ng-if="P.id"
-                                                                ng-click="ViewEditProposeVersions(P.proposal_id , P.id)">View
+                                                            <button class="dropdown-item" ng-if="P.id && P.status !== 'sent" ng-click="ViewEditProposeVersions(P.proposal_id , P.id)">View
                                                                 / Edit</button>
-                                                            <button class="dropdown-item"
-                                                                ng-click="DownloadProposal(P.proposal_id)">Download</button>
-                                                            <button class="dropdown-item"
-                                                                ng-if="P.status != 'awaiting' && P.status != 'sent'"
-                                                                ng-click="DuplicatePropose(P.proposal_id)">Duplicate</button>
+                                                            <button class="dropdown-item" ng-click="DownloadProposal(P.proposal_id)">Download</button>
+                                                            <button class="dropdown-item" ng-if="P.status != 'awaiting' && P.status != 'sent'" ng-click="DuplicatePropose(P.proposal_id)">Duplicate</button>
                                                             {{--
                                                             <button class="btn dropdown-item" ng-click="showCommentsToggle(P.proposal_id, P.type)" > Chat</u></a> --}}
                                                             <div class="dropdown-divider m-0"></div>
-                                                            <button class="dropdown-item text-danger"
-                                                                ng-click="DeletePropose(P.proposal_id)">Delete</button>
+                                                            <button class="dropdown-item text-danger"  ng-if="P.status !== 'sent"  ng-click="DeletePropose(P.proposal_id)">Delete</button>
                                                         </div>
                                                         {{-- <div class="dropdown-menu dropdown-menu-end" ng-if="P.status == 'change_request' && P.type == 'root'" > 
                                                             <button class="dropdown-item" ng-click="ViewEditPropose(P.proposal_id)">View / Edit</button>
