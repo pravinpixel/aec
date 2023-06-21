@@ -14,13 +14,12 @@ class CalendarController extends Controller
     public function events()
     {
         foreach ($this->getUserEvents() as $event) {
-           
             $result[] = [
                 "id"       => $event['id'],
                 "title"    => $event['title'],
                 "start"    => $event['start'],
                 "end"      => $event['end'],
-                "editable" => AuthUserData()->id === $event->user_id ? true : false,
+                "editable" => AuthUserData()->id === ($event->user_id ?? false) ? true : false,
                 "color"    => $event['color'],
                 "all-day" => false
             ];
