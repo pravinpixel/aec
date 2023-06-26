@@ -212,6 +212,11 @@ if (!function_exists('getModuleChatCount')) {
             'user_type'   => $user_type,
             'module_name' => $module_name,
             'module_id'   => $module_id,
+        ],[
+            "is_menu" => false,
+            "count"   => false,
+            "element" => true,
+            "array"   => false
         ]);
         return $count;
     }
@@ -226,7 +231,7 @@ if (!function_exists('getModuleMenuMessagesCount')) {
             'module_id'   => $module_id,
             'menu_name'   => $menu_name
         ]);
-         
+        
         if ($type == 'element') {
             if ($count != 0) {
                 return '<small class="position-absolute text-white top-0 start-100 translate-middle badge rounded-pill bg-danger">

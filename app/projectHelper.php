@@ -12,13 +12,10 @@ use App\Models\LiveProjectSubSubTasks;
 use App\Models\LiveProjectSubTasks;
 use App\Models\Project;
 use App\Models\ProjectTeamSetup;
-use App\Models\Role;
 use App\Models\VariationOrder;
 use App\Models\VariationOrderVersions;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
-use PharIo\Manifest\Author;
-use Random\Randomizer;
 
 if (!function_exists('getTeamByProjectId')) {
     function getTeamByProjectId($id)
@@ -427,6 +424,12 @@ if (!function_exists('hasIssueReadPermission')) {
         function AecUser($id)
         {
             return AecUsers::with('Role')->find($id);
+        }
+    }
+    if (!function_exists('AecAuthUser')) {
+        function AecAuthUser()
+        {
+           return AuthUserData()->AecUsers;             
         }
     }
 }
