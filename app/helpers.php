@@ -34,8 +34,10 @@ if (!function_exists('userHasAccess')) {
     {
         $user =  Admin();
         $role = Role::find($user->job_role);
-        if ($role->slug == 'admin') {
-            return true;
+        if(!is_null($role)) {
+            if ($role->slug == 'admin') {
+                return true;
+            }
         }
         return $role->hasPermissionTo($permission);
     }
@@ -248,8 +250,9 @@ if (!function_exists('getNotificationMessages')) {
     function getNotificationMessages()
     {
         return Inbox::where([
-            'receiver_role' => ucfirst(strtolower(AuthUser())),
-            'read_status'   => 0
+            'receiver_role'   => strtoupper(AecAuthUser()->Role->slug),
+            'receiver_id'     => AecAuthUser()->Role->id,
+            'receiver_status' => 0
         ])->get();
     }
 }

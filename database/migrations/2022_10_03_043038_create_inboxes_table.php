@@ -6,11 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateInboxesTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('inboxes', function (Blueprint $table) {
@@ -23,17 +18,11 @@ class CreateInboxesTable extends Migration
             $table->integer('module_id');
             $table->string('menu_name');
             $table->text('message');
-            $table->boolean('read_status')->default(false); 
             $table->string('send_date'); 
+            $table->boolean('receiver_status')->default(false);
             $table->timestamps();
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('inboxes');

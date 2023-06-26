@@ -11,7 +11,7 @@ class Inbox extends Model
 
     protected $casts = [
         'created_at' => "datetime:d/m/Y - h:i:s A",
-        'updated_at' => "datetime:d/m/Y - h:i:s A", 
+        'updated_at' => "datetime:d/m/Y - h:i:s A"
     ];
 
     protected $fillable = [
@@ -23,7 +23,7 @@ class Inbox extends Model
         'module_id',
         'menu_name',
         'message',
-        'read_status',
+        'receiver_status',
         'send_date'
     ];
 }

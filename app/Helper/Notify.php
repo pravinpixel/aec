@@ -33,7 +33,11 @@ class Notify
             $receiver_id   = $module->customer->AecUsers->job_role;
             $token         = $module->customer->token;
         }
-
+        Inbox::where([
+            'receiver_role'   => strtoupper(AecAuthUser()->Role->slug),
+            'receiver_id'     => AecAuthUser()->Role->id,
+            'receiver_status' => 0
+        ])->update([ 'receiver_status' => 1]);
         Inbox::create([
             "message"       => $data['message'],
             'sender_role'   => strtoupper($sender->Role->slug),
@@ -119,7 +123,7 @@ class Notify
     public static function setUnreadMessages($data)
     {
         return Inbox::where('receiver_id', AuthUserData()->id)->where('receiver_role', AuthUser())->update([
-            "read_status" => "1"
+            'receiver_status' => 1
         ]);
     }
     public static function getModuleMessagesCount($data, $arg)
@@ -129,12 +133,12 @@ class Notify
             'receiver_id'   => AecAuthUser()->Role->id,
             "module_name"   => $data["module_name"],
             "module_id"     => $data["module_id"],
-            "read_status" => 0
+            'receiver_status' => 0
         ])->when($arg['is_menu'], function ($q) use ($data) {
             $q->where('menu_name', $data['menu_name']);
         })->get();
 
-        if ($arg['element']) {
+        if ($arg['element'] && count($messages_count)) {
             return '<small class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">' . count($messages_count) . '</small>';
         }
         if ($arg['count']) {
