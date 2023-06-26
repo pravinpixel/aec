@@ -235,7 +235,7 @@ if (!function_exists('getModuleMenuMessagesCount')) {
                     </small>
                 ';
             } else {
-                return '';
+                return 0;
             }
         }
         return (int) $count;
