@@ -256,7 +256,6 @@ class EnquiryController extends Controller
                 $this->customerEnquiryRepo->updateWizardStatus($enquiry, 'is_customer_active_enquiry');
                 Mail::to($enquiry->customer['email'])->send(new NewEnquiryMailForCustomer($enquiry));
                 Mail::to(config('mail.admin'))->send(new NewEnquiryMailForAdmin ($enquiry));
-                dD($enquiry);
                 return response(['status' => true, 'msg' => 'submitted']);
             }
             return response(['status' => true, 'msg' => 'saved']);
