@@ -12,6 +12,8 @@ use App\Interfaces\DocumentTypeRepositoryInterface;
 use App\Interfaces\EnquiryCommentRepositoryInterface;
 use App\Interfaces\OutputTypeRepositoryInterface;
 use App\Interfaces\ServiceRepositoryInterface;
+use App\Mail\NewEnquiryMailForAdmin;
+use App\Mail\NewEnquiryMailForCustomer;
 use App\Models\Comment;
 use App\Models\Config;
 use App\Models\DocumentType;
@@ -29,6 +31,7 @@ use App\Repositories\AutoDeskRepository;
 use Exception;
 use Illuminate\Support\Facades\Config as FacadesConfig;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Laracasts\Flash\Flash;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -248,9 +251,12 @@ class EnquiryController extends Controller
             return response($result);
         } else if ($type == 'save_or_submit') {
             $status = $this->customerEnquiryRepo->updateStatusById($enquiry, $data);
-            if ($status == 'Submitted') {
+            if ($status == 'Submitted') { 
                 $this->customerEnquiryRepo->AddEnquiryReferenceNo($enquiry);
                 $this->customerEnquiryRepo->updateWizardStatus($enquiry, 'is_customer_active_enquiry');
+                Mail::to($enquiry->customer['email'])->send(new NewEnquiryMailForCustomer($enquiry));
+                Mail::to(config('mail.admin'))->send(new NewEnquiryMailForAdmin ($enquiry));
+                dD($enquiry);
                 return response(['status' => true, 'msg' => 'submitted']);
             }
             return response(['status' => true, 'msg' => 'saved']);
