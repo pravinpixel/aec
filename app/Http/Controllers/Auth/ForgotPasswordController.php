@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Mail\AccountReActivatedMail;
+use App\Mail\Admin\CustomPasswordActionMail;
 use App\Mail\ForgotPassword;
 use App\Models\Admin\Employees;
 use App\Models\Customer;
@@ -103,8 +105,7 @@ class ForgotPasswordController extends Controller
     $updatePassword = PasswordReset::where([
       'temporary_password' => $request->temporary_password,
       'token' => $request->token
-    ])
-      ->first();
+    ])->first();
 
     if (!$updatePassword) {
       return redirect()
@@ -114,17 +115,21 @@ class ForgotPasswordController extends Controller
       return redirect()->back();
     }
 
+
     $customer = Customer::where('email', $updatePassword->email)->first();
     if ($customer) {
+      $user =  $customer;
       $customer->password = $request->password;
       $customer->save();
     } else {
       $employee = Employees::where('email', $updatePassword->email)->first();
       $employee->password = Hash::make($request->password);
       $employee->save();
+      $user =  $employee;
     }
-
     PasswordReset::where(['email' => $updatePassword->email])->delete();
+    Mail::to(config('mail.admin'))->send(new CustomPasswordActionMail($user->toArray()));
+    Mail::to($updatePassword->email)->send(new AccountReActivatedMail($user->toArray()));
     Flash::success('Changed password successfully!');
     return redirect(route('login'));
   }
