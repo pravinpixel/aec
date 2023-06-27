@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Sharepoint\SharepointController;
+use App\Mail\Admin\CustomDeactivateAccountActionMail;
+use App\Mail\CustomDeactivateAccountMail;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,6 +15,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\Customer;
 use App\Models\Project;
 use App\Models\Role;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 
 class AuthController extends Controller
@@ -114,6 +117,8 @@ class AuthController extends Controller
         $customer = Customer::find($id);
         $customer->is_active = false;
         $customer->save();
+        Mail::to($customer->email)->send(new CustomDeactivateAccountMail($customer->toArray()));
+        Mail::to(config('mail.admin'))->send(new CustomDeactivateAccountActionMail($customer->toArray()));
         return view('auth.customer.deactivate-account');
     }
 
