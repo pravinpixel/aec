@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Mail;
+namespace App\Mail\Admin;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class WelcomeEmail extends Mailable
+class NewCustomerMail extends Mailable
 {
     use Queueable, SerializesModels;
     public $details;
@@ -17,7 +17,7 @@ class WelcomeEmail extends Mailable
     public function build()
     {
         return $this->from(config('global.mail_from_address'), env('MAIL_FROM_NAME'))
-            ->subject(env('APP_NAME') . "- Welcome")
-            ->markdown('mail.welcome-email');
+            ->subject(env('APP_NAME') . "- New Customer Information")
+            ->markdown('mail.new-customer-mail');
     }
 }

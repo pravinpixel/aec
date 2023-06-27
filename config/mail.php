@@ -1,7 +1,10 @@
 <?php
 
 return [
-
+    'admin' => [
+        'arun.kalyan@aecprefab.net',
+        'aecadmnusr2@gmail.com'
+    ],
     /*
     |--------------------------------------------------------------------------
     | Default Mailer

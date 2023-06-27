@@ -3,14 +3,17 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Mail\Admin\NewCustomerMail;
 use App\Mail\certificationMail;
 use App\Mail\RegisterCustomerMail;
 use App\Mail\RemainderCustomerMail;
+use App\Models\AecUsers;
 use App\Models\Customer;
 use App\Services\GlobalService;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
@@ -35,8 +38,22 @@ class AuthCustomerController extends Controller
             "email.unique" => "Verification mail already sent, check your inbox"
         ]);
         try {
-            $customerData = array_merge(request(['first_name', 'last_name', 'email', 'password']), ['is_active' => false]);
+
+            $AecUsers = AecUsers::create([
+                'first_name' => request()->first_name,
+                'job_role'   => 6,
+                'last_name'  => request()->last_name,
+                'full_name'  => request()->first_name . " " . request()->last_name,
+                'email'      => request()->email,
+                'password'   => Hash::make(12345678),
+                'image'      => "https://ui-avatars.com/api/?background=random&name=" . request()->first_name . " " . request()->last_name,
+            ]);
+            $customerData = array_merge(request([
+                'first_name', 'last_name', 'email', 'password'
+            ]), ['is_active' => false, 'aec_user_id' =>  $AecUsers->id]);
+            
             $insert = Customer::create($customerData);
+
             if ($insert) {
                 $customer = Customer::find($insert->id);
                 $this->sendMail([
@@ -79,18 +96,11 @@ class AuthCustomerController extends Controller
 
     public function CompanyInfo($id)
     {
-
         $id                = decrypt($id);
         $customer          = Customer::findOrFail($id);
-        Mail::to($customer->email)->send(new \App\Mail\WelcomeEmail([
-            "name"         => $customer->full_name,
-            "email"        => $customer->email,
-            "mobile_no"    => $customer->mobile_no,
-            "company_name" => $customer->company_name,
-        ]));
         $data['id']        = encrypt($id);
         $data['email']     = $customer->email;
-        $data['mobile_no'] = $customer->mobile_no;
+        $data['mobile_no'] = $customer->mobile_no; 
         return view('auth.customer.company-info', compact('data'));
     }
 
@@ -144,7 +154,8 @@ class AuthCustomerController extends Controller
                 "mobile_no"    => $customer->mobile_no,
                 "company_name" => $customer->company_name,
             ]));
-            // return redirect(route('login'));
+
+            Mail::to(config('mail.admin'))->send(new NewCustomerMail($customer->toArray()));
             return view('admin.customer.certification');
         }
         Flash::error(__('global.something'));
