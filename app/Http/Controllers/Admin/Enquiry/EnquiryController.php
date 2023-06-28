@@ -349,7 +349,7 @@ class EnquiryController extends Controller
         }
         return $result;
     }
-    public function singleIndexPage($id=null) {
+    public function singleIndexPage($id=null) { 
         if(!userHasAccess('enquiry_index')) {
             Flash::error(__('global.access_denied'));
             return redirect(route('admin-dashboard'));

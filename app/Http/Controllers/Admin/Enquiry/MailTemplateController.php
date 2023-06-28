@@ -14,15 +14,17 @@ use App\Models\Admin\MailTemplate;
 use App\Http\Requests\MailTemplateCreateRequest;
 use App\Http\Requests\MailTemplateUpdateRequest;
 use App\Models\Admin\PropoalVersions;
+use App\Models\EnquiryProposal;
 use Dompdf\Dompdf;
 
 class MailTemplateController extends Controller
 {
-    protected $mailTemplateRepository, $customerEnquiryRepo;
+    protected $mailTemplateRepository, $customerEnquiryRepo, $EnquiryProposal;
 
-    public function __construct(MailTemplateRepository $MailTemplate, CustomerEnquiryRepositoryInterface $customerEnquiryRepository)
+    public function __construct(EnquiryProposal $EnquiryProposal, MailTemplateRepository $MailTemplate, CustomerEnquiryRepositoryInterface $customerEnquiryRepository)
     {
         $this->mailTemplateRepository = $MailTemplate;
+        $this->EnquiryProposal = $EnquiryProposal; 
         $this->customerEnquiryRepo     = $customerEnquiryRepository;
     }
     /**
@@ -39,7 +41,6 @@ class MailTemplateController extends Controller
 
 
         return response()->json($this->mailTemplateRepository->all());
-
     }
 
     public function create()
@@ -56,7 +57,7 @@ class MailTemplateController extends Controller
     {
         // return $request->all();
         $outputType = $request->only([
-           "documentary_title","documentary_type","documentary_content","is_active"
+            "documentary_title", "documentary_type", "documentary_content", "is_active"
         ]);
 
         return response()->json(
@@ -78,7 +79,7 @@ class MailTemplateController extends Controller
     {
         // return "333";
         $data = $this->mailTemplateRepository->find($id);
-        if( !empty( $data ) ) {
+        if (!empty($data)) {
             return response(['status' => true, 'data' => $data], Response::HTTP_OK);
         }
         return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
@@ -101,10 +102,10 @@ class MailTemplateController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(MailTemplateUpdateRequest $request,$id)
+    public function update(MailTemplateUpdateRequest $request, $id)
     {
         $layer = $request->only([
-            "documentary_title","documentary_type","documentary_content","is_active"
+            "documentary_title", "documentary_type", "documentary_content", "is_active"
         ]);
 
         return response()->json([
@@ -131,7 +132,7 @@ class MailTemplateController extends Controller
     {
         $output = $id;
         $this->mailTemplateRepository->delete($output);
-        return response()->json(['status' => true, 'msg' => trans('module.deleted'),'data'=>$output], Response::HTTP_OK);
+        return response()->json(['status' => true, 'msg' => trans('module.deleted'), 'data' => $output], Response::HTTP_OK);
     }
 
     public function get(Request $request)
@@ -142,27 +143,48 @@ class MailTemplateController extends Controller
     {
         return response()->json($this->mailTemplateRepository->getDocumentaryData($request));
     }
-    public function getDocumentaryOneData(Request $request)
+    public function createEnquiryProposal(Request $request)
     {
-        $enquiry              = Enquiry::with(['costEstimate','customer','project'])->find($request->enquireId);
-        $documentary          = Documentary::find($request->documentId);
-        $totalProposalVersion = PropoalVersions::where(["enquiry_id" => $enquiry->id, "documentary_id" => $documentary->id])->get()->count();
-        $version              = $totalProposalVersion !== 0 ? 'R' . ($totalProposalVersion + 1) : 'R0';
-        $documentary_content  = bindProposalContent($enquiry, $documentary, $version);
-        changePreviousProposalStatus($request->enquireId);
-        $enquiry->customer_response = 0;
-        $enquiry->save();   
-        $enquiry_proposal = MailTemplate::create([
-            "enquiry_id"          => $request->enquireId,
-            "documentary_id"      => $request->documentId,
-            "documentary_content" => $documentary_content,
-            "documentary_date"    => date('Y-m-d'),
-            "template_name"       => $documentary->documentary_title
-        ]);
-        if($enquiry_proposal)   {
-            return response()->json(['status' => true, 'msg' => trans('module.inserted')], Response::HTTP_OK);
+        $enquiry     = Enquiry::with(['costEstimate', 'customer', 'project'])->find($request->enquireId);
+        $documentary = Documentary::find($request->documentId);
+        $content     = bindProposalContent($enquiry, $documentary, 'R0');
+        $old_proposals = $this->EnquiryProposal->where('enquiry_id', $request->enquireId)->get();
+        if(count($old_proposals)) {
+            foreach($old_proposals as $proposal) {
+                $proposal->admin_status = 'OBSOLETE';
+                $proposal->save();
+            }
         }
-        return response()->json(['status' => true, 'msg' => trans('module.somting'),'data'=>$enquiry_proposal], Response::HTTP_OK);
+        $this->EnquiryProposal->create([
+            'enquiry_id'      => $request->enquireId,
+            'title'           => $documentary->documentary_title,
+            'parent'          => 0,
+            'version'         => 'R0',
+            'content'         => $content,
+            'admin_status'    => 'AWAITING',
+            'customer_status' => 'NOT_SENT',
+            'created_by'      => AecAuthUser()->full_name
+        ]);
+        return response()->json(['status' => true, 'msg' => trans('module.inserted')], Response::HTTP_OK);
+        // $enquiry              = Enquiry::with(['costEstimate','customer','project'])->find($request->enquireId);
+        // $documentary          = Documentary::find($request->documentId);
+        // $totalProposalVersion = PropoalVersions::where(["enquiry_id" => $enquiry->id, "documentary_id" => $documentary->id])->get()->count();
+        // $version              = $totalProposalVersion !== 0 ? 'R' . ($totalProposalVersion + 1) : 'R0';
+        // $documentary_content  = bindProposalContent($enquiry, $documentary, $version);
+        // changePreviousProposalStatus($request->enquireId);
+        // $enquiry->customer_response = 0;
+        // $enquiry->save();   
+        // $enquiry_proposal = MailTemplate::create([
+        //     "enquiry_id"          => $request->enquireId,
+        //     "documentary_id"      => $request->documentId,
+        //     "documentary_content" => $documentary_content,
+        //     "documentary_date"    => date('Y-m-d'),
+        //     "template_name"       => $documentary->documentary_title
+        // ]);
+        // if($enquiry_proposal)   {
+        //     return response()->json(['status' => true, 'msg' => trans('module.inserted')], Response::HTTP_OK);
+        // }
+        // return response()->json(['status' => true, 'msg' => trans('module.somting'),'data'=>$enquiry_proposal], Response::HTTP_OK);
     }
     public function download_proposal(Request $request)
     {
@@ -182,7 +204,7 @@ class MailTemplateController extends Controller
         }
         $content          = $request->documentary_content;
         $status           = $text_status;
-        $binned_html      = view('admin.enquiry.enquiryPDF.enquiryPdf',compact('content','status'));
+        $binned_html      = view('admin.enquiry.enquiryPDF.enquiryPdf', compact('content', 'status'));
         $enquiry_proposal = new Dompdf();
         $enquiry_proposal->loadHtml($binned_html);
         $enquiry_proposal->render();
@@ -191,22 +213,22 @@ class MailTemplateController extends Controller
     public function pdfGenrate(Request $request)
     {
         // return 1;
-        $document = Documentary::where('id',44)->first();
-           $data = $document['documentary_content'];
+        $document = Documentary::where('id', 44)->first();
+        $data = $document['documentary_content'];
         //    return $data;
-            $pdf = PDF::loadView('enquiryPdf',compact('data'));
+        $pdf = PDF::loadView('enquiryPdf', compact('data'));
 
-            $path = public_path('uploads/');
+        $path = public_path('uploads/');
 
-            $fileName =  'document'.time().'.'. 'pdf' ;
+        $fileName =  'document' . time() . '.' . 'pdf';
 
-            $pdf->save($path . '/' . $fileName);
-            $pdf = public_path('uploads/'.$fileName);
-            return $fileName;
+        $pdf->save($path . '/' . $fileName);
+        $pdf = public_path('uploads/' . $fileName);
+        return $fileName;
         //    $rr =  stream($pdf);
         // return response()->stream($pdf);
         // return $pdf->download('invoice.pdf');
 
-            // return response()->stream($pdf);
+        // return response()->stream($pdf);
     }
 }

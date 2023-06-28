@@ -93,7 +93,7 @@ class MailTemplateRepository implements MailTemplateRepositoryInterface{
     {
         return $this->documentary->where('is_active',1)->get();
     }
-    public function getDocumentaryOneData($request)
+    public function createEnquiryProposal($request)
     {
         $enquiry  =  Enquiry::where('id',$request->enquireId)->select('id','enquiry_date','enquiry_number',
         'contact_person','customer_id','service_id as serviceId','organization_number','building_type_id','delivery_type_id',

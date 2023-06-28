@@ -8,6 +8,7 @@ use App\Models\Admin\PropoalVersions;
 use App\Models\Customer;
 use App\Models\Documentary\Documentary;
 use App\Models\Enquiry;
+use App\Models\EnquiryProposal;
 use App\Models\Inbox;
 use App\Models\Project;
 use App\Models\Role as ModelsRole;
@@ -34,7 +35,7 @@ if (!function_exists('userHasAccess')) {
     {
         $user =  Admin();
         $role = Role::find($user->job_role);
-        if(!is_null($role)) {
+        if (!is_null($role)) {
             if ($role->slug == 'admin') {
                 return true;
             }
@@ -214,7 +215,7 @@ if (!function_exists('getModuleChatCount')) {
             'user_type'   => $user_type,
             'module_name' => $module_name,
             'module_id'   => $module_id,
-        ],[
+        ], [
             "is_menu" => false,
             "count"   => false,
             "element" => true,
@@ -233,7 +234,7 @@ if (!function_exists('getModuleMenuMessagesCount')) {
             'module_id'   => $module_id,
             'menu_name'   => $menu_name
         ]);
-        
+
         if ($type == 'element') {
             if ($count != 0) {
                 return '<small class="position-absolute text-white top-0 start-100 translate-middle badge rounded-pill bg-danger">
@@ -503,4 +504,21 @@ if (!function_exists('changeProposalStatus')) {
             return  $state;
         }
     }
+
+    if (!function_exists('EnquiryProposals')) {
+        function EnquiryProposals()
+        {
+            $enquiry_id = session()->get('enquiry_id');
+            return EnquiryProposal::with('child')->where('enquiry_id', $enquiry_id)->where('parent', 0)->latest()->get();
+        }
+    }
+    if (!function_exists('updateEnquiryProposalsStatus')) {
+        function updateEnquiryProposalsStatus($enquiry_id)
+        {
+            EnquiryProposal::where('enquiry_id', $enquiry_id)->update([
+                "admin_status" => 'OBSOLETE'
+            ]);
+        }
+    }
 }
+

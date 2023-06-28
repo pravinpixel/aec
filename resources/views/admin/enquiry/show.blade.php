@@ -2288,7 +2288,7 @@
 
                 $http({
                     method: 'GET',
-                    url: "{{ route('get-documentaryOneData') }}",
+                    url: "{{ route('create-enquiry-proposal') }}",
                     params:{'documentId':documentId,'enquireId':enquireId},
                 }).then(function (response) {
                     if(response.data.status == false){

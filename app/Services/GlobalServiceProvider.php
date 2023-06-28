@@ -143,13 +143,13 @@ class GlobalServiceProvider extends Controller
 
     public function getProposalStatusValue($status) {
         switch ($status) {
-            case 'change_request':
+            case 'CHANGE_REQUEST':
                 $value = 3;
                 break;
-            case 'deny':
+            case 'DENY':
                 $value = 2;
                 break;
-            case 'approve':
+            case 'APPROVE':
                 $value = 1;
                 break;
             default:

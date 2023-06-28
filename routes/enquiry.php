@@ -55,7 +55,7 @@ Route::group(['prefix' => 'admin', 'middleware'=> 'admin'], function(){
 
     //  ****** Enquiery Proposal ******
     Route::get('/get-documentaryData', [MailTemplateController::class,'getDocumentaryData'])->name("get-documentaryData");
-    Route::get('/get-documentaryOneData', [MailTemplateController::class,'getDocumentaryOneData'])->name("get-documentaryOneData");
+    Route::get('/create-enquiry-proposal', [MailTemplateController::class,'createEnquiryProposal'])->name("create-enquiry-proposal");
     Route::get('/pdfGen', [MailTemplateController::class,'pdfGenrate'])->name("pdfGen");
 
     // Route::post('/download-proposal', [MailTemplateController::class,'download_proposal'])->name("download_proposal");
@@ -83,9 +83,9 @@ Route::group(['prefix' => 'admin', 'middleware'=> 'admin'], function(){
 
 Route::post('/download-proposal', [MailTemplateController::class,'download_proposal'])->name("download_proposal");
 
-Route::get('/approve/{id}/enquiry/{proposal_id}/proposal/{Vid}',[ProposalController::class,'approve'])->name('proposal-approve');
+Route::get('/approve/{id}',[ProposalController::class,'approve'])->name('proposal-approve');
+Route::post('/approve/{id}',[ProposalController::class,'customerApproval'])->name('customer-approval');
 
-Route::post('customer-approval/{id}/approval-type/{type}',[ProposalController::class,'customerApproval'])->name('customer-approval');
 Route::post('proposal-move-to-project/{id}',[ProposalController::class,'moveToProject'])->name('proposal-move-to-project');
 
 Route::group(['prefix' => 'admin', 'middleware'=> 'common'], function(){ 

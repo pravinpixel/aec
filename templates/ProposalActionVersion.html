@@ -1,0 +1,22 @@
+<div class="dropdown">
+   {{  data.status }}
+    <button type="button" class="btn-light border rounded" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
+        <i class="dripicons-dots-3"></i>
+    </button>
+    <div class="dropdown-menu dropdown-menu-end" ng-if="data.status === 'awaiting'">
+        <button class="dropdown-item" ng-click="view(data.proposal_id,data.id)">View / Edit</button> 
+        <button class="dropdown-item" ng-click="download(data.proposal_id)">Download</button>
+        <div class="dropdown-divider m-0"></div>
+        <button class="dropdown-item text-danger" ng-click="delete(data.proposal_id,data.id)">Delete</button>
+    </div>
+    <div class="dropdown-menu dropdown-menu-end" ng-if="data.status === 'denied'">
+        <button class="dropdown-item" ng-click="view(data.proposal_id,data.id)">View / Edit</button> 
+        <button class="dropdown-item" ng-click="duplicate(data.proposal_id)">Duplicate</button>
+        <button class="dropdown-item" ng-click="download(data.proposal_id)">Download</button>
+    </div>
+    <div class="dropdown-menu dropdown-menu-end" ng-if="data.status === 'change_request' || data.status === 'sent' || data.status === 'obsolete'">
+        <button class="dropdown-item" ng-click="view(data.proposal_id,data.id, false)">View</button> 
+        <button class="dropdown-item" ng-click="duplicate(data.proposal_id)">Duplicate</button>
+        <button class="dropdown-item" ng-click="download(data.proposal_id)">Download</button>
+    </div>
+</div>
