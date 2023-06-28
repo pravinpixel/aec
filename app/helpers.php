@@ -103,6 +103,9 @@ if (!function_exists('proposalStatusBadge')) {
             case "NOT_SENT":
                 return "<span class='badge badge-outline-info rounded-pill'>Awaiting</span>";
                 break;
+            case "SENT":
+                return "<span class='badge badge-outline-success rounded-pill'>Sent</span>";
+                break;
             case "AWAITING":
                 return "<span class='badge badge-outline-primary rounded-pill'>Awaiting</span>";
                 break;

@@ -9,7 +9,7 @@ use App\Http\Controllers\Admin\Enquiry\MailTemplateController;
 use App\Http\Controllers\Admin\Enquiry\EnquiryCommentsController;
 use App\Http\Controllers\Admin\Enquiry\ProposalController;
 use App\Http\Controllers\Admin\TechEstimateController;
-
+use App\Http\Controllers\EnquiryProposalController;
 
 Route::group(['prefix' => 'admin', 'middleware'=> 'admin'], function(){ 
 
@@ -131,4 +131,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'common', 'route' => 'admin']
   Route::get('cost-estimate-precast-template',[CostEstimateTemplate::class,'getPrecastTemplate']);
   Route::get('cost-estimate-wood-template',[CostEstimateTemplate::class,'getWoodTemplate']);
   Route::resource('cost-estimate-template', CostEstimateTemplate::class);
+
+  Route::get('enquiry-proposal/{id?}/{status?}', [EnquiryProposalController::class,'show'])->name('enquiry-proposal.show');
+  Route::post('enquiry-proposal/{id?}/{status?}', [EnquiryProposalController::class,'duplicate'])->name('enquiry-proposal.duplicate');
 });

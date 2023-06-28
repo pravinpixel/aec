@@ -5,14 +5,16 @@
     </button>
     <div class="dropdown-menu dropdown-menu-end">
         @if ($proposal->admin_status === 'AWAITING')
-            <button class="dropdown-item">View / Edit</button>
-            <button class="dropdown-item">Download</button>
+            <button onclick="proposalViewOrEdit({{ $proposal->id }},true)" class="dropdown-item">View / Edit</button>
+            <button onclick="proposalDownload({{ $proposal->id }})" class="dropdown-item">Download</button>
             <div class="dropdown-divider m-0"></div>
-            <button class="dropdown-item text-danger">Delete</button>
+            <button onclick="proposalDelete({{ $proposal->id }})" class="dropdown-item text-danger">Delete</button>
             @else
-                <button class="dropdown-item">View</button>
-                <button class="dropdown-item">Duplicate</button>
-                <button class="dropdown-item">Download</button>
+                <button onclick="proposalViewOrEdit({{ $proposal->id }}, false)" class="dropdown-item">View</button>
+                @if ($proposal->admin_status !== 'OBSOLETE')
+                    <button onclick="proposalDuplicate({{ $proposal->id }})" class="dropdown-item">Duplicate</button>
+                @endif
+                <button onclick="proposalDelete({{ $proposal->id }})" class="dropdown-item">Download</button>
         @endif 
     </div>
 </div>

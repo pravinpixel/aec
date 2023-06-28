@@ -84,7 +84,9 @@
         <div class="card-body">
             <div class="container p-0">
                 <h4 class="text-center h5 mb-3">Proposal Versioning</h4>
-                @include('admin.enquiry.wizard.proposal-table')
+                <div id="proposal-table">
+                    @include('admin.enquiry.wizard.proposal-table')
+                </div>
             </div>
         </div>
         <div class="card-footer">

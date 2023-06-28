@@ -22,6 +22,6 @@ class EnquiryProposal extends Model
     ];
 
     public function child() {
-        return $this->hasMany(EnquiryProposal::class, 'parent', 'id');
+        return $this->hasMany(EnquiryProposal::class, 'parent', 'id')->latest();
     }
 }
