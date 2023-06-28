@@ -95,6 +95,7 @@
 @endsection
 
 @push('custom-scripts')
+<script src="{{ asset('public/assets/js/custom.js') }}"></script>
 <style>.footer{display: none !important}</style>
 <script>
     app.controller('MailProposalController', function($scope,  $http, API_URL, $compile,  $timeout) {
