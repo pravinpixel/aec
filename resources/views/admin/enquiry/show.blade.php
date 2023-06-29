@@ -2475,13 +2475,14 @@
                     `,
                 });
                 $http.post(API_URL + 'admin/proposal/send-proposal/' + $scope.enquiry_id).then(function(res) {
+                    Swal.close();
                     if (res.data.status) {
                         $timeout(function() {
                             window.onbeforeunload = null;
                         });
                         Swal.fire({
                             icon: 'success',
-                            html: `<h3You have successfully submitted a proposal to the customer.</h3>`,
+                            html: `<h3> You have successfully submitted a proposal to the customer.</h3>`,
                             showConfirmButton: false,
                             timer: 3000
                         });
@@ -2493,7 +2494,7 @@
                         Message('danger', res.data.msg);
                         return false;
                     }
-                    Swal.close();
+                    
                 });
             }
 
