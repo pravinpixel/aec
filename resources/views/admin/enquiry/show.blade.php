@@ -2461,6 +2461,19 @@
             }
 
             $scope.sendProposal = function() {
+                Swal.fire({
+                    timerProgressBar: true,
+                    showConfirmButton: false,
+                    allowOutsideClick: false,
+                    html: `
+                        <div class="text-center">
+                            <h1 class="text-primary">Please Wait</h1>
+                            <i class="mdi text-primary fa-4x mdi-spin mdi-loading"></i>
+                            <h4 class="text-secondary">Proposal email on process may be,</h4>
+                            <h4 class="text-secondary"> it's take some times,</h4>
+                        </div>
+                    `,
+                });
                 $http.post(API_URL + 'admin/proposal/send-proposal/' + $scope.enquiry_id).then(function(res) {
                     if (res.data.status) {
                         $timeout(function() {
@@ -2468,7 +2481,7 @@
                         });
                         Swal.fire({
                             icon: 'success',
-                            html: `<h3>${res.data.msg}</h3>`,
+                            html: `<h3You have successfully submitted a proposal to the customer.</h3>`,
                             showConfirmButton: false,
                             timer: 3000
                         });
@@ -2480,7 +2493,7 @@
                         Message('danger', res.data.msg);
                         return false;
                     }
-
+                    Swal.close();
                 });
             }
 
@@ -2668,20 +2681,6 @@
                 var documentId = $scope.documentary.documentary_title;
                 var enquireId = {{ $data->id ?? '' }};
 
-                Swal.fire({
-                    timerProgressBar: true,
-                    showConfirmButton: false,
-                    allowOutsideClick: false,
-                    html: `
-                        <div class="text-center">
-                            <h1 class="text-primary">Please Wait</h1>
-                            <i class="mdi text-primary fa-4x mdi-spin mdi-loading"></i>
-                            <h4 class="text-secondary">Proposal Creation On Process may be,</h4>
-                            <h4 class="text-secondary"> it's take some times,</h4>
-                        </div>
-                    `,
-                });
-
                 $http({
                     method: 'GET',
                     url: "{{ route('create-enquiry-proposal') }}",
@@ -2695,12 +2694,13 @@
                         Message('danger', response.data.msg);
                         return false;
                     }
+                    Message('success', 'New Proposal Created!');
+                    $('#proposal-table').html(response.data.proposals)
                     Swal.close();
                     $scope.documentary.documentary_title = ''
                     $scope.getDocumentaryData();
                     $scope.customer_response = 0
                 }, function(error) {
-                    console.log(error);
                     console.log(
                         'This is embarassing. An error has occurred. Please check the log for details'
                     );

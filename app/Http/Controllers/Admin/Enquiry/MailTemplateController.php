@@ -24,7 +24,7 @@ class MailTemplateController extends Controller
     public function __construct(EnquiryProposal $EnquiryProposal, MailTemplateRepository $MailTemplate, CustomerEnquiryRepositoryInterface $customerEnquiryRepository)
     {
         $this->mailTemplateRepository = $MailTemplate;
-        $this->EnquiryProposal = $EnquiryProposal; 
+        $this->EnquiryProposal = $EnquiryProposal;
         $this->customerEnquiryRepo     = $customerEnquiryRepository;
     }
     /**
@@ -149,8 +149,8 @@ class MailTemplateController extends Controller
         $documentary = Documentary::find($request->documentId);
         $content     = bindProposalContent($enquiry, $documentary, 'R0');
         $old_proposals = $this->EnquiryProposal->where('enquiry_id', $request->enquireId)->get();
-        if(count($old_proposals)) {
-            foreach($old_proposals as $proposal) {
+        if (count($old_proposals)) {
+            foreach ($old_proposals as $proposal) {
                 $proposal->admin_status = 'OBSOLETE';
                 $proposal->save();
             }
@@ -165,7 +165,13 @@ class MailTemplateController extends Controller
             'customer_status' => 'NOT_SENT',
             'created_by'      => AecAuthUser()->full_name
         ]);
-        return response()->json(['status' => true, 'msg' => trans('module.inserted')], Response::HTTP_OK);
+        $proposal = $this->EnquiryProposal->where('enquiry_id', $request->enquireId)->get();
+        $view = view('admin.enquiry.wizard.proposal-table', compact('proposal'));
+        return response()->json([
+            'status' => true,
+            'msg' => trans('module.inserted'),
+            'proposals' => "$view"
+        ], Response::HTTP_OK);
         // $enquiry              = Enquiry::with(['costEstimate','customer','project'])->find($request->enquireId);
         // $documentary          = Documentary::find($request->documentId);
         // $totalProposalVersion = PropoalVersions::where(["enquiry_id" => $enquiry->id, "documentary_id" => $documentary->id])->get()->count();
