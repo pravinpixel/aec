@@ -754,8 +754,8 @@ class EnquiryController extends Controller
                         <button  class="btn progress-btn ' . ($dataDb->project_status == "Active" ? "active" : "") . '" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Proposal Approved"></button> 
                     </div>';
                 })
-                ->addColumn('action', function ($dataDb) {
-                    if(count($dataDb->getProposal)) {
+                ->addColumn('action', function ($dataDb) { 
+                    if(count($dataDb->MailedEnquiryProposal)) {
                         $propossalButton = '<button class="dropdown-item" onclick="viewCustomerEnquiryProposal('.$dataDb->id.')">' . trans('enquiry.view_proposal') . '</button>';
                     } else {
                         $propossalButton = '<button class="dropdown-item" disabled>' . trans('enquiry.view_proposal') . '</button>';

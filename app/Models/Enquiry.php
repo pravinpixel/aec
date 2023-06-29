@@ -259,5 +259,8 @@ class Enquiry extends Model
     public function costEstimate(){
         return $this->hasOne(EnquiryCostEstimate::class, 'enquiry_id', 'id');
     }
-}
 
+    public function MailedEnquiryProposal(){
+        return $this->hasMany(EnquiryProposal::class, 'enquiry_id', 'id')->where('mailed_at','!=',null);
+    }
+}

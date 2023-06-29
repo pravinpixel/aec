@@ -24,4 +24,8 @@ class EnquiryProposal extends Model
     public function child() {
         return $this->hasMany(EnquiryProposal::class, 'parent', 'id')->latest();
     }
+
+    public function Enquiry() {
+        return $this->hasOne(Enquiry::class, 'id', 'enquiry_id')->latest();
+    }
 }

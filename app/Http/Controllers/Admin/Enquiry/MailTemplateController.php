@@ -172,20 +172,18 @@ class MailTemplateController extends Controller
             'msg' => trans('module.inserted'),
             'proposals' => "$view"
         ], Response::HTTP_OK);
-        
     }
-    public function download_proposal($proposal_id, Request $request)
+    public function download_proposal($proposal_id)
     {
         $proposal = $this->EnquiryProposal->find($proposal_id);
-
-        switch ($request->documentary_status) {
-            case 'approved':
+        switch ($proposal->customer_status) {
+            case 'APPROVE':
                 $text_status = 'APPROVED';
                 break;
-            case 'denied':
+            case 'DENY':
                 $text_status = 'DENIED';
                 break;
-            case 'change_request':
+            case 'CHANGE_REQUEST':
                 $text_status = 'CHANGE_REQUESTED';
                 break;
             default:
