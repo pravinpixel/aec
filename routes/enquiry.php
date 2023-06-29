@@ -84,7 +84,7 @@ Route::group(['prefix' => 'admin', 'middleware'=> 'admin'], function(){
 Route::post('/download-proposal', [MailTemplateController::class,'download_proposal'])->name("download_proposal");
 
 Route::get('/approve/{id}',[ProposalController::class,'approve'])->name('proposal-approve');
-Route::post('/approve/{id}',[ProposalController::class,'customerApproval'])->name('customer-approval');
+Route::post('/customer-proposal-action/{id}',[ProposalController::class,'customerApproval'])->name('customer-approval');
 
 Route::post('proposal-move-to-project/{id}',[ProposalController::class,'moveToProject'])->name('proposal-move-to-project');
 

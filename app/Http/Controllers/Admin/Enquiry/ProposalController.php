@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Enquiry;
 
 use App\Http\Controllers\Controller;
+use App\Mail\EnquiryProposalActionMail;
 use Illuminate\Http\Request;
 use App\Models\Admin\MailTemplate;
 use App\Models\Admin\PropoalVersions as ProposalVersions;
@@ -10,6 +11,7 @@ use App\Models\Enquiry;
 use App\Models\EnquiryProposal;
 use App\Repositories\CustomerEnquiryRepository;
 use App\Services\GlobalService;
+use App\View\Components\EnquiryProposalAction;
 use Barryvdh\DomPDF\Facade as PDF;
 use Carbon\Carbon;
 use Exception;
@@ -154,7 +156,7 @@ class ProposalController extends Controller
     public function customerApproval($id, Request $request)
     {
         $proposal = EnquiryProposal::findOrFail($id);
-        $enquiry = Enquiry::find($proposal->enquiry_id);
+        $enquiry  = Enquiry::with('customer')->findOrFail($proposal->enquiry_id);
         if ($request->customer_status === 'CHANGE_REQUEST' || $request->customer_status === 'DENY') {
             $proposal->update([
                 'comments'  => $request->comments
@@ -163,14 +165,31 @@ class ProposalController extends Controller
             $enquiry->proposal_sharing_status = 0;
         }
         if ($request->customer_status === 'APPROVE') {
-            $enquiry->project_status = "Active"; 
+            $enquiry->project_status = "Active";
         }
         $proposal->update([
             'admin_status'    => $request->customer_status,
             'customer_status' => $request->customer_status,
         ]);
+
         $enquiry->customer_response = GlobalService::getProposalStatusValue($request->customer_status);
         $enquiry->save();
+
+        try {
+            Mail::to($enquiry->customer->email)->send(new EnquiryProposalActionMail([
+                "mail_type" => 'CUSTOMER',
+                'proposal'   => $proposal,
+                'customer' => $enquiry->customer
+            ]));
+            Mail::to(config('mail.admin'))->send(new EnquiryProposalActionMail([
+                "mail_type" => 'ADMIN',
+                'proposal'   => $proposal,
+                'customer' => $enquiry->customer
+            ]));
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+
         Flash::success('Proposal Status Changed!');
         return redirect('/');
     }

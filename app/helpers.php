@@ -97,33 +97,33 @@ if (!function_exists('colors')) {
     }
 }
 if (!function_exists('proposalStatusBadge')) {
-    function proposalStatusBadge($value)
+    function proposalStatusBadge($value, $bg = "")
     {
         switch ($value) {
             case "NOT_SENT":
-                return "<span class='badge badge-outline-info rounded-pill'>Awaiting</span>";
+                return "<small class='".$bg."badge badge-outline-info rounded-pill'>Awaiting</small>";
                 break;
             case "SENT":
-                return "<span class='badge badge-outline-success rounded-pill'>Sent</span>";
+                return "<small class='".$bg."badge badge-outline-success rounded-pill'>Sent</small>";
                 break;
             case "AWAITING":
-                return "<span class='badge badge-outline-primary rounded-pill'>Awaiting</span>";
+                return "<small class='".$bg."badge badge-outline-primary rounded-pill'>Awaiting</small>";
                 break;
             case "APPROVE":
-                return "<span class='badge badge-outline-success rounded-pill'>Approved</span>";
+                return "<small class='".$bg."badge badge-outline-success rounded-pill'>Approved</small>";
                 break;
             case "OBSOLETE":
-                return "<span class='badge badge-outline-secondary rounded-pill'>Obsolete</span>";
+                return "<small class='".$bg."badge badge-outline-secondary rounded-pill'>Obsolete</small>";
                 break;
             case "DENY":
-                return "<span class='badge  badge-outline-danger rounded-pill'>Denied</span>";
+                return "<small class='".$bg."badge  badge-outline-danger rounded-pill'>Denied</small>";
                 break;
             case "CHANGE_REQUEST":
-                return "<span class='badge badge-outline-purple rounded-pill'>Change Request</span>";
+                return "<small class='".$bg."badge badge-outline-purple rounded-pill'>Change Request</small>";
                 break;
             default:
                 $uValue = (string)ucfirst($value);
-                return "<span class='badge badge-outline-dark rounded-pill'>{$uValue}</span>";
+                return "<small class='badge badge-outline-dark rounded-pill'>{$uValue}</small>";
         }
     }
 }

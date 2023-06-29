@@ -36,21 +36,21 @@
             </div>
             <div class="col-md-4">
                 <div>
+                    <div class="card card-body p-3 border shadow-sm m-0">
+                        <h4>Proposal Action</h4>  
+                        <form action="{{ route('customer-approval', $proposal->id) }}" method="POST" >
+                            @csrf
+                            <select onchange="FormAction(this.value)"  name="customer_status"  class="fw-bold form-select mt-3" required>
+                                <option value=""> --- Select ---</option>
+                                <option value="APPROVE" class="fw-bold">Approve</option>
+                                <option value="DENY" class="fw-bold">Deny</option>
+                                <option value="CHANGE_REQUEST" class="fw-bold">Change Request</option>
+                            </select> 
+                            <textarea style="display: none;" id="comments" required name="comments"  class="form-control mt-3" cols="30"  rows="10"></textarea>
+                            <button class="btn rounded-pill btn-primary mt-3" type="submit">Submit</button>
+                        </form>  
+                    </div>
                     @if ($proposal->customer_status == 'PENDING')
-                        <div class="card card-body p-3 border shadow-sm m-0">
-                            <h4>Proposal Action</h4>  
-                            <form action="{{ route('customer-approval', $proposal->id) }}" method="POST" >
-                                @csrf
-                                <select onchange="FormAction(this.value)"  name="customer_status"  class="fw-bold form-select mt-3" required>
-                                    <option value=""> --- Select ---</option>
-                                    <option value="APPROVE" class="fw-bold">Approve</option>
-                                    <option value="DENY" class="fw-bold">Deny</option>
-                                    <option value="CHANGE_REQUEST" class="fw-bold">Change Request</option>
-                                </select> 
-                                <textarea  id="comments" required name="comments"  class="form-control mt-3" cols="30"  rows="10"></textarea>
-                                <button class="btn rounded-pill btn-primary mt-3" type="submit">Submit</button>
-                            </form>  
-                        </div>
                     @else
                         <div class="card border shadow-sm">
                             <div class="card-header bg-light"><b>Proposal status</b></div>
@@ -91,8 +91,7 @@
 
 @push('custom-scripts')
     <style> .footer {display: none !important}</style>
-    <script>
-        $('#comments').hide()
+    <script> 
         const FormAction = (status) => {
             if(status == 'DENY' || status == 'CHANGE_REQUEST') {
                 $('#comments').show()
