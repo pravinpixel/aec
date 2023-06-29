@@ -172,28 +172,12 @@ class MailTemplateController extends Controller
             'msg' => trans('module.inserted'),
             'proposals' => "$view"
         ], Response::HTTP_OK);
-        // $enquiry              = Enquiry::with(['costEstimate','customer','project'])->find($request->enquireId);
-        // $documentary          = Documentary::find($request->documentId);
-        // $totalProposalVersion = PropoalVersions::where(["enquiry_id" => $enquiry->id, "documentary_id" => $documentary->id])->get()->count();
-        // $version              = $totalProposalVersion !== 0 ? 'R' . ($totalProposalVersion + 1) : 'R0';
-        // $documentary_content  = bindProposalContent($enquiry, $documentary, $version);
-        // changePreviousProposalStatus($request->enquireId);
-        // $enquiry->customer_response = 0;
-        // $enquiry->save();   
-        // $enquiry_proposal = MailTemplate::create([
-        //     "enquiry_id"          => $request->enquireId,
-        //     "documentary_id"      => $request->documentId,
-        //     "documentary_content" => $documentary_content,
-        //     "documentary_date"    => date('Y-m-d'),
-        //     "template_name"       => $documentary->documentary_title
-        // ]);
-        // if($enquiry_proposal)   {
-        //     return response()->json(['status' => true, 'msg' => trans('module.inserted')], Response::HTTP_OK);
-        // }
-        // return response()->json(['status' => true, 'msg' => trans('module.somting'),'data'=>$enquiry_proposal], Response::HTTP_OK);
+        
     }
-    public function download_proposal(Request $request)
+    public function download_proposal($proposal_id, Request $request)
     {
+        $proposal = $this->EnquiryProposal->find($proposal_id);
+
         switch ($request->documentary_status) {
             case 'approved':
                 $text_status = 'APPROVED';
@@ -208,7 +192,7 @@ class MailTemplateController extends Controller
                 $text_status = 'WAITING FOR RESPONSE';
                 break;
         }
-        $content          = $request->documentary_content;
+        $content          = $proposal->content;
         $status           = $text_status;
         $binned_html      = view('admin.enquiry.enquiryPDF.enquiryPdf', compact('content', 'status'));
         $enquiry_proposal = new Dompdf();

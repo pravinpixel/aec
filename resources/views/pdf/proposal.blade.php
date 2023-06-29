@@ -25,11 +25,11 @@
                 <tr>
                     <td style="vertical-align:top;" colspan="2">
                         <h1 style="line-height:0.5;margin-left:90px;">
-                            <span style="font-family:Arial, Helvetica, sans-serif;"><strong>{{ $template_name }}</strong></span>
+                            <span style="font-family:Arial, Helvetica, sans-serif;"><strong>{{ $title }}</strong></span>
                         </h1>
                     </td>
                     <td style="vertical-align:top;" colspan="2">
-                        <span style="font-family:Arial, Helvetica, sans-serif;">{!! $aec_logo !!}</span>
+                        <span style="font-family:Arial, Helvetica, sans-serif;">{!! $logo !!}</span>
                     </td>
                 </tr>
             </tbody>

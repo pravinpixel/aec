@@ -403,7 +403,7 @@
                                 <table class="table custom table-borderless">
                                     <tr>
                                         <td>
-                                            <img width="150px" src="{{ asset("public/assets/images/logo_customer.png") }}" alt="">
+                                            <img width="150px" src="{{ config('app.logo_src') }}" alt="">
                                         </td>
                                     </tr>
                                     <tr>
@@ -589,7 +589,7 @@
                         <table class="table custom table-borderless">
                             <tr>
                                 <td>
-                                    <img width="150px" src="{{ asset("public/assets/images/logo_customer.png") }}" alt="">
+                                    <img width="150px" src="{{ config('app.logo_src') }}" alt="">
                                 </td>
                             </tr>
                             <tr>

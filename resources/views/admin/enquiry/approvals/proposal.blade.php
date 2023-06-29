@@ -23,9 +23,7 @@
                     </div>
                     {{-- @if ($proposal->customer_status != 'PENDING') --}}
                     <div class="card-footer text-end">
-                        <form action="{{ route('download_proposal') }}" method="POST">
-                            <input type="hidden" name="content" value="{{ $proposal->content }}">
-                            <input type="hidden" name="documentary_status" value="{{ $proposal->customer_status }}">
+                        <form action="{{ route('download_proposal',$proposal->id) }}" method="POST">
                             @csrf
                             <button type="submit" class="btn btn-success btn-sm"><i class="mdi mdi-download me-1"></i>
                                 Download PDF</button>
@@ -36,21 +34,21 @@
             </div>
             <div class="col-md-4">
                 <div>
-                    <div class="card card-body p-3 border shadow-sm m-0">
-                        <h4>Proposal Action</h4>  
-                        <form action="{{ route('customer-approval', $proposal->id) }}" method="POST" >
-                            @csrf
-                            <select onchange="FormAction(this.value)"  name="customer_status"  class="fw-bold form-select mt-3" required>
-                                <option value=""> --- Select ---</option>
-                                <option value="APPROVE" class="fw-bold">Approve</option>
-                                <option value="DENY" class="fw-bold">Deny</option>
-                                <option value="CHANGE_REQUEST" class="fw-bold">Change Request</option>
-                            </select> 
-                            <textarea style="display: none;" id="comments" required name="comments"  class="form-control mt-3" cols="30"  rows="10"></textarea>
-                            <button class="btn rounded-pill btn-primary mt-3" type="submit">Submit</button>
-                        </form>  
-                    </div>
                     @if ($proposal->customer_status == 'PENDING')
+                        <div class="card card-body p-3 border shadow-sm m-0">
+                            <h4>Proposal Action</h4>  
+                            <form action="{{ route('customer-approval', $proposal->id) }}" method="POST" >
+                                @csrf
+                                <select onchange="FormAction(this.value)"  name="customer_status"  class="fw-bold form-select mt-3" required>
+                                    <option value=""> --- Select ---</option>
+                                    <option value="APPROVE" class="fw-bold">Approve</option>
+                                    <option value="DENY" class="fw-bold">Deny</option>
+                                    <option value="CHANGE_REQUEST" class="fw-bold">Change Request</option>
+                                </select> 
+                                <textarea style="display: none;" id="comments" required name="comments"  class="form-control mt-3" cols="30"  rows="10"></textarea>
+                                <button class="btn rounded-pill btn-primary mt-3" type="submit">Submit</button>
+                            </form>  
+                        </div>
                     @else
                         <div class="card border shadow-sm">
                             <div class="card-header bg-light"><b>Proposal status</b></div>

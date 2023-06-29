@@ -81,7 +81,7 @@ Route::group(['prefix' => 'admin', 'middleware'=> 'admin'], function(){
  
 });
 
-Route::post('/download-proposal', [MailTemplateController::class,'download_proposal'])->name("download_proposal");
+Route::post('/download-proposal/{proposal_id}', [MailTemplateController::class,'download_proposal'])->name("download_proposal");
 
 Route::get('/approve/{id}',[ProposalController::class,'approve'])->name('proposal-approve');
 Route::post('/customer-proposal-action/{id}',[ProposalController::class,'customerApproval'])->name('customer-approval');
@@ -135,4 +135,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'common', 'route' => 'admin']
   Route::get('enquiry-proposal/{id?}/{status?}', [EnquiryProposalController::class,'show'])->name('enquiry-proposal.show');
   Route::post('enquiry-proposal/{id?}/{status?}', [EnquiryProposalController::class,'duplicate'])->name('enquiry-proposal.duplicate');
   Route::put('enquiry-proposal/{id?}', [EnquiryProposalController::class,'update'])->name('enquiry-proposal.update');
+  Route::get('enquiry-proposal-download/{id?}', [EnquiryProposalController::class,'download'])->name('enquiry-proposal.download');
+  
 });

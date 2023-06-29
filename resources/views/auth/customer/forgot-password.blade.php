@@ -3,7 +3,7 @@
 @section('customer-content')
     <div class="card col-lg-3 col-md-4 col-sm-8 shadow-lg border">  
         <div class="card-header text-center pt-3 border-0">
-            <img src="{{ asset("public/assets/images/logo_customer.png") }}" width="150px" class="mb-2"> <br>
+            <img src="{{ config('app.logo_src') }}" width="150px" class="mb-2"> <br>
             <img src="{{ asset("public/assets/images/key.png") }}" width="100px" class="mb-2">
             <p class="lead text-secondary" style="font-weight: 400;">Forgot Password ?</p>
             @if (Session::has('message')) <b class="text-{{ Session::get('state') }}">{{ Session::get('message') }}@endif

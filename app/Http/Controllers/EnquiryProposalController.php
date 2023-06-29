@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\EnquiryProposal;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 
 class EnquiryProposalController extends Controller
@@ -46,5 +47,9 @@ class EnquiryProposalController extends Controller
                 'message' => 'Changes Saved!'
             ]);
         }
+    }
+    public function download($id) {
+        $Proposal = $this->EnquiryProposal->find($id);  
+        return Pdf::loadHTML( $Proposal->content)->setPaper('A4')->download($Proposal->title.'.pdf');
     }
 }

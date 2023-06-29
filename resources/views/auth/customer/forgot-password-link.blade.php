@@ -4,7 +4,7 @@
 
 <div class="card col-lg-5 col-md-6 col-sm-8 shadow-lg border">
     <div class="card-header text-center pt-3 pb-0 border-0 ">
-        <img src="{{ asset("public/assets/images/logo_customer.png") }}" width="150px" class="mb-2">
+        <img src="{{ config('app.logo_src') }}" width="150px" class="mb-2">
         <p class="lead p-0" style="font-weight: 400;">Change Account Password</p>
     </div>
     <div class="card-body">

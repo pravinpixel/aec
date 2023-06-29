@@ -8,7 +8,7 @@
                     <div class="card ">  
                         <div class="card-body pt-0 p-4">                            
                             <div class="text-center pt-4 mb-3 w-75 m-auto">
-                                <span><img src="{{ asset("public/assets/images/logo_customer.png") }}" alt="{{ env('APP_NAME') }}" width="150px"></span>
+                                <span><img src="{{ config('app.logo_src') }}" alt="{{ env('APP_NAME') }}" width="150px"></span>
                             </div>
 
                             <form class="form-horizontal" method="post" action="{{ route('login') }}">
