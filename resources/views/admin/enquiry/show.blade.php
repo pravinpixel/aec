@@ -2968,5 +2968,12 @@
                $('#proposal-table').html(res.data)
             })
         }
+        const proposalUpdate = (id) => { 
+            axios.put(`{{ route('enquiry-proposal.update') }}/${id}`, {
+                content : window.editor.getData()
+            }).then(response => {
+                Message('success', response.data.message);
+            })
+        }
     </script>
 @endpush

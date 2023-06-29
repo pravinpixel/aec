@@ -27,7 +27,7 @@
                                             aria-expanded="true" aria-controls="togggleTable{{ $index + 1 }}"
                                             class="accordion-button custom-accordion-button collapsed bg-primary text-white toggle-btn m-0"></i>
                                     @endif
-                                    <div class="text-center">{{ $index + 1 }}</div>
+                                    <div class="text-end">{{ $index + 1 }}</div>
                                 </td>
                                 <td style="width: 10% !important" class="text-center">{{ $proposal->title }}</td>
                                 <td style="width: 10% !important" class="text-primary text-center">{{ $proposal->version }}</td>

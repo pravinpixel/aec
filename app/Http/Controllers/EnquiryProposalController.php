@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\EnquiryProposal;
+use Illuminate\Http\Request;
 
 class EnquiryProposalController extends Controller
 {
@@ -36,5 +37,14 @@ class EnquiryProposalController extends Controller
             'parent' => $newproposal->id
         ]);
         return view('admin.enquiry.wizard.proposal-table', compact('proposal'));
+    }
+    public function update($id, Request $request) {
+        $result = $this->EnquiryProposal->find($id)->update(['content' => $request->content]);
+        if($result) {
+            return response([
+                'status' => true,
+                'message' => 'Changes Saved!'
+            ]);
+        }
     }
 }

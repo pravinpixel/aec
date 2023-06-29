@@ -134,4 +134,5 @@ Route::group(['prefix' => 'admin', 'middleware' => 'common', 'route' => 'admin']
 
   Route::get('enquiry-proposal/{id?}/{status?}', [EnquiryProposalController::class,'show'])->name('enquiry-proposal.show');
   Route::post('enquiry-proposal/{id?}/{status?}', [EnquiryProposalController::class,'duplicate'])->name('enquiry-proposal.duplicate');
+  Route::put('enquiry-proposal/{id?}', [EnquiryProposalController::class,'update'])->name('enquiry-proposal.update');
 });

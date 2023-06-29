@@ -8,6 +8,6 @@
 <div class="modal-footer">
     <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
     @if ($status)
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-primary" onclick="proposalUpdate({{ $proposal->id }})">Save changes</button>
     @endif
 </div>
