@@ -419,6 +419,12 @@ if (!function_exists('hasIssueReadPermission')) {
             return CheckSheet::all();
         }
     }
+    if (!function_exists('AecUsers')) {
+        function AecUsers($ids)
+        {
+            return AecUsers::with('Role')->whereIn('id',$ids)->get();
+        }
+    }
 
     if (!function_exists('AecUser')) {
         function AecUser($id)

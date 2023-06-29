@@ -1,9 +1,7 @@
 @component('mail::message')
-<p> Dear <b>{{ ucfirst($data['name']) }}</b>,</p>
-<p>
-    This mail is to inform you that a ticket has been raised for the project 
-    <q>{{ $data['project_name'] }}</q> with the reference number (<b>{{ $data['issue_id'] }}</b> ) by <b>{{ $data['request_name'] }}</b>.
-</p>
+<p> {{ $data['request_name'] }} assigned this issue to you</p>
+<small>{{ $data['project_name'] }} / <b>{{ $data['issues']['issue_id'] }}</b></small>
+<p><br> {{ $data['issues']['title'] }} <a href="{{ url('/live/project/issues/'.$data['issues']['project_id']) }}">View Issues</a>.</p>
 <p><br> For more details, <a href="{{ url('/login') }}">click here</a>.</p>
 <b>Thanks</b>,<br>
 Team AECPrefab AS

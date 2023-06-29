@@ -29,6 +29,8 @@ class issueCreateMail extends Mailable
     public function build()
     {
         $data = $this->data;
-        return $this->markdown('mail.issue-create-mail',compact('data'));
+        return $this->from(config('global.mail_from_address'), env('MAIL_FROM_NAME'))
+        ->subject("[AECPrefab] ".$data['request_name']." assigned ".$data['issues']['issue_id'])
+        ->markdown('mail.issue-create-mail',compact('data'));
     }
 }

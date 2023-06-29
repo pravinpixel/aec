@@ -13,7 +13,7 @@
         </div>
         @if ($projectClosure > 0)
             <span class="bg-success btn-sm rounded-pill border border-dark ">
-                <i class="bi bi-patch-check-fill fs-4 me-1"></i> <span class="fw-bold">Project Completed</span> 
+                <i class="bi bi-patch-check-fill fs-4 me-1"></i> <span class="fw-bold">Project Completed</span>
             </span>
         @endif
     </h4>
@@ -23,12 +23,10 @@
                 @foreach ($wizard_menus[AuthUser()] as $menu)
                     <a href="{{ route('live-project.menus-index', ['menu_type' => $menu['slug'], 'id' => session()->get('current_project')->id]) }}"
                         class="position-relative wizard-tab {{ request()->route()->menu_type === $menu['slug'] ? 'active' : '' }}">
-                        {!! getModuleMenuMessagesCount(
-                            'LIVE_PROJECT',
-                            session()->get('current_project')->id,
-                            strtoupper(str_replace('-', '_', $menu['slug'])),
-                            'element',
-                        ) !!}
+                        @php
+                            $message = getModuleMenuMessagesCount('LIVE_PROJECT', session()->get('current_project')->id, strtoupper(str_replace('-', '_', $menu['slug'])), 'element');
+                        @endphp
+                        @if ($message)  {!! $message !!}  @endif
                         <div class="wizard-tab-icon">
                             {!! $menu['icon'] !!}
                         </div>
