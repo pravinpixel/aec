@@ -46,7 +46,8 @@
                                 <h5 class="card-title m-0">PROPOSAL ACTIONS </h5>
                             </div>
                             <div class="card-body">
-                                <form action="#" id="proposalActionForm">
+                                <form action="{{ route('customerApproval', $proposal->id) }}" method="POST">
+                                    @csrf
                                     <select onchange="proposalAction(this.value)" name="customer_status" id="customer_status_{{ $index }}_id" class="fw-bold form-select my-3" required>
                                         <option value=""> ---  Select ---</option>
                                         <option value="approve" class="fw-bold">Approve</option>
@@ -58,7 +59,7 @@
                                         <textarea required name="comments" class="form-control" id="proposal_comments_{{ $index }}_id"  cols="30" rows="10"></textarea>
                                     </div>
                                     <div class="mb-3">
-                                        <button onclick="proposalActionSubmit({{ $index }})"  class="btn btn-primary btn-sm" type="button"><i class="fa fa-save me-1"></i> Submit</button>
+                                        <button type="submit" class="btn btn-primary btn-sm" type="button"><i class="fa fa-save me-1"></i> Submit</button>
                                     </div>
                                 </form>
                             </div>
