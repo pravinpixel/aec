@@ -56,7 +56,7 @@
                                     </select>
                                     <div class="mb-3 d-none" id="proposalActionComments">
                                         <label for="emailaddress1" class="form-label">Comments</label>
-                                        <textarea required name="comments" class="form-control" id="proposal_comments_{{ $index }}_id"  cols="30" rows="10"></textarea>
+                                        <textarea required name="comments" class="form-control" id="commentsTextarea"  cols="30" rows="10"></textarea>
                                     </div>
                                     <div class="mb-3">
                                         <button type="submit" class="btn btn-primary btn-sm" type="button"><i class="fa fa-save me-1"></i> Submit</button>
