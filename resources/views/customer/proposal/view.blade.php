@@ -39,7 +39,7 @@
                         </div>
                     </div>
                 </div>
-                @if ($proposal->customer_status == 'PENDING')
+                @if ($enquiry->MailedEnquiryProposal()->latest()->first()->id == $proposal->id && $proposal->customer_status == 'PENDING')
                     <div class="col-md-4 pe-0">
                         <div class="card border shadow-sm">
                             <div class="card-header">
