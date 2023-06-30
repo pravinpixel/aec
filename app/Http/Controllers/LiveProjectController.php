@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\issueStatusUpdateMail;
 use App\Mail\liveProject\variationMail;
 use App\Mail\variationVersionMail;
 use App\Models\InvoicePlan;
@@ -299,8 +300,8 @@ class LiveProjectController extends Controller
                 if ($row->requester_role === AuthUser() || AuthUser() === 'ADMIN') {
                     $actionButtons = '<button type="button" onclick=editIssue(' . $row->id . ',this) class="dropdown-item"><i class="fa fa-pen me-1"></i> Edit</button><button type="button" onclick="deleteIssue(' . $row->id . ',this)"  class="dropdown-item text-danger"><i class="fa fa-trash me-1"></i> Delete</button>';
                 }
-                if(empty($btnConvert) && empty($actionButtons)) {
-                    return '<span onclick="showIssue('.$row->id.',this)" title="View" class="mx-1"><i class="fa fa-eye text-success"></i></span>';
+                if (empty($btnConvert) && empty($actionButtons)) {
+                    return '<span onclick="showIssue(' . $row->id . ',this)" title="View" class="mx-1"><i class="fa fa-eye text-success"></i></span>';
                 }
                 return '<div class="dropdown text-center">
                             <button class="btn btn-sm btn-light border" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -363,10 +364,18 @@ class LiveProjectController extends Controller
     }
     public function change_status_issues(Request $request, $id)
     {
-        Issues::find($id)->update([
+        $issue     = Issues::with('Project')->find($id);
+        $user      = AecUser($issue->assignee_id);
+        $requester = AecAuthUser();
+        $issue->update([
             "status"  => $request->status,
             "remarks" => $request->remarks ?? null
         ]);
+        Mail::to($user->email)->send(new issueStatusUpdateMail([
+            "user"   => $user,
+            "issue" => $issue,
+            "requester" => $requester
+        ]));
         return response([
             "status"  => true,
         ]);
@@ -709,7 +718,7 @@ class LiveProjectController extends Controller
                 'parent'        => $subChart->id,
                 'chart_task_id' => $subChart->id
             ]);
-            foreach($sub_task['data'] as $sub_sub_task) {
+            foreach ($sub_task['data'] as $sub_sub_task) {
                 $subSubChart =  LiveProjectGranttTask::create([
                     "text"          => $sub_sub_task['task_list'],
                     "progress"      => "0.00",
@@ -732,7 +741,7 @@ class LiveProjectController extends Controller
                     'chart_task_id' => $subSubChart->id
                 ]);
             }
-        } 
+        }
         return response()->json([
             "status" => true
         ]);
