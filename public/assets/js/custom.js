@@ -262,7 +262,7 @@ viewCustomerEnquiryProposal = (id) => {
 }
 proposalAction = (val) => {
     if(val == 'DENY' || val == 'CHANGE_REQUEST') {
-        $('#commentsTextarea').toggleClass('d-none')
+        $('#commentsTextareaContext').toggleClass('d-none')
     }
     if(val == 'APPROVE') {
         $('#commentsTextarea').removeAttr('required')
