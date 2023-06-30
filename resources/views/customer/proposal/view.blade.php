@@ -50,9 +50,9 @@
                                     @csrf
                                     <select onchange="proposalAction(this.value)" name="customer_status" id="customer_status_{{ $index }}_id" class="fw-bold form-select my-3" required>
                                         <option value=""> ---  Select ---</option>
-                                        <option value="approve" class="fw-bold">Approve</option>
-                                        <option value="deny" class="fw-bold">Deny</option>
-                                        <option value="change_request" class="fw-bold">Change Request</option>
+                                        <option value="APPROVE" class="fw-bold">Approve</option>
+                                        <option value="DENY" class="fw-bold">Deny</option>
+                                        <option value="CHANGE_REQUEST" class="fw-bold">Change Request</option>
                                     </select>
                                     <div class="mb-3 d-none" id="proposalActionComments">
                                         <label for="emailaddress1" class="form-label">Comments</label>
