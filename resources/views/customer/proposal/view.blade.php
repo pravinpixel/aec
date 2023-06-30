@@ -46,7 +46,7 @@
                                 <h5 class="card-title m-0">PROPOSAL ACTIONS </h5>
                             </div>
                             <div class="card-body">
-                                <form action="{{ route('customerApproval', $proposal->id) }}" method="POST">
+                                <form action="{{ route('customer-approval', $proposal->id) }}" method="POST">
                                     @csrf
                                     <select onchange="proposalAction(this.value)" name="customer_status" id="customer_status_{{ $index }}_id" class="fw-bold form-select my-3" required>
                                         <option value=""> ---  Select ---</option>
