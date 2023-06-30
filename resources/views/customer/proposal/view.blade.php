@@ -54,7 +54,7 @@
                                         <option value="DENY" class="fw-bold">Deny</option>
                                         <option value="CHANGE_REQUEST" class="fw-bold">Change Request</option>
                                     </select>
-                                    <div class="mb-3" id="commentsTextareaContext">
+                                    <div class="mb-3 d-none" id="commentsTextareaContext">
                                         <label for="emailaddress1" class="form-label">Comments</label>
                                         <textarea required name="comments" class="form-control" id="commentsTextarea"  cols="30" rows="10"></textarea>
                                     </div>
