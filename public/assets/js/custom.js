@@ -261,26 +261,14 @@ viewCustomerEnquiryProposal = (id) => {
     });
 }
 proposalAction = (val) => {
-    if(val == 'deny' || val == 'change_request') {
-        $('#proposalActionComments').toggleClass('d-none')
+    if(val == 'DENY' || val == 'CHANGE_REQUEST') {
+        $('#commentsTextarea').toggleClass('d-none')
     }
-    if(val == 'approve') {
+    if(val == 'APPROVE') {
         $('#commentsTextarea').removeAttr('required')
     }
 }
-proposalActionSubmit = (index) => {
-    var type    = $(`#proposal_status_${index}_id`).val()
-    axios.post(`${APP_URL}/customer-approval/${$(`#enquiry_id_${index}_id`).val()}/approval-type/${type}`, {
-       id     : $(`#enquiry_id_${index}_id`).val(),
-       pid    : $(`#proposal_id_${index}_id`).val(),
-       vid    : $(`#version_id_${index}_id`).val(),
-       comment: $(`#proposal_comments_${index}_id`).val()
-    }).then(function (response) {
-        Message('success', "Proposal Status to be Changed !")
-        viewCustomerEnquiryProposal($(`#enquiry_id_${index}_id`).val())
-    });
-}
-
+ 
 PreviousChatHistory = (element, module_id, module_name, menu_name) => {
 
     // Object.entries(element.childNodes).map((item) => {
