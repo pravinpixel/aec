@@ -45,20 +45,17 @@
                     <div>
                         <label for="INPUT_{{ $key }}_YES"
                             class="mx-2 fs-5 text-uppercase fw-bold form-radio-success">
-                            <input type="radio" name="question_{{ $key }}_input"
-                                id="INPUT_{{ $key }}_YES" class="form-check-input me-1" required> Yes
+                            <input type="radio" name="{{ $item }}" value="Yes" id="INPUT_{{ $key }}_YES" class="form-check-input me-1" required> Yes
                         </label>
                         <label for="INPUT_{{ $key }}_NO"
                             class="mx-2 fs-5 text-uppercase fw-bold form-radio-danger">
-                            <input type="radio" name="question_{{ $key }}_input"
-                                id="INPUT_{{ $key }}_NO" class="form-check-input me-1" required> No
+                            <input type="radio" name="{{ $item }}" value="No" id="INPUT_{{ $key }}_NO" class="form-check-input me-1" required> No
                         </label>
                     </div>
                 </li>
             @endforeach
         @endif
     </ul>
-
     <hr>
     <div class="col-lg-8 mx-auto">
         <div class="modal-header border-0">

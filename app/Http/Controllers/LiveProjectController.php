@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\issueStatusUpdateMail;
 use App\Mail\liveProject\variationMail;
+use App\Mail\ProjectCompletedMail;
 use App\Mail\variationVersionMail;
 use App\Models\InvoicePlan;
 use App\Models\IssueComments;
@@ -61,7 +62,14 @@ class LiveProjectController extends Controller
     }
     public function project_closure($request, $id)
     {
-        $project = Project::find($id);
+        $project = Project::with('teamSetup')->find($id);
+
+        Mail::to($project->customer->email)
+            ->cc(AecUsers($project->teamSetup[0]->team)->pluck('email')->toArray())
+            ->send(new ProjectCompletedMail([
+                "customer" => $project->customer,
+                "project" => $project
+            ]));
         foreach ($request->except('url') as $key => $value) {
             $project->projectClosure()->updateOrCreate(['project_id' => $id, "question" => $key], [
                 'project_id' => $id,
