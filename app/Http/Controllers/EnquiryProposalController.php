@@ -64,4 +64,16 @@ class EnquiryProposalController extends Controller
         $Proposal = $this->EnquiryProposal->find($id);
         return Pdf::loadHTML($Proposal->content)->setPaper('A4')->download($Proposal->title . '.pdf');
     }
+    public function delete($id)
+    {
+        $this->EnquiryProposal->find($id)->delete();
+        $this->EnquiryProposal->where('parent', $id)->delete();
+        $proposal = $this->EnquiryProposal->find($id);
+        $view = view('admin.enquiry.wizard.proposal-table', compact('proposal'));
+        return response([
+            'status' => true,
+            'message' => 'Proposal Deleted Succesfully!',
+            'view' => "$view"
+        ]);
+    }
 }

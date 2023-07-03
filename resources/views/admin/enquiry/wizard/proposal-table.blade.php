@@ -27,12 +27,17 @@
                                             aria-expanded="true" aria-controls="togggleTable{{ $index + 1 }}"
                                             class="accordion-button custom-accordion-button collapsed bg-primary text-white toggle-btn m-0"></i>
                                     @endif
-                                    <div class="text-end">{{ $index + 1 }}</div>
+                                    <div class="text-end">
+                                        {{ $index + 1 }}.{{ str_replace('R', '', $proposal->version) }}
+                                    </div>
                                 </td>
                                 <td style="width: 10% !important" class="text-center">{{ $proposal->title }}</td>
-                                <td style="width: 10% !important" class="text-primary text-center">{{ $proposal->version }}</td>
-                                <td style="width: 10% !important" class="text-info text-center">{!! proposalStatusBadge($proposal->admin_status) !!}</td>
-                                <td style="width: 28% !important" class="text-info text-center">{{ $proposal->comments }}</td>
+                                <td style="width: 10% !important" class="text-primary text-center">
+                                    {{ $proposal->version }}</td>
+                                <td style="width: 10% !important" class="text-info text-center">{!! proposalStatusBadge($proposal->admin_status) !!}
+                                </td>
+                                <td style="width: 28% !important" class="text-info text-center">
+                                    {{ $proposal->comments }}</td>
                                 <td style="width: 16% !important"class="text-center">
                                     <small>{{ $proposal->mailed_at ?? 'Not Yet Send! ' }}</small>
                                 </td>
@@ -48,12 +53,16 @@
                                             @if (count($proposal->child))
                                                 @foreach ($proposal->child as $versionIndex => $version)
                                                     <tr>
-                                                        <td class="text-end" style="width: 6% !important">{{ $index + 1 }}.{{ $versionIndex + 1 }}</td>
-                                                        <td style="width: 10% !important" class="text-center">{{ $version->title }}</td>
+                                                        <td class="text-end" style="width: 6% !important">
+                                                            {{ $index + 1 }}.{{ str_replace('R', '', $version->version) }}
+                                                        </td>
+                                                        <td style="width: 10% !important" class="text-center">
+                                                            {{ $version->title }}</td>
                                                         <td style="width: 10% !important" class="text-info text-center">
                                                             <b><small>{{ $version->version }}</small></b>
                                                         </td>
-                                                        <td style="width: 10% !important" class="text-info text-center">{!! proposalStatusBadge($version->admin_status) !!}</td>
+                                                        <td style="width: 10% !important" class="text-info text-center">
+                                                            {!! proposalStatusBadge($version->admin_status) !!}</td>
                                                         <td style="width: 28% !important" class="text-info text-center">
                                                             <div class="proposal-comment">
                                                                 <div>{{ $version->comments }}</div>

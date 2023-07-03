@@ -2494,7 +2494,7 @@
                         Message('danger', res.data.msg);
                         return false;
                     }
-                    
+
                 });
             }
 
@@ -2933,23 +2933,18 @@
                 tri = !tri;
             } else {
                 document.getElementById('abs' + num).style.background = "#fff";
-                // var count=document.getElementsByClassName('color').length;
-                // for(i=0;i<count;i++){
-                //     document.getElementsByClassName('color'+num)[i].style.color="#";
-                // }
-                // document.querySelectorAll('#color').style.color="#4199FC";
                 tri = !tri;
             }
         }
     </script>
     <script src="{{ asset('public/assets/js/ckeditor.js') }}"></script>
-    <script> 
+    <script>
         const proposalViewOrEdit = (id, status) => {
             axios.get(`{{ route('enquiry-proposal.show') }}/${id}/${status == true ? 1 : 0}`).then(res => {
                 $('#proposalModal .modal-content').html(res.data)
                 ClassicEditor.create(document.querySelector('#proposal-content-editer')).then(editeditor => {
                     window.editor = editeditor;
-                    if(status) {
+                    if (status) {
                         window.editor.disableReadOnlyMode('proposal-content-editer')
                     } else {
                         window.editor.enableReadOnlyMode('proposal-content-editer')
@@ -2962,16 +2957,36 @@
             console.log('proposalViewOrEdit', id)
         }
         const proposalDelete = (id) => {
-            console.log('proposalDelete', id)
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    cancelButton: 'btn btn-light border me-2',
+                    confirmButton: 'btn btn-danger'
+                },
+                buttonsStyling: false
+            })
+            swalWithBootstrapButtons.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'No, cancel!',
+                reverseButtons: true
+            }).then((result) => {
+                axios.delete(`{{ route('enquiry-proposal.delete') }}/${id}`).then(response => {
+                    Message('success', response.data.message);
+                    $('#proposal-table').html(response.data.view)
+                })
+            })
         }
         const proposalDuplicate = (id) => {
             axios.post(`{{ route('enquiry-proposal.duplicate') }}/${id}`).then(res => {
-               $('#proposal-table').html(res.data)
+                $('#proposal-table').html(res.data)
             })
         }
-        const proposalUpdate = (id) => { 
+        const proposalUpdate = (id) => {
             axios.put(`{{ route('enquiry-proposal.update') }}/${id}`, {
-                content : window.editor.getData()
+                content: window.editor.getData()
             }).then(response => {
                 Message('success', response.data.message);
             })
