@@ -38,6 +38,7 @@ class Notify
             'receiver_id'     => AecAuthUser()->Role->id,
             'module_name'     => strtoupper($data['module_name']),
             'module_id'       => $data['module_id'],
+            'menu_name'       => $data['menu_name'],
             'receiver_status' => 0
         ])->update([ 'receiver_status' => 1]);
         Inbox::create([
