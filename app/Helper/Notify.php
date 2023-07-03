@@ -36,6 +36,8 @@ class Notify
         Inbox::where([
             'receiver_role'   => strtoupper(AecAuthUser()->Role->slug),
             'receiver_id'     => AecAuthUser()->Role->id,
+            'module_name'     => strtoupper($data['module_name']),
+            'module_id'       => $data['module_id'],
             'receiver_status' => 0
         ])->update([ 'receiver_status' => 1]);
         Inbox::create([
