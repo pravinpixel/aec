@@ -75,7 +75,8 @@ class AuthCustomerController extends Controller
 
     public function signup_resend($email)
     {
-        $customer = AecUsers::where('email', $email)->first();
+        dd($email);
+        $customer = Customer::where('email', $email)->first();
         $this->sendMail([
             'full_name' => $customer->full_name,
             'route'     => route('company-info', encrypt($customer->id)),
