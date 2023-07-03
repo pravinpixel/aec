@@ -2,8 +2,8 @@
 
 return [
     'admin' => [
-        'arun.kalyan@aecprefab.net',
-        'aecadmnusr2@gmail.com'
+        // 'arun.kalyan@aecprefab.net',
+        'qa@pixel-studios.com'
     ],
     /*
     |--------------------------------------------------------------------------
