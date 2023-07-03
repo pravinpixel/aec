@@ -138,7 +138,7 @@ class CustomerController extends Controller
         $customer = Customer::with('Projects')->withTrashed($id)->find($id);
         if(!is_null($customer->enquiry) && !is_null($customer->Projects)) {
             if(count($customer->enquiry) === 0 && count($customer->Projects) === 0) {
-                if($customer->delete()) {
+                if($customer->forceDelete()) {
                     Flash::success(__('global.deleted'));
                     return redirect(route('admin.customer.index'));
                 }
