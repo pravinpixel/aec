@@ -51,7 +51,7 @@ class AuthCustomerController extends Controller
             $customerData = array_merge(request([
                 'first_name', 'last_name', 'email', 'password'
             ]), ['is_active' => false, 'aec_user_id' =>  $AecUsers->id]);
-            
+
             $insert = Customer::create($customerData);
 
             if ($insert) {
@@ -75,13 +75,17 @@ class AuthCustomerController extends Controller
 
     public function signup_resend($email)
     {
-        $customer = Customer::where('email', $email)->get()->first();
-        $this->sendMail([
-            'full_name' => $customer->full_name,
-            'route'     => route('company-info', encrypt($customer->id)),
-            'email'     => $customer->email
-        ]);
-        Flash::success(__('auth.resend_email_success'));
+        try {
+            $customer = Customer::where('email', $email)->first();
+            $this->sendMail([
+                'full_name' => $customer->full_name,
+                'route'     => route('company-info', encrypt($customer->id)),
+                'email'     => $customer->email
+            ]);
+            Flash::success(__('auth.resend_email_success'));
+        } catch (\Throwable $th) {
+            Flash::error('Invalid Action');
+        }
         return redirect()->route('login');
     }
 
@@ -100,7 +104,7 @@ class AuthCustomerController extends Controller
         $customer          = Customer::findOrFail($id);
         $data['id']        = encrypt($id);
         $data['email']     = $customer->email;
-        $data['mobile_no'] = $customer->mobile_no; 
+        $data['mobile_no'] = $customer->mobile_no;
         return view('auth.customer.company-info', compact('data'));
     }
 
