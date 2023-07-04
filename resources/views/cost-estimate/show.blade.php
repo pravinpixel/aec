@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.cost-estimate')
 
 @section('admin-content')
    
@@ -38,7 +38,7 @@
                     <div class="tab-content">
                         <div class="tab-pane" id="project_summary" ng-controller="ProjectSummaryController">
                             @include('cost-estimate.project-summary')
-                            @include("admin.enquiry.models.chat-box")
+                            {{-- @include("admin.enquiry.models.chat-box") --}}
                         </div>
                         <div class="tab-pane show active" id="cost_estimate">
                             @include('cost-estimate.cost-estimate')

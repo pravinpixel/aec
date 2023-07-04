@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\EnquiryProposal;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 
 class EnquiryProposalController extends Controller
 {
