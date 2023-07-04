@@ -2,7 +2,7 @@
     @if ($details['mail_type'] === 'CUSTOMER')
         <div>
             <b>Hi  {{ $details['customer']['full_name'] }},</b> <br>
-            <p>You've {{ ucfirst(strtolower(str_replace('_',' ', $details['proposal']['customer_status']))) }} your prposal.</p>
+            <p>You've {{ ucfirst(strtolower(str_replace('_',' ', $details['proposal']['customer_status']))) }} your proposal.</p>
         </div>
         @else
         <div>
