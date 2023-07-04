@@ -113,7 +113,7 @@
                                     <div class="d-flex align-items-center">
                                         {!! getUserAvatar($issue->assignee_id) !!}
                                         <div class="text-capitalize ps-1">
-                                            <small>{{ getUser($issue->assignee_id)->first_name }}</small> <br>
+                                            <small>{{ AecUser($issue->assignee_id)->first_name }}</small> <br>
                                             <small class="text-dark">{{ $issue->assignee_name }}</small>
                                         </div>
                                     </div>
