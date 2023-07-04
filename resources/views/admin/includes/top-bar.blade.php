@@ -38,7 +38,7 @@
                                             </div>
                                             <div>
                                                 <button type="button" class="btn-quick-view " onclick="EnquiryQuickView('{{ $msg->module_id }}' , this)">
-                                                    <b>{{ getEnquiryBtId($msg->module_id)->enquiry_number }}</b> 
+                                                    <b>{{ getEnquiryBtId($msg->module_id)->enquiry_number ?? "Draft"  }}</b> 
                                                 </button>
                                             </div>
                                         </div>
