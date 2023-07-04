@@ -586,7 +586,7 @@ class LiveProjectController extends Controller
             $reciver_role = 'ADMIN';
         } else {
             $reciver_id   = $customer->id;
-            $reciver_name = getUser($issue->assignee_id)->first_name;
+            $reciver_name = AecUser($issue->assignee_id)->first_name;
             $reciver_role = 'CUSTOMER';
         }
 
