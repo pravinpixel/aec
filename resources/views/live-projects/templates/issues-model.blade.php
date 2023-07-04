@@ -109,7 +109,7 @@
                             <h5>Assignee :</h5>
                             @if ($issue->type == 'INTERNAL')
                                 <a href="javascript:void(0);" class="d-inline-block"
-                                    title="{{ getUser($issue->assignee_id)->first_name }}">
+                                    title="{{ AecUser($issue->assignee_id)->first_name }}">
                                     <div class="d-flex align-items-center">
                                         {!! getUserAvatar($issue->assignee_id) !!}
                                         <div class="text-capitalize ps-1">
