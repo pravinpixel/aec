@@ -243,11 +243,11 @@
         </div>
     </div>
     <div class="modal-footer">
-        <x-admin-layout>
+        @if ( $issue->type == 'INTERNAL')
             <button class="btn btn-outline-danger btn-sm me-2" onclick="convertVariation({{ $issue->id }},this)">
                 Convert to Variation <i class="fa fa-share" aria-hidden="true"></i>
             </button>
-        </x-admin-layout>
+        @endif
         <x-chat-box status="CHAT_BUTTON" :moduleId="$issue->project_id" moduleName="project" :menuName="str_replace('/', '_', $issue->issue_id)" />
     </div>
 </div>
