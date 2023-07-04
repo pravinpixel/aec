@@ -114,23 +114,18 @@ class Wizard extends Component
             $employee = new Employees();
             $employee->reference_number = $this->getEnquiryNumber();
             $employee->aec_user_id = $AecUsers->id;
-            if($employee->send_password_to_email) {
+            if ($employee->send_password_to_email) {
                 // try {
-                    $details = [
-                        'user_name' => $this->full_name,
-                        'email'     => $this->email,
-                    ];
-                    Mail::to($this->email)->send(new \App\Mail\EmployeeMail($details));
+                $details = [
+                    'user_name' => $this->full_name,
+                    'email'     => $this->email,
+                ];
+                Mail::to($this->email)->send(new \App\Mail\EmployeeMail($details));
                 // } catch (\Exception $e) {
                 //     Log::info($e->getMessage());
                 // }
             }
         }
-        $details = [
-            'user_name' => $this->full_name,
-            'email'     => $this->email,
-        ];
-        Mail::to($this->email)->send(new \App\Mail\EmployeeMail($details));
         $employee->first_name              = $this->first_name;
         $employee->last_name               = $this->last_name;
         $employee->full_name               = $this->full_name;
