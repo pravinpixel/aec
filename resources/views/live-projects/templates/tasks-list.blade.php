@@ -3,9 +3,10 @@
         <div class="card border shadow-sm m-0">
             <div class="modal-header px-3 bg-light">
                 <h5 class="m-0">Task Details</h3>
-                    {{-- check-sheet-master --}}
-                    <button type="button" data-bs-toggle="modal" data-bs-target="#create-live-task"
-                        class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Add</button>
+                    @if (AecAuthUser()->Role->slug != 'aec-customer')
+                        <button type="button" data-bs-toggle="modal" data-bs-target="#create-live-task"
+                            class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Add</button>
+                    @endif
             </div>
             <div class="card-bodyx">
                 <ol class="list-group border-0">
@@ -29,7 +30,8 @@
                                                 @endif
                                             </center>
                                             <div class="vr mx-2"></div>
-                                            <i class="fa fa-trash text-danger btn p-0" onclick="deleteSubtask(`{{ $task->id }}`)"></i>
+                                            <i class="fa fa-trash text-danger btn p-0"
+                                                onclick="deleteSubtask(`{{ $task->id }}`)"></i>
                                         </div>
                                     </div>
                                     <div>
