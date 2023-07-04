@@ -3,7 +3,7 @@
         <div class="card border shadow-sm m-0">
             <div class="modal-header px-3 bg-light">
                 <h5 class="m-0">Task Details</h3>
-                    @if (AecAuthUser()->Role->slug != 'aec-customer')
+                    @if (AecAuthUser()->Role->slug != 'aec_customer')
                         <button type="button" data-bs-toggle="modal" data-bs-target="#create-live-task"
                             class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Add</button>
                     @endif
