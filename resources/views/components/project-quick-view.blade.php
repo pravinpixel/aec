@@ -170,7 +170,7 @@
                             <label class="col-form-label">Delivery Date</label>
                         </div>
                         <div class="col pe-0">
-                            <div class="form-control form-control-sm  border-0 ">{{ $project['delivery_date'] }}</div>
+                            <div class="form-control form-control-sm  border-0 ">{{ SetDateFormat($project['delivery_date']) }}</div>
                         </div>
                     </div>
                 </div>
@@ -180,7 +180,7 @@
                             <label class="col-form-label">Start Date</label>
                         </div>
                         <div class="col pe-0">
-                            <div class="form-control form-control-sm  border-0 ">{{ $project['start_date'] }}</div>
+                            <div class="form-control form-control-sm  border-0 ">{{ SetDateFormat($project['start_date']) }}</div>
                         </div>
                     </div>
                 </div>
