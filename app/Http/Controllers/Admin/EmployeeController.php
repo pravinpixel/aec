@@ -17,6 +17,7 @@ use App\Models\Type;
 use App\Http\Requests\RoleCreateRequest;
 use App\Http\Requests\RoleUpdateRequest;
 use App\Models\Admin\Employees;
+use App\Models\AecUsers;
 use App\Models\MasterCalculation;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Response;
@@ -156,9 +157,19 @@ class EmployeeController extends Controller
             return redirect(route('admin-dashboard'));
         }
         $id = session('id');
- 
+        
+        $AecUsers = AecUsers::create([
+            'first_name' => $request->epm_fname,
+            'last_name'  => $request->epm_lname,
+            'full_name'  => $request->epm_username,
+            'email'      => $request->email,
+            'password'   => Hash::make($request->epm_password),
+            'image'      => "https://picsum.photos/200",
+            'job_role'   => $request->epm_job_role
+        ]);
+        
         $module = new Employees();
-
+        $module->aec_user_id = $AecUsers->id;
         $module->employee_id = $request->epm_id;
         $module->first_name = $request->epm_fname;
         $module->last_Name = $request->epm_lname;
