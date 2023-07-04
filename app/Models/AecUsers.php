@@ -10,10 +10,12 @@ class AecUsers extends Model
     use HasFactory;
     protected $fillable = [
         'first_name',
+        'job_role', 
         'last_name',
         'full_name',
-        'image',
-        'job_role',
+        'email',
+        'password',
+        'image'
     ];
 
     public function Role()
