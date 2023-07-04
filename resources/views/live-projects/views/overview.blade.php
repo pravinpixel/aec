@@ -13,7 +13,7 @@
             <i class="mdi mdi-comment-account fa-3x text-primary mb-0 me-2"></i>
             <div class="py-1">
                 <h4 class="border-bottom pb-1">Contact Person</h4>
-                <p class="mb-0 ng-binding">{{ $project->Customer->contact_person }}</p>
+                <p class="mb-0 ng-binding">{{ $project->contact_person }}</p>
             </div>
         </div>
     </div>
