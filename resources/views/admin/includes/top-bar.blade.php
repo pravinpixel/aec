@@ -105,7 +105,7 @@
             <a class="nav-link dropdown-toggle nav-user arrow-none me-0 d-flex align-items-center justify-content-between" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false"
                 aria-expanded="false">
                 <span class="account-user-avatar"> 
-                    <img src="{{ Admin()->image }}" alt="user-image" style="object-fit: cover" class="rounded-circle">
+                    <img src="{{ AecAuthUser()->image }}" alt="user-image" style="object-fit: cover" class="rounded-circle">
                 </span>
                 <span class="account-user-name text-capitalize">{{ Admin()->full_name ?? 'Avatar' }}</span>
                 <i class="bi bi-chevron-down ms-2"></i>

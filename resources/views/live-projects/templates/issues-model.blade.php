@@ -220,7 +220,7 @@
                     <div class="row">
                         <div class="col-1 p-0">
                             <span class="account-user-avatar">
-                                <img src="{{ AuthUserData()->image }}" alt="user-image"
+                                <img src="{{ AecAuthUser()->image }}" alt="user-image"
                                     class="rounded-circle img-thumbnail avatar-sm">
                             </span>
                         </div>
