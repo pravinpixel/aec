@@ -426,7 +426,7 @@
                             </div>
                             <div class="col pe-0">
                                 <div class="form-control form-control-sm  border-0  ng-binding">
-                                    {{ $project['start_date'] }}</div>
+                                    {{ SetDateFormat($project['start_date']) }}</div>
                             </div>
                         </div>
                     </div>
@@ -446,7 +446,7 @@
                             </div>
                             <div class="col pe-0">
                                 <div class="form-control form-control-sm  border-0  ng-binding">
-                                    {{ $project['delivery_date'] }}</div>
+                                    {{ SetDateFormat($project['delivery_date']) }}</div>
                             </div>
                         </div>
                     </div>
