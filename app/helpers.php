@@ -409,7 +409,7 @@ if (!function_exists('changeProposalStatus')) {
     if (!function_exists('bindProposalContent')) {
         function bindProposalContent($enquiry, $documentary, $version)
         {
-            $documentary_content = $documentary->documentary_content;
+            $documentary_content = $documentary->documentary_content;  
             $variables = [
                 '$document_title'           => $documentary->documentary_title,
                 '$enquiry_date'             => $enquiry->enquiry_date,
@@ -431,9 +431,9 @@ if (!function_exists('changeProposalStatus')) {
                 '$customer_state'           => $enquiry->state,
                 '$customer_country'         => $enquiry->country,
                 '$customer_zipcode'         => $enquiry->zipcode,
-                '$contact_person'           => $enquiry->customer->contact_person,
+                '$contact_person'           => $enquiry->contact_person,
                 '$customer_email'           => $enquiry->customer->email,
-                '$customer_mobile_no'       => $enquiry->customer->mobile_no,
+                '$customer_mobile_no'       => $enquiry->mobile_no,
                 '$admin_name'               => config('global.admin_name'),
                 '$admin_role'               => config('global.admin_role'),
                 '$admin_email'              => config('global.admin_email'),
