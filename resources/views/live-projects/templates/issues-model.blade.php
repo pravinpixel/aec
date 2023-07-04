@@ -151,7 +151,6 @@
                             <div id="tooltip-container">
                                 <h5>#Tag Members:</h5>
                                 @foreach (json_decode($issue->tags) as $tager_id)
-                            
                                     <a href="javascript:void(0);" class="d-inline-block"
                                         title="{{ AecUser($tager_id)->full_name }}">
                                         <div class="d-flex align-items-center">

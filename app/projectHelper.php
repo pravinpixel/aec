@@ -33,7 +33,7 @@ if (!function_exists('getTeamByProjectId')) {
 if (!function_exists('getAllAdmin')) {
     function getAllAdmin()
     {
-        return AecUsers::where('job_role', '!=', 0)->get()->toArray();
+        return AecUsers::where('job_role', '!=', 0)->where('job_role', '!=', 6)->get()->toArray();
     }
 }
 
