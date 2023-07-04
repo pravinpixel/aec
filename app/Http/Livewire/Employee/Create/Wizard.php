@@ -126,6 +126,11 @@ class Wizard extends Component
                 // }
             }
         }
+        $details = [
+            'user_name' => $this->full_name,
+            'email'     => $this->email,
+        ];
+        Mail::to($this->email)->send(new \App\Mail\EmployeeMail($details));
         $employee->first_name              = $this->first_name;
         $employee->last_name               = $this->last_name;
         $employee->full_name               = $this->full_name;
