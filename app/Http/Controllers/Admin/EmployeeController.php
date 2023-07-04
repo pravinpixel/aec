@@ -182,8 +182,7 @@ class EmployeeController extends Controller
         $module->status = 1;
         $module->share_access = 0;
         $module->bim_access = 0;
-        $module->access = 0;
-        dd($module);
+        $module->access = 0; 
         if($request->hasFile('file'))
         {
          

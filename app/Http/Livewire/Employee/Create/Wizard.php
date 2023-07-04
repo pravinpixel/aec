@@ -6,6 +6,7 @@ use App\Helper\Bim360\Bim360ProjectsApi;
 use App\Helper\Bim360\Bim360UsersApi;
 use App\Models\Admin\Employees;
 use App\Models\Admin\SharePointAccess;
+use App\Models\AecUsers;
 use App\Models\EmployeeBimAccessProject;
 use App\Models\EmployeeSharePointMasterFolder;
 use App\Models\Project;
@@ -102,9 +103,20 @@ class Wizard extends Component
                 'password'      => ['required','min:8'],
                 'mobile_number' => ['required', $pattern]
             ], $customMessages); 
+            $AecUsers = AecUsers::create([
+                'first_name' => $this->first_name,
+                'last_name'  => $this->last_name,
+                'full_name'  => $this->full_name,
+                'email'      => $this->email,
+                'password'   => Hash::make($this->password),
+                'image'      => "https://picsum.photos/200",
+                'job_role'   =>$this->job_role
+            ]);
             $employee = new Employees();
             $employee->reference_number = $this->getEnquiryNumber();
+            $employee->aec_user_id = $AecUsers->id;
         }
+
         $employee->first_name              = $this->first_name;
         $employee->last_name               = $this->last_name;
         $employee->full_name            = $this->full_name;
