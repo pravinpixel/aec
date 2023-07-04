@@ -124,11 +124,14 @@ class AuthCustomerController extends Controller
         }
 
         $id = decrypt($id);
-        $customer                  = Customer::findOrFail($id);
+        $customer                  = Customer::with('AecUsers')->findOrFail($id);
         if (!is_null($customer->organization_no)) {
             Flash::error(__('This Email ID is already registered with our portal... Please login with your credentials'));
             return back();
         }
+        $customer->AecUsers()->update([
+            "email" => $customer->email
+        ]);
         $customer->company_name    = $request->company_name;
         $customer->organization_no = $request->organization_no;
         $customer->mobile_no       = $request->mobile_no;
