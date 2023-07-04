@@ -5,8 +5,8 @@
         style="background:white !important">
         <span class="logo-lg font-weight-bold">
             <span class="page-title text-danger">
-                {{-- <b>AEC</b> <span class="text-white">Prefab</span> --}}
-                <img src="{{ asset('public/assets/images/admin/logo-admin.png') }}" alt="AEC Prefab" width="150px">
+                {{-- <b>AEC</b> <span class="text-white">Prefab</span> --}} 
+                <img src="{{ asset('public/assets/images/admin/logo-admin.png') }}" alt="AEC Prefab" width="150px"> 
             </span>
         </span>
         <span class="logo-sm font-weight-bold ">
@@ -36,6 +36,14 @@
 
         <!--- Sidemenu -->
         <ul class="side-nav pt-3">
+            @if (strtoupper(AecAuthUser()->Role->slug) === 'COST_ESTIMATE')
+            <li class="side-nav-item ">
+                <a href="{{ route('cost-estimate.dashboard') }}" class="side-nav-link">
+                    <i class="fa fa-server" aria-hidden="true"></i>
+                    <span> Dashboard </span>
+                </a>
+            </li>
+            @endif
             @if (userHasAccess('enquiry_dashboard') ||
                     userHasAccess('project_dashboard') ||
                     userHasAccess('economy_dashboard') ||

@@ -61,12 +61,7 @@ if (!function_exists('userRole')) {
 if (!function_exists('userRoleName')) {
     function userRoleName()
     {
-        $user =  Admin();
-        $role = array();
-        if ($user != "") {
-            $role = Role::find($user->job_role);
-        }
-        return strtoupper(str_replace('_', '_', $role->slug));
+        return strtoupper(AecAuthUser()->Role->slug);
     }
 }
 if (!function_exists('colors')) {
