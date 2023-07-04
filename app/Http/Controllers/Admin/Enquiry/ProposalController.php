@@ -178,20 +178,20 @@ class ProposalController extends Controller
         try {
             Mail::to($enquiry->customer->email)->send(new EnquiryProposalActionMail([
                 "mail_type" => 'CUSTOMER',
-                'proposal'   => $proposal,
-                'customer' => $enquiry->customer
+                'proposal'  => $proposal,
+                'customer'  => $enquiry->customer
             ]));
             Mail::to(config('mail.admin'))->send(new EnquiryProposalActionMail([
                 "mail_type" => 'ADMIN',
-                'proposal'   => $proposal,
-                'customer' => $enquiry->customer
+                'proposal'  => $proposal,
+                'customer'  => $enquiry->customer
             ]));
         } catch (\Throwable $th) {
             //throw $th;
         }
 
         Flash::success('Proposal Status Changed!');
-        return redirect('/');
+        return redirect()->back();
     }
 
     public function addComment($enquiry_id, $other, $type)

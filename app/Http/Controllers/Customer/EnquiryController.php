@@ -45,7 +45,7 @@ class EnquiryController extends Controller
     protected $documentTypeEnquiryRepo;
     protected $outputTypeRepository;
     protected $enquiryCommentsRepo;
- 
+
     public function __construct(
         CustomerEnquiryRepositoryInterface $customerEnquiryRepository,
         ServiceRepositoryInterface $serviceRepo,
@@ -81,7 +81,7 @@ class EnquiryController extends Controller
     }
 
     public function myEnquiriesEdit($id, $type = null)
-    { 
+    {
         session()->put('enquiry_id', $id);
         $enquiry = $this->customerEnquiryRepo->getEnquiry($id);
         if ($type == 'new') {
@@ -93,7 +93,7 @@ class EnquiryController extends Controller
         }
         $enquiry = $this->customerEnquiryRepo->getEnquiry($id);
         $customer['document_types']     =   $this->documentTypeRepo->all();
-        
+
         if (empty($enquiry)) {
             abort(403, 'Unauthorized action.');
         } else {
@@ -217,7 +217,7 @@ class EnquiryController extends Controller
                 return $this->storeIfcLink($request, $enquiry);
             }
             $extension          =   $request->file('file')->getClientOriginalExtension();
-            if(!in_array($extension , config('global.upload_file_types'))) {
+            if (!in_array($extension, config('global.upload_file_types'))) {
                 return response(['status' => false, 'msg' => __('global.invalid_file_format')]);
             }
             return $this->storeIfcUpload($request, $enquiry);
@@ -251,11 +251,11 @@ class EnquiryController extends Controller
             return response($result);
         } else if ($type == 'save_or_submit') {
             $status = $this->customerEnquiryRepo->updateStatusById($enquiry, $data);
-            if ($status == 'Submitted') { 
+            if ($status == 'Submitted') {
                 $this->customerEnquiryRepo->AddEnquiryReferenceNo($enquiry);
                 $this->customerEnquiryRepo->updateWizardStatus($enquiry, 'is_customer_active_enquiry');
                 Mail::to($enquiry->customer['email'])->send(new NewEnquiryMailForCustomer($enquiry));
-                Mail::to(config('mail.admin'))->send(new NewEnquiryMailForAdmin ($enquiry));
+                Mail::to(config('mail.admin'))->send(new NewEnquiryMailForAdmin($enquiry));
                 return response(['status' => true, 'msg' => 'submitted']);
             }
             return response(['status' => true, 'msg' => 'saved']);
@@ -372,7 +372,7 @@ class EnquiryController extends Controller
                 return $this->storeIfcLink($request, $enquiry);
             }
             $extension          =   $request->file('file')->getClientOriginalExtension();
-            if(!in_array($extension , config('global.upload_file_types'))) {
+            if (!in_array($extension, config('global.upload_file_types'))) {
                 return response(['status' => false, 'msg' => __('global.invalid_file_format')]);
             }
             return $this->storeIfcUpload($request, $enquiry);
@@ -591,7 +591,7 @@ class EnquiryController extends Controller
     {
         $outputTypes =  $this->outputTypeRepository->get();
         $enquiry = $this->customerEnquiryRepo->getEnquiryById($id);
-        $this->customerEnquiryRepo->updateAdminWizardStatus($enquiry,'is_customer_active_enquiry',false);
+        $this->customerEnquiryRepo->updateAdminWizardStatus($enquiry, 'is_customer_active_enquiry', false);
         $services = $enquiry->services()->get();
         $result['project_infos']           = $this->formatProjectInfo($enquiry);
         $result['customer']                = getCustomerByEnquiryId($enquiry->id);
@@ -643,9 +643,9 @@ class EnquiryController extends Controller
             return DataTables::eloquent($dataDb)
                 ->editColumn('enquiry_number', function ($dataDb) {
                     return ' 
-                        <button type="button" class="btn-quick-view" onclick="EnquiryQuickView('.$dataDb->id.' , this ,0)" >
-                            <b>'. $dataDb->enquiry_number.'</b> 
-                            '.getModuleChatCount('CUSTOMER','ENQUIRY',$dataDb->id).'
+                        <button type="button" class="btn-quick-view" onclick="EnquiryQuickView(' . $dataDb->id . ' , this ,0)" >
+                            <b>' . $dataDb->enquiry_number . '</b> 
+                            ' . getModuleChatCount('CUSTOMER', 'ENQUIRY', $dataDb->id) . '
                         </button>
                     ';
                 })
@@ -707,21 +707,17 @@ class EnquiryController extends Controller
                 ->where(['status' => 'Submitted', 'customer_id' => Customer()->id]);
 
             return DataTables::eloquent($dataDb)
-                // <button type="button" class="btn-quick-view ' . $proposal_active_bg . ' ' . $proposal_active_border . '"  ng-click=getEnquiry("project_info",' . $dataDb->id . ')> 
                 ->editColumn('enquiry_number', function ($dataDb) {
                     $commentCount = $dataDb->comments->count();
                     $proposal_active_border = $dataDb->proposal_email_status == 1 ? 'border-success' : 'border-primary';
                     $proposal_active_bg = $dataDb->proposal_email_status == 1 ? 'badge-primary-lighten text-success' : 'badge-primary-lighten';
-                    $data = '
-                         <button type="button" class="btn-quick-view"  onclick="EnquiryQuickView('. $dataDb->id .' ,this)">
-                            ' . $dataDb->enquiry_number . '
-                            '.getModuleChatCount('CUSTOMER','ENQUIRY',$dataDb->id).' 
-                        ';
+                    $data = '<button type="button" class="btn-quick-view"  onclick="EnquiryQuickView(' . $dataDb->id . ' ,this)">
+                            ' . $dataDb->enquiry_number . getModuleChatCount('CUSTOMER', 'ENQUIRY', $dataDb->id) . ' ';
                     if ($commentCount != 0) {
                         $data .= '<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" >' . $commentCount . ' </span>';
                     }
                     $data .= '</button>';
-                    return $data; 
+                    return $data;
                 })
                 ->addColumn('projectType', function ($dataDb) {
                     return $dataDb->projectType->project_type_name ?? '';
@@ -743,20 +739,12 @@ class EnquiryController extends Controller
                     $format = FacadesConfig::get('global.model_date_format');
                     return Carbon::parse($dataDb->enquiry_date)->format($format);
                 })
-                ->addColumn('pipeline', function ($dataDb) {
-                    $getProposal = '';
-                    if(count($dataDb->getProposal)) {
-                        $getProposal = '<a target="_blank" href="' . route("proposal.index", $dataDb->id) . '" class="btn progress-btn ' . ($dataDb->proposal_sharing_status == 1 ? "active" : "") . '" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Proposal Received"></a>';
-                    }
-                    return '<div class="btn-group">
-                        <button ng-click=getEnquiry("project_info",' . $dataDb->id . ') class="btn progress-btn ' . ($dataDb->project_info == 1 ? "active" : "") . '" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Project Information"></button> 
-                        '.$getProposal.'
-                        <button  class="btn progress-btn ' . ($dataDb->project_status == "Active" ? "active" : "") . '" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Proposal Approved"></button> 
-                    </div>';
+                ->addColumn('pipeline', function ($data) {
+                    return view('particals.customer-pipeline', compact('data'));
                 })
-                ->addColumn('action', function ($dataDb) { 
-                    if(count($dataDb->MailedEnquiryProposal)) {
-                        $propossalButton = '<button class="dropdown-item" onclick="viewCustomerEnquiryProposal('.$dataDb->id.')">' . trans('enquiry.view_proposal') . '</button>';
+                ->addColumn('action', function ($dataDb) {
+                    if (count($dataDb->MailedEnquiryProposal)) {
+                        $propossalButton = '<button class="dropdown-item" onclick="viewCustomerEnquiryProposal(' . $dataDb->id . ')">' . trans('enquiry.view_proposal') . '</button>';
                     } else {
                         $propossalButton = '<button class="dropdown-item" disabled>' . trans('enquiry.view_proposal') . '</button>';
                     }
@@ -766,7 +754,7 @@ class EnquiryController extends Controller
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 <a class="dropdown-item" href="' . route("customers.edit-enquiry", [$dataDb->id, 'active']) . '">' . trans('enquiry.view_edit') . '</a>
-                                '.$propossalButton.'
+                                ' . $propossalButton . '
                                 <a type="button" class="dropdown-item delete-modal" data-header-title="Close Enquiry" data-title="' . trans('enquiry.popup_move_to_cancel', ['enquiry_no' => $dataDb->enquiry_number]) . '" data-action="' . route('customers.move-to-cancel', [$dataDb->id]) . '" data-method="POST" data-bs-toggle="modal" data-bs-target="#primary-header-modal">' . trans('enquiry.cancel_enquiry') . '</a>
                             </div>
                         </div>';
@@ -800,9 +788,9 @@ class EnquiryController extends Controller
             return DataTables::eloquent($dataDb)
                 ->editColumn('enquiry_number', function ($dataDb) {
                     return ' 
-                        <button type="button" class="btn-quick-view" onclick="EnquiryQuickView('.$dataDb->id.' , this)" >
-                            <b>'. $dataDb->enquiry_number.'</b>
-                            '.getModuleChatCount('CUSTOMER','ENQUIRY',$dataDb->id).' 
+                        <button type="button" class="btn-quick-view" onclick="EnquiryQuickView(' . $dataDb->id . ' , this)" >
+                            <b>' . $dataDb->enquiry_number . '</b>
+                            ' . getModuleChatCount('CUSTOMER', 'ENQUIRY', $dataDb->id) . ' 
                         </button>
                     ';
                 })
@@ -905,16 +893,18 @@ class EnquiryController extends Controller
         $file = file_get_contents(asset($url));
         return base64_encode($file);
     }
-    public function getCustomerEnquiries(Request $req){
-        $comment=Comment::where('type_id',$req->enquery_id)->first();
+    public function getCustomerEnquiries(Request $req)
+    {
+        $comment = Comment::where('type_id', $req->enquery_id)->first();
         return response()->json([
-            'comments'=>$comment
+            'comments' => $comment
         ]);
     }
-    public function getAdditionalDetails($id,$type){
-        $cmd=Comment::where('type_id',$id)->first();
+    public function getAdditionalDetails($id, $type)
+    {
+        $cmd = Comment::where('type_id', $id)->first();
         return response()->json([
-            'data'=>$cmd
+            'data' => $cmd
         ]);
     }
 }
