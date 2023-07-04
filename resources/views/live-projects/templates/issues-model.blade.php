@@ -37,7 +37,8 @@
                     </a>
                 </li>
             @endif
-            <button type="button" class="btn-close top-0 mt-2" onclick="location.reload()" data-bs-dismiss="modal" aria-hidden="true"></button>
+            <button type="button" class="btn-close top-0 mt-2" onclick="location.reload()" data-bs-dismiss="modal"
+                aria-hidden="true"></button>
         </ul>
         <div class="tab-content p-2">
             <div class="tab-pane show active" id="properties-b1">
@@ -61,17 +62,23 @@
                             <div class="mb-3">
                                 <b>Status</b> :
                                 <span>
-                                    @if ($issue->requester_role === AuthUser() || AuthUser() === 'ADMIN')  
+                                    @if ($issue->requester_role === AuthUser() || AuthUser() === 'ADMIN')
                                         <select name="Status" onchange="ChangeIssueStatus('{{ $issue->id }}',this)"
                                             class="rounded-pill shadow-sm border border-light"
                                             value="{{ $issue->status }}" style="outline:none">
-                                            <option {{ select_status('OPEN', $issue) }} value="OPEN">{{ __('project.OPEN') }}</option>
-                                            <option {{ select_status('CLOSED', $issue) }} value="CLOSED">{{ __('project.CLOSED') }}</option>
+                                            <option {{ select_status('OPEN', $issue) }} value="OPEN">
+                                                {{ __('project.OPEN') }}</option>
+                                            <option {{ select_status('CLOSED', $issue) }} value="CLOSED">
+                                                {{ __('project.CLOSED') }}</option>
                                         </select>
-                                        @else 
-                                        <select name="Status" disabled class="rounded-pill shadow-sm border border-light"  value="{{ $issue->status }}" style="outline:none">
-                                            <option {{ select_status('OPEN', $issue) }} value="OPEN">{{ __('project.OPEN') }}</option>
-                                            <option {{ select_status('CLOSED', $issue) }} value="CLOSED">{{ __('project.CLOSED') }}</option>
+                                    @else
+                                        <select name="Status" disabled
+                                            class="rounded-pill shadow-sm border border-light"
+                                            value="{{ $issue->status }}" style="outline:none">
+                                            <option {{ select_status('OPEN', $issue) }} value="OPEN">
+                                                {{ __('project.OPEN') }}</option>
+                                            <option {{ select_status('CLOSED', $issue) }} value="CLOSED">
+                                                {{ __('project.CLOSED') }}</option>
                                         </select>
                                     @endif
                                     <div id="status_form"></div>
@@ -122,7 +129,7 @@
                             @if ($issue->type == 'EXTERNAL')
                                 @if (AuthUser() === 'CUSTOMER')
                                     <a href="javascript:void(0);" class="d-inline-block"
-                                        title="{{  AecUser($issue->assignee_id)->full_name  }}">
+                                        title="{{ AecUser($issue->assignee_id)->full_name }}">
                                         <div class="d-flex align-items-center">
                                             {!! getCustomerAvatar($issue->assignee_id) !!}
                                             <div class="text-capitalize ps-1">
@@ -243,10 +250,13 @@
         </div>
     </div>
     <div class="modal-footer">
-        @if ( $issue->type == 'INTERNAL')
-            <button class="btn btn-outline-danger btn-sm me-2" onclick="convertVariation({{ $issue->id }},this)">
-                Convert to Variation <i class="fa fa-share" aria-hidden="true"></i>
-            </button>
+        @if ($issue->type == 'EXTERNAL')
+            <x-admin-layout>
+                <button class="btn btn-outline-danger btn-sm me-2"
+                    onclick="convertVariation({{ $issue->id }},this)">
+                    Convert to Variation <i class="fa fa-share" aria-hidden="true"></i>
+                </button>
+            </x-admin-layout>
         @endif
         <x-chat-box status="CHAT_BUTTON" :moduleId="$issue->project_id" moduleName="project" :menuName="str_replace('/', '_', $issue->issue_id)" />
     </div>
