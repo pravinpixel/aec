@@ -67,7 +67,12 @@ class Notify
         $Role = strtoupper(AecAuthUser()->Role->slug);
         if ($Role == 'AEC_CUSTOMER') {
             $module      = Enquiry::with('customer')->find($data['module_id']);
-            $customer_id = $module->customer->AecUsers->job_role;
+            if(!is_null($module)) {
+                $customer_id = $module->customer->AecUsers->job_role;
+            } else {
+                $module      = Project::with('Customer')->find($data['module_id']);
+                $customer_id = $module->customer->AecUsers->job_role;
+            }
             $messages = Inbox::whereRaw('(
                     module_name   = "' . $data['module_name'] . '" and
                     module_id     = "' . $data['module_id'] . '" and
