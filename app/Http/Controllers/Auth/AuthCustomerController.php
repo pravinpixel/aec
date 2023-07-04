@@ -130,7 +130,7 @@ class AuthCustomerController extends Controller
             return back();
         }
         $customer->AecUsers()->update([
-            "email" => $customer->email
+            "email" => $request->email
         ]);
         $customer->company_name    = $request->company_name;
         $customer->organization_no = $request->organization_no;
