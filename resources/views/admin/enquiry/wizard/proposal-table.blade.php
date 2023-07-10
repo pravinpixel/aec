@@ -39,7 +39,7 @@
                                 <td style="width: 28% !important" class="text-info text-center">
                                     {{ $proposal->comments }}</td>
                                 <td style="width: 16% !important"class="text-center">
-                                    <small>{{ $proposal->mailed_at ?? 'Not Yet Send! ' }}</small>
+                                    <small>{{ $proposal->mailed_at ?? 'Not Yet Sent' }}</small>
                                 </td>
                                 <td style="width: 6% !important" class="text-center">
                                     <x-enquiry-proposal-action :proposal="$proposal" />
@@ -69,7 +69,7 @@
                                                             </div>
                                                         </td>
                                                         <td style="width: 16% !important" class="text-center">
-                                                            <small>{{ $version->mailed_at ?? 'Not Yet Send!' }}</small>
+                                                            <small>{{ $version->mailed_at ?? 'Not Yet Sent' }}</small>
                                                         </td>
                                                         <td style="width: 6% !important" class="text-center">
                                                             <x-enquiry-proposal-action :proposal="$version" />
