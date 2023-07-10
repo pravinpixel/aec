@@ -723,6 +723,7 @@ class EnquiryController extends Controller
                     return $dataDb->projectType->project_type_name ?? '';
                 })
                 ->editColumn('status', function ($dataDb) {
+                    $status = '<small class="px-1 bg-secondary text-white rounded-pill text-center">Pending</small>';
                     if ($dataDb->response_status == 0) {
                         $status = '<small class="px-1 bg-info text-white rounded-pill text-center">Submitted</small>';
                     }
