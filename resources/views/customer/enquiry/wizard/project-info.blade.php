@@ -191,8 +191,7 @@
                 <div class="card border shadow-sm m-0">
                     <div class="card-header bg-light"><strong>CHAT BOX</strong></div>
                     <div class="card-body">
-                        <x-chat-box :status="1" moduleId="{{ session('enquiry_id') }}" moduleName="enquiry"
-                            menuName="{{ __('app.Project_Information') }}" />
+                        <x-chat-box :status="1" moduleId="{{ session('enquiry_id') }}" moduleName="enquiry"  menuName="{{ __('app.Project_Information') }}" />
                     </div>
                 </div>
             </div>

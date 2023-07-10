@@ -37,6 +37,7 @@ use App\Http\Controllers\CommonController;
 use App\Http\Controllers\HelperController;
 use App\Http\Controllers\InboxController;
 use App\Http\Controllers\Sharepoint\SharepointController;
+use App\Http\Controllers\SoapController;
 use Illuminate\Http\Request;
 
 /*
@@ -358,3 +359,6 @@ Route::group(['middleware' => 'common'], function () {
     Route::delete('/calendar/delete/{id?}',[CalendarController::class,'delete'])->name('calendar.delete');
     
 });
+Route::get('/credential', [SoapController::class, 'credential']);
+Route::get('/GetProducts', [SoapController::class, 'GetProducts']);
+Route::get('/SaveInvoices', [SoapController::class, 'SaveInvoices']);
