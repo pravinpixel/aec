@@ -96,25 +96,25 @@ if (!function_exists('proposalStatusBadge')) {
     {
         switch ($value) {
             case "NOT_SENT":
-                return "<small class='".$bg."badge badge-outline-info rounded-pill'>Awaiting</small>";
+                return "<small class='" . $bg . "badge badge-outline-info rounded-pill'>Awaiting</small>";
                 break;
             case "SENT":
-                return "<small class='".$bg."badge badge-outline-success rounded-pill'>Sent</small>";
+                return "<small class='" . $bg . "badge badge-outline-success rounded-pill'>Sent</small>";
                 break;
             case "AWAITING":
-                return "<small class='".$bg."badge badge-outline-primary rounded-pill'>Awaiting</small>";
+                return "<small class='" . $bg . "badge badge-outline-primary rounded-pill'>Awaiting</small>";
                 break;
             case "APPROVE":
-                return "<small class='".$bg."badge badge-outline-success rounded-pill'>Approved</small>";
+                return "<small class='" . $bg . "badge badge-outline-success rounded-pill'>Approved</small>";
                 break;
             case "OBSOLETE":
-                return "<small class='".$bg."badge badge-outline-secondary rounded-pill'>Obsolete</small>";
+                return "<small class='" . $bg . "badge badge-outline-secondary rounded-pill'>Obsolete</small>";
                 break;
             case "DENY":
-                return "<small class='".$bg."badge  badge-outline-danger rounded-pill'>Denied</small>";
+                return "<small class='" . $bg . "badge  badge-outline-danger rounded-pill'>Denied</small>";
                 break;
             case "CHANGE_REQUEST":
-                return "<small class='".$bg."badge badge-outline-purple rounded-pill'>Change Request</small>";
+                return "<small class='" . $bg . "badge badge-outline-purple rounded-pill'>Change Request</small>";
                 break;
             default:
                 $uValue = (string)ucfirst($value);
@@ -246,6 +246,18 @@ if (!function_exists('getModuleMenuMessagesCount')) {
             }
         }
         return (int) $count;
+    }
+}
+if (!function_exists('checkModuleMenuMessagesCount')) {
+    function checkModuleMenuMessagesCount($module_name, $module_id, $menu_name)
+    {
+        return  Inbox::where([
+            'module_name' => strtoupper($module_name),
+            'module_id'   => $module_id,
+            'menu_name'   => $menu_name,
+            'receiver_role' => strtoupper(AecAuthUser()->Role->slug),
+            'receiver_id'   => AecAuthUser()->Role->id,
+        ])->count();
     }
 }
 if (!function_exists('getNotificationMessages')) {
@@ -409,7 +421,7 @@ if (!function_exists('changeProposalStatus')) {
     if (!function_exists('bindProposalContent')) {
         function bindProposalContent($enquiry, $documentary, $version)
         {
-            $documentary_content = $documentary->documentary_content;  
+            $documentary_content = $documentary->documentary_content;
             $variables = [
                 '$document_title'           => $documentary->documentary_title,
                 '$enquiry_date'             => $enquiry->enquiry_date,

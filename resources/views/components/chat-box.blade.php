@@ -19,7 +19,7 @@
     ';
 @endphp
 @php
-    $PreviousChatHistory = getModuleMenuMessagesCount($moduleName, $moduleId, $menuName, 'count');
+    $PreviousChatHistory = checkModuleMenuMessagesCount($moduleName, $moduleId, $menuName);
 @endphp
 @if ($status == 1)
     <div>
@@ -40,7 +40,7 @@
     </div>
 @endif
 @if ($status == 'CHAT_ICON')
-    @if (getModuleMenuMessagesCount($moduleName, $moduleId, $menuName, 'count') != 0)
+    @if ($$PreviousChatHistory)
         <span class="position-absolute wizard-chat-box"
             onclick="PreviousChatHistory(this, '{{ $moduleId }}', '{{ $moduleName }}' , '{{ $menuName }}' )"
             data-bs-toggle="modal" data-bs-target="#viewMyInbox{{ $menuName }}">
