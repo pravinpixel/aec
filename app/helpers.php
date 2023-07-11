@@ -255,15 +255,9 @@ if (!function_exists('checkModuleMenuMessagesCount')) {
             'module_name' => strtoupper($module_name),
             'module_id'   => $module_id,
             'menu_name'   => $menu_name,
-        ])->where(function($query){
-            $query->where('receiver_role', strtoupper(AecAuthUser()->Role->slug));
-            $query->where('receiver_id', AecAuthUser()->Role->id);
-        })
-        ->orWhere(function($query){
-            $query->where('sender_role', strtoupper(AecAuthUser()->Role->slug));
-            $query->where('sender_id', AecAuthUser()->Role->id);
-        })
-        ->count();
+            'receiver_role' => strtoupper(AecAuthUser()->Role->slug),
+            'receiver_id'   => AecAuthUser()->Role->id,
+        ])->count();
     }
 }
 if (!function_exists('getNotificationMessages')) {
