@@ -149,7 +149,7 @@ class CustomerController extends Controller
             Flash::success(__('global.deleted'));
             return redirect(route('admin.customer.index'));
         } catch (\Throwable $th) {
-            Flash::error(__('global.something'));
+            Flash::error($th->getMessage());
             return redirect(route('admin.customer.index'));
         }
     }
