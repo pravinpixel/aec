@@ -440,9 +440,12 @@ class ProjectController extends Controller
     public function liveProjectList(Request $request)
     {
         if ($request->ajax() == true) {
-            $dataDb = Project::with(['LiveProjectTasks', 'enquiry', 'comments' => function ($q) {
+            $dataDb = Project::with(['Customer','LiveProjectTasks', 'enquiry', 'comments' => function ($q) {
                 $q->where(['status' => 0, 'created_by' => 'Customer']);
-            }])->where('status', 'LIVE');
+            }])
+            ->WhereHas('Customer', function ($q) {
+                $q->where('is_active', 1);
+            })->where('status', 'LIVE');
             return DataTables::eloquent($dataDb)
                 ->editColumn('reference_number', function ($dataDb) {
                     return '<button type="button" class="btn-quick-view" onclick="LiveProjectQuickView(' . $dataDb->id . ' , this)" >
