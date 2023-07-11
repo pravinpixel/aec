@@ -132,24 +132,12 @@ class CustomerController extends Controller
      */
     public function destroy($id)
     {
-        $customer = Customer::with('Projects')->withTrashed($id)->find($id);
-        $Project  = Project::where('customer_id', $id)->select('*');
-        $Enquiry  = Enquiry::where('customer_id', $id)->select('*');
-
-        try {
-            if (!is_null($Project)) {
-                $Project->delete();
-            }
-            if (!is_null($Enquiry)) {
-                $Enquiry->delete();
-            }
-            $customer->forceDelete();
-            Flash::success(__('global.deleted'));
-            return redirect(route('admin.customer.index'));
-        } catch (\Throwable $th) {
-            Flash::error($th->getMessage());
-            return redirect(route('admin.customer.index'));
-        }
+        Customer::find($id)->update([
+            'is_deleted' => 1,
+            'is_active' => 0
+        ]);
+        Flash::success(__('global.deleted'));
+        return redirect(route('admin.customer.index'));
     }
 
     public function getLoginCustomer()

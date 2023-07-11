@@ -49,6 +49,7 @@ class Customer extends Authenticatable
         'state',
         'country',
         'is_active',
+        'is_deleted',
         'created_by',
         'updated_by',
         'device_token',
