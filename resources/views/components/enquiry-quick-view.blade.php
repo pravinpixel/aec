@@ -160,7 +160,7 @@
                 </tbody>
             </table>
             <x-chat-box
-                status="1"
+                :status="$chat_status"
                 :moduleId="$enquiry['project_infos']['enquiry_id']"
                 moduleName="enquiry"
                 menuName="{{ __('app.Project_Information') }}"
