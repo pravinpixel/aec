@@ -133,8 +133,8 @@ class CustomerController extends Controller
     public function destroy($id)
     {
         $customer = Customer::with('Projects')->withTrashed($id)->find($id);
-        $Project  = Project::where('customer_id', $id)->get();
-        $Enquiry  = Enquiry::where('customer_id', $id)->get();
+        $Project  = Project::where('customer_id', $id)->select('*');
+        $Enquiry  = Enquiry::where('customer_id', $id)->select('*');
 
         try {
             if (!is_null($Project)) {
