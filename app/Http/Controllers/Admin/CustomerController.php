@@ -11,6 +11,8 @@ use App\Models\Enquiry;
 use App\Models\Project;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
@@ -19,12 +21,13 @@ use Yajra\DataTables\Facades\DataTables;
 
 class CustomerController extends Controller
 {
-     /**
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index() {
+    public function index()
+    {
         return view('admin.customer.index');
     }
 
@@ -35,7 +38,6 @@ class CustomerController extends Controller
      */
     public function create()
     {
-
     }
 
     /**
@@ -46,7 +48,6 @@ class CustomerController extends Controller
      */
     public function store(CreateCustomerRequest $request)
     {
-
     }
 
     /**
@@ -112,12 +113,12 @@ class CustomerController extends Controller
                     'first_name' => $customer->first_name ?? ''
                 ];
                 Mail::to($customer->email)->send(new \App\Mail\UpdateCustomerMail($details));
-            }catch (Exception $ex){
+            } catch (Exception $ex) {
                 Log::info($ex->getMessage());
             }
         }
         $result                    = $customer->save();
-        if($result) {
+        if ($result) {
             Flash::success(__('global.updated'));
             return redirect(route('admin.customer.index'));
         }
@@ -134,16 +135,23 @@ class CustomerController extends Controller
     public function destroy($id)
     {
         $customer = Customer::with('Projects')->withTrashed($id)->find($id);
-        if(!is_null($customer->enquiry) && !is_null($customer->Projects)) {
-            if(count($customer->enquiry) === 0 && count($customer->Projects) === 0) {
-                if($customer->forceDelete()) {
-                    Flash::success(__('global.deleted'));
-                    return redirect(route('admin.customer.index'));
-                }
+        $Project  = Project::where('customer_id', $id)->get();
+        $Enquiry  = Enquiry::where('customer_id', $id)->get();
+
+        try {
+            if ($Project) {
+                $Project->delete();
             }
+            if ($Enquiry) {
+                $Enquiry->delete();
+            }
+            $customer->forceDelete();
+            Flash::success(__('global.deleted'));
+            return redirect(route('admin.customer.index'));
+        } catch (\Throwable $th) {
+            Flash::error(__('global.something'));
+            return redirect(route('admin.customer.index'));
         }
-        Flash::error("You can't delete this customer, need to delete all enquiries and projects");
-        return redirect(route('admin.customer.index'));
     }
 
     public function getLoginCustomer()
@@ -157,16 +165,16 @@ class CustomerController extends Controller
         $id = Customer()->id;
         $customer = Customer::find($id);
         $paymentDue = true;
-        $activeProject = Project::where(['customer_id'=> $id, 'status'=> 'LIVE'])->get()->count();
-        return view('customer.pages.profile', compact('customer','activeProject','paymentDue'));
+        $activeProject = Project::where(['customer_id' => $id, 'status' => 'LIVE'])->get()->count();
+        return view('customer.pages.profile', compact('customer', 'activeProject', 'paymentDue'));
     }
 
     public function updateProfile(CustomerProfileRequest $request)
-    { 
+    {
         $id = Customer()->id;
-        $data = $request->except(['_token','_method']);
+        $data = $request->except(['_token', '_method']);
         $customer = Customer::find($id)->update($data);
-        if($customer) {
+        if ($customer) {
             Flash::success(__('global.updated'));
         }
         return redirect(route('customers-dashboard'));
@@ -175,62 +183,62 @@ class CustomerController extends Controller
     public function inActiveDatatable(Request $request)
     {
         if ($request->ajax() == true) {
-            $dataDb = Customer::where('is_active',0);
+            $dataDb = Customer::where('is_active', 0);
             return DataTables::eloquent($dataDb)
-                    ->editColumn('is_active', function($dataDb){
-                        $status = '';
-                        if($dataDb->is_active == 0){
-                            $status = '<small class="px-1 bg-danger text-white rounded-pill text-center">In active</small>';
-                        }
-                        return $status;
-                    })
-                    ->addColumn('action', function($dataDb){
-                        return '
+                ->editColumn('is_active', function ($dataDb) {
+                    $status = '';
+                    if ($dataDb->is_active == 0) {
+                        $status = '<small class="px-1 bg-danger text-white rounded-pill text-center">In active</small>';
+                    }
+                    return $status;
+                })
+                ->addColumn('action', function ($dataDb) {
+                    return '
                                 <div class="">
                                     <button class="btn btn-light btn-sm border shadow-sm" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <a type="button" class="dropdown-item"  onclick="sendRemainder('.$dataDb->id.')" > Send Reminder </a>
-                                        <a type="button" class="dropdown-item" href="'.route('admin.customer.edit', $dataDb->id).'"> View Details </a>
-                                        <a type="button" class="dropdown-item delete-modal" data-header-title="Delete Customer" data-title="'.trans('enquiry.delete_customer', ['customer' => $dataDb->full_name]).'" data-action="'.route('admin.customer.destroy',[$dataDb->id]).'" data-method="DELETE" data-bs-toggle="modal" data-bs-target="#primary-header-modal">Delete</a>
+                                        <a type="button" class="dropdown-item"  onclick="sendRemainder(' . $dataDb->id . ')" > Send Reminder </a>
+                                        <a type="button" class="dropdown-item" href="' . route('admin.customer.edit', $dataDb->id) . '"> View Details </a>
+                                        <a type="button" class="dropdown-item delete-modal" data-header-title="Delete Customer" data-title="' . trans('enquiry.delete_customer', ['customer' => $dataDb->full_name]) . '" data-action="' . route('admin.customer.destroy', [$dataDb->id]) . '" data-method="DELETE" data-bs-toggle="modal" data-bs-target="#primary-header-modal">Delete</a>
                                     </div>
 
                                 </div>
                             ';
-                    })
-                    ->rawColumns(['action', 'is_active'])
-                    ->make(true);
+                })
+                ->rawColumns(['action', 'is_active'])
+                ->make(true);
         }
     }
 
     public function activeDatatable(Request $request)
     {
         if ($request->ajax() == true) {
-            $dataDb = Customer::where('is_active',1);
+            $dataDb = Customer::where('is_active', 1);
             return DataTables::eloquent($dataDb)
-                    ->editColumn('is_active', function($dataDb){
-                        $status = '';
-                        if($dataDb->is_active == 1){
-                            $status = '<small class="px-1 bg-success text-white rounded-pill text-center">Active</small>';
-                        }
-                        return $status;
-                    })
-                    ->addColumn('action', function($dataDb){
-                        return '
+                ->editColumn('is_active', function ($dataDb) {
+                    $status = '';
+                    if ($dataDb->is_active == 1) {
+                        $status = '<small class="px-1 bg-success text-white rounded-pill text-center">Active</small>';
+                    }
+                    return $status;
+                })
+                ->addColumn('action', function ($dataDb) {
+                    return '
                                 <div class="dropdown">
                                     <button class="btn btn-light btn-sm border shadow-sm" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <a type="button" class="dropdown-item" href="'.route('admin.customer.edit', $dataDb->id).'"> View </a>
-                                        <a type="button" class="dropdown-item delete-modal" data-header-title="Delete Customer" data-title="'.trans('enquiry.delete_customer', ['customer' => $dataDb->full_name]).'"data-action="'.route('admin.customer.destroy',[$dataDb->id]).'" data-method="DELETE" data-bs-toggle="modal" data-bs-target="#primary-header-modal">Delete</a>
+                                        <a type="button" class="dropdown-item" href="' . route('admin.customer.edit', $dataDb->id) . '"> View </a>
+                                        <a type="button" class="dropdown-item delete-modal" data-header-title="Delete Customer" data-title="' . trans('enquiry.delete_customer', ['customer' => $dataDb->full_name]) . '"data-action="' . route('admin.customer.destroy', [$dataDb->id]) . '" data-method="DELETE" data-bs-toggle="modal" data-bs-target="#primary-header-modal">Delete</a>
                                     </div>
                                 </div>
                             ';
-                    })
-                    ->rawColumns(['action', 'is_active'])
-                    ->make(true);
+                })
+                ->rawColumns(['action', 'is_active'])
+                ->make(true);
         }
     }
 
@@ -239,25 +247,25 @@ class CustomerController extends Controller
         if ($request->ajax() == true) {
             $dataDb = Customer::onlyTrashed();
             return DataTables::eloquent($dataDb)
-                    ->editColumn('is_active', function($dataDb){
-                        $status = '<small class="px-1 bg-danger text-white rounded-pill text-center">Cancel</small>';
-                        return $status;
-                    })
-                    ->addColumn('action', function($dataDb){
-                        return '
+                ->editColumn('is_active', function ($dataDb) {
+                    $status = '<small class="px-1 bg-danger text-white rounded-pill text-center">Cancel</small>';
+                    return $status;
+                })
+                ->addColumn('action', function ($dataDb) {
+                    return '
                                 <div class="dropdown">
                                     <button class="btn btn-light btn-sm border shadow-sm" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <a type="button" class="dropdown-item delete-modal" data-header-title="Activate Customer" data-title="'.trans('enquiry.active_customer', ['customer' => $dataDb->full_name]).'"data-action="'.route('admin.customer.activate',[$dataDb->id]).'" data-method="PUT" data-bs-toggle="modal" data-bs-target="#primary-header-modal">Activate</a>
-                                        <a type="button" class="dropdown-item delete-modal" data-header-title="Delete Customer" data-title="'.trans('enquiry.delete_customer', ['customer' => $dataDb->full_name]).'"data-action="'.route('admin.customer.delete',[$dataDb->id]).'" data-method="PUT" data-bs-toggle="modal" data-bs-target="#primary-header-modal">Delete</a>
+                                        <a type="button" class="dropdown-item delete-modal" data-header-title="Activate Customer" data-title="' . trans('enquiry.active_customer', ['customer' => $dataDb->full_name]) . '"data-action="' . route('admin.customer.activate', [$dataDb->id]) . '" data-method="PUT" data-bs-toggle="modal" data-bs-target="#primary-header-modal">Activate</a>
+                                        <a type="button" class="dropdown-item delete-modal" data-header-title="Delete Customer" data-title="' . trans('enquiry.delete_customer', ['customer' => $dataDb->full_name]) . '"data-action="' . route('admin.customer.delete', [$dataDb->id]) . '" data-method="PUT" data-bs-toggle="modal" data-bs-target="#primary-header-modal">Delete</a>
                                     </div>
                                 </div>
                             ';
-                    })
-                    ->rawColumns(['action', 'is_active'])
-                    ->make(true);
+                })
+                ->rawColumns(['action', 'is_active'])
+                ->make(true);
         }
     }
 
@@ -265,7 +273,7 @@ class CustomerController extends Controller
     {
         $customer = Customer::findOrFail($id);
         $customer->is_active = !$customer->is_active;
-        if($customer->save()) {
+        if ($customer->save()) {
             Flash::success(__('global.updated'));
             return redirect(route('admin.customer.index'));
         }
@@ -278,7 +286,7 @@ class CustomerController extends Controller
         $customer = Customer::onlyTrashed($id)->first();
         $customer->is_active = 0;
         $customer->deleted_at = null;
-        if($customer->save()) {
+        if ($customer->save()) {
             Flash::success(__('global.updated'));
             return redirect(route('admin.customer.index'));
         }
@@ -287,10 +295,8 @@ class CustomerController extends Controller
     }
     public function delete($id)
     {
-        $customer = Customer::find($id);
-        Project::where('customer_id',$id)->delete();
-        Enquiry::where('customer_id',$id)->delete();
-        if($customer->forceDelete()) {
+        $customer = Customer::onlyTrashed($id)->find($id);
+        if ($customer->delete()) {
             Flash::success(__('global.deleted'));
             return redirect(route('admin.customer.index'));
         }
