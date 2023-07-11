@@ -134,7 +134,7 @@ class CustomerController extends Controller
     {
         Customer::find($id)->update([
             'is_deleted' => 1,
-            'is_active' => 0
+            'is_active' => 2
         ]);
         Flash::success(__('global.deleted'));
         return redirect(route('admin.customer.index'));
