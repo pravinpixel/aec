@@ -11,8 +11,6 @@ use App\Models\Enquiry;
 use App\Models\Project;
 use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
@@ -289,8 +287,10 @@ class CustomerController extends Controller
     }
     public function delete($id)
     {
-        $customer = Customer::onlyTrashed($id)->find($id);
-        if($customer->delete()) {
+        $customer = Customer::find($id);
+        Project::where('customer_id',$id)->delete();
+        Enquiry::where('customer_id',$id)->delete();
+        if($customer->forceDelete()) {
             Flash::success(__('global.deleted'));
             return redirect(route('admin.customer.index'));
         }
