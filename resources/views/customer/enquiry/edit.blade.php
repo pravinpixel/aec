@@ -1180,7 +1180,7 @@
                 data  :{
                     enquiry_id   : {{$id}},
                     preview_table: 0,
-                    chat_box     : 0,   // true | false
+                    chat_box     : 1,   // true | false
                 }
             }).then( function(response) {
                 document.getElementById("enquiryOverView").innerHTML = response.data
