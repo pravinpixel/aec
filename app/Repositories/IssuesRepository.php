@@ -8,7 +8,7 @@ use App\Models\Project;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 
-class IssuesRepository
+class IssuesRepository 
 {
     public $Issues, $Project;
     function __construct(Issues $issues, Project $Project)

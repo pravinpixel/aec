@@ -73,11 +73,7 @@ use App\Repositories\ProjectChatRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
-    /**
-     * Register services.
-     *
-     * @return void
-     */
+    /********* Register services. *******/
     public function register()
     {
 
