@@ -204,7 +204,7 @@ EnquiryQuickView = (id, element, chat) => {
     axios.post(`${APP_URL}/enquiry-quick-view`,{
         enquiry_id   : id,
         preview_table : 1,
-        chat_box     : 1, // true | false //chat
+        chat_box     : chat, // true | false
     }).then((response) => {
         if(response.status === 200) {
             $("#EnquiryQuickViewPopUp").modal('show')

@@ -643,7 +643,7 @@ class EnquiryController extends Controller
             return DataTables::eloquent($dataDb)
                 ->editColumn('enquiry_number', function ($dataDb) {
                     return ' 
-                        <button type="button" class="btn-quick-view" onclick="EnquiryQuickView(' . $dataDb->id . ' , this ,0)" >
+                        <button type="button" class="btn-quick-view" onclick="EnquiryQuickView(' . $dataDb->id . ' , this ,1)" >
                             <b>' . $dataDb->enquiry_number . '</b> 
                             ' . getModuleChatCount('CUSTOMER', 'ENQUIRY', $dataDb->id) . '
                         </button>
