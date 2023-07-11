@@ -25,7 +25,7 @@
     <div>
         {!! $form !!}
         @if ($PreviousChatHistory != 0)
-            <div class="text-end mt-2">
+            <div class="text-end mt-2" status="{{ $status }}">
                 <button type="button" class="btn btn-sm btn-outline-primary position-relative"
                     onclick="PreviousChatHistory(this, '{{ $moduleId }}', '{{ $moduleName }}' , '{{ $menuName }}' )"
                     data-bs-toggle="modal" data-bs-target="#viewMyInbox{{ $menuName }}">
@@ -115,9 +115,7 @@
         onclick="PreviousChatHistory(this, '{{ $moduleId }}', '{{ $moduleName }}' , '{{ $menuName }}' )"
         data-bs-toggle="modal" data-bs-target="#viewMyInbox{{ $menuName }}">
         <i class="fa fa-commenting"></i>
-        @php
-            $messageCount = getModuleMenuMessagesCount($moduleName, $moduleId, $menuName, 'element');
-        @endphp
+        @php $messageCount = getModuleMenuMessagesCount($moduleName, $moduleId, $menuName, 'element');@endphp
         @if ($messageCount)
             {!! $messageCount !!}
         @endif
