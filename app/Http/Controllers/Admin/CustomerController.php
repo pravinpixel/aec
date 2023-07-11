@@ -11,8 +11,6 @@ use App\Models\Enquiry;
 use App\Models\Project;
 use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
@@ -139,10 +137,10 @@ class CustomerController extends Controller
         $Enquiry  = Enquiry::where('customer_id', $id)->get();
 
         try {
-            if ($Project) {
+            if (!is_null($Project)) {
                 $Project->delete();
             }
-            if ($Enquiry) {
+            if (!is_null($Enquiry)) {
                 $Enquiry->delete();
             }
             $customer->forceDelete();
