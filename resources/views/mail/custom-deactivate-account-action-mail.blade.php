@@ -1,6 +1,6 @@
 @component('mail::message')
 <b>Dear AECPrefab,<br></b>
-<div> Account was De-activaed!</div> <br>
+<div> Account was De-Activated!</div> <br>
 <table>
     <tbody>
         <tr>

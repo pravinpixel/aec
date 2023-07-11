@@ -90,9 +90,10 @@ class EnquiryController extends Controller
             $projectType = isset($request->project_type) ? $request->project_type : false;
             $dataDb = Enquiry::with(['projectType', 'technicalEstimate', 'costEstimate', 'comments' => function ($q) {
                 $q->where(['status' => 0, 'created_by' => 'Customer']);
-            }, 'customer' => function ($q) {
-                $q->where('is_active' ,1);
             }])
+                ->WhereHas('customer', function ($q) {
+                    $q->where('is_active', 1);
+                })
                 ->where(['status' => 'Submitted', 'project_status' => 'Unattended'])
                 ->when(userRole()->slug == config('global.technical_estimater'), function ($q) {
                     return $q->whereHas('technicalEstimate', function ($q) {
