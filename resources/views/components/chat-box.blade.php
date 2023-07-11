@@ -40,7 +40,7 @@
     </div>
 @endif
 @if ($status == 'CHAT_ICON')
-    @if ($$PreviousChatHistory)
+    @if ($PreviousChatHistory)
         <span class="position-absolute wizard-chat-box"
             onclick="PreviousChatHistory(this, '{{ $moduleId }}', '{{ $moduleName }}' , '{{ $menuName }}' )"
             data-bs-toggle="modal" data-bs-target="#viewMyInbox{{ $menuName }}">
