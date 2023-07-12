@@ -36,6 +36,7 @@
                 <thead>
                     <tr>
                         <th class="text-center">S.No</th>
+                        <th class="text-center">24/7 project</th>
                         <th class="text-center">Invoice Date <span class="text-danger">*<span></th>
                         <th class="text-center">Amount</th>
                         <th class="text-center">Percentage %</th>
@@ -44,6 +45,11 @@
                 <tbody calculate-amount>
                     <tr ng-repeat="invoicePlan in invoicePlans.invoices track by $index">
                         <td class="text-center">@{{  invoicePlan.index }}</td>
+                        <td class="text-center">
+                            <select ng-model="invoicePlan.project_24_id"  class="form-select-sm form-select">
+                                <option ng-value="product24.Id" value="@{{ product24.Id }}" ng-repeat="product24 in project24SevenList" ng-bind="product24.Name"> </option>
+                            </select>
+                        </td>
                         <td class="text-center">
                             <div class="position-relative">
                                 <datepicker date-format="dd/MM/yyyy" date-min-limit="@{{ project.start_date | date : 'yyyy-MM-dd'  }}" date-set="taskListData.start_date">
@@ -58,14 +64,12 @@
                                     >
                             </div>
                         </td>
-                        <td class="text-center">@{{ invoicePlan.amount }}</td>
+                        <td class="text-end">@{{ invoicePlan.amount }}</td>
                         <td class="text-center"><input  ng-disabled="invoicePlans.invoices.length == $index + 1" required type="text" select-on-click onkeypress="return isNumber(event)" name="percentage" ng-model="invoicePlan.percentage"  class="text-center form-control percentage_ form-control-sm border-0 bg-none w-auto mx-auto"></td>
                     </tr>
                 <thead>
                     <tr>
-                        <th class="text-center"></th>
-                        <th class="text-center"></th>
-                        <th class="text-center">@{{  project.project_cost }}</th>
+                        <th class="text-end" ng-bind="project.project_cost" colspan="4"></th>
                         <th class="text-center">100</th>
                     </tr>
                 <thead>

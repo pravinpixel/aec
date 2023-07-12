@@ -14,7 +14,7 @@ class SoapService
         $this->client = new Client();
     }
 
-    public function call($url, $xml)
+      public function call($url, $xml)
     {
         $response = $this->client->post($url, [
             'headers' => [

@@ -1,10 +1,10 @@
 formatData = (project) => {
-    var projectDate = project.start_date;
-    var newProjectDate = projectDate.slice(0, 10);
-    var start_date = newProjectDate.split("-").reverse().join("-");
-    var deliveryDate = project.delivery_date;
-    var newdeliveryDate = deliveryDate.slice(0, 10);
-    var delivery_date = newdeliveryDate.split("-").reverse().join("-");
+    var projectDate = project?.start_date;
+    var newProjectDate = projectDate?.slice(0, 10);
+    var start_date = newProjectDate?.split("-").reverse().join("-");
+    var deliveryDate = project?.delivery_date;
+    var newdeliveryDate = deliveryDate?.slice(0, 10);
+    var delivery_date = newdeliveryDate?.split("-").reverse().join("-");
     return { ...project, ...{ 'start_date': start_date, 'delivery_date': delivery_date } }
 }
 
@@ -488,15 +488,17 @@ app.controller('InvoicePlanController', function ($scope, $http, API_URL, $locat
 
     $http.get(`${API_URL}project/edit/${project_id}/invoice_plan`)
         .then((res) => {
-            $scope.project = formatData(res.data);
-            $scope.project.project_cost = res.data.invoice_plan.project_cost;
-            $scope.project.no_of_invoice = Number(res.data.invoice_plan.no_of_invoice);
+             
+            $scope.project = formatData(res.data.invoice_data);
+            $scope.project.project_cost = res.data.invoice_data.invoice_plan.project_cost;
+            $scope.project.no_of_invoice = Number(res.data.invoice_data.invoice_plan.no_of_invoice);
             let result = {};
-            let response = JSON.parse(res.data.invoice_plan.invoice_data);
+            let response = JSON.parse(res.data.invoice_data.invoice_plan.invoice_data);
             totalInvoice = response.invoices.length;
             if (totalInvoice > 0) {
                 invoiceStatus = !invoiceStatus;
             }
+            $scope.project24SevenList = res.data.projects_on_24Seven.original.response.GetProductsResult.Product
             let invoices = response.invoices.map((item) => {
                 $scope.invoicePlans.totalPercentage -= item.percentage;
                 $scope.invoicePlans.totalAmount += ($scope.project.project_cost / 100) * item.percentage;
@@ -504,13 +506,15 @@ app.controller('InvoicePlanController', function ($scope, $http, API_URL, $locat
                     'index': item.index,
                     'invoice_date': new Date(item.invoice_date),
                     'amount': item.amount,
-                    'percentage': item.percentage
+                    'percentage': item.percentage,
+                    'project_24_id' : item?.project_24_id ?? 100, 
                 }
             });
             result['totalPercentage'] = $scope.invoicePlans.totalPercentage;
             result['totalAmount'] = $scope.invoicePlans.totalAmount;
             result['invoices'] = invoices;
             $scope.invoicePlans = result;
+            console.log($scope.invoicePlans)
         });
 
     $scope.handleInvoiceChange = () => {
@@ -960,6 +964,7 @@ app.directive('calculateAmount', ['$http', function ($http, $scope, $apply) {
         restrict: 'A',
         link: function (scope, element, attrs) {
             element.on('change', function () {
+                console.log(scope.invoicePlans)
                 scope.invoice_date = scope.project.start_date
                 scope.invoicePlans.totalPercentage = 100;
                 scope.invoicePlans.totalAmount = 0;
@@ -974,6 +979,7 @@ app.directive('calculateAmount', ['$http', function ($http, $scope, $apply) {
                             amount: Number.parseFloat(projectCost).toFixed(2),
                             invoice_date: invoicePlan.invoice_date,
                             percentage: scope.invoicePlans.totalPercentage,
+                            project_24_id:scope.invoicePlan.project_24_id
                         }
                     }
                     let totalPercentage = scope.invoicePlans.totalPercentage - invoicePlan.percentage;
@@ -983,6 +989,7 @@ app.directive('calculateAmount', ['$http', function ($http, $scope, $apply) {
                             amount: 0,
                             invoice_date: invoicePlan.invoice_date,
                             percentage: 0,
+                            project_24_id:scope.invoicePlan.project_24_id
                         };
                     } else {
                         scope.invoicePlans.totalPercentage -= invoicePlan.percentage;
@@ -992,6 +999,7 @@ app.directive('calculateAmount', ['$http', function ($http, $scope, $apply) {
                             amount: Number.parseFloat((scope.project.project_cost / 100) * invoicePlan.percentage).toFixed(2),
                             invoice_date: invoicePlan.invoice_date,
                             percentage: invoicePlan.percentage,
+                            project_24_id:scope.invoicePlan.project_24_id
                         };
                     }
                 });
@@ -1001,6 +1009,7 @@ app.directive('calculateAmount', ['$http', function ($http, $scope, $apply) {
                 scope.invoicePlans = result;
                 scope.$apply();
             });
+
             scope.$watchGroup(['project.no_of_invoice', 'project.project_cost'], function () {
                 let totalPercentage = 100;
                 scope.invoicePlans.invoices = scope.invoicePlans.invoices.map((invoicePlan, index) => {
@@ -1019,6 +1028,7 @@ app.directive('calculateAmount', ['$http', function ($http, $scope, $apply) {
                             amount: Number.parseFloat((scope.project.project_cost / 100) * invoicePlan.percentage).toFixed(2),
                             invoice_date: invoicePlan.invoice_date,
                             percentage: totalPercentage,
+                            project_24_id:scope.invoicePlan.project_24_id
                         };
                     }
                     return invoicePlan;
@@ -1055,3 +1065,15 @@ app.directive('getRoleUser', function getRoleUser($http, API_URL) {
     };
 });
 
+app.directive('projectSevenOffice', ['$http', function () {
+    return {
+        restrict: 'A',
+        link: function (scope, element, attrs) {
+            element.on('change', function () {
+                console.log(element)
+                console.log(scope)
+                scope.project24Id = 1
+            });
+        },
+    };
+}]);

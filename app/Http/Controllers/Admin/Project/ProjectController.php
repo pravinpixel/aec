@@ -7,6 +7,7 @@ use App\Helper\Bim360\Bim360ProjectsApi;
 use App\Helper\Bim360\Bim360UsersApi;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Sharepoint\SharepointController;
+use App\Http\Controllers\SoapController;
 use App\Interfaces\CustomerEnquiryRepositoryInterface;
 use App\Interfaces\CustomerRepositoryInterface;
 use App\Interfaces\ProjectTicketRepositoryInterface;
@@ -695,7 +696,11 @@ class ProjectController extends Controller
         } else if ($type == 'project_scheduler') {
             return $this->projectRepo->getGranttChartTaskLink($id);
         } else if ($type == 'invoice_plan') {
-            return $this->projectRepo->getInvoicePlan($id);
+            $project24 = new SoapController();
+            return  [
+                'invoice_data' => $this->projectRepo->getInvoicePlan($id),
+                'projects_on_24Seven' =>  $project24->GetProducts()
+            ];
         } else if ($type == 'to-do-list') {
             return true;
         } else if ($type == 'connection_platform') {
