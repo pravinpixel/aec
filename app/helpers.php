@@ -533,4 +533,22 @@ if (!function_exists('changeProposalStatus')) {
             ]);
         }
     }
+    if (!function_exists('formatXml')) {
+        function formatXml($xml)
+        {
+            return  simplexml_load_string(str_replace(['<?xml version="1.0" encoding="utf-8"?><soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><soap:Body>','</soap:Body></soap:Envelope>'], '', $xml));
+        }
+    }
+    if (!function_exists('token24Seven')) {
+        function token24Seven()
+        {
+            $token_array = session()->get('24-seven-office-token');
+            if(!is_null($token_array)) {
+                $token_array = json_decode($token_array);
+                return  'ASP.NET_SessionId='.collect($token_array)->toarray()[0];
+            }
+            return null;
+        }
+    }
+   
 }

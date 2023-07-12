@@ -10,7 +10,7 @@ class SoapService
 
     public function __construct()
     {
-        
+
         $this->client = new Client();
     }
 
@@ -19,10 +19,10 @@ class SoapService
         $response = $this->client->post($url, [
             'headers' => [
                 'Content-Type' => 'text/xml; charset=utf-8',
-                'Cookie' => 'ASP.NET_SessionId=g3aywprauddamfxmu2mnp0n5'
+                'Cookie'       => token24Seven()
             ],
             'body' => $xml,
-        ]);  
+        ]);
         return $response->getBody()->getContents();
     }
 }
