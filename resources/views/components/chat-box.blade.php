@@ -18,7 +18,10 @@
         </div>
     ';
 @endphp
-@php $PreviousChatHistory = checkModuleMenuMessagesCount($moduleName, $moduleId, $menuName); @endphp
+@php
+    $PreviousChatHistory = checkModuleMenuMessagesCount($moduleName, $moduleId, $menuName);
+    $moduleCount = getModuleMenuMessagesCount($moduleName, $moduleId, $menuName, 0);
+@endphp
 @if ($status == 1)
     <div>
         {!! $form !!}
@@ -28,8 +31,9 @@
                     onclick="PreviousChatHistory(this, '{{ $moduleId }}', '{{ $moduleName }}' , '{{ $menuName }}' )"
                     data-bs-toggle="modal" data-bs-target="#viewMyInbox{{ $menuName }}">
                     <i class="mdi mdi-eye me-1"></i> Previous chat history
-                    <small class="position-absolute text-white top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                        {{ $PreviousChatHistory }}
+                    <small
+                        class="position-absolute text-white top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                        {{ $moduleCount }}
                     </small>
                 </button>
             </div>
