@@ -494,7 +494,7 @@ app.controller('InvoicePlanController', function ($scope, $http, API_URL, $locat
             $scope.project.no_of_invoice = Number(res.data.invoice_data.invoice_plan.no_of_invoice);
             let result = {};
             let response = JSON.parse(res.data.invoice_data.invoice_plan.invoice_data);
-            totalInvoice = response.invoices.length;
+            totalInvoice = response?.invoices?.length;
             if (totalInvoice > 0) {
                 invoiceStatus = !invoiceStatus;
             }
@@ -789,7 +789,7 @@ app.controller('ReviewAndSubmit', function ($scope, $http, API_URL, $timeout) {
         function refreshClick() {
             console.log('checking')
         }
-    }); 
+    });
 
     $scope.submitProject = (e) => {
         e.preventDefault();
