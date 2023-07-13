@@ -62,11 +62,10 @@ class SoapController extends Controller
             $invoices[]['InvoiceRow'] = [
                 "ProductId" => $invoice->project_24_id,
                 "Price"     => $invoice->amount,
-                "Name"      => "Test Invoice " . $key + 1,
+                "Name"      => "Test Invoice " .( $key + 1),
                 "Quantity"  => 1
             ];
         } 
-        dd($invoices);
         $body  = arrayToXml('InvoiceRows', $invoices);
         $SoapService = new SoapService();
         $xml = '<?xml version="1.0" encoding="utf-8"?>

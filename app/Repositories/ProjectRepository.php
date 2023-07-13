@@ -528,13 +528,13 @@ class ProjectRepository implements ProjectRepositoryInterface, ConnectionPlatfor
     public function  EstablishNewProject($project_id)
     {
         $Project               = Project::find($project_id);
-        // try {
+        try {
             $invoicesFor24Seven = collect(json_decode($Project->invoicePlan->invoice_data)->invoices)->toArray();
             $SaveInvoices = new SoapController();
             $result = $SaveInvoices->SaveInvoices($invoicesFor24Seven);
-        // } catch (\Throwable $th) {
-        //     Log::info($th->getMessage());
-        // } 
+        } catch (\Throwable $th) {
+            Log::info($th->getMessage());
+        } 
         $project_scheduler     = $this->getGranttChartTaskLink($project_id);
         $LiveProjectGranttTask = LiveProjectGranttTask::where('project_id', $project_id);
         $LiveProjectGranttTask->delete();
