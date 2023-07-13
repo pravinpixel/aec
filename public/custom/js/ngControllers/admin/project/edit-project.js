@@ -502,7 +502,7 @@ app.controller('InvoicePlanController', function ($scope, $http, API_URL, $locat
             let invoices
             if (typeof response === 'string') {
                 invoices = [{
-                    'index': 0,
+                    'index': 1,
                     'invoice_date': null,
                     'amount': null,
                     'percentage': null,

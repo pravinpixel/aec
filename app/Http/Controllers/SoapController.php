@@ -66,6 +66,7 @@ class SoapController extends Controller
                 "Quantity"  => 1
             ];
         } 
+        dd($invoices);
         $body  = arrayToXml('InvoiceRows', $invoices);
         $SoapService = new SoapService();
         $xml = '<?xml version="1.0" encoding="utf-8"?>
