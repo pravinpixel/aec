@@ -499,8 +499,9 @@ app.controller('InvoicePlanController', function ($scope, $http, API_URL, $locat
                 invoiceStatus = !invoiceStatus;
             }
             $scope.project24SevenList = res.data.projects_on_24Seven.original.response.GetProductsResult.Product
-            if(typeof response === 'string') {
-                let invoices = [{
+            let invoices
+            if (typeof response === 'string') {
+                invoices = [{
                     'index': 0,
                     'invoice_date': null,
                     'amount': null,
@@ -508,7 +509,7 @@ app.controller('InvoicePlanController', function ($scope, $http, API_URL, $locat
                     'project_24_id': null,
                 }]
             } else {
-                let invoices = response.invoices.map((item) => {
+                invoices = response.invoices.map((item) => {
                     $scope.invoicePlans.totalPercentage -= item.percentage;
                     $scope.invoicePlans.totalAmount += ($scope.project.project_cost / 100) * item.percentage;
                     return {
@@ -520,9 +521,7 @@ app.controller('InvoicePlanController', function ($scope, $http, API_URL, $locat
                     }
                 });
             }
-           
-          
-            
+
             result['totalPercentage'] = $scope.invoicePlans.totalPercentage;
             result['totalAmount'] = $scope.invoicePlans.totalAmount;
             result['invoices'] = invoices;
