@@ -79,12 +79,15 @@ class Project extends Model
     {
         return $this->belongsTo(Customer::class, 'customer_id', 'id');
     }
-
+    
+    public function LiveProjectInvoice()
+    {
+        return $this->hasMany(LiveProjectInvoice::class, 'project_id', 'id');
+    }
     public function teamSetup()
     {
         return $this->hasMany(ProjectTeamSetup::class, 'project_id', 'id');
     }
-
     public function invoicePlan()
     {
         return $this->hasOne(InvoicePlan::class,'project_id','id');

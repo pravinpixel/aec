@@ -44,7 +44,7 @@ class ProjectRepository implements ProjectRepositoryInterface, ConnectionPlatfor
         ProjectTeamSetup $projectTeamSetup,
         InvoicePlan $invoicePlan,
         TeamSetupTemplate $teamSetupTemplate,
-        SharepointFolder $sharepointFolder,
+        sharepointFolder $sharepointFolder,
         ConnectionPlatform $connectionPlatform,
         CustomerEnquiryRepositoryInterface $customerEnquiryRepository
     ) {
@@ -326,7 +326,7 @@ class ProjectRepository implements ProjectRepositoryInterface, ConnectionPlatfor
 
     public function storeFolder($data)
     {
-        return $this->SharepointFolder->create($data);
+        return $this->sharepointFolder->create($data);
     }
 
     public function updateFolder($id, $data)
@@ -527,11 +527,11 @@ class ProjectRepository implements ProjectRepositoryInterface, ConnectionPlatfor
     }
     public function  EstablishNewProject($project_id)
     {
-        $Project               = Project::find($project_id);
+        $Project = Project::find($project_id);
         try {
             $invoicesFor24Seven = collect(json_decode($Project->invoicePlan->invoice_data)->invoices)->toArray();
             $SaveInvoices = new SoapController();
-            $result = $SaveInvoices->SaveInvoices($invoicesFor24Seven);
+            $result = $SaveInvoices->SaveInvoices($invoicesFor24Seven, $project_id);
         } catch (\Throwable $th) {
             Log::info($th->getMessage());
         } 

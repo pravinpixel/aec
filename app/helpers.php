@@ -2,6 +2,7 @@
 include 'projectHelper.php';
 
 use App\Helper\Notify;
+use App\Http\Controllers\SoapController;
 use App\Models\Admin\Employees;
 use App\Models\Admin\MailTemplate;
 use App\Models\Admin\PropoalVersions;
@@ -534,42 +535,125 @@ if (!function_exists('changeProposalStatus')) {
         }
     }
     if (!function_exists('formatXml')) {
-        function formatXml($xml)
+        function formatXml($xml, $isXml = null)
         {
-            return  simplexml_load_string(str_replace(['<?xml version="1.0" encoding="utf-8"?><soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><soap:Body>','</soap:Body></soap:Envelope>'], '', $xml));
+            $find = [
+                '<?xml version="1.0" encoding="utf-8"?>',
+                '<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">',
+                '<soap:Body>',
+                '</soap:Body>',
+                '</soap:Envelope>',
+                '<SaveInvoicesResponse xmlns="http://24sevenOffice.com/webservices">',
+                '</SaveInvoicesResponse>',
+                "\r",
+                "\n"
+            ];
+            $result = str_replace($find, '', $xml);
+            if (is_null($isXml)) {
+                return $result;
+            }
+            return  simplexml_load_string($result);
         }
     }
     if (!function_exists('token24Seven')) {
         function token24Seven()
         {
             $token_array = session()->get('24-seven-office-token');
-            if(!is_null($token_array)) {
+            if (!is_null($token_array)) {
                 $token_array = json_decode($token_array);
-                return  'ASP.NET_SessionId='.collect($token_array)->toarray()[0];
+                return  'ASP.NET_SessionId=' . collect($token_array)->toarray()[0];
             }
             return null;
         }
     }
-    function arrayToXml($rootTag, $array, $xml = null) {
-        if ($xml === null) {
-            $xml = new SimpleXMLElement("<".$rootTag."/>"); //$rootTag = '<$rootTag/>
-        }
-        
-        foreach ($array as $key => $value) {
-            if (is_array($value)) {
-                if (is_numeric($key)) {
-                    $key = 'item';
-                }
-                
-                $subnode = $xml->addChild($key);
-                arrayToXml($rootTag,$value, $subnode);
-            } else {
-                $xml->addChild($key, htmlspecialchars($value));
+    if (!function_exists('arrayToXml')) {
+        function arrayToXml($rootTag, $array, $xml = null)
+        {
+            if ($xml === null) {
+                $xml = new SimpleXMLElement("<" . $rootTag . "/>"); //$rootTag = '<$rootTag/>
             }
+
+            foreach ($array as $key => $value) {
+                if (is_array($value)) {
+                    if (is_numeric($key)) {
+                        $key = 'item';
+                    }
+
+                    $subnode = $xml->addChild($key);
+                    arrayToXml($rootTag, $value, $subnode);
+                } else {
+                    $xml->addChild($key, htmlspecialchars($value));
+                }
+            }
+            $string =  str_replace(['<item>', '</item>', '<?xml version="1.0"?>'], '', $xml->asXML());
+            $string = str_replace(array("\r", "\n", " "), '', $string);
+            return $string;
         }
-        $string =  str_replace(['<item>','</item>','<?xml version="1.0"?>'],'', $xml->asXML());
-        $string = str_replace(array("\r", "\n", " "), '', $string);
-        return $string;
     }
-    
+    if (!function_exists('xml_to_array')) {
+
+        function xml_to_array($root)
+        {
+            $result = array();
+
+            if ($root->hasAttributes()) {
+                $attrs = $root->attributes;
+                foreach ($attrs as $attr) {
+                    $result['@attributes'][$attr->name] = $attr->value;
+                }
+            }
+
+            if ($root->hasChildNodes()) {
+                $children = $root->childNodes;
+                if ($children->length == 1) {
+                    $child = $children->item(0);
+                    if ($child->nodeType == XML_TEXT_NODE) {
+                        $result['_value'] = $child->nodeValue;
+                        return count($result) == 1
+                            ? $result['_value']
+                            : $result;
+                    }
+                }
+                $groups = array();
+                foreach ($children as $child) {
+                    if (!isset($result[$child->nodeName])) {
+                        $result[$child->nodeName] = xml_to_array($child);
+                    } else {
+                        if (!isset($groups[$child->nodeName])) {
+                            $result[$child->nodeName] = array($result[$child->nodeName]);
+                            $groups[$child->nodeName] = 1;
+                        }
+                        $result[$child->nodeName][] = xml_to_array($child);
+                    }
+                }
+            }
+
+            return $result;
+        }
+    }
+    if (!function_exists('xmlToArray')) {
+
+        function xmlToArray($s)
+        {
+            $xml = new DOMDocument();
+            $xml->loadXML($s);
+            return xml_to_array($xml);
+        }
+    }
+    if (!function_exists('Get24SevenProducts')) {
+        function Get24SevenProducts($id = null)
+        {
+            $data = [];
+            if (is_null(session()->get('Get24SevenProducts'))) {
+                $project24 = new SoapController();
+                $result =  $project24->GetProducts(); 
+                // $re
+                session()->put('Get24SevenProducts', $result);
+                $data =  $result;
+            } else {
+                $data = session()->get('Get24SevenProducts');
+            }
+            dd($data);
+        }
+    } 
 }

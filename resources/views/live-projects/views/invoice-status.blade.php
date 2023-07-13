@@ -2,11 +2,12 @@
     $invoice = $project->invoicePlan;
     $invoices = json_decode($project->invoicePlan->invoice_data)->invoices;
 @endphp 
+ 
 <table class="table table-bordered">
     <thead>
         <tr>
-            <th colspan="2" class="text-center font-16">Invoices</th>
-            <td colspan="2" style="padding: 0 !important"> 
+            <th colspan="1" class="text-center font-16">Invoices</th>
+            <td colspan="7" style="padding: 0 !important"> 
                 <table class="table table-bordered m-0">
                     <thead>
                         <tr>
@@ -31,18 +32,28 @@
         </tr>
         <tr>
             <th scope="col" class="text-secondary">#</th>
+            <th scope="col" class="text-secondary">24/7 Product</th>
+            <th scope="col" class="text-secondary">24/7 Order ID</th>
+            <th scope="col" class="text-secondary">24/7 Invoice ID</th>
+            <th scope="col" class="text-secondary">24/7 Invoice Status</th>
             <th scope="col" class="text-secondary">Date</th>
-            <th scope="col" class="text-secondary">Percentage</th>
-            <th scope="col" class="text-secondary">Amount</th>
+            <th scope="col" class="text-secondary">Name</th>
+            <th scope="col" class="text-secondary">Quantity</th>
+            <th scope="col" class="text-secondary">Price</th>
         </tr>
     </thead>
     <tbody>
-        @foreach ($invoices as $index => $invoice )
+        @foreach ($project->LiveProjectInvoice as $index => $invoice )
             <tr>
                 <th scope="row">{{ $index +1 }}</th>
-                <td>{{ SetDateFormat(str_replace('/','-', $invoice->invoice_date)) }}</td>
-                <td>{{ $invoice->percentage }}</td>
-                <td>{{ $invoice->amount }}</td>
+                <td>{{ Get24SevenProducts($invoice->product_id )}}</td>
+                <td>{{ $invoice->order_id }}</td>
+                <td>{{ $invoice->invoice_id }}</td>
+                <td>{{ $invoice->order_status }}</td>
+                <td>{{ $invoice->date_invoiced }}</td>
+                <td>{{ $invoice->name }}</td>
+                <td>{{ $invoice->quantity }}</td>
+                <td>{{ $invoice->price }}</td>
             </tr>
         @endforeach
     </tbody>
