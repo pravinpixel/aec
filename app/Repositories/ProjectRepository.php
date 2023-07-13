@@ -269,6 +269,10 @@ class ProjectRepository implements ProjectRepositoryInterface, ConnectionPlatfor
 
     public function getInvoicePlan($id)
     {
+        if(is_null(session()->get('24-seven-office-token')) || empty(session()->get('24-seven-office-token'))) {
+            $xmlSoap = new SoapController();
+            $xmlSoap->credential();
+        }
         return $this->model->with('invoicePlan')->find($id);
     }
 
