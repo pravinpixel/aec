@@ -54,7 +54,47 @@ class SoapController extends Controller
             'response' => $result
         ]);
     }
-    public function SaveInvoices()
+    public function SaveInvoices($data)
     {
+        $invoices = [];
+        
+        foreach ($data as $key => $invoice) {
+            $invoices[]['InvoiceRow'] = [
+                "ProductId" => $invoice->project_24_id,
+                "Price"     => $invoice->amount,
+                "Name"      => "Test Invoice " . $key + 1,
+                "Quantity"  => 1
+            ];
+        } 
+        $body  = arrayToXml('InvoiceRows', $invoices);
+        $SoapService = new SoapService();
+        $xml = '<?xml version="1.0" encoding="utf-8"?>
+        <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+            <soap:Body>
+                <SaveInvoices xmlns="http://24sevenOffice.com/webservices">
+                    <invoices>
+                        <InvoiceOrder>
+                            <DateInvoiced>2023-06-29</DateInvoiced>
+                            <CustomerId>12</CustomerId>
+                            <OrderStatus>Invoiced</OrderStatus>
+                            ' . $body . '
+                        </InvoiceOrder>
+                    </invoices>
+                </SaveInvoices>
+            </soap:Body>
+        </soap:Envelope>';
+        $xml = str_replace(array("\r", "\n"), '', $xml);
+        try {
+            $response = $SoapService->call(config('24-seven-office.InvoiceService.url'), $xml);
+            return response()->json([
+                'status'   => true,
+                'response' => $response
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status'   => false,
+                'response' => $response
+            ]);
+        }
     }
 }

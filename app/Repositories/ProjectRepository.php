@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Http\Controllers\SoapController;
 use App\Interfaces\ConnectionPlatformInterface;
 use App\Interfaces\ProjectRepositoryInterface;
 use App\Interfaces\CustomerEnquiryRepositoryInterface;
@@ -23,6 +24,7 @@ use App\Models\TeamSetupTemplate;
 use App\Services\GlobalService;
 use Carbon\Carbon;
 use DateTime;
+use Illuminate\Support\Facades\Log;
 
 class ProjectRepository implements ProjectRepositoryInterface, ConnectionPlatformInterface
 {
@@ -94,7 +96,7 @@ class ProjectRepository implements ProjectRepositoryInterface, ConnectionPlatfor
         $fromDate = isset($request->from_date) ? Carbon::parse($request->from_date)->format('Y-m-d') : now()->subDays(config('global.date_period'));
         $toDate = isset($request->from_date) ? Carbon::parse($request->to_date)->format('Y-m-d') : now();
         $projectType = isset($request->project_type) ? $request->project_type : false;
-        
+
         $dataDb =  $this->model::with('Customer')->WhereHas('Customer', function ($q) {
             $q->where('is_active', 1);
         })->where('status', 'LIVE');
@@ -272,7 +274,7 @@ class ProjectRepository implements ProjectRepositoryInterface, ConnectionPlatfor
 
     public function storeInvoicePlan($project_id, $data, $flag = true)
     {
-        $project = $this->model->find($project_id);
+        $project      = $this->model->find($project_id);
         $insert = [
             "no_of_invoice" => $data['no_of_invoice'] ?? 0,
             "project_cost" => $data['project_cost'] ?? 0,
@@ -520,8 +522,15 @@ class ProjectRepository implements ProjectRepositoryInterface, ConnectionPlatfor
         return $formatFolder;
     }
     public function  EstablishNewProject($project_id)
-    { 
+    {
         $Project               = Project::find($project_id);
+        try {
+            $invoicesFor24Seven = collect(json_decode($Project->invoicePlan->invoice_data)->invoices)->toArray();
+            $SaveInvoices = new SoapController();
+            $result = $SaveInvoices->SaveInvoices($invoicesFor24Seven);
+        } catch (\Throwable $th) {
+            Log::info($th->getMessage());
+        } 
         $project_scheduler     = $this->getGranttChartTaskLink($project_id);
         $LiveProjectGranttTask = LiveProjectGranttTask::where('project_id', $project_id);
         $LiveProjectGranttTask->delete();
@@ -560,7 +569,7 @@ class ProjectRepository implements ProjectRepositoryInterface, ConnectionPlatfor
                 $resultArray[] = $data;
             }
         }
-        foreach ($resultArray as $tasks) { 
+        foreach ($resultArray as $tasks) {
             $LiveProjectTasks = $Project->LiveProjectTasks()->create([
                 'name'          => $tasks['text'],
                 'start_date'    => $tasks['start_date'],
@@ -569,9 +578,9 @@ class ProjectRepository implements ProjectRepositoryInterface, ConnectionPlatfor
                 'parent'        => $tasks['parent'],
                 'chart_task_id' => $tasks['id'],
             ]);
-            if(isset($tasks['child']) && !empty($tasks['child'])) {
+            if (isset($tasks['child']) && !empty($tasks['child'])) {
                 foreach ($tasks['child'] as $sub_tasks) {
-                    if($sub_tasks['text'] ?? false) {
+                    if ($sub_tasks['text'] ?? false) {
                         $LiveProjectSubTasks = $LiveProjectTasks->SubTasks()->create([
                             'name'          => $sub_tasks['text'],
                             'start_date'    => $sub_tasks['start_date'],
@@ -580,7 +589,7 @@ class ProjectRepository implements ProjectRepositoryInterface, ConnectionPlatfor
                             'parent'        => $sub_tasks['parent'],
                             'chart_task_id' => $sub_tasks['id'],
                         ]);
-                        if(isset($sub_tasks['child']) && !empty($sub_tasks['child'])) { 
+                        if (isset($sub_tasks['child']) && !empty($sub_tasks['child'])) {
                             foreach ($sub_tasks['child'] as $sub_sub_tasks) {
                                 $LiveProjectSubTasks->SubSubTasks()->create([
                                     'name'          => $sub_sub_tasks['text'],
@@ -597,6 +606,7 @@ class ProjectRepository implements ProjectRepositoryInterface, ConnectionPlatfor
                 }
             }
         }
+
         return true;
     }
 

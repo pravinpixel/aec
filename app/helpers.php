@@ -550,5 +550,26 @@ if (!function_exists('changeProposalStatus')) {
             return null;
         }
     }
-   
+    function arrayToXml($rootTag, $array, $xml = null) {
+        if ($xml === null) {
+            $xml = new SimpleXMLElement("<".$rootTag."/>"); //$rootTag = '<$rootTag/>
+        }
+        
+        foreach ($array as $key => $value) {
+            if (is_array($value)) {
+                if (is_numeric($key)) {
+                    $key = 'item';
+                }
+                
+                $subnode = $xml->addChild($key);
+                arrayToXml($rootTag,$value, $subnode);
+            } else {
+                $xml->addChild($key, htmlspecialchars($value));
+            }
+        }
+        $string =  str_replace(['<item>','</item>','<?xml version="1.0"?>'],'', $xml->asXML());
+        $string = str_replace(array("\r", "\n", " "), '', $string);
+        return $string;
+    }
+    
 }

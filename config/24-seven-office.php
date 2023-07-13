@@ -49,5 +49,8 @@ return [
                 </GetProducts>
             </soap:Body>
         </soap:Envelope>'
+    ],
+    'InvoiceService' => [
+        'url' => 'https://api.24sevenoffice.com/Economy/InvoiceOrder/V001/InvoiceService.asmx',
     ]
 ];

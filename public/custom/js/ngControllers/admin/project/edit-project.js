@@ -488,7 +488,7 @@ app.controller('InvoicePlanController', function ($scope, $http, API_URL, $locat
 
     $http.get(`${API_URL}project/edit/${project_id}/invoice_plan`)
         .then((res) => {
-             
+
             $scope.project = formatData(res.data.invoice_data);
             $scope.project.project_cost = res.data.invoice_data.invoice_plan.project_cost;
             $scope.project.no_of_invoice = Number(res.data.invoice_data.invoice_plan.no_of_invoice);
@@ -507,7 +507,7 @@ app.controller('InvoicePlanController', function ($scope, $http, API_URL, $locat
                     'invoice_date': new Date(item.invoice_date),
                     'amount': item.amount,
                     'percentage': item.percentage,
-                    'project_24_id' : item?.project_24_id ?? 100, 
+                    'project_24_id': item?.project_24_id ?? 100,
                 }
             });
             result['totalPercentage'] = $scope.invoicePlans.totalPercentage;
@@ -568,11 +568,10 @@ app.controller('InvoicePlanController', function ($scope, $http, API_URL, $locat
 
     $scope.handleSubmitInvoicePlan = () => {
         let data = { 'invoice_data': $scope.invoicePlans, 'no_of_invoice': $scope.project.no_of_invoice, 'project_cost': $scope.project.project_cost }
-        $http.put(`${API_URL}project/${project_id}`, { data: data, type: 'invoice_plan' })
-            .then((res) => {
-                Message('success', 'Invoice Plan updated successfully');
-                $location.path('to-do-listing');
-            });
+        $http.put(`${API_URL}project/${project_id}`, { data: data, type: 'invoice_plan' }).then((res) => {
+            Message('success', 'Invoice Plan updated successfully');
+            $location.path('to-do-listing');
+        });
     }
 });
 
@@ -790,106 +789,16 @@ app.controller('ReviewAndSubmit', function ($scope, $http, API_URL, $timeout) {
         function refreshClick() {
             console.log('checking')
         }
-    });
-
-
-
-
-    // $http.get(`${API_URL}project/edit/${project_id}/connection_platform`)
-    //     .then((res) => {
-    //         fileSystem = res.data.folders;
-    //         if (res.data.platform_access.sharepoint_status == 1) {
-    //             $("#switch0").prop('checked', true);
-    //         }
-    //         if (res.data.platform_access.bim_status == 1) {
-    //             $("#switch1").prop('checked', true);
-    //         }
-    //         if (res.data.platform_access.tf_office_status == 1) {
-    //             $("#switch2").prop('checked', true);
-    //         }
-
-
-    //         const fileManager = $('#file-manager').dxFileManager({
-    //             name: 'fileManager',
-    //             fileSystemProvider: fileSystem,
-    //             height: 450,
-    //             permissions: {
-    //                 create: false,
-    //                 delete: false,
-    //                 rename: false,
-    //                 download: false,
-    //             },
-    //             itemView: {
-    //                 details: {
-    //                     columns: [
-    //                         'thumbnail', 'name',
-    //                         'dateModified', 'size',
-    //                     ],
-    //                 },
-    //                 showParentFolder: false,
-    //             },
-    //             toolbar: {
-    //                 items: [
-    //                     {
-    //                         name: 'showNavPane',
-    //                         visible: true,
-    //                     },
-    //                     'separator', 'create',
-    //                     {
-    //                         widget: 'dxMenu',
-    //                         location: 'before',
-    //                         options: {
-    //                         },
-    //                     },
-    //                     'refresh',
-    //                     {
-    //                         name: 'separator',
-    //                         location: 'after',
-    //                     },
-    //                     'switchView',
-    //                 ]
-    //             },
-    //             onDirectoryCreating: function (e) {
-    //                 let path = e.parentDirectory.relativeName + '/' + e.name;
-    //                 $http.put(`${API_URL}project/sharepoint-folder/${project_id}`, { data: fileSystem, path: path })
-    //                     .then((res) => {
-    //                         if (res.data.status == false) {
-    //                             Message('danger', res.data.msg);
-    //                             return false;
-    //                         }
-    //                         Message('success', 'updated successfully');
-    //                     })
-    //             },
-    //             onItemDeleting: function (e) {
-    //                 let path = e.item.relativeName;
-    //                 console.log(path);
-    //                 $http.post(`${API_URL}project/sharepoint-folder-delete/${project_id}`, { data: fileSystem, path: path })
-    //                     .then((res) => {
-    //                         if (res.data.status == false) {
-    //                             Message('danger', res.data.msg);
-    //                             return false;
-    //                         }
-    //                         Message('success', 'deleted successfully');
-    //                     })
-    //                 return true;
-    //             },
-    //             onItemRenamed: function (e) {
-
-    //                 $http.put(`${API_URL}project/sharepoint-folder/${project_id}`, { data: fileSystem })
-    //                     .then((res) => {
-    //                         Message('success', 'updated successfully');
-
-    //                     })
-    //             }
-
-    //         }).dxFileManager('instance');
-    //     });
-
-
-
+    }); 
 
     $scope.submitProject = (e) => {
         e.preventDefault();
+        Swal.fire({
+            html: `<img src="${API_URL}/public/assets/images/logo_customer.png" class="my-3" width="150" /><p class="w-75 mx-auto mb-0">Please be patient!, <br/><b> You Establishing a new project.</b></p>`,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            didOpen: () => Swal.showLoading(),
+        })
         $http.put(`${API_URL}project/${project_id}`, { data: '', type: 'review_and_submit' })
             .then((res) => {
                 $timeout(function () {
@@ -898,7 +807,7 @@ app.controller('ReviewAndSubmit', function ($scope, $http, API_URL, $timeout) {
                 if (res.data.status == true) {
                     Swal.fire({
                         icon: 'success',
-                        html: `<h3>Project Established Successfully..!!</h3>`,
+                        html: `<img src="${API_URL}/public/assets/images/logo_customer.png" class="my-3" width="150" /><p class="fw-bold">Project Established Successfully..!!</p>`,
                         showConfirmButton: false,
                         timer: 3000
                     });
@@ -979,7 +888,7 @@ app.directive('calculateAmount', ['$http', function ($http, $scope, $apply) {
                             amount: Number.parseFloat(projectCost).toFixed(2),
                             invoice_date: invoicePlan.invoice_date,
                             percentage: scope.invoicePlans.totalPercentage,
-                            project_24_id:scope.invoicePlan.project_24_id
+                            project_24_id: invoicePlan.project_24_id
                         }
                     }
                     let totalPercentage = scope.invoicePlans.totalPercentage - invoicePlan.percentage;
@@ -989,7 +898,7 @@ app.directive('calculateAmount', ['$http', function ($http, $scope, $apply) {
                             amount: 0,
                             invoice_date: invoicePlan.invoice_date,
                             percentage: 0,
-                            project_24_id:scope.invoicePlan.project_24_id
+                            project_24_id: invoicePlan.project_24_id
                         };
                     } else {
                         scope.invoicePlans.totalPercentage -= invoicePlan.percentage;
@@ -999,7 +908,7 @@ app.directive('calculateAmount', ['$http', function ($http, $scope, $apply) {
                             amount: Number.parseFloat((scope.project.project_cost / 100) * invoicePlan.percentage).toFixed(2),
                             invoice_date: invoicePlan.invoice_date,
                             percentage: invoicePlan.percentage,
-                            project_24_id:scope.invoicePlan.project_24_id
+                            project_24_id: invoicePlan.project_24_id
                         };
                     }
                 });
@@ -1028,7 +937,7 @@ app.directive('calculateAmount', ['$http', function ($http, $scope, $apply) {
                             amount: Number.parseFloat((scope.project.project_cost / 100) * invoicePlan.percentage).toFixed(2),
                             invoice_date: invoicePlan.invoice_date,
                             percentage: totalPercentage,
-                            project_24_id:scope.invoicePlan.project_24_id
+                            project_24_id: invoicePlan.project_24_id
                         };
                     }
                     return invoicePlan;
