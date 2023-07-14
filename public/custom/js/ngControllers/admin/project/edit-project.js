@@ -488,7 +488,6 @@ app.controller('InvoicePlanController', function ($scope, $http, API_URL, $locat
 
     $http.get(`${API_URL}project/edit/${project_id}/invoice_plan`)
         .then((res) => {
-
             $scope.project = formatData(res.data.invoice_data);
             $scope.project.project_cost = res.data.invoice_data.invoice_plan.project_cost;
             $scope.project.no_of_invoice = Number(res.data.invoice_data.invoice_plan.no_of_invoice);
@@ -498,7 +497,7 @@ app.controller('InvoicePlanController', function ($scope, $http, API_URL, $locat
             if (totalInvoice > 0) {
                 invoiceStatus = !invoiceStatus;
             }
-            $scope.project24SevenList = res.data.projects_on_24Seven.original.response.GetProductsResult.Product
+            $scope.project24SevenList = res.data.projects_on_24Seven['soap:Envelope']['soap:Body']['GetProductsResponse']['GetProductsResult']['Product']
             let invoices
             if (typeof response === 'string') {
                 invoices = [{
