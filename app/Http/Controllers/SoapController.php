@@ -62,7 +62,7 @@ class SoapController extends Controller
                     'InvoiceRow' => [
                         "ProductId" => $invoice->project_24_id,
                         "Price"     => $invoice->amount,
-                        "Name"      => "Test Invoice " . ($key + 1),
+                        "Name"      => $invoice->invoice_name ?? "Test",
                         "Quantity"  => 1
                     ]
                 ]

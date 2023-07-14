@@ -502,6 +502,7 @@ app.controller('InvoicePlanController', function ($scope, $http, API_URL, $locat
             if (typeof response === 'string') {
                 invoices = [{
                     'index': 1,
+                    'invoice_name': "",
                     'invoice_date': null,
                     'amount': null,
                     'percentage': null,
@@ -513,6 +514,7 @@ app.controller('InvoicePlanController', function ($scope, $http, API_URL, $locat
                     $scope.invoicePlans.totalAmount += ($scope.project.project_cost / 100) * item.percentage;
                     return {
                         'index': item.index,
+                        'invoice_name': item.invoice_name,
                         'invoice_date': new Date(item.invoice_date),
                         'amount': item.amount,
                         'percentage': item.percentage,
@@ -545,6 +547,7 @@ app.controller('InvoicePlanController', function ($scope, $http, API_URL, $locat
                 // let invoice_date = (i == 1) ? $scope.project.start_date : '';
                 $scope.invoicePlans.invoices.push({
                     'index': i,
+                    'invoice_name': "",
                     'invoice_date': $scope.project.start_date,
                     'amount': 0,
                     'percentage': 0
@@ -562,6 +565,7 @@ app.controller('InvoicePlanController', function ($scope, $http, API_URL, $locat
                 newRow.push({
                     'index': totalInvoice + i,
                     'invoice_date': '',
+                    'invoice_name': "",
                     'amount': 0,
                     'percentage': 0
                 });
@@ -898,6 +902,7 @@ app.directive('calculateAmount', ['$http', function ($http, $scope, $apply) {
                             index: index + 1,
                             amount: Number.parseFloat(projectCost).toFixed(2),
                             invoice_date: invoicePlan.invoice_date,
+                            invoice_name: invoicePlan.invoice_name,
                             percentage: scope.invoicePlans.totalPercentage,
                             project_24_id: invoicePlan.project_24_id
                         }
@@ -908,6 +913,7 @@ app.directive('calculateAmount', ['$http', function ($http, $scope, $apply) {
                             index: index + 1,
                             amount: 0,
                             invoice_date: invoicePlan.invoice_date,
+                            invoice_name: invoicePlan.invoice_name,
                             percentage: 0,
                             project_24_id: invoicePlan.project_24_id
                         };
@@ -918,6 +924,7 @@ app.directive('calculateAmount', ['$http', function ($http, $scope, $apply) {
                             index: index + 1,
                             amount: Number.parseFloat((scope.project.project_cost / 100) * invoicePlan.percentage).toFixed(2),
                             invoice_date: invoicePlan.invoice_date,
+                            invoice_name: invoicePlan.invoice_name,
                             percentage: invoicePlan.percentage,
                             project_24_id: invoicePlan.project_24_id
                         };
@@ -945,6 +952,7 @@ app.directive('calculateAmount', ['$http', function ($http, $scope, $apply) {
                     if (scope.project.no_of_invoice == index + 1) {
                         return {
                             index: index + 1,
+                            invoice_name: invoicePlan.invoice_name,
                             amount: Number.parseFloat((scope.project.project_cost / 100) * invoicePlan.percentage).toFixed(2),
                             invoice_date: invoicePlan.invoice_date,
                             percentage: totalPercentage,
