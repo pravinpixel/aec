@@ -646,14 +646,22 @@ if (!function_exists('changeProposalStatus')) {
             $data = [];
             if (is_null(session()->get('Get24SevenProducts'))) {
                 $project24 = new SoapController();
-                $result =  $project24->GetProducts(); 
-                // $re
-                session()->put('Get24SevenProducts', $result);
-                $data =  $result;
+                $result =  $project24->GetProducts();
+                $response = $result['soap:Envelope']['soap:Body']['GetProductsResponse']['GetProductsResult']['Product'];
+                session()->put('Get24SevenProducts', $response);
+                $data =  $response;
             } else {
                 $data = session()->get('Get24SevenProducts');
             }
-            dd($data);
+
+            if (!is_null($id)) {
+                foreach ($data as $row) {
+                    if ($row['Id'] == $id) {
+                        return $row;
+                    }
+                }
+            }
+            return  $data;
         }
-    } 
+    }
 }
