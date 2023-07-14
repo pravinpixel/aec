@@ -58,7 +58,8 @@ class Customer extends Authenticatable
         'bim_account_id',
         'image',
         'token',
-        'aec_user_id'
+        'aec_user_id',
+        'customer_24_seven_id',
     ];
     public function assigncustomerdetails()
     {

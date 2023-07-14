@@ -115,5 +115,29 @@ class AdminSeeder extends Seeder
             'reference_number' => 'EMP-4',
             'image'            => "https://picsum.photos/200"
         ]);
+        $aec_user_5 = AecUsers::create([
+            'first_name'       => 'wicywige',
+            'last_name'        => 'xalocike',
+            'full_name'     => 'wicywige xalocike',
+            'email'            => 'wicywige@mailinator.com',
+            'password'         => Hash::make('12345678'),
+            'image'            => "https://picsum.photos/200",
+            'job_role'         => 2,
+        ]);
+        Employees::create([
+            'aec_user_id' => $aec_user_5->id,
+            'first_name'       => 'wicywige',
+            'last_name'        => 'xalocike',
+            'full_name'     => 'wicywige xalocike',
+            'email'            => 'wicywige@mailinator.com',
+            'password'         => Hash::make('12345678'),
+            'mobile_number'    => '9800786759',
+            'bim_access'       => 1,
+            'status'           => 1,
+            'image'            => '',
+            'job_role'         => 2,
+            'reference_number' => 'EMP-5',
+            'image'            => "https://picsum.photos/200"
+        ]);
     }
 }

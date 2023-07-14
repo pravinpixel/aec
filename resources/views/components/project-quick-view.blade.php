@@ -423,7 +423,7 @@
                             @foreach ($project['invoice_plan']['invoice_data']->invoices as $key => $invoice)
                                 <tr>
                                     <td class="text-center">{{ $key + 1 }} </td>
-                                    <td class="text-center">{{ SetDateFormat($invoice->invoice_date) }}</td>
+                                    <td class="text-center">{{ $invoice->invoice_date }}</td>
                                     <td class="text-center">{{ $invoice->amount }}</td>
                                     <td class="text-center">{{ $invoice->percentage }}</td>
                                 </tr>

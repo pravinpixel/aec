@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\LiveProjectInvoice;
+use App\Models\Project;
 use App\Services\SoapService;
-use DOMDocument;
+use Carbon\Carbon;
 
 class SoapController extends Controller
 {
@@ -52,12 +53,13 @@ class SoapController extends Controller
     }
     public function SaveInvoices($data, $project_id)
     {
+        $project = Project::with('Customer')->find($project_id);
         $invoices = [];
         foreach ($data as $key => $invoice) {
             $invoices[]['InvoiceOrder'] = [
-                'DateInvoiced' => '2023-07-13',
-                'CustomerId' => 12,
-                'OrderStatus' => 'Invoiced',
+                'DateInvoiced' => Carbon::parse(str_replace('/','-',$invoice->invoice_date))->format('Y-m-d'), //2023-07-13
+                'CustomerId'   => $project->Customer->customer_24_seven_id ?? 12,
+                'OrderStatus'  => 'Invoiced',
                 'InvoiceRows' => [
                     'InvoiceRow' => [
                         "ProductId" => $invoice->project_24_id,
@@ -109,5 +111,30 @@ class SoapController extends Controller
                 'response' => $response
             ]);
         }
+    }
+
+    public function CompanyService($name)
+    {
+        if (is_null(token24Seven())) {
+            $this->credential();
+        }
+        $SoapService = new SoapService();
+        $xml = '<?xml version="1.0" encoding="utf-8"?>
+                <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                    <soap:Body>
+                        <SaveCompanies xmlns="http://24sevenOffice.com/webservices">
+                            <companies>
+                                <Company>
+                                    <Name>' . $name . '</Name>
+                                    <Type>Business</Type>
+                                </Company>
+                            </companies>
+                        </SaveCompanies>
+                    </soap:Body>
+                </soap:Envelope>';
+        $xml      = str_replace(array("\r", "\n"), '', $xml);
+        $response = $SoapService->call(config('24-seven-office.CompanyService.url'), $xml);
+        $response = xmlToArray($response);
+        return $response['soap:Envelope']['soap:Body']['SaveCompaniesResponse']['SaveCompaniesResult']['Company'];
     }
 }

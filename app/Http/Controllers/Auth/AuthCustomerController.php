@@ -3,9 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\SoapController;
 use App\Mail\Admin\NewCustomerMail;
-use App\Mail\certificationMail;
-use App\Mail\RegisterCustomerMail;
 use App\Mail\RemainderCustomerMail;
 use App\Models\AecUsers;
 use App\Models\Customer;
@@ -117,7 +116,6 @@ class AuthCustomerController extends Controller
             'phone_no'        => 'max:15',
             'mobile_no'       => ['required', 'regex:/^\d{8}$|^\d{12}$/']
         ]);
-
         $response         = Http::get('https://hotell.difi.no/api/json/brreg/enhetsregisteret?query=' . $request->company_name);
         if (count($response->json()['entries'])) {
             $GetDataByZipCode = Http::get('https://api.zippopotam.us/NO/' . $response->json()['entries'][0]['forradrpostnr']);
@@ -149,8 +147,9 @@ class AuthCustomerController extends Controller
             $customer->state           = $GetDataByZipCode->json()['places'][0]['state'];
             $customer->country         = $GetDataByZipCode->json()['country'];
         }
-
-
+        $CompanyService = new SoapController();
+        $result = $CompanyService->CompanyService($customer->AecUsers->full_name); 
+        $customer->customer_24_seven_id = $result['Id'];
         if ($customer->save()) {
             $this->createEnquiry($customer);
             Flash::success(__('setup completed successfully'));

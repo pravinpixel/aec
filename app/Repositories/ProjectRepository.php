@@ -534,7 +534,7 @@ class ProjectRepository implements ProjectRepositoryInterface, ConnectionPlatfor
             $result = $SaveInvoices->SaveInvoices($invoicesFor24Seven, $project_id);
         } catch (\Throwable $th) {
             Log::info($th->getMessage());
-        } 
+        }
         $project_scheduler     = $this->getGranttChartTaskLink($project_id);
         $LiveProjectGranttTask = LiveProjectGranttTask::where('project_id', $project_id);
         $LiveProjectGranttTask->delete();

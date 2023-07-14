@@ -52,5 +52,8 @@ return [
     ],
     'InvoiceService' => [
         'url' => 'https://api.24sevenoffice.com/Economy/InvoiceOrder/V001/InvoiceService.asmx',
+    ],
+    'CompanyService' => [
+        'url' => 'https://api.24sevenoffice.com/CRM/Company/V001/CompanyService.asmx',
     ]
 ];

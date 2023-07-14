@@ -43,6 +43,7 @@ class CreateCustomersTable extends Migration
             $table->unsignedBigInteger('updated_by')->nullable();
             $table->string('device_token')->nullable();
             $table->integer('notification')->default(0);
+            $table->integer('customer_24_seven_id')->nullable();
             $table->softDeletes('deleted_at');
             $table->rememberToken();
             $table->string('token')->nullable();
