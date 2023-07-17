@@ -114,7 +114,7 @@ class SoapController extends Controller
     }
 
     public function CompanyService($customer, $request)
-    {
+    { 
         if (is_null(token24Seven())) {
             $this->credential();
         }
@@ -126,8 +126,8 @@ class SoapController extends Controller
                             <companies>
                                 <Company>
                                     <FirstName>' . $customer->first_name . '</FirstName>
-                                    <Name>' . $request->company_name . '</Name>
-                                    <OrganizationNumber>' . $request->organization_no . '</OrganizationNumber>
+                                    <Name>' . $request['company_name'] . '</Name>
+                                    <OrganizationNumber>' . $request['organization_no'] . '</OrganizationNumber>
                                     <NickName>' . $customer->last_name . '</NickName>
                                     <Type>Business</Type>
                                 </Company>
