@@ -644,8 +644,11 @@ if (!function_exists('changeProposalStatus')) {
         function Get24SevenProducts($id = null)
         {
             $data = [];
-            if (is_null(session()->get('Get24SevenProducts'))) {
-                $project24 = new SoapController();
+            $project24 = new SoapController();
+            if(is_null(token24Seven())){
+                $result =  $project24->credential();
+            }
+            if (is_null(session()->get('Get24SevenProducts'))) { 
                 $result =  $project24->GetProducts();
                 $response = $result['soap:Envelope']['soap:Body']['GetProductsResponse']['GetProductsResult']['Product'];
                 session()->put('Get24SevenProducts', $response);
