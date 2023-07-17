@@ -148,7 +148,7 @@ class AuthCustomerController extends Controller
             $customer->country         = $GetDataByZipCode->json()['country'];
         }
         $CompanyService = new SoapController();
-        $result = $CompanyService->CompanyService($customer->AecUsers->full_name); 
+        $result = $CompanyService->CompanyService($customer, $request->all()); 
         $customer->customer_24_seven_id = $result['Id'];
         if ($customer->save()) {
             $this->createEnquiry($customer);

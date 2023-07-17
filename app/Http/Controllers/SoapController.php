@@ -57,7 +57,7 @@ class SoapController extends Controller
         $invoices = [];
         foreach ($data as $key => $invoice) {
             $invoices[]['InvoiceOrder'] = [
-                'DateInvoiced' => Carbon::parse(str_replace('/','-',$invoice->invoice_date))->format('Y-m-d'), //2023-07-13
+                'DateInvoiced' => Carbon::parse(str_replace('/', '-', $invoice->invoice_date))->format('Y-m-d'), //2023-07-13
                 'CustomerId'   => $project->Customer->customer_24_seven_id ?? 12,
                 'OrderStatus'  => 'Invoiced',
                 'InvoiceRows' => [
@@ -113,7 +113,7 @@ class SoapController extends Controller
         }
     }
 
-    public function CompanyService($name)
+    public function CompanyService($customer, $request)
     {
         if (is_null(token24Seven())) {
             $this->credential();
@@ -125,7 +125,10 @@ class SoapController extends Controller
                         <SaveCompanies xmlns="http://24sevenOffice.com/webservices">
                             <companies>
                                 <Company>
-                                    <Name>' . $name . '</Name>
+                                    <FirstName>' . $customer->first_name . '</FirstName>
+                                    <Name>' . $request->company_name . '</Name>
+                                    <OrganizationNumber>' . $request->organization_no . '</OrganizationNumber>
+                                    <NickName>' . $customer->last_name . '</NickName>
                                     <Type>Business</Type>
                                 </Company>
                             </companies>

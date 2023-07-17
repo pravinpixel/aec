@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
 class AecUsers extends Model
 {
     use HasFactory;
@@ -21,5 +20,10 @@ class AecUsers extends Model
     public function Role()
     {
         return $this->hasOne(Role::class, 'id', 'job_role');
+    }
+
+    public function Customer()
+    {
+        return $this->hasOne(Customer::class, 'aec_user_id', 'id');
     }
 }
