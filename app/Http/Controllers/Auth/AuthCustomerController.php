@@ -110,7 +110,7 @@ class AuthCustomerController extends Controller
     public function StoreCompanyInfo(Request $request, $id)
     {
         $this->validate(request(), [
-            'company_name'    => 'required|unique:customers',
+            'company_name'    => 'required',//|unique:customers
             'organization_no' => 'required',
             'fax'             => 'max:8',
             'phone_no'        => 'max:15',
@@ -191,7 +191,8 @@ class AuthCustomerController extends Controller
     }
     function checkEmailExists(Request $req)
     {
-        $emailExists = Customer::where('email', $req->input('email'))->exists();
+        $emailExists = Customer::where('email', $req->input('email'))->first();
+      
         if ($emailExists) {
             $getCustomer = Customer::where('email', $req->input('email'))->first();
             if ($getCustomer->isRegistered == '0') {
