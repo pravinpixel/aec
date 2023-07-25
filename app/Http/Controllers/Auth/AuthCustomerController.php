@@ -191,7 +191,7 @@ class AuthCustomerController extends Controller
     }
     function checkEmailExists(Request $req)
     {
-        $emailExists = Customer::where('email', $req->input('email'))->first();
+        $emailExists = Customer::where('email', $req->input('email'))->where('is_deleted',0)->first();
       
         if ($emailExists) {
             $getCustomer = Customer::where('email', $req->input('email'))->first();
