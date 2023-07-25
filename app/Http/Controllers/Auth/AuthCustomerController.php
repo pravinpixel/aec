@@ -28,15 +28,18 @@ class AuthCustomerController extends Controller
 
     public function postSignUp()
     {
+        $emailExists = Customer::where('email', request()->email)->where('is_deleted',0)->first();
+        $emailExists->update([
+            "email" => request()->email."_removed"
+        ]);
         $this->validate(request(), [
             'first_name' => 'required',
             'last_name'  => 'required',
-            'email'      => ['required', 'email', 'regex:/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/'],//'unique:customers'
+            'email'      => ['required', 'email', 'regex:/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/', 'unique:customers'],
             'password'   => ['required', 'confirmed', 'min:8']
+        ], [
+            "email.unique" => "Verification mail already sent, check your inbox"
         ]);
-        // , [
-        //     "email" => "Verification mail already sent, check your inbox"
-        // ]
         try {
 
             $AecUsers = AecUsers::create([
@@ -173,6 +176,7 @@ class AuthCustomerController extends Controller
     private function createEnquiry($customer)
     {
         try {
+
             $customerEnquiryNo = GlobalService::customerEnquiryNumber();
             $customer->enquiry()->create([
                 'initiate_from'           => 'customer',
