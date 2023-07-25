@@ -28,8 +28,7 @@ class AuthCustomerController extends Controller
 
     public function postSignUp()
     {
-        $emailExists = Customer::where('email', request()->email)->where('is_deleted',0)->first();
-        $emailExists->update([
+        Customer::where('email', request()->email)->where('is_deleted',1)->update([
             "email" => request()->email."_removed"
         ]);
         $this->validate(request(), [
