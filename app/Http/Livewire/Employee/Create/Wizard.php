@@ -114,7 +114,7 @@ class Wizard extends Component
             $employee = new Employees();
             $employee->reference_number = $this->getEnquiryNumber();
             $employee->aec_user_id = $AecUsers->id;
-            if ($employee->send_password_to_email) {
+            // if ($employee->send_password_to_email) {
                 // try {
                 $details = [
                     'user_name' => $this->full_name,
@@ -124,7 +124,7 @@ class Wizard extends Component
                 // } catch (\Exception $e) {
                 //     Log::info($e->getMessage());
                 // }
-            }
+            // }
         }
         $employee->first_name              = $this->first_name;
         $employee->last_name               = $this->last_name;
