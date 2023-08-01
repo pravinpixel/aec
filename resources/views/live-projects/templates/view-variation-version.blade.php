@@ -2,44 +2,49 @@
     @if ($mode == 'VIEW')
         <div class="modal-content h-100 w-100">
             <div class="modal-header">
-                <h4 class="custom-modal-title" id="create-variation-orderLabel"> <b
-                        class="text-primary">{{ str_replace('_', ' ', $mode) }}</b> - VERSION - {{ $variation->version }}
+                <h4 class="custom-modal-title d-flex align-items-center" id="create-variation-orderLabel"> 
+                    <b  class="text-primary">{{ str_replace('_', ' ', $mode) }}</b>
+                    <span> - VERSION - {{ $variation->version }}</span>
+                    <div class="vr mx-2"></div>
+                    <a href="{{ route('live-project.menus-index', ['menu_type' => 'issues', 'id' => session()->get('current_project')->id]) }}" class="btn-outline-primary btn-quick-view p-1">
+                        {{ $variation->VariationOrder->Issues->issue_id }}
+                    </a>
                 </h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body ">
-                <table class="table table-lg table-bordered">
+                <table class="table table-lg border">
                     <tbody>
                         <tr>
-                            <td><b>Title</b></td>
-                            {{-- <td>:</td> --}}
-                            <td>{{ $variation->title }}</td>
+                            <td>Title</td>
+                            <td>:</td>
+                            <th>{{ $variation->title }}</th>
                         </tr>
                         <tr>
-                            <td><b>Description of Variation</b></td>
-                            {{-- <td>:</td> --}}
-                            <td>{{ $variation->description }}</td>
+                            <td>Description of Variation</td>
+                            <td>:</td>
+                            <th>{{ $variation->description }}</th>
                         </tr>
                         <tr>
-                            <td><b>Estimated Hours</b></td>
-                            {{-- <td>:</td> --}}
-                            <td>{{ $variation->hours }}</td>
+                            <td>Estimated Hours</td>
+                            <td>:</td>
+                            <th>{{ $variation->hours }}</th>
                         </tr>
                         <tr>
-                            <td><b>Estimated Price/Hr</b></td>
-                            {{-- <td>:</td> --}}
-                            <td>{{ $variation->price }}</td>
+                            <td>Estimated Price/Hr</td>
+                            <td>:</td>
+                            <th>{{ $variation->price }}</th>
                         </tr>
                         <tr>
-                            <td><b>Total Cost:</b></td>
-                            {{-- <td>:</td> --}}
-                            <td>{{ $variation->price * $variation->hours }}</td>
+                            <td>Total Cost:</td>
+                            <td>:</td>
+                            <th>{{ $variation->price * $variation->hours }}</th>
                         </tr>
                         @if ($variation->comments)
                             <tr class="bg-light">
-                                <td><b>Change Request Comments</b></td>
-                                {{-- <td>:</td> --}}
-                                <td>{{ $variation->comments }}</td>
+                                <td>Change Request Comments</td>
+                                <td>:</td>
+                                <th>{{ $variation->comments }}</th>
                             </tr>
                         @endif
                     </tbody>
@@ -73,21 +78,21 @@
                     <div class="col ps-0">
                         <div class="mb-3">
                             <label class="form-label">Estimated Hours * </label>
-                            <input type="number" class="form-control" name="hours" value="{{ $variation->hours }}"
+                            <input type="number" class="form-control" onkeyup="calculateTotalCost('#totalEstimateText')" name="hours" value="{{ $variation->hours }}"
                                 required {{ $mode == 'VIEW' ? 'readonly' : '' }}>
                         </div>
                     </div>
                     <div class="col pe-0">
                         <div class="mb-3">
                             <label class="form-label">Price/Hr *</label>
-                            <input type="number" class="form-control" name="price" value="{{ $variation->price }}"
+                            <input type="number" class="form-control" onkeyup="calculateTotalCost('#totalEstimateText')" name="price" value="{{ $variation->price }}"
                                 required {{ $mode == 'VIEW' ? 'readonly' : '' }}>
                         </div>
                     </div>
                     @if (!is_null($variation->price))
                         <div class="col-12 p-0">
                             <label class="form-label">Total Price :
-                                <b>{{ $variation->price * $variation->hours }}</b></label>
+                                <b id="totalEstimateText">{{ $variation->price * $variation->hours }}</b></label>
                         </div>
                     @endif
                 </div>

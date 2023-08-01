@@ -594,11 +594,5 @@
             }
         });
     </script>
-    <script>
-        calculateTotalCost = () => {
-            const hours = document.querySelector('input[name=hours]').value
-            const price = document.querySelector('input[name=price]').value
-            document.querySelector('#totalEstimate').value = hours * price
-        }
-    </script>
+    
 @endpush

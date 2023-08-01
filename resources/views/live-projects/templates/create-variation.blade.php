@@ -35,13 +35,13 @@
             <div class="col-6">
                 <div class="mb-3">
                     <label class="form-label">Estimated Hours * </label>
-                    <input type="number" class="form-control" onkeyup="calculateTotalCost()" name="hours" required>
+                    <input type="number" class="form-control" onkeyup="calculateTotalCost('#totalEstimate')" name="hours" required>
                 </div>
             </div>
             <div class="col-6">
                 <div class="mb-3">
                     <label class="form-label">Price/Hr *</label>
-                    <input type="number" class="form-control" onkeyup="calculateTotalCost()" name="price" required>
+                    <input type="number" class="form-control" onkeyup="calculateTotalCost('#totalEstimate')" name="price" required>
                 </div>
             </div>
             <div class="col ">

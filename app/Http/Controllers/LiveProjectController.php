@@ -284,7 +284,11 @@ class LiveProjectController extends Controller
                 return Str::limit($row->title, 28, ' ...');
             });
             $table->addColumn('status_type', function ($row) {
-                return '<span class="badge text-dark border rounded-pill">' . __('project.' . $row->status) . '</span>';
+                if (is_null($row->VariationOrder)) {
+                    return '<span class="badge text-dark border rounded-pill">' . __('project.' . $row->status) . '</span>';
+                }
+                $route = route('live-project.menus-index', ['menu_type' => 'variation-orders', 'id' => session()->get('current_project')->id]);
+                return '<a href="'.$route.'" class="badge text-dark border rounded-pill"><b>🟡 VO</b></a>';
             });
             $table->addColumn('priority_type', function ($row) {
                 if ($row->priority == 'CRITICAL') {
@@ -301,7 +305,7 @@ class LiveProjectController extends Controller
                 $btnConvert = '';
                 $actionButtons = '';
                 if (AuthUser() == 'ADMIN') {
-                    if ($row->type == "EXTERNAL" || !is_null($row->VariationOrder)) {
+                    if ($row->type == "EXTERNAL" && is_null($row->VariationOrder)) {
                         $btnConvert = '<button type="button" onclick="convertVariation(' . $row->id . ',this)" title="Convert to variation Order" class="dropdown-item"><i class="fa fa-share me-1"></i> Convert Variation</button>';
                     }
                 }
@@ -470,7 +474,7 @@ class LiveProjectController extends Controller
         }
     }
     public function variation_version($id)
-    {
+    { 
         $variations = VariationOrderVersions::where('variation_id', $id)->select('*');
         $table      = DataTables::of($variations->get());
         $table->addIndexColumn();
@@ -478,6 +482,11 @@ class LiveProjectController extends Controller
             return '<button type="button" class="btn-quick-view bg-warning fw-bold shadow-none border-dark border text-dark" onclick=ViewVersion(' . $row->id . ',"VIEW") >
                     ' . $row->version . '
                 </button>';
+        });
+        $table->editColumn('title', function ($row) {
+            // onclick=showIssue(' . $row->VariationOrder->Issues->id . ',this)
+            $route = route('live-project.menus-index', ['menu_type' => 'issues', 'id' => session()->get('current_project')->id]);
+            return '<a href="'.$route.'" class="btn-link fw-bold "><u>' . $row->title . '</u></a>';
         });
         $table->addColumn('status', function ($row) {
             return VariationStatus($row->status);
@@ -500,7 +509,7 @@ class LiveProjectController extends Controller
                         ' . $chatButton->render() . '
                     </div>';
         });
-        $table->rawColumns(['action', 'status', 'version_id', 'total_price']);
+        $table->rawColumns(['action', 'status', 'version_id', 'total_price','title']);
         return $table->make(true);
     }
     public function view_version($id, $mode)

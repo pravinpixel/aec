@@ -20,4 +20,8 @@ class VariationOrderVersions extends Model
         'description',
         'comments'
     ];
+
+    public function VariationOrder(){
+        return $this->belongsTo(VariationOrder::class,'variation_id','id');
+    }
 }

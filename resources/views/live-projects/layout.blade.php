@@ -10,19 +10,19 @@
     <ul class="notifications"></ul>
     <!-- Begin page -->
     <div class="wrapper">
-        <!-- ========== Left Sidebar Start ========== --> 
+        <!-- ========== Left Sidebar Start ========== -->
         @if (AuthUser() == 'CUSTOMER')
             @include('customer.includes.side-bar')
-            @else
+        @else
             @include('admin.includes.side-bar')
         @endif
         <!--========== Left Sidebar End ========== -->
         <!--========== Start Page Content here ==========-->
         <div class="main-content-rapper">
-            <div class="content-page"> 
+            <div class="content-page">
                 @if (AuthUser() == 'CUSTOMER')
                     @include('customer.includes.top-bar')
-                    @else
+                @else
                     @include('admin.includes.top-bar')
                 @endif
                 @yield('admin-content')
@@ -64,6 +64,12 @@
     </script>
     @stack('live-project-custom-scripts')
     <script>
+        calculateTotalCost = (ele) => {
+            const hours = document.querySelector('input[name=hours]').value
+            const price = document.querySelector('input[name=price]').value
+            document.querySelector(ele).value = hours * price
+            document.querySelector(ele).innerText = hours * price
+        }
         const addComment = (id) => {
             var input = $('#comments_input').val();
             if (input == '') return false

@@ -48,42 +48,50 @@
                             <h4 class=""> {{ $issue->issue_id }} | <span
                                     class="text-primary">{{ $issue->title }}</span></h4>
                         </div>
-                        @if ($issue->status == 'CLOSED')
+                        @if (!is_null($issue->VariationOrder))
                             <div class="mb-3">
                                 <b>Status</b> :
-                                <span
-                                    class="badge text-dark border rounded-pill">{{ __('project.' . $issue->status) }}</span>
-                            </div>
-                            <div class="mb-3">
-                                <b>Closed Remarks</b> :
-                                <span>{{ $issue->remarks }}</span>
+                                <span class="badge text-dark border rounded-pill"><b>🟡 VO</b></span>
                             </div>
                         @else
-                            <div class="mb-3">
-                                <b>Status</b> :
-                                <span>
-                                    @if ($issue->requester_role === AuthUser() || AuthUser() === 'ADMIN')
-                                        <select name="Status" onchange="ChangeIssueStatus('{{ $issue->id }}',this)"
-                                            class="rounded-pill shadow-sm border border-light"
-                                            value="{{ $issue->status }}" style="outline:none">
-                                            <option {{ select_status('OPEN', $issue) }} value="OPEN">
-                                                {{ __('project.OPEN') }}</option>
-                                            <option {{ select_status('CLOSED', $issue) }} value="CLOSED">
-                                                {{ __('project.CLOSED') }}</option>
-                                        </select>
-                                    @else
-                                        <select name="Status" disabled
-                                            class="rounded-pill shadow-sm border border-light"
-                                            value="{{ $issue->status }}" style="outline:none">
-                                            <option {{ select_status('OPEN', $issue) }} value="OPEN">
-                                                {{ __('project.OPEN') }}</option>
-                                            <option {{ select_status('CLOSED', $issue) }} value="CLOSED">
-                                                {{ __('project.CLOSED') }}</option>
-                                        </select>
-                                    @endif
-                                    <div id="status_form"></div>
-                                </span>
-                            </div>
+                            @if ($issue->status == 'CLOSED')
+                                <div class="mb-3">
+                                    <b>Status</b> :
+                                    <span
+                                        class="badge text-dark border rounded-pill">{{ __('project.' . $issue->status) }}</span>
+                                </div>
+                                <div class="mb-3">
+                                    <b>Closed Remarks</b> :
+                                    <span>{{ $issue->remarks }}</span>
+                                </div>
+                            @else
+                                <div class="mb-3">
+                                    <b>Status</b> :
+                                    <span>
+                                        @if ($issue->requester_role === AuthUser() || AuthUser() === 'ADMIN')
+                                            <select name="Status"
+                                                onchange="ChangeIssueStatus('{{ $issue->id }}',this)"
+                                                class="rounded-pill shadow-sm border border-light"
+                                                value="{{ $issue->status }}" style="outline:none">
+                                                <option {{ select_status('OPEN', $issue) }} value="OPEN">
+                                                    {{ __('project.OPEN') }}</option>
+                                                <option {{ select_status('CLOSED', $issue) }} value="CLOSED">
+                                                    {{ __('project.CLOSED') }}</option>
+                                            </select>
+                                        @else
+                                            <select name="Status" disabled
+                                                class="rounded-pill shadow-sm border border-light"
+                                                value="{{ $issue->status }}" style="outline:none">
+                                                <option {{ select_status('OPEN', $issue) }} value="OPEN">
+                                                    {{ __('project.OPEN') }}</option>
+                                                <option {{ select_status('CLOSED', $issue) }} value="CLOSED">
+                                                    {{ __('project.CLOSED') }}</option>
+                                            </select>
+                                        @endif
+                                        <div id="status_form"></div>
+                                    </span>
+                                </div>
+                            @endif
                         @endif
                         <div class="mb-3">
                             <b>Type</b> : <span>{{ $issue->type }}</span>
