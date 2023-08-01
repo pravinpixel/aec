@@ -20,7 +20,7 @@
 @endphp
 @php
     $PreviousChatHistory = checkModuleMenuMessagesCount($moduleName, $moduleId, $menuName);
-    $moduleCount = getModuleMenuMessagesCount($moduleName, $moduleId, $menuName, 0);
+    $moduleCount = getModuleMenuMessagesCount($moduleName, $moduleId, $menuName, 'element');
 @endphp
 @if ($status == 1)
     <div>
@@ -81,6 +81,7 @@
                             onclick="PreviousChatHistory(this, '{{ $moduleId }}', '{{ $moduleName }}' , '{{ $menuName }}' )"><i
                                 class="mdi-reload mdi"></i></button>
                         <button type="button" class="btn btn-sm text-danger" title="Close Chat" data-bs-dismiss="modal"
+                            onclick="unReadChatHistory('{{ $moduleId }}', '{{ $moduleName }}' , '{{ $menuName }}' )"
                             aria-label="Close"><i class="fa fa-close"></i></button>
                     </div>
                 </div>

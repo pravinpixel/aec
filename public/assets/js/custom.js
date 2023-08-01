@@ -294,11 +294,18 @@ PreviousChatHistory = (element, module_id, module_name, menu_name) => {
                 item[1].value = ''
             }
         })
-        // axios.post(`${APP_URL}/set-unread-message`, payload ).then(function (response){
-        //     console.log(response.data)
-        // })
         refreshData()
     });
+}
+
+unReadChatHistory = (module_id, module_name, menu_name) => {
+    axios.post(`${APP_URL}/set-unread-message`, {
+        module_id   : module_id,
+        module_name : module_name,
+        menu_name   : menu_name,
+    }).then(function (response) {
+        console.log(response.data)
+    })
 }
 
 refreshData = () => {

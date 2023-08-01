@@ -243,7 +243,7 @@ if (!function_exists('getModuleMenuMessagesCount')) {
                             ' . $count . '
                         </small>';
             } else {
-                return 0;
+                return null;
             }
         }
         return (int) $count;

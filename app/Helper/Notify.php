@@ -32,15 +32,7 @@ class Notify
             $receiver_role = "AEC_CUSTOMER";
             $receiver_id   = $module->customer->AecUsers->job_role;
             $token         = $module->customer->token;
-        }
-        Inbox::where([
-            'receiver_role'   => strtoupper(AecAuthUser()->Role->slug),
-            'receiver_id'     => AecAuthUser()->Role->id,
-            'module_name'     => strtoupper($data['module_name']),
-            'module_id'       => $data['module_id'],
-            'menu_name'       => $data['menu_name'],
-            'receiver_status' => 0
-        ])->update([ 'receiver_status' => 1]);
+        } 
         Inbox::create([
             "message"       => $data['message'],
             'sender_role'   => strtoupper($sender->Role->slug),
@@ -125,14 +117,19 @@ class Notify
                             <i class="mdi mdi-android-messages"></i>
                             <span class="f-16">There is No Chat History</span>
                         </div>
-                    </li>';
+                    </li>'; 
         return $conversation != '' ? $conversation : $no_data;
     }
     public static function setUnreadMessages($data)
     {
-        return Inbox::where('receiver_id', AuthUserData()->id)->where('receiver_role', AuthUser())->update([
-            'receiver_status' => 1
-        ]);
+        return Inbox::where([
+            'receiver_role'   => strtoupper(AecAuthUser()->Role->slug),
+            'receiver_id'     => AecAuthUser()->Role->id,
+            'module_name'     => strtoupper($data['module_name']),
+            'module_id'       => $data['module_id'],
+            'menu_name'       => $data['menu_name'],
+            'receiver_status' => 0
+        ])->update([ 'receiver_status' => 1]); 
     }
     public static function getModuleMessagesCount($data, $arg)
     {

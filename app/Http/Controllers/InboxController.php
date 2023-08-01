@@ -78,8 +78,7 @@ class InboxController extends Controller
         return Notify::setUnreadMessages([
             'module_name' => $request->module_name,
             'module_id'   => $request->module_id,
-            'menu_name'   => $request->menu_name,
-            'read_status' => $request->read_status
+            'menu_name'   => $request->menu_name
         ]); 
     }
 }
