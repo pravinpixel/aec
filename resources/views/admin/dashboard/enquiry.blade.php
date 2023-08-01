@@ -38,7 +38,7 @@
                                             </a>
                                         </div>
                                         <div class="col-md-3">
-                                            <a class="live-status-bg d-block" href="">
+                                            <a class="live-status-bg d-block"  href="{{ route('admin.enquiry-list') }}">
                                                 <h3>Unattended Enquiries</h3>
                                                 <p class="count">{{ $result['unattended_enquiries'] }}</p>
                                                 <span class="btn btn-danger">
@@ -47,7 +47,7 @@
                                             </a>
                                         </div>
                                         <div class="col-md-3">
-                                            <a class="live-status-bg d-block" href="">
+                                            <a class="live-status-bg d-block" href="{{ route('list-projects') }}">
                                                 <h3>Ready for Project</h3>
                                                 <p class="count">{{ $result['ready_for_projects'] }}</p>
                                                 <span class="btn btn-primary">
@@ -56,7 +56,7 @@
                                             </a>
                                         </div>
                                         <div class="col-md-3">
-                                            <a class="live-status-bg d-block" href="">
+                                            <a class="live-status-bg d-block" href="{{ route('list-projects') }}">
                                                 <h3>Waiting for Customer Response</h3>
                                                 <p class="count">{{ $result['waiting_for_customer_response'] }}</p>
                                                 <span class="btn btn-secondary text-white">
