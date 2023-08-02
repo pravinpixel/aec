@@ -15,6 +15,7 @@ use App\Models\ProjectTeamSetup;
 use App\Models\VariationOrder;
 use App\Models\VariationOrderVersions;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
 if (!function_exists('getTeamByProjectId')) {
@@ -212,7 +213,7 @@ if (!function_exists('VariationStatus')) {
             }
         }
         if ($status == 'OBSOLETE') {
-            return '<span class="badge bg-dark rounded-pill">OBSOLETE</span>';
+            return '<span class="badge bg-dark rounded-pill">Obsolete</span>';
         }
         if ($status == 'ACCEPT') {
             return '<span class="badge bg-success rounded-pill">Accepted</span>';
@@ -223,14 +224,24 @@ if (!function_exists('VariationStatus')) {
         if ($status == 'DENY') {
             return '<span class="badge bg-danger  rounded-pill">Denied</span>';
         }
+        if ($status == 'ACCEPT_AND_INVOICED') {
+            return '<span class="badge bg-success rounded-pill">Invoiced</span>';
+        }
         return '<span class="badge bg-dark rounded-pill">NAN</span>';
     }
 }
 
 if (!function_exists('variationOrderMenu')) {
     function variationOrderMenu($row)
-    {
+    { 
         if (AuthUser() == 'ADMIN') {
+            // || $row->status == 'ACCEPT_AND_INVOICED'
+            if($row->status == 'ACCEPT') {
+                    return '
+                        <button type="button" onclick=ViewVersion(' . $row->id . ',"VIEW") class="dropdown-item"><i class="fa fa-eye me-1"></i> View </button>
+                        <button type="button" onclick=CreateInvoice(' . $row->id . ') class="dropdown-item"><i class="fa fa-file-text me-1"></i> Create Invoice</button>
+                    ';
+            }
             if ($row->status == 'NEW') {
                 return  '
                     <button type="button" onclick=ViewVersion(' . $row->id . ',"VIEW") class="dropdown-item"><i class="fa fa-eye me-1"></i> View </button>

@@ -23721,3 +23721,4 @@ input[type=date] {
 .text-purple {
   color: var(--bs-purple) !important;
 } 
+.border {outline: none !important;}

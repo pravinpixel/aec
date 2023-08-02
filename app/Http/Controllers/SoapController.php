@@ -113,8 +113,57 @@ class SoapController extends Controller
         }
     }
 
+    public function SaveSingleInvoices($data, $project_id)
+    {
+        $invoices['InvoiceOrder'] = [
+            'DateInvoiced' => Carbon::parse(str_replace('/', '-', $data['DateInvoiced']))->format('Y-m-d'), //2023-07-13
+            'CustomerId'   => $data['CustomerId'],
+            'OrderStatus'  => 'Invoiced',
+            'InvoiceRows' => [
+                'InvoiceRow' => [
+                    "ProductId" =>  $data['ProductId'],
+                    "Price"     =>  $data['Price'],
+                    "Name"      =>  $data['Name'],
+                    "Quantity"  => 1
+                ]
+            ]
+        ];
+        $body  = arrayToXml('invoices', $invoices);
+        $SoapService = new SoapService();
+        $xml = '<?xml version="1.0" encoding="utf-8"?>
+                <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+                    <soap:Body>
+                        <SaveInvoices xmlns="http://24sevenOffice.com/webservices">
+                        ' . $body . '
+                        </SaveInvoices>
+                    </soap:Body>
+                </soap:Envelope>';
+        $xml      = str_replace(array("\r", "\n"), '', $xml);
+        try {
+            $response = $SoapService->call(config('24-seven-office.InvoiceService.url'), $xml);
+            $response = xmlToArray($response);
+            $InvoiceResponse = $response['soap:Envelope']['soap:Body']['SaveInvoicesResponse']['SaveInvoicesResult']['InvoiceOrder'];
+            $insertInvoice  = [
+                'type'           => 'VO',
+                'project_id'     => $project_id,
+                'product_id'     => $InvoiceResponse['InvoiceRows']['InvoiceRow']['ProductId'],
+                'order_id'       => $InvoiceResponse['OrderId'],
+                'customer_24_id' => $InvoiceResponse['CustomerId'],
+                'order_status'   => $InvoiceResponse['OrderStatus'],
+                'invoice_id'     => $InvoiceResponse['InvoiceId'],
+                'date_invoiced'  => SetDateFormat($InvoiceResponse['DateInvoiced']),
+                'price'          => $InvoiceResponse['InvoiceRows']['InvoiceRow']['Price'],
+                'name'           => $InvoiceResponse['InvoiceRows']['InvoiceRow']['Name'],
+                'quantity'       => $InvoiceResponse['InvoiceRows']['InvoiceRow']['Quantity'],
+            ];
+            return  LiveProjectInvoice::create($insertInvoice);
+        } catch (\Throwable $th) {
+           return false;
+        }
+    }
+
     public function CompanyService($customer, $request)
-    { 
+    {
         if (is_null(token24Seven())) {
             $this->credential();
         }

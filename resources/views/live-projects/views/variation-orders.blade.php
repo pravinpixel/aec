@@ -151,6 +151,12 @@
                 $('#create-variation-order-content').html(response.data.view)
             });
         }
+        CreateInvoice = (id) => {
+            axios.get(`{{ route('live-project.create-invoice.ajax') }}/${id}`).then((response) => {
+                $('#create-invoice-modal').modal('show')
+                $('#create-invoice-modal-content').html(response.data.view)
+            });
+        }
         StoreVersion = (id, mode, element) => {
             event.preventDefault();
             const formData = new FormData(element)

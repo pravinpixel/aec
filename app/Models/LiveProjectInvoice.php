@@ -19,6 +19,7 @@ class LiveProjectInvoice extends Model
         'price',
         'name',
         'quantity',
+        'type',
         'customer_24_id'
     ];
 }

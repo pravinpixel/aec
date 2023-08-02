@@ -45,7 +45,9 @@ Route::group(['prefix' => 'live', 'middleware' => 'common'], function () {
     Route::get('/set-comment-count/{comment_id?}', [LiveProjectController::class, 'set_comment_count'])->name('live-project.set-comment-count.ajax');  
     
     // invoice
-    Route::get('get-invoice-by-project/{projwct_id}',[LiveProjectController::class,'get_invoice_by_project'])->name('live-project.get-invoice-by-project.ajax');
+    Route::get('get-invoice-by-project/{id}',[LiveProjectController::class,'get_invoice_by_project'])->name('live-project.get-invoice-by-project.ajax');
+    Route::get('create-invoice-view/{id?}',[LiveProjectController::class,'create_invoice_view'])->name('live-project.create-invoice.ajax');
+    Route::post('store-invoice-view/{variation_id?}',[LiveProjectController::class,'store_invoice_view'])->name('live-project.store-invoice');
 });
 
 Route::group(['prefix' => 'admin', 'middleware' => 'common'], function () {

@@ -288,7 +288,7 @@ class LiveProjectController extends Controller
                     return '<span class="badge text-dark border rounded-pill">' . __('project.' . $row->status) . '</span>';
                 }
                 $route = route('live-project.menus-index', ['menu_type' => 'variation-orders', 'id' => session()->get('current_project')->id]);
-                return '<a href="'.$route.'" class="badge text-dark border rounded-pill"><b>🟡 VO</b></a>';
+                return '<a href="' . $route . '" class="badge text-dark border rounded-pill"><b>🟡 VO</b></a>';
             });
             $table->addColumn('priority_type', function ($row) {
                 if ($row->priority == 'CRITICAL') {
@@ -474,7 +474,7 @@ class LiveProjectController extends Controller
         }
     }
     public function variation_version($id)
-    { 
+    {
         $variations = VariationOrderVersions::where('variation_id', $id)->select('*');
         $table      = DataTables::of($variations->get());
         $table->addIndexColumn();
@@ -486,7 +486,7 @@ class LiveProjectController extends Controller
         $table->editColumn('title', function ($row) {
             // onclick=showIssue(' . $row->VariationOrder->Issues->id . ',this)
             $route = route('live-project.menus-index', ['menu_type' => 'issues', 'id' => session()->get('current_project')->id]);
-            return '<a href="'.$route.'" class="btn-link fw-bold "><u>' . $row->title . '</u></a>';
+            return '<a href="' . $route . '" class="btn-link fw-bold "><u>' . $row->title . '</u></a>';
         });
         $table->addColumn('status', function ($row) {
             return VariationStatus($row->status);
@@ -509,7 +509,7 @@ class LiveProjectController extends Controller
                         ' . $chatButton->render() . '
                     </div>';
         });
-        $table->rawColumns(['action', 'status', 'version_id', 'total_price','title']);
+        $table->rawColumns(['action', 'status', 'version_id', 'total_price', 'title']);
         return $table->make(true);
     }
     public function view_version($id, $mode)
@@ -583,6 +583,45 @@ class LiveProjectController extends Controller
             "project_id"    => $data->project_id,
             "invoices"      => json_decode($data->invoice_data)->invoices
         ];
+    }
+    public function create_invoice_view($id)
+    {
+        $variation = VariationOrderVersions::find($id);
+        $view      = view('live-projects.templates.invoice-create-view', compact('variation'));
+        return response([
+            "view"  => "$view",
+        ]);
+    }
+    public function store_invoice_view(Request $request, $id)
+    {
+        $VariationOrderVersions = VariationOrderVersions::find($id);
+        $request->validate([
+            '24_seven_project_id' => 'required',
+            'invoice_name'        => 'required',
+            'invoice_date'        => 'required',
+            'invoice_price'       => 'required',
+        ]);
+        $soap = new SoapController();
+        $project = session()->get('current_project');
+        $result =  $soap->SaveSingleInvoices([
+            "ProductId"    => $request['24_seven_project_id'],
+            "Name"         => $request['invoice_name'],
+            "DateInvoiced" => $request['invoice_date'],
+            "CustomerId"   => $project->Customer->customer_24_seven_id,
+            "Price"        => $request['invoice_price']
+        ], $project->id);
+        if ($result) {
+            $VariationOrderVersions->status = "ACCEPT_AND_INVOICED";
+            $VariationOrderVersions->save();
+            Flash::success('Invoice Created');
+        } else {
+            Flash::error('Invoice failed to create!.');
+        }
+        return redirect()->route('live-project.menus-index',[
+                'menu_type' => session()->get('menu_type'),
+                'id'        => $project->id
+            ]
+        );
     }
     public function create_comment(Request $request, $id)
     {

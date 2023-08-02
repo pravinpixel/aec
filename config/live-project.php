@@ -101,7 +101,7 @@ return [
                 "view" => "invoice-status"
             ],
             [
-                "name" => "Documents",
+                "name" => "All Documents",
                 "slug" => "documents",
                 "icon" => '<i class="bi bi-file-pdf-fill"></i>',
                 "view" => "documents"
