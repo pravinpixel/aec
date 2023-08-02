@@ -23,9 +23,12 @@ if (!function_exists('getTeamByProjectId')) {
     {
         $teamSetup = ProjectTeamSetup::where('project_id', $id)->pluck('team');
         $employees = [];
-        foreach ($teamSetup as $key => $users) {
-            foreach ($users as $key => $user_id) {
-                $employees[] = Employees::with('AecUsers')->find($user_id)->AecUsers->toArray();
+        foreach ($teamSetup as $users) {
+            foreach ($users as $user_id) {
+                $emp = Employees::with('AecUsers')->find($user_id);
+                if(!is_null($emp)) {
+                    $employees[] = $emp->AecUsers->toArray();
+                }
             }
         }
         return $employees;
