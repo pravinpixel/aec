@@ -346,12 +346,14 @@ if (!function_exists('changeProposalStatus')) {
     if (!function_exists('getManagers')) {
         function getManagers()
         {
-            $role = ModelsRole::where('slug', 'project_manager')->first();
-            $managers = [];
-            if (!empty($role)) {
-                $managers = Employees::where('job_role', $role->id)->get()->toArray();
-            }
-            return $managers;
+           return Employees::all()->toArray();
+
+            // $role = ModelsRole::where('slug', 'project_manager')->first();
+            // $managers = [];
+            // if (!empty($role)) {
+            //     $managers = Employees::where('job_role', $role->id)->get()->toArray();
+            // }
+            // return $managers;
         }
     }
 

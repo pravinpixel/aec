@@ -623,26 +623,29 @@ class EmployeeController extends Controller
 
     public function getTechnicalEstimateEmployee(Request $request)
     {
-        $saleEngineer = Role::where('slug', config('global.technical_estimater'))->first();
-        return Employees::where('status', 1)
-            ->whereIn('job_role', [$saleEngineer->id])
-            ->where('id', '!=', Admin()->id)
-            ->get();
+        return getManagers();
+        // $saleEngineer = Role::where('slug', config('global.technical_estimater'))->first();
+        // return Employees::where('status', 1)
+        //     ->whereIn('job_role', [$saleEngineer->id])
+        //     ->where('id', '!=', Admin()->id)
+        //     ->get();
     }
 
     public function getCostEstimateEmployee(Request $request)
     {
-        $role = Role::where('slug', config('global.cost_estimater'))->first();
-        return Employees::where(['job_role' => $role->id, 'status' => 1])
-            ->where('id', '!=', Admin()->id)
-            ->get();
+        return getManagers();
+        // $role = Role::where('slug', config('global.cost_estimater'))->first();
+        // return Employees::where(['job_role' => $role->id, 'status' => 1])
+        //     ->where('id', '!=', Admin()->id)
+        //     ->get();
     }
 
     public function getDeliveryManager(Request $request)
     {
-        return Employees::with(['role'])->WhereHas('role', function ($query) {
-            $query->where('slug', 'admin')->OrWhere('slug', 'project_manager');
-        })->get();
+        return getManagers();
+        // return Employees::with(['role'])->WhereHas('role', function ($query) {
+        //     $query->where('slug', 'admin')->OrWhere('slug', 'project_manager');
+        // })->get();
     }
 
     public function createBimUser($employee)
