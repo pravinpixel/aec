@@ -82,7 +82,11 @@ class Project extends Model
     
     public function LiveProjectInvoice()
     {
-        return $this->hasMany(LiveProjectInvoice::class, 'project_id', 'id');
+        return $this->hasMany(LiveProjectInvoice::class, 'project_id', 'id')->where('type', null);
+    }
+    public function LiveProjectVersionInvoice()
+    {
+        return $this->hasMany(LiveProjectInvoice::class, 'project_id', 'id')->where('type', 'VO');
     }
     public function teamSetup()
     {

@@ -1,7 +1,4 @@
-@php
-    $invoice = $project->invoicePlan;
-    $invoices = json_decode($project->invoicePlan->invoice_data)->invoices;
-@endphp
+@php $invoice = $project->invoicePlan @endphp
 
 <table class="table table-bordered">
     <thead style="background: #e3e3e3" class="text-dark">
@@ -58,24 +55,39 @@
         @endforeach
     </tbody>
 </table>
-@if (count(getVOrdersByProjectId($project->id)))
+@php
+    $LiveProjectVersionInvoice = $project->LiveProjectVersionInvoice;
+@endphp
+@if (count($LiveProjectVersionInvoice))
     <table class="table table-bordered">
-        <thead>
-            <th colspan="4" class="text-center font-14">VO Invoices</th>
+        <thead style="background: #e3e3e3" class="text-dark">
             <tr>
-                <th scope="col" class="text-secondary">#</th>
-                <th scope="col" class="text-secondary">Date</th>
-                <th scope="col" class="text-secondary">Description</th>
-                <th scope="col" class="text-secondary">Amount</th>
+                <th colspan="9" class="text-center font-16">VO Invoices</th>
+            </tr>
+            <tr class="bg-primary text-center">
+                <th scope="col" class="text-dark text-center">#</th>
+                <th scope="col" class="text-dark">24/7 Product</th>
+                <th scope="col" class="text-dark">24/7 Order ID</th>
+                <th scope="col" class="text-dark">24/7 Invoice ID</th>
+                <th scope="col" class="text-dark">24/7 Invoice Status</th>
+                <th scope="col" class="text-dark">Date</th>
+                <th scope="col" class="text-dark">Name</th>
+                <th scope="col" class="text-dark">Quantity</th>
+                <th scope="col" class="text-dark">Price</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (getVOrdersByProjectId($project->id) as $index => $row)
+            @foreach ($LiveProjectVersionInvoice as $index => $invoice)
                 <tr>
-                    <th scope="row">{{ $index + 1 }}</th>
-                    <td>{{ SetDateFormat($row->created_at) }}</td>
-                    <td>{{ $row->description }}</td>
-                    <td>{{ $row->price * $row->hours }}</td>
+                    <th class="text-center">{{ $index + 1 }}</th>
+                    <td>{{ Get24SevenProducts($invoice->product_id)['Name'] }}</td>
+                    <td>{{ $invoice->order_id }}</td>
+                    <td>{{ $invoice->invoice_id }}</td>
+                    <td>{{ $invoice->order_status }}</td>
+                    <td>{{ $invoice->date_invoiced }}</td>
+                    <td>{{ $invoice->name }}</td>
+                    <td class="text-center">{{ $invoice->quantity }}</td>
+                    <td class="text-end">{{ $invoice->price }}</td>
                 </tr>
             @endforeach
         </tbody>
