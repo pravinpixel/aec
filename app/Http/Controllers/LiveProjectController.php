@@ -50,10 +50,10 @@ class LiveProjectController extends Controller
             if ($result) return redirect()->back()->with('success', "Successfuly Saved!");
             return redirect()->back()->with('info', "Invalid action");
         }
-        if ($menu_type == 'project-comments') {
-            $this->project_comments($request, $id);
-        }
+        // if ($menu_type == 'project-comments') {
+        // }
         if ($menu_type == 'project-closure') {
+            $this->project_comments($request, $id);
             unset($request['_token']);
             $this->project_closure($request, $id);
             return redirect()->route('live-project.completed')->with('success', "Project Closed success!");

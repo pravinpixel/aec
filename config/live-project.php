@@ -45,17 +45,17 @@ return [
                 "view" => "invoice-status"
             ],
             [
-                "name" => "Documents",
+                "name" => "All Documents",
                 "slug" => "documents",
                 "icon" => '<i class="bi bi-file-pdf-fill"></i>',
                 "view" => "documents"
             ],
-            [
-                "name" => "Comments",
-                "slug" => "project-comments",
-                "icon" => '<i class="bi bi-pencil-square"></i>',
-                "view" => "project-comments"
-            ],
+            // [
+            //     "name" => "Comments",
+            //     "slug" => "project-comments",
+            //     "icon" => '<i class="bi bi-pencil-square"></i>',
+            //     "view" => "project-comments"
+            // ],
             [
                 "name" => "Project Closure",
                 "slug" => "project-closure",

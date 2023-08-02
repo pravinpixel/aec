@@ -57,6 +57,9 @@
         @endif
     </ul>
     <hr>
+    <div class="col-12">
+        @include('live-projects.views.project-comments')
+    </div>
     <div class="col-lg-8 mx-auto">
         <div class="modal-header border-0">
             <h5>Share point folder link </h5>
@@ -81,6 +84,7 @@
         @endif
     </div>
 </div>
+
 @push('live-project-custom-scripts')
     <script>
         addUrl = () => {
