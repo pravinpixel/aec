@@ -48,7 +48,7 @@
         </div>
     </div> 
     <div class="my-2 col-md-4">
-        <div class="card border">
+        <a class="card border d-block" href="{{ route('live-project.menus-index', ['menu_type' => 'issues', 'id' => $project->id]) }}">
             <div class="card-header text-center">
                 <div class="h4 m-0">Issues</div>
             </div>
@@ -68,10 +68,10 @@
                     </li>
                 </ul>
             </div>
-        </div>
+        </a>
     </div>
     <div class="my-2 col-md-4">
-        <div class="card border">
+        <a class="card border d-block" href="{{ route('live-project.menus-index', ['menu_type' => Admin() ? 'task-list' : 'milestone', 'id' => $project->id]) }}">
             <div class="card-header text-center">
                 <div>
                     <div class="pie mb-0" data-value="{{ $project->progress_percentage }}%"></div>
@@ -88,10 +88,10 @@
                     @endforeach
                 </ul>
             </div>
-        </div>
+        </a>
     </div> 
     <div class="my-2 col-md-4">
-        <div class="card border">
+        <a class="card border d-block" href="{{ route('live-project.menus-index', ['menu_type' => 'variation-orders', 'id' => $project->id]) }}">
             <div class="card-header text-center">
                 <div class="h4 m-0">Variation orders</div>
             </div>
@@ -111,6 +111,6 @@
                     </li>
                 </ul>
             </div>
-        </div>
+        </a>
     </div>
 </div> 
