@@ -150,11 +150,11 @@
                     <div class="row mx-0 mb-3">
                         <div class="col-6 px-0 pe-1">
                             <small>Project Start Date</small>
-                            <input type="date" disabled name="start_date" ng-model="project.start_date" class="form-control form-control-sm">
+                            <div class="form-control form-control-sm" ng-bind="project.start_date"></div>
                         </div>
                         <div class="col-6 px-0 ps-1">
                             <small>Project End Date</small>
-                            <input type="date" disabled name="delivery_date" ng-model="project.delivery_date" class="form-control form-control-sm">
+                            <div class="form-control form-control-sm" ng-bind="project.delivery_date"></div>
                         </div>
                     </div>
                 
