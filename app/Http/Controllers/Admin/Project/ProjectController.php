@@ -456,7 +456,8 @@ class ProjectController extends Controller
                 })
                 ->editColumn('enquiry_number', function ($dataDb) {
                     if ($dataDb->enquiry) {
-                        return '<button type="button" class="btn-quick-view" onclick="EnquiryQuickView(' . $dataDb->enquiry_id . ' , this)" >
+                        $status = "'"."DISABLED"."'";
+                        return '<button type="button" class="btn-quick-view" onclick="EnquiryQuickView(' . $dataDb->enquiry_id . ' , this,'.$status.')">
                                 <b>' . $dataDb->enquiry->enquiry_number . '</b>
                                 ' . getModuleChatCount('ADMIN', 'ENQUIRY', $dataDb->enquiry_id) . '
                             </button>';

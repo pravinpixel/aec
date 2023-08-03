@@ -1,30 +1,10 @@
 @php
-    $form =
-        '
-        <div class="text-end bg-light shadow-sm border rounded-3 p-3 d-flex">
-            <div class="d-flex w-100">
-                <input type="hidden" name="menu_name" value="' .
-        $menuName .
-        '" placeholder="Example : Project Information ">
-                <input type="hidden" name="module_name" value="' .
-        $moduleName .
-        '"  placeholder="Example : Enquiry">
-                <input type="hidden" name="module_id" value="' .
-        $moduleId .
-        '"  placeholder="Example : Enquiry ID  ">
-                <input type="text" onkeypress="disableEnter(event)" name="message" class="form-control me-1 rounded-pill" placeholder="Type here...">
-                <button onclick="sendMessage(this)" type="button" class="btn rounded-pill btn-sm btn-primary"><i class="fa fa-send"></i></button>
-            </div>
-        </div>
-    ';
-@endphp
-@php
     $PreviousChatHistory = checkModuleMenuMessagesCount($moduleName, $moduleId, $menuName);
     $moduleCount = getModuleMenuMessagesCount($moduleName, $moduleId, $menuName, 'element');
 @endphp
 @if ($status == 1)
     <div>
-        {!! $form !!}
+        @include('components.chat-form-input')
         @if ($PreviousChatHistory != 0)
             <div class="text-end mt-2">
                 <button type="button" class="btn btn-sm btn-outline-primary position-relative"
@@ -87,7 +67,7 @@
                 </div>
                 <div class="modal-body p-0" style="background:#EEE7DE">
                     <ul id="inbox-conversation-list" class="m-0 inbox_conversation_list_{{ $menuName }}"></ul>
-                    {!! $form !!}
+                    @include('components.chat-form-input')
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
@@ -119,4 +99,20 @@
             {!! $messageCount !!}
         @endif
     </button>
+@endif
+
+@if ($status == 'DISABLED')
+    <div>
+        @include('components.chat-form-input')
+        @if ($PreviousChatHistory != 0)
+            <div class="text-end mt-2">
+                <button type="button" class="btn btn-sm btn-outline-primary position-relative"
+                    onclick="PreviousChatHistory(this, '{{ $moduleId }}', '{{ $moduleName }}' , '{{ $menuName }}' )"
+                    data-bs-toggle="modal" data-bs-target="#viewMyInbox{{ $menuName }}">
+                    <i class="mdi mdi-eye me-1"></i> Previous chat history
+                    {!! $moduleCount !!}
+                </button>
+            </div>
+        @endif
+    </div>
 @endif
