@@ -101,7 +101,7 @@
     </button>
 @endif
 
-@if ($status == 'DISABLED')
+@if ($status == 'DISABLED'  &&  $PreviousChatHistory)
     <div>
         @include('components.chat-form-input')
         <div class="text-end mt-2">
