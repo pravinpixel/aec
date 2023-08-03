@@ -104,15 +104,13 @@
 @if ($status == 'DISABLED')
     <div>
         @include('components.chat-form-input')
-        @if ($PreviousChatHistory != 0)
-            <div class="text-end mt-2">
-                <button type="button" class="btn btn-sm btn-outline-primary position-relative"
-                    onclick="PreviousChatHistory(this, '{{ $moduleId }}', '{{ $moduleName }}' , '{{ $menuName }}' )"
-                    data-bs-toggle="modal" data-bs-target="#viewMyInbox{{ $menuName }}">
-                    <i class="mdi mdi-eye me-1"></i> Previous chat history
-                    {!! $moduleCount !!}
-                </button>
-            </div>
-        @endif
+        <div class="text-end mt-2">
+            <button type="button" class="btn btn-sm btn-outline-primary position-relative"
+                onclick="PreviousChatHistory(this, '{{ $moduleId }}', '{{ $moduleName }}' , '{{ $menuName }}' )"
+                data-bs-toggle="modal" data-bs-target="#viewMyInbox{{ $menuName }}">
+                <i class="mdi mdi-eye me-1"></i> Previous chat history
+                {!! $moduleCount !!}
+            </button>
+        </div>
     </div>
 @endif
