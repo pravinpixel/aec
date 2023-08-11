@@ -518,7 +518,7 @@ app.controller('InvoicePlanController', function ($scope, $http, API_URL, $locat
                     'project_24_id': null,
                 }]
             } else {
-                invoices = response.invoices.map((item) => {
+                invoices = response?.invoices.map((item) => {
                     $scope.invoicePlans.totalPercentage -= item.percentage;
                     $scope.invoicePlans.totalAmount += ($scope.project.project_cost / 100) * item.percentage;
                     return {
@@ -536,7 +536,6 @@ app.controller('InvoicePlanController', function ($scope, $http, API_URL, $locat
             result['totalAmount'] = $scope.invoicePlans.totalAmount;
             result['invoices'] = invoices;
             $scope.invoicePlans = result;
-            console.log($scope.invoicePlans)
         });
 
     $scope.handleInvoiceChange = () => {
