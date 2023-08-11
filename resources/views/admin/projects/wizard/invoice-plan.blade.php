@@ -7,7 +7,7 @@
                         <th class="fw-normal"><i class="me-2 fa fa-calendar"></i> Start date</th>
                         <th class="fw-normal"><i class="me-2 fa fa-calendar"></i> End date</th>
                         <th class="fw-normal"><i class="me-2 fa fa-usd"></i> Project Cost</th>
-                        <th class="fw-normal text-center"><i class="me-2 fa fa-file-text"></i>No.of Invoices</th>
+                        <th class="fw-normal"><i class="me-2 fa fa-file-text"></i>No.of Invoices</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -19,11 +19,11 @@
                                 onkeypress="return isNumber(event)" ng-model="project.project_cost"
                                 placeholder="type here..">
                         </td>
-                        <td class="text-center">
-                            <div class="input-group justify-content-center">
-                                <input type="number" ng-change="handleInvoiceChange()"  class="form-control-sm border rounded" min=1 max=100
+                        <td>
+                            <div class="input-group">
+                                <input type="number" class="form-control-sm border rounded" min=1 max=100
                                 onkeypress="return isNumber(event)"  ng-model="project.no_of_invoice" placeholder="type here..">
-                                {{-- <button type="button" class="btn-sm btn btn-success"><i class="fa fa-refresh"></i> Generate</button> --}}
+                                <button type="button" ng-click="handleInvoiceChange()" class="btn-sm btn btn-success"><i class="fa fa-refresh"></i> Generate</button>
                             </div>
                         </td>
                     </tr>
