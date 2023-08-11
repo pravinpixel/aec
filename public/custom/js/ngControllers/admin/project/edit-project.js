@@ -946,29 +946,33 @@ app.directive('calculateAmount', ['$http', function ($http, $scope, $apply) {
             });
 
             scope.$watchGroup(['project.no_of_invoice', 'project.project_cost'], function () {
-                let totalPercentage = 100;
-                scope.invoicePlans.invoices = scope.invoicePlans.invoices.map((invoicePlan, index) => {
+                try {
+                    let totalPercentage = 100;
+                    scope.invoicePlans.invoices = scope.invoicePlans.invoices.map((invoicePlan, index) => {
 
-                    invoicePlan.invoice_date = scope.project.start_date
+                        invoicePlan.invoice_date = scope.project.start_date
 
-                    if (scope.project.no_of_invoice == 1) {
-                        totalPercentage = 100;
-                        invoice_date = scope.project.start_date;
-                    } else if (scope.project.no_of_invoice != index + 1) {
-                        totalPercentage -= invoicePlan.percentage;
-                    }
-                    if (scope.project.no_of_invoice == index + 1) {
-                        return {
-                            index: index + 1,
-                            invoice_name: invoicePlan.invoice_name,
-                            amount: Number.parseFloat((scope.project.project_cost / 100) * invoicePlan.percentage).toFixed(2),
-                            invoice_date: invoicePlan.invoice_date,
-                            percentage: totalPercentage,
-                            project_24_id: invoicePlan.project_24_id
-                        };
-                    }
-                    return invoicePlan;
-                });
+                        if (scope.project.no_of_invoice == 1) {
+                            totalPercentage = 100;
+                            invoice_date = scope.project.start_date;
+                        } else if (scope.project.no_of_invoice != index + 1) {
+                            totalPercentage -= invoicePlan.percentage;
+                        }
+                        if (scope.project.no_of_invoice == index + 1) {
+                            return {
+                                index: index + 1,
+                                invoice_name: invoicePlan.invoice_name,
+                                amount: Number.parseFloat((scope.project.project_cost / 100) * invoicePlan.percentage).toFixed(2),
+                                invoice_date: invoicePlan.invoice_date,
+                                percentage: totalPercentage,
+                                project_24_id: invoicePlan.project_24_id
+                            };
+                        }
+                        return invoicePlan;
+                    });
+                } catch (error) {
+                    console.log(error)
+                }
             });
         },
     };
