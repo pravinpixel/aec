@@ -298,7 +298,7 @@
                     </div>
                     <div class="col-md-8">
                         <select name="" id="" class="form-select ">
-                            <option value=""> -- select ---</option>
+                            <option value="">@lang('project.select')</option>
                         </select>
                     </div>
                 </div>
@@ -312,7 +312,7 @@
                     <div class="col-md-8">
                         <div class="btn-group w-100 border rounded">
                             <select name="" id="" class="border-0 form-select ">
-                                <option value=""> -- select ---</option>
+                                <option value="">@lang('project.select')</option>
                             </select>
                             <button class="btn btn-light"><i class="text-danger fa fa-trash"></i></button>
                         </div>
@@ -327,7 +327,7 @@
                     <div class="col-md-8">
                         <div class="btn-group w-100 border rounded">
                             <select name="" id="" class="border-0 form-select ">
-                                <option value=""> -- select ---</option>
+                                <option value="">@lang('project.select')</option>
                             </select>
                             <button class="btn btn-light"><i class="text-danger fa fa-trash"></i></button>
                         </div>

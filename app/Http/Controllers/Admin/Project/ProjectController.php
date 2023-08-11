@@ -441,12 +441,12 @@ class ProjectController extends Controller
     public function liveProjectList(Request $request)
     {
         if ($request->ajax() == true) {
-            $dataDb = Project::with(['Customer','LiveProjectTasks', 'enquiry', 'comments' => function ($q) {
+            $dataDb = Project::with(['Customer', 'LiveProjectTasks', 'enquiry', 'comments' => function ($q) {
                 $q->where(['status' => 0, 'created_by' => 'Customer']);
             }])
-            ->WhereHas('Customer', function ($q) {
-                $q->where('is_active', 1);
-            })->where('status', 'LIVE');
+                ->WhereHas('Customer', function ($q) {
+                    $q->where('is_active', 1);
+                })->where('status', 'LIVE');
             return DataTables::eloquent($dataDb)
                 ->editColumn('reference_number', function ($dataDb) {
                     return '<button type="button" class="btn-quick-view" onclick="LiveProjectQuickView(' . $dataDb->id . ' , this)" >
@@ -456,8 +456,8 @@ class ProjectController extends Controller
                 })
                 ->editColumn('enquiry_number', function ($dataDb) {
                     if ($dataDb->enquiry) {
-                        $status = "'"."DISABLED"."'";
-                        return '<button type="button" class="btn-quick-view" onclick="EnquiryQuickView(' . $dataDb->enquiry_id . ' , this,'.$status.')">
+                        $status = "'" . "DISABLED" . "'";
+                        return '<button type="button" class="btn-quick-view" onclick="EnquiryQuickView(' . $dataDb->enquiry_id . ' , this,' . $status . ')">
                                 <b>' . $dataDb->enquiry->enquiry_number . '</b>
                                 ' . getModuleChatCount('ADMIN', 'ENQUIRY', $dataDb->enquiry_id) . '
                             </button>';
@@ -697,11 +697,18 @@ class ProjectController extends Controller
         } else if ($type == 'project_scheduler') {
             return $this->projectRepo->getGranttChartTaskLink($id);
         } else if ($type == 'invoice_plan') {
-            $project24 = new SoapController();
-            return  [
-                'invoice_data' => $this->projectRepo->getInvoicePlan($id),
-                'projects_on_24Seven' =>  $project24->GetProducts()
-            ];
+            try {
+                $project24 = new SoapController();
+                return  [
+                    'invoice_data' => $this->projectRepo->getInvoicePlan($id),
+                    'projects_on_24Seven' =>  $project24->GetProducts()
+                ];
+            } catch (Exception $e) {
+                return  [
+                    'invoice_data' => $this->projectRepo->getInvoicePlan($id),
+                    'projects_on_24Seven' => null
+                ];
+            }
         } else if ($type == 'to-do-list') {
             return true;
         } else if ($type == 'connection_platform') {

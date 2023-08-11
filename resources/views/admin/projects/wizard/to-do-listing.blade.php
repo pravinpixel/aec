@@ -8,7 +8,7 @@
                 <div class="btn-group w-100 border rounded">
                     <select class="form-select" id="floatingSelect" aria-label="Floating label select example"
                         name="delivery_type_id" ng-model="project.delivery_type_id" required>
-                        <option value="">@lang('project.select') </option>
+                        <option value="">@lang('project.select')</option>
                         <option ng-repeat="deliveryType in deliveryTypes" value="@{{ deliveryType.id }}"
                             ng-selected="deliveryType.id == project.delivery_type_id">
                             @{{ deliveryType.delivery_type_name }}
@@ -20,7 +20,7 @@
                 <label for=""><b>Select Check List</b></label>
                 <div class="btn-group w-100 border rounded">
                     <select ng-model="check_list_type" class="border-0 form-select ">
-                        <option value=""> -- select ---</option>
+                        <option value="">@lang('project.select')</option>
                         <option value="@{{ row.name }}" ng-repeat="row in check_list_master">
                             @{{ row.name }}
                         </option>
