@@ -15,7 +15,7 @@
                         <td ng-bind="project.start_date"></td>
                         <td ng-bind="project.delivery_date"></td>
                         <td>
-                            <input calculate-amount type="text" class="form-control-sm border rounded w-100"
+                            <input type="text" class="form-control-sm border rounded w-100"
                                 onkeypress="return isNumber(event)" ng-model="project.project_cost"
                                 placeholder="type here..">
                         </td>
