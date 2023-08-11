@@ -534,7 +534,7 @@ app.controller('InvoicePlanController', function ($scope, $http, API_URL, $locat
 
             result['totalPercentage'] = $scope.invoicePlans.totalPercentage;
             result['totalAmount'] = $scope.invoicePlans.totalAmount;
-            result['invoices'] = invoices;
+            result['invoices'] = invoices ?? [];
             $scope.invoicePlans = result;
         });
 
@@ -551,6 +551,7 @@ app.controller('InvoicePlanController', function ($scope, $http, API_URL, $locat
         if (invoiceStatus) {
             totalInvoice = $scope.project.no_of_invoice;
             invoiceStatus = !invoiceStatus;
+
             for (var i = 1; i <= $scope.project.no_of_invoice; i++) {
                 // let invoice_date = (i == 1) ? $scope.project.start_date : '';
                 $scope.invoicePlans.invoices.push({
