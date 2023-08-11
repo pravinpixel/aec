@@ -492,12 +492,13 @@ app.controller('InvoicePlanController', function ($scope, $http, API_URL, $locat
             $scope.project.project_cost = res.data?.invoice_data?.invoice_plan?.project_cost;
             $scope.project.no_of_invoice = Number(res.data?.invoice_data?.invoice_plan?.no_of_invoice);
             let result = {};
+            let response
             try {
-                let response = JSON.parse(res?.data?.invoice_data?.invoice_plan?.invoice_data);
+                response = JSON.parse(res?.data?.invoice_data?.invoice_plan?.invoice_data);
             } catch (error) {
-                let response = null;
+                response = null;
             }
-            if(response) {
+            if (response) {
                 totalInvoice = response?.invoices?.length;
             } else {
                 totalInvoice = 0
