@@ -15,15 +15,15 @@
                         <td ng-bind="project.start_date"></td>
                         <td ng-bind="project.delivery_date"></td>
                         <td>
-                            <input type="text" class="form-control-sm border rounded w-100"
+                            <input calculate-amount type="text" class="form-control-sm border rounded w-100"
                                 onkeypress="return isNumber(event)" ng-model="project.project_cost"
                                 placeholder="type here..">
                         </td>
-                        <td>
+                        <td class="text-center">
                             <div class="input-group justify-content-center">
-                                <input type="number" class="form-control-sm border rounded" min=1 max=100
-                                onkeypress="return isNumber(event)"  ng-model="project.no_of_invoice">
-                                <button type="button" ng-click="handleInvoiceChange()" class="btn-sm btn btn-success"><i class="fa fa-refresh"></i> Generate</button>
+                                <input type="number" ng-change="handleInvoiceChange()"  class="form-control-sm border rounded" min=1 max=100
+                                onkeypress="return isNumber(event)"  ng-model="project.no_of_invoice" placeholder="type here..">
+                                {{-- <button type="button" class="btn-sm btn btn-success"><i class="fa fa-refresh"></i> Generate</button> --}}
                             </div>
                         </td>
                     </tr>
