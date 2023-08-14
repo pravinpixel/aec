@@ -481,63 +481,28 @@ app.controller('InvoicePlanController', function ($scope, $http, API_URL, $locat
     var totalInvoice = 0;
     let project_id = $("#project_id").val();
 
-    $http.get(`${API_URL}project/${project_id}`)
-        .then((res) => {
-            projectActiveTabs(res.data.wizard_status);
-        });
+    $http.get(`${API_URL}project/${project_id}`).then((res) => {
+        projectActiveTabs(res.data.wizard_status);
+    });
 
-    $http.get(`${API_URL}project/edit/${project_id}/invoice_plan`)
-        .then((res) => {
-            $scope.project = formatData(res.data.invoice_data);
-            $scope.project.project_cost = res.data?.invoice_data?.invoice_plan?.project_cost;
+    $scope.getInviceUserData = () => {
+        $http.get(`${API_URL}project/edit/${project_id}/invoice_plan`).then((res) => {
+            $scope.project               = formatData(res.data.invoice_data);
+            $scope.project.project_cost  = res.data?.invoice_data?.invoice_plan?.project_cost;
             $scope.project.no_of_invoice = Number(res.data?.invoice_data?.invoice_plan?.no_of_invoice);
-            let result = {};
-            let response
-            try {
-                response = JSON.parse(res?.data?.invoice_data?.invoice_plan?.invoice_data);
-            } catch (error) {
-                response = null;
-            }
-            if (response) {
-                totalInvoice = response?.invoices?.length;
-            } else {
-                totalInvoice = 0
-            }
-            if (totalInvoice > 0) {
-                invoiceStatus = !invoiceStatus;
-            }
-            $scope.project24SevenList = res.data.projects_on_24Seven['soap:Envelope']['soap:Body']['GetProductsResponse']['GetProductsResult']['Product']
-            let invoices
-            if (typeof response === 'string') {
-                invoices = [{
-                    'index': 1,
-                    'invoice_name': "",
-                    'invoice_date': null,
-                    'amount': null,
-                    'percentage': null,
-                    'project_24_id': null,
-                }]
-            } else {
-                invoices = response?.invoices.map((item) => {
-                    $scope.invoicePlans.totalPercentage -= item.percentage;
-                    $scope.invoicePlans.totalAmount += ($scope.project.project_cost / 100) * item.percentage;
-                    return {
-                        'index': item.index,
-                        'invoice_name': item.invoice_name,
-                        'invoice_date': new Date(item.invoice_date),
-                        'amount': item.amount,
-                        'percentage': item.percentage,
-                        'project_24_id': item?.project_24_id ?? 100,
-                    }
-                });
-            }
-
+            $scope.project24SevenList    = res.data.projects_on_24Seven;
+            $scope.invoices = res.data?.invoice_data?.invoice_plan.invoice_data;
+            invoiceStatus = false
+            totalInvoice = $scope.invoices.length
+            let result = {}
             result['totalPercentage'] = $scope.invoicePlans.totalPercentage;
             result['totalAmount'] = $scope.invoicePlans.totalAmount;
-            result['invoices'] = invoices ?? [];
-            $scope.invoicePlans = result;
+            result['invoices'] = $scope.invoices;
+            $scope.invoicePlans = result
         });
-
+    }
+    $scope.getInviceUserData();
+    
     $scope.handleInvoiceChange = () => {
         if ($scope.project.no_of_invoice <= 0) {
             $scope.project.no_of_invoice = 1;
@@ -548,6 +513,7 @@ app.controller('InvoicePlanController', function ($scope, $http, API_URL, $locat
             }, 1000);
         }
         let totalRow = totalInvoice - $scope.project.no_of_invoice;
+        console.log(invoiceStatus)
         if (invoiceStatus) {
             totalInvoice = $scope.project.no_of_invoice;
             invoiceStatus = !invoiceStatus;
@@ -591,7 +557,7 @@ app.controller('InvoicePlanController', function ($scope, $http, API_URL, $locat
     }
 
     $scope.handleSubmitInvoicePlan = () => {
-        let data = { 'invoice_data': $scope.invoicePlans, 'no_of_invoice': $scope.project.no_of_invoice, 'project_cost': $scope.project.project_cost }
+        let data = { 'invoice_data': $scope.invoicePlans.invoices, 'no_of_invoice': $scope.project.no_of_invoice, 'project_cost': $scope.project.project_cost }
         $http.put(`${API_URL}project/${project_id}`, { data: data, type: 'invoice_plan' }).then((res) => {
             Message('success', 'Invoice Plan updated successfully');
             $location.path('to-do-listing');

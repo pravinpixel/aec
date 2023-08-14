@@ -49,7 +49,11 @@ class SoapController extends Controller
                 </soap:Body>
             </soap:Envelope>';
         $response = $SoapService->call('https://api.24sevenoffice.com/Logistics/Product/V001/ProductService.asmx', $xml);
-        return xmlToArray($response);
+        try {
+            return xmlToArray($response)['soap:Envelope']['soap:Body']['GetProductsResponse']['GetProductsResult']['Product'];
+        } catch (\Throwable $th) {
+            return [];
+        }
     }
     public function SaveInvoices($data, $project_id)
     {

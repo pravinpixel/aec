@@ -346,7 +346,7 @@ if (!function_exists('changeProposalStatus')) {
     if (!function_exists('getManagers')) {
         function getManagers()
         {
-           return Employees::all()->toArray();
+            return Employees::all()->toArray();
 
             // $role = ModelsRole::where('slug', 'project_manager')->first();
             // $managers = [];
@@ -647,10 +647,10 @@ if (!function_exists('changeProposalStatus')) {
         {
             $data = [];
             $project24 = new SoapController();
-            if(is_null(token24Seven())){
+            if (is_null(token24Seven())) {
                 $result =  $project24->credential();
             }
-            if (is_null(session()->get('Get24SevenProducts'))) { 
+            if (is_null(session()->get('Get24SevenProducts'))) {
                 $result =  $project24->GetProducts();
                 $response = $result['soap:Envelope']['soap:Body']['GetProductsResponse']['GetProductsResult']['Product'];
                 session()->put('Get24SevenProducts', $response);
@@ -667,6 +667,22 @@ if (!function_exists('changeProposalStatus')) {
                 }
             }
             return  $data;
+        }
+    }
+
+    if (!function_exists('invoiceResponse')) {
+        function invoiceResponse($data)
+        {
+            $temp = [];
+            $invoice =  json_decode($data['invoice_data']);
+            if(!is_null($invoice) && isset($invoice)){
+                foreach ($invoice->invoices ?? $invoice as $key => $value) {
+                    $value->invoice_date = Carbon::parse($value->invoice_date)->format('Y-m-d h:m:s');
+                    $temp[] = $value;
+                }
+            }
+            $data['invoice_data'] = $temp;
+            return $data->toArray();
         }
     }
 }

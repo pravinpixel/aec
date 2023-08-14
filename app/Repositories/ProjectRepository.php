@@ -273,23 +273,27 @@ class ProjectRepository implements ProjectRepositoryInterface, ConnectionPlatfor
             $xmlSoap = new SoapController();
             $xmlSoap->credential();
         }
-        return $this->model->with('invoicePlan')->find($id);
+        $invoices = $this->model->with('invoicePlan')->find($id); 
+        $invoices['invoice_plan'] = invoiceResponse($invoices->invoicePlan);
+        return $invoices;
     }
 
     public function storeInvoicePlan($project_id, $data, $flag = true)
     {
-        $project      = $this->model->find($project_id);
+        // dd($data);
+        $project      = $this->model->with('invoicePlan')->find($project_id);
         $insert = [
             "no_of_invoice" => $data['no_of_invoice'] ?? 0,
             "project_cost" => $data['project_cost'] ?? 0,
-            "invoice_data" => json_encode($data['invoice_data'] ?? ''),
+            "invoice_data" => json_encode($data['invoice_data'] ?? []),
             "project_id"   => $project->id,
             "created_by"   => Admin()->id
         ];
         if ($flag) {
             $this->updateWizardStatus($project, 'wizard_invoice_plan', 1);
         }
-        return $this->invoicePlan->updateOrCreate(['project_id' => $project->id], $insert);
+        $invoices =  $project->invoicePlan->updateOrCreate(['project_id' => $project->id], $insert);
+        return invoiceResponse($invoices);
     }
 
     public function getTeamsetupTemplate($data)

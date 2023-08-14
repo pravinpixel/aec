@@ -1,4 +1,4 @@
-<form id="invoicePlan" name="invoicePlanForm" ng-submit="handleSubmitInvoicePlan()">
+<form id="invoice" name="invoiceForm" ng-submit="handleSubmitInvoicePlan()">
     <div class="card m-0">
         <div class="card-body">
             <table class="table custom table-bordered mb-2">
@@ -16,8 +16,8 @@
                         <td ng-bind="project.delivery_date"></td>
                         <td>
                             <input calculate-amount type="text" class="form-control"
-                            onkeypress="return isNumber(event)" ng-model="project.project_cost"
-                            placeholder="type here..">
+                                onkeypress="return isNumber(event)" ng-model="project.project_cost"
+                                placeholder="type here..">
                         </td>
                         <td>
                             <div class="input-group">
@@ -78,32 +78,26 @@
                     </tr>
                 </thead>
                 <tbody calculate-amount>
-                    <tr ng-repeat="invoicePlan in invoicePlans.invoices track by $index">
-                        <td class="text-center" ng-bind="invoicePlan.index"></td>
+                    <tr ng-repeat="(key, invoice) in invoicePlans.invoices track by $index">
+                        <td class="text-center" ng-bind="key + 1"></td>
                         <td class="text-center">
-                            <select ng-model="invoicePlan.project_24_id" class="form-select-sm form-select"
+                            <select ng-model="invoice.project_24_id" class="form-select-sm form-select"
                                 ng-required="true">
                                 <option ng-value="product24.Id" value="@{{ product24.Id }}"
                                     ng-repeat="product24 in project24SevenList" ng-bind="product24.Name"> </option>
                             </select>
                         </td>
                         <td>
-                            <input type="text" ng-model="invoicePlan.invoice_name"
-                                class="form-control form-control-sm" placeholder="Type here..." ng-required="true" />
+                            <input type="text" ng-model="invoice.invoice_name" class="form-control form-control-sm"
+                                placeholder="Type here..." ng-required="true" />
                         </td>
-                        <td class="text-center">
-                            <div class="position-relative">
-                                <datepicker date-format="dd/MM/yyyy" date-min-limit="@{{ project.start_date | date: 'yyyy-MM-dd' }}"
-                                    date-set="taskListData.start_date">
-                                    <input required type="text" autocomplete="off" name="invoice_date"
-                                        ng-model="invoicePlan.invoice_date" class="form-control"
-                                        placeholder="DD-MM-YYYY" ng-required="true">
-                            </div>
+                        <td>
+                            <md-datepicker ng-model="invoice.invoice_date" ng-value="invoice.invoice_date"  md-placeholder="Enter date"  />
                         </td>
-                        <td class="text-end" ng-bind="invoicePlan.amount"></td>
-                        <td class="text-center"><input ng-disabled="invoicePlans.invoices.length == $index + 1"
+                        <td class="text-end" ng-bind="invoice.amount"></td>
+                        <td class="text-center"><input ng-disabled="invoices.invoices.length == $index + 1"
                                 ng-required="true" type="text" select-on-click onkeypress="return isNumber(event)"
-                                name="percentage" ng-model="invoicePlan.percentage"
+                                name="percentage" ng-model="invoice.percentage"
                                 class="text-center form-control percentage_ form-control-sm border-0 bg-none w-auto mx-auto">
                         </td>
                     </tr>
@@ -118,7 +112,7 @@
     </div>
     <div class="card-footer text-end">
         <a href="#!/team-setup" class="btn btn-light float-start">Prev</a>
-        <input ng-disabled="invoicePlanForm.$invalid" class="btn btn-primary" type="submit" name="submit"
+        <input ng-disabled="invoiceForm.$invalid" class="btn btn-primary" type="submit" name="submit"
             value="Next" />
     </div>
 </form>
